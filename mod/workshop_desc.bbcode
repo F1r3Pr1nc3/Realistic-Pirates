@@ -1,0 +1,68 @@
+This is a continuation of [url=//steamcommunity.com/sharedfiles/filedetails/?id=1320353502]Pirate Waves 3 by ScepraX[/url] ([url=//steamcommunity.com/sharedfiles/filedetails/?id=2357819662]Realistic Pirates by Maltheal[/url]). The actual version 3.3 is still backward compatible to 3.2.
+It brings more life to the galaxy, kinda like living systems does.
+
+[h1]Pirate Waves 3.3[/h1]
+This mod spawns pirate fleets continuously and endlessly. Every once in a while a pirate station and fleet will appear at an asteroid, barren or habitable planet, usually in some part of the galaxy that's not owned by any country. The pirate fleet will venture out into the galaxy, raiding solar systems belonging to countries and setting up new pirate stations. Each pirate station will produce a new pirate fleet and self destruct 10 years after being build.
+
+How strong the fleets are depends on the difficulty level chosen and the time that has passed in the game. The pirates will start to appear 10 years into the game. If the fleet power of the country closest to where the pirates appear is inadequate compared to the pirates the power of the fleets spawned will drop.
+
+You can set the difficulty of this mod as well as the interval at which a new pirate station and fleet appear using the edict settings. With it you can also disable the creation of new pirate stations and fleets.
+
+Includes a pirate kill counter event in your situation log containing an overview of the interaction with the pirates. This will appear after encountering them for the first time.
+
+[h2]Settings[/h2]
+To set the probability of appearance, you can use the "Pirate Waves" settings via [url=//steamcommunity.com/sharedfiles/filedetails/?id=2458024521]Dynamic Mod Menu[/url] or Edict (if not present). The minimum chance is 1% (averaging 1 pirate fleet every 100 months) but you can increase this to up to 100% (averaging 1 pirate fleet every month). Default chance is 5% (averaging 1 pirate fleet every 20 months).
+
+You can use the "Pirate Waves Difficulty" settings to set the power level of the fleets. This will also limit the maximum amount of ships the pirate countries can manage.
+
+[b]Multiplayer[/b]
+In a multiplayer game the spawn edict settings of a random player who has not disabled spawning will be used. If all players except one disable the mod only the edict settings of that player will be used. From the difficulty edict settings the lowest will be used.
+
+[b]Disabling[/b]
+You can disable the Pirates Waves with the settings which will stop them from spawning while active. 
+
+If you decide to disable this mod in the game loader or unsubscribe the mod, some existing pirates spawned with this mod will no longer move. Your situation log will also contain a corrupt entry where the kill counter was.
+
+[h2]Compatibility[/h2]
+Compatible with savegames. Should be compatible with most mods, some mods might influence the gameplay if they modify the pirate ships.
+There is a full patched [b]marauder_events.txt[/b] included as an aside (depends on load order, e.g. should be below ZoFE). 
+
+[B]Vanilla Fixes[/B]
+• Includes all current (3.3) vanilla marauders (marauder_events.txt) and pirates fixes known to me (same as listed here [url=//steamcommunity.com/sharedfiles/filedetails/?id=2508704523]The Great Khan Expanded [3.3.☠][/url]).
+
+[H3]Planned[/H3]
+• Complete rewrite of the effects to the [url=//forum.paradoxplaza.com/forum/developer-diary/1508908/]new 3.3 Script Values feature[/url], which should give a performance boost (also compared to vanilla, of course not backward compatible anymore).
+• [strike]Maybe include [url=//steamcommunity.com/sharedfiles/filedetails/?id=1365414074]Pirate Waves 3: Marauders[/url] and [url=//steamcommunity.com/sharedfiles/filedetails/?id=1376086969]Pirate Ships Extended[/url].[/strike]
+• [strike]Improved compatibility (steadily in progress)[/strike]
+
+[B]Localization[/B]
+⠀• English 🇺🇸 – ScepraX
+⠀• Russian 🇷🇺 – ScepraX
+⠀• German 🇩🇪 – FirePrince
+⠀• Español 🇪🇸 [url=//steamcommunity.com/id/76561198199986345]– Darh[/url]
+⠀• Français FR – Pata
+All other officially supported languages only machine-translated, but will be verified over time.
+
+[h3]Notes[/h3]
+[list]
+[*]You will be notified if a pirate station has been build in a system of which you have a high intel level.
+[*]There are two pirate countries and they are not on good terms with each other. There's an individual statistic about pirates killing pirates in the situation log.
+[*]If you own and activated the Apocalypse DLC raiders will be mixed in with the pirates. Ratio is 80% pirate and 20% marauder ships.
+[*]Pirates will often take breaks to split their loot and fix up their ships and need a year to build a new pirate station.
+[*]Pirate stations, ships and fleets have random names from extended pirate name lists.
+[*]Killing pirates and marauders will provide a small amount of minerals and energy depending on the type of pirate ship. Defeating pirates will also provide a very small amount of unity and engineering research.
+[*]If you ignore the pirate stations for too long you'll regret it as they will send endless waves of pirate fleets. They really like the part of the galaxy that no one looks at and they will grow and expand until they have enough fleets to destroy your outposts. Some AI countries may become infested with pirates if there's a lot of unowned space around them. You can help them by destroying the pirate stations in unowned space or exploit this by declaring war on them. Changing the settings of the mod will also help them or destroy them depending on how it's used.
+[*]FTL inhibitors work really well against pirates.
+[/list]
+
+[b]Testing[/b]
+If you wish to create pirates manually you can activate the debug mode in the menu or via console command: [code]set_global_flag = debug_mode[/code]
+
+[b]Bug?[/b]
+You can use the menu option "Recreate Pirate Countries" or the console command: [code]event pirate_waves.666[/code]
+Which will immediately remove all pirate stations and fleets from the galaxy and recycle the pirate countries after which the mod should work. Useful if for instance you've had it with the pirates or you realize you can't defeat them after you chose the insane difficulty.
+
+Donations are always welcomed as its good motivation to continue releasing new mods and update existing mods with more content as I plan to keep these updated until the the last update happens: [url=//paypal.me/supportfireprince]If you wanna support me.[/url]
+
+[URL=//discordapp.com/invite/CMjnnET][IMG]//i.imgur.com/4Und3QN.png[/IMG][/URL]
+[img]//i.imgur.com/fVVaDCS.gif[/img]

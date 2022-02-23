@@ -1,0 +1,1731 @@
+##########################################################################
+# Events for Pirate Waves
+#
+# Written by ScepraX
+##########################################################################
+namespace = pirate_waves
+
+# Variables
+@pirate_waves_station_life_days = 3600 # Stations lives for 10 years before spawning fleet and it gets destroyed.
+
+#################################################
+#	Pirates										#
+#################################################
+
+country_event = {
+	id = pirate_waves.0
+	title = pirate_waves.0.title
+	desc = edict_pirate_waves_desc
+	picture = GFX_evt_pirate_armada
+	show_sound = event_ship_bridge
+	is_triggered_only = yes
+	trigger = {
+		is_ai = no
+		host_has_dlc = "Apocalypse"
+		# NOT = { has_active_event = { pirate_waves.0 } } not working on selfcall
+	}
+	# immediate = { }
+	# after = { }
+	option = {
+		name = "edict_pirate_waves"
+		custom_tooltip = "edict_pirate_waves_desc"
+		allow = {
+			NOT = { has_active_event = { pirate_waves.111 pirate_waves.112 } }
+		}
+		country_event = { id = pirate_waves.111 }
+	}
+	option = {
+		name = "policy_pirate_waves_difficulty"
+		custom_tooltip = "policy_pirate_waves_difficulty_desc"
+		allow = {
+			# check_variable = { which = pirate_waves_chance value != 0 }
+			NOT = { has_active_event = { pirate_waves.111 pirate_waves.112 } }
+		}
+		country_event = { id = pirate_waves.112 }
+	}
+	option = {
+		name = "pirate_waves.51.a"
+		custom_tooltip = "pirate_waves.51.a.desc"
+		trigger = { has_global_flag = pirate_waves_notifications_disabled }
+		hidden_effect = {
+			remove_global_flag = pirate_waves_notifications_disabled
+			country_event = { id = pirate_waves.0 }
+		}
+	}
+	option = {
+		name = "pirate_waves.51.b"
+		custom_tooltip = "pirate_waves.51.b.desc"
+		trigger = { NOT = { has_global_flag = pirate_waves_notifications_disabled } }
+		hidden_effect = {
+			set_global_flag = pirate_waves_notifications_disabled
+			country_event = { id = pirate_waves.0 }
+		}
+	}
+	## DEBUGGING OPTIONS ##
+	option = {
+		name = DEBUG_MODE
+		custom_tooltip = DEBUG_MODE_DESC
+		# trigger = { has_global_flag = debug_mode }
+		# allow = { always = no }
+		hidden_effect = {
+			country_event = { id = pirate_waves.999 }
+		}
+	}
+	# # Enable
+	# option = {
+	# 	name = DEBUG_MODE_enable
+	# 	custom_tooltip = DEBUG_MODE_DESC
+	# 	# trigger = {
+	# 	# 	NOT = { has_global_flag = debug_mode }
+	# 	# }
+	# 	hidden_effect = {
+	# 		# set_timed_global_flag = { flag = debug_mode days = 35 }
+	# 		country_event = { id = pirate_waves.999 }
+	# 	}
+	# }
+	# Disable
+	# option = {
+	# 	name = DEBUG_MODE_disable
+	# 	custom_tooltip = DEBUG_MODE_DESC
+	# 	trigger = { has_global_flag = debug_mode }
+	# 	hidden_effect = {
+	# 		remove_global_flag = debug_mode
+	# 		country_event = { id = pirate_waves.0 }
+	# 	}
+	# }
+	option = { name = CLOSE }
+}
+
+# New Pirates (HIDDEN)
+# on_monthly_pulse
+event = {
+	id = pirate_waves.1
+	hide_window = yes
+	is_triggered_only = yes
+	trigger = { is_pirate_waves_active = yes }
+	immediate = {
+		if = {
+			limit = {
+				NOR = {
+					exists = event_target:pirate_waves_country
+					exists = event_target:pirate_waves_2_country
+				}
+			}
+			create_pirate_waves_countries = yes
+		}
+
+		# Find a suitable player controlled country to base the spawn chance on.
+		random_country = {
+			limit = { is_pirate_waves_player = yes }
+			random = {
+				chance = pirate_waves_chance
+				country_event = { id = pirate_waves.4 days = 2 random = 29 }
+				log = "Attempt to spawn a new Pirate Station started (\\[This.pirate_waves_chance]% chance)..."
+			}
+		}
+		# Go through every pirate waves country.
+		every_country = {
+			limit = { is_country_type = pirate_waves_country }
+			# Execute as a country event as that won't be destroyed
+			country_event = { id = pirate_waves.6 days = 9 random = 21 }
+		}
+	}
+}
+
+# Create a new Pirate Fleet at this station (HIDDEN)
+# Called by pirate_waves.3 and pirate_waves.6
+fleet_event = {
+	id = pirate_waves.2
+	hide_window = yes
+	is_triggered_only = yes
+	trigger = {
+		is_pirate_waves_active = yes
+		exists = event_target:pirate_waves_country
+		exists = event_target:pirate_waves_2_country
+	}
+	immediate = {
+		# Save this military station as our place of origin. Used in triggers.
+		save_event_target_as = spawn_location
+		# log = "Spawn location: [This.GetName]..."
+		# Use the scope from the owner of the station to create the new fleet.
+		owner = {
+			save_event_target_as = current_pirate_country
+			if = {
+				limit = {
+					# is_pirate_waves_spawn_allowed = yes
+					has_country_flag = pirate_waves_spawn_allowed
+				}
+				# Create a fleet based on fleet power.
+				create_fleet = {
+					name = "NAME_Pirate_Fleet"
+					effect = {
+						save_event_target_as = pirate_waves_fleet
+						# Owner is set before the ships are created so that random naming works.
+						set_owner = prev
+						# Create ships
+						create_pirate_waves_fleet = yes
+						# Fleet settings
+						set_location = root
+						set_fleet_stance = aggressive
+						set_aggro_range_measure_from = self
+						set_aggro_range = 150
+						# Set the fleet orders
+						queue_actions = {
+							repeat = {
+								# Find a random asteroid and build a pirate station there.
+								find_random_system = {
+									trigger = {
+										id = pirate_waves.2.trigger.1
+										distance = {
+											source = prev
+											max_distance < 200
+											min_distance > 1
+										}
+										NOR = {
+											exists = space_owner
+											has_star_flag = sanctuary_system
+											has_star_flag = hostile_system
+										}
+										any_system_planet = { is_pirate_waves_base_planet = yes }
+									}
+									found_system = {
+										move_to = this
+										# Kill everything in sight!
+										repeat = {
+											while = {
+												id = pirate_waves.2.trigger.2
+												any_system_planet = { is_pirate_waves_raiding_planet = yes }
+											}
+											find_closest_planet = {
+												trigger = {
+													id = pirate_waves.2.trigger.3
+													is_pirate_waves_raiding_planet = yes
+												}
+												found_planet = {
+													orbit_planet = this
+													wait = {
+														duration = 30
+														random = 10
+													}
+												}
+											}
+										}
+									}
+								}
+								# Find an location to build a station at.
+								find_random_planet = {
+									trigger = {
+										id = pirate_waves.2.trigger.4
+										is_pirate_waves_base_planet = yes
+									}
+									found_planet = {
+										orbit_planet = this
+										wait = {
+											duration = 300
+											random = 120
+										}
+										orbit_planet = this
+										effect = {
+											id = pirate_waves.2.effect.1
+											# Check if there's not already a station here because of multiple fleets.
+											if = {
+												limit = { has_military_station = no }
+												# Create a new pirate station.
+												planet_event = { id = pirate_waves.3 }
+											}
+											# Destroy fleet if leader has died.
+											event_target:pirate_waves_fleet = {
+												if = {
+													limit = { has_fleet_flag = pirate_waves_destroy_fleet }
+													# log = "Pirate Fleet '[This.GetName]' is destroyed because its leader died..."
+													destroy_fleet = this
+												}
+											}
+										}
+									}
+								}
+								wait = {
+									duration = 90
+									random = 30
+								}
+								# Find a random raiding spot including in unowned space (hostile pirate stations)
+								find_random_system = {
+									trigger = {
+										id = pirate_waves.2.trigger.5
+										distance = {
+											source = prev
+											max_distance < 200
+											min_distance > 1
+										}
+										NOR = {
+											has_star_flag = sanctuary_system
+											has_star_flag = hostile_system
+										}
+										any_system_planet = { is_pirate_waves_raiding_planet = yes }
+									}
+									found_system = {
+										move_to = this
+										# Kill everything in sight!
+										repeat = {
+											while = {
+												id = pirate_waves.2.trigger.6
+												any_system_planet = { is_pirate_waves_raiding_planet = yes }
+											}
+											find_closest_planet = {
+												trigger = {
+													id = pirate_waves.2.trigger.7
+													is_pirate_waves_raiding_planet = yes
+												}
+												found_planet = {
+													orbit_planet = this
+													wait = {
+														duration = 30
+														random = 10
+													}
+												}
+											}
+										}
+									}
+								}
+								wait = {
+									duration = 90
+									random = 30
+								}
+								# Find an location nearby and build a pirate station there.
+								find_closest_system = {
+									trigger = {
+										id = pirate_waves.2.trigger.8
+										NOR = {
+											has_star_flag = sanctuary_system
+											has_star_flag = hostile_system
+										}
+										any_system_planet = { is_pirate_waves_base_planet = yes }
+									}
+									found_system = {
+										move_to = this
+										# Kill everything in sight!
+										repeat = {
+											while = {
+												id = pirate_waves.2.trigger.9
+												any_system_planet = { is_pirate_waves_raiding_planet = yes }
+											}
+											find_closest_planet = {
+												trigger = {
+													id = pirate_waves.2.trigger.10
+													is_pirate_waves_raiding_planet = yes
+												}
+												found_planet = {
+													orbit_planet = this
+													wait = {
+														duration = 30
+														random = 10
+													}
+												}
+											}
+										}
+									}
+								}
+								# Find an asteroid to build a station at.
+								find_random_planet = {
+									trigger = {
+										id = pirate_waves.2.trigger.11
+										is_pirate_waves_base_planet = yes
+									}
+									found_planet = {
+										orbit_planet = this
+										wait = {
+											duration = 300
+											random = 120
+										}
+										orbit_planet = this
+										effect = {
+											id = pirate_waves.2.effect.2
+											# Check if there's not already a station here because of multiple fleets.
+											if = {
+												limit = { has_military_station = no }
+												# Create a new pirate station.
+												planet_event = { id = pirate_waves.3 }
+											}
+											# Destroy fleet if leader has died.
+											event_target:pirate_waves_fleet = {
+												if = {
+													limit = { has_fleet_flag = pirate_waves_destroy_fleet }
+													# log = "Pirate Fleet '[This.GetName]' is destroyed because its leader died..."
+													destroy_fleet = this
+												}
+											}
+										}
+									}
+								}
+								wait = {
+									duration = 90
+									random = 30
+								}
+								# Find a raiding spot nearby owned by a country.
+								find_closest_system = {
+									trigger = {
+										id = pirate_waves.2.trigger.12
+										any_system_planet = { is_pirate_waves_raiding_planet = yes }
+									}
+									found_system = {
+										move_to = this
+										# Kill everything in sight!
+										repeat = {
+											while = {
+												id = pirate_waves.2.trigger.13
+												any_system_planet = { is_pirate_waves_raiding_planet = yes }
+											}
+											find_closest_planet = {
+												trigger = {
+													id = pirate_waves.2.trigger.14
+													is_pirate_waves_raiding_planet = yes
+												}
+												found_planet = {
+													orbit_planet = this
+													wait = {
+														duration = 30
+														random = 10
+													}
+												}
+											}
+										}
+									}
+								}
+								wait = {
+									duration = 90
+									random = 30
+								}
+								# Destroy fleet if leader has died.
+								effect = {
+									id = pirate_waves.2.effect.3
+									event_target:pirate_waves_fleet = {
+										if = {
+											limit = { has_fleet_flag = pirate_waves_destroy_fleet }
+											# log = "Pirate Fleet '[This.GetName]' is destroyed because its leader died..."
+											destroy_fleet = this
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+				# It's possible that the fleet creation failed because no ships were added.
+				if = {
+					limit = {
+						exists = event_target:pirate_waves_fleet
+						event_target:pirate_waves_fleet = { num_ships > 0 }
+					}
+					# We want the species of the closest country with a border.
+					root = {
+						closest_system = {
+							limit = {
+								exists = space_owner
+								space_owner = { is_gestalt = no }
+							}
+							space_owner = {
+								owner_species = { save_event_target_as = closest_country_species }
+							}
+						}
+					}
+					# Create an admiral for the pirate fleet.
+					create_leader = {
+						class = admiral
+						species = event_target:closest_country_species
+						name = random
+						skill = 1
+						traits = { trait = random_trait trait = random_trait }
+					}
+					last_created_leader = { set_leader_flag = pirate_waves_leader }
+					# Do things that need an existing fleet.
+					event_target:pirate_waves_fleet = {
+						# Assign leader
+						assign_leader = last_created_leader
+						# Randomize the name
+						set_name = random
+						# log = "Pirate Fleet '[This.GetName]' created..."
+					}
+				}
+			}
+		}
+	}
+}
+
+# Create a new Pirate Station at this planet (HIDDEN)
+# Called by pirate_waves.2 and pirate_waves.4
+planet_event = {
+	id = pirate_waves.3
+	hide_window = yes
+	is_triggered_only = yes
+	trigger = {
+		is_pirate_waves_active = yes
+		exists = event_target:pirate_waves_country
+		exists = event_target:pirate_waves_2_country
+	}
+	immediate = {
+		# Used in triggers as well.
+		save_event_target_as = spawn_location
+		# log = "Spawn location: [This.GetName]..."
+		# Set the owner of this station based on the owner of the pirate fleet nearby or random if no fleet was found.
+		solar_system = {
+			if = {
+				limit = {
+					any_fleet_in_system = {
+						exists = owner
+						is_owned_by = event_target:pirate_waves_2_country
+					}
+				}
+				event_target:pirate_waves_2_country = {
+					save_event_target_as = current_pirate_country
+					# log = "Pirate country: [This.GetName]..."
+				}
+			} else_if = {
+				limit = {
+					any_fleet_in_system = {
+						exists = owner
+						is_owned_by = event_target:pirate_waves_country
+					}
+				}
+				event_target:pirate_waves_country = {
+					save_event_target_as = current_pirate_country
+					# log = "Pirate country: [This.GetName]..."
+				}
+			} else = {
+				random_list = {
+					50 = {
+						modifier = {
+							factor = 10
+							event_target:pirate_waves_country = { num_fleets < 10 }
+						}
+						event_target:pirate_waves_country = {
+							save_event_target_as = current_pirate_country
+							# log = "Pirate country: [This.GetName]..."
+						}
+					}
+					50 = {
+						modifier = {
+							factor = 10
+							event_target:pirate_waves_2_country = { num_fleets < 10 }
+						}
+						event_target:pirate_waves_2_country = {
+							save_event_target_as = current_pirate_country
+							# log = "Pirate country: [This.GetName]..."
+						}
+					}
+				}
+			}
+		}
+		event_target:current_pirate_country = {
+			# Randomize the flag
+			randomize_flag_symbol = "pirate"
+
+			set_pirates_difficulty = yes
+
+			# Create a pirate station
+			create_fleet = {
+				# name = "NAME_Pirate_Nest"
+				effect = {
+					set_name = random
+					set_owner = prev
+					# Create the station
+					# create_pirate_waves_station = yes
+					random_list = {
+						80 = {
+							create_ship = {
+								name = random
+								design = "NAME_Pirate_Nest"
+								prefix = no
+								graphical_culture = "pirate_01"
+							}
+						}
+						20 = {
+							modifier = { factor = 0 exists = event_target:current_pirate_country mid_game_years_passed < 0 }
+							modifier = {
+								factor = 12
+								NOT = { exists = event_target:current_pirate_country }
+							}
+							create_ship = {
+								name = random
+								design = "NAME_Warrior_Freehold"
+								prefix = no
+								graphical_culture = "pirate_01"
+							}
+						}
+					}
+					# Add some shields
+					add_modifier = { modifier = pirate_waves_station }
+					# Add modifiers 10 years after started.
+					if = {
+						limit = { years_passed > 29 }
+						random_list = {
+							5 = {
+								modifier = { factor = 0 years_passed > 75 }
+								add_modifier = { modifier = pirate_station_level_1 }
+							}
+							5 = {
+								modifier = {
+									factor = 0
+									OR = { years_passed < 40 years_passed > 90 }
+								}
+								add_modifier = { modifier = pirate_station_level_2 }
+							}
+							5 = {
+								modifier = {
+									factor = 0
+									OR = { years_passed < 55 years_passed > 105 }
+								}
+								add_modifier = { modifier = pirate_station_level_3 }
+							}
+							5 = {
+								modifier = {
+									factor = 0
+									OR = { years_passed < 70 years_passed > 120 }
+								}
+								add_modifier = { modifier = pirate_station_level_4 }
+							}
+							5 = {
+								modifier = {
+									factor = 0
+									OR = { years_passed < 85 years_passed > 135 }
+								}
+								add_modifier = { modifier = pirate_station_level_5 }
+							}
+							5 = {
+								modifier = {
+									factor = 0
+									OR = { years_passed < 100 years_passed > 150 }
+								}
+								add_modifier = { modifier = pirate_station_level_6 }
+							}
+							5 = {
+								modifier = {
+									factor = 0
+									OR = { years_passed < 115 years_passed > 165 }
+								}
+								add_modifier = { modifier = pirate_station_level_7 }
+							}
+							5 = {
+								modifier = {
+									factor = 0
+									OR = { years_passed < 130 years_passed > 180 }
+								}
+								add_modifier = { modifier = pirate_station_level_8 }
+							}
+							5 = {
+								modifier = {
+									factor = 0
+									OR = { years_passed < 145 years_passed > 195 }
+								}
+								add_modifier = { modifier = pirate_station_level_9 }
+							}
+							5 = {
+								modifier = {
+									factor = 0
+									OR = { years_passed < 160 years_passed > 210 }
+								}
+								add_modifier = { modifier = pirate_station_level_10 }
+							}
+							5 = {
+								modifier = {
+									factor = 0
+									OR = { years_passed < 175 years_passed > 225 }
+								}
+								add_modifier = { modifier = pirate_station_level_11 }
+							}
+							5 = {
+								modifier = {
+									factor = 0
+									OR = { years_passed < 190 years_passed > 240 }
+								}
+								add_modifier = { modifier = pirate_station_level_12 }
+							}
+							5 = {
+								modifier = {
+									factor = 0
+									OR = { years_passed < 205 years_passed > 255 }
+								}
+								add_modifier = { modifier = pirate_station_level_13 }
+							}
+							5 = {
+								modifier = {
+									factor = 0
+									OR = { years_passed < 220 years_passed > 270 }
+								}
+								add_modifier = { modifier = pirate_station_level_14 }
+							}
+							5 = {
+								modifier = {
+									factor = 0
+									OR = { years_passed < 235 years_passed > 285 }
+								}
+								add_modifier = { modifier = pirate_station_level_15 }
+							}
+							5 = {
+								modifier = {
+									factor = 0
+									OR = { years_passed < 250 years_passed > 300 }
+								}
+								add_modifier = { modifier = pirate_station_level_16 }
+							}
+							5 = {
+								modifier = {
+									factor = 0
+									OR = { years_passed < 265 years_passed > 315 }
+								}
+								add_modifier = { modifier = pirate_station_level_17 }
+							}
+							5 = {
+								modifier = {
+									factor = 0
+									OR = { years_passed < 280 years_passed > 330 }
+								}
+								add_modifier = { modifier = pirate_station_level_18 }
+							}
+							5 = {
+								modifier = {
+									factor = 0
+									OR = { years_passed < 295 years_passed > 345 }
+								}
+								add_modifier = { modifier = pirate_station_level_19 }
+							}
+							5 = {
+								modifier = { factor = 0 years_passed < 310 }
+								add_modifier = { modifier = pirate_station_level_20 }
+							}
+						}
+					}
+					set_location = root
+				# 	}
+				# }
+				# Set a timed flag to disallow building new fleets.
+				# last_created_fleet = {
+					# Determines that this mod manages this station.
+					set_fleet_flag = pirate_waves_station_flag
+					# How long this station will life.
+					set_timed_fleet_flag = { flag = pirate_waves_station_life_flag days = @pirate_waves_station_life_days }
+					# Determine if to spawn a fleet.
+					if = {
+						# Check whether there's a friendly fleet nearby that's not a station.
+						limit = { has_pirate_waves_fleet_build_station = no }
+						# Spawn fleet immediately
+						fleet_event = { id = pirate_waves.2 }
+					}
+					# log = "Pirate Station '[This.GetName]' created..."
+				}
+			}
+		}
+		solar_system = {
+			# Notify all countries that have enough intel on this location.
+			every_playable_country = {
+				limit = {
+					is_ai = no
+					intel_level = {
+						level > medium
+						system = prev
+					}
+				}
+				country_event = { id = pirate_waves.50 days = 2 }
+			}
+		}
+	}
+}
+
+# Create a new Pirate Station randomly in the universe belong to this country (HIDDEN)
+# Called by pirate_waves.1
+country_event = {
+	id = pirate_waves.4
+	hide_window = yes
+	is_triggered_only = yes
+	trigger = { is_pirate_waves_active = yes }
+	immediate = {
+		# Choose a random asteroid in the galaxy to spawn at.
+		if = {
+			limit = {
+				any_system = {
+					NOR = {
+						exists = starbase
+						exists = space_owner
+						has_star_flag = sanctuary_system
+						has_star_flag = hostile_system
+						any_fleet_in_system = {
+							exists = owner
+							owner = { is_pirate = yes }
+						}
+					}
+					any_system_planet = { is_pirate_waves_base_planet = yes }
+				}
+			}
+			# A random asteroid in unowned space
+			random_system = {
+				limit = {
+					NOR = {
+						exists = starbase
+						exists = space_owner
+						has_star_flag = sanctuary_system
+						has_star_flag = hostile_system
+						any_fleet_in_system = {
+							exists = owner
+							owner = { is_pirate = yes }
+						}
+					}
+					any_system_planet = { is_pirate_waves_base_planet = yes }
+				}
+				# Spawn a Pirate Station
+				random_system_planet = {
+					limit = { is_pirate_waves_base_planet = yes }
+					planet_event = { id = pirate_waves.3 }
+				}
+			}
+		}
+		# A random asteroid in the galaxy
+		else = {
+			random_system = {
+				limit = {
+					NOR = {
+						has_star_flag = sanctuary_system
+						has_star_flag = hostile_system
+						any_fleet_in_system = {
+							exists = owner
+							owner = { is_pirate = yes }
+						}
+					}
+					any_system_planet = { is_pirate_waves_base_planet = yes }
+				}
+				# Spawn a Pirate Station
+				random_system_planet = {
+					limit = { is_pirate_waves_base_planet = yes }
+					planet_event = { id = pirate_waves.3 }
+				}
+			}
+		}
+	}
+}
+
+# LEGACY: merged in pirate_waves.1
+# Create Pirate Countries (HIDDEN)
+# on_monthly_pulse
+# event = {
+# 	id = pirate_waves.5
+# 	hide_window = yes
+# 	is_triggered_only = yes
+# 	trigger = {
+# 		NOR = {
+# 			exists = event_target:pirate_waves_country
+# 			exists = event_target:pirate_waves_2_country
+# 		}
+# 	}
+# 	immediate = { create_pirate_waves_countries = yes }
+# }
+
+# Manage Pirate Stations of this country (HIDDEN)
+# Called by pirate_waves.1
+country_event = {
+	id = pirate_waves.6
+	hide_window = yes
+	is_triggered_only = yes
+	trigger = { is_pirate_waves_active = yes }
+	immediate = {
+		# set_variable = { which = count_ship_very_easy value = 250 }
+		# set_variable = { which = count_ship_easy value = 500 }
+		# set_variable = { which = count_ship_medium value = 1000 }
+		# set_variable = { which = count_ship_hard value = 2000 }
+		# set_variable = { which = count_ship_insane value = 4000 }
+		# log = "Pirate country: [This.GetName]..."
+		set_pirates_difficulty = yes
+
+		# Go through every pirate station that needs to be managed.
+		every_owned_fleet = {
+			limit = {
+				has_fleet_flag = pirate_waves_station_flag
+				NOT = { has_fleet_flag = pirate_waves_station_life_flag }
+			}
+			# Spawn a new fleet from this station immediately.
+			fleet_event = { id = pirate_waves.2 }
+			# Destroy the station
+			# log = "Pirate Station '[This.GetName]' has build a Pirate Fleet and is destroyed..."
+			destroy_fleet = this
+		}
+	}
+}
+
+# LEGACY: merged in pirate_waves.1
+# Manage Pirate Stations (HIDDEN)
+# Called monthly
+# event = {
+# 	id = pirate_waves.7
+# 	hide_window = yes
+# 	is_triggered_only = yes
+# 	trigger = {
+# 		is_pirate_waves_active = yes
+# 		exists = event_target:pirate_waves_country
+# 		exists = event_target:pirate_waves_2_country
+# 	}
+# 	immediate = {
+# 		# Go through every pirate waves country.
+# 		every_country = {
+# 			limit = { is_country_type = pirate_waves_country }
+# 			# Execute as a country event as that won't be destroyed
+# 			country_event = { id = pirate_waves.6 days = 2 random = 29 }
+# 		}
+# 	}
+# }
+
+# Pirate Admiral Dies (HIDDEN)
+# Called when a leader dies.
+country_event = {
+	id = pirate_waves.20
+	hide_window = yes
+	is_triggered_only = yes
+	trigger = {
+		is_country_type = pirate_waves_country
+		from = {
+			exists = fleet
+			leader_class = admiral
+			has_leader_flag = pirate_waves_leader
+		}
+	}
+	immediate = {
+		from = {
+			fleet = { set_fleet_flag = pirate_waves_destroy_fleet }
+		}
+	}
+}
+
+#################################################
+#	Kill Counters								#
+#################################################
+# Killer Count (HIDDEN)
+country_event = {
+	id = pirate_waves.8
+	hide_window = yes
+	is_triggered_only = yes
+	trigger = {
+		OR = {
+			is_pirate = yes
+			is_country_type = awakened_marauders
+			is_country_type = marauder_raiders
+		}
+		exists = from
+	}
+	immediate = {
+		# Give resources based on ship type.
+		# add_pirate_waves_kill_reward = yes
+		if = {
+			limit = {
+				fromfrom = {
+					OR = {
+						is_ship_size = galleon
+						is_ship_size = marauder_galleon
+					}
+				}
+			}
+			from = {
+				add_resource = { minerals = 250 energy = 250 engineering_research = 100 unity = 50 }
+			}
+		} else_if = {
+			limit = {
+				fromfrom = {
+					OR = {
+						is_ship_size = pirate_station
+						is_ship_size = marauder_station
+						is_ship_size = marauder_void_dwelling
+						is_ship_size = starbase_marauder
+					}
+				}
+			}
+			from = {
+				add_resource = { minerals = 200 energy = 200 engineering_research = 80 unity = 40 }
+			}
+		} else_if = {
+			limit = {
+				fromfrom = {
+					OR = {
+						is_ship_size = pirate_cruiser
+						is_ship_size = marauder_cruiser
+					}
+				}
+			}
+			from = {
+				add_resource = { minerals = 20 energy = 20 engineering_research = 8 unity = 4 }
+			}
+		} else_if = {
+			limit = {
+				fromfrom = {
+					OR = {
+						is_ship_size = pirate_destroyer
+						is_ship_size = marauder_destroyer
+					}
+				}
+			}
+			from = {
+				add_resource = { minerals = 10 energy = 10 engineering_research = 4 unity = 2 }
+			}
+		} else_if = {
+			limit = {
+				fromfrom = {
+					OR = {
+						is_ship_size = pirate_corvette
+						is_ship_size = marauder_corvette
+					}
+				}
+			}
+			from = {
+				add_resource = { minerals = 5 energy = 5 engineering_research = 2 unity = 1 }
+			}
+		}
+		# Event chain management
+		add_pirate_waves_pirate_event_chain = yes
+		# From killed a ship of this.
+		if = {
+			limit = {
+				from = { has_event_chain = "pirate_waves_pirate_event_chain" }
+			}
+			from = {
+				add_event_chain_counter = {
+					event_chain = "pirate_waves_pirate_event_chain"
+					counter = "pirate_kills_us"
+					amount = 1
+				}
+			}
+		}
+		# Let other countries know we killed one.
+		if = {
+			limit = {
+				from = {
+					OR = {
+						is_pirate = yes
+						is_country_type = awakened_marauders
+						is_country_type = marauder_raiders
+					}
+				}
+			}
+			# Pirate on pirate kill
+			every_playable_country = {
+				limit = { has_event_chain = "pirate_waves_pirate_event_chain" }
+				add_event_chain_counter = {
+					event_chain = "pirate_waves_pirate_event_chain"
+					counter = "pirate_kills_pirates"
+					amount = 1
+				}
+			}
+		}
+		# Some hero killed the pirate.
+		else = {
+			every_playable_country = {
+				limit = {
+					has_event_chain = "pirate_waves_pirate_event_chain"
+					NOT = { is_same_value = from }
+				}
+				add_event_chain_counter = {
+					event_chain = "pirate_waves_pirate_event_chain"
+					counter = "pirate_kills_others"
+					amount = 1
+				}
+			}
+		}
+	}
+}
+
+# Victims (HIDDEN)
+country_event = {
+	id = pirate_waves.9
+	hide_window = yes
+	is_triggered_only = yes
+	trigger = {
+		OR = {
+			is_pirate = yes
+			is_country_type = awakened_marauders
+			is_country_type = marauder_raiders
+		}
+		exists = from
+	}
+	immediate = {
+		add_pirate_waves_pirate_event_chain = yes
+		# This killed a ship of from.
+		if = {
+			limit = {
+				from = { has_event_chain = "pirate_waves_pirate_event_chain" }
+			}
+			from = {
+				add_event_chain_counter = {
+					event_chain = "pirate_waves_pirate_event_chain"
+					counter = "pirate_victims_us"
+					amount = 1
+				}
+			}
+		}
+		# It only counts as being a victim if you're not a pirate (for other countries, at least)
+		if = {
+			limit = {
+				NOT = {
+					from = {
+						OR = {
+							is_pirate = yes
+							is_country_type = awakened_marauders
+							is_country_type = marauder_raiders
+						}
+					}
+				}
+			}
+			every_playable_country = {
+				limit = {
+					has_event_chain = "pirate_waves_pirate_event_chain"
+					NOT = { is_same_value = from }
+				}
+				add_event_chain_counter = {
+					event_chain = "pirate_waves_pirate_event_chain"
+					counter = "pirate_victims_others"
+					amount = 1
+				}
+			}
+		}
+	}
+}
+
+country_event = {
+	id = pirate_waves.111
+	title = policy_pirate_waves
+	desc = policy_pirate_waves_desc
+	desc = {
+		text = pirate_waves.111.desc
+		trigger = {
+			OR = {
+				check_variable = { which = pirate_waves_chance value = 0 }
+				NOT = { has_global_flag = pirate_waves_active }
+			}
+		}
+	}
+	# picture = GFX_evt_pirate_armada
+	show_sound = event_ship_bridge
+	diplomatic = yes
+	picture_event_data = {
+		portrait = root.owner_main_species
+		room = enclave_curator_room
+	}
+	custom_gui = sgm_ScrollbarEventWindow
+	is_triggered_only = yes
+	trigger = {
+		is_ai = no
+		NOT = { has_active_event = { pirate_waves.111 pirate_waves.112 } }
+	}
+	immediate = {
+		if = {
+			limit = {
+				is_variable_set = pirate_waves_chance
+				check_variable = { which = pirate_waves_chance value != 0 }
+				NOT = { has_global_flag = pirate_waves_active }
+			}
+			set_global_flag = pirate_waves_active
+			set_variable = { which = pirate_waves_difficulty value = 1 }
+
+			if = {
+				limit = {
+					exists = event_target:global_event_country
+					event_target:global_event_country = { is_variable_set = CmtVarFleetPower_Khan }
+				}
+				event_target:global_event_country = {
+					if = {
+						limit = { check_variable = { which = CmtVarFleetPower_Khan value > 1.74 } }
+						prev = { set_variable = { which = pirate_waves_difficulty value = 4 } }
+					} else_if = {
+						limit = { check_variable = { which = CmtVarFleetPower_Khan value > 1.44 } }
+						prev = { set_variable = { which = pirate_waves_difficulty value = 3 } }
+					} else_if = {
+						limit = { check_variable = { which = CmtVarFleetPower_Khan value < 0.55 } }
+						prev = { set_variable = { which = pirate_waves_difficulty value = 0 } }
+					} else_if = {
+						limit = { check_variable = { which = CmtVarFleetPower_Khan value < 0.95 } }
+						prev = { set_variable = { which = pirate_waves_difficulty value = 1 } }
+					}
+				}
+			}
+		} else_if = {
+			limit = { NOT = { is_variable_set = pirate_waves_chance } }
+			set_variable = { which = pirate_waves_chance value = 5 }
+		}
+	}
+	after = {
+		hidden_effect = {
+			if = {
+				limit = { NOT = { has_active_event = { pirate_waves.112 } } }
+				country_event = { id = pirate_waves.0 }
+			}
+		}
+	}
+	option = {
+		name = "pirate_waves_0"
+		custom_tooltip = "pirate_waves_0_desc"
+		allow = {
+			check_variable = { which = pirate_waves_chance value != 0 }
+		}
+		hidden_effect = {
+			set_variable = { which = pirate_waves_chance value = 0 }
+			if= { limit = { is_pirate_waves_active = yes }
+				remove_global_flag = pirate_waves_active
+			}
+		}
+	}
+	option = {
+		name = "pirate_waves_1"
+		custom_tooltip = "pirate_waves_1_desc"
+		allow = {
+			check_variable = { which = pirate_waves_chance value != 1 }
+		}
+		hidden_effect = {
+			set_variable = { which = pirate_waves_chance value = 1 }
+		}
+	}
+	option = {
+		name = "pirate_waves_2"
+		custom_tooltip = "pirate_waves_2_desc"
+		allow = {
+			check_variable = { which = pirate_waves_chance value != 2 }
+		}
+		hidden_effect = {
+			set_variable = { which = pirate_waves_chance value = 2 }
+		}
+	}
+	option = {
+		name = "pirate_waves_3"
+		custom_tooltip = "pirate_waves_3_desc"
+		allow = {
+			check_variable = { which = pirate_waves_chance value != 3 }
+		}
+		hidden_effect = {
+			set_variable = { which = pirate_waves_chance value = 3 }
+		}
+	}
+	option = {
+		name = "pirate_waves_4"
+		custom_tooltip = "pirate_waves_4_desc"
+		allow = {
+			check_variable = { which = pirate_waves_chance value != 4 }
+		}
+		hidden_effect = {
+			set_variable = { which = pirate_waves_chance value = 4 }
+		}
+	}
+	option = {
+		name = "pirate_waves_5"
+		custom_tooltip = "pirate_waves_5_desc"
+		allow = {
+			check_variable = { which = pirate_waves_chance value != 5 }
+		}
+		hidden_effect = {
+			set_variable = { which = pirate_waves_chance value = 5 }
+		}
+	}
+	option = {
+		name = "pirate_waves_6"
+		custom_tooltip = "pirate_waves_6_desc"
+		allow = {
+			check_variable = { which = pirate_waves_chance value != 6 }
+		}
+		hidden_effect = {
+			set_variable = { which = pirate_waves_chance value = 6 }
+		}
+	}
+	option = {
+		name = "pirate_waves_7"
+		custom_tooltip = "pirate_waves_7_desc"
+		allow = {
+			check_variable = { which = pirate_waves_chance value != 7 }
+		}
+		hidden_effect = {
+			set_variable = { which = pirate_waves_chance value = 7 }
+		}
+	}
+	option = {
+		name = "pirate_waves_8"
+		custom_tooltip = "pirate_waves_8_desc"
+		allow = {
+			check_variable = { which = pirate_waves_chance value != 8 }
+		}
+		hidden_effect = {
+			set_variable = { which = pirate_waves_chance value = 8 }
+		}
+	}
+	option = {
+		name = "pirate_waves_9"
+		custom_tooltip = "pirate_waves_9_desc"
+		allow = {
+			check_variable = { which = pirate_waves_chance value != 9 }
+		}
+		hidden_effect = {
+			set_variable = { which = pirate_waves_chance value = 9 }
+		}
+	}
+	option = {
+		name = "pirate_waves_10"
+		custom_tooltip = "pirate_waves_10_desc"
+		allow = {
+			check_variable = { which = pirate_waves_chance value != 10 }
+		}
+		hidden_effect = {
+			set_variable = { which = pirate_waves_chance value = 10 }
+		}
+	}
+	option = {
+		name = "pirate_waves_15"
+		custom_tooltip = "pirate_waves_15_desc"
+		allow = {
+			check_variable = { which = pirate_waves_chance value != 15 }
+		}
+		hidden_effect = {
+			set_variable = { which = pirate_waves_chance value = 15 }
+		}
+	}
+	option = {
+		name = "pirate_waves_20"
+		custom_tooltip = "pirate_waves_20_desc"
+		allow = {
+			check_variable = { which = pirate_waves_chance value != 20 }
+		}
+		hidden_effect = {
+			set_variable = { which = pirate_waves_chance value = 20 }
+		}
+	}
+	option = {
+		name = "pirate_waves_25"
+		custom_tooltip = "pirate_waves_25_desc"
+		allow = {
+			check_variable = { which = pirate_waves_chance value != 25 }
+		}
+		hidden_effect = {
+			set_variable = { which = pirate_waves_chance value = 25 }
+		}
+	}
+	option = {
+		name = "pirate_waves_35"
+		custom_tooltip = "pirate_waves_35_desc"
+		allow = {
+			check_variable = { which = pirate_waves_chance value != 35 }
+		}
+		hidden_effect = {
+			set_variable = { which = pirate_waves_chance value = 35 }
+		}
+	}
+	option = {
+		name = "pirate_waves_50"
+		custom_tooltip = "pirate_waves_50_desc"
+		allow = {
+			check_variable = { which = pirate_waves_chance value != 50 }
+		}
+		hidden_effect = {
+			set_variable = { which = pirate_waves_chance value = 50 }
+		}
+	}
+	option = {
+		name = "pirate_waves_100"
+		custom_tooltip = "pirate_waves_100_desc"
+		allow = {
+			check_variable = { which = pirate_waves_chance value != 100 }
+		}
+		hidden_effect = {
+			set_variable = { which = pirate_waves_chance value = 100 }
+		}
+	}
+	option = { name = BACK }
+}
+
+country_event = {
+	id = pirate_waves.112
+	title = policy_pirate_waves_difficulty
+	desc = policy_pirate_waves_difficulty_desc
+	picture = GFX_evt_pirate_armada
+	show_sound = event_ship_bridge
+	is_triggered_only = yes
+	trigger = {
+		is_ai = no
+		# check_variable = { which = pirate_waves_chance value != 0 }
+		NOT = { has_active_event = { pirate_waves.111 pirate_waves.112 } }
+	}
+	immediate = {
+		if = {
+			limit = { is_variable_set = pirate_waves_difficulty }
+			set_variable = { which = pirate_waves_difficulty_prev value = pirate_waves_difficulty }
+		} else = {
+			if = {
+				limit = {
+					exists = event_target:global_event_country
+					event_target:global_event_country = { is_variable_set = CmtVarFleetPower_Khan }
+				}
+				event_target:global_event_country = {
+					if = {
+						limit = { check_variable = { which = CmtVarFleetPower_Khan value > 1.74 } }
+						prev = { set_variable = { which = pirate_waves_difficulty value = 4 } }
+					} else_if = {
+						limit = { check_variable = { which = CmtVarFleetPower_Khan value > 1.44 } }
+						prev = { set_variable = { which = pirate_waves_difficulty value = 3 } }
+					} else_if = {
+						limit = { check_variable = { which = CmtVarFleetPower_Khan value < 0.55 } }
+						prev = { set_variable = { which = pirate_waves_difficulty value = 0 } }
+					} else_if = {
+						limit = { check_variable = { which = CmtVarFleetPower_Khan value < 0.95 } }
+						prev = { set_variable = { which = pirate_waves_difficulty value = 1 } }
+					}
+				}
+			}
+		}
+
+		if= {
+			limit = {
+				is_variable_set = pirate_waves_chance
+				check_variable = { which = pirate_waves_chance value != 0 }
+				NOT = { has_global_flag = pirate_waves_active }
+			}
+			set_global_flag = pirate_waves_active
+		}
+		if = {
+			limit = { NOT = { is_variable_set = pirate_waves_chance } }
+			set_variable = { which = pirate_waves_chance value = 5 }
+		}
+	}
+	after = {
+		hidden_effect = {
+			if = {
+				limit = { NOT = { has_active_event = { pirate_waves.111 } } }
+				country_event = { id = pirate_waves.0 }
+			}
+
+			if = {
+				limit = {
+					is_variable_set = pirate_waves_difficulty_prev
+					check_variable = { which = pirate_waves_difficulty_prev value != pirate_waves_difficulty }
+				}
+				clear_variable = pirate_waves_difficulty_prev
+				if = {
+					limit = { exists = event_target:pirate_waves_2_country }
+					event_target:pirate_waves_2_country = {
+						remove_country_flag = pirate_waves_spawn_allowed
+						remove_country_flag = pirate_waves_very_easy
+						remove_country_flag = pirate_waves_easy
+						remove_country_flag = pirate_waves_medium
+						remove_country_flag = pirate_waves_hard
+						remove_country_flag = pirate_waves_insane
+					}
+				}
+				if = {
+					limit = {
+						NOR = {
+							exists = event_target:pirate_waves_country
+							exists = event_target:pirate_waves_2_country
+						}
+					}
+					create_pirate_waves_countries = yes
+				}
+				event_target:pirate_waves_country = {
+					set_pirates_difficulty = yes
+					event_target:pirate_waves_2_country = {
+						set_variable = { which = pirate_waves_difficulty value = prev.pirate_waves_difficulty }
+						if = {
+							limit = { check_variable = { which = pirate_waves_difficulty value = 0 } }
+							set_country_flag = pirate_waves_very_easy
+						} else_if = {
+							limit = { check_variable = { which = pirate_waves_difficulty value = 1 } }
+							set_country_flag = pirate_waves_easy
+						} else_if = {
+							limit = { check_variable = { which = pirate_waves_difficulty value = 2 } }
+							set_country_flag = pirate_waves_medium
+						} else_if = {
+							limit = { check_variable = { which = pirate_waves_difficulty value = 3 } }
+							set_country_flag = pirate_waves_hard
+						} else_if = {
+							limit = { check_variable = { which = pirate_waves_difficulty value = 4 } }
+							set_country_flag = pirate_waves_insane
+						}
+					}
+				}
+			}
+		}
+	}
+	option = {
+		name = "pirate_waves_very_easy"
+		custom_tooltip = "pirate_waves_very_easy_desc"
+		# set_country_flag = pirate_waves_very_easy
+		allow = {
+			check_variable = { which = pirate_waves_difficulty value != 0 }
+		}
+		hidden_effect = {
+			set_variable = { which = pirate_waves_difficulty value = 0 }
+		}
+	}
+	option = {
+		name = "pirate_waves_easy"
+		custom_tooltip = "pirate_waves_easy_desc"
+		# set_country_flag = pirate_waves_easy
+		allow = {
+			check_variable = { which = pirate_waves_difficulty value != 1 }
+		}
+		hidden_effect = {
+			set_variable = { which = pirate_waves_difficulty value = 1 }
+		}
+	}
+	option = {
+		name = "pirate_waves_medium"
+		custom_tooltip = "pirate_waves_medium_desc"
+		# set_country_flag = pirate_waves_medium
+		allow = {
+			check_variable = { which = pirate_waves_difficulty value != 2 }
+		}
+		hidden_effect = {
+			set_variable = { which = pirate_waves_difficulty value = 2 }
+		}
+	}
+	option = {
+		name = "pirate_waves_hard"
+		custom_tooltip = "pirate_waves_hard_desc"
+		# set_country_flag = pirate_waves_hard
+		allow = {
+			check_variable = { which = pirate_waves_difficulty value != 3 }
+		}
+		hidden_effect = {
+			set_variable = { which = pirate_waves_difficulty value = 3 }
+		}
+	}
+	option = {
+		name = "pirate_waves_insane"
+		custom_tooltip = "pirate_waves_insane_desc"
+		# set_country_flag = pirate_waves_insane
+		allow = {
+			check_variable = { which = pirate_waves_difficulty value != 4 }
+		}
+		hidden_effect = {
+			set_variable = { which = pirate_waves_difficulty value = 4 }
+		}
+	}
+	option = { name = BACK }
+}
+
+#########################################
+#	NOTIFICATION						#
+#########################################
+# Pirates Waves notification
+# Called from pirate_waves.3
+country_event = {
+	id = pirate_waves.50
+	title = "pirate.50.name"
+	picture = GFX_evt_pirate_armada
+	desc = pirate.5.desc
+	show_sound = event_ship_bridge
+	location = event_target:spawn_location
+	is_triggered_only = yes
+	trigger = {
+		NOT = { has_global_flag = pirate_waves_notifications_disabled }
+	}
+	option = { name = pirate.50.a }
+}
+
+#########################################
+#	DEBUGGING							#
+#########################################
+
+# Pirates Waves notification toggler
+# Called manually
+country_event = {
+	id = pirate_waves.51
+	hide_window = yes
+	is_triggered_only = yes
+	# trigger = { always = no }
+	immediate = {
+		if = {
+			limit = { has_global_flag = pirate_waves_notifications_disabled }
+			remove_global_flag = pirate_waves_notifications_disabled
+		} else = { set_global_flag = pirate_waves_notifications_disabled }
+	}
+}
+
+# Creates ten pirate fleets immediately (HIDDEN)
+# Called through the console
+event = {
+	id = pirate_waves.10
+	hide_window = yes
+	is_triggered_only = yes
+	# trigger = { always = no }
+	immediate = {
+		create_pirate_waves_countries = yes
+		set_timed_country_flag = { flag = pirate_waves_10 days = 1 }
+		# Choose a random player country to hook the events to.
+		random_country = {
+			limit = { is_pirate_waves_player = yes }
+			while = {
+				count = 10
+				country_event = { id = pirate_waves.4 }
+			}
+		}
+	}
+}
+
+# Creates one pirate fleet immediately (HIDDEN)
+# Called through the console
+event = {
+	id = pirate_waves.11
+	hide_window = yes
+	is_triggered_only = yes
+	# trigger = { always = no }
+	immediate = {
+		create_pirate_waves_countries = yes
+		# Choose a random player country to hook the events to.
+		random_country = {
+			limit = { is_pirate_waves_player = yes }
+			country_event = { id = pirate_waves.4 }
+		}
+	}
+}
+
+# Creates a hundred pirate fleets and stations immediately (HIDDEN)
+# Called through the console
+event = {
+	id = pirate_waves.100
+	hide_window = yes
+	is_triggered_only = yes
+	# trigger = { always = no }
+	immediate = {
+		create_pirate_waves_countries = yes
+		# Choose a random player country to hook the events to.
+		set_timed_global_flag = { flag = pirate_waves_100 days = 10 }
+		random_country = {
+			limit = { is_pirate_waves_player = yes }
+			while = {
+				count = 100
+				country_event = { id = pirate_waves.4 }
+			}
+		}
+	}
+}
+
+# Creates a thousand pirate fleets and stations immediately (HIDDEN)
+# Called through the console
+event = {
+	id = pirate_waves.1000
+	hide_window = yes
+	is_triggered_only = yes
+	# trigger = { always = no }
+	immediate = {
+		create_pirate_waves_countries = yes
+		# Choose a random player country to hook the events to.
+		set_timed_global_flag = { flag = pirate_waves_1000 days = 20 }
+		random_country = {
+			limit = { is_pirate_waves_player = yes }
+			while = {
+				count = 1000
+				country_event = { id = pirate_waves.4 }
+			}
+		}
+	}
+}
+
+# Tries to fix any bugs by destroying the pirate countries and recreate them (HIDDEN)
+# Called through the console
+event = {
+	id = pirate_waves.666
+	hide_window = yes
+	is_triggered_only = yes
+	# trigger = { always = no }
+	immediate = {
+		set_timed_global_flag = { flag = pirate_waves_666 days = 15 }
+		if = {
+			limit = { exists = event_target:pirate_waves_country }
+			event_target:pirate_waves_country = { destroy_country = yes }
+		}
+		if = {
+			limit = { exists = event_target:pirate_waves_2_country }
+			event_target:pirate_waves_2_country = { destroy_country = yes }
+		}
+	}
+}
+
+# Remove all pirate countries (HIDDEN)
+# Called through the console
+event = {
+	id = pirate_waves.667
+	hide_window = yes
+	is_triggered_only = yes
+	# trigger = { always = no }
+	immediate = {
+		set_timed_global_flag = { flag = pirate_waves_667 days = 15 }
+		every_country = {
+			limit = { is_pirate = yes }
+			destroy_country = yes
+		}
+	}
+}
+
+## DEBUGGING OPTIONS ##
+country_event = {
+	id = pirate_waves.999
+	title = DEBUG_MODE
+	desc = DEBUG_MODE_DESC
+	picture = GFX_evt_pirate_armada
+	show_sound = event_ship_bridge
+	is_triggered_only = yes
+	trigger = { is_ai = no }
+	# immediate = { }
+	# after = { }
+	option = {
+		name = "pirate_waves.11.name"
+		custom_tooltip = "pirate_waves.11.desc"
+		# trigger = { has_global_flag = debug_mode }
+		country_event = { id = pirate_waves.11 }
+	}
+	option = {
+		name = "pirate_waves.10.name"
+		custom_tooltip = "pirate_waves.10.desc"
+		allow = {
+			NOT = { has_country_flag = pirate_waves_10 }
+		}
+		# trigger = { has_global_flag = debug_mode }
+		country_event = { id = pirate_waves.10 }
+	}
+	option = {
+		name = "pirate_waves.100.name"
+		custom_tooltip = "pirate_waves.100.desc"
+		# trigger = { has_global_flag = debug_mode }
+		allow = {
+			NOT = { has_global_flag = pirate_waves_100 }
+		}
+		country_event = { id = pirate_waves.100 }
+	}
+	option = {
+		name = "pirate_waves.1000.name"
+		custom_tooltip = "pirate_waves.1000.desc"
+		# trigger = { has_global_flag = debug_mode }
+		allow = {
+			NOT = { has_global_flag = pirate_waves_1000 }
+		}
+		country_event = { id = pirate_waves.1000 }
+	}
+	option = {
+		name = "pirate_waves.666.name"
+		custom_tooltip = "pirate_waves.666.desc"
+		# trigger = { has_global_flag = debug_mode }
+		allow = {
+			NOT = { has_global_flag = pirate_waves_666 }
+		}
+		country_event = { id = pirate_waves.666 }
+	}
+	option = {
+		name = "pirate_waves.667.name"
+		# custom_tooltip = "pirate_waves.667.desc"
+		# trigger = { has_global_flag = debug_mode }
+		allow = {
+			NOT = { has_global_flag = pirate_waves_667 }
+		}
+		country_event = { id = pirate_waves.667 }
+	}
+	option = {
+		name = "pirate.1000.name"
+		custom_tooltip = "pirate.1000.desc"
+		# trigger = { has_global_flag = debug_mode }
+		allow = {
+			NOT = { has_active_event = { pirate.1000 } }
+		}
+		country_event = { id = pirate.1000 }
+	}
+	option = {
+		name = CLOSE
+		hidden_effect = {
+			country_event = { id = pirate_waves.0 }
+		}
+	}
+}

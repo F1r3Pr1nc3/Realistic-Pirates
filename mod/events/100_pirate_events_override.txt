@@ -1,0 +1,603 @@
+###############################################
+# Pirate Events
+# Written by Henrik Thyrwall
+# Modded by ScepraX/FirePrince
+###############################################
+# Added pirate.65/.66 for pirate stations
+
+namespace = pirate
+
+## New Ships (HIDDEN)
+event = {
+	id = pirate.2
+	hide_window = yes
+	trigger = {
+		mid_game_years_passed < 20
+		any_playable_country = {
+			# is_country_type = default
+			has_country_flag = birth_of_piracy
+			exists = capital_scope
+			any_system_within_border = {
+				has_trade_route = yes
+				trade_intercepted_value > 1
+				is_capital_system = no
+				any_system_planet = {
+					OR = {
+						has_mining_station = yes
+						has_research_station = yes
+					}
+				}
+			}
+		}
+	}
+	is_triggered_only = yes
+	# mean_time_to_happen = {
+	# 	months = 100
+	# }
+	immediate = {
+		if = {
+			limit = {
+				any_country = {
+					is_country_type = pirate
+					OR = {
+						num_fleets < 2
+						num_ships < 3
+					}
+					any_owned_ship = {
+						is_ship_size = pirate_station
+					}
+				}
+			}
+			random_playable_country = {
+				limit = { has_country_flag = birth_of_piracy }
+				save_event_target_as = pirate_target
+				random_system_within_border = {
+					limit = {
+						has_trade_route = yes
+						trade_intercepted_value > 0
+						is_capital_system = no
+						any_system_planet = {
+							OR = {
+								has_mining_station = yes
+								has_research_station = yes
+							}
+						}
+					}
+					save_event_target_as = pirate_system
+				}
+			}
+			random_country = {
+				limit = {
+					is_country_type = pirate
+					OR = {
+						num_fleets < 2
+						num_ships < 3
+					}
+					any_owned_ship = {
+						is_ship_size = pirate_station
+					}
+				}
+				save_event_target_as = pirate_band
+				random_owned_ship = {
+					limit = { is_ship_size = pirate_station }
+					fleet = {
+						orbit = {
+							save_event_target_as = pirate_home
+						}				# Save actual planet as home.
+					}
+				}
+				create_pirate_fleet = yes
+			}
+		}
+	}
+}
+
+# Pirate station spawns on disabled starbase (HIDDEN)
+ship_event = {
+	id = pirate.70
+	hide_window = yes
+	is_triggered_only = yes
+	trigger = {
+		is_ship_class = shipclass_starbase
+		exists = from
+		from = {
+			# owner = { is_country_type = pirate }
+			owner = {
+				is_pirate = yes
+			}
+		}
+		solar_system = {
+			NOT = {
+				any_fleet_in_system = {
+					is_ship_size = pirate_station
+				}
+			}
+		}
+	}
+	immediate = {
+		solar_system = {
+			random_system_planet = {
+				limit = {
+					is_star = no
+				}
+				weights = {
+					base = 1
+					modifier = {
+						add = 1
+						is_asteroid = yes
+					}
+				}
+				create_fleet = {
+					name = "NAME_Pirate_Station"
+					effect = {
+						set_owner = from.owner
+						create_ship = {
+							name = random
+							design = "NAME_Pirate_Nest"
+							graphical_culture = "pirate_01"
+						}
+						set_location = prev
+					}
+				}
+			}
+			if = {
+				limit = {
+					NOR = {
+						any_fleet_in_system = {
+							is_mobile = yes
+							exists = owner
+							is_owned_by = space_owner
+							is_civilian = no							# is_ship_class = shipclass_military
+						}
+						any_system_planet = {
+							has_owner = yes
+							NOR = {
+								is_owned_by = from.owner
+								is_controlled_by = from.owner
+							}
+						}
+					}
+				}
+				# Pirates get the system (after some time - modded event)
+				starbase = {
+					# set_owner = from.owner
+					starbase_event = {
+						id = pirate.72
+						days = 50
+						random = 25
+						scopes = {
+							from = from.owner
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+# Take pirate starbase (on_ship_disabled - otherwise cannot be conquered).
+# This = Ship
+# From = Disabler Ship
+ship_event = {
+	id = pirate.65
+	hide_window = yes
+	is_triggered_only = yes
+	trigger = {
+		is_scope_valid = yes
+		exists = owner
+		exists = from.owner
+		exists = fleet
+		exists = solar_system
+		is_ship_class = shipclass_starbase
+	}
+	immediate = {
+		if = {
+			limit = {
+				from.owner = { is_pirate = yes }
+				owner = { is_pirate = yes }
+			}
+			solar_system = {
+				every_system_planet = {
+					limit = { is_owned_by = root.owner }
+					set_controller = from.owner
+				}
+			}
+			starbase = { set_owner = from.owner }
+		} else_if = {
+			limit = {
+				from.owner = { is_country_type_with_subjects = yes }
+				owner = { is_pirate = yes }
+				starbase = { has_starbase_size > starbase_outpost }
+			}
+			# log="take pirate starbase"
+			# if = { limit = { starbase = { has_starbase_size > starbase_outpost } }
+			from = {
+				save_event_target_as = pirate_slayers
+				owner = {
+					random_list = {
+						85 = { country_event = { id = pirate.25 } }
+						15 = {
+							country_event = { id = pirate.26 }
+							modifier = {
+								factor = 0
+								NOT = { has_event_chain = l_cluster_chain }
+							}
+						}
+					}
+				}
+			}
+		} else_if = {
+			limit = { owner = { is_pirate = yes } }
+			starbase = { destroy_fleet = fleet }
+			# log="destroy pirate station"
+		}
+	}
+}
+
+# Pirate starbase (on_ship_enabled) - destroy (HIDDEN)
+ship_event = {
+	id = pirate.66
+	hide_window = yes
+	is_triggered_only = yes
+	trigger = {
+		is_scope_valid = yes
+		exists = owner
+		owner = { is_pirate = yes }
+		exists = solar_system
+		exists = fleet
+		is_ship_class = shipclass_starbase
+		NOR = {
+			is_ship_size = starbase_marauder
+			solar_system = {
+				any_fleet_in_system = {
+					is_owned_by = root.owner
+					NOT = { is_same_value = root.fleet }
+				}
+			}
+		}
+	}
+	immediate = {
+		if = {
+			limit = {
+				solar_system = {
+					# NOT = {
+					# 	any_fleet_in_system = {
+					# 		NOT = { is_same_value = root.fleet }
+					# 		is_owned_by = root.owner
+					# 	}
+					# }
+					any_fleet_in_system = {
+						NOT = { is_owned_by = root.owner }
+						owner = { is_hostile = root.owner }
+						is_civilian = no
+					}
+				}
+			}
+			# log="destroy pirate starbase"
+			fleet = { every_owned_ship = { destroy_ship = this } }
+			destroy_fleet = fleet
+		}
+	}
+}
+
+# Pirates get the starbase (HIDDEN)
+# By FirePrince
+# TODO: they could grow to marauders after some time?
+starbase_event = {
+	id = pirate.72
+	hide_window = yes
+	is_triggered_only = yes
+	trigger = {
+		is_scope_valid = yes
+		exists = owner
+		exists = from
+		solar_system = {
+			any_fleet_in_system = {
+				is_ship_size = pirate_station
+			}
+			any_fleet_in_system = {
+				is_ship_class = shipclass_military
+				owner = {
+					is_pirate = yes
+				}
+			}
+		}
+		owner = {
+			NOT = {
+				is_same_empire = from
+			}
+		}
+	}
+	immediate = {
+		if = {
+			limit = {
+				fleet = {
+					is_disabled = yes
+				}
+			}
+			solar_system = {
+				# Pirates get the system
+				if = {
+					limit = {
+						NOR = {
+							any_fleet_in_system = {
+								is_mobile = yes
+								exists = owner
+								is_owned_by = space_owner
+								is_civilian = no								# is_ship_class = shipclass_military
+							}
+							any_system_planet = {
+								has_owner = yes
+								NOR = {
+									is_owned_by = from
+									is_controlled_by = from
+								}
+							}
+						}
+					}
+					root = {
+						set_owner = from
+					}
+				}
+			}
+		}
+		else = {
+			starbase_event = {
+				id = pirate.72
+				days = 32
+				random = 18
+				scopes = {
+					from = from
+				}
+			}
+		}
+	}
+}
+
+### The Bemat Thalassocracy (by Gemma Thomson) ###
+# Setup (event_target:global_event_country scope; randomly triggered in pirate.100): Find a suitable spawn point
+country_event = {
+	id = pirate.150
+	hide_window = yes
+	is_triggered_only = yes
+	trigger = {
+		NOR = {
+			exists = event_target:thalassocracy_country
+			any_country = {
+				has_country_flag = met_thalassocracy
+			}
+		}
+	}
+	immediate = {
+		create_thalassocracy_country = yes
+		if = {
+			# Prioritise unoccupied systems
+			limit = {
+				any_system = {
+					is_valid_crystal_splitter_system = yes
+					num_planets_in_system > 1
+				}
+			}
+			random_system = {
+				limit = {
+					is_valid_crystal_splitter_system = yes
+					num_planets_in_system > 1
+				}
+				save_global_event_target_as = thalassocracy_target_system
+				random_system_planet = {
+					save_global_event_target_as = thalassocracy_spawn_planet
+					set_planet_flag = thalassocracy_visited
+				}
+				random_system_planet = {
+					limit = {
+						NOT = {
+							has_planet_flag = thalassocracy_visited
+						}
+					}
+					save_global_event_target_as = thalassocracy_target_planet
+				}
+				event_target:thalassocracy_country = {
+					set_country_flag = spawned_fleet
+				}
+				create_thalassocracy_fleet = yes
+			}
+		}
+		else_if = {
+			# Pop up in a semi-convenient, empire-owned system, if possible
+			limit = {
+				# Must be duplicated below, in the random_system effect.
+				any_system = {
+					has_owner = yes
+					num_planets_in_system > 1
+					NOR = {
+						is_pirate_system = yes
+						has_star_flag = hostile_system
+						has_star_flag = guardian
+						has_star_flag = enclave
+						is_capital_system = yes
+					}
+					has_system_trade_value >= 80
+					distance = {
+						source = space_owner.capital_scope.solar_system
+						use_bypasses = no
+						min_jumps = 2
+						max_jumps = 5
+					}
+				}
+			}
+			random_system = {
+				limit = {
+					has_owner = yes # exists = space_owner
+					num_planets_in_system > 1
+					NOR = {
+						is_pirate_system = yes
+						has_star_flag = hostile_system
+						has_star_flag = guardian
+						has_star_flag = enclave
+						is_capital_system = yes
+					}
+					has_system_trade_value >= 80
+					distance = {
+						source = space_owner.capital_scope.solar_system
+						use_bypasses = no
+						min_jumps = 2
+						max_jumps = 5
+					}
+				}
+				save_global_event_target_as = thalassocracy_target_system
+				random_system_planet = {
+					save_global_event_target_as = thalassocracy_spawn_planet
+					set_planet_flag = thalassocracy_visited
+				}
+				random_galaxy_planet = {
+					limit = {
+						NOT = {
+							has_planet_flag = thalassocracy_visited
+						}
+					}
+					save_global_event_target_as = thalassocracy_target_planet
+				}
+				event_target:thalassocracy_country = {
+					set_country_flag = spawned_fleet
+				}
+				create_thalassocracy_fleet = yes
+				space_owner = {
+					country_event = {
+						id = pirate.155
+						days = 0
+						scopes = {
+							from = event_target:thalassocracy_country
+						}
+					}
+					# Establish contact
+				}
+			}
+		}
+		# else = {
+		# 	# Nothing; await next pulse/valid country
+		# }
+	}
+}
+
+## Pirate Test Event
+country_event = {
+	id = pirate.1000
+	title = pirate.1000.name
+	picture = GFX_evt_smugglers_in_bar
+	desc = pirate.1000.desc
+	show_sound = event_ship_bridge
+	# trigger = {
+	# 	always = no
+	# }
+	is_triggered_only = yes
+	option = {
+		name = "Fleet 0"
+		create_fleet = {
+			name = "NAME_Pirate_Fleet"
+			effect = {
+				set_owner = root
+				create_pirate_ships_0 = yes
+				set_location = root.capital_scope
+			}
+		}
+	}
+	option = {
+		name = "Fleet 1"
+		create_fleet = {
+			name = "NAME_Pirate_Fleet"
+			effect = {
+				set_owner = root
+				create_pirate_ships_1 = yes
+				set_location = root.capital_scope
+			}
+		}
+	}
+	option = {
+		name = "Fleet 2"
+		create_fleet = {
+			name = "NAME_Pirate_Fleet"
+			effect = {
+				set_owner = root
+				create_pirate_ships_2 = yes
+				set_location = root.capital_scope
+			}
+		}
+	}
+	option = {
+		name = "Fleet 3"
+		create_fleet = {
+			name = "NAME_Pirate_Fleet"
+			effect = {
+				set_owner = root
+				create_pirate_ships_3 = yes
+				set_location = root.capital_scope
+			}
+		}
+	}
+	option = {
+		name = "Fleet 4"
+		create_fleet = {
+			name = "NAME_Pirate_Fleet"
+			effect = {
+				set_owner = root
+				create_pirate_ships_4 = yes
+				set_location = root.capital_scope
+			}
+		}
+	}
+	option = {
+		name = "Fleet 5"
+		create_fleet = {
+			name = "NAME_Pirate_Fleet"
+			effect = {
+				set_owner = root
+				create_pirate_ships_5 = yes
+				set_location = root.capital_scope
+			}
+		}
+	}
+	option = {
+		name = "Fleet 6"
+		create_fleet = {
+			name = "NAME_Pirate_Fleet"
+			effect = {
+				set_owner = root
+				create_pirate_ships_6 = yes
+				set_location = root.capital_scope
+			}
+		}
+	}
+	option = {
+		name = "Fleet 7"
+		create_fleet = {
+			name = "NAME_Pirate_Fleet"
+			effect = {
+				set_owner = root
+				create_pirate_ships_7 = yes
+				set_location = root.capital_scope
+			}
+		}
+	}
+	option = {
+		name = "Fleet 8"
+		create_fleet = {
+			name = "NAME_Pirate_Fleet"
+			effect = {
+				set_owner = root
+				create_pirate_ships_8 = yes
+				set_location = root.capital_scope
+			}
+		}
+	}
+	option = {
+		name = "Fleet 9"
+		create_fleet = {
+			name = "NAME_Pirate_Fleet"
+			effect = {
+				set_owner = root
+				create_pirate_ships_9 = yes
+				set_location = root.capital_scope
+			}
+		}
+	}
+}
