@@ -21,10 +21,52 @@ country_event = {
 	is_triggered_only = yes
 	trigger = {
 		is_ai = no
-		host_has_dlc = "Apocalypse"
 		# NOT = { has_active_event = { pirate_waves.0 } } not working on selfcall
 	}
-	# immediate = { }
+	immediate = {
+		## Auto activate Pirate Waves.
+		# For pirate_waves.112
+		if = {
+			limit = { is_variable_set = pirate_waves_difficulty }
+			set_variable = { which = pirate_waves_difficulty_prev value = pirate_waves_difficulty }
+		} else = {
+			# Take default settings from Crisis Manager
+			if = {
+				limit = {
+					exists = event_target:global_event_country
+					event_target:global_event_country = { is_variable_set = CmtVarFleetPower_Khan }
+				}
+				event_target:global_event_country = {
+					if = {
+						limit = { check_variable = { which = CmtVarFleetPower_Khan value > 1.74 } }
+						prev = { set_variable = { which = pirate_waves_difficulty value = 4 } }
+					} else_if = {
+						limit = { check_variable = { which = CmtVarFleetPower_Khan value > 1.44 } }
+						prev = { set_variable = { which = pirate_waves_difficulty value = 3 } }
+					} else_if = {
+						limit = { check_variable = { which = CmtVarFleetPower_Khan value < 0.55 } }
+						prev = { set_variable = { which = pirate_waves_difficulty value = 0 } }
+					} else_if = {
+						limit = { check_variable = { which = CmtVarFleetPower_Khan value < 0.95 } }
+						prev = { set_variable = { which = pirate_waves_difficulty value = 1 } }
+					}
+				}
+			}
+		}
+		# For pirate_waves.111
+		if= {
+			limit = {
+				is_variable_set = pirate_waves_chance
+				check_variable = { which = pirate_waves_chance value != 0 }
+				NOT = { has_global_flag = pirate_waves_active }
+			}
+			set_global_flag = pirate_waves_active
+		}
+		if = {
+			limit = { NOT = { is_variable_set = pirate_waves_chance } }
+			set_variable = { which = pirate_waves_chance value = 5 }
+		}
+	}
 	# after = { }
 	option = {
 		name = "edict_pirate_waves"
@@ -65,8 +107,13 @@ country_event = {
 	option = {
 		name = DEBUG_MODE
 		custom_tooltip = DEBUG_MODE_DESC
-		# trigger = { has_global_flag = debug_mode }
-		# allow = { always = no }
+		trigger = {
+			host_has_dlc = "Apocalypse"
+			# has_global_flag = debug_mode
+		}
+		# allow = {
+		# 	always = no
+		# }
 		hidden_effect = {
 			country_event = { id = pirate_waves.999 }
 		}
@@ -516,10 +563,22 @@ planet_event = {
 			}
 		}
 		event_target:current_pirate_country = {
-			# Randomize the flag
-			randomize_flag_symbol = "pirate"
-
 			set_pirates_difficulty = yes
+
+			# Randomize the flag (only if chance is not too high)
+			if = {
+				limit = {
+					any_playable_country = {
+						is_pirate_waves_player = yes
+						check_variable = { which = pirate_waves_difficulty value = prev.pirate_waves_difficulty }
+						check_variable = { which = pirate_waves_chance value > 10 }
+					}
+				}
+				random = {
+					chance = 75
+					randomize_flag_symbol = "pirate"
+				}
+			}
 
 			# Create a pirate station
 			create_fleet = {
@@ -1108,42 +1167,7 @@ country_event = {
 		is_ai = no
 		NOT = { has_active_event = { pirate_waves.111 pirate_waves.112 } }
 	}
-	immediate = {
-		if = {
-			limit = {
-				is_variable_set = pirate_waves_chance
-				check_variable = { which = pirate_waves_chance value != 0 }
-				NOT = { has_global_flag = pirate_waves_active }
-			}
-			set_global_flag = pirate_waves_active
-			set_variable = { which = pirate_waves_difficulty value = 1 }
-
-			if = {
-				limit = {
-					exists = event_target:global_event_country
-					event_target:global_event_country = { is_variable_set = CmtVarFleetPower_Khan }
-				}
-				event_target:global_event_country = {
-					if = {
-						limit = { check_variable = { which = CmtVarFleetPower_Khan value > 1.74 } }
-						prev = { set_variable = { which = pirate_waves_difficulty value = 4 } }
-					} else_if = {
-						limit = { check_variable = { which = CmtVarFleetPower_Khan value > 1.44 } }
-						prev = { set_variable = { which = pirate_waves_difficulty value = 3 } }
-					} else_if = {
-						limit = { check_variable = { which = CmtVarFleetPower_Khan value < 0.55 } }
-						prev = { set_variable = { which = pirate_waves_difficulty value = 0 } }
-					} else_if = {
-						limit = { check_variable = { which = CmtVarFleetPower_Khan value < 0.95 } }
-						prev = { set_variable = { which = pirate_waves_difficulty value = 1 } }
-					}
-				}
-			}
-		} else_if = {
-			limit = { NOT = { is_variable_set = pirate_waves_chance } }
-			set_variable = { which = pirate_waves_chance value = 5 }
-		}
-	}
+	# immediate = {}
 	after = {
 		hidden_effect = {
 			if = {
@@ -1340,47 +1364,7 @@ country_event = {
 		# check_variable = { which = pirate_waves_chance value != 0 }
 		NOT = { has_active_event = { pirate_waves.111 pirate_waves.112 } }
 	}
-	immediate = {
-		if = {
-			limit = { is_variable_set = pirate_waves_difficulty }
-			set_variable = { which = pirate_waves_difficulty_prev value = pirate_waves_difficulty }
-		} else = {
-			if = {
-				limit = {
-					exists = event_target:global_event_country
-					event_target:global_event_country = { is_variable_set = CmtVarFleetPower_Khan }
-				}
-				event_target:global_event_country = {
-					if = {
-						limit = { check_variable = { which = CmtVarFleetPower_Khan value > 1.74 } }
-						prev = { set_variable = { which = pirate_waves_difficulty value = 4 } }
-					} else_if = {
-						limit = { check_variable = { which = CmtVarFleetPower_Khan value > 1.44 } }
-						prev = { set_variable = { which = pirate_waves_difficulty value = 3 } }
-					} else_if = {
-						limit = { check_variable = { which = CmtVarFleetPower_Khan value < 0.55 } }
-						prev = { set_variable = { which = pirate_waves_difficulty value = 0 } }
-					} else_if = {
-						limit = { check_variable = { which = CmtVarFleetPower_Khan value < 0.95 } }
-						prev = { set_variable = { which = pirate_waves_difficulty value = 1 } }
-					}
-				}
-			}
-		}
-
-		if= {
-			limit = {
-				is_variable_set = pirate_waves_chance
-				check_variable = { which = pirate_waves_chance value != 0 }
-				NOT = { has_global_flag = pirate_waves_active }
-			}
-			set_global_flag = pirate_waves_active
-		}
-		if = {
-			limit = { NOT = { is_variable_set = pirate_waves_chance } }
-			set_variable = { which = pirate_waves_chance value = 5 }
-		}
-	}
+	# immediate = {}
 	after = {
 		hidden_effect = {
 			if = {

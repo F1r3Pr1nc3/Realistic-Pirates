@@ -1,0 +1,106 @@
+##########################################################################
+# Mercenary Scripted Effects for Pirate Waves: Marauders
+#
+# Modified by ScepraX
+##########################################################################
+#############################
+# Marauder Mercenary Fleets #
+#############################
+# Marauder Mercenary Admiral
+create_marauder_merc_admiral = {
+	create_leader = {
+		class = admiral
+		species = event_target:marauder_species
+		name = random
+		event_leader = yes
+		skill = 3
+		leader_age_min = 25
+		leader_age_max = 45
+		traits = {
+			trait = leader_trait_mercenary_warrior
+			trait = random_trait
+		}
+		effect = { set_leader_flag = marauder_merc_leader }
+	}
+	# last_created_leader = { set_leader_flag = marauder_merc_leader }
+}
+
+# Armada of the Voidborn
+create_armada_of_the_voidborn = {
+	create_pirate_waves_fleet = yes
+	create_dyn_marauder_fleet = { OUTRIDER = 8 LANCER = 4 CHAMPION = 3 } # half of vanilla
+}
+
+# Star Rider Flotilla
+create_star_rider_flotilla = {
+	create_pirate_waves_fleet = yes
+	create_dyn_marauder_fleet = { OUTRIDER = 6 LANCER = 3 CHAMPION = 2 } # half of vanilla
+}
+
+# First Storm Wing
+create_first_storm_wing = {
+	create_pirate_waves_fleet = yes
+	create_dyn_marauder_fleet = { OUTRIDER = 4 LANCER = 2 CHAMPION = 1 } # half of vanilla
+}
+
+# Dwamak Bashers
+create_dwamak_bashers = {
+	create_pirate_waves_fleet = yes
+	create_dyn_marauder_fleet = { OUTRIDER = 8 LANCER = 4 CHAMPION = 3 } # half of vanilla
+}
+
+# Unhinged Screamer Flotilla
+create_unhinged_screamer_flotilla = {
+	create_pirate_waves_fleet = yes
+	create_dyn_marauder_fleet = { OUTRIDER = 6 LANCER = 3 CHAMPION = 2 } # half of vanilla
+}
+
+# Frenzied Volunteer Squadron
+create_frenzied_volunteer_squadron = {
+	create_pirate_waves_fleet = yes
+	create_dyn_marauder_fleet = { OUTRIDER = 4 LANCER = 2 CHAMPION = 1 } # half of vanilla
+}
+
+# Her Chosen Champions
+create_her_chosen_champions = {
+	create_pirate_waves_fleet = yes
+	create_dyn_marauder_fleet = { OUTRIDER = 8 LANCER = 4 CHAMPION = 3 } # half of vanilla
+}
+
+# Order of Eternal Night
+create_order_of_eternal_night = {
+	create_pirate_waves_fleet = yes
+	create_dyn_marauder_fleet = { OUTRIDER = 6 LANCER = 3 CHAMPION = 2 } # half of vanilla
+}
+
+# Twilight Congregation
+create_twilight_congregation = {
+	create_pirate_waves_fleet = yes
+	create_dyn_marauder_fleet = { OUTRIDER = 4 LANCER = 2 CHAMPION = 1 } # half of vanilla
+}
+
+####################
+# Marauder Raiders #
+####################
+# prev = owner country
+# scope = fleet
+create_marauder_raiders = {
+	prev = { set_pirates_difficulty = yes }
+	create_pirate_waves_fleet = yes
+	if = {
+		limit = { years_passed > 80 }
+		set_fleet_flag = marauder_raider_fleet_4
+		create_dyn_marauder_fleet = { OUTRIDER = 12 LANCER = 7 CHAMPION = 2 } # half of vanilla
+	} else_if = {
+		limit = { years_passed > 59 }
+		set_fleet_flag = marauder_raider_fleet_3
+		create_dyn_marauder_fleet = { OUTRIDER = 9 LANCER = 5 CHAMPION = 1 } # half of vanilla
+	} else_if = {
+		limit = { years_passed > 39 }
+		set_fleet_flag = marauder_raider_fleet_2
+		create_dyn_marauder_fleet = { OUTRIDER = 6 LANCER = 3 CHAMPION = 1 } # half of vanilla
+	} else = {
+		set_fleet_flag = marauder_raider_fleet_1
+		create_dyn_marauder_fleet = { OUTRIDER = 3 LANCER = 2 } # half of vanilla
+	}
+}

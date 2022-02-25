@@ -5,6 +5,7 @@ tags={
 	"Gameplay"
 	"Overhaul"
 	"Utilities"
+	"Pirates"
 }
 name="Realistic Pirates [3.3.☠]"
 supported_version="3.3.*"

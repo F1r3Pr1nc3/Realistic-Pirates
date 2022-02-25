@@ -20,7 +20,6 @@ pirate_waves = {
 	}
 	allow = {
 		NOT = { has_active_event = { pirate_waves.0 } }
-		host_has_dlc = "Apocalypse"
 	}
 	effect = {
 		country_event = { id = pirate_waves.0 }

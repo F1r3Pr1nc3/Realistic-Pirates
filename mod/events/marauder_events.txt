@@ -397,7 +397,10 @@ country_event = {
 	location = event_target:attacked_system
 	is_triggered_only = yes
 	immediate = {
-		from = { set_country_flag = marauder_vengeance_begun }
+		from = {
+			set_country_flag = marauder_vengeance_begun
+			set_pirates_difficulty = yes
+		}
 		random_owned_planet = {
 			solar_system = {
 				save_event_target_as = attacked_system
@@ -7284,6 +7287,7 @@ event = {
 				}
 				save_event_target_as = marauder_merc_country
 				owner_species = { save_event_target_as = marauder_species }
+				set_pirates_difficulty = yes
 			}
 			random_list = {
 				# Large Fleet

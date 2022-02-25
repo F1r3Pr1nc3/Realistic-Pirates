@@ -51,7 +51,6 @@ event = {
 		# Config only for minimal compatibility Crisis Manager.
 		if = {
 			limit = {
-				host_has_dlc = "Apocalypse"
 				NOR = {
 					exists = event_target:CmtGlobalVar
 					has_global_flag = CmtFlagActivated

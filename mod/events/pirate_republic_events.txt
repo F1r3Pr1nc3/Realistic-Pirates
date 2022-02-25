@@ -1,0 +1,547 @@
+namespace = pirate_republic
+## Pirates have been controlling a system for more than 10 years (monthly pulse)
+event = {
+	id = pirate_republic.1
+	hide_window = yes
+	is_triggered_only = yes
+	trigger = {
+		# any_country = { is_country_type = pirate }
+		any_country = {
+			is_pirate = yes
+			any_owned_fleet = { is_ship_size = pirate_station }
+		}
+	}
+	immediate = {
+		every_country = {
+			limit = {
+				NOR = {
+					has_country_flag = pirates_spawned # <- timed flag from on_pirate_spawn
+					has_ethic = ethic_gestalt_consciousness
+				}
+				any_system_within_border = { is_pirate_system = yes }
+				any_system_within_border = {
+					is_capital_system = no
+					any_system_planet = { is_colony = yes }
+				}
+			}
+			country_event = { id = pirate_republic.10 }
+		}
+	}
+}
+
+# The pirates disappeared!
+country_event = {
+	id = pirate_republic.10
+	title = pirate_republic.10.name
+	picture = GFX_evt_unknown_ships
+	desc = pirate_republic.10.desc
+	is_triggered_only = yes
+	immediate = {
+		random_country = {
+			limit = {
+				is_pirate = yes
+				any_owned_fleet = {
+					is_ship_size = pirate_station
+					solar_system = { is_owned_by = root }
+				}
+			}
+			weights = {
+				base = 1
+				modifier = {
+					add = 20
+					is_country_type = pirate
+				}
+			}
+			random_owned_fleet = {
+				limit = { is_ship_size = pirate_station }
+				solar_system = {
+					save_event_target_as = pirate_system
+					if = {
+						limit = {
+							any_system_planet = { is_colony = yes }
+						}
+						random_system_planet = {
+							limit = { is_colony = yes }
+							save_event_target_as = pirate_target
+						}
+					} else = {
+						closest_system = {
+							min_steps = 1
+							max_steps = 10
+							limit = {
+								is_capital_system = no
+								any_system_planet = { is_colony = yes }
+							}
+							random_system_planet = {
+								limit = { is_colony = yes }
+								save_event_target_as = pirate_target
+							}
+						}
+					}
+				}
+			}
+			destroy_country = yes
+		}
+	}
+	option = {
+		# Where could they have gone?
+		name = pirate_republic.10.option
+		hidden_effect = {
+			event_target:pirate_target = {
+				planet_event = { id = pirate_republic.11 days = 3 random = 4 }
+			}
+		}
+	}
+}
+
+## Pirate invasion!
+planet_event = {
+	id = pirate_republic.11
+	title = pirate_republic.11.name
+	desc = pirate_republic.11.desc
+	picture = GFX_evt_ground_combat
+	show_sound = event_planetary_riot
+	location = root
+	is_triggered_only = yes
+	immediate = {
+		if = {
+			limit = { host_has_dlc = "Megacorp" }
+			create_rebels = {
+				name = random
+				ethos = {
+					ethic = "ethic_fanatic_militarist"
+					ethic = "ethic_authoritarian"
+				}
+				authority = auth_corporate
+				civics = {
+					civic = civic_criminal_heritage
+					civic = random
+				}
+				origin = "origin_void_dwellers"
+				species = root.owner_species
+				flag = random
+				effect = {
+					save_event_target_as = pirate_republic
+				}
+			}
+		} else = {
+			create_rebels = {
+				name = random
+				ethos = {
+					ethic = "ethic_fanatic_militarist"
+					ethic = "ethic_authoritarian"
+				}
+				authority = auth_oligarchic
+				civics = {
+					civic = civic_corporate_dominion
+					civic = random
+				}
+				origin = "origin_void_dwellers"
+				species = root.owner_species
+				flag = random
+				effect = {
+					save_event_target_as = pirate_republic
+				}
+			}
+		}
+		event_target:pirate_republic = {
+			randomize_flag_symbol = pirate
+			set_country_flag = pirate_republic
+			establish_communications_no_message = root.owner
+			set_relation_flag = { flag = rebelling_pirates_former_owner who = root.owner }
+			root = {
+				owner = {
+					every_relation = {
+						limit = { has_communications = prev }
+						establish_communications_no_message = prevprevprev
+					}
+				}
+				while = {
+					count = 25 # TODO dyn
+					create_army = {
+						name = "Pirate Invaders"
+						owner = event_target:pirate_republic
+						species = root.owner_species
+						type = "pirate_army"
+					}
+				}
+			}
+			create_leader = {
+				class = ruler
+				species = owner_main_species
+				name = random
+				skill = 2
+				traits = { trait = random_trait }
+			}
+			assign_leader = last_created_leader
+			ruler = { add_random_leader_trait = yes }
+			set_pirates_difficulty = yes
+			# Create a fleet based on fleet power.
+			create_fleet = {
+				name = "NAME_Pirate_Fleet"
+				effect = {
+					save_event_target_as = pirate_waves_fleet
+					# Owner is set before the ships are created so that random naming works.
+					set_owner = prev
+					# Create ships
+					create_pirate_waves_fleet = yes
+					# Fleet settings
+					set_location = root
+					# set_fleet_stance = aggressive
+					set_aggro_range_measure_from = self
+					set_aggro_range = 150
+				}
+			}
+		}
+		set_planet_flag = pirate_invasion
+	}
+	option = { name = pirate_republic.11.option }
+}
+
+## Pirates lost
+country_event = {
+	id = pirate_republic.12
+	title = pirate_republic.12.name
+	desc = pirate_republic.12.desc
+	picture = GFX_evt_alien_propaganda
+	show_sound = event_celebration
+	location = event_target:pirate_target
+	is_triggered_only = yes
+	trigger = {
+		CmtTriggerIsPlayableEmpire = yes # is_country_type = default
+		fromfrom = {
+			has_planet_flag = pirate_invasion
+			controller = { is_same_empire = root }
+		}
+	}
+	immediate = {
+		fromfrom = {
+			add_modifier = { modifier = revolt_suppressed days = 3600 }
+			save_event_target_as = pirate_target
+			remove_planet_flag = pirate_invasion
+		}
+	}
+	option = { name = pirate_republic.12.option }
+}
+
+## Pirates won
+country_event = {
+	id = pirate_republic.13
+	title = pirate_republic.13.name
+	desc = pirate_republic.13.desc
+	picture = GFX_evt_burning_settlement
+	show_sound = event_air_raid_siren
+	location = event_target:pirate_republic_planet
+	is_triggered_only = yes
+	trigger = {
+		from = { is_country_type = rebel }
+		fromfrom = { has_planet_flag = pirate_invasion }
+	}
+	immediate = {
+		fromfrom = {
+			save_event_target_as = pirate_republic_planet
+			remove_planet_flag = pirate_invasion
+			kill_leader = { type = governor }
+		}
+		from = { save_event_target_as = pirate_republic }
+		save_event_target_as = old_owner
+		fromfrom.solar_system = {
+			starbase = { set_owner = event_target:pirate_republic }
+			add_claims = {
+				who = event_target:old_owner
+				num_of_claims = 1
+				show_notification = no
+			}
+		}
+	}
+	after = {
+		## Create start resources
+		from = {
+			add_resource = {
+				energy = 2000
+				minerals = 1000
+				unity = 20000
+				influence = 400
+			}
+			add_100_unity_per_year_passed = yes
+			create_starting_leaders = yes
+
+			country_event = { id = game_start.6 days = 6 random = 2 } # advanced_empire
+			country_event = { id = game_start.8 days = 9 random = 3 } # +tech +resources
+			country_event = { id = game_start.9 days = 12 random = 4 } # empire_init_create_ships
+
+			remove_country_flag = pirate_waves_spawn_allowed
+			remove_country_flag = pirate_waves_very_easy
+			remove_country_flag = pirate_waves_easy
+			remove_country_flag = pirate_waves_medium
+			remove_country_flag = pirate_waves_hard
+			remove_country_flag = pirate_waves_insane
+			clear_variable = pirate_waves_difficulty
+			clear_variable = pirates_factor
+
+			from = {
+				planet_event = { id = game_start.20 days = 80 random = 30 } # Remove blockers on capital
+				planet_event = { id = game_start.21 days = 120 random = 40 } # Upgrade colony shelter on additional colonies.
+				planet_event = { id = game_start.22 days = 180 random = 60 } # Set up additional buildings (mines, farms, power plants)
+				planet_event = { id = game_start.23 days = 360 random = 90 } # Add additional pops
+
+				solar_system = {
+					if = {
+						limit = {
+							root = { has_technology = tech_starbase_4 }
+							NAND = {
+								exists = starbase
+								starbase = { has_starbase_size > starbase_starfortress }
+							}
+						}
+						create_starbase = {
+							size = starbase_starfortress
+							owner = prevprev
+							module = shipyard
+							module = missile_battery
+							building = defense_grid
+						}
+					}
+					else_if = {
+						limit = {
+							NOT = { root = { has_technology = tech_starbase_5 } }
+							NAND = {
+								exists = starbase
+								starbase = { has_starbase_size > starbase_starhold }
+							}
+						}
+						create_starbase = {
+							size = starbase_starhold
+							owner = prevprev
+							module = shipyard
+							module = missile_battery
+							building = defense_grid
+						}
+					}
+
+					random_fleet_in_system = {
+						limit = {
+							exists = owner
+							is_owned_by = root
+							is_civilian = yes
+						}
+						set_owner = prevprevprev
+						if = {
+							limit = {
+								is_ship_class = shipclass_science_ship
+								exists = leader
+							}
+							leader = { set_owner = prevprevprevprev }
+							assign_leader = leader
+						}
+						else_if = {
+							limit = { is_ship_class = shipclass_transport }
+							# Give armies (general)
+							root = {
+								every_owned_army = {
+									limit = {
+										exists = fleet
+										NOT = { is_owned_by = prev }
+										# fleet = { is_same_value = prevprevprev }
+									}
+									set_owner = fleet.owner
+								}
+							}
+							# Set leader
+							if = {
+								limit = { exists = leader }
+								prevprevprev = {
+									random_owned_army = {
+										limit = {
+											exists = fleet
+										}
+										assign_leader = prevprev.leader
+									}
+								}
+								leader = { set_owner = prevprevprevprev }
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	option = {
+		name = pirate_republic.13.option
+		hidden_effect = {
+			if = {
+				limit = {
+					NOT = {
+						any_subject = { has_country_flag = pirate_republic }
+					}
+				}
+				country_event = { id = pirate_republic.14 }
+			}
+		}
+	}
+}
+
+## The pirates institute a "Republick"
+country_event = {
+	id = pirate_republic.14
+	title = pirate_republic.14.name
+	desc = pirate_republic.14.desc
+	picture = GFX_evt_smugglers_in_bar
+	location = event_target:pirate_republic
+	is_triggered_only = yes
+	option = {
+		name = pirate_republic.14.option
+		hidden_effect = {
+			country_event = { id = pirate_republic.100 }
+		}
+	}
+}
+
+## Main Screen - Communication from the pirate leader
+country_event = {
+	id = pirate_republic.100
+	title = pirate_republic.100.name
+	desc = pirate_republic.100.desc
+	location = event_target:pirate_republic
+	diplomatic = yes
+	is_triggered_only = yes
+	picture_event_data = {
+		portrait = event_target:pirate_republic
+		planet_background = event_target:pirate_republic
+		graphical_culture = event_target:pirate_republic
+		city_level = event_target:pirate_republic
+		room = event_target:pirate_republic.ruler
+	}
+	# Return this planet right now!
+	option = {
+		name = pirate_republic.100.a
+		response_text = pirate_republic.100.a.response
+		is_dialog_only = yes
+	}
+	# Threaten them
+	option = {
+		name = pirate_republic.100.b
+		response_text = pirate_republic.100.b.response
+		is_dialog_only = yes
+	}
+	# What do you want?
+	option = {
+		name = pirate_republic.100.c
+		response_text = pirate_republic.100.c.response
+		is_dialog_only = yes
+	}
+	# Hear proposal
+	option = {
+		name = pirate_republic.100.d
+		hidden_effect = {
+			country_event = { id = pirate_republic.101 }
+		}
+	}
+}
+
+## Let's hear this proposal of yours...
+country_event = {
+	id = pirate_republic.101
+	title = pirate_republic.100.name
+	desc = pirate_republic.101.desc
+	location = event_target:pirate_republic
+	diplomatic = yes
+	is_triggered_only = yes
+	picture_event_data = {
+		portrait = event_target:pirate_republic
+		planet_background = event_target:pirate_republic
+		graphical_culture = event_target:pirate_republic
+		city_level = event_target:pirate_republic
+		room = event_target:pirate_republic.ruler
+	}
+	# Are you insane?
+	option = {
+		name = pirate_republic.101.insane
+		hidden_effect = {
+			country_event = { id = pirate_republic.102 }
+		}
+	}
+	# Refuse out of hand
+	option = {
+		name = pirate_republic.101.refuse
+		hidden_effect = {
+			country_event = { id = pirate_republic.104 }
+		}
+	}
+}
+
+## Are you insane?
+country_event = {
+	id = pirate_republic.102
+	title = pirate_republic.100.name
+	desc = pirate_republic.102.desc
+	location = event_target:pirate_republic
+	diplomatic = yes
+	is_triggered_only = yes
+	picture_event_data = {
+		portrait = event_target:pirate_republic
+		planet_background = event_target:pirate_republic
+		graphical_culture = event_target:pirate_republic
+		city_level = event_target:pirate_republic
+		room = event_target:pirate_republic.ruler
+	}
+	# Accept
+	option = {
+		name = pirate_republic.102.accept
+		hidden_effect = {
+			country_event = { id = pirate_republic.103 }
+		}
+	}
+	# Refuse
+	option = {
+		name = pirate_republic.102.refuse
+		hidden_effect = {
+			country_event = { id = pirate_republic.104 }
+		}
+	}
+}
+
+## Transform into subject empire
+country_event = {
+	id = pirate_republic.103
+	title = pirate_republic.100.name
+	desc = pirate_republic.103.desc
+	location = event_target:pirate_republic
+	diplomatic = yes
+	is_triggered_only = yes
+	picture_event_data = {
+		portrait = event_target:pirate_republic
+		planet_background = event_target:pirate_republic
+		graphical_culture = event_target:pirate_republic
+		city_level = event_target:pirate_republic
+		room = event_target:pirate_republic.ruler
+	}
+	option = {
+		name = pirate_republic.103.option
+		event_target:pirate_republic = {
+			set_country_type = default
+			set_subject_of = {
+				who = root
+				subject_type = tributary
+			}
+		}
+	}
+}
+
+## Offer refused
+country_event = {
+	id = pirate_republic.104
+	title = pirate_republic.100.name
+	desc = pirate_republic.104.desc
+	location = event_target:pirate_republic
+	diplomatic = yes
+	is_triggered_only = yes
+	picture_event_data = {
+		portrait = event_target:pirate_republic
+		planet_background = event_target:pirate_republic
+		graphical_culture = event_target:pirate_republic
+		city_level = event_target:pirate_republic
+		room = event_target:pirate_republic.ruler
+	}
+	option = { name = pirate_republic.104.option }
+}

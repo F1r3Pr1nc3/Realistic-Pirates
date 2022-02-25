@@ -43,7 +43,7 @@ event = {
 						num_fleets < 2
 						num_ships < 3
 					}
-					any_owned_ship = {
+					any_owned_fleet = {
 						is_ship_size = pirate_station
 					}
 				}
@@ -73,12 +73,12 @@ event = {
 						num_fleets < 2
 						num_ships < 3
 					}
-					any_owned_ship = {
+					any_owned_fleet = {
 						is_ship_size = pirate_station
 					}
 				}
 				save_event_target_as = pirate_band
-				random_owned_ship = {
+				random_owned_fleet = {
 					limit = { is_ship_size = pirate_station }
 					fleet = {
 						orbit = {
@@ -87,89 +87,6 @@ event = {
 					}
 				}
 				create_pirate_fleet = yes
-			}
-		}
-	}
-}
-
-# Pirate station spawns on disabled starbase (HIDDEN)
-ship_event = {
-	id = pirate.70
-	hide_window = yes
-	is_triggered_only = yes
-	trigger = {
-		is_ship_class = shipclass_starbase
-		exists = from
-		from = {
-			# owner = { is_country_type = pirate }
-			owner = {
-				is_pirate = yes
-			}
-		}
-		solar_system = {
-			NOT = {
-				any_fleet_in_system = {
-					is_ship_size = pirate_station
-				}
-			}
-		}
-	}
-	immediate = {
-		solar_system = {
-			random_system_planet = {
-				limit = {
-					is_star = no
-				}
-				weights = {
-					base = 1
-					modifier = {
-						add = 1
-						is_asteroid = yes
-					}
-				}
-				create_fleet = {
-					name = "NAME_Pirate_Station"
-					effect = {
-						set_owner = from.owner
-						create_ship = {
-							name = random
-							design = "NAME_Pirate_Nest"
-							graphical_culture = "pirate_01"
-						}
-						set_location = prev
-					}
-				}
-			}
-			if = {
-				limit = {
-					NOR = {
-						any_fleet_in_system = {
-							is_mobile = yes
-							exists = owner
-							is_owned_by = space_owner
-							is_civilian = no							# is_ship_class = shipclass_military
-						}
-						any_system_planet = {
-							has_owner = yes
-							NOR = {
-								is_owned_by = from.owner
-								is_controlled_by = from.owner
-							}
-						}
-					}
-				}
-				# Pirates get the system (after some time - modded event)
-				starbase = {
-					# set_owner = from.owner
-					starbase_event = {
-						id = pirate.72
-						days = 50
-						random = 25
-						scopes = {
-							from = from.owner
-						}
-					}
-				}
 			}
 		}
 	}
@@ -280,6 +197,91 @@ ship_event = {
 	}
 }
 
+# Pirate station spawns on disabled starbase (HIDDEN)
+ship_event = {
+	id = pirate.70
+	hide_window = yes
+	is_triggered_only = yes
+	trigger = {
+		is_ship_class = shipclass_starbase
+		exists = from
+		from = {
+			# owner = { is_country_type = pirate }
+			owner = {
+				is_pirate = yes
+			}
+		}
+		solar_system = {
+			NOT = {
+				any_fleet_in_system = {
+					is_ship_size = pirate_station
+				}
+			}
+		}
+	}
+	immediate = {
+		solar_system = {
+			random_system_planet = {
+				limit = {
+					is_star = no
+				}
+				weights = {
+					base = 1
+					modifier = {
+						add = 1
+						is_asteroid = yes
+					}
+				}
+				create_fleet = {
+					name = "NAME_Pirate_Station"
+					effect = {
+						set_owner = from.owner
+						create_ship = {
+							name = random
+							design = "NAME_Pirate_Nest"
+							graphical_culture = "pirate_01"
+						}
+						set_location = prev
+					}
+				}
+			}
+			# Conflict with Pirate Republic
+			# if = {
+			# 	limit = {
+			# 		NOR = {
+			# 			any_fleet_in_system = {
+			# 				is_mobile = yes
+			# 				exists = owner
+			# 				is_owned_by = space_owner
+			# 				is_civilian = no							# is_ship_class = shipclass_military
+			# 			}
+			# 			any_system_planet = {
+			# 				has_owner = yes
+			# 				NOR = {
+			# 					is_owned_by = from.owner
+			# 					is_controlled_by = from.owner
+			# 				}
+			# 			}
+			# 		}
+			# 	}
+			# 	# Pirates get the system (after some time - modded event)
+			# 	starbase = {
+			# 		# set_owner = from.owner
+			# 		starbase_event = {
+			# 			id = pirate.72
+			# 			days = 500
+			# 			random = 250
+			# 			scopes = {
+			# 				from = from.owner
+			# 			}
+			# 		}
+			# 	}
+			# }
+		}
+	}
+}
+
+# DEPRECATED
 # Pirates get the starbase (HIDDEN)
 # By FirePrince
 # TODO: they could grow to marauders after some time?
