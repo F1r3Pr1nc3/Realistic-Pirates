@@ -8619,8 +8619,7 @@ country_event = {
 		exists = from
 		OR = {
 			CmtTriggerIsKhanCountry = yes
-			AND = {
-				# Khan Subject
+			AND = { # Khan Subject
 				is_subject_of_khan = yes
 				is_ai = yes
 				NOT = { has_country_flag = rebellion_cooldown }
@@ -8827,8 +8826,10 @@ country_event = {
 			set_country_flag = former_owner@fromfrom
 		}
 		fromfrom = {
-			### Create Defense Armies (for some reason they get deleted)
-			set_variable = { which = CmtVarTemp value = 8 }
+			### Create Defense Armies (for some job reasons common armies get deleted)
+			set_variable = { which = CmtVarTemp value = trigger:num_pops }
+			divide_variable = { which = CmtVarTemp value = 5 }
+			round_variable = CmtVarTemp
 			if = {
 				limit = { exists = event_target:marauder_country_1 }
 				while = {
@@ -8837,7 +8838,7 @@ country_event = {
 						name = random
 						owner = root
 						species = event_target:marauder_country_1.owner_species
-						type = "occupation_army"						# "defense_army"
+						type = "marauder_defense_army"
 					}
 					change_variable = { which = CmtVarTemp value = -1 }
 				}
@@ -8850,7 +8851,7 @@ country_event = {
 						name = random
 						owner = root
 						species = event_target:marauder_country_2.owner_species
-						type = "occupation_army"						# "defense_army"
+						type = "marauder_defense_army"
 					}
 					change_variable = { which = CmtVarTemp value = -1 }
 				}
@@ -8863,7 +8864,7 @@ country_event = {
 						name = random
 						owner = root
 						species = event_target:marauder_country_3.owner_species
-						type = "occupation_army"						# "defense_army"
+						type = "marauder_defense_army"
 					}
 					change_variable = { which = CmtVarTemp value = -1 }
 				}
@@ -8877,7 +8878,7 @@ country_event = {
 					name = random
 					owner = root
 					species = root.species
-					type = "occupation_army"					# "defense_army"
+					type = "marauder_defense_army"
 				}
 				change_variable = { which = CmtVarTemp value = -1 }
 			}
@@ -8924,7 +8925,7 @@ country_event = {
 						name = random
 						owner = from
 						species = prev
-						type = "defense_army"
+						type = "marauder_defense_army"
 					}
 				}
 			}
@@ -9750,26 +9751,26 @@ country_event = {
 		if = { # Planet belonged to liberator
 			limit = {
 				exists = event_target:planet_former_owner
-				event_target:planet_former_owner = { is_same_value = root }
+				event_target:planet_former_owner = { is_same_empire = root }
 			}
 			country_event = { id = marauder.516 }
-			break = yes
-		}
-		if = { # Planet belonged to someone else
-			limit = {
-				exists = event_target:planet_former_owner
-				event_target:planet_former_owner = {
-					NOT = { is_same_value = root }
-				}
-			}
+		} else_if = { # Planet belonged to someone else
+			limit = { exists = event_target:planet_former_owner }
 			country_event = { id = marauder.517 }
-			break = yes
-		}
-		if = { # Planet's former owner no longer exists
-			limit = {
-				NOT = { exists = event_target:planet_former_owner }
+		} else = { # Planet's former owner no longer exists
+			if = {  # Planet belonged to someone else
+				limit = {
+					exists = event_target:liberated_planet.solar_system.starbase
+					exists = event_target:liberated_planet.solar_system.starbase.owner
+					event_target:liberated_planet.solar_system.starbase.owner = { NOT = { is_same_empire = root } }
+				}
+				event_target:liberated_planet.solar_system.starbase.owner = {
+					save_event_target_as = planet_former_owner
+				}
+				country_event = { id = marauder.517 }
+			} else = {
+				country_event = { id = marauder.518 }
 			}
-			country_event = { id = marauder.518 }
 		}
 	}
 }
@@ -9808,6 +9809,19 @@ country_event = {
 			add_opinion_modifier = { who = root modifier = opinion_kept_marauder_planet }
 		}
 		event_target:liberated_planet = { set_owner = root }
+		ai_chance = {
+			factor = 1
+			modifier = {
+				factor = 20
+				OR = {
+					is_hostile_to = event_target:planet_former_owner
+					opinion_level = { who = event_target:planet_former_owner level < poor }
+					is_rival = event_target:planet_former_owner
+					is_at_war_with = event_target:planet_former_owner
+					event_target:planet_former_owner = { is_fallen_empire = yes }
+				}
+			}
+		}
 	}
 	option = { # Return to former owner
 		name = marauder.517.b
@@ -9823,6 +9837,19 @@ country_event = {
 		hidden_effect = {
 			event_target:planet_former_owner = {
 				country_event = { id = marauder.519 }
+			}
+		}
+		ai_chance = {
+			factor = 1
+			modifier = {
+				factor = 0
+				OR = {
+					is_hostile_to = event_target:planet_former_owner
+					opinion_level = { who = event_target:planet_former_owner level < poor }
+					is_rival = event_target:planet_former_owner
+					is_at_war_with = event_target:planet_former_owner
+					event_target:planet_former_owner = { is_fallen_empire = yes }
+				}
 			}
 		}
 	}

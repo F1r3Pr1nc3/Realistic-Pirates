@@ -423,9 +423,9 @@ country_event = {
 	}
 }
 
+# Marauder System Liberated - on_disabled Marauder starbase (HIDDEN)
 # This = Ship
 # From = Disabler Ship
-# on_disabled Marauder starbase (HIDDEN)
 ship_event = {
 	id = khan.304
 	hide_window = yes
@@ -437,42 +437,89 @@ ship_event = {
 		is_ship_class = shipclass_starbase
 		# NOT = {
 		# 	is_ship_size = starbase_marauder
-		# solar_system = {
-		# 	any_fleet_in_system = {
-		# 		NOT = { is_owned_by = root.owner }
-		# 		is_ship_class = shipclass_starbase
-		# 	}
-		# }
+			# solar_system = {
+			# 	any_fleet_in_system = {
+			# 		NOT = { is_owned_by = root.owner }
+			# 		is_ship_class = shipclass_starbase
+			# 	}
+			# }
 		# }
 	}
 	immediate = {
 		if = {
-			limit = {
-				# Keep station
+			limit = { # Keep station
 				NOT = { is_ship_size = starbase_marauder }
 				exists = from.owner
 				from.owner = { CmtTriggerIsPlayableEmpire = yes }
-				solar_system = {
-					# Not dead end systems
+				solar_system = { # Not dead end systems
 					OR = {
 						count_neighbor_system = { count > 1 }
-						count_system_planet = {
-							count > 0
-							limit = { is_colonizable = yes }
-						}
+						count_system_planet = { count > 0 limit = { is_colonizable = yes } }
 					}
 				}
 			}
-			fleet = { set_owner = from.owner }
-		} else = {
-			fleet = {
-				every_owned_ship = {
-					set_disable_at_health = -1
-					destroy_ship = this
+			# Give former owner
+			solar_system = {
+				if = {
+					limit = {
+						NOT = {
+							any_system_planet = {
+								has_owner = yes
+								is_owned_by = from.owner
+							}
+						}
+						any_system_planet = {
+							OR = {
+								any_playable_country = {
+									has_country_flag = former_owner@prev
+									NOT = { is_hostile_to = from.owner }
+								}
+								AND = {
+									has_owner = yes
+									is_colony = yes
+									owner = {
+										NOT = { is_hostile_to = from.owner }
+									}
+								}
+							}
+						}
+					}
+					if = {
+						limit = {
+							any_system_planet = {
+								any_playable_country = { has_country_flag = former_owner@prev }
+							}
+						}
+						random_system_planet = {
+							limit = {
+								any_playable_country = { has_country_flag = former_owner@prev }
+							}
+							random_playable_country = {
+								limit = { has_country_flag = former_owner@prev }
+								root.fleet = { set_owner = prev }
+								if = { limit = { NOT = { has_global_flag = marauder_crisis_ongoing } }
+									remove_country_flag = former_owner@prev
+								}
+							}
+						}
+					} else = {
+						random_system_planet = {
+							limit = {
+								has_owner = yes
+								is_colony = yes
+							}
+							root.fleet = { set_owner = prev.owner }
+						}
+					}
+				} else = {
+					root.fleet = { set_owner = from.owner }
 				}
 			}
+		} else = {
+			fleet = { every_owned_ship = { set_disable_at_health = -1 destroy_ship = this } }
 			destroy_fleet = fleet
 		}
+
 		# if = {
 		# 	limit = {
 		# 		NOT = {

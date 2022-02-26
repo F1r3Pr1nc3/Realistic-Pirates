@@ -140,3 +140,6 @@
  khan.710.a.tooltip: "Now rule the $gov_marauder_clans$ as the new $RT_GREAT_KHAN$ to write a new glorious galactic history.\n$food_policy_rationing_desc$"
  pirate_starbase: "$Asteroid$ $STATION$ I"
  pirate_starbase_plural: "$Asteroid$ $stations$ I"
+ marauder_defense_army: "$occupation_army$"
+ marauder_defense_army_plural: "$occupation_army_plural$"
+ marauder_defense_army_desc: "$defense_army_desc$"
