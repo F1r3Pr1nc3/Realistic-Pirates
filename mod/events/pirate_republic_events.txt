@@ -12,7 +12,7 @@ event = {
 		}
 	}
 	immediate = {
-		every_country = {
+		every_playable_country = {
 			limit = {
 				NOR = {
 					has_country_flag = pirates_spawned # <- timed flag from on_pirate_spawn

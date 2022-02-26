@@ -245,38 +245,54 @@ ship_event = {
 					}
 				}
 			}
-			# Conflict with Pirate Republic
-			# if = {
-			# 	limit = {
-			# 		NOR = {
-			# 			any_fleet_in_system = {
-			# 				is_mobile = yes
-			# 				exists = owner
-			# 				is_owned_by = space_owner
-			# 				is_civilian = no							# is_ship_class = shipclass_military
-			# 			}
-			# 			any_system_planet = {
-			# 				has_owner = yes
-			# 				NOR = {
-			# 					is_owned_by = from.owner
-			# 					is_controlled_by = from.owner
-			# 				}
-			# 			}
-			# 		}
-			# 	}
-			# 	# Pirates get the system (after some time - modded event)
-			# 	starbase = {
-			# 		# set_owner = from.owner
-			# 		starbase_event = {
-			# 			id = pirate.72
-			# 			days = 500
-			# 			random = 250
-			# 			scopes = {
-			# 				from = from.owner
-			# 			}
-			# 		}
-			# 	}
-			# }
+			# Another Pirate Republic start
+			if = {
+				limit = {
+					space_owner = {
+						NOR = {
+							has_country_flag = pirates_spawned # <- timed flag from on_pirate_spawn
+							has_ethic = ethic_gestalt_consciousness
+						}
+						# any_system_within_border = { is_pirate_system = yes }
+						any_system_within_border = {
+							is_capital_system = no
+							any_system_planet = { is_colony = yes }
+						}
+					}
+					NOR = {
+						any_fleet_in_system = {
+							is_mobile = yes
+							exists = owner
+							is_owned_by = space_owner
+							is_civilian = no							# is_ship_class = shipclass_military
+						}
+						any_system_planet = {
+							has_owner = yes
+							NOR = {
+								is_owned_by = from.owner
+								is_controlled_by = from.owner
+							}
+						}
+					}
+				}
+				# Conflict with Pirate Republic
+				# # Pirates get the system (after some time - modded event)
+				# starbase = {
+				# 	# set_owner = from.owner
+				# 	starbase_event = {
+				# 		id = pirate.72
+				# 		days = 500
+				# 		random = 250
+				# 		scopes = {
+				# 			from = from.owner
+				# 		}
+				# 	}
+				# }
+				## Compatible with Pirate Republic
+				space_owner = {
+					country_event = { id = pirate_republic.10 days = 7 random = 7 }
+				}
+			}
 		}
 	}
 }

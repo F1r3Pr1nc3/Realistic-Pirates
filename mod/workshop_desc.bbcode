@@ -1,4 +1,4 @@
-This mod is a continuation of [url=//steamcommunity.com/sharedfiles/filedetails/?id=1320353502]Pirate Waves 3 by ScepraX[/url] ([url=//steamcommunity.com/sharedfiles/filedetails/?id=2357819662]Realistic Pirates by Maltheal[/url]) and merged version of [url=//steamcommunity.com/sharedfiles/filedetails/?id=1365414074]Pirate Waves 3: Marauders[/url] and [url=//steamcommunity.com/sharedfiles/filedetails/?id=1824241724]The Pirate Republic by lpslucasps[/url]. The actual version 3.3 is still backward compatible to 3.2.
+This mod is a continuation of [url=//steamcommunity.com/sharedfiles/filedetails/?id=1320353502]Pirate Waves 3 by ScepraX[/url] ([url=//steamcommunity.com/sharedfiles/filedetails/?id=2357819662]Realistic Pirates by Maltheal[/url]) and partial merged version of [url=//steamcommunity.com/sharedfiles/filedetails/?id=1365414074]Pirate Waves 3: Marauders by ScepraX[/url] and modded [url=//steamcommunity.com/sharedfiles/filedetails/?id=1824241724]Pirate Republic by lpslucasps[/url]. The actual version 3.3 is still backward compatible to 3.2.
 It brings more life to the galaxy, kinda like living systems does.
 
 [h1]Pirate Waves 3.3[/h1]
@@ -6,7 +6,7 @@ This mod spawns pirate fleets continuously and endlessly. Every once in a while 
 
 How strong the fleets are depends on the difficulty level chosen and the time that has passed in the game. The pirates will start to appear 10 years into the game. If the fleet power of the country closest to where the pirates appear is inadequate compared to the pirates the power of the fleets spawned will drop.
 
-You can set the difficulty of this mod as well as the interval at which a new pirate station and fleet appear using the edict settings. With it you can also disable the creation of new pirate stations and fleets.
+You can set the difficulty of this mod as well as the interval at which a new pirate station and fleet appear using the settings. With it you can also disable the creation of new pirate stations and fleets.
 
 Includes a pirate kill counter event in your situation log containing an overview of the interaction with the pirates. This will appear after encountering them for the first time.
 
@@ -15,8 +15,10 @@ To set the probability of appearance, you can use the "Pirate Waves" settings vi
 
 You can use the "Pirate Waves Difficulty" settings to set the power level of the fleets. This will also limit the maximum amount of ships the pirate countries can manage.
 
+The difficult settings are also applied to fleets that are created by the [b]Marauders[/b] (only after the game runs 10 years).
+
 [b]Multiplayer[/b]
-In a multiplayer game the spawn edict settings of a random player who has not disabled spawning will be used. If all players except one disable the mod only the edict settings of that player will be used. From the difficulty edict settings the lowest will be used.
+In a multiplayer game the spawn settings of a random player who has not disabled spawning will be used. If all players except one disable the mod only the settings of that player will be used. From the difficulty settings the lowest will be used.
 
 [b]Disabling[/b]
 You can disable the Pirates Waves with the settings which will stop them from spawning while active. 
@@ -25,13 +27,15 @@ If you decide to disable this mod in the game loader or unsubscribe the mod, som
 
 [h2]Compatibility[/h2]
 Compatible with savegames. Should be compatible with most mods, some mods might influence the gameplay if they modify the pirate ships.
-There is a full patched [b]marauder_events.txt[/b] included as an aside (depends on load order, e.g. should be below ZoFE). 
+There is a full patched [b]marauder_events.txt[/b] included as an aside (depends on load order, e.g. should be below ZoFE).
+The difficult settings for Marauders are overridden by the [url=//steamcommunity.com/workshop/filedetails/?id=2491573516]Crisis Manager Mid-Game Edition[/url].
 
 [B]Vanilla Fixes[/B]
-• Includes all current (3.3) vanilla marauders (marauder_events.txt) and pirates fixes known to me (same as listed here [url=//steamcommunity.com/sharedfiles/filedetails/?id=2508704523]The Great Khan Expanded [3.3.☠][/url]).
+• Includes all current (3.3) vanilla marauders (marauder_events.txt) and pirates fixes known to me (same as listed on [url=//steamcommunity.com/sharedfiles/filedetails/?id=2508704523]The Great Khan Expanded [3.3.☠][/url]).
 
 [H3]Planned[/H3]
-• Complete rewrite of the effects to the [url=//forum.paradoxplaza.com/forum/developer-diary/1508908/]new 3.3 Script Values feature[/url], which should give a performance boost (also compared to vanilla, of course not backward compatible anymore).
+• Pirate fleets can be hired (maybe only with Apocalypse DLC).
+• Rewrite of some effects to the [url=//forum.paradoxplaza.com/forum/developer-diary/1508908/]new 3.3 Script Values feature[/url] (of course not backward compatible anymore).
 • [strike]Maybe include [url=//steamcommunity.com/sharedfiles/filedetails/?id=1376086969]Pirate Ships Extended[/url]?[/strike]
 • [strike]Improved compatibility (steadily in progress)[/strike]
 
@@ -53,10 +57,11 @@ All other officially supported languages only machine-translated, but will be ve
 [*]Killing pirates and marauders will provide a small amount of minerals and energy depending on the type of pirate ship. Defeating pirates will also provide a very small amount of unity and engineering research.
 [*]If you ignore the pirate stations for too long you'll regret it as they will send endless waves of pirate fleets. They really like the part of the galaxy that no one looks at and they will grow and expand until they have enough fleets to destroy your outposts. Some AI countries may become infested with pirates if there's a lot of unowned space around them. You can help them by destroying the pirate stations in unowned space or exploit this by declaring war on them. Changing the settings of the mod will also help them or destroy them depending on how it's used.
 [*]FTL inhibitors work really well against pirates.
+[*][b]Mercenary[/b] fleets are also affected by this mod. This results in pretty small fleets in the beginning but massive fleets during the endgame. The AI uses them so be prepared. All mercenary fleets are the same regardless of energy costs.
 [/list]
 
 [b]Testing[/b]
-If you wish to create pirates manually you can activate the debug mode in the menu or via console command: [code]set_global_flag = debug_mode[/code]
+If you wish to create pirates manually you can activate the debug mode in the menu.
 
 [b]Bug?[/b]
 You can use the menu option "Recreate Pirate Countries" or the console command: [code]event pirate_waves.666[/code]

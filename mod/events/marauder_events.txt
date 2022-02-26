@@ -911,7 +911,7 @@ country_event = {
 				}
 				set_timed_country_flag = { flag = recivied_marauder_refugees days = 60 }
 			}
-			50 = {  }
+			50 = { }
 		}
 	}
 }
@@ -1047,6 +1047,7 @@ country_event = {
 						set_country_flag = marauder_vengeance_begun
 						randomize_flag_symbol = "pirate"
 						set_graphical_culture = madd_01
+						make_moderately_hostile = yes
 					}
 				}
 			}
@@ -2843,6 +2844,7 @@ country_event = {
 					set_country_flag = marauder_3
 				}
 				set_country_flag = raid_ongoing
+				make_moderately_hostile = yes
 			}
 		}
 		event_target:marauder_raiding_country = {
@@ -4647,7 +4649,7 @@ event = {
 					}
 				}
 			}
-			80 = {  }
+			80 = { }
 		}
 	}
 }
@@ -4787,7 +4789,7 @@ event = {
 					country_event = { id = marauder.101 days = 1 random = 10 }
 				}
 			}
-			60 = {  }
+			60 = { }
 		}
 	}
 }
@@ -4981,6 +4983,7 @@ country_event = {
 					set_country_flag = marauder_3
 				}
 				set_country_flag = raid_ongoing
+				make_moderately_hostile = yes
 			}
 		}
 		event_target:marauder_raiding_country = {
@@ -7027,6 +7030,7 @@ event = {
 							set_country_flag = marauder_3
 						}
 						set_country_flag = raid_ongoing
+						make_moderately_hostile = yes
 					}
 				}
 				event_target:marauder_raiding_country = {
@@ -7121,7 +7125,7 @@ event = {
 					}
 				}
 			}
-			110 = {  }
+			110 = { }
 		}
 	}
 }
@@ -7590,7 +7594,7 @@ event = {
 						event_target:marauder_merc_country = { has_country_flag = merc_fleet_3_hired }
 					}
 				}
-				100 = {  }
+				100 = { }
 			}
 		}
 	}
@@ -7989,7 +7993,7 @@ country_event = {
 country_event = {
 	id = marauder.500
 	hide_window = yes
-	is_triggered_only = yes
+	# is_triggered_only = yes
 	trigger = {
 		num_marauder_empires_to_spawn > 0
 		# is_crises_allowed = yes
@@ -8007,6 +8011,28 @@ country_event = {
 			any_country = { is_country_type = awakened_marauders }
 		}
 		CmtTriggerHasPotentialKhanAwaking = yes
+	}
+	mean_time_to_happen = {
+		years = 100
+		modifier = { factor = 0.66 mid_game_years_passed >= 50 }
+		modifier = {
+			factor = 1.5
+			count_country = {
+				limit = { is_country_type = dormant_marauders }
+				count > 1
+			}
+			count_country = {
+				limit = { is_country_type = dormant_marauders }
+				count < 3
+			}
+		}
+		modifier = {
+			factor = 2
+			count_country = {
+				limit = { is_country_type = dormant_marauders }
+				count > 2
+			}
+		}
 	}
 	immediate = {
 		if = {
@@ -8428,56 +8454,20 @@ country_event = {
 				delete_ship = this
 			}
 		}
+		## Reinforcement cycle
 		country_event = {
 			id = marauder.520
 			days = 210
-		}		## Reinforcement cycle
+		}
 		event_target:CmtGlobalVar = {
 			set_variable = { which = CmtVarKhanReinforcementCounter value = 10 }
 		}
 		if = {
 			limit = { is_ai = yes }
-			country_event = {
-				id = marauder.78
-				days = 20
-			}			## Mercenaries Join
+			## Mercenaries Join
+			country_event = { id = marauder.78 days = 20 }
 			### Should not attack: the Khan is not that bad!
-			every_country = {
-				limit = {
-					CmtTriggerIsPlayableEmpire = no
-					OR = {
-						is_country_type = fallen_empire						# is_fallen_empire = yes
-						is_country_type = enclave
-						is_country_type = caravaneer_home
-						is_country_type = caravaneer_fleet
-						is_country_type = guardian_sphere
-						is_country_type = marauder_raiders
-						is_country_type = ratlings
-						is_country_type = ldragon_country
-						is_tiyanki_country_type = yes
-						is_amoeba_country_type = yes
-						is_crystal_country_type = yes
-						is_drone_country_type = yes
-						is_country_type = vluur
-						is_primitive = yes
-					}
-					OR = {
-						is_hostile = prev
-						prev = { is_hostile = prev }
-						# prev = { NOT = { is_neutral_to = prev } }
-					}
-					# prev = { NOR = { is_friendly_to = prev is_neutral_to = prev } }
-				}
-				establish_communications_no_message = root
-				prev = {
-					set_faction_hostility = {
-						target = prev
-						set_hostile = no
-						set_neutral = yes
-						# set_friendly = no
-					}
-				}
-			}
+			make_moderately_hostile = yes
 		}
 		### Notifications
 		if = {
@@ -11262,7 +11252,7 @@ fleet_event = {
 									CmtEffectCreateFleet_KhanSubReinforcement4 = yes
 								} else = { CmtEffectCreateFleet_KhanSubReinforcement5 = yes }
 							}
-							300 = {  }
+							300 = { }
 						}
 					}
 				}
@@ -12416,7 +12406,7 @@ event = {
 				20 = {
 					country_event = { id = marauder.700 }
 				}
-				80 = {  }
+				80 = { }
 			}
 		}
 	}
