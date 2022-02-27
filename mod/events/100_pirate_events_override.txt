@@ -274,6 +274,18 @@ ship_event = {
 							}
 						}
 					}
+					closest_system = {
+						min_steps = 0
+						max_steps = 10
+						limit = {
+							is_owned_by = root
+							is_capital_system = no
+							any_system_planet = {
+								is_colony = yes
+								is_under_colonization = no
+							}
+						}
+					}
 				}
 				# Conflict with Pirate Republic
 				# # Pirates get the system (after some time - modded event)
@@ -290,7 +302,7 @@ ship_event = {
 				# }
 				## Compatible with Pirate Republic
 				space_owner = {
-					country_event = { id = pirate_republic.10 days = 7 random = 7 }
+					country_event = { id = pirate_republic.10 days = 6 random = 6 }
 				}
 			}
 		}

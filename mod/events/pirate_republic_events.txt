@@ -58,23 +58,89 @@ country_event = {
 					save_event_target_as = pirate_system
 					if = {
 						limit = {
-							any_system_planet = { is_colony = yes }
+							any_system_planet = {
+								is_colony = yes
+							}
 						}
 						random_system_planet = {
 							limit = { is_colony = yes }
 							save_event_target_as = pirate_target
 						}
-					} else = {
+					} else_if = {
+						limit = {
+							closest_system = {
+								min_steps = 1
+								max_steps = 10
+								limit = {
+									is_owned_by = root
+									is_capital_system = no
+									any_system_planet = {
+										is_colony = yes
+										is_under_colonization = no
+									}
+								}
+							}
+						}
 						closest_system = {
 							min_steps = 1
 							max_steps = 10
 							limit = {
+								is_owned_by = root
 								is_capital_system = no
-								any_system_planet = { is_colony = yes }
+								any_system_planet = {
+									is_colony = yes
+									is_under_colonization = no
+								}
 							}
 							random_system_planet = {
-								limit = { is_colony = yes }
+								limit = {
+									is_colony = yes
+									is_under_colonization = no
+								}
 								save_event_target_as = pirate_target
+							}
+						}
+					} else_if = {
+						limit = {
+							exists = prevprev.species
+						}
+						prevprev.species = {
+							save_event_target_as = pirate_species
+						}
+						closest_system = {
+							min_steps = 0
+							max_steps = 10
+							limit = {
+								is_capital_system = no
+								any_system_planet = {
+									is_colonizable = yes
+									habitability = { who = event_target:pirate_species value > 0.6 }
+								}
+							}
+							random_system_planet = {
+								limit = {
+									is_colonizable = yes
+									habitability = { who = event_target:pirate_species value > 0.6 }
+								}
+								weights = {
+									base = 1
+									modifier = { add = 2 habitable_planet = yes }
+								}
+								save_event_target_as = pirate_target
+								while = {
+									count = 5
+									create_pop = {
+										species = event_target:pirate_species
+										ethos = { ethic = "ethic_militarist" }
+									}
+								}
+								set_controller = prevprevprevprev
+								if = {
+									limit = { is_planet_class = pc_habitat }
+									add_building = building_hab_capital
+								} else = {
+									add_building = building_slave_capital
+								}
 							}
 						}
 					}
@@ -87,8 +153,13 @@ country_event = {
 		# Where could they have gone?
 		name = pirate_republic.10.option
 		hidden_effect = {
-			event_target:pirate_target = {
-				planet_event = { id = pirate_republic.11 days = 3 random = 4 }
+			if = {
+				limit = { exists = event_target:pirate_target }
+				event_target:pirate_target = {
+					planet_event = { id = pirate_republic.11 days = 3 random = 4 }
+				}
+			} else = {
+				log="pirate_target not found for \\[This.GetName]"
 			}
 		}
 	}
@@ -117,7 +188,7 @@ planet_event = {
 					civic = civic_criminal_heritage
 					civic = random
 				}
-				origin = "origin_void_dwellers"
+				origin = "origin_separatists" # "origin_void_dwellers"
 				species = root.owner_species
 				flag = random
 				effect = {
@@ -436,6 +507,9 @@ country_event = {
 		hidden_effect = {
 			country_event = { id = pirate_republic.101 }
 		}
+		ai_chance = {
+			factor = 1
+		}
 	}
 }
 
@@ -467,6 +541,9 @@ country_event = {
 		hidden_effect = {
 			country_event = { id = pirate_republic.104 }
 		}
+		ai_chance = {
+			factor = 1
+		}
 	}
 }
 
@@ -497,6 +574,9 @@ country_event = {
 		name = pirate_republic.102.refuse
 		hidden_effect = {
 			country_event = { id = pirate_republic.104 }
+		}
+		ai_chance = {
+			factor = 1
 		}
 	}
 }
@@ -542,6 +622,55 @@ country_event = {
 		graphical_culture = event_target:pirate_republic
 		city_level = event_target:pirate_republic
 		room = event_target:pirate_republic.ruler
+	}
+	immediate = {
+		event_target:pirate_republic.capital_scope = {
+			### Create Defense Armies (for some job reasons common armies get deleted)
+			set_variable = { which = num_armies_var value = trigger:num_pops }
+			divide_variable = { which = num_armies_var value = 7 }
+			round_variable = num_armies_var
+			while = {
+				count = num_armies_var
+				create_army = {
+					name = random
+					owner = root
+					species = owner_species
+					type = "marauder_defense_army"
+				}
+				random_owned_pop = {
+					limit = {
+						is_robot_pop = no
+						is_sapient = yes
+					}
+					weights = {
+						base = 1
+						modifier = { add = 1 is_unemployed = yes }
+						modifier = { add = 1 NOT = { ideal_planet_class = prev } }
+						modifier = { add = 1 prev = { habitability = { who = prev value < 0.7 } } }
+						modifier = { add = 3 NOT = { is_same_species = prev.owner_species } }
+					}
+					kill_pop = yes
+				}
+				create_pop = {
+					species = owner_species
+					ethos = { ethic = "ethic_militarist" }
+				}
+
+			}
+			set_variable = { which = num_armies_var value = 2 }
+			divide_variable = { which = num_armies_var value = trigger:num_pops }
+			multiply_variable = { which = num_armies_var value = 13.4 }
+			round_variable = num_armies_var
+			subtract_variable = { which = num_armies_var value = 1 }
+			while = {
+				count = num_armies_var
+				create_pop = {
+					species = owner_species
+					ethos = { ethic = "ethic_militarist" }
+				}
+			}
+			clear_variable = num_armies_var
+		}
 	}
 	option = { name = pirate_republic.104.option }
 }
