@@ -1046,7 +1046,7 @@ country_event = {
 						save_global_event_target_as = marauder_infighting
 						set_country_flag = marauder_vengeance_begun
 						randomize_flag_symbol = "pirate"
-						set_graphical_culture = "pirate_01"
+						set_graphical_culture = "madd_01"
 						make_moderately_hostile = yes
 					}
 				}
@@ -11695,7 +11695,7 @@ country_event = {
 			set_country_flag = restored_marauders_flag
 			set_name = random
 			randomize_flag_symbol = "pirate"
-			set_graphical_culture = "pirate_01"
+			set_graphical_culture = "madd_01"
 			root = {
 				switch = {
 					trigger = has_country_flag
@@ -12666,7 +12666,7 @@ country_event = {
 						prefix = no
 						# design = "NAME_Outrider"
 						design = "NAME_Skull"
-						graphical_culture = "pirate_01"
+						graphical_culture = "madd_01"
 					}
 				}
 				while = {
@@ -12676,7 +12676,7 @@ country_event = {
 						prefix = no
 						# design = "NAME_Lancer"
 						design = "NAME_Corsair"
-						graphical_culture = "pirate_01"
+						graphical_culture = "madd_01"
 					}
 				}
 				while = {
@@ -12686,7 +12686,7 @@ country_event = {
 						prefix = no
 						# design = "NAME_Void_Champion"
 						design = "NAME_Black_Earl"
-						graphical_culture = "pirate_01"
+						graphical_culture = "madd_01"
 					}
 				}
 				set_location = root.capital_scope
@@ -12704,7 +12704,7 @@ country_event = {
 		# 					name = random
 		# 					prefix = no
 		# 					design = "NAME_Black_Earl"
-		# 					graphical_culture = "pirate_01"
+		# 					graphical_culture = "madd_01"
 		# 				}
 		# 			}
 		# 			create_privateer_ships_5 = yes

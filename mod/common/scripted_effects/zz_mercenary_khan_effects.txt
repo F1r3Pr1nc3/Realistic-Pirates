@@ -1,4 +1,4 @@
-# Replaced graphical_culture = "pirate_01"
+# Replaced graphical_culture = "madd_01"
 # Not really necessary, as vanilla graphical_culture gets ignored if invalid.
 # This = Fleet
 create_dyn_marauder_fleet = {
@@ -11,7 +11,7 @@ create_dyn_marauder_fleet = {
 			design = NAME_Outrider$VARIANT$
 			prefix = no
 			# upgradable = yes
-			graphical_culture = "pirate_01" # "madd_01"
+			graphical_culture = "madd_01"
 		}
 	}
 	while = {
@@ -21,7 +21,7 @@ create_dyn_marauder_fleet = {
 			design = NAME_Lancer$VARIANT$
 			prefix = no
 			# upgradable = yes
-			graphical_culture = "pirate_01" # "madd_01"
+			graphical_culture = "madd_01"
 		}
 	}
 	while = {
@@ -31,7 +31,7 @@ create_dyn_marauder_fleet = {
 			design = NAME_Void_Champion$VARIANT$
 			prefix = no
 			# upgradable = yes
-			graphical_culture = "pirate_01" # "madd_01"
+			graphical_culture = "madd_01"
 		}
 	}
 	while = {
@@ -41,7 +41,7 @@ create_dyn_marauder_fleet = {
 			design = NAME_Ancestral_Glory$VARIANT$
 			prefix = no
 			# upgradable = yes
-			graphical_culture = "pirate_01" # "madd_01"
+			graphical_culture = "madd_01"
 		}
 	}
 }

@@ -143,8 +143,7 @@ country_event = {
 	option = { name = CLOSE }
 }
 
-# New Pirates (HIDDEN)
-# on_monthly_pulse
+# New Pirates (HIDDEN) on_monthly_pulse
 event = {
 	id = pirate_waves.1
 	hide_window = yes
@@ -877,7 +876,7 @@ country_event = {
 # }
 
 # Manage Pirate Stations of this country (HIDDEN)
-# Called by pirate_waves.1
+# Called by pirate_waves.1 (on_monthly_pulse)
 country_event = {
 	id = pirate_waves.6
 	hide_window = yes
@@ -901,8 +900,11 @@ country_event = {
 			# Spawn a new fleet from this station immediately.
 			fleet_event = { id = pirate_waves.2 }
 			# Destroy the station
-			# log = "Pirate Station '[This.GetName]' has build a Pirate Fleet and is destroyed..."
-			destroy_fleet = this
+			random = {
+				chance = 50
+				# log = "Pirate Station '[This.GetName]' has build a Pirate Fleet and is destroyed..."
+				destroy_fleet = this
+			}
 		}
 	}
 }
