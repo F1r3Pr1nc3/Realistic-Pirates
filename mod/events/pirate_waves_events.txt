@@ -808,7 +808,7 @@ country_event = {
 						has_star_flag = hostile_system
 						any_fleet_in_system = {
 							exists = owner
-							owner = { is_pirate = yes }
+							owner = { is_pirate_country = yes }
 						}
 					}
 					any_system_planet = { is_pirate_waves_base_planet = yes }
@@ -824,7 +824,7 @@ country_event = {
 						has_star_flag = hostile_system
 						any_fleet_in_system = {
 							exists = owner
-							owner = { is_pirate = yes }
+							owner = { is_pirate_country = yes }
 						}
 					}
 					any_system_planet = { is_pirate_waves_base_planet = yes }
@@ -845,7 +845,7 @@ country_event = {
 						has_star_flag = hostile_system
 						any_fleet_in_system = {
 							exists = owner
-							owner = { is_pirate = yes }
+							owner = { is_pirate_country = yes }
 						}
 					}
 					any_system_planet = { is_pirate_waves_base_planet = yes }
@@ -960,7 +960,7 @@ country_event = {
 	is_triggered_only = yes
 	trigger = {
 		OR = {
-			is_pirate = yes
+			is_pirate_country = yes
 			is_country_type = awakened_marauders
 			is_country_type = marauder_raiders
 		}
@@ -1052,7 +1052,7 @@ country_event = {
 			limit = {
 				from = {
 					OR = {
-						is_pirate = yes
+						is_pirate_country = yes
 						is_country_type = awakened_marauders
 						is_country_type = marauder_raiders
 					}
@@ -1092,7 +1092,7 @@ country_event = {
 	is_triggered_only = yes
 	trigger = {
 		OR = {
-			is_pirate = yes
+			is_pirate_country = yes
 			is_country_type = awakened_marauders
 			is_country_type = marauder_raiders
 		}
@@ -1119,7 +1119,7 @@ country_event = {
 				NOT = {
 					from = {
 						OR = {
-							is_pirate = yes
+							is_pirate_country = yes
 							is_country_type = awakened_marauders
 							is_country_type = marauder_raiders
 						}
@@ -1629,7 +1629,13 @@ event = {
 	immediate = {
 		set_timed_global_flag = { flag = pirate_waves_667 days = 15 }
 		every_country = {
-			limit = { is_pirate = yes }
+			limit = {
+				# is_pirate = yes
+				OR = {
+					is_country_type = pirate
+					is_country_type = pirate_waves_country
+				}
+			}
 			destroy_country = yes
 		}
 	}
@@ -1710,6 +1716,507 @@ country_event = {
 		name = CLOSE
 		hidden_effect = {
 			country_event = { id = pirate_waves.0 }
+		}
+	}
+}
+
+# Rebird of Marauder enclave (HIDDEN)
+# TODO if primitive system enlighten them?
+country_event = {
+	id = pirate_waves.200
+	hide_window = yes
+	is_triggered_only = yes
+	trigger = {
+		host_has_dlc = "Apocalypse"
+		count_system = {
+			count > 3
+			limit = { is_pirate_system = yes }
+		}
+		count_country = {
+			count < 3
+			limit = { is_country_type = dormant_marauders }
+		}
+	}
+
+	immediate = {
+		log="Looking for new Maraurder place."
+		random_system = {
+			limit = {
+				is_pirate_system = yes
+				is_valid_crystal_splitter_system = yes
+				NOR = {
+					has_star_flag = enclave
+					has_star_flag = primitive_system
+				}
+				count_neighbor_system = {
+					count > 1
+					limit = { is_pirate_system = yes }
+				}
+			}
+			weights = {
+				base = 1
+				modifier = { add = 1 has_star_flag = marauder_system }
+				modifier = {
+					add = 5
+					OR = {
+						CmtTriggerMarauderCapitalSystem = yes
+						count_neighbor_system = {
+							count > 2
+							limit = { is_pirate_system = yes }
+						}
+					}
+				}
+			}
+			random_fleet_in_system = {
+				limit = { is_ship_size = pirate_station }
+				owner_species = { save_event_target_as = pirate_species }
+			}
+
+			if = {
+				limit = {
+					any_system_planet = { is_star = no is_asteroid = no }
+				}
+				random_system_planet = {
+					limit = { is_star = no is_asteroid = no }
+					weights = {
+						base = 1
+						modifier = { add = 2 colonizable_planet = yes }
+					}
+					save_event_target_as = marauder_capital
+				}
+			} else = {
+				random_neighbor_system = {
+					limit = {
+						is_pirate_system = yes
+						# is_valid_crystal_splitter_system = yes
+						NOR = {
+							# is_star_class = sc_black_hole
+							# has_star_flag = crystal_splitter_starting_system
+							# has_star_flag = crystal_splitter_destination_system
+							# has_star_flag = hostile_system
+							# has_star_flag = guardian
+							has_star_flag = tiyanki_home_system
+							has_star_flag = amoeba_home_system
+							has_star_flag = lcluster
+							has_star_flag = sealed_system
+							has_star_flag = enclave
+							has_star_flag = primitive_system
+						}
+						any_system_planet = { is_star = no is_asteroid = no }
+					}
+					weights = {
+						base = 1
+						modifier = {
+							add = 1
+							any_system_planet = { colonizable_planet = yes }
+						}
+						modifier = {
+							add = 2
+							count_neighbor_system = {
+								count > 1
+								limit = { is_pirate_system = yes }
+							}
+						}
+						modifier = {
+							add = 4
+							OR = {
+								CmtTriggerMarauderCapitalSystem = yes
+								count_neighbor_system = {
+									count > 2
+									limit = { is_pirate_system = yes }
+								}
+							}
+						}
+					}
+					random_system_planet = {
+						limit = { is_star = no is_asteroid = no }
+						weights = {
+							base = 1
+							modifier = { add = 3 colonizable_planet = yes }
+						}
+						save_event_target_as = marauder_capital
+					}
+				}
+			}
+			if = {
+				limit = {
+					NOT = { exists = event_target:marauder_capital }
+				}
+				log = "No place for new Marauder system found!?"
+				break = yes
+			}
+
+			create_country = {
+				name_list = random
+				species = event_target:pirate_species
+				type = dormant_marauders
+				civics = { civic = civic_anarcho_tribalism }
+				origin = "origin_default"
+				# TODO: if possible copy flag icon from former pirates
+				flag = {
+					# icon = { category = pirates file = random }
+					background= { category = "backgrounds" file = "00_solid.dds" }
+					colors={ "black" "black" "null" "null" }
+				}
+				ethos = {
+					ethic = ethic_fanatic_militarist
+					ethic = ethic_xenophobe
+				}
+				ignore_initial_colony_error = yes
+				effect = {
+					set_graphical_culture = pirate_01
+					set_name = random
+					save_event_target_as = marauder_starbase_owner
+					set_country_flag = first_alien_life
+					set_country_flag = has_encountered_other_empire
+					randomize_flag_symbol = "pirate"
+					set_graphical_culture = "pirate_01"
+					create_ship_design = { design = "NAME_Marauder_Starbase" }
+					add_ship_design = last_created_design
+					set_custom_capital_location = event_target:marauder_capital
+					modify_species = {
+						species = this
+						# base =
+						add_trait = "trait_pc_habitat_preference"
+						add_trait = "trait_extremely_adaptive"
+						add_trait = "trait_rapid_breeders"
+						add_trait = "trait_nomadic"
+						add_trait = "trait_quarrelsome"
+						add_trait = "trait_deviants"
+						# remove_trait =
+						add_traits_at_start_of_list = yes
+						ideal_planet_class = event_target:marauder_capital
+						change_scoped_species = no
+						# effect = { }
+					}
+				}
+			}
+			last_created_country = {
+				if = {
+					limit = {
+						NOR = {
+							exists = event_target:marauder_country_3
+							any_country = {
+								is_country_type = dormant_marauders
+								has_country_flag = marauder_3
+							}
+						}
+					}
+					set_country_flag = marauder_3
+					save_global_event_target_as = marauder_country_3
+					shift_ethic = ethic_fanatic_spiritualist
+					event_target:marauder_capital.solar_system = { set_star_flag = marauder_capital_3 }
+				} else_if = {
+					limit = {
+						NOR = {
+							exists = event_target:marauder_country_2
+							any_country = {
+								is_country_type = dormant_marauders
+								has_country_flag = marauder_2
+							}
+						}
+					}
+					set_country_flag = marauder_2
+					save_global_event_target_as = marauder_country_2
+					event_target:marauder_capital.solar_system = { set_star_flag = marauder_capital_2 }
+				} else_if = {
+					limit = {
+						NOR = {
+							exists = event_target:marauder_country_1
+							any_country = {
+								is_country_type = dormant_marauders
+								has_country_flag = marauder_1
+							}
+						}
+					}
+					set_country_flag = marauder_1
+					save_global_event_target_as = marauder_country_1
+					event_target:marauder_capital.solar_system = { set_star_flag = marauder_capital_1 }
+				} else = {
+					destroy_country = yes
+					log = "Already all Marauder exists!?"
+					break = yes
+				}
+
+				event_target:marauder_capital = {
+					set_planet_flag = raid_source
+					create_fleet = {
+						effect = {
+							set_owner = event_target:marauder_starbase_owner
+							create_ship = {
+								name = random
+								design = "NAME_Ancestral_Glory"
+								graphical_culture = "pirate_01"
+							}
+							set_formation_scale = 2
+							set_fleet_stance = aggressive
+							set_aggro_range_measure_from = self
+							set_aggro_range = 250
+							set_location = {
+								target = prev
+								distance = 20
+								angle = random
+							}
+						}
+						settings = { garrison = yes }
+					}
+					solar_system = {
+						set_star_flag = marauder_system
+						every_fleet_in_system = {
+							limit = {
+								exists = owner
+								OR = {
+									owner = { is_pirate_country = yes }
+									AND = {
+										is_mobile = no
+										owner = { CmtTriggerIsPlayableEmpire = yes }
+									}
+								}
+							}
+							set_owner = event_target:marauder_starbase_owner
+							if = {
+								limit = { exists = leader }
+								leader = { set_owner =  event_target:marauder_starbase_owner }
+							}
+						}
+						create_marauder_starbase = yes
+						starbase = {
+							create_fleet = {
+								effect = {
+									set_owner = event_target:marauder_starbase_owner
+									while = {
+										count = 22
+										create_ship = {
+											name = random
+											design = "NAME_Outrider"
+											graphical_culture = "pirate_01"
+										}
+									}
+									while = {
+										count = 14
+										create_ship = {
+											name = random
+											design = "NAME_Lancer"
+											graphical_culture = "pirate_01"
+										}
+									}
+									while = {
+										count = 8
+										create_ship = {
+											name = random
+											design = "NAME_Void_Champion"
+											graphical_culture = "pirate_01"
+										}
+									}
+									set_formation_scale = 2
+									set_fleet_stance = aggressive
+									set_aggro_range_measure_from = self
+									set_aggro_range = 250
+									set_location = {
+										target = prev
+										distance = 70
+										angle = 120
+									}
+								}
+								settings = { garrison = yes }
+							}
+
+							create_fleet = {
+								effect = {
+									set_owner = event_target:marauder_starbase_owner
+									while = {
+										count = 22
+										create_ship = {
+											name = random
+											design = "NAME_Outrider"
+											graphical_culture = "pirate_01"
+										}
+									}
+									while = {
+										count = 14
+										create_ship = {
+											name = random
+											design = "NAME_Lancer"
+											graphical_culture = "pirate_01"
+										}
+									}
+									while = {
+										count = 8
+										create_ship = {
+											name = random
+											design = "NAME_Void_Champion"
+											graphical_culture = "pirate_01"
+										}
+									}
+									set_formation_scale = 2
+									set_fleet_stance = aggressive
+									set_aggro_range_measure_from = self
+									set_aggro_range = 250
+									set_location = {
+										target = prev
+										distance = 70
+										angle = 240
+									}
+								}
+								settings = { garrison = yes }
+							}
+						}
+						random_system_planet = {
+							limit = { is_moon = yes }
+							create_fleet = {
+								effect = {
+									set_owner = event_target:marauder_starbase_owner
+									create_ship = {
+										name = random
+										design = "NAME_Void_Dwelling"
+										graphical_culture = "pirate_01"
+									}
+									set_location = {
+										target = prev
+										distance = 10
+										angle = random
+									}
+								}
+							}
+						}
+						random_system_planet = {
+							limit = {
+								is_moon = yes
+								NOT = { any_fleet_in_orbit = { } }
+							}
+							create_fleet = {
+								effect = {
+									set_owner = event_target:marauder_starbase_owner
+									create_ship = {
+										name = random
+										design = "NAME_Void_Dwelling"
+										graphical_culture = "pirate_01"
+									}
+									set_location = {
+										target = prev
+										distance = 10
+										angle = random
+									}
+								}
+							}
+						}
+						every_neighbor_system = {
+							limit = { is_pirate_system = yes }
+							every_fleet_in_system = {
+								limit = {
+									exists = owner
+									OR = {
+										owner = { is_pirate_country = yes }
+										AND = {
+											is_mobile = no
+											owner = { CmtTriggerIsPlayableEmpire = yes }
+										}
+									}
+								}
+								set_owner = event_target:marauder_starbase_owner
+								if = {
+									limit = { exists = leader }
+									leader = { set_owner =  event_target:marauder_starbase_owner }
+								}
+							}
+							create_marauder_starbase = yes
+							# Copy of marauder_initializer
+							starbase = {
+								create_fleet = {
+									effect = {
+										set_owner = event_target:marauder_starbase_owner
+										create_ship = {
+											name = random
+											design = "NAME_Void_Dwelling"
+											graphical_culture = "pirate_01"
+										}
+										set_location = {
+											target = prev
+											distance = 65
+											angle = 0
+										}
+									}
+								}
+								create_fleet = {
+									effect = {
+										set_owner = event_target:marauder_starbase_owner
+										create_ship = {
+											name = random
+											design = "NAME_Void_Dwelling"
+											graphical_culture = "pirate_01"
+										}
+										set_location = {
+											target = prev
+											distance = 115
+											angle = 145
+										}
+									}
+								}
+								create_fleet = {
+									effect = {
+										set_owner = event_target:marauder_starbase_owner
+										create_ship = {
+											name = random
+											design = "NAME_Ancestral_Glory"
+											graphical_culture = "pirate_01"
+										}
+										set_formation_scale = 2
+										set_fleet_stance = aggressive
+										set_aggro_range_measure_from = self
+										set_aggro_range = 250
+										set_location = {
+											target = prev
+											distance = 90
+											angle = 220
+										}
+									}
+									settings = { garrison = yes }
+								}
+								create_fleet = {
+									effect = {
+										set_owner = event_target:marauder_starbase_owner
+										while = {
+											count = 22
+											create_ship = {
+												name = random
+												design = "NAME_Outrider"
+												graphical_culture = "pirate_01"
+											}
+										}
+										while = {
+											count = 14
+											create_ship = {
+												name = random
+												design = "NAME_Lancer"
+												graphical_culture = "pirate_01"
+											}
+										}
+										while = {
+											count = 8
+											create_ship = {
+												name = random
+												design = "NAME_Void_Champion"
+												graphical_culture = "pirate_01"
+											}
+										}
+										set_formation_scale = 2
+										set_fleet_stance = aggressive
+										set_aggro_range_measure_from = self
+										set_aggro_range = 250
+										set_location = {
+											target = prev
+											distance = 100
+											angle = 310
+										}
+									}
+									settings = { garrison = yes }
+								}
+							}
+						}
+					}
+					log = "New Marauder capital at \\[This.GetName]"
+				}
+			}
 		}
 	}
 }

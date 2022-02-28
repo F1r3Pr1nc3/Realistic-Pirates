@@ -1046,7 +1046,7 @@ country_event = {
 						save_global_event_target_as = marauder_infighting
 						set_country_flag = marauder_vengeance_begun
 						randomize_flag_symbol = "pirate"
-						set_graphical_culture = madd_01
+						set_graphical_culture = "pirate_01"
 						make_moderately_hostile = yes
 					}
 				}
@@ -1054,8 +1054,7 @@ country_event = {
 			# Mainly copied from pirate.150
 			solar_system = {
 				random_neighbor_system = {
-					if = {
-						# Prioritise unoccupied systems
+					if = { # Prioritise unoccupied systems
 						limit = {
 							# any_neighbor_system = {
 							closest_system = {
@@ -11696,6 +11695,7 @@ country_event = {
 			set_country_flag = restored_marauders_flag
 			set_name = random
 			randomize_flag_symbol = "pirate"
+			set_graphical_culture = "pirate_01"
 			root = {
 				switch = {
 					trigger = has_country_flag

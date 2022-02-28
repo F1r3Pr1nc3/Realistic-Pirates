@@ -60,6 +60,7 @@ create_pirate_waves_countries = {
 				# Randomize the name and the flag.
 				set_name = random
 				randomize_flag_symbol = "pirate"
+				set_graphical_culture = "pirate_01"
 				# Add the pirate power
 				add_modifier = { modifier = pirate_power }
 				# # log = "Created the 1st Pirate country and added the pirate power..."
@@ -106,6 +107,7 @@ create_pirate_waves_countries = {
 				# Randomize the name and the flag.
 				set_name = random
 				randomize_flag_symbol = "pirate"
+				set_graphical_culture = "pirate_01"
 				# Add the pirate power
 				add_modifier = { modifier = pirate_power }
 				# # log = "Created the 2nd Pirate country and added the pirate power..."
@@ -118,13 +120,7 @@ create_pirate_waves_countries = {
 	every_country = {
 		limit = { is_country_type = enclave }
 		every_country = {
-			limit = {
-				is_pirate = yes
-				# OR = {
-				# 	is_country_type = pirate
-				# 	is_country_type = pirate_waves_country
-				# }
-			}
+			limit = { is_pirate_country = yes }
 			set_faction_hostility = {
 				target = prev
 				set_hostile = no

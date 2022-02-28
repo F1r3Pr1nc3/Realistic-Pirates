@@ -5,23 +5,49 @@ event = {
 	hide_window = yes
 	is_triggered_only = yes
 	trigger = {
-		# any_country = { is_country_type = pirate }
 		any_country = {
-			is_pirate = yes
-			any_owned_fleet = { is_ship_size = pirate_station }
+			# is_pirate = yes
+			OR = {
+				is_country_type = pirate
+				is_country_type = pirate_waves_country
+			}
+			any_owned_fleet = {
+				is_ship_size = pirate_station
+				NOT = { has_fleet_flag = pirate_waves_station_life_flag }
+			}
 		}
 	}
 	immediate = {
 		every_playable_country = {
 			limit = {
 				NOR = {
-					has_country_flag = pirates_spawned # <- timed flag from on_pirate_spawn
+					has_country_flag = pirates_spawned # <- timed flag from on_pirate_spawn 10 years
 					has_ethic = ethic_gestalt_consciousness
 				}
-				any_system_within_border = { is_pirate_system = yes }
+				any_system_within_border = {
+					is_pirate_system = yes
+					NOT = {
+						any_fleet_in_system = {
+							is_ship_size = pirate_station
+							has_fleet_flag = pirate_waves_station_flag
+							has_fleet_flag = pirate_waves_station_life_flag  # <- timed flag from on_pirate_spawn 10 years
+						}
+					}
+				}
 				any_system_within_border = {
 					is_capital_system = no
-					any_system_planet = { is_colony = yes }
+					any_system_planet = {
+						is_colony = yes
+						is_under_colonization = no
+						NOT = { has_planet_flag = pirate_invasion }
+						has_ground_combat = no
+					}
+					NOT = {
+						any_fleet_in_system = {
+							exists = owner
+							owner = { is_country_type = rebel }
+						}
+					}
 				}
 			}
 			country_event = { id = pirate_republic.10 }
@@ -35,11 +61,16 @@ country_event = {
 	title = pirate_republic.10.name
 	picture = GFX_evt_unknown_ships
 	desc = pirate_republic.10.desc
+	location = event_target:pirate_system
 	is_triggered_only = yes
 	immediate = {
 		random_country = {
 			limit = {
-				is_pirate = yes
+				# is_pirate = yes only works for single country type
+				OR = {
+					is_country_type = pirate
+					is_country_type = pirate_waves_country
+				}
 				any_owned_fleet = {
 					is_ship_size = pirate_station
 					solar_system = { is_owned_by = root }
@@ -52,6 +83,7 @@ country_event = {
 					is_country_type = pirate
 				}
 			}
+			# save_event_target_as = pirate_band
 			random_owned_fleet = {
 				limit = { is_ship_size = pirate_station }
 				solar_system = {
@@ -60,6 +92,13 @@ country_event = {
 						limit = {
 							any_system_planet = {
 								is_colony = yes
+								is_under_colonization = no
+							}
+							NOT = {
+								any_fleet_in_system = {
+									exists = owner
+									owner = { is_country_type = rebel }
+								}
 							}
 						}
 						random_system_planet = {
@@ -78,6 +117,12 @@ country_event = {
 										is_colony = yes
 										is_under_colonization = no
 									}
+									NOT = {
+										any_fleet_in_system = {
+											exists = owner
+											owner = { is_country_type = rebel }
+										}
+									}
 								}
 							}
 						}
@@ -90,12 +135,22 @@ country_event = {
 								any_system_planet = {
 									is_colony = yes
 									is_under_colonization = no
+									NOT = { has_planet_flag = pirate_invasion }
+									has_ground_combat = no
+								}
+								NOT = {
+									any_fleet_in_system = {
+										exists = owner
+										owner = { is_country_type = rebel }
+									}
 								}
 							}
 							random_system_planet = {
 								limit = {
 									is_colony = yes
 									is_under_colonization = no
+									NOT = { has_planet_flag = pirate_invasion }
+									has_ground_combat = no
 								}
 								save_event_target_as = pirate_target
 							}
@@ -115,6 +170,12 @@ country_event = {
 								any_system_planet = {
 									is_colonizable = yes
 									habitability = { who = event_target:pirate_species value > 0.6 }
+								}
+								NOT = {
+									any_fleet_in_system = {
+										exists = owner
+										owner = { is_country_type = rebel }
+									}
 								}
 							}
 							random_system_planet = {
@@ -144,9 +205,30 @@ country_event = {
 							}
 						}
 					}
+					every_fleet_in_system = {
+						limit = {
+							exists = owner
+							is_owned_by = prevprevprev # event_target:pirate_band
+						}
+						if = {
+							limit = { is_mobile = yes }
+							delete_fleet = {
+								target = this
+								# kill_leader = no
+							}
+						} else = {
+							destroy_fleet = this
+						}
+					}
 				}
 			}
-			destroy_country = yes
+			if = {
+				limit = {
+					exists = this # as it could be destroyed earlier...
+					is_country_type = pirate
+				}
+				destroy_country = yes # not compatible with Pirate Waves, so destroy only system fleets
+			}
 		}
 	}
 	option = {
@@ -156,7 +238,7 @@ country_event = {
 			if = {
 				limit = { exists = event_target:pirate_target }
 				event_target:pirate_target = {
-					planet_event = { id = pirate_republic.11 days = 3 random = 4 }
+					planet_event = { id = pirate_republic.11 days = 16 random = 8 }
 				}
 			} else = {
 				log="pirate_target not found for \\[This.GetName]"
@@ -207,7 +289,7 @@ planet_event = {
 					civic = civic_corporate_dominion
 					civic = random
 				}
-				origin = "origin_void_dwellers"
+				origin = "origin_separatists" # "origin_void_dwellers"
 				species = root.owner_species
 				flag = random
 				effect = {
@@ -215,8 +297,14 @@ planet_event = {
 				}
 			}
 		}
+		log="Test separatists: \\[event_target:pirate_republic.GetName] and \\[last_created_country.GetName]"
+		if = {
+			limit = { NOT = { exists = event_target:pirate_republic } }
+			break = yes
+		}
 		event_target:pirate_republic = {
 			randomize_flag_symbol = pirate
+			set_graphical_culture = "pirate_01"
 			set_country_flag = pirate_republic
 			establish_communications_no_message = root.owner
 			set_relation_flag = { flag = rebelling_pirates_former_owner who = root.owner }
@@ -265,6 +353,68 @@ planet_event = {
 			}
 		}
 		set_planet_flag = pirate_invasion
+	}
+	after = {
+		# Fallback if race condition?
+		if = {
+			limit = {
+				exists = event_target:pirate_republic
+				event_target:pirate_republic = {
+					NOT = { has_country_flag = pirate_republic }
+				}
+		 	}
+			event_target:pirate_republic = {
+				randomize_flag_symbol = pirate
+				set_graphical_culture = "pirate_01"
+				set_country_flag = pirate_republic
+				establish_communications_no_message = root.owner
+				set_relation_flag = { flag = rebelling_pirates_former_owner who = root.owner }
+				root = {
+					owner = {
+						every_relation = {
+							limit = { has_communications = prev }
+							establish_communications_no_message = prevprevprev
+						}
+					}
+					while = {
+						count = 25 # TODO dyn
+						create_army = {
+							name = "Pirate Invaders"
+							owner = event_target:pirate_republic
+							species = root.owner_species
+							type = "pirate_army"
+						}
+					}
+				}
+				create_leader = {
+					class = ruler
+					species = owner_main_species
+					name = random
+					skill = 2
+					traits = { trait = random_trait }
+				}
+				assign_leader = last_created_leader
+				ruler = { add_random_leader_trait = yes }
+				set_pirates_difficulty = yes
+				# Create a fleet based on fleet power.
+				create_fleet = {
+					name = "NAME_Pirate_Fleet"
+					effect = {
+						save_event_target_as = pirate_waves_fleet
+						# Owner is set before the ships are created so that random naming works.
+						set_owner = prev
+						# Create ships
+						create_pirate_waves_fleet = yes
+						# Fleet settings
+						set_location = root
+						# set_fleet_stance = aggressive
+						set_aggro_range_measure_from = self
+						set_aggro_range = 150
+					}
+				}
+			}
+			set_planet_flag = pirate_invasion
+		}
 	}
 	option = { name = pirate_republic.11.option }
 }
@@ -317,7 +467,10 @@ country_event = {
 		from = { save_event_target_as = pirate_republic }
 		save_event_target_as = old_owner
 		fromfrom.solar_system = {
-			starbase = { set_owner = event_target:pirate_republic }
+			if = {
+				limit = { exists = starbase }
+				starbase = { set_owner = event_target:pirate_republic }
+			}
 			add_claims = {
 				who = event_target:old_owner
 				num_of_claims = 1

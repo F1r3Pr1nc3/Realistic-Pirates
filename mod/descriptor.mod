@@ -1,4 +1,4 @@
-version="3.3.1.3"
+version="3.3.1.4"
 tags={
 	"Balance"
 	"Military"
@@ -6,6 +6,10 @@ tags={
 	"Overhaul"
 	"Utilities"
 	"Pirates"
+}
+dependencies={
+	"The Great Khan Expanded [3.3.☠]"
+	"The Zenith of Fallen Empires 3.0"
 }
 name="Realistic Pirates [3.3.☠]"
 supported_version="3.3.*"

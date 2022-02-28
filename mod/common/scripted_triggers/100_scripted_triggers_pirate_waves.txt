@@ -122,14 +122,14 @@ is_pirate_waves_raiding_planet = {
 			orbital_station = {
 				exists = owner
 				owner = {
-					NOT = { is_same_empire = event_target:current_pirate_country }
+					NOT = { is_same_empire = event_target:pirate_waves_fleet.owner }
 				}
 			}
 		}
 		any_fleet_in_orbit = {
 			is_ship_class = shipclass_military_station
 			exists = owner
-			NOT = { is_owned_by = event_target:current_pirate_country }
+			NOT = { is_owned_by = event_target:pirate_waves_fleet.owner }
 		}
 	}
 }
