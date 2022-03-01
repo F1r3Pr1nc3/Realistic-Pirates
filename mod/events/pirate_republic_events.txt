@@ -5,6 +5,7 @@ event = {
 	hide_window = yes
 	is_triggered_only = yes
 	trigger = {
+		NOT = { has_global_flag = pirate_republic_inactive }
 		any_country = {
 			OR = {
 				is_country_type = pirate
@@ -247,7 +248,10 @@ country_event = {
 		name = pirate_republic.10.option
 		hidden_effect = {
 			if = {
-				limit = { exists = event_target:pirate_target }
+				limit = {
+					exists = event_target:pirate_target
+					event_target:pirate_target = { is_scope_type = planet }
+				}
 				event_target:pirate_target = {
 					planet_event = { id = pirate_republic.11 days = 16 random = 8 }
 				}
@@ -308,10 +312,11 @@ planet_event = {
 				}
 			}
 		}
-		log="Test separatists: \\[event_target:pirate_republic.GetName] and \\[last_created_country.GetName]"
 		if = {
 			limit = { NOT = { exists = event_target:pirate_republic } }
 			break = yes
+		} else = {
+			log="Test separatists: \\[pirate_republic.GetName] and \\[last_created_country.GetName]"
 		}
 		event_target:pirate_republic = {
 			randomize_flag_symbol = pirate

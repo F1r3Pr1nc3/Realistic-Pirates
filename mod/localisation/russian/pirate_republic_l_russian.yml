@@ -35,3 +35,6 @@
  pirate_republic.14.desc: "Похоже, пираты не планировали простой разграбление. Вместо того, чтобы взять движимое имущество и уйти, они решили сделать §Y[pirate_republic_planet.GetName]§! своей новой оперативной базой. И не только это, но их лидер, по-видимому, провозгласил учреждение новой «республика» и даже запрашивает аудиенцию у [Root.GetRulerTitle] [Root.GetRulerName]!"
  pirate_republic.14.name: "Пиратская Республика"
  pirate_republic.14.option: "Это просто дерзость!"
+ pirate_republic_MODE_DESC: "§T$pirate_republic.14.name$§! — это попытка пиратов захватить близлежащую колонию."
+ pirate_republic_MODE_disable: "§Y$pirate_republic.14.name$§! $MODIFIERS_LABEL$ §G$ON$§!"
+ pirate_republic_MODE_enable: "§Y$pirate_republic.14.name$§! $MODIFIERS_LABEL$ §R$OFF$§!"

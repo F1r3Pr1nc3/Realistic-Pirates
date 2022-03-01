@@ -235,6 +235,7 @@ ship_event = {
 			# Another Pirate Republic start
 			if = {
 				limit = {
+					NOT = { has_global_flag = pirate_republic_inactive }
 					space_owner = {
 						NOR = {
 							has_country_flag = pirates_spawned # <- timed flag from on_pirate_spawn

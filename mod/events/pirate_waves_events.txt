@@ -15,7 +15,7 @@ namespace = pirate_waves
 country_event = {
 	id = pirate_waves.0
 	title = pirate_waves.0.title
-	desc = edict_pirate_waves_desc
+	desc = pirate_waves.0.desc
 	picture = GFX_evt_pirate_armada
 	show_sound = event_ship_bridge
 	is_triggered_only = yes
@@ -25,17 +25,33 @@ country_event = {
 	}
 	immediate = {
 		## Auto activate Pirate Waves.
+		## Try to prefill settings
 		# For pirate_waves.112
 		if = {
 			limit = { is_variable_set = pirate_waves_difficulty }
 			set_variable = { which = pirate_waves_difficulty_prev value = pirate_waves_difficulty }
 		} else = {
-			# Take default settings from Crisis Manager
 			if = {
+				limit = { exists = event_target:pirate_waves_country }
+				save_event_target_as = current_pirate_country
+			} else_if = {
+				limit = { exists = event_target:pirate_waves_2_country }
+				save_event_target_as = current_pirate_country
+			}
+			if = {
+				limit = { exists = event_target:current_pirate_country }
+				event_target:current_pirate_country = {
+					set_pirates_difficulty = yes
+					prev = {
+						set_variable = { which = pirate_waves_difficulty value = prev.pirate_waves_difficulty }
+					}
+				}
+			} else_if = {
 				limit = {
 					exists = event_target:global_event_country
 					event_target:global_event_country = { is_variable_set = CmtVarFleetPower_Khan }
 				}
+				# Fallback: Take default settings from Crisis Manager
 				event_target:global_event_country = {
 					if = {
 						limit = { check_variable = { which = CmtVarFleetPower_Khan value > 1.74 } }
@@ -54,7 +70,42 @@ country_event = {
 			}
 		}
 		# For pirate_waves.111
-		if= {
+		if = {
+			limit = { NOT = { is_variable_set = pirate_waves_chance } }
+			if = {
+				limit = {
+					is_multiplayer = yes
+					any_playable_country = { is_pirate_waves_player = yes }
+				}
+				# Take the lowest
+				every_playable_country = {
+					limit = {
+						is_ai = no
+						is_pirate_waves_player = yes
+					}
+					if = {
+						limit = {
+							check_variable = { which = pirate_waves_chance value < prev.pirate_waves_chance }
+						}
+						prev = {
+							set_variable = { which = pirate_waves_chance value = prev.pirate_waves_chance }
+						}
+					}
+				}
+			} else_if = {
+				limit = {
+					any_playable_country = { is_pirate_waves_player = yes }
+				}
+				random_playable_country = {
+					limit = { is_pirate_waves_player = yes }
+					prev = {
+						set_variable = { which = pirate_waves_chance value = prev.pirate_waves_chance }
+					}
+				}
+			} else = {
+				set_variable = { which = pirate_waves_chance value = 5 }
+			}
+		} else_if = {
 			limit = {
 				is_variable_set = pirate_waves_chance
 				check_variable = { which = pirate_waves_chance value != 0 }
@@ -62,12 +113,14 @@ country_event = {
 			}
 			set_global_flag = pirate_waves_active
 		}
-		if = {
-			limit = { NOT = { is_variable_set = pirate_waves_chance } }
-			set_variable = { which = pirate_waves_chance value = 5 }
+	}
+	after = {
+		hidden_effect = {
+			if = { limit = { is_variable_set = pirate_waves_difficulty_prev }
+				clear_variable = pirate_waves_difficulty_prev
+			}
 		}
 	}
-	# after = { }
 	option = {
 		name = "edict_pirate_waves"
 		custom_tooltip = "edict_pirate_waves_desc"
@@ -100,6 +153,84 @@ country_event = {
 		trigger = { NOT = { has_global_flag = pirate_waves_notifications_disabled } }
 		hidden_effect = {
 			set_global_flag = pirate_waves_notifications_disabled
+			country_event = { id = pirate_waves.0 }
+		}
+	}
+	## MARAUDER_MODE
+	option = {
+		name = "MARAUDER_MODE_enabled"
+		custom_tooltip = "MARAUDER_MODE_disable_desc"
+		trigger = {
+			NOT = { has_global_flag = pirate_waves_marauders_inactive }
+			host_has_dlc = Apocalypse
+		}
+		allow = { has_global_flag = pirate_waves_active }
+		hidden_effect = {
+			set_global_flag = pirate_waves_marauders_inactive
+			country_event = { id = pirate_waves.0 }
+		}
+	}
+	option = {
+		name = "MARAUDER_MODE_disabled"
+		custom_tooltip = "MARAUDER_MODE_enable_desc"
+		trigger = {
+			has_global_flag = pirate_waves_marauders_inactive
+			host_has_dlc = Apocalypse
+		}
+		allow = { has_global_flag = pirate_waves_active }
+		hidden_effect = {
+			remove_global_flag = pirate_waves_marauders_inactive
+			country_event = { id = pirate_waves.0 }
+		}
+	}
+	## MERCENARY_MODE
+	option = {
+		name = "MERCENARY_MODE_enabled"
+		custom_tooltip = "MERCENARY_MODE_disable_desc"
+		trigger = {
+			NOT = { has_global_flag = pirate_waves_mercenary_inactive }
+			host_has_dlc = Apocalypse
+		}
+		allow = { has_global_flag = pirate_waves_active }
+		hidden_effect = {
+			set_global_flag = pirate_waves_mercenary_inactive
+			country_event = { id = pirate_waves.0 }
+		}
+	}
+	option = {
+		name = "MERCENARY_MODE_disabled"
+		custom_tooltip = "MERCENARY_MODE_enable_desc"
+		trigger = {
+			has_global_flag = pirate_waves_mercenary_inactive
+			host_has_dlc = Apocalypse
+		}
+		allow = { has_global_flag = pirate_waves_active }
+		hidden_effect = {
+			remove_global_flag = pirate_waves_mercenary_inactive
+			country_event = { id = pirate_waves.0 }
+		}
+	}
+	## Pirate Republic
+	option = {
+		name = "pirate_republic_MODE_disable"
+		custom_tooltip = "pirate_republic_MODE_DESC"
+		trigger = {
+			NOT = { has_global_flag = pirate_republic_inactive }
+			host_has_dlc = Apocalypse
+		}
+		hidden_effect = {
+			set_global_flag = pirate_republic_inactive
+			country_event = { id = pirate_waves.0 }
+		}
+	}
+	option = {
+		name = "pirate_republic_MODE_enable"
+		custom_tooltip = "pirate_republic_MODE_DESC"
+		trigger = {
+			has_global_flag = pirate_republic_inactive
+		}
+		hidden_effect = {
+			remove_global_flag = pirate_republic_inactive
 			country_event = { id = pirate_waves.0 }
 		}
 	}

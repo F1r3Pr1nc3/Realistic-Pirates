@@ -35,3 +35,6 @@
  pirate_republic.14.desc: "Es scheint, dass die Piraten nicht eine einfache Plünderung geplant haben. Anstatt irgendwelche beweglichen Güter zu nehmen und zu gehen, haben sie beschlossen, §Y[pirate_republic_planet.GetName]§! zu ihrer neuen Operationsbasis zu machen. Nicht nur das , aber ihr Anführer hat offenbar die Einrichtung einer neuen 'Republik' ausgerufen und bittet sogar um eine Audienz bei [Root.GetRulerTitle] [Root.GetRulerName]!"
  pirate_republic.14.name: "Die Piratenrepublik"
  pirate_republic.14.option: "Die schiere Kühnheit von allen!"
+ pirate_republic_MODE_DESC: "§T$pirate_republic.14.name$§! ist ein Versuch von Piraten, eine nahe gelegene Kolonie zu erobern."
+ pirate_republic_MODE_disable: "§Y$pirate_republic.14.name$§! $MODIFIERS_LABEL$ §G$ON$§!"
+ pirate_republic_MODE_enable: "§Y$pirate_republic.14.name$§! $MODIFIERS_LABEL$ §R$OFF$§!"

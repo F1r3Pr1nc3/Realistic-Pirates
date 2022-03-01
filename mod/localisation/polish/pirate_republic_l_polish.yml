@@ -35,3 +35,6 @@
  pirate_republic.14.desc: "It seems that the pirates were not planning a simple sack. Instead of taking any movable goods and leaving, they decided to make §Y[pirate_republic_planet.GetName]§! their new base of operations. Not only that, but their leader apparently proclamed the institution of a new 'republick' and is even requesting an audience with [Root.GetRulerTitle] [Root.GetRulerName]!"
  pirate_republic.14.name: "The Pirate Republick"
  pirate_republic.14.option: "The sheer audacity of it all!"
+ pirate_republic_MODE_DESC: "§T$pirate_republic.14.name$§! is an attempt by pirates to seize a nearby colony."
+ pirate_republic_MODE_disable: "§Y$pirate_republic.14.name$§! $MODIFIERS_LABEL$ §G$ON$§!"
+ pirate_republic_MODE_enable: "§Y$pirate_republic.14.name$§! $MODIFIERS_LABEL$ §R$OFF$§!"

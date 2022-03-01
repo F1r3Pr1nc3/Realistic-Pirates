@@ -35,3 +35,6 @@
  pirate_republic.14.desc: "海盗们似乎并没有计划简单的洗劫。他们没有带走任何可移动的货物就离开，而是决定将§Y[pirate_republic_planet.GetName]§!作为他们的新行动基地。不仅如此，但他们的领导人显然宣布建立一个新的‘共和国'，甚至要求与 [Root.GetRulerTitle] [Root.GetRulerName] 接见！"
  pirate_republic.14.name: "海盗共和国"
  pirate_republic.14.option: "这一切的大胆！"
+ pirate_republic_MODE_DESC: "§T$pirate_republic.14.name$§! 是海盗企图夺取附近的殖民地。"
+ pirate_republic_MODE_disable: "§Y$pirate_republic.14.name$§! $MODIFIERS_LABEL$ §G$ON$§!"
+ pirate_republic_MODE_enable: "§Y$pirate_republic.14.name$§! $MODIFIERS_LABEL$ §R$OFF$§!"
