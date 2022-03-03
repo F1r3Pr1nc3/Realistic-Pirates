@@ -1,4 +1,4 @@
-version="3.3.1.5"
+version="3.3.2.0"
 tags={
 	"Balance"
 	"Military"
@@ -8,6 +8,7 @@ tags={
 	"Pirates"
 }
 dependencies={
+	"Marauders Remodeled"
 	"The Great Khan Expanded [3.3.☠]"
 	"The Zenith of Fallen Empires 3.0"
 }

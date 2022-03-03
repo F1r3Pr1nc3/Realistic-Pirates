@@ -1,0 +1,69 @@
+# scope = country
+on_first_contact = {
+	events = {
+		tob_action.1
+	}
+}
+
+on_monthly_pulse = {
+	events = {
+		tob_quest.2
+		tob_action.12
+	}
+}
+
+on_yearly_pulse = {
+	events = {
+		tob_budget.1
+	}
+}
+
+on_decade_pulse = {
+	events = {
+		tob_budget.2
+	}
+}
+# scope = country
+on_custom_diplomacy = {
+	events = {
+		tob_merc.3
+	}
+}
+
+# this = owner of fleet 1 (destroyed)
+# from = owner of fleet 2 (combatant)
+# fromfrom = fleet 1
+# fromfromfrom = fleet 2
+on_fleet_destroyed_victim = {
+	events = {
+		tob_action.2
+		tob_action.9
+		tob_action.10
+	}
+}
+
+# this = owner of fleet 1
+# from = owner of fleet 2
+# fromfrom = fleet 1
+# fromfromfrom = fleet 2
+on_entering_battle = {
+	events = {
+		tob_action.4
+	}
+}
+
+on_country_destroyed = {
+	events = {
+		tob_action.5
+	}
+}
+
+# this = owner of ship 1 (destroyed)
+# from = owner of ship 2 (combatant)
+# fromfrom = ship 1
+# fromfromfrom = ship 2
+on_ship_destroyed_victim = {
+	events = {
+		tob_action.11
+	}
+}

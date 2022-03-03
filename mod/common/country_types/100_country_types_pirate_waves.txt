@@ -16,7 +16,7 @@ pirate_waves_country = {
 	can_receive_envoys = no
 	government = no
 	observable = no
-	playable = no
+	playable = { always = no }
 	piracy_risk = no
 	diplomatic_wars = no
 	share_survey_data = no
@@ -58,7 +58,7 @@ pirate = {
 	can_receive_envoys = no
 	government = no
 	observable = no
-	playable = no
+	playable = { always = no }
 	piracy_risk = no
 	diplomatic_wars = no
 	share_survey_data = no

@@ -27,7 +27,7 @@ namespace = marauder
 ###		Khan Dead Events		###
 # on_ship_destroyed_victim	marauder.505 Defeated in Combat but NOT die.
 # on_ship_destroyed_victim	marauder.509 Defeated in Combat and die.
-# on_monthly_pulse			marauder.512 Dies for Other Reasons - From marauder.511.
+# on_monthly_pulse			marauder.512 Dies for Other Reasons - from marauder.511.
 # On timer start			marauder.514 Dies of Old Ages.
 # on_leader_death			marauder.711/.712
 
@@ -163,10 +163,10 @@ country_event = {
 }
 
 ### Marauders Destroyed (HIDDEN) on_ship_destroyed_victim
-# This = owner of ship 1 (destroyed)
-# From = owner of ship 2 (combatant)
-# FromFrom = ship 1
-# FromFromFrom = ship 2
+# this = owner of ship 1 (destroyed)
+# from = owner of ship 2 (combatant)
+# fromfrom = ship 1
+# fromfromfrom = ship 2
 country_event = {
 	id = marauder.4
 	hide_window = yes
@@ -411,21 +411,22 @@ country_event = {
 		every_playable_country = {
 			limit = {
 				is_ai = no
-				NOT = { is_same_value = root }
+				NOT = { is_same_empire = root }
 			}
 			country_event = { id = marauder.8 days = 10 }
 		}
-		# Marauder 1
-		if = {
-			limit = {
-				from = { has_country_flag = marauder_1 }
-			}
-			# Armada of the Voidborn
+
+		from = {
+			# Marauder 1
 			if = {
 				limit = {
-					from = { has_country_flag = merc_fleet_1_hired }
+					has_country_flag = marauder_1
 				}
-				from = {
+				# Armada of the Voidborn
+				if = {
+					limit = {
+						has_country_flag = merc_fleet_1_hired
+					}
 					create_leader = {
 						class = admiral
 						species = owner_main_species
@@ -460,13 +461,11 @@ country_event = {
 						}
 					}
 				}
-			}
-			# Star Rider Flotilla
-			if = {
-				limit = {
-					from = { has_country_flag = merc_fleet_2_hired }
-				}
-				from = {
+				# Star Rider Flotilla
+				if = {
+					limit = {
+						has_country_flag = merc_fleet_2_hired
+					}
 					create_leader = {
 						class = admiral
 						species = owner_main_species
@@ -502,13 +501,11 @@ country_event = {
 						}
 					}
 				}
-			}
-			# First Storm Wing
-			if = {
-				limit = {
-					from = { has_country_flag = merc_fleet_3_hired }
-				}
-				from = {
+				# First Storm Wing
+				if = {
+					limit = {
+						has_country_flag = merc_fleet_3_hired
+					}
 					create_leader = {
 						class = admiral
 						species = owner_main_species
@@ -544,18 +541,16 @@ country_event = {
 					}
 				}
 			}
-		}
-		# Marauder 2
-		else_if = {
-			limit = {
-				from = { has_country_flag = marauder_2 }
-			}
-			# 234th Dwamak-Bashers
-			if = {
+			# Marauder 2
+			else_if = {
 				limit = {
-					from = { has_country_flag = merc_fleet_1_hired }
+					has_country_flag = marauder_2
 				}
-				from = {
+				# 234th Dwamak-Bashers
+				if = {
+					limit = {
+						has_country_flag = merc_fleet_1_hired
+					}
 					create_leader = {
 						class = admiral
 						species = owner_main_species
@@ -590,13 +585,11 @@ country_event = {
 						}
 					}
 				}
-			}
-			# Unhinged Screamer Flotilla
-			if = {
-				limit = {
-					from = { has_country_flag = merc_fleet_2_hired }
-				}
-				from = {
+				# Unhinged Screamer Flotilla
+				if = {
+					limit = {
+						has_country_flag = merc_fleet_2_hired
+					}
 					create_leader = {
 						class = admiral
 						species = owner_main_species
@@ -631,13 +624,11 @@ country_event = {
 						}
 					}
 				}
-			}
-			# Frenzied Volunteer Squadron
-			if = {
-				limit = {
-					from = { has_country_flag = merc_fleet_3_hired }
-				}
-				from = {
+				# Frenzied Volunteer Squadron
+				if = {
+					limit = {
+						has_country_flag = merc_fleet_3_hired
+					}
 					create_leader = {
 						class = admiral
 						species = owner_main_species
@@ -673,59 +664,55 @@ country_event = {
 					}
 				}
 			}
-		}
-		# Marauder 3
-		else_if = {
-			limit = {
-				from = { has_country_flag = marauder_3 }
-			}
-			# Her Chosen Champions
-			if = {
+			# Marauder 3
+			else_if = {
 				limit = {
-					from = { has_country_flag = merc_fleet_1_hired }
+					has_country_flag = marauder_3
 				}
-				from = {
-					create_leader = {
-						class = admiral
-						species = owner_main_species
-						name = random
-						skill = 3
-						leader_age_min = 25
-						leader_age_max = 45
-						traits = {
-							trait = leader_trait_mercenary_warrior
-							trait = random_trait
-						}
+				# Her Chosen Champions
+				if = {
+					limit = {
+						has_country_flag = merc_fleet_1_hired
 					}
-					create_fleet = {
-						name = "NAME_Her_Chosen_Champions"
-						effect = {
-							set_owner = prev
-							create_her_chosen_champions = yes
-							assign_leader = last_created_leader
-							set_location = {
-								target = event_target:attacked_system_star
-								distance = 370
-								angle = 12
-							}
-							auto_move_to_planet = {
-								target = event_target:attacked_planet
-								clear_auto_move_on_arrival = no
+						create_leader = {
+							class = admiral
+							species = owner_main_species
+							name = random
+							skill = 3
+							leader_age_min = 25
+							leader_age_max = 45
+							traits = {
+								trait = leader_trait_mercenary_warrior
+								trait = random_trait
 							}
 						}
-						settings = {
-							can_upgrade = no
-							can_change_composition = no
+						create_fleet = {
+							name = "NAME_Her_Chosen_Champions"
+							effect = {
+								set_owner = prev
+								create_her_chosen_champions = yes
+								assign_leader = last_created_leader
+								set_location = {
+									target = event_target:attacked_system_star
+									distance = 370
+									angle = 12
+								}
+								auto_move_to_planet = {
+									target = event_target:attacked_planet
+									clear_auto_move_on_arrival = no
+								}
+							}
+							settings = {
+								can_upgrade = no
+								can_change_composition = no
+							}
 						}
+				}
+				# Order of Eternal Night
+				if = {
+					limit = {
+						has_country_flag = merc_fleet_2_hired
 					}
-				}
-			}
-			# Order of Eternal Night
-			if = {
-				limit = {
-					from = { has_country_flag = merc_fleet_2_hired }
-				}
-				from = {
 					create_leader = {
 						class = admiral
 						species = owner_main_species
@@ -760,13 +747,11 @@ country_event = {
 						}
 					}
 				}
-			}
-			# Twilight Congregation
-			if = {
-				limit = {
-					from = { has_country_flag = merc_fleet_3_hired }
-				}
-				from = {
+				# Twilight Congregation
+				if = {
+					limit = {
+						has_country_flag = merc_fleet_3_hired
+					}
 					create_leader = {
 						class = admiral
 						species = owner_main_species
@@ -1200,10 +1185,10 @@ country_event = {
 }
 
 # Marauder Infighting Over (on_fleet_destroyed_victim)
-# This = owner of fleet 1 (destroyed)
-# From = owner of fleet 2 (combatant)
-# FromFrom = fleet 1
-# FromFromFrom = fleet 2
+# this = owner of fleet 1 (destroyed)
+# from = owner of fleet 2 (combatant)
+# fromfrom = fleet 1
+# fromfromfrom = fleet 2
 country_event = {
 	id = marauder.13
 	hide_window = yes
@@ -2105,7 +2090,7 @@ country_event = {
 }
 
 ## Jump fleet to raid target.
-# From = marauder_target
+# from = marauder_target
 fleet_event = {
 	id = marauder.27
 	hide_window = yes
@@ -2147,8 +2132,8 @@ fleet_event = {
 }
 
 ## raiding_marauder stuck fix
-# Root = dormant_marauder
-# From = marauder_target
+# root = dormant_marauder
+# from = marauder_target
 country_event = {
 	id = marauder.28
 	hide_window = yes
@@ -2765,7 +2750,7 @@ country_event = {
 
 # Raid commences
 # Only fix omit Marauders getting stuck (by FirePrince)
-# Root = marauder_target
+# root = marauder_target
 country_event = {
 	id = marauder.33
 	hide_window = yes
@@ -4140,8 +4125,8 @@ fleet_event = {
 }
 
 ### Mercenaries Leave (Home Systems Destroyed)
-# This = Hiring country
-# From = Destroyed Marauders
+# this = Hiring country
+# from = Destroyed Marauders
 country_event = {
 	id = marauder.76
 	title = "marauder.76.name"
@@ -4747,13 +4732,11 @@ event = {
 		any_playable_country = {
 			NOT = { has_country_flag = under_marauder_attack }
 			any_relation = {
-				AND = {
-					is_country_type = dormant_marauders
-					has_communications = prev
-					NOR = {
-						has_country_flag = raid_ongoing
-						has_country_flag = raid_cooldown
-					}
+				is_country_type = dormant_marauders
+				has_communications = prev
+				NOR = {
+					has_country_flag = raid_ongoing
+					has_country_flag = raid_cooldown
 				}
 			}
 		}
@@ -5604,7 +5587,7 @@ country_event = {
 
 # Raiders Hit Planet (HIDDEN)
 # Vanilla Fixes: Fleets getting stuck (due FTL Inhibitors and planet owner change)
-# From = Bombarder
+# from = Bombarder
 planet_event = {
 	id = marauder.103
 	hide_window = yes
@@ -6007,9 +5990,9 @@ planet_event = {
 				}
 				fromfrom.species = { save_event_target_as = marauder_species }
 			}
-			# log="Marauder From.species exists \\[marauder_species.GetName]"
+			# log="Marauder from.species exists \\[marauder_species.GetName]"
 		}
-		# else = { log="No Marauder Species FromFrom \\[FromFrom.GetName]" }
+		# else = { log="No Marauder Species fromfrom \\[FromFrom.GetName]" }
 		owner = {
 			set_variable = { which = destruction_amount value = 3 }
 			if = {
@@ -7657,8 +7640,8 @@ event = {
 }
 
 # Set country friendly
-# This = target1 country - fleets
-# From = target2
+# this = target1 country - fleets
+# from = target2
 country_event = {
 	id = marauder.308
 	hide_window = yes
@@ -8605,9 +8588,9 @@ country_event = {
 ### Standard War Process ###
 ############################
 ### Horde Conquers Planet
-# This = country, leader attacker
-# From = country, planet owner
-# FromFrom = planet
+# this = country, leader attacker
+# from = country, planet owner
+# fromfrom = planet
 country_event = {
 	id = marauder.503
 	hide_window = yes
@@ -8937,9 +8920,9 @@ country_event = {
 ###- Death of Khan -###
 #######################
 ### Khan defeated in Combat (on_ship_destroyed_victim)
-# This = owner of ship 1 (destroyed)
-# From = owner of ship 2 (combatant)
-# FromFrom = ship 1
+# this = owner of ship 1 (destroyed)
+# from = owner of ship 2 (combatant)
+# fromfrom = ship 1
 country_event = {
 	id = marauder.505
 	hide_window = yes
@@ -9753,11 +9736,11 @@ country_event = {
 				event_target:planet_former_owner = { is_same_empire = root }
 			}
 			country_event = { id = marauder.516 }
-		} else_if = { # Planet belonged to someone else
+		} else_if = { # Planet belonged to someone else.
 			limit = { exists = event_target:planet_former_owner }
 			country_event = { id = marauder.517 }
-		} else = { # Planet's former owner no longer exists
-			if = {  # Planet belonged to someone else
+		} else = { # Planet's former owner no longer exists.
+			if = {  # Planet belonged to someone else.
 				limit = {
 					exists = event_target:liberated_planet.solar_system.starbase
 					exists = event_target:liberated_planet.solar_system.starbase.owner
@@ -9870,7 +9853,7 @@ country_event = {
 	}
 }
 
-# Liberated Returned to Our Control
+# Liberated Returned to Our Control.
 country_event = {
 	id = marauder.519
 	title = "marauder.516.name"
@@ -9884,7 +9867,7 @@ country_event = {
 }
 
 ### Marauder Reinforcement Cycle at Capital (Regular)
-# This = Marauder
+# this = Marauder
 country_event = {
 	id = marauder.520
 	hide_window = yes
@@ -10067,8 +10050,8 @@ country_event = {
 }
 
 ### Horde Clearing System (for evaluation marauder.555)
-# This = starbase being destroyed
-# From = fleet that destroyed the starbase
+# this = starbase being destroyed
+# from = fleet that destroyed the starbase
 starbase_event = {
 	id = marauder.527
 	hide_window = yes
@@ -10159,8 +10142,8 @@ starbase_event = {
 # Vanilla Fix
 ### Horde Clearing Planet (for evaluation marauder.555)
 # Planet has reached 0 pops from orbital bombardment or collateral damage.
-# This = Planet
-# From = Bombarder
+# this = Planet
+# from = Bombarder
 planet_event = {
 	id = marauder.528
 	hide_window = yes
@@ -10686,7 +10669,7 @@ country_event = {
 				days = 1
 			}			# To be sure
 		}
-		#CmtEffectCreateEncouragingBase = yes		## event_target:garrison_base
+		# CmtEffectCreateEncouragingBase = yes		## event_target:garrison_base
 		create_fleet = {
 			effect = {
 				set_owner = event_target:raider_khanate
@@ -11061,7 +11044,7 @@ country_event = {
 
 # Submit to Khan (Pre-Helper)
 # Used also for marauder.555 and marauder.551
-# This = new subject
+# this = new subject
 country_event = {
 	id = marauder.559
 	is_triggered_only = yes
@@ -11157,7 +11140,7 @@ country_event = {
 }
 
 ### Regular Reinforcements at Capital of Satrap (Marauder Auxiliary Cycle)
-# This = Garrison_Base
+# this = Garrison_Base
 fleet_event = {
 	id = marauder.560
 	hide_window = yes
@@ -11541,7 +11524,7 @@ country_event = {
 }
 
 # Democratic Federation (HIDDEN)
-# This = awakened_marauders
+# this = awakened_marauders
 country_event = {
 	id = marauder.603
 	hide_window = yes
@@ -11821,7 +11804,7 @@ country_event = {
 
 # Fully handover marauder country (HIDDEN)
 # From marauder.602 and marauder.603
-# This = be destroyed country
+# this = be destroyed country
 country_event = {
 	id = marauder.609
 	hide_window = yes
@@ -12777,7 +12760,7 @@ country_event = {
 }
 
 # Great Khan's Throne
-# This = khan_destroyer (from marauder.509)
+# this = khan_destroyer (from marauder.509)
 country_event = {
 	id = marauder.710
 	title = "marauder.710.name"
@@ -12804,8 +12787,8 @@ country_event = {
 }
 
 # on_leader_death - make extra sure that flag is set
-# This = Country
-# From = Leader
+# this = Country
+# from = Leader
 country_event = {
 	id = marauder.711
 	hide_window = yes

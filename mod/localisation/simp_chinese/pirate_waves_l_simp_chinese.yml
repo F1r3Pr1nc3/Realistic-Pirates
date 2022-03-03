@@ -21,7 +21,7 @@
  MERCENARY_MODE_enabled: "包容佣兵：§G$ON$§!"
  dmm_mod_pirate_waves: "$policy_pirate_waves$"
  edict_pirate_waves: "$policy_pirate_waves$ 机会"
- edict_pirate_waves_desc: "在这里您可以设置 $policy_pirate_waves$ 的机会.\n"
+ edict_pirate_waves_desc: "在这里您可以设置 $policy_pirate_waves$ 的机会"
  great_khan_wins_response: "$RT_GREAT_KHAN$ 万岁..."
  khan.710.a.tooltip: "现在统治 $gov_marauder_clans$ 作为新的 $RT_GREAT_KHAN$，书写新的辉煌银河历史。\n$food_policy_rationing_desc$"
  marauder_defense_army: "$occupation_army$"

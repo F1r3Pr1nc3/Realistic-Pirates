@@ -1,0 +1,75 @@
+bulwark_ships_unlimited = {
+	ships_upkeep_mult = -1
+	ship_experience_gain_mult = 1
+}
+
+bulwark_budget_repairs = {
+	ship_armor_regen_add_perc = 5
+	ship_shield_regen_add_perc = 5
+	ship_hull_regen_add_perc = 5
+}
+
+bulwark_core_station = {
+	ship_weapon_range_mult = 1.0
+	ship_fire_rate_mult = 1.0
+	ship_weapon_damage = 1.0
+	ship_accuracy_mult = 1.0
+	ship_armor_mult = 1.0
+	ship_shield_mult = 1.0
+	ship_armor_regen_add_perc = 1
+	ship_hull_regen_add_perc = 2
+	ship_shield_regen_add_perc = 1
+}
+
+bulwark_expert_military_training = {
+	ship_experience_gain_mult = 2
+	army_experience_gain_mult = 2
+}
+
+bulwark_good_military_training = {
+	ship_experience_gain_mult = 1
+	army_experience_gain_mult = 1
+}
+
+bulwark_expert_science_training = {
+	all_technology_research_speed = 0.10
+	num_tech_alternatives_add = 1
+	ship_anomaly_research_speed_mult = 0.2
+	ship_archaeological_site_excavation_speed_mult = 0.2
+}
+
+bulwark_good_science_training = {
+	all_technology_research_speed = 0.05
+	num_tech_alternatives_add = 1
+	ship_anomaly_research_speed_mult = 0.1
+	ship_archaeological_site_excavation_speed_mult = 0.1
+}
+
+bulwark_expert_populace_training = {
+	planet_structures_upkeep_mult = -0.2
+	planet_jobs_produces_mult = 0.1
+	planet_colony_development_speed_mult = 0.5
+	megastructure_build_speed_mult = 0.2
+}
+
+bulwark_good_populace_training = {
+	planet_structures_upkeep_mult = -0.1
+	planet_jobs_produces_mult = 0.1
+	planet_colony_development_speed_mult = 0.25
+	megastructure_build_speed_mult = 0.1
+}
+
+bulwark_outpost_established = {
+	planet_jobs_physics_research_produces_mult = -0.15
+	planet_jobs_society_research_produces_mult = -0.15
+	planet_jobs_engineering_research_produces_mult = -0.15
+	planet_jobs_produces_mult = -0.1
+	icon = "gfx/interface/icons/planet_modifiers/pm_enigmatic_cache.dds"
+	icon_frame = 1
+}
+
+bulwark_extensive_raids = {
+	planet_jobs_produces_mult = -0.5
+	icon = "gfx/interface/icons/planet_modifiers/pm_enigmatic_cache.dds"
+	icon_frame = 1
+}

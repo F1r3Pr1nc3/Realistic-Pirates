@@ -21,7 +21,7 @@
  MERCENARY_MODE_enabled: "Mercenaires inclus: §G$ON$§!"
  dmm_mod_pirate_waves: "$policy_pirate_waves$"
  edict_pirate_waves: "Pirate Waves Chance"
- edict_pirate_waves_desc: "Ici, vous pouvez définir la chance pour la vague pirate.\n"
+ edict_pirate_waves_desc: "Ici, vous pouvez définir la chance pour la vague pirate"
  great_khan_wins_response: "Vive le $RT_GREAT_KHAN$..."
  khan.710.a.tooltip: "Qui dirige maintenant le $gov_marauder_clans$ en tant que $RT_GREAT_KHAN$ pour écrire de nombreuses nouvelles histoire galactique.\n$food_policy_rationing_desc$"
  marauder_defense_army: "$occupation_army$"

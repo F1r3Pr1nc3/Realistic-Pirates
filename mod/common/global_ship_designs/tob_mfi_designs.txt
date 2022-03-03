@@ -1,0 +1,329 @@
+ship_design = {
+	name = "NAME_BULWARK_HIGHESTCORVETTE"
+	ship_size = corvette
+	country_type = outer_bulwarks
+	section = {
+		template = "CORVETTE_MID_M1S1"
+		slot = "mid"
+		
+		component = {
+			slot = "SMALL_GUN_01"
+			template = "SMALL_MASS_DRIVER_5"
+		}
+		component = {
+			slot = "TORPEDO_01"
+			template = "MISSILE_5"
+		}
+		component = {
+			slot = "SMALL_UTILITY_1"
+			template = "SMALL_ARMOR_5"
+		}
+		component = {
+			slot = "SMALL_UTILITY_2"
+			template = "SMALL_ARMOR_5"
+		}
+		component = {
+			slot = "SMALL_UTILITY_3"
+			template = "SMALL_SHIELD_5"
+		}
+		component = {
+			slot = "AUX_UTILITY_1"
+			template = "FIRE_CONTROL_1"
+		}
+	}
+	required_component = "SENSOR_4"
+	required_component = "COMBAT_COMPUTER_SWARM_AUTONOMOUS"
+	required_component = "SHIP_THRUSTER_4"
+	required_component = "JUMP_DRIVE_1"
+
+	# For special buildable
+	is_special_buildable = yes
+	allow_buildable_trigger = is_bulwark_empire
+}
+
+ship_design = {
+	name = "NAME_BULWARK_HIGHESTDESTROYER"
+	ship_size = destroyer
+	country_type = outer_bulwarks
+	section = {
+		template = "DESTROYER_BOW_L1"
+		slot = "bow"
+		
+		component = {
+			slot = "LARGE_GUN_01"
+			template = "LARGE_GAMMA_LASER"
+		}
+		component = {
+			slot = "SMALL_UTILITY_1"
+			template = "SMALL_ARMOR_5"
+		}
+		component = {
+			slot = "SMALL_UTILITY_2"
+			template = "SMALL_ARMOR_5"
+		}
+		component = {
+			slot = "SMALL_UTILITY_3"
+			template = "SMALL_ARMOR_5"
+		}
+		component = {
+			slot = "SMALL_UTILITY_4"
+			template = "SMALL_ARMOR_5"
+		}
+		component = {
+			slot = "SMALL_UTILITY_5"
+			template = "SMALL_SHIELD_5"
+		}
+		component = {
+			slot = "SMALL_UTILITY_6"
+			template = "SMALL_SHIELD_5"
+		}
+	}
+	section = {
+		template = "DESTROYER_STERN_PD2"
+		slot = "stern"
+		
+		component = {
+			slot = "SMALL_GUN_01"
+			template = "FLAK_BATTERY_3"
+		}
+		component = {
+			slot = "SMALL_GUN_02"
+			template = "FLAK_BATTERY_3"
+		}
+		component = {
+			slot = "AUX_UTILITY_1"
+			template = "FIRE_CONTROL_1"
+		}
+	}
+	required_component = "SENSOR_4"
+	required_component = "COMBAT_COMPUTER_PICKET_AUTONOMOUS"
+	required_component = "SHIP_THRUSTER_4"
+	required_component = "JUMP_DRIVE_1"
+
+	# For special buildable
+	is_special_buildable = yes
+	allow_buildable_trigger = is_bulwark_empire
+}
+
+ship_design = {
+	name = "NAME_BULWARK_HIGHESTCRUISER"
+	ship_size = cruiser
+	country_type = outer_bulwarks
+	section = {
+		template = "CRUISER_BOW_L1"
+		slot = "bow"
+		
+		component = {
+			slot = "LARGE_GUN_01"
+			template = "LARGE_GAMMA_LASER"
+		}
+		component = {
+			slot = "MEDIUM_UTILITY_1"
+			template = "MEDIUM_ARMOR_5"
+		}
+		component = {
+			slot = "MEDIUM_UTILITY_2"
+			template = "MEDIUM_ARMOR_5"
+		}
+		component = {
+			slot = "MEDIUM_UTILITY_3"
+			template = "MEDIUM_ARMOR_5"
+		}
+		component = {
+			slot = "MEDIUM_UTILITY_4"
+			template = "MEDIUM_SHIELD_5"
+		}
+	}
+	section = {
+		template = "CRUISER_MID_L1M1"
+		slot = "mid"
+		
+		component = {
+			slot = "LARGE_GUN_01"
+			template = "LARGE_GAMMA_LASER"
+		}
+		component = {
+			slot = "MEDIUM_GUN_01"
+			template = "MEDIUM_MASS_DRIVER_5"
+		}
+		component = {
+			slot = "MEDIUM_UTILITY_1"
+			template = "MEDIUM_ARMOR_5"
+		}
+		component = {
+			slot = "MEDIUM_UTILITY_2"
+			template = "MEDIUM_ARMOR_5"
+		}
+		component = {
+			slot = "MEDIUM_UTILITY_3"
+			template = "MEDIUM_SHIELD_5"
+		}
+		component = {
+			slot = "MEDIUM_UTILITY_4"
+			template = "MEDIUM_SHIELD_5"
+		}
+	}
+	section = {
+		template = "CRUISER_STERN_M1"
+		slot = "stern"
+		
+		component = {
+			slot = "MEDIUM_GUN_01"
+			template = "MEDIUM_MASS_DRIVER_5"
+		}
+		component = {
+			slot = "AUX_UTILITY_1"
+			template = "FIRE_CONTROL_1"
+		}
+		component = {
+			slot = "AUX_UTILITY_2"
+			template = "SHIELD_BOOSTER"
+		}
+	}
+	required_component = "SENSOR_4"
+	required_component = "COMBAT_COMPUTER_LINE_AUTONOMOUS"
+	required_component = "SHIP_THRUSTER_4"
+	required_component = "JUMP_DRIVE_1"
+
+	# For special buildable
+	is_special_buildable = yes
+	allow_buildable_trigger = is_bulwark_empire
+}
+
+ship_design = {
+	name = "NAME_BULWARK_HIGHESTBATTLESHIP"
+	ship_size = battleship
+	country_type = outer_bulwarks
+	section = {
+		template = "BATTLESHIP_BOW_L2"
+		slot = "bow"
+		
+		component = {
+			slot = "LARGE_GUN_01"
+			template = "LARGE_GAMMA_LASER"
+		}
+		component = {
+			slot = "LARGE_GUN_02"
+			template = "LARGE_GAMMA_LASER"
+		}
+		component = {
+			slot = "LARGE_UTILITY_1"
+			template = "LARGE_ARMOR_5"
+		}
+		component = {
+			slot = "LARGE_UTILITY_2"
+			template = "LARGE_ARMOR_5"
+		}
+		component = {
+			slot = "LARGE_UTILITY_3"
+			template = "LARGE_SHIELD_5"
+		}
+	}
+	section = {
+		template = "BATTLESHIP_MID_M4SHB"
+		slot = "mid"
+		
+		component = {
+			slot = "MEDIUM_GUN_01"
+			template = "MEDIUM_MASS_DRIVER_5"
+		}
+		component = {
+			slot = "MEDIUM_GUN_02"
+			template = "MEDIUM_MASS_DRIVER_5"
+		}
+		component = {
+			slot = "MEDIUM_GUN_03"
+			template = "MEDIUM_MASS_DRIVER_5"
+		}
+		component = {
+			slot = "MEDIUM_GUN_04"
+			template = "MEDIUM_MASS_DRIVER_5"
+		}
+		component = {
+			slot = "STRIKE_CRAFT_01"
+			template = "STRIKE_CRAFT_HANGAR_3"
+		}
+		component = {
+			slot = "LARGE_UTILITY_1"
+			template = "LARGE_ARMOR_5"
+		}
+		component = {
+			slot = "LARGE_UTILITY_2"
+			template = "LARGE_ARMOR_5"
+		}
+		component = {
+			slot = "LARGE_UTILITY_3"
+			template = "LARGE_SHIELD_5"
+		}
+	}
+	section = {
+		template = "BATTLESHIP_STERN_L1"
+		slot = "stern"
+		
+		component = {
+			slot = "LARGE_GUN_01"
+			template = "LARGE_GAMMA_LASER"
+		}
+		component = {
+			slot = "AUX_UTILITY_1"
+			template = "FIRE_CONTROL_1"
+		}
+		component = {
+			slot = "AUX_UTILITY_2"
+			template = "SHIELD_BOOSTER"
+		}
+	}
+	required_component = "SENSOR_4"
+	required_component = "COMBAT_COMPUTER_ARTILLERY_AUTONOMOUS"
+	required_component = "SHIP_THRUSTER_4"
+	required_component = "JUMP_DRIVE_1"
+
+	# For special buildable
+	is_special_buildable = yes
+	allow_buildable_trigger = is_bulwark_empire
+}
+
+ship_design = {
+	name = "NAME_BULWARK_STATION_MKFI"
+	ship_size = marauder_station
+	country_type = outer_bulwarks
+	section = {
+		template = "PIRATE_STATION_SECTION"
+		slot = "west"
+		
+		component = {
+			slot = "SMALL_GUN_01"
+			template = "SMALL_PLASMA_3"
+		}
+		component = {
+			slot = "SMALL_GUN_02"
+			template = "SMALL_GAMMA_LASER"
+		}
+		component = {
+			slot = "SMALL_GUN_03"
+			template = "SMALL_GAMMA_LASER"
+		}
+		component = {
+			slot = "LARGE_UTILITY_1"
+			template = "LARGE_ARMOR_5"
+		}
+		component = {
+			slot = "LARGE_UTILITY_2"
+			template = "LARGE_ARMOR_5"
+		}
+		component = {
+			slot = "LARGE_UTILITY_3"
+			template = "SMALL_SHIELD_5"
+		}
+		component = {
+			slot = "AUX_UTILITY_1"
+			template = "AUTO_REPAIR"
+		}
+	}
+	required_component = "SENSOR_4"
+	required_component = "COMBAT_COMPUTER_PLATFORM_AUTONOMOUS"
+
+	# For special buildable
+	is_special_buildable = yes
+	allow_buildable_trigger = is_bulwark_empire
+}

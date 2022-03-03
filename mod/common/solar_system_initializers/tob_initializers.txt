@@ -1,0 +1,2164 @@
+@base_moon_distance = 10
+
+# Supremacists
+supremacists_home = {
+	class = "rl_standard_stars"
+	usage = misc_system_init
+	asteroid_belt = {
+		type = rocky_asteroid_belt
+		radius = 230
+	}
+
+	max_instances = 1
+	usage_odds = {
+		base = 0
+		modifier = {
+			add = 2000000
+			is_in_cluster = resource_cluster_1
+			NOT = { has_star_flag = empire_cluster }
+		}
+	}
+	spawn_chance = 100
+
+	flags = { tob_system tob_supremacists }
+
+	planet = {
+		class = star
+		orbit_distance = 0
+		orbit_angle = 1
+		size = { min = 20 max = 30 }
+		has_ring = no
+
+		init_effect = {
+			create_species = {
+				name = random
+				class = random
+				blocked_archetypes = {
+					MACHINE	   
+					ROBOT	   
+					LITHOID
+				}
+				portrait = random
+				traits = {
+					ideal_planet_class = pc_habitat
+					trait = random_traits
+				}
+				effect = {
+					set_species_flag = bulwark_numbers_species
+				}
+			}
+			create_country = {
+				name_list = random
+				species = last_created_species
+				type = outer_bulwarks
+				civics = { civic = civic_mercenary_worshippers }
+				origin = "origin_default"
+				flag = {
+					icon = {
+						category = "spherical"
+						file = "flag_spherical_22.dds"
+					}
+					background= {
+						category = "backgrounds"
+						file = "circle.dds"
+					}
+					colors={
+						"black"
+						"black"
+						"null"
+						"null"
+					}
+				}
+				ethos = {
+					ethic = ethic_fanatic_militarist
+					ethic = ethic_xenophile
+				}
+				ignore_initial_colony_error = yes
+			}
+			last_created_country = {
+				set_graphical_culture = pirate_01
+				save_global_event_target_as = tob_supremacist_faction
+				set_country_flag = bulwark_numbers
+				set_country_flag = bulwark_country_techone
+				set_country_flag = bulwark_country_numberstwo
+				set_name = "The Peripheral Heart"
+				create_ship_design = { design = "NAME_Marauder_Starbase" }
+				add_ship_design = last_created_design
+				random_owned_species = {
+					limit = {
+						has_species_flag = bulwark_numbers_species
+					}
+					save_global_event_target_as = bulwark_numbers_species_global
+				}
+			}
+			create_fleet = {
+				effect = {
+					set_owner = event_target:tob_supremacist_faction
+					create_ship = {
+						name = random
+						design = "NAME_BULWARK_HABITAT"
+
+						effect = {
+							add_modifier = {
+								modifier = "bulwark_budget_repairs"
+								days = 5
+							}
+						}
+					}
+					set_location = {
+						target = prev
+						distance = 230
+						angle = 40
+					}
+				}
+				settings = { spawn_debris = no }
+			}
+		}
+	}
+
+	change_orbit = 50
+	
+	planet = {
+		class = pc_molten
+		orbit_distance = 25
+		size = 20
+		orbit_angle = 20
+
+		init_effect = {
+			create_fleet = {
+				effect = {
+					set_owner = event_target:tob_supremacist_faction
+					create_ship = {
+						name = random
+						design = "NAME_BULWARK_HABITAT"
+
+						effect = {
+							add_modifier = {
+								modifier = "bulwark_budget_repairs"
+								days = 5
+							}
+						}
+					}
+					set_location = {
+						target = prev
+						distance = 10
+						angle = 0
+					}
+				}
+				settings = { spawn_debris = no }
+			}
+		}
+	}
+
+	planet = {
+		class = pc_toxic
+		orbit_distance = 25
+		size = 11
+		orbit_angle = 100
+
+		init_effect = {
+			create_fleet = {
+				effect = {
+					set_owner = event_target:tob_supremacist_faction
+					create_ship = {
+						name = random
+						design = "NAME_BULWARK_HABITAT"
+
+						effect = {
+							add_modifier = {
+								modifier = "bulwark_budget_repairs"
+								days = 5
+							}
+						}
+					}
+					set_location = {
+						target = prev
+						distance = 10
+						angle = 0
+					}
+				}
+				settings = { spawn_debris = no }
+			}
+		}
+	}
+
+	planet = {
+		class = pc_gas_giant
+		orbit_distance = 40
+		orbit_angle = -60
+		size = 40
+		
+		change_orbit = @base_moon_distance
+		
+		moon = {
+			class = pc_barren
+			size = 8
+			orbit_angle = 90
+			orbit_distance = 6
+
+			init_effect = {
+				create_fleet = {
+					effect = {
+						set_owner = event_target:tob_supremacist_faction
+						create_ship = {
+							name = random
+							design = "NAME_BULWARK_HABITAT"
+
+							effect = {
+								add_modifier = {
+									modifier = "bulwark_budget_repairs"
+									days = 5
+								}
+							}
+						}
+						set_location = {
+							target = prev
+							distance = 10
+							angle = 0
+						}
+					}
+					settings = { spawn_debris = no }
+				}
+			}
+		}
+		moon = {
+			class = pc_barren_cold
+			size = 10
+			orbit_angle = 95
+			orbit_distance = 6
+
+			init_effect = {
+				every_country = {
+					limit = {
+						has_country_flag = bulwark_numbers
+					}
+					create_leader = {
+						class = admiral
+						species = last_created_species
+						name = random
+						skill = 1
+						event_leader = yes	# Prevents this leader from leading factions and winning elections.
+						immortal = yes	# can't be killed (not even in battle, unless fleet is destroyed)
+						traits = {
+							trait = random_trait
+						}
+					}
+				}
+				create_fleet = {
+					effect = {
+						set_owner = event_target:tob_supremacist_faction
+						set_fleet_flag = bulwark_vanguard_one
+						while = {
+							count = 60
+							create_ship = {
+								name = random
+								design = "NAME_BULWARK_LOWCORVETTE"
+								graphical_culture = "pirate_01"
+
+								effect = {
+									set_ship_flag = bulwark_ship_techone
+									add_modifier = {
+										modifier = "bulwark_budget_repairs"
+										days = 5
+									}
+								}
+							}
+						}
+						while = {
+							count = 40
+							create_ship = {
+								name = random
+								design = "NAME_BULWARK_LOWDESTROYER"
+								graphical_culture = "pirate_01"
+
+								effect = {
+									set_ship_flag = bulwark_ship_techone
+									add_modifier = {
+										modifier = "bulwark_budget_repairs"
+										days = 5
+									}
+								}
+							}
+						}
+						assign_leader = last_created_leader
+						set_formation_scale = 2
+						set_fleet_stance = aggressive
+						set_aggro_range_measure_from = self
+						set_aggro_range = 250
+						set_location = {
+							target = prev
+							distance = 20
+							angle = 120
+						}
+					}
+					settings = {
+						spawn_debris = no
+						can_upgrade = no
+						can_disband = no
+						can_change_composition = no
+						can_change_leader = no
+						uses_naval_capacity = no
+					}
+				}
+			}
+		}
+		moon = {
+			class = pc_frozen
+			size = 9
+			orbit_angle = 125
+			orbit_distance = 6
+		}
+		moon = {
+			class = pc_toxic
+			size = 11
+			orbit_angle = 160
+			orbit_distance = 6
+
+			init_effect = {
+				create_fleet = {
+					effect = {
+						set_owner = event_target:tob_supremacist_faction
+						create_ship = {
+							name = random
+							design = "NAME_BULWARK_HABITAT"
+
+							effect = {
+								add_modifier = {
+									modifier = "bulwark_budget_repairs"
+									days = 5
+								}
+							}
+						}
+						set_location = {
+							target = prev
+							distance = 10
+							angle = 0
+						}
+					}
+					settings = { spawn_debris = no }
+				}
+			}
+		}
+	}
+
+	planet = {
+		class = pc_barren_cold
+		orbit_distance = 40
+		size = 25
+		orbit_angle = 55
+
+		init_effect = {
+			every_country = {
+				limit = {
+					has_country_flag = bulwark_numbers
+				}
+				create_leader = {
+					class = admiral
+					species = last_created_species
+					name = random
+					skill = 1
+					event_leader = yes	# Prevents this leader from leading factions and winning elections.
+					immortal = yes	# can't be killed (not even in battle, unless fleet is destroyed)
+					traits = {
+						trait = leader_trait_bulwark_numbers
+						trait = leader_trait_bulwark_default
+					}
+					effect = {
+						set_leader_flag = bulwark_numbers_commander
+					}
+				}
+				random_owned_leader = {
+					limit = {
+						has_leader_flag = bulwark_numbers_commander
+					}
+					save_global_event_target_as = bulwark_supremacists_commander
+				}
+			}
+			create_fleet = {
+				effect = {
+					set_owner = event_target:tob_supremacist_faction
+					set_fleet_flag = bulwark_numbers_mercfleet
+					set_fleet_flag = bulwark_mercenary_fleet
+					while = {
+						count = 60
+						create_ship = {
+							name = random
+							design = "NAME_BULWARK_LOWCORVETTE"
+							graphical_culture = "pirate_01"
+							
+							effect = {
+								set_ship_flag = bulwark_ship_techone
+								add_modifier = {
+									modifier = "bulwark_budget_repairs"
+									days = 5
+								}
+							}
+						}
+					}
+					while = {
+						count = 40
+						create_ship = {
+							name = random
+							design = "NAME_BULWARK_LOWDESTROYER"
+							graphical_culture = "pirate_01"
+							
+							effect = {
+								set_ship_flag = bulwark_ship_techone
+								add_modifier = {
+									modifier = "bulwark_budget_repairs"
+									days = 5
+								}
+							}
+						}
+					}
+					assign_leader = last_created_leader
+					set_formation_scale = 2
+					set_fleet_stance = aggressive
+					set_fleet_bombardment_stance = indiscriminate
+					set_aggro_range_measure_from = self
+					set_aggro_range = 250
+					set_location = {
+						target = prev
+						distance = 20
+						angle = 120
+					}
+				}
+				settings = {
+					spawn_debris = no
+					can_upgrade = no
+					can_disband = no
+					can_change_composition = no
+					can_change_leader = no
+					uses_naval_capacity = no
+				}
+			}
+		}
+	}
+
+	planet = {
+		class = pc_barren
+		orbit_distance = 25
+		size = 15
+		orbit_angle = 120
+
+		change_orbit = @base_moon_distance
+		
+		moon = {
+			class = pc_frozen
+			size = 8
+			orbit_angle = 90
+			orbit_distance = 6
+
+			init_effect = {
+				every_country = {
+					limit = {
+						has_country_flag = bulwark_numbers
+					}
+					create_leader = {
+						class = admiral
+						species = last_created_species
+						name = random
+						skill = 1
+						event_leader = yes	# Prevents this leader from leading factions and winning elections.
+						immortal = yes	# can't be killed (not even in battle, unless fleet is destroyed)
+						traits = {
+							trait = random_trait
+						}
+					}
+				}
+				create_fleet = {
+					effect = {
+						set_owner = event_target:tob_supremacist_faction
+						set_fleet_flag = bulwark_vanguard_two
+						while = {
+							count = 60
+							create_ship = {
+								name = random
+								design = "NAME_BULWARK_LOWCORVETTE"
+								graphical_culture = "pirate_01"
+
+								effect = {
+									set_ship_flag = bulwark_ship_techone
+									add_modifier = {
+										modifier = "bulwark_budget_repairs"
+										days = 5
+									}
+								}
+							}
+						}
+						while = {
+							count = 40
+							create_ship = {
+								name = random
+								design = "NAME_BULWARK_LOWDESTROYER"
+								graphical_culture = "pirate_01"
+
+								effect = {
+									set_ship_flag = bulwark_ship_techone
+									add_modifier = {
+										modifier = "bulwark_budget_repairs"
+										days = 5
+									}
+								}
+							}
+						}
+						assign_leader = last_created_leader
+						set_formation_scale = 2
+						set_fleet_stance = aggressive
+						set_aggro_range_measure_from = self
+						set_aggro_range = 250
+						set_location = {
+							target = prev
+							distance = 20
+							angle = 120
+						}
+					}
+					settings = {
+						spawn_debris = no
+						can_upgrade = no
+						can_disband = no
+						can_change_composition = no
+						can_change_leader = no
+						uses_naval_capacity = no
+					}
+				}
+			}
+		}
+	}
+
+	planet = {
+		class = "pc_asteroid"
+		orbit_distance = 25
+		orbit_angle = -210
+		size = 5
+		has_ring = no
+
+		init_effect = {
+			set_deposit = d_minerals_8
+		}
+	}
+	
+	planet = {
+		class = "pc_asteroid"
+		orbit_distance = 0
+		orbit_angle = -95
+		size = 5
+		has_ring = no
+	}
+	
+	planet = {
+		class = "pc_asteroid"
+		orbit_distance = 0
+		orbit_angle = 285
+		size = 5
+		has_ring = no
+
+		init_effect = {
+			set_deposit = d_minerals_8
+		}
+	}
+	
+	planet = {
+		class = "pc_asteroid"
+		orbit_distance = 0
+		orbit_angle = -80
+		size = 5
+		has_ring = no
+	}
+
+	planet = {
+		class = "pc_asteroid"
+		orbit_distance = 0
+		orbit_angle = -80
+		size = 5
+		has_ring = no
+
+		init_effect = {
+			set_deposit = d_minerals_8
+		}
+	}
+
+	planet = {
+		class = "pc_asteroid"
+		orbit_distance = 0
+		orbit_angle = -80
+		size = 5
+		has_ring = no
+	}
+
+	planet = {
+		class = "pc_asteroid"
+		orbit_distance = 0
+		orbit_angle = -80
+		size = 5
+		has_ring = no
+	}
+
+	planet = {
+		class = "pc_asteroid"
+		orbit_distance = 0
+		orbit_angle = -80
+		size = 5
+		has_ring = no
+	}
+
+	planet = {
+		class = pc_barren_cold
+		orbit_distance = 30
+		size = 10
+		orbit_angle = 125
+
+		init_effect = {
+			create_fleet = {
+				effect = {
+					set_owner = event_target:tob_supremacist_faction
+					create_ship = {
+						name = random
+						design = "NAME_BULWARK_HABITAT"
+
+						effect = {
+							add_modifier = {
+								modifier = "bulwark_budget_repairs"
+								days = 5
+							}
+						}
+					}
+					set_location = {
+						target = prev
+						distance = 10
+						angle = 0
+					}
+				}
+				settings = { spawn_debris = no }
+			}
+		}
+	}
+
+	planet = {
+		class = pc_frozen
+		orbit_distance = 25
+		size = 8
+		orbit_angle = 125
+
+		init_effect = {
+			create_fleet = {
+				effect = {
+					set_owner = event_target:tob_supremacist_faction
+					create_ship = {
+						name = random
+						design = "NAME_BULWARK_HABITAT"
+
+						effect = {
+							add_modifier = {
+								modifier = "bulwark_budget_repairs"
+								days = 5
+							}
+						}
+					}
+					set_location = {
+						target = prev
+						distance = 10
+						angle = 0
+					}
+				}
+				settings = { spawn_debris = no }
+			}
+		}
+	}
+
+	planet = {
+		class = pc_frozen
+		orbit_distance = 25
+		size = 12
+		orbit_angle = 125
+
+		change_orbit = @base_moon_distance
+		
+		moon = {
+			class = pc_frozen
+			size = 8
+			orbit_angle = 90
+			orbit_distance = 6
+		}	
+	}
+
+	init_effect = {
+		event_target:tob_supremacist_faction = { save_event_target_as = marauder_starbase_owner }
+		create_marauder_starbase = yes
+		event_target:tob_supremacist_faction = {
+			every_owned_ship = {
+				add_modifier = {
+					modifier = "bulwark_ships_unlimited"
+
+				}
+			}
+			every_owned_ship = {
+				limit = {
+					is_ship_size = bulwark_station
+				}
+				add_modifier = {
+					modifier = "bulwark_core_station"
+
+				}
+			}
+		}
+	}
+}
+
+# Technologists
+technologists_home = {
+	class = "rl_standard_stars"
+	usage = misc_system_init
+	asteroid_belt = {
+		type = rocky_asteroid_belt
+		radius = 230
+	}
+
+	max_instances = 1
+	usage_odds = {
+		base = 0
+		modifier = {
+			add = 2000000
+			is_in_cluster = resource_cluster_1
+			NOT = { has_star_flag = empire_cluster }
+		}
+	}
+	spawn_chance = 100
+
+	flags = { tob_system tob_technologists }
+
+	planet = {
+		class = star
+		orbit_distance = 0
+		orbit_angle = 1
+		size = { min = 20 max = 30 }
+		has_ring = no
+
+		init_effect = {
+			create_species = {
+				name = random
+				class = random
+				blocked_archetypes = {
+					MACHINE	   
+					ROBOT	   
+					LITHOID
+				}
+				portrait = random
+				traits = {
+					ideal_planet_class = pc_habitat
+					trait = random_traits
+				}
+				effect = {
+					set_species_flag = bulwark_techies_species
+				}
+			}
+			create_country = {
+				name_list = random
+				species = last_created_species
+				type = outer_bulwarks
+				civics = { civic = civic_mercenary_worshippers }
+				origin = "origin_default"
+				flag = {
+					icon = {
+						category = "spherical"
+						file = "flag_spherical_22.dds"
+					}
+					background= {
+						category = "backgrounds"
+						file = "circle.dds"
+					}
+					colors={
+						"black"
+						"black"
+						"null"
+						"null"
+					}
+				}
+				ethos = {
+					ethic = ethic_fanatic_materialist
+					ethic = ethic_xenophile
+				}
+				ignore_initial_colony_error = yes
+			}
+			last_created_country = {
+				set_graphical_culture = pirate_01
+				save_global_event_target_as = tob_technologist_faction
+				set_country_flag = bulwark_techies
+				set_country_flag = bulwark_country_techtwo
+				set_country_flag = bulwark_country_numbersone
+				set_name = "The Focal Eye"
+				create_ship_design = { design = "NAME_Marauder_Starbase" }
+				add_ship_design = last_created_design
+				random_owned_species = {
+					limit = {
+						has_species_flag = bulwark_techies_species
+					}
+					save_global_event_target_as = bulwark_techies_species_global
+				}
+			}
+			create_fleet = {
+				effect = {
+					set_owner = event_target:tob_technologist_faction
+					create_ship = {
+						name = random
+						design = "NAME_BULWARK_HABITAT"
+
+						effect = {
+							add_modifier = {
+								modifier = "bulwark_budget_repairs"
+								days = 5
+							}
+						}
+					}
+					set_location = {
+						target = prev
+						distance = 230
+						angle = 40
+					}
+				}
+				settings = { spawn_debris = no }
+			}
+		}
+	}
+
+	change_orbit = 50
+	
+	planet = {
+		class = pc_molten
+		orbit_distance = 25
+		size = 20
+		orbit_angle = 20
+
+		init_effect = {
+			create_fleet = {
+				effect = {
+					set_owner = event_target:tob_technologist_faction
+					create_ship = {
+						name = random
+						design = "NAME_BULWARK_HABITAT"
+
+						effect = {
+							add_modifier = {
+								modifier = "bulwark_budget_repairs"
+								days = 5
+							}
+						}
+					}
+					set_location = {
+						target = prev
+						distance = 10
+						angle = 0
+					}
+				}
+				settings = { spawn_debris = no }
+			}
+		}
+	}
+
+	planet = {
+		class = pc_toxic
+		orbit_distance = 25
+		size = 11
+		orbit_angle = 100
+
+		init_effect = {
+			create_fleet = {
+				effect = {
+					set_owner = event_target:tob_technologist_faction
+					create_ship = {
+						name = random
+						design = "NAME_BULWARK_HABITAT"
+
+						effect = {
+							add_modifier = {
+								modifier = "bulwark_budget_repairs"
+								days = 5
+							}
+						}
+					}
+					set_location = {
+						target = prev
+						distance = 10
+						angle = 0
+					}
+				}
+				settings = { spawn_debris = no }
+			}
+		}
+	}
+
+	planet = {
+		class = pc_gas_giant
+		orbit_distance = 40
+		orbit_angle = -60
+		size = 40
+		
+		change_orbit = @base_moon_distance
+		
+		moon = {
+			class = pc_barren
+			size = 8
+			orbit_angle = 90
+			orbit_distance = 6
+
+			init_effect = {
+				create_fleet = {
+					effect = {
+						set_owner = event_target:tob_technologist_faction
+						create_ship = {
+							name = random
+							design = "NAME_BULWARK_HABITAT"
+
+							effect = {
+								add_modifier = {
+									modifier = "bulwark_budget_repairs"
+									days = 5
+								}
+							}
+						}
+						set_location = {
+							target = prev
+							distance = 10
+							angle = 0
+						}
+					}
+					settings = { spawn_debris = no }
+				}
+			}
+		}
+		moon = {
+			class = pc_barren_cold
+			size = 10
+			orbit_angle = 95
+			orbit_distance = 6
+
+			init_effect = {
+				every_country = {
+					limit = {
+						has_country_flag = bulwark_techies
+					}
+					create_leader = {
+						class = admiral
+						species = last_created_species
+						name = random
+						skill = 1
+						event_leader = yes	# Prevents this leader from leading factions and winning elections.
+						immortal = yes	# can't be killed (not even in battle, unless fleet is destroyed)
+						traits = {
+							trait = random_trait
+						}
+					}
+				}
+				create_fleet = {
+					effect = {
+						set_owner = event_target:tob_technologist_faction
+						set_fleet_flag = bulwark_vanguard_one
+						while = {
+							count = 40
+							create_ship = {
+								name = random
+								design = "NAME_BULWARK_MEDCORVETTE"
+								graphical_culture = "pirate_01"
+
+								effect = {
+									set_ship_flag = bulwark_ship_techtwo
+									add_modifier = {
+										modifier = "bulwark_budget_repairs"
+										days = 5
+									}
+								}
+							}
+						}
+						while = {
+							count = 25
+							create_ship = {
+								name = random
+								design = "NAME_BULWARK_MEDDESTROYER"
+								graphical_culture = "pirate_01"
+
+								effect = {
+									set_ship_flag = bulwark_ship_techtwo
+									add_modifier = {
+										modifier = "bulwark_budget_repairs"
+										days = 5
+									}
+								}
+							}
+						}
+						while = {
+							count = 10
+							create_ship = {
+								name = random
+								design = "NAME_BULWARK_LOWCRUISER"
+								graphical_culture = "pirate_01"
+
+								effect = {
+									set_ship_flag = bulwark_ship_techtwo
+									add_modifier = {
+										modifier = "bulwark_budget_repairs"
+										days = 5
+									}
+								}
+							}
+						}
+						assign_leader = last_created_leader
+						set_formation_scale = 2
+						set_fleet_stance = aggressive
+						set_aggro_range_measure_from = self
+						set_aggro_range = 250
+						set_location = {
+							target = prev
+							distance = 20
+							angle = 120
+						}
+					}
+					settings = {
+						spawn_debris = no
+						can_upgrade = no
+						can_disband = no
+						can_change_composition = no
+						can_change_leader = no
+						uses_naval_capacity = no
+					}
+				}
+			}
+		}
+		moon = {
+			class = pc_frozen
+			size = 9
+			orbit_angle = 125
+			orbit_distance = 6
+		}
+		moon = {
+			class = pc_toxic
+			size = 11
+			orbit_angle = 160
+			orbit_distance = 6
+
+			init_effect = {
+				create_fleet = {
+					effect = {
+						set_owner = event_target:tob_technologist_faction
+						create_ship = {
+							name = random
+							design = "NAME_BULWARK_HABITAT"
+
+							effect = {
+								add_modifier = {
+									modifier = "bulwark_budget_repairs"
+									days = 5
+								}
+							}
+						}
+						set_location = {
+							target = prev
+							distance = 10
+							angle = 0
+						}
+					}
+					settings = { spawn_debris = no }
+				}
+			}
+		}
+	}
+
+	planet = {
+		class = pc_barren_cold
+		orbit_distance = 40
+		size = 25
+		orbit_angle = 55
+
+		init_effect = {
+			every_country = {
+				limit = {
+					has_country_flag = bulwark_techies
+				}
+				create_leader = {
+					class = admiral
+					species = last_created_species
+					name = random
+					skill = 1
+					event_leader = yes	# Prevents this leader from leading factions and winning elections.
+					immortal = yes	# can't be killed (not even in battle, unless fleet is destroyed)
+					traits = {
+						trait = leader_trait_bulwark_techies
+						trait = leader_trait_bulwark_default
+					}
+					effect = {
+						set_leader_flag = bulwark_techies_commander
+					}
+				}
+				random_owned_leader = {
+					limit = {
+						has_leader_flag = bulwark_techies_commander
+					}
+					save_global_event_target_as = bulwark_technologists_commander
+				}
+			}
+			create_fleet = {
+				effect = {
+					set_owner = event_target:tob_technologist_faction
+					set_fleet_flag = bulwark_techies_mercfleet
+					set_fleet_flag = bulwark_mercenary_fleet
+					while = {
+						count = 40
+						create_ship = {
+							name = random
+							design = "NAME_BULWARK_MEDCORVETTE"
+							graphical_culture = "pirate_01"
+							
+							effect = {
+								set_ship_flag = bulwark_ship_techtwo
+								add_modifier = {
+									modifier = "bulwark_budget_repairs"
+									days = 5
+								}
+							}
+						}
+					}
+					while = {
+						count = 25
+						create_ship = {
+							name = random
+							design = "NAME_BULWARK_MEDDESTROYER"
+							graphical_culture = "pirate_01"
+							
+							effect = {
+								set_ship_flag = bulwark_ship_techtwo
+								add_modifier = {
+									modifier = "bulwark_budget_repairs"
+									days = 5
+								}
+							}
+						}
+					}
+					while = {
+						count = 10
+						create_ship = {
+							name = random
+							design = "NAME_BULWARK_LOWCRUISER"
+							graphical_culture = "pirate_01"
+							
+							effect = {
+								set_ship_flag = bulwark_ship_techtwo
+								add_modifier = {
+									modifier = "bulwark_budget_repairs"
+									days = 5
+								}
+							}
+						}
+					}
+					assign_leader = last_created_leader
+					set_formation_scale = 2
+					set_fleet_stance = aggressive
+					set_fleet_bombardment_stance = indiscriminate
+					set_aggro_range_measure_from = self
+					set_aggro_range = 250
+					set_location = {
+						target = prev
+						distance = 20
+						angle = 120
+					}
+				}
+				settings = {
+					spawn_debris = no
+					can_upgrade = no
+					can_disband = no
+					can_change_composition = no
+					can_change_leader = no
+					uses_naval_capacity = no
+				}
+			}
+		}
+	}
+
+	planet = {
+		class = pc_barren
+		orbit_distance = 25
+		size = 15
+		orbit_angle = 120
+
+		change_orbit = @base_moon_distance
+		
+		moon = {
+			class = pc_frozen
+			size = 8
+			orbit_angle = 90
+			orbit_distance = 6
+
+			init_effect = {
+				every_country = {
+					limit = {
+						has_country_flag = bulwark_techies
+					}
+					create_leader = {
+						class = admiral
+						species = last_created_species
+						name = random
+						skill = 1
+						event_leader = yes	# Prevents this leader from leading factions and winning elections.
+						immortal = yes	# can't be killed (not even in battle, unless fleet is destroyed)
+						traits = {
+							trait = random_trait
+						}
+					}
+				}
+				create_fleet = {
+					effect = {
+						set_owner = event_target:tob_technologist_faction
+						set_fleet_flag = bulwark_vanguard_two
+						while = {
+							count = 40
+							create_ship = {
+								name = random
+								design = "NAME_BULWARK_MEDCORVETTE"
+								graphical_culture = "pirate_01"
+
+								effect = {
+									set_ship_flag = bulwark_ship_techtwo
+									add_modifier = {
+										modifier = "bulwark_budget_repairs"
+										days = 5
+									}
+								}
+							}
+						}
+						while = {
+							count = 25
+							create_ship = {
+								name = random
+								design = "NAME_BULWARK_MEDDESTROYER"
+								graphical_culture = "pirate_01"
+
+								effect = {
+									set_ship_flag = bulwark_ship_techtwo
+									add_modifier = {
+										modifier = "bulwark_budget_repairs"
+										days = 5
+									}
+								}
+							}
+						}
+						while = {
+							count = 10
+							create_ship = {
+								name = random
+								design = "NAME_BULWARK_LOWCRUISER"
+								graphical_culture = "pirate_01"
+
+								effect = {
+									set_ship_flag = bulwark_ship_techtwo
+									add_modifier = {
+										modifier = "bulwark_budget_repairs"
+										days = 5
+									}
+								}
+							}
+						}
+						assign_leader = last_created_leader
+						set_formation_scale = 2
+						set_fleet_stance = aggressive
+						set_aggro_range_measure_from = self
+						set_aggro_range = 250
+						set_location = {
+							target = prev
+							distance = 20
+							angle = 120
+						}
+					}
+					settings = {
+						spawn_debris = no
+						can_upgrade = no
+						can_disband = no
+						can_change_composition = no
+						can_change_leader = no
+						uses_naval_capacity = no
+					}
+				}
+			}
+		}
+	}
+
+	planet = {
+		class = "pc_asteroid"
+		orbit_distance = 25
+		orbit_angle = -210
+		size = 5
+		has_ring = no
+
+		init_effect = {
+			set_deposit = d_minerals_8
+		}
+	}
+	
+	planet = {
+		class = "pc_asteroid"
+		orbit_distance = 0
+		orbit_angle = -95
+		size = 5
+		has_ring = no
+	}
+	
+	planet = {
+		class = "pc_asteroid"
+		orbit_distance = 0
+		orbit_angle = 285
+		size = 5
+		has_ring = no
+
+		init_effect = {
+			set_deposit = d_minerals_8
+		}
+	}
+	
+	planet = {
+		class = "pc_asteroid"
+		orbit_distance = 0
+		orbit_angle = -80
+		size = 5
+		has_ring = no
+	}
+
+	planet = {
+		class = "pc_asteroid"
+		orbit_distance = 0
+		orbit_angle = -80
+		size = 5
+		has_ring = no
+
+		init_effect = {
+			set_deposit = d_minerals_8
+		}
+	}
+
+	planet = {
+		class = "pc_asteroid"
+		orbit_distance = 0
+		orbit_angle = -80
+		size = 5
+		has_ring = no
+	}
+
+	planet = {
+		class = "pc_asteroid"
+		orbit_distance = 0
+		orbit_angle = -80
+		size = 5
+		has_ring = no
+	}
+
+	planet = {
+		class = "pc_asteroid"
+		orbit_distance = 0
+		orbit_angle = -80
+		size = 5
+		has_ring = no
+	}
+
+	planet = {
+		class = pc_barren_cold
+		orbit_distance = 30
+		size = 10
+		orbit_angle = 125
+
+		init_effect = {
+			create_fleet = {
+				effect = {
+					set_owner = event_target:tob_technologist_faction
+					create_ship = {
+						name = random
+						design = "NAME_BULWARK_HABITAT"
+
+						effect = {
+							add_modifier = {
+								modifier = "bulwark_budget_repairs"
+								days = 5
+							}
+						}
+					}
+					set_location = {
+						target = prev
+						distance = 10
+						angle = 0
+					}
+				}
+				settings = { spawn_debris = no }
+			}
+		}
+	}
+
+	planet = {
+		class = pc_frozen
+		orbit_distance = 25
+		size = 8
+		orbit_angle = 125
+
+		init_effect = {
+			create_fleet = {
+				effect = {
+					set_owner = event_target:tob_technologist_faction
+					create_ship = {
+						name = random
+						design = "NAME_BULWARK_HABITAT"
+
+						effect = {
+							add_modifier = {
+								modifier = "bulwark_budget_repairs"
+								days = 5
+							}
+						}
+					}
+					set_location = {
+						target = prev
+						distance = 10
+						angle = 0
+					}
+				}
+				settings = { spawn_debris = no }
+			}
+		}
+	}
+
+	planet = {
+		class = pc_frozen
+		orbit_distance = 25
+		size = 12
+		orbit_angle = 125
+
+		change_orbit = @base_moon_distance
+		
+		moon = {
+			class = pc_frozen
+			size = 8
+			orbit_angle = 90
+			orbit_distance = 6
+		}	
+	}
+
+	init_effect = {
+		event_target:tob_technologist_faction = { save_event_target_as = marauder_starbase_owner }
+		create_marauder_starbase = yes
+		event_target:tob_technologist_faction = {
+			every_owned_ship = {
+				add_modifier = {
+					modifier = "bulwark_ships_unlimited"
+
+				}
+			}
+			every_owned_ship = {
+				limit = {
+					is_ship_size = bulwark_station
+				}
+				add_modifier = {
+					modifier = "bulwark_core_station"
+
+				}
+			}
+		}
+	}
+}
+
+#Tamers
+tamers_home = {
+	class = "rl_standard_stars"
+	usage = misc_system_init
+	asteroid_belt = {
+		type = rocky_asteroid_belt
+		radius = 230
+	}
+
+	max_instances = 1
+	usage_odds = {
+		base = 0
+		modifier = {
+			add = 2000000
+			is_in_cluster = resource_cluster_1
+			NOT = { has_star_flag = empire_cluster }
+		}
+	}
+	spawn_chance = 100
+
+	flags = { tob_system tob_tamers }
+
+	planet = {
+		class = star
+		orbit_distance = 0
+		orbit_angle = 1
+		size = { min = 20 max = 30 }
+		has_ring = no
+
+		init_effect = {
+			create_species = {
+				name = random
+				class = random
+				blocked_archetypes = {
+					MACHINE	   
+					ROBOT	   
+					LITHOID
+				}
+				portrait = random
+				traits = {
+					ideal_planet_class = pc_habitat
+					trait = random_traits
+				}
+				effect = {
+					set_species_flag = bulwark_monsters_species
+				}
+			}
+			create_country = {
+				name_list = random
+				species = last_created_species
+				type = outer_bulwarks
+				civics = { civic = civic_mercenary_worshippers }
+				origin = "origin_default"
+				flag = {
+					icon = {
+						category = "spherical"
+						file = "flag_spherical_22.dds"
+					}
+					background= {
+						category = "backgrounds"
+						file = "circle.dds"
+					}
+					colors={
+						"black"
+						"black"
+						"null"
+						"null"
+					}
+				}
+				ethos = {
+					ethic = ethic_fanatic_materialist
+					ethic = ethic_xenophile
+				}
+				ignore_initial_colony_error = yes
+			}
+			last_created_country = {
+				set_graphical_culture = pirate_01
+				save_global_event_target_as = tob_tamer_faction
+				set_country_flag = bulwark_monsters
+				set_country_flag = bulwark_country_techone
+				set_country_flag = bulwark_country_numbersone
+				set_name = "The Inmost Mind"
+				create_ship_design = { design = "NAME_Marauder_Starbase" }
+				add_ship_design = last_created_design
+				random_owned_species = {
+					limit = {
+						has_species_flag = bulwark_monsters_species
+					}
+					save_global_event_target_as = bulwark_monsters_species_global
+				}
+			}
+			create_fleet = {
+				effect = {
+					set_owner = event_target:tob_tamer_faction
+					create_ship = {
+						name = random
+						design = "NAME_BULWARK_HABITAT"
+
+						effect = {
+							add_modifier = {
+								modifier = "bulwark_budget_repairs"
+								days = 5
+							}
+						}
+					}
+					set_location = {
+						target = prev
+						distance = 230
+						angle = 40
+					}
+				}
+				settings = { spawn_debris = no }
+			}
+		}
+	}
+
+	change_orbit = 50
+	
+	planet = {
+		class = pc_molten
+		orbit_distance = 25
+		size = 20
+		orbit_angle = 20
+
+		init_effect = {
+			create_fleet = {
+				effect = {
+					set_owner = event_target:tob_tamer_faction
+					create_ship = {
+						name = random
+						design = "NAME_BULWARK_HABITAT"
+
+						effect = {
+							add_modifier = {
+								modifier = "bulwark_budget_repairs"
+								days = 5
+							}
+						}
+					}
+					set_location = {
+						target = prev
+						distance = 10
+						angle = 0
+					}
+				}
+				settings = { spawn_debris = no }
+			}
+		}
+	}
+
+	planet = {
+		class = pc_toxic
+		orbit_distance = 25
+		size = 11
+		orbit_angle = 100
+
+		init_effect = {
+			create_fleet = {
+				effect = {
+					set_owner = event_target:tob_tamer_faction
+					create_ship = {
+						name = random
+						design = "NAME_BULWARK_HABITAT"
+
+						effect = {
+							add_modifier = {
+								modifier = "bulwark_budget_repairs"
+								days = 5
+							}
+						}
+					}
+					set_location = {
+						target = prev
+						distance = 10
+						angle = 0
+					}
+				}
+				settings = { spawn_debris = no }
+			}
+		}
+	}
+
+	planet = {
+		class = pc_gas_giant
+		orbit_distance = 40
+		orbit_angle = -60
+		size = 40
+		
+		change_orbit = @base_moon_distance
+		
+		moon = {
+			class = pc_barren
+			size = 8
+			orbit_angle = 90
+			orbit_distance = 6
+
+			init_effect = {
+				create_fleet = {
+					effect = {
+						set_owner = event_target:tob_tamer_faction
+						create_ship = {
+							name = random
+							design = "NAME_BULWARK_HABITAT"
+
+							effect = {
+								add_modifier = {
+									modifier = "bulwark_budget_repairs"
+									days = 5
+								}
+							}
+						}
+						set_location = {
+							target = prev
+							distance = 10
+							angle = 0
+						}
+					}
+					settings = { spawn_debris = no }
+				}
+			}
+		}
+		moon = {
+			class = pc_barren_cold
+			size = 10
+			orbit_angle = 95
+			orbit_distance = 6
+
+			init_effect = {
+				every_country = {
+					limit = {
+						has_country_flag = bulwark_monsters
+					}
+					create_leader = {
+						class = admiral
+						species = last_created_species
+						name = random
+						skill = 1
+						event_leader = yes	# Prevents this leader from leading factions and winning elections.
+						immortal = yes	# can't be killed (not even in battle, unless fleet is destroyed)
+						traits = {
+							trait = random_trait
+						}
+					}
+				}
+				create_fleet = {
+					effect = {
+						set_owner = event_target:tob_tamer_faction
+						set_fleet_flag = bulwark_vanguard_one
+						while = {
+							count = 40
+							create_ship = {
+								name = random
+								design = "NAME_BULWARK_LOWCORVETTE"
+								graphical_culture = "pirate_01"
+
+								effect = {
+									set_ship_flag = bulwark_ship_techone
+									add_modifier = {
+										modifier = "bulwark_budget_repairs"
+										days = 5
+									}
+								}
+							}
+						}
+						while = {
+							count = 25
+							create_ship = {
+								name = random
+								design = "NAME_BULWARK_LOWDESTROYER"
+								graphical_culture = "pirate_01"
+
+								effect = {
+									set_ship_flag = bulwark_ship_techone
+									add_modifier = {
+										modifier = "bulwark_budget_repairs"
+										days = 5
+									}
+								}
+							}
+						}
+						assign_leader = last_created_leader
+						set_formation_scale = 2
+						set_fleet_stance = aggressive
+						set_aggro_range_measure_from = self
+						set_aggro_range = 250
+						set_location = {
+							target = prev
+							distance = 20
+							angle = 120
+						}
+					}
+					settings = {
+						spawn_debris = no
+						can_upgrade = no
+						can_disband = no
+						can_change_composition = no
+						can_change_leader = no
+						uses_naval_capacity = no
+					}
+				}
+			}
+		}
+		moon = {
+			class = pc_frozen
+			size = 9
+			orbit_angle = 125
+			orbit_distance = 6
+		}
+		moon = {
+			class = pc_toxic
+			size = 11
+			orbit_angle = 160
+			orbit_distance = 6
+
+			init_effect = {
+				create_fleet = {
+					effect = {
+						set_owner = event_target:tob_tamer_faction
+						create_ship = {
+							name = random
+							design = "NAME_BULWARK_HABITAT"
+
+							effect = {
+								add_modifier = {
+									modifier = "bulwark_budget_repairs"
+									days = 5
+								}
+							}
+						}
+						set_location = {
+							target = prev
+							distance = 10
+							angle = 0
+						}
+					}
+					settings = { spawn_debris = no }
+				}
+			}
+		}
+	}
+
+	planet = {
+		class = pc_barren_cold
+		orbit_distance = 40
+		size = 25
+		orbit_angle = 55
+
+		init_effect = {
+			every_country = {
+				limit = {
+					has_country_flag = bulwark_monsters
+				}
+				create_leader = {
+					class = admiral
+					species = last_created_species
+					name = random
+					skill = 1
+					event_leader = yes	# Prevents this leader from leading factions and winning elections.
+					immortal = yes	# can't be killed (not even in battle, unless fleet is destroyed)
+					traits = {
+						trait = leader_trait_bulwark_monsters
+						trait = leader_trait_bulwark_default
+					}
+					effect = {
+						set_leader_flag = bulwark_monsters_commander
+					}
+				}
+				random_owned_leader = {
+					limit = {
+						has_leader_flag = bulwark_monsters_commander
+					}
+					save_global_event_target_as = bulwark_tamers_commander
+				}
+			}
+			create_fleet = {
+				effect = {
+					set_owner = event_target:tob_tamer_faction
+					set_fleet_flag = bulwark_monsters_mercfleet
+					set_fleet_flag = bulwark_mercenary_fleet
+					while = {
+						count = 40
+						create_ship = {
+							name = random
+							design = "NAME_BULWARK_LOWCORVETTE"
+							graphical_culture = "pirate_01"
+							
+							effect = {
+								set_ship_flag = bulwark_ship_techone
+								add_modifier = {
+									modifier = "bulwark_budget_repairs"
+									days = 5
+								}
+							}
+						}
+					}
+					while = {
+						count = 25
+						create_ship = {
+							name = random
+							design = "NAME_BULWARK_LOWDESTROYER"
+							graphical_culture = "pirate_01"
+							
+							effect = {
+								set_ship_flag = bulwark_ship_techone
+								add_modifier = {
+									modifier = "bulwark_budget_repairs"
+									days = 5
+								}
+							}
+						}
+					}
+					assign_leader = last_created_leader
+					set_formation_scale = 2
+					set_fleet_stance = aggressive
+					set_fleet_bombardment_stance = indiscriminate
+					set_aggro_range_measure_from = self
+					set_aggro_range = 250
+					set_location = {
+						target = prev
+						distance = 20
+						angle = 120
+					}
+				}
+				settings = {
+					spawn_debris = no
+					can_upgrade = no
+					can_disband = no
+					can_change_composition = no
+					can_change_leader = no
+					uses_naval_capacity = no
+				}
+			}
+		}
+	}
+
+	planet = {
+		class = pc_barren
+		orbit_distance = 25
+		size = 15
+		orbit_angle = 120
+
+		change_orbit = @base_moon_distance
+		
+		moon = {
+			class = pc_frozen
+			size = 8
+			orbit_angle = 90
+			orbit_distance = 6
+
+			init_effect = {
+				every_country = {
+					limit = {
+						has_country_flag = bulwark_monsters
+					}
+					create_leader = {
+						class = admiral
+						species = last_created_species
+						name = random
+						skill = 1
+						event_leader = yes	# Prevents this leader from leading factions and winning elections.
+						immortal = yes	# can't be killed (not even in battle, unless fleet is destroyed)
+						traits = {
+							trait = random_trait
+						}
+					}
+				}
+				create_fleet = {
+					effect = {
+						set_owner = event_target:tob_tamer_faction
+						set_fleet_flag = bulwark_vanguard_two
+						while = {
+							count = 40
+							create_ship = {
+								name = random
+								design = "NAME_BULWARK_LOWCORVETTE"
+								graphical_culture = "pirate_01"
+
+								effect = {
+									set_ship_flag = bulwark_ship_techone
+									add_modifier = {
+										modifier = "bulwark_budget_repairs"
+										days = 5
+									}
+								}
+							}
+						}
+						while = {
+							count = 25
+							create_ship = {
+								name = random
+								design = "NAME_BULWARK_LOWDESTROYER"
+								graphical_culture = "pirate_01"
+
+								effect = {
+									set_ship_flag = bulwark_ship_techone
+									add_modifier = {
+										modifier = "bulwark_budget_repairs"
+										days = 5
+									}
+								}
+							}
+						}
+						assign_leader = last_created_leader
+						set_formation_scale = 2
+						set_fleet_stance = aggressive
+						set_aggro_range_measure_from = self
+						set_aggro_range = 250
+						set_location = {
+							target = prev
+							distance = 20
+							angle = 120
+						}
+					}
+					settings = {
+						spawn_debris = no
+						can_upgrade = no
+						can_disband = no
+						can_change_composition = no
+						can_change_leader = no
+						uses_naval_capacity = no
+					}
+				}
+			}
+		}
+	}
+
+	planet = {
+		class = "pc_asteroid"
+		orbit_distance = 25
+		orbit_angle = -210
+		size = 5
+		has_ring = no
+
+		init_effect = {
+			set_deposit = d_minerals_8
+		}
+	}
+	
+	planet = {
+		class = "pc_asteroid"
+		orbit_distance = 0
+		orbit_angle = -95
+		size = 5
+		has_ring = no
+	}
+	
+	planet = {
+		class = "pc_asteroid"
+		orbit_distance = 0
+		orbit_angle = 285
+		size = 5
+		has_ring = no
+
+		init_effect = {
+			set_deposit = d_minerals_8
+		}
+	}
+	
+	planet = {
+		class = "pc_asteroid"
+		orbit_distance = 0
+		orbit_angle = -80
+		size = 5
+		has_ring = no
+	}
+
+	planet = {
+		class = "pc_asteroid"
+		orbit_distance = 0
+		orbit_angle = -80
+		size = 5
+		has_ring = no
+
+		init_effect = {
+			set_deposit = d_minerals_8
+		}
+	}
+
+	planet = {
+		class = "pc_asteroid"
+		orbit_distance = 0
+		orbit_angle = -80
+		size = 5
+		has_ring = no
+	}
+
+	planet = {
+		class = "pc_asteroid"
+		orbit_distance = 0
+		orbit_angle = -80
+		size = 5
+		has_ring = no
+	}
+
+	planet = {
+		class = "pc_asteroid"
+		orbit_distance = 0
+		orbit_angle = -80
+		size = 5
+		has_ring = no
+	}
+
+	planet = {
+		class = pc_barren_cold
+		orbit_distance = 30
+		size = 10
+		orbit_angle = 125
+
+		init_effect = {
+			create_fleet = {
+				effect = {
+					set_owner = event_target:tob_tamer_faction
+					create_ship = {
+						name = random
+						design = "NAME_BULWARK_HABITAT"
+
+						effect = {
+							add_modifier = {
+								modifier = "bulwark_budget_repairs"
+								days = 5
+							}
+						}
+					}
+					set_location = {
+						target = prev
+						distance = 10
+						angle = 0
+					}
+				}
+				settings = { spawn_debris = no }
+			}
+		}
+	}
+
+	planet = {
+		class = pc_frozen
+		orbit_distance = 25
+		size = 8
+		orbit_angle = 125
+
+		init_effect = {
+			create_fleet = {
+				effect = {
+					set_owner = event_target:tob_tamer_faction
+					create_ship = {
+						name = random
+						design = "NAME_BULWARK_HABITAT"
+
+						effect = {
+							add_modifier = {
+								modifier = "bulwark_budget_repairs"
+								days = 5
+							}
+						}
+					}
+					set_location = {
+						target = prev
+						distance = 10
+						angle = 0
+					}
+				}
+				settings = { spawn_debris = no }
+			}
+		}
+	}
+
+	planet = {
+		class = pc_frozen
+		orbit_distance = 25
+		size = 12
+		orbit_angle = 125
+
+		change_orbit = @base_moon_distance
+		
+		moon = {
+			class = pc_frozen
+			size = 8
+			orbit_angle = 90
+			orbit_distance = 6
+		}	
+	}
+
+	init_effect = {
+		event_target:tob_tamer_faction = { save_event_target_as = marauder_starbase_owner }
+		create_marauder_starbase = yes
+		event_target:tob_tamer_faction = {
+			every_owned_ship = {
+				add_modifier = {
+					modifier = "bulwark_ships_unlimited"
+
+				}
+			}
+			every_owned_ship = {
+				limit = {
+					is_ship_size = bulwark_station
+				}
+				add_modifier = {
+					modifier = "bulwark_core_station"
+
+				}
+			}
+		}
+	}
+}

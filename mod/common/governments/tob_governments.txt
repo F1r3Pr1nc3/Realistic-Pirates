@@ -1,0 +1,13 @@
+gov_outer_bulwark = {
+	ruler_title = RT_DESIGNATED_DELEGATE
+	
+	should_force_rename = yes
+
+	possible = {
+		has_civic = civic_mercenary_worshippers
+	}
+
+	weight = {
+		base = 100000
+	}
+}

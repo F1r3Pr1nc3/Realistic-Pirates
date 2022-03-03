@@ -1,0 +1,1504 @@
+is_bulwark_empire = {
+	is_country_type = outer_bulwarks
+}
+
+bulwark_fleet_needs_reinforcements = {
+	OR = {
+		AND = {
+			owner = {
+				has_country_flag = bulwark_country_numbersone
+				has_country_flag = bulwark_country_techone
+			}
+			OR = {
+				count_owned_ship = {
+					limit = {
+						is_ship_size = corvette
+						has_ship_flag = bulwark_ship_techone
+					}
+					count < 40
+				}
+				count_owned_ship = {
+					limit = {
+						is_ship_size = destroyer
+						has_ship_flag = bulwark_ship_techone
+					}
+					count < 25
+				}
+			}
+		}
+		AND = {
+			owner = {
+				has_country_flag = bulwark_country_numbersone
+				has_country_flag = bulwark_country_techtwo
+			}
+			OR = {
+				count_owned_ship = {
+					limit = {
+						is_ship_size = corvette
+						has_ship_flag = bulwark_ship_techtwo
+					}
+					count < 40
+				}
+				count_owned_ship = {
+					limit = {
+						is_ship_size = destroyer
+						has_ship_flag = bulwark_ship_techtwo
+					}
+					count < 25
+				}
+			}
+		}
+		AND = {
+			owner = {
+				has_country_flag = bulwark_country_numbersone
+				has_country_flag = bulwark_country_techthree
+			}
+			OR = {
+				count_owned_ship = {
+					limit = {
+						is_ship_size = corvette
+						has_ship_flag = bulwark_ship_techthree
+					}
+					count < 40
+				}
+				count_owned_ship = {
+					limit = {
+						is_ship_size = destroyer
+						has_ship_flag = bulwark_ship_techthree
+					}
+					count < 25
+				}
+			}
+		}
+		AND = {
+			owner = {
+				has_country_flag = bulwark_country_numbersone
+				has_country_flag = bulwark_country_techfour
+			}
+			OR = {
+				count_owned_ship = {
+					limit = {
+						is_ship_size = corvette
+						has_ship_flag = bulwark_ship_techfour
+					}
+					count < 40
+				}
+				count_owned_ship = {
+					limit = {
+						is_ship_size = destroyer
+						has_ship_flag = bulwark_ship_techfour
+					}
+					count < 25
+				}
+			}
+		}
+		AND = {
+			owner = {
+				has_country_flag = bulwark_country_numbersfive
+				has_country_flag = bulwark_country_techtwo
+			}
+			OR = {
+				count_owned_ship = {
+					limit = {
+						is_ship_size = corvette
+						has_ship_flag = bulwark_ship_techfive
+					}
+					count < 40
+				}
+				count_owned_ship = {
+					limit = {
+						is_ship_size = destroyer
+						has_ship_flag = bulwark_ship_techfive
+					}
+					count < 25
+				}
+			}
+		}
+		AND = {
+			owner = {
+				has_country_flag = bulwark_country_numberstwo
+				has_country_flag = bulwark_country_techone
+			}
+			OR = {
+				count_owned_ship = {
+					limit = {
+						is_ship_size = corvette
+						has_ship_flag = bulwark_ship_techone
+					}
+					count < 60
+				}
+				count_owned_ship = {
+					limit = {
+						is_ship_size = destroyer
+						has_ship_flag = bulwark_ship_techone
+					}
+					count < 40
+				}
+			}
+		}
+		AND = {
+			owner = {
+				has_country_flag = bulwark_country_numberstwo
+				has_country_flag = bulwark_country_techtwo
+			}
+			OR = {
+				count_owned_ship = {
+					limit = {
+						is_ship_size = corvette
+						has_ship_flag = bulwark_ship_techtwo
+					}
+					count < 60
+				}
+				count_owned_ship = {
+					limit = {
+						is_ship_size = destroyer
+						has_ship_flag = bulwark_ship_techtwo
+					}
+					count < 40
+				}
+				count_owned_ship = {
+					limit = {
+						is_ship_size = cruiser
+						has_ship_flag = bulwark_ship_techtwo
+					}
+					count < 10
+				}
+			}
+		}
+		AND = {
+			owner = {
+				has_country_flag = bulwark_country_numberstwo
+				has_country_flag = bulwark_country_techthree
+			}
+			OR = {
+				count_owned_ship = {
+					limit = {
+						is_ship_size = corvette
+						has_ship_flag = bulwark_ship_techthree
+					}
+					count < 60
+				}
+				count_owned_ship = {
+					limit = {
+						is_ship_size = destroyer
+						has_ship_flag = bulwark_ship_techthree
+					}
+					count < 40
+				}
+				count_owned_ship = {
+					limit = {
+						is_ship_size = cruiser
+						has_ship_flag = bulwark_ship_techthree
+					}
+					count < 10
+				}
+				count_owned_ship = {
+					limit = {
+						is_ship_size = battleship
+						has_ship_flag = bulwark_ship_techthree
+					}
+					count < 5
+				}
+			}
+		}
+		AND = {
+			owner = {
+				has_country_flag = bulwark_country_numberstwo
+				has_country_flag = bulwark_country_techfour
+			}
+			OR = {
+				count_owned_ship = {
+					limit = {
+						is_ship_size = corvette
+						has_ship_flag = bulwark_ship_techfour
+					}
+					count < 60
+				}
+				count_owned_ship = {
+					limit = {
+						is_ship_size = destroyer
+						has_ship_flag = bulwark_ship_techfour
+					}
+					count < 40
+				}
+				count_owned_ship = {
+					limit = {
+						is_ship_size = cruiser
+						has_ship_flag = bulwark_ship_techfour
+					}
+					count < 10
+				}
+				count_owned_ship = {
+					limit = {
+						is_ship_size = battleship
+						has_ship_flag = bulwark_ship_techfour
+					}
+					count < 5
+				}
+			}
+		}
+		AND = {
+			owner = {
+				has_country_flag = bulwark_country_numberstwo
+				has_country_flag = bulwark_country_techfive
+			}
+			OR = {
+				count_owned_ship = {
+					limit = {
+						is_ship_size = corvette
+						has_ship_flag = bulwark_ship_techfive
+					}
+					count < 60
+				}
+				count_owned_ship = {
+					limit = {
+						is_ship_size = destroyer
+						has_ship_flag = bulwark_ship_techfive
+					}
+					count < 40
+				}
+				count_owned_ship = {
+					limit = {
+						is_ship_size = cruiser
+						has_ship_flag = bulwark_ship_techfive
+					}
+					count < 10
+				}
+				count_owned_ship = {
+					limit = {
+						is_ship_size = battleship
+						has_ship_flag = bulwark_ship_techfive
+					}
+					count < 5
+				}
+			}
+		}
+		AND = {
+			owner = {
+				has_country_flag = bulwark_country_numbersthree
+				has_country_flag = bulwark_country_techone
+			}
+			OR = {
+				count_owned_ship = {
+					limit = {
+						is_ship_size = corvette
+						has_ship_flag = bulwark_ship_techone
+					}
+					count < 80
+				}
+				count_owned_ship = {
+					limit = {
+						is_ship_size = destroyer
+						has_ship_flag = bulwark_ship_techone
+					}
+					count < 55
+				}
+			}
+		}
+		AND = {
+			owner = {
+				has_country_flag = bulwark_country_numbersthree
+				has_country_flag = bulwark_country_techtwo
+			}
+			OR = {
+				count_owned_ship = {
+					limit = {
+						is_ship_size = corvette
+						has_ship_flag = bulwark_ship_techtwo
+					}
+					count < 80
+				}
+				count_owned_ship = {
+					limit = {
+						is_ship_size = destroyer
+						has_ship_flag = bulwark_ship_techtwo
+					}
+					count < 55
+				}
+				count_owned_ship = {
+					limit = {
+						is_ship_size = cruiser
+						has_ship_flag = bulwark_ship_techtwo
+					}
+					count < 20
+				}
+			}
+		}
+		AND = {
+			owner = {
+				has_country_flag = bulwark_country_numbersthree
+				has_country_flag = bulwark_country_techthree
+			}
+			OR = {
+				count_owned_ship = {
+					limit = {
+						is_ship_size = corvette
+						has_ship_flag = bulwark_ship_techthree
+					}
+					count < 80
+				}
+				count_owned_ship = {
+					limit = {
+						is_ship_size = destroyer
+						has_ship_flag = bulwark_ship_techthree
+					}
+					count < 55
+				}
+				count_owned_ship = {
+					limit = {
+						is_ship_size = cruiser
+						has_ship_flag = bulwark_ship_techthree
+					}
+					count < 20
+				}
+				count_owned_ship = {
+					limit = {
+						is_ship_size = battleship
+						has_ship_flag = bulwark_ship_techthree
+					}
+					count < 10
+				}
+			}
+		}
+		AND = {
+			owner = {
+				has_country_flag = bulwark_country_numbersthree
+				has_country_flag = bulwark_country_techfour
+			}
+			OR = {
+				count_owned_ship = {
+					limit = {
+						is_ship_size = corvette
+						has_ship_flag = bulwark_ship_techfour
+					}
+					count < 80
+				}
+				count_owned_ship = {
+					limit = {
+						is_ship_size = destroyer
+						has_ship_flag = bulwark_ship_techfour
+					}
+					count < 55
+				}
+				count_owned_ship = {
+					limit = {
+						is_ship_size = cruiser
+						has_ship_flag = bulwark_ship_techfour
+					}
+					count < 20
+				}
+				count_owned_ship = {
+					limit = {
+						is_ship_size = battleship
+						has_ship_flag = bulwark_ship_techfour
+					}
+					count < 10
+				}
+			}
+		}
+		AND = {
+			owner = {
+				has_country_flag = bulwark_country_numbersthree
+				has_country_flag = bulwark_country_techfive
+			}
+			OR = {
+				count_owned_ship = {
+					limit = {
+						is_ship_size = corvette
+						has_ship_flag = bulwark_ship_techfive
+					}
+					count < 80
+				}
+				count_owned_ship = {
+					limit = {
+						is_ship_size = destroyer
+						has_ship_flag = bulwark_ship_techfive
+					}
+					count < 55
+				}
+				count_owned_ship = {
+					limit = {
+						is_ship_size = cruiser
+						has_ship_flag = bulwark_ship_techfive
+					}
+					count < 20
+				}
+				count_owned_ship = {
+					limit = {
+						is_ship_size = battleship
+						has_ship_flag = bulwark_ship_techfive
+					}
+					count < 10
+				}
+			}
+		}
+		AND = {
+			owner = {
+				has_country_flag = bulwark_country_numbersfour
+				has_country_flag = bulwark_country_techone
+			}
+			OR = {
+				count_owned_ship = {
+					limit = {
+						is_ship_size = corvette
+						has_ship_flag = bulwark_ship_techone
+					}
+					count < 100
+				}
+				count_owned_ship = {
+					limit = {
+						is_ship_size = destroyer
+						has_ship_flag = bulwark_ship_techone
+					}
+					count < 70
+				}
+			}
+		}
+		AND = {
+			owner = {
+				has_country_flag = bulwark_country_numbersfour
+				has_country_flag = bulwark_country_techtwo
+			}
+			OR = {
+				count_owned_ship = {
+					limit = {
+						is_ship_size = corvette
+						has_ship_flag = bulwark_ship_techtwo
+					}
+					count < 100
+				}
+				count_owned_ship = {
+					limit = {
+						is_ship_size = destroyer
+						has_ship_flag = bulwark_ship_techtwo
+					}
+					count < 70
+				}
+				count_owned_ship = {
+					limit = {
+						is_ship_size = cruiser
+						has_ship_flag = bulwark_ship_techtwo
+					}
+					count < 30
+				}
+			}
+		}
+		AND = {
+			owner = {
+				has_country_flag = bulwark_country_numbersfour
+				has_country_flag = bulwark_country_techthree
+			}
+			OR = {
+				count_owned_ship = {
+					limit = {
+						is_ship_size = corvette
+						has_ship_flag = bulwark_ship_techthree
+					}
+					count < 100
+				}
+				count_owned_ship = {
+					limit = {
+						is_ship_size = destroyer
+						has_ship_flag = bulwark_ship_techthree
+					}
+					count < 70
+				}
+				count_owned_ship = {
+					limit = {
+						is_ship_size = cruiser
+						has_ship_flag = bulwark_ship_techthree
+					}
+					count < 30
+				}
+				count_owned_ship = {
+					limit = {
+						is_ship_size = battleship
+						has_ship_flag = bulwark_ship_techthree
+					}
+					count < 15
+				}
+			}
+		}
+		AND = {
+			owner = {
+				has_country_flag = bulwark_country_numbersfour
+				has_country_flag = bulwark_country_techfour
+			}
+			OR = {
+				count_owned_ship = {
+					limit = {
+						is_ship_size = corvette
+						has_ship_flag = bulwark_ship_techfour
+					}
+					count < 100
+				}
+				count_owned_ship = {
+					limit = {
+						is_ship_size = destroyer
+						has_ship_flag = bulwark_ship_techfour
+					}
+					count < 70
+				}
+				count_owned_ship = {
+					limit = {
+						is_ship_size = cruiser
+						has_ship_flag = bulwark_ship_techfour
+					}
+					count < 30
+				}
+				count_owned_ship = {
+					limit = {
+						is_ship_size = battleship
+						has_ship_flag = bulwark_ship_techfour
+					}
+					count < 15
+				}
+			}
+		}
+		AND = {
+			owner = {
+				has_country_flag = bulwark_country_numbersfour
+				has_country_flag = bulwark_country_techfive
+			}
+			OR = {
+				count_owned_ship = {
+					limit = {
+						is_ship_size = corvette
+						has_ship_flag = bulwark_ship_techfive
+					}
+					count < 100
+				}
+				count_owned_ship = {
+					limit = {
+						is_ship_size = destroyer
+						has_ship_flag = bulwark_ship_techfive
+					}
+					count < 70
+				}
+				count_owned_ship = {
+					limit = {
+						is_ship_size = cruiser
+						has_ship_flag = bulwark_ship_techfive
+					}
+					count < 30
+				}
+				count_owned_ship = {
+					limit = {
+						is_ship_size = battleship
+						has_ship_flag = bulwark_ship_techfive
+					}
+					count < 15
+				}
+			}
+		}
+		AND = {
+			owner = {
+				has_country_flag = bulwark_country_numbersfive
+				has_country_flag = bulwark_country_techone
+			}
+			OR = {
+				count_owned_ship = {
+					limit = {
+						is_ship_size = corvette
+						has_ship_flag = bulwark_ship_techone
+					}
+					count < 120
+				}
+				count_owned_ship = {
+					limit = {
+						is_ship_size = destroyer
+						has_ship_flag = bulwark_ship_techone
+					}
+					count < 85
+				}
+			}
+		}
+		AND = {
+			owner = {
+				has_country_flag = bulwark_country_numbersfive
+				has_country_flag = bulwark_country_techtwo
+			}
+			OR = {
+				count_owned_ship = {
+					limit = {
+						is_ship_size = corvette
+						has_ship_flag = bulwark_ship_techtwo
+					}
+					count < 120
+				}
+				count_owned_ship = {
+					limit = {
+						is_ship_size = destroyer
+						has_ship_flag = bulwark_ship_techtwo
+					}
+					count < 85
+				}
+				count_owned_ship = {
+					limit = {
+						is_ship_size = cruiser
+						has_ship_flag = bulwark_ship_techtwo
+					}
+					count < 40
+				}
+			}
+		}
+		AND = {
+			owner = {
+				has_country_flag = bulwark_country_numbersfive
+				has_country_flag = bulwark_country_techthree
+			}
+			OR = {
+				count_owned_ship = {
+					limit = {
+						is_ship_size = corvette
+						has_ship_flag = bulwark_ship_techthree
+					}
+					count < 120
+				}
+				count_owned_ship = {
+					limit = {
+						is_ship_size = destroyer
+						has_ship_flag = bulwark_ship_techthree
+					}
+					count < 85
+				}
+				count_owned_ship = {
+					limit = {
+						is_ship_size = cruiser
+						has_ship_flag = bulwark_ship_techthree
+					}
+					count < 40
+				}
+				count_owned_ship = {
+					limit = {
+						is_ship_size = battleship
+						has_ship_flag = bulwark_ship_techthree
+					}
+					count < 20
+				}
+			}
+		}
+		AND = {
+			owner = {
+				has_country_flag = bulwark_country_numbersfive
+				has_country_flag = bulwark_country_techfour
+			}
+			OR = {
+				count_owned_ship = {
+					limit = {
+						is_ship_size = corvette
+						has_ship_flag = bulwark_ship_techfour
+					}
+					count < 120
+				}
+				count_owned_ship = {
+					limit = {
+						is_ship_size = destroyer
+						has_ship_flag = bulwark_ship_techfour
+					}
+					count < 85
+				}
+				count_owned_ship = {
+					limit = {
+						is_ship_size = cruiser
+						has_ship_flag = bulwark_ship_techfour
+					}
+					count < 40
+				}
+				count_owned_ship = {
+					limit = {
+						is_ship_size = battleship
+						has_ship_flag = bulwark_ship_techfour
+					}
+					count < 20
+				}
+			}
+		}
+		AND = {
+			owner = {
+				has_country_flag = bulwark_country_numbersfive
+				has_country_flag = bulwark_country_techfive
+			}
+			OR = {
+				count_owned_ship = {
+					limit = {
+						is_ship_size = corvette
+						has_ship_flag = bulwark_ship_techfive
+					}
+					count < 120
+				}
+				count_owned_ship = {
+					limit = {
+						is_ship_size = destroyer
+						has_ship_flag = bulwark_ship_techfive
+					}
+					count < 85
+				}
+				count_owned_ship = {
+					limit = {
+						is_ship_size = cruiser
+						has_ship_flag = bulwark_ship_techfive
+					}
+					count < 40
+				}
+				count_owned_ship = {
+					limit = {
+						is_ship_size = battleship
+						has_ship_flag = bulwark_ship_techfive
+					}
+					count < 20
+				}
+			}
+		}
+	}
+}
+bulwark_fleet_needs_reinforcements_leased_mercs = {
+	OR = {
+		AND = {
+			event_target:bulwark_sending_reinforcements = {
+					has_country_flag = bulwark_country_numbersone
+					has_country_flag = bulwark_country_techone
+			}
+			OR = {
+				count_owned_ship = {
+					limit = {
+						is_ship_size = corvette
+						has_ship_flag = bulwark_ship_techone
+					}
+					count < 40
+				}
+				count_owned_ship = {
+					limit = {
+						is_ship_size = destroyer
+						has_ship_flag = bulwark_ship_techone
+					}
+					count < 25
+				}
+			}
+		}
+		AND = {
+			event_target:bulwark_sending_reinforcements = {
+				has_country_flag = bulwark_country_numbersone
+				has_country_flag = bulwark_country_techtwo
+			}
+			OR = {
+				count_owned_ship = {
+					limit = {
+						is_ship_size = corvette
+						has_ship_flag = bulwark_ship_techtwo
+					}
+					count < 40
+				}
+				count_owned_ship = {
+					limit = {
+						is_ship_size = destroyer
+						has_ship_flag = bulwark_ship_techtwo
+					}
+					count < 25
+				}
+			}
+		}
+		AND = {
+			event_target:bulwark_sending_reinforcements = {
+				has_country_flag = bulwark_country_numbersone
+				has_country_flag = bulwark_country_techthree
+			}
+			OR = {
+				count_owned_ship = {
+					limit = {
+						is_ship_size = corvette
+						has_ship_flag = bulwark_ship_techthree
+					}
+					count < 40
+				}
+				count_owned_ship = {
+					limit = {
+						is_ship_size = destroyer
+						has_ship_flag = bulwark_ship_techthree
+					}
+					count < 25
+				}
+			}
+		}
+		AND = {
+			event_target:bulwark_sending_reinforcements = {
+				has_country_flag = bulwark_country_numbersone
+				has_country_flag = bulwark_country_techfour
+			}
+			OR = {
+				count_owned_ship = {
+					limit = {
+						is_ship_size = corvette
+						has_ship_flag = bulwark_ship_techfour
+					}
+					count < 40
+				}
+				count_owned_ship = {
+					limit = {
+						is_ship_size = destroyer
+						has_ship_flag = bulwark_ship_techfour
+					}
+					count < 25
+				}
+			}
+		}
+		AND = {
+			event_target:bulwark_sending_reinforcements = {
+				has_country_flag = bulwark_country_numbersfive
+				has_country_flag = bulwark_country_techtwo
+			}
+			OR = {
+				count_owned_ship = {
+					limit = {
+						is_ship_size = corvette
+						has_ship_flag = bulwark_ship_techfive
+					}
+					count < 40
+				}
+				count_owned_ship = {
+					limit = {
+						is_ship_size = destroyer
+						has_ship_flag = bulwark_ship_techfive
+					}
+					count < 25
+				}
+			}
+		}
+		AND = {
+			event_target:bulwark_sending_reinforcements = {
+				has_country_flag = bulwark_country_numberstwo
+				has_country_flag = bulwark_country_techone
+			}
+			OR = {
+				count_owned_ship = {
+					limit = {
+						is_ship_size = corvette
+						has_ship_flag = bulwark_ship_techone
+					}
+					count < 60
+				}
+				count_owned_ship = {
+					limit = {
+						is_ship_size = destroyer
+						has_ship_flag = bulwark_ship_techone
+					}
+					count < 40
+				}
+			}
+		}
+		AND = {
+			event_target:bulwark_sending_reinforcements = {
+				has_country_flag = bulwark_country_numberstwo
+				has_country_flag = bulwark_country_techtwo
+			}
+			OR = {
+				count_owned_ship = {
+					limit = {
+						is_ship_size = corvette
+						has_ship_flag = bulwark_ship_techtwo
+					}
+					count < 60
+				}
+				count_owned_ship = {
+					limit = {
+						is_ship_size = destroyer
+						has_ship_flag = bulwark_ship_techtwo
+					}
+					count < 40
+				}
+				count_owned_ship = {
+					limit = {
+						is_ship_size = cruiser
+						has_ship_flag = bulwark_ship_techtwo
+					}
+					count < 10
+				}
+			}
+		}
+		AND = {
+			event_target:bulwark_sending_reinforcements = {
+				has_country_flag = bulwark_country_numberstwo
+				has_country_flag = bulwark_country_techthree
+			}
+			OR = {
+				count_owned_ship = {
+					limit = {
+						is_ship_size = corvette
+						has_ship_flag = bulwark_ship_techthree
+					}
+					count < 60
+				}
+				count_owned_ship = {
+					limit = {
+						is_ship_size = destroyer
+						has_ship_flag = bulwark_ship_techthree
+					}
+					count < 40
+				}
+				count_owned_ship = {
+					limit = {
+						is_ship_size = cruiser
+						has_ship_flag = bulwark_ship_techthree
+					}
+					count < 10
+				}
+				count_owned_ship = {
+					limit = {
+						is_ship_size = battleship
+						has_ship_flag = bulwark_ship_techthree
+					}
+					count < 5
+				}
+			}
+		}
+		AND = {
+			event_target:bulwark_sending_reinforcements = {
+				has_country_flag = bulwark_country_numberstwo
+				has_country_flag = bulwark_country_techfour
+			}
+			OR = {
+				count_owned_ship = {
+					limit = {
+						is_ship_size = corvette
+						has_ship_flag = bulwark_ship_techfour
+					}
+					count < 60
+				}
+				count_owned_ship = {
+					limit = {
+						is_ship_size = destroyer
+						has_ship_flag = bulwark_ship_techfour
+					}
+					count < 40
+				}
+				count_owned_ship = {
+					limit = {
+						is_ship_size = cruiser
+						has_ship_flag = bulwark_ship_techfour
+					}
+					count < 10
+				}
+				count_owned_ship = {
+					limit = {
+						is_ship_size = battleship
+						has_ship_flag = bulwark_ship_techfour
+					}
+					count < 5
+				}
+			}
+		}
+		AND = {
+			event_target:bulwark_sending_reinforcements = {
+				has_country_flag = bulwark_country_numberstwo
+				has_country_flag = bulwark_country_techfive
+			}
+			OR = {
+				count_owned_ship = {
+					limit = {
+						is_ship_size = corvette
+						has_ship_flag = bulwark_ship_techfive
+					}
+					count < 60
+				}
+				count_owned_ship = {
+					limit = {
+						is_ship_size = destroyer
+						has_ship_flag = bulwark_ship_techfive
+					}
+					count < 40
+				}
+				count_owned_ship = {
+					limit = {
+						is_ship_size = cruiser
+						has_ship_flag = bulwark_ship_techfive
+					}
+					count < 10
+				}
+				count_owned_ship = {
+					limit = {
+						is_ship_size = battleship
+						has_ship_flag = bulwark_ship_techfive
+					}
+					count < 5
+				}
+			}
+		}
+		AND = {
+			event_target:bulwark_sending_reinforcements = {
+				has_country_flag = bulwark_country_numbersthree
+				has_country_flag = bulwark_country_techone
+			}
+			OR = {
+				count_owned_ship = {
+					limit = {
+						is_ship_size = corvette
+						has_ship_flag = bulwark_ship_techone
+					}
+					count < 80
+				}
+				count_owned_ship = {
+					limit = {
+						is_ship_size = destroyer
+						has_ship_flag = bulwark_ship_techone
+					}
+					count < 55
+				}
+			}
+		}
+		AND = {
+			event_target:bulwark_sending_reinforcements = {
+				has_country_flag = bulwark_country_numbersthree
+				has_country_flag = bulwark_country_techtwo
+			}
+			OR = {
+				count_owned_ship = {
+					limit = {
+						is_ship_size = corvette
+						has_ship_flag = bulwark_ship_techtwo
+					}
+					count < 80
+				}
+				count_owned_ship = {
+					limit = {
+						is_ship_size = destroyer
+						has_ship_flag = bulwark_ship_techtwo
+					}
+					count < 55
+				}
+				count_owned_ship = {
+					limit = {
+						is_ship_size = cruiser
+						has_ship_flag = bulwark_ship_techtwo
+					}
+					count < 20
+				}
+			}
+		}
+		AND = {
+			event_target:bulwark_sending_reinforcements = {
+				has_country_flag = bulwark_country_numbersthree
+				has_country_flag = bulwark_country_techthree
+			}
+			OR = {
+				count_owned_ship = {
+					limit = {
+						is_ship_size = corvette
+						has_ship_flag = bulwark_ship_techthree
+					}
+					count < 80
+				}
+				count_owned_ship = {
+					limit = {
+						is_ship_size = destroyer
+						has_ship_flag = bulwark_ship_techthree
+					}
+					count < 55
+				}
+				count_owned_ship = {
+					limit = {
+						is_ship_size = cruiser
+						has_ship_flag = bulwark_ship_techthree
+					}
+					count < 20
+				}
+				count_owned_ship = {
+					limit = {
+						is_ship_size = battleship
+						has_ship_flag = bulwark_ship_techthree
+					}
+					count < 10
+				}
+			}
+		}
+		AND = {
+			event_target:bulwark_sending_reinforcements = {
+				has_country_flag = bulwark_country_numbersthree
+				has_country_flag = bulwark_country_techfour
+			}
+			OR = {
+				count_owned_ship = {
+					limit = {
+						is_ship_size = corvette
+						has_ship_flag = bulwark_ship_techfour
+					}
+					count < 80
+				}
+				count_owned_ship = {
+					limit = {
+						is_ship_size = destroyer
+						has_ship_flag = bulwark_ship_techfour
+					}
+					count < 55
+				}
+				count_owned_ship = {
+					limit = {
+						is_ship_size = cruiser
+						has_ship_flag = bulwark_ship_techfour
+					}
+					count < 20
+				}
+				count_owned_ship = {
+					limit = {
+						is_ship_size = battleship
+						has_ship_flag = bulwark_ship_techfour
+					}
+					count < 10
+				}
+			}
+		}
+		AND = {
+			event_target:bulwark_sending_reinforcements = {
+				has_country_flag = bulwark_country_numbersthree
+				has_country_flag = bulwark_country_techfive
+			}
+			OR = {
+				count_owned_ship = {
+					limit = {
+						is_ship_size = corvette
+						has_ship_flag = bulwark_ship_techfive
+					}
+					count < 80
+				}
+				count_owned_ship = {
+					limit = {
+						is_ship_size = destroyer
+						has_ship_flag = bulwark_ship_techfive
+					}
+					count < 55
+				}
+				count_owned_ship = {
+					limit = {
+						is_ship_size = cruiser
+						has_ship_flag = bulwark_ship_techfive
+					}
+					count < 20
+				}
+				count_owned_ship = {
+					limit = {
+						is_ship_size = battleship
+						has_ship_flag = bulwark_ship_techfive
+					}
+					count < 10
+				}
+			}
+		}
+		AND = {
+			event_target:bulwark_sending_reinforcements = {
+				has_country_flag = bulwark_country_numbersfour
+				has_country_flag = bulwark_country_techone
+			}
+			OR = {
+				count_owned_ship = {
+					limit = {
+						is_ship_size = corvette
+						has_ship_flag = bulwark_ship_techone
+					}
+					count < 100
+				}
+				count_owned_ship = {
+					limit = {
+						is_ship_size = destroyer
+						has_ship_flag = bulwark_ship_techone
+					}
+					count < 70
+				}
+			}
+		}
+		AND = {
+			event_target:bulwark_sending_reinforcements = {
+				has_country_flag = bulwark_country_numbersfour
+				has_country_flag = bulwark_country_techtwo
+			}
+			OR = {
+				count_owned_ship = {
+					limit = {
+						is_ship_size = corvette
+						has_ship_flag = bulwark_ship_techtwo
+					}
+					count < 100
+				}
+				count_owned_ship = {
+					limit = {
+						is_ship_size = destroyer
+						has_ship_flag = bulwark_ship_techtwo
+					}
+					count < 70
+				}
+				count_owned_ship = {
+					limit = {
+						is_ship_size = cruiser
+						has_ship_flag = bulwark_ship_techtwo
+					}
+					count < 30
+				}
+			}
+		}
+		AND = {
+			event_target:bulwark_sending_reinforcements = {
+				has_country_flag = bulwark_country_numbersfour
+				has_country_flag = bulwark_country_techthree
+			}
+			OR = {
+				count_owned_ship = {
+					limit = {
+						is_ship_size = corvette
+						has_ship_flag = bulwark_ship_techthree
+					}
+					count < 100
+				}
+				count_owned_ship = {
+					limit = {
+						is_ship_size = destroyer
+						has_ship_flag = bulwark_ship_techthree
+					}
+					count < 70
+				}
+				count_owned_ship = {
+					limit = {
+						is_ship_size = cruiser
+						has_ship_flag = bulwark_ship_techthree
+					}
+					count < 30
+				}
+				count_owned_ship = {
+					limit = {
+						is_ship_size = battleship
+						has_ship_flag = bulwark_ship_techthree
+					}
+					count < 15
+				}
+			}
+		}
+		AND = {
+			event_target:bulwark_sending_reinforcements = {
+				has_country_flag = bulwark_country_numbersfour
+				has_country_flag = bulwark_country_techfour
+			}
+			OR = {
+				count_owned_ship = {
+					limit = {
+						is_ship_size = corvette
+						has_ship_flag = bulwark_ship_techfour
+					}
+					count < 100
+				}
+				count_owned_ship = {
+					limit = {
+						is_ship_size = destroyer
+						has_ship_flag = bulwark_ship_techfour
+					}
+					count < 70
+				}
+				count_owned_ship = {
+					limit = {
+						is_ship_size = cruiser
+						has_ship_flag = bulwark_ship_techfour
+					}
+					count < 30
+				}
+				count_owned_ship = {
+					limit = {
+						is_ship_size = battleship
+						has_ship_flag = bulwark_ship_techfour
+					}
+					count < 15
+				}
+			}
+		}
+		AND = {
+			event_target:bulwark_sending_reinforcements = {
+				has_country_flag = bulwark_country_numbersfour
+				has_country_flag = bulwark_country_techfive
+			}
+			OR = {
+				count_owned_ship = {
+					limit = {
+						is_ship_size = corvette
+						has_ship_flag = bulwark_ship_techfive
+					}
+					count < 100
+				}
+				count_owned_ship = {
+					limit = {
+						is_ship_size = destroyer
+						has_ship_flag = bulwark_ship_techfive
+					}
+					count < 70
+				}
+				count_owned_ship = {
+					limit = {
+						is_ship_size = cruiser
+						has_ship_flag = bulwark_ship_techfive
+					}
+					count < 30
+				}
+				count_owned_ship = {
+					limit = {
+						is_ship_size = battleship
+						has_ship_flag = bulwark_ship_techfive
+					}
+					count < 15
+				}
+			}
+		}
+		AND = {
+			event_target:bulwark_sending_reinforcements = {
+				has_country_flag = bulwark_country_numbersfive
+				has_country_flag = bulwark_country_techone
+			}
+			OR = {
+				count_owned_ship = {
+					limit = {
+						is_ship_size = corvette
+						has_ship_flag = bulwark_ship_techone
+					}
+					count < 120
+				}
+				count_owned_ship = {
+					limit = {
+						is_ship_size = destroyer
+						has_ship_flag = bulwark_ship_techone
+					}
+					count < 85
+				}
+			}
+		}
+		AND = {
+			event_target:bulwark_sending_reinforcements = {
+				has_country_flag = bulwark_country_numbersfive
+				has_country_flag = bulwark_country_techtwo
+			}
+			OR = {
+				count_owned_ship = {
+					limit = {
+						is_ship_size = corvette
+						has_ship_flag = bulwark_ship_techtwo
+					}
+					count < 120
+				}
+				count_owned_ship = {
+					limit = {
+						is_ship_size = destroyer
+						has_ship_flag = bulwark_ship_techtwo
+					}
+					count < 85
+				}
+				count_owned_ship = {
+					limit = {
+						is_ship_size = cruiser
+						has_ship_flag = bulwark_ship_techtwo
+					}
+					count < 40
+				}
+			}
+		}
+		AND = {
+			event_target:bulwark_sending_reinforcements = {
+				has_country_flag = bulwark_country_numbersfive
+				has_country_flag = bulwark_country_techthree
+			}
+			OR = {
+				count_owned_ship = {
+					limit = {
+						is_ship_size = corvette
+						has_ship_flag = bulwark_ship_techthree
+					}
+					count < 120
+				}
+				count_owned_ship = {
+					limit = {
+						is_ship_size = destroyer
+						has_ship_flag = bulwark_ship_techthree
+					}
+					count < 85
+				}
+				count_owned_ship = {
+					limit = {
+						is_ship_size = cruiser
+						has_ship_flag = bulwark_ship_techthree
+					}
+					count < 40
+				}
+				count_owned_ship = {
+					limit = {
+						is_ship_size = battleship
+						has_ship_flag = bulwark_ship_techthree
+					}
+					count < 20
+				}
+			}
+		}
+		AND = {
+			event_target:bulwark_sending_reinforcements = {
+				has_country_flag = bulwark_country_numbersfive
+				has_country_flag = bulwark_country_techfour
+			}
+			OR = {
+				count_owned_ship = {
+					limit = {
+						is_ship_size = corvette
+						has_ship_flag = bulwark_ship_techfour
+					}
+					count < 120
+				}
+				count_owned_ship = {
+					limit = {
+						is_ship_size = destroyer
+						has_ship_flag = bulwark_ship_techfour
+					}
+					count < 85
+				}
+				count_owned_ship = {
+					limit = {
+						is_ship_size = cruiser
+						has_ship_flag = bulwark_ship_techfour
+					}
+					count < 40
+				}
+				count_owned_ship = {
+					limit = {
+						is_ship_size = battleship
+						has_ship_flag = bulwark_ship_techfour
+					}
+					count < 20
+				}
+			}
+		}
+		AND = {
+			event_target:bulwark_sending_reinforcements = {
+				has_country_flag = bulwark_country_numbersfive
+				has_country_flag = bulwark_country_techfive
+			}
+			OR = {
+				count_owned_ship = {
+					limit = {
+						is_ship_size = corvette
+						has_ship_flag = bulwark_ship_techfive
+					}
+					count < 120
+				}
+				count_owned_ship = {
+					limit = {
+						is_ship_size = destroyer
+						has_ship_flag = bulwark_ship_techfive
+					}
+					count < 85
+				}
+				count_owned_ship = {
+					limit = {
+						is_ship_size = cruiser
+						has_ship_flag = bulwark_ship_techfive
+					}
+					count < 40
+				}
+				count_owned_ship = {
+					limit = {
+						is_ship_size = battleship
+						has_ship_flag = bulwark_ship_techfive
+					}
+					count < 20
+				}
+			}
+		}
+	}
+}

@@ -4,12 +4,11 @@
 # Written by ScepraX
 ##########################################################################
 
-
 #############################################
 # 	Variables								#
 #############################################
 
-# Ship limit for pirate countries
+# Ship limit for pirate countries.
 @ships_count_very_easy = 250
 @ships_count_easy = 500
 @ships_count_medium = 1000
@@ -236,7 +235,64 @@ set_pirates_difficulty = {
 				}
 			}
 		}
-		divide_variable = { which = pirates_factor value = 2 } # only half
+		divide_variable = { which = pirates_factor value = 2 } # Only half
+
+		# switch = { # full
+		# 	trigger = has_country_flag
+		# 	pirate_waves_easy = {
+		# 		set_variable = { which = marauder_shipnum_a value = 8 }
+		# 		set_variable = { which = marauder_shipnum_b value = 4 }
+		# 		set_variable = { which = marauder_shipnum_c value = 3 }
+		# 	}
+		# 	pirate_waves_easy = {
+		# 		set_variable = { which = marauder_shipnum_a value = 12 }
+		# 		set_variable = { which = marauder_shipnum_b value = 6 }
+		# 		set_variable = { which = marauder_shipnum_c value = 5 }
+		# 	}
+		# 	default = {
+		# 		set_variable = { which = marauder_shipnum_a value = 16 }
+		# 		set_variable = { which = marauder_shipnum_b value = 8 }
+		# 		set_variable = { which = marauder_shipnum_c value = 6 }
+		# 	}
+		# 	ships_count_hard = {
+		# 		set_variable = { which = marauder_shipnum_a value = 20 }
+		# 		set_variable = { which = marauder_shipnum_b value = 10 }
+		# 		set_variable = { which = marauder_shipnum_c value = 7 }
+		# 	}
+		# 	pirate_waves_insane = {
+		# 		set_variable = { which = marauder_shipnum_a value = 24 }
+		# 		set_variable = { which = marauder_shipnum_b value = 12 }
+		# 		set_variable = { which = marauder_shipnum_c value = 9 }
+		# 	}
+		# }
+		switch = { # half
+			trigger = has_country_flag
+			pirate_waves_easy = {
+				set_variable = { which = marauder_shipnum_a value = 4 }
+				set_variable = { which = marauder_shipnum_b value = 2 }
+				set_variable = { which = marauder_shipnum_c value = 0 }
+			}
+			pirate_waves_easy = {
+				set_variable = { which = marauder_shipnum_a value = 6 }
+				set_variable = { which = marauder_shipnum_b value = 3 }
+				set_variable = { which = marauder_shipnum_c value = 1 }
+			}
+			default = {
+				set_variable = { which = marauder_shipnum_a value = 8 }
+				set_variable = { which = marauder_shipnum_b value = 4 }
+				set_variable = { which = marauder_shipnum_c value = 2 }
+			}
+			ships_count_hard = {
+				set_variable = { which = marauder_shipnum_a value = 10 }
+				set_variable = { which = marauder_shipnum_b value = 6 }
+				set_variable = { which = marauder_shipnum_c value = 3 }
+			}
+			pirate_waves_insane = {
+				set_variable = { which = marauder_shipnum_a value = 12 }
+				set_variable = { which = marauder_shipnum_b value = 7 }
+				set_variable = { which = marauder_shipnum_c value = 4 }
+			}
+		}
 	}
 }
 

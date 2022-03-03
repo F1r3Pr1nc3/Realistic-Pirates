@@ -42,7 +42,7 @@ country_event = {
 	}
 }
 
-# Gets overwritten by The Greath Khan Expanded
+# Gets overwritten by The Greath Khan Expanded.
 event = {
 	id = khan.300
 	hide_window = yes
@@ -424,8 +424,8 @@ country_event = {
 }
 
 # Marauder System Liberated - on_disabled Marauder starbase (HIDDEN)
-# This = Ship
-# From = Disabler Ship
+# this = Ship
+# from = Disabler Ship
 ship_event = {
 	id = khan.304
 	hide_window = yes
@@ -695,7 +695,7 @@ country_event = {
 }
 
 # Reenable fleets (hack)
-# From = former opponent
+# from = former opponent
 country_event = {
 	id = khan.307	# Same as a_deadly_tempest.13007
 	hide_window = yes
@@ -732,8 +732,8 @@ country_event = {
 }
 
 # Set country friendly
-# This = target1 country - fleets
-# From = target2
+# this = target1 country - fleets
+# from = target2
 country_event = {
 	id = khan.308
 	hide_window = yes
@@ -841,7 +841,7 @@ country_event = {
 }
 
 ## Workaround fix (ongoing hostility)
-## This = Khan
+## this = Khan
 country_event = {
 	id = khan.309
 	hide_window = yes
@@ -1013,8 +1013,8 @@ system_event = {
 
 # Handover parts of marauder country for Diadochi (HIDDEN)
 # Via marauder.601 and marauder.609
-# This = Diadochi
-# From = raider_khanate
+# this = Diadochi
+# from = raider_khanate
 country_event = {
 	id = khan.610
 	hide_window = yes

@@ -82,7 +82,7 @@ is_pirate_waves_active = {
 # }
 
 # LEGACY
-# DEPRECATED Check for ship count
+# DEPRECATED Check for ship count.
 # is_pirate_waves_spawn_allowed = {
 # 	event_target:current_pirate_country = {
 # 		OR = {

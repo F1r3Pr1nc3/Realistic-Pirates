@@ -51,7 +51,7 @@ country_event = {
 					exists = event_target:global_event_country
 					event_target:global_event_country = { is_variable_set = CmtVarFleetPower_Khan }
 				}
-				# Fallback: Take default settings from Crisis Manager
+				# Fallback: Take default settings from Crisis Manager.
 				event_target:global_event_country = {
 					if = {
 						limit = { check_variable = { which = CmtVarFleetPower_Khan value > 1.74 } }
@@ -1654,7 +1654,7 @@ country_event = {
 
 # Creates ten pirate fleets immediately (HIDDEN)
 # Called through the console
-event = {
+country_event = {
 	id = pirate_waves.10
 	hide_window = yes
 	is_triggered_only = yes
@@ -1675,7 +1675,7 @@ event = {
 
 # Creates one pirate fleet immediately (HIDDEN)
 # Called through the console
-event = {
+country_event = {
 	id = pirate_waves.11
 	hide_window = yes
 	is_triggered_only = yes
@@ -1692,7 +1692,7 @@ event = {
 
 # Creates a hundred pirate fleets and stations immediately (HIDDEN)
 # Called through the console
-event = {
+country_event = {
 	id = pirate_waves.100
 	hide_window = yes
 	is_triggered_only = yes
@@ -1713,7 +1713,7 @@ event = {
 
 # Creates a thousand pirate fleets and stations immediately (HIDDEN)
 # Called through the console
-event = {
+country_event = {
 	id = pirate_waves.1000
 	hide_window = yes
 	is_triggered_only = yes
@@ -1734,7 +1734,7 @@ event = {
 
 # Tries to fix any bugs by destroying the pirate countries and recreate them (HIDDEN)
 # Called through the console
-event = {
+country_event = {
 	id = pirate_waves.666
 	hide_window = yes
 	is_triggered_only = yes
@@ -1754,7 +1754,7 @@ event = {
 
 # Remove all pirate countries (HIDDEN)
 # Called through the console
-event = {
+country_event = {
 	id = pirate_waves.667
 	hide_window = yes
 	is_triggered_only = yes
@@ -1985,7 +1985,7 @@ country_event = {
 				type = dormant_marauders
 				civics = { civic = civic_anarcho_tribalism }
 				origin = "origin_default"
-				# TODO: if possible copy flag icon from former pirates
+				# TODO: if possible copy flag icon from former pirates.
 				flag = {
 					# icon = { category = pirates file = random }
 					background= { category = "backgrounds" file = "00_solid.dds" }
