@@ -399,7 +399,9 @@ country_event = {
 	immediate = {
 		from = {
 			set_country_flag = marauder_vengeance_begun
-			set_pirates_difficulty = yes
+			if = { limit = { has_global_flag = pirate_waves_active }
+				set_pirates_difficulty = yes
+			}
 		}
 		random_owned_planet = {
 			solar_system = {
@@ -2683,30 +2685,48 @@ country_event = {
 
 		## Dynamic raid costs TODO needs update each effect
 		event_target:current_marauder_diplomacy = {
-			set_pirates_difficulty = yes
-			set_variable = { which = raidcost value = 1.5 }
-			multiply_variable = { which = raidcost value = pirates_factor } # as it is only half for marauders
-			# switch = { # price depending on difficulty?
-			# 	trigger = has_country_flag
-			# 	pirate_waves_very_easy = {
-			# 		multiply_variable = { which = pirates_factor value = 0.5 }
-			# 	}
-			# 	pirate_waves_easy = {
-			# 		multiply_variable = { which = pirates_factor value = 0.75 }
-			# 	}
-			# 	ships_count_hard = {
-			# 		multiply_variable = { which = pirates_factor value = 1.25 }
-			# 	}
-			# 	pirate_waves_insane = {
-			# 		multiply_variable = { which = pirates_factor value = 1.5 }
-			# 	}
-			# }
-			round_variable_to_closest = { which = raidcost value = 100 }
+			if = { limit = { has_global_flag = pirate_waves_active }
+				set_pirates_difficulty = yes
+				set_variable = { which = raidcost value = 1.5 }
+				change_variable = { which = raidcost value = pirates_factor }
+				divide_variable = { which = raidcost value = 2 } # take only 50% weight
+				multiply_variable = { which = raidcost value = pirates_factor } # as it is only half for marauders
+				# set_variable = { which = raidallow value = @raidallow }
+				# multiply_variable = { which = raidallow value = pirates_factor }
+				# multiply_variable = { which = raidallow value =  1.5 } # as it is only half for marauders
+				# log="raidallow \\[This.raidallow]"
+				# switch = { # price depending on difficulty?
+				# 	trigger = has_country_flag
+				# 	pirate_waves_very_easy = {
+				# 		multiply_variable = { which = pirates_factor value = 0.5 }
+				# 	}
+				# 	pirate_waves_easy = {
+				# 		multiply_variable = { which = pirates_factor value = 0.75 }
+				# 	}
+				# 	ships_count_hard = {
+				# 		multiply_variable = { which = pirates_factor value = 1.25 }
+				# 	}
+				# 	pirate_waves_insane = {
+				# 		multiply_variable = { which = pirates_factor value = 1.5 }
+				# 	}
+				# }
+				round_variable_to_closest = { which = raidcost value = 0.01 }
+				# round_variable = raidcost
+			} else = {
+				set_variable = { which = raidcost value = 1 }
+			}
 		}
-
 	}
 	after = {
-		hidden_effect = { remove_country_flag = marauder_diplomacy_engaged }
+		hidden_effect = {
+			remove_country_flag = marauder_diplomacy_engaged
+			event_target:current_marauder_diplomacy = {
+				if = { limit = { is_variable_set = raidcost }
+					log="Dyn. raidcost \\[This.raidcost] and difficulty \\[This.pirate_waves_difficulty]"
+					clear_variable = raidcost
+				}
+			}
+		}
 	}
 	option = {
 		name = marauder.32.a
@@ -2714,14 +2734,16 @@ country_event = {
 			event_target:current_marauder_diplomacy = { has_country_flag = marauder_1 }
 		}
 		allow = {
-			resource_stockpile_compare = { resource = energy value >= @raidallow }
+			resource_stockpile_compare = {
+				resource = energy
+				value >= @raidallow
+				mult = event_target:current_marauder_diplomacy.raidcost
+			}
 		}
 		add_resource = {
 			energy = @raidcost
 			mult = event_target:current_marauder_diplomacy.raidcost
 		}
-		clear_variable = event_target:current_marauder_diplomacy.raidcost
-
 		response_text = marauder.32.1.a.response
 		custom_tooltip = hire_raid
 		hidden_effect = {
@@ -2737,13 +2759,16 @@ country_event = {
 			event_target:current_marauder_diplomacy = { has_country_flag = marauder_2 }
 		}
 		allow = {
-			resource_stockpile_compare = { resource = energy value >= @raidallow }
+			resource_stockpile_compare = {
+				resource = energy
+				value >= @raidallow
+				mult = event_target:current_marauder_diplomacy.raidcost
+			}
 		}
 		add_resource = {
 			energy = @raidcost
 			mult = event_target:current_marauder_diplomacy.raidcost
 		}
-		clear_variable = event_target:current_marauder_diplomacy.raidcost
 		response_text = marauder.32.2.a.response
 		custom_tooltip = hire_raid
 		hidden_effect = {
@@ -2759,13 +2784,16 @@ country_event = {
 			event_target:current_marauder_diplomacy = { has_country_flag = marauder_3 }
 		}
 		allow = {
-			resource_stockpile_compare = { resource = energy value >= @raidallow }
+			resource_stockpile_compare = {
+				resource = energy
+				value >= @raidallow
+				mult = event_target:current_marauder_diplomacy.raidcost
+			}
 		}
 		add_resource = {
 			energy = @raidcost
 			mult = event_target:current_marauder_diplomacy.raidcost
 		}
-		clear_variable = event_target:current_marauder_diplomacy.raidcost
 		response_text = marauder.32.3.a.response
 		custom_tooltip = hire_raid
 		hidden_effect = {
@@ -5060,7 +5088,9 @@ country_event = {
 					trait = leader_trait_mercenary_warrior
 				}
 			}
-			set_pirates_difficulty = yes
+			if = { limit = { has_global_flag = pirate_waves_active }
+				set_pirates_difficulty = yes
+			}
 			create_fleet = {
 				name = "NAME_Raiding_Fleet"
 				effect = {
@@ -5723,7 +5753,7 @@ planet_event = {
 				remove_auto_move_target = yes
 				clear_orders = yes
 				clear_fleet_actions = this
-				set_disabled = yes
+				every_owned_ship = { set_disabled = yes }
 				set_event_locked = yes
 			}
 			## Refresh Agreement
@@ -7108,27 +7138,34 @@ event = {
 							trait = leader_trait_mercenary_warrior
 						}
 					}
-					set_pirates_difficulty = yes
 					## Dynamic raid costs TODO needs update each effect
-					set_variable = { which = raidcost value = 1.5 }
-					multiply_variable = { which = raidcost value = pirates_factor } # as it is only half for marauders
-					switch = { # price depending on difficulty?
-						trigger = has_country_flag
-						pirate_waves_very_easy = {
-							multiply_variable = { which = raidcost value = 0.5 }
+					if = {
+						limit = { has_global_flag = pirate_waves_active }
+						set_pirates_difficulty = yes
+						set_variable = { which = raidcost value = 1.5 }
+						change_variable = { which = raidcost value = pirates_factor }
+						divide_variable = { which = raidcost value = 2 } # take only 50% weight
+						multiply_variable = { which = raidcost value = pirates_factor } # as it is only half for marauders
+						switch = { # price depending on difficulty?
+							trigger = has_country_flag
+							pirate_waves_very_easy = {
+								multiply_variable = { which = raidcost value = 0.5 }
+							}
+							pirate_waves_easy = {
+								multiply_variable = { which = raidcost value = 0.75 }
+							}
+							ships_count_hard = {
+								multiply_variable = { which = raidcost value = 1.25 }
+							}
+							pirate_waves_insane = {
+								multiply_variable = { which = raidcost value = 1.5 }
+							}
 						}
-						pirate_waves_easy = {
-							multiply_variable = { which = raidcost value = 0.75 }
-						}
-						ships_count_hard = {
-							multiply_variable = { which = raidcost value = 1.25 }
-						}
-						pirate_waves_insane = {
-							multiply_variable = { which = raidcost value = 1.5 }
-						}
+						round_variable_to_closest = { which = raidcost value = 0.01 }
+						# round_variable = raidcost
+					} else = {
+						set_variable = { which = raidcost value = 1 }
 					}
-					round_variable_to_closest = { which = raidcost value = 100 }
-
 					create_fleet = {
 						name = "NAME_Raiding_Fleet"
 						effect = {
@@ -7185,13 +7222,14 @@ event = {
 						set_neutral = no
 						set_friendly = no
 					}
-				}
-				event_target:hired_marauder = {
-					add_resource = {
-						energy = @raidcost
-						mult = event_target:current_marauder_diplomacy.raidcost
+					event_target:hired_marauder = {
+						add_resource = {
+							energy = @raidcost
+							mult = prev.raidcost
+						}
 					}
-					clear_variable = event_target:current_marauder_diplomacy.raidcost
+					log="raidcost \\[This.raidcost]"
+					clear_variable = raidcost
 				}
 				event_target:marauder_target = {
 					set_country_flag = raid_target_of@event_target:raiding_marauder
@@ -7371,7 +7409,9 @@ event = {
 				}
 				save_event_target_as = marauder_merc_country
 				owner_species = { save_event_target_as = marauder_species }
-				set_pirates_difficulty = yes
+				if = { limit = { has_global_flag = pirate_waves_active }
+					set_pirates_difficulty = yes
+				}
 			}
 			random_list = {
 				# Large Fleet

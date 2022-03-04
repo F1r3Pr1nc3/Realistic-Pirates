@@ -339,9 +339,7 @@ planet_event = {
 		if = {
 			limit = { NOT = { exists = event_target:pirate_republic } }
 			break = yes
-		} else = {
-			log="Test separatists: \\[pirate_republic.GetName] and \\[last_created_country.GetName]"
-		}
+		} # else = { log="Separatists: \\[pirate_republic.GetName] and \\[last_created_country.GetName]" }
 		event_target:pirate_republic = {
 			randomize_flag_symbol = pirate
 			set_graphical_culture = "pirate_01"
