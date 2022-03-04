@@ -30,7 +30,7 @@ event = {
 						any_fleet_in_system = {
 							is_ship_size = pirate_station
 							has_fleet_flag = pirate_waves_station_flag
-							has_fleet_flag = pirate_waves_station_life_flag  # <- timed flag from on_pirate_spawn 10 years
+							has_fleet_flag = pirate_waves_station_life_flag # <- timed flag from on_pirate_spawn 10 years
 						}
 					}
 				}

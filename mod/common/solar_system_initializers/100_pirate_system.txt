@@ -1,0 +1,194 @@
+### Pirate System
+hostile_init_116 = {
+	usage = misc_system_init
+	usage_odds = {
+		base = 4
+		modifier = {
+			factor = 0
+			NOT = { is_in_cluster = resource_cluster_0 }
+		}
+		modifier = { factor = 0 has_star_flag = empire_cluster }
+	}
+	flags = { pirate_system pirate_1 }
+	planet = {
+		count = 1
+		class = star
+		orbit_distance = 0
+		orbit_angle = 1
+		size = { min = 20 max = 30 }
+		has_ring = no
+	}
+	change_orbit = 30
+	planet = {
+		count = 2
+		orbit_distance = 20
+		orbit_angle = { min = 90 max = 270 }
+	}
+	change_orbit = 25
+	planet = {
+		count = { min = 1 max = 2 }
+		class = random_asteroid
+		orbit_distance = 0
+		orbit_angle = { min = 90 max = 270 }
+		init_effect = {
+			create_pirate_country = yes
+			create_fleet = {
+				name = "NAME_Pirate_Hideout"
+				effect = {
+					set_owner = event_target:pirate_country
+					create_ship = {
+						name = random
+						design = "NAME_Pirate_Hideout"
+						graphical_culture = "pirate_01"
+					}
+					set_location = prev
+				}
+			}
+			create_fleet = {
+				name = "NAME_Lookouts"
+				effect = {
+					set_owner = event_target:pirate_country
+					while = {
+						count = 12
+						create_ship = {
+							name = random
+							design = "NAME_Brigand"
+							graphical_culture = "pirate_01"
+						}
+					}
+					while = {
+						count = 20
+						create_ship = {
+							name = random
+							design = "NAME_Skull"
+							graphical_culture = "pirate_01"
+						}
+					}
+					set_location = prev
+				}
+			}
+		}
+	}
+	planet = {
+		count = { min = 2 max = 5 }
+		orbit_distance = 25
+		orbit_angle = { min = 90 max = 270 }
+		change_orbit = @base_moon_distance
+		moon = {
+			count = { min = 0 max = 1 }
+			orbit_angle = { min = 90 max = 270 }
+			orbit_distance = 5
+		}
+	}
+}
+
+hostile_init_117 = {
+	class = "rl_standard_stars"
+	usage = misc_system_init
+	usage_odds = {
+		base = 4
+		modifier = {
+			factor = 0.1
+			NOT = { is_in_cluster = resource_cluster_0 }
+		}
+		modifier = { factor = 0 has_star_flag = empire_cluster }
+	}
+	flags = { pirate_system pirate_2 }
+	planet = {
+		count = 1
+		class = star
+		orbit_distance = 0
+		orbit_angle = 1
+		size = { min = 20 max = 30 }
+		has_ring = no
+	}
+	change_orbit = 45
+	planet = {
+		count = { min = 0 max = 1 }
+		orbit_distance = 10
+		orbit_angle = { min = 90 max = 270 }
+	}
+	planet = {
+		count = { min = 1 max = 2 }
+		orbit_distance = 60
+		class = pc_gas_giant
+		orbit_angle = { min = 90 max = 270 }
+		size = 25
+		change_orbit = @base_moon_distance
+		moon = {
+			count = { min = 1 max = 4 }
+			size = { min = 8 max = 20 }
+			orbit_angle = { min = 90 max = 270 }
+			orbit_distance = 6
+		}
+	}
+	change_orbit = 20
+	planet = {
+		count = 1
+		orbit_distance = 20
+		orbit_angle = { min = 90 max = 270 }
+		init_effect = {
+			create_pirate_country = yes
+			event_target:pirate_country = {
+				create_fleet = {
+					name = "NAME_Pirate_Fleet"
+					effect = {
+						set_owner = event_target:pirate_country
+						while = {
+							count = 3
+							create_ship = {
+								name = random
+								design = NAME_Reaver
+								graphical_culture = "pirate_01"
+							}
+						}
+						while = {
+							count = 3
+							create_ship = {
+								name = random
+								design = NAME_Hunter
+								graphical_culture = "pirate_01"
+							}
+						}
+						while = {
+							count = 3
+							create_ship = {
+								name = random
+								design = NAME_Vagabond
+								graphical_culture = "pirate_01"
+							}
+						}
+						while = {
+							count = 3
+							create_ship = {
+								name = random
+								design = "NAME_Corsair"
+								graphical_culture = "pirate_01"
+							}
+						}
+						while = {
+							count = 3
+							create_ship = {
+								name = random
+								design = "NAME_Marauder"
+								graphical_culture = "pirate_01"
+							}
+						}
+						while = {
+							count = 2
+							create_ship = {
+								name = random
+								design = "NAME_Black_Earl"
+								graphical_culture = "pirate_01"
+							}
+						}
+						set_location = prevprev
+						set_fleet_stance = aggressive
+						set_aggro_range_measure_from = self
+						set_aggro_range = 150
+					}
+				}
+			}
+		}
+	}
+}

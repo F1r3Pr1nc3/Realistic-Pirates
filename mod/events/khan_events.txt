@@ -955,7 +955,7 @@ system_event = {
 	}
 	immediate = {
 		# system_owner does not exists
-		# log="test khan.310 \\[former_starbase_owner.GetName] or \\[FromFrom.Owner.GetName]"
+		# log="test khan.310 \\[former_starbase_owner.GetName] or \\[Fromfrom.Owner.GetName]"
 		if = {
 			limit = {
 				exists = starbase
@@ -965,7 +965,7 @@ system_event = {
 			# if = { limit = { NOT = { has_star_flag = starbase_destroyed } }
 			# 	system_event = { id = khan.310 days = 1 scopes = { fromfrom = fromfrom } }
 			# 	set_timed_star_flag = { flag = starbase_destroyed days = 5 }
-			# 	log="khan.310 exists = starbase \\[former_starbase_owner.GetName] or \\[FromFrom.Owner.GetName]"
+			# 	log="khan.310 exists = starbase \\[former_starbase_owner.GetName] or \\[Fromfrom.Owner.GetName]"
 			# }
 			# break = yes
 		}
@@ -1506,7 +1506,7 @@ system_event = {
 				# 	species = space_owner # from.species
 				# 	# ethos = random
 				# }
-				# TODO "Unexpected token:  (everything after scope start_colony)
+				# TODO "Unexpected token: (everything after scope start_colony)
 			}
 		}
 		# from = {			# Build Habitats

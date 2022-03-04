@@ -34,8 +34,8 @@ supremacists_home = {
 				name = random
 				class = random
 				blocked_archetypes = {
-					MACHINE	   
-					ROBOT	   
+					MACHINE
+					ROBOT
 					LITHOID
 				}
 				portrait = random
@@ -117,7 +117,7 @@ supremacists_home = {
 	}
 
 	change_orbit = 50
-	
+
 	planet = {
 		class = pc_molten
 		orbit_distance = 25
@@ -187,9 +187,9 @@ supremacists_home = {
 		orbit_distance = 40
 		orbit_angle = -60
 		size = 40
-		
+
 		change_orbit = @base_moon_distance
-		
+
 		moon = {
 			class = pc_barren
 			size = 8
@@ -385,7 +385,7 @@ supremacists_home = {
 							name = random
 							design = "NAME_BULWARK_LOWCORVETTE"
 							graphical_culture = "pirate_01"
-							
+
 							effect = {
 								set_ship_flag = bulwark_ship_techone
 								add_modifier = {
@@ -401,7 +401,7 @@ supremacists_home = {
 							name = random
 							design = "NAME_BULWARK_LOWDESTROYER"
 							graphical_culture = "pirate_01"
-							
+
 							effect = {
 								set_ship_flag = bulwark_ship_techone
 								add_modifier = {
@@ -442,7 +442,7 @@ supremacists_home = {
 		orbit_angle = 120
 
 		change_orbit = @base_moon_distance
-		
+
 		moon = {
 			class = pc_frozen
 			size = 8
@@ -537,7 +537,7 @@ supremacists_home = {
 			set_deposit = d_minerals_8
 		}
 	}
-	
+
 	planet = {
 		class = "pc_asteroid"
 		orbit_distance = 0
@@ -545,7 +545,7 @@ supremacists_home = {
 		size = 5
 		has_ring = no
 	}
-	
+
 	planet = {
 		class = "pc_asteroid"
 		orbit_distance = 0
@@ -557,7 +557,7 @@ supremacists_home = {
 			set_deposit = d_minerals_8
 		}
 	}
-	
+
 	planet = {
 		class = "pc_asteroid"
 		orbit_distance = 0
@@ -673,13 +673,13 @@ supremacists_home = {
 		orbit_angle = 125
 
 		change_orbit = @base_moon_distance
-		
+
 		moon = {
 			class = pc_frozen
 			size = 8
 			orbit_angle = 90
 			orbit_distance = 6
-		}	
+		}
 	}
 
 	init_effect = {
@@ -739,8 +739,8 @@ technologists_home = {
 				name = random
 				class = random
 				blocked_archetypes = {
-					MACHINE	   
-					ROBOT	   
+					MACHINE
+					ROBOT
 					LITHOID
 				}
 				portrait = random
@@ -822,7 +822,7 @@ technologists_home = {
 	}
 
 	change_orbit = 50
-	
+
 	planet = {
 		class = pc_molten
 		orbit_distance = 25
@@ -892,9 +892,9 @@ technologists_home = {
 		orbit_distance = 40
 		orbit_angle = -60
 		size = 40
-		
+
 		change_orbit = @base_moon_distance
-		
+
 		moon = {
 			class = pc_barren
 			size = 8
@@ -1106,7 +1106,7 @@ technologists_home = {
 							name = random
 							design = "NAME_BULWARK_MEDCORVETTE"
 							graphical_culture = "pirate_01"
-							
+
 							effect = {
 								set_ship_flag = bulwark_ship_techtwo
 								add_modifier = {
@@ -1122,7 +1122,7 @@ technologists_home = {
 							name = random
 							design = "NAME_BULWARK_MEDDESTROYER"
 							graphical_culture = "pirate_01"
-							
+
 							effect = {
 								set_ship_flag = bulwark_ship_techtwo
 								add_modifier = {
@@ -1138,7 +1138,7 @@ technologists_home = {
 							name = random
 							design = "NAME_BULWARK_LOWCRUISER"
 							graphical_culture = "pirate_01"
-							
+
 							effect = {
 								set_ship_flag = bulwark_ship_techtwo
 								add_modifier = {
@@ -1179,7 +1179,7 @@ technologists_home = {
 		orbit_angle = 120
 
 		change_orbit = @base_moon_distance
-		
+
 		moon = {
 			class = pc_frozen
 			size = 8
@@ -1290,7 +1290,7 @@ technologists_home = {
 			set_deposit = d_minerals_8
 		}
 	}
-	
+
 	planet = {
 		class = "pc_asteroid"
 		orbit_distance = 0
@@ -1298,7 +1298,7 @@ technologists_home = {
 		size = 5
 		has_ring = no
 	}
-	
+
 	planet = {
 		class = "pc_asteroid"
 		orbit_distance = 0
@@ -1310,7 +1310,7 @@ technologists_home = {
 			set_deposit = d_minerals_8
 		}
 	}
-	
+
 	planet = {
 		class = "pc_asteroid"
 		orbit_distance = 0
@@ -1426,13 +1426,13 @@ technologists_home = {
 		orbit_angle = 125
 
 		change_orbit = @base_moon_distance
-		
+
 		moon = {
 			class = pc_frozen
 			size = 8
 			orbit_angle = 90
 			orbit_distance = 6
-		}	
+		}
 	}
 
 	init_effect = {
@@ -1492,8 +1492,8 @@ tamers_home = {
 				name = random
 				class = random
 				blocked_archetypes = {
-					MACHINE	   
-					ROBOT	   
+					MACHINE
+					ROBOT
 					LITHOID
 				}
 				portrait = random
@@ -1575,7 +1575,7 @@ tamers_home = {
 	}
 
 	change_orbit = 50
-	
+
 	planet = {
 		class = pc_molten
 		orbit_distance = 25
@@ -1645,9 +1645,9 @@ tamers_home = {
 		orbit_distance = 40
 		orbit_angle = -60
 		size = 40
-		
+
 		change_orbit = @base_moon_distance
-		
+
 		moon = {
 			class = pc_barren
 			size = 8
@@ -1843,7 +1843,7 @@ tamers_home = {
 							name = random
 							design = "NAME_BULWARK_LOWCORVETTE"
 							graphical_culture = "pirate_01"
-							
+
 							effect = {
 								set_ship_flag = bulwark_ship_techone
 								add_modifier = {
@@ -1859,7 +1859,7 @@ tamers_home = {
 							name = random
 							design = "NAME_BULWARK_LOWDESTROYER"
 							graphical_culture = "pirate_01"
-							
+
 							effect = {
 								set_ship_flag = bulwark_ship_techone
 								add_modifier = {
@@ -1900,7 +1900,7 @@ tamers_home = {
 		orbit_angle = 120
 
 		change_orbit = @base_moon_distance
-		
+
 		moon = {
 			class = pc_frozen
 			size = 8
@@ -1995,7 +1995,7 @@ tamers_home = {
 			set_deposit = d_minerals_8
 		}
 	}
-	
+
 	planet = {
 		class = "pc_asteroid"
 		orbit_distance = 0
@@ -2003,7 +2003,7 @@ tamers_home = {
 		size = 5
 		has_ring = no
 	}
-	
+
 	planet = {
 		class = "pc_asteroid"
 		orbit_distance = 0
@@ -2015,7 +2015,7 @@ tamers_home = {
 			set_deposit = d_minerals_8
 		}
 	}
-	
+
 	planet = {
 		class = "pc_asteroid"
 		orbit_distance = 0
@@ -2131,13 +2131,13 @@ tamers_home = {
 		orbit_angle = 125
 
 		change_orbit = @base_moon_distance
-		
+
 		moon = {
 			class = pc_frozen
 			size = 8
 			orbit_angle = 90
 			orbit_distance = 6
-		}	
+		}
 	}
 
 	init_effect = {

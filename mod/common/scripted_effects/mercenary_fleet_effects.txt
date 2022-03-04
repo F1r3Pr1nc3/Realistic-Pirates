@@ -232,7 +232,7 @@ create_marauder_raiders = {
 			create_dyn_marauder_fleet = { OUTRIDER = 6 LANCER = 4 CHAMPION = 1 }
 		}
 	} else = {
-		prev = { set_pirates_difficulty = yes }
+		# prev = { set_pirates_difficulty = yes } needed before
 		create_pirate_waves_fleet = yes
 		# Half of vanilla
 		if = {

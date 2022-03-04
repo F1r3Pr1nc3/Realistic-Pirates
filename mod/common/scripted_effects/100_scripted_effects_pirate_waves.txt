@@ -223,7 +223,7 @@ set_pirates_difficulty = {
 		}
 	}
 
-	if = { limit = { CmtTriggerIsMarauder = yes  }
+	if = { limit = { CmtTriggerIsMarauder = yes }
 		root = {
 			if = { limit = { is_scope_type = country is_ai = no }
 				prev = {
@@ -239,7 +239,7 @@ set_pirates_difficulty = {
 
 		# switch = { # full
 		# 	trigger = has_country_flag
-		# 	pirate_waves_easy = {
+		# 	pirate_waves_very_easy = {
 		# 		set_variable = { which = marauder_shipnum_a value = 8 }
 		# 		set_variable = { which = marauder_shipnum_b value = 4 }
 		# 		set_variable = { which = marauder_shipnum_c value = 3 }
@@ -267,7 +267,7 @@ set_pirates_difficulty = {
 		# }
 		switch = { # half
 			trigger = has_country_flag
-			pirate_waves_easy = {
+			pirate_waves_very_easy = {
 				set_variable = { which = marauder_shipnum_a value = 4 }
 				set_variable = { which = marauder_shipnum_b value = 2 }
 				set_variable = { which = marauder_shipnum_c value = 0 }

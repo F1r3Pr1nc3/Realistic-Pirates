@@ -22,7 +22,7 @@ country_event = {
 		}
 	}
 
-	desc = { # Militarist - using as default fallback
+	desc = { # Militarist - using as default fallback.
 		text = pirate.1.desc_02
 		trigger = {
 			OR = {
@@ -30,7 +30,7 @@ country_event = {
 				has_government = gov_bandit_commune
 			}
 		}
-		exclusive_trigger  = {
+		exclusive_trigger = {
 			NOR = {
 				has_spiritualist_government = yes
 				has_materialist_government = yes
@@ -98,7 +98,7 @@ country_event = {
 	}
 
 	trigger = {
-		is_country_type = default
+		CmtTriggerIsPlayableEmpire = yes # is_country_type = default
 		NOR = {
 			has_country_flag = birth_of_piracy
 			has_ethic = ethic_gestalt_consciousness
@@ -244,7 +244,7 @@ country_event = {
 		}
 	}
 	option = {
-		name = pirate.2.i #none of the above
+		name = pirate.2.i # none of the above
 		trigger = {
 			NOR = {
 				has_spiritualist_government = yes
@@ -352,8 +352,6 @@ event = {
 		}
 	}
 }
-
-
 
 # Take pirate starbase (on_ship_disabled - otherwise cannot be conquered).
 # this = Ship
@@ -513,11 +511,11 @@ ship_event = {
 						any_system_within_border = {
 							is_pirate_system = yes
 							NOR = {
-								is_same_value =  prevprev
+								is_same_value = prevprev
 								any_fleet_in_system = {
 									is_ship_size = pirate_station
 									has_fleet_flag = pirate_waves_station_flag
-									has_fleet_flag = pirate_waves_station_life_flag  # <- timed flag from on_pirate_spawn 10 years
+									has_fleet_flag = pirate_waves_station_life_flag # <- timed flag from on_pirate_spawn 10 years
 								}
 							}
 						}

@@ -116,8 +116,51 @@ country_event = {
 	}
 	after = {
 		hidden_effect = {
-			if = { limit = { is_variable_set = pirate_waves_difficulty_prev }
+			# Compatiblity for CrisisManager-MidGame
+			if = {
+				limit = { is_variable_set = pirate_waves_difficulty_prev }
 				clear_variable = pirate_waves_difficulty_prev
+			}
+			event_target:global_event_country = {
+				if = {
+					limit = {
+						has_global_flag = pirate_waves_active
+						NOT = { has_global_flag = pirate_waves_marauders_inactive }
+						exists = event_target:current_pirate_country
+						event_target:current_pirate_country = { is_variable_set = pirate_waves_difficulty }
+					}
+					if = { # Backup
+						limit = {
+							is_variable_set = CmtVarFleetPower_Khan
+							NOT = { is_variable_set = CmtVarFleetPower_Khan_prev }
+						}
+						set_variable = { which = CmtVarFleetPower_Khan_prev value = CmtVarFleetPower_Khan }
+					}
+					event_target:current_pirate_country = {
+						switch = {
+							trigger = has_country_flag
+							pirate_waves_very_easy = {
+								prev = { set_variable = { which = CmtVarFleetPower_Khan value = 0.5 } }
+							}
+							pirate_waves_easy = {
+								prev = { set_variable = { which = CmtVarFleetPower_Khan value = 0.75 } }
+							}
+							default = {
+								prev = { set_variable = { which = CmtVarFleetPower_Khan value = 1 } }
+							}
+							ships_count_hard = {
+								prev = { set_variable = { which = CmtVarFleetPower_Khan value = 1.5 } }
+							}
+							pirate_waves_insane = {
+								prev = { set_variable = { which = CmtVarFleetPower_Khan value = 2 } }
+							}
+						}
+					}
+				} else_if = {
+					limit = { is_variable_set = CmtVarFleetPower_Khan_prev }
+					set_variable = { which = CmtVarFleetPower_Khan value = CmtVarFleetPower_Khan_prev }
+					clear_variable = CmtVarFleetPower_Khan_prev
+				}
 			}
 		}
 	}
@@ -2109,7 +2152,7 @@ country_event = {
 							set_owner = event_target:marauder_starbase_owner
 							if = {
 								limit = { exists = leader }
-								leader = { set_owner =  event_target:marauder_starbase_owner }
+								leader = { set_owner = event_target:marauder_starbase_owner }
 							}
 						}
 						create_marauder_starbase = yes
@@ -2249,7 +2292,7 @@ country_event = {
 								set_owner = event_target:marauder_starbase_owner
 								if = {
 									limit = { exists = leader }
-									leader = { set_owner =  event_target:marauder_starbase_owner }
+									leader = { set_owner = event_target:marauder_starbase_owner }
 								}
 							}
 							create_marauder_starbase = yes

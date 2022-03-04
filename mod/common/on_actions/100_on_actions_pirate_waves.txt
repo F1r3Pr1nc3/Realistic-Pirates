@@ -35,8 +35,8 @@ on_five_year_pulse = {
 
 # This = owner of ship 1 (destroyed)
 # From = owner of ship 2 (combatant)
-# FromFrom = ship 1
-# FromFromFrom = ship 2
+# Fromfrom = ship 1
+# Fromfromfrom = ship 2
 on_ship_destroyed_victim = {
 	events = {
 		pirate_waves.8
@@ -45,8 +45,8 @@ on_ship_destroyed_victim = {
 
 # This = owner of ship 1 (combatant)
 # From = owner of ship 2 (destroyed)
-# FromFrom = ship 1
-# FromFromFrom = ship 2
+# Fromfrom = ship 1
+# Fromfromfrom = ship 2
 on_ship_destroyed_perp = {
 	events = {
 		pirate_waves.9

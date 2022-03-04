@@ -1067,7 +1067,7 @@ country_event = {
 						}
 					} else = {
 						# Pop up in a semi-convenient, empire-owned system, if possible
-						#  limit = {
+						# limit = {
 						# any_neighbor_system = {
 						closest_system = {
 							limit = {
@@ -2678,7 +2678,33 @@ country_event = {
 		room = "ethic_spaceship_room"
 	}
 	is_triggered_only = yes
-	immediate = { set_country_flag = marauder_diplomacy_engaged }
+	immediate = {
+		set_country_flag = marauder_diplomacy_engaged
+
+		## Dynamic raid costs TODO needs update each effect
+		event_target:current_marauder_diplomacy = {
+			set_pirates_difficulty = yes
+			set_variable = { which = raidcost value = 1.5 }
+			multiply_variable = { which = raidcost value = pirates_factor } # as it is only half for marauders
+			# switch = { # price depending on difficulty?
+			# 	trigger = has_country_flag
+			# 	pirate_waves_very_easy = {
+			# 		multiply_variable = { which = pirates_factor value = 0.5 }
+			# 	}
+			# 	pirate_waves_easy = {
+			# 		multiply_variable = { which = pirates_factor value = 0.75 }
+			# 	}
+			# 	ships_count_hard = {
+			# 		multiply_variable = { which = pirates_factor value = 1.25 }
+			# 	}
+			# 	pirate_waves_insane = {
+			# 		multiply_variable = { which = pirates_factor value = 1.5 }
+			# 	}
+			# }
+			round_variable_to_closest = { which = raidcost value = 100 }
+		}
+
+	}
 	after = {
 		hidden_effect = { remove_country_flag = marauder_diplomacy_engaged }
 	}
@@ -2690,7 +2716,12 @@ country_event = {
 		allow = {
 			resource_stockpile_compare = { resource = energy value >= @raidallow }
 		}
-		add_resource = { energy = @raidcost }
+		add_resource = {
+			energy = @raidcost
+			mult = event_target:current_marauder_diplomacy.raidcost
+		}
+		clear_variable = event_target:current_marauder_diplomacy.raidcost
+
 		response_text = marauder.32.1.a.response
 		custom_tooltip = hire_raid
 		hidden_effect = {
@@ -2708,7 +2739,11 @@ country_event = {
 		allow = {
 			resource_stockpile_compare = { resource = energy value >= @raidallow }
 		}
-		add_resource = { energy = @raidcost }
+		add_resource = {
+			energy = @raidcost
+			mult = event_target:current_marauder_diplomacy.raidcost
+		}
+		clear_variable = event_target:current_marauder_diplomacy.raidcost
 		response_text = marauder.32.2.a.response
 		custom_tooltip = hire_raid
 		hidden_effect = {
@@ -2726,7 +2761,11 @@ country_event = {
 		allow = {
 			resource_stockpile_compare = { resource = energy value >= @raidallow }
 		}
-		add_resource = { energy = @raidcost }
+		add_resource = {
+			energy = @raidcost
+			mult = event_target:current_marauder_diplomacy.raidcost
+		}
+		clear_variable = event_target:current_marauder_diplomacy.raidcost
 		response_text = marauder.32.3.a.response
 		custom_tooltip = hire_raid
 		hidden_effect = {
@@ -2749,7 +2788,7 @@ country_event = {
 }
 
 # Raid commences
-# Only fix omit Marauders getting stuck (by FirePrince)
+# Vanilla fix omit Marauders getting stuck (by FirePrince)
 # root = marauder_target
 country_event = {
 	id = marauder.33
@@ -2951,7 +2990,37 @@ country_event = {
 		room = "ethic_spaceship_room"
 	}
 	is_triggered_only = yes
-	immediate = { set_country_flag = marauder_diplomacy_engaged }
+	immediate = {
+		set_country_flag = marauder_diplomacy_engaged
+
+		## Dynamic hiring costs TODO needs update each effect
+		# event_target:current_marauder_diplomacy = {
+		# 	set_pirates_difficulty = yes
+		# 	set_variable = { which = largemerccost value = @largemerccost }
+		# 	set_variable = { which = mediummerccost value = @mediummerccost }
+		# 	set_variable = { which = smallmerccost value = @smallmerccost }
+		#	multiply_variable = { which = pirates_factor value = 1.5 } # as it is only half for marauders
+		# 	# switch = { # price depending on difficulty?
+		# 	# 	trigger = has_country_flag
+		# 	# 	pirate_waves_very_easy = {
+		# 	# 		multiply_variable = { which = pirates_factor value = 0.5 }
+		# 	# 	}
+		# 	# 	pirate_waves_easy = {
+		# 	# 		multiply_variable = { which = pirates_factor value = 0.75 }
+		# 	# 	}
+		# 	# 	ships_count_hard = {
+		# 	# 		multiply_variable = { which = pirates_factor value = 1.25 }
+		# 	# 	}
+		# 	# 	pirate_waves_insane = {
+		# 	# 		multiply_variable = { which = pirates_factor value = 1.5 }
+		# 	# 	}
+		# 	# }
+		# 	multiply_variable = { which = largemerccost value = pirates_factor }
+		# 	multiply_variable = { which = mediummerccost value = pirates_factor }
+		# 	multiply_variable = { which = smallmerccost value = pirates_factor }
+		# }
+
+	}
 	after = {
 		hidden_effect = { remove_country_flag = marauder_diplomacy_engaged }
 	}
@@ -4777,7 +4846,7 @@ event = {
 }
 
 # Marauder Raid Announced
-# Only fix omit Marauders getting stuck (by FirePrince)
+# Vanilla fix omit Marauders getting stuck (by FirePrince)
 country_event = {
 	id = marauder.101
 	title = "marauder_diplo_header_4"
@@ -4991,6 +5060,7 @@ country_event = {
 					trait = leader_trait_mercenary_warrior
 				}
 			}
+			set_pirates_difficulty = yes
 			create_fleet = {
 				name = "NAME_Raiding_Fleet"
 				effect = {
@@ -5992,7 +6062,7 @@ planet_event = {
 			}
 			# log="Marauder from.species exists \\[marauder_species.GetName]"
 		}
-		# else = { log="No Marauder Species fromfrom \\[FromFrom.GetName]" }
+		# else = { log="No Marauder Species fromfrom \\[Fromfrom.GetName]" }
 		owner = {
 			set_variable = { which = destruction_amount value = 3 }
 			if = {
@@ -6838,13 +6908,13 @@ country_event = {
 }
 
 # AI hires Raiders (on_monthly_pulse)
-# Only fix omit Marauders getting stuck (by FirePrince)
+# Vanilla fix omit Marauders getting stuck (by FirePrince)
 event = {
 	id = marauder.150
 	hide_window = yes
 	is_triggered_only = yes
 	trigger = {
-		years_passed >= 50
+		years_passed > 50
 		any_playable_country = {
 			is_ai = yes
 			is_homicidal = no
@@ -6921,7 +6991,7 @@ event = {
 				#	}
 				#	save_event_target_as = hired_marauders
 				event_target:hired_marauders = {
-					add_resource = { energy = @raidcost }
+					# add_resource = { energy = @raidcost } later per var
 					random_rival_country = {
 						limit = {
 							NOR = {
@@ -7038,6 +7108,27 @@ event = {
 							trait = leader_trait_mercenary_warrior
 						}
 					}
+					set_pirates_difficulty = yes
+					## Dynamic raid costs TODO needs update each effect
+					set_variable = { which = raidcost value = 1.5 }
+					multiply_variable = { which = raidcost value = pirates_factor } # as it is only half for marauders
+					switch = { # price depending on difficulty?
+						trigger = has_country_flag
+						pirate_waves_very_easy = {
+							multiply_variable = { which = raidcost value = 0.5 }
+						}
+						pirate_waves_easy = {
+							multiply_variable = { which = raidcost value = 0.75 }
+						}
+						ships_count_hard = {
+							multiply_variable = { which = raidcost value = 1.25 }
+						}
+						pirate_waves_insane = {
+							multiply_variable = { which = raidcost value = 1.5 }
+						}
+					}
+					round_variable_to_closest = { which = raidcost value = 100 }
+
 					create_fleet = {
 						name = "NAME_Raiding_Fleet"
 						effect = {
@@ -7094,6 +7185,13 @@ event = {
 						set_neutral = no
 						set_friendly = no
 					}
+				}
+				event_target:hired_marauder = {
+					add_resource = {
+						energy = @raidcost
+						mult = event_target:current_marauder_diplomacy.raidcost
+					}
+					clear_variable = event_target:current_marauder_diplomacy.raidcost
 				}
 				event_target:marauder_target = {
 					set_country_flag = raid_target_of@event_target:raiding_marauder
@@ -9740,7 +9838,7 @@ country_event = {
 			limit = { exists = event_target:planet_former_owner }
 			country_event = { id = marauder.517 }
 		} else = { # Planet's former owner no longer exists.
-			if = {  # Planet belonged to someone else.
+			if = { # Planet belonged to someone else.
 				limit = {
 					exists = event_target:liberated_planet.solar_system.starbase
 					exists = event_target:liberated_planet.solar_system.starbase.owner
