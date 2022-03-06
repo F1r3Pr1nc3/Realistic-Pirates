@@ -52,7 +52,7 @@ CmtTriggerIsMarauder = {
 	}
 }
 
-# only use if exists = event_target:raider_khanate
+# Only use if exists = event_target:raider_khanate
 CmtTriggerIsKhanCountry = {
 	OR = {
 		is_country_type = awakened_marauders

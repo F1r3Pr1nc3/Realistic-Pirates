@@ -2683,19 +2683,19 @@ country_event = {
 	immediate = {
 		set_country_flag = marauder_diplomacy_engaged
 
-		## Dynamic raid costs TODO needs update each effect
+		## Dynamic raid costs TODO needs update each effect.
 		event_target:current_marauder_diplomacy = {
 			if = { limit = { has_global_flag = pirate_waves_active }
 				set_pirates_difficulty = yes
 				set_variable = { which = raidcost value = 1.5 }
 				change_variable = { which = raidcost value = pirates_factor }
-				divide_variable = { which = raidcost value = 2 } # take only 50% weight
-				multiply_variable = { which = raidcost value = pirates_factor } # as it is only half for marauders
+				divide_variable = { which = raidcost value = 2 } # Take only 50% weight
+				multiply_variable = { which = raidcost value = pirates_factor } # As it is only half for marauders.
 				# set_variable = { which = raidallow value = @raidallow }
 				# multiply_variable = { which = raidallow value = pirates_factor }
-				# multiply_variable = { which = raidallow value =  1.5 } # as it is only half for marauders
+				# multiply_variable = { which = raidallow value =  1.5 } # As it is only half for marauders.
 				# log="raidallow \\[This.raidallow]"
-				# switch = { # price depending on difficulty?
+				# switch = { # Price depending on difficulty?
 				# 	trigger = has_country_flag
 				# 	pirate_waves_very_easy = {
 				# 		multiply_variable = { which = pirates_factor value = 0.5 }
@@ -3021,14 +3021,14 @@ country_event = {
 	immediate = {
 		set_country_flag = marauder_diplomacy_engaged
 
-		## Dynamic hiring costs TODO needs update each effect
+		## Dynamic hiring costs TODO needs update each effect.
 		# event_target:current_marauder_diplomacy = {
 		# 	set_pirates_difficulty = yes
 		# 	set_variable = { which = largemerccost value = @largemerccost }
 		# 	set_variable = { which = mediummerccost value = @mediummerccost }
 		# 	set_variable = { which = smallmerccost value = @smallmerccost }
-		#	multiply_variable = { which = pirates_factor value = 1.5 } # as it is only half for marauders
-		# 	# switch = { # price depending on difficulty?
+		#	multiply_variable = { which = pirates_factor value = 1.5 } # As it is only half for marauders.
+		# 	# switch = { # Price depending on difficulty?
 		# 	# 	trigger = has_country_flag
 		# 	# 	pirate_waves_very_easy = {
 		# 	# 		multiply_variable = { which = pirates_factor value = 0.5 }
@@ -7138,15 +7138,15 @@ event = {
 							trait = leader_trait_mercenary_warrior
 						}
 					}
-					## Dynamic raid costs TODO needs update each effect
+					## Dynamic raid costs TODO needs update each effect.
 					if = {
 						limit = { has_global_flag = pirate_waves_active }
 						set_pirates_difficulty = yes
 						set_variable = { which = raidcost value = 1.5 }
 						change_variable = { which = raidcost value = pirates_factor }
-						divide_variable = { which = raidcost value = 2 } # take only 50% weight
-						multiply_variable = { which = raidcost value = pirates_factor } # as it is only half for marauders
-						switch = { # price depending on difficulty?
+						divide_variable = { which = raidcost value = 2 } # Take only 50% weight
+						multiply_variable = { which = raidcost value = pirates_factor } # As it is only half for marauders.
+						switch = { # Price depending on difficulty?
 							trigger = has_country_flag
 							pirate_waves_very_easy = {
 								multiply_variable = { which = raidcost value = 0.5 }

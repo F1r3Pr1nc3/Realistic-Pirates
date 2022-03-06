@@ -17,9 +17,7 @@ country_event = {
 
 	desc = { # Spiritual
 		text = pirate.1.desc_01
-		trigger = {
-			has_spiritualist_government = yes
-		}
+		trigger = { has_spiritualist_government = yes }
 	}
 
 	desc = { # Militarist - using as default fallback.
@@ -49,16 +47,12 @@ country_event = {
 
 	desc = { # Materialist
 		text = pirate.1.desc_03
-		trigger = {
-			has_materialist_government = yes
-		}
+		trigger = { has_materialist_government = yes }
 	}
 
 	desc = { # Pacifist
 		text = pirate.1.desc_04
-		trigger = {
-			has_pacifist_government = yes
-		}
+		trigger = { has_pacifist_government = yes }
 	}
 
 	desc = { # Generic Autocracy
@@ -127,54 +121,14 @@ country_event = {
 			}
 			save_event_target_as = pirate_system
 			create_normal_pirate_country = yes
+			create_pirate_base_1 = yes
 			create_pirate_fleet = yes
-			## Pre 2.0 stations
-			if = {
-				limit = {
-					root = { has_technology = tech_mass_drivers_1 }
-				}
-				create_pirate_base_1 = yes
-			} else_if = {
-				limit = {
-					root = { has_technology = tech_lasers_1 }
-				}
-				create_fleet = {
-					name = "NAME_Pirate_Station"
-					effect = {
-						set_owner = event_target:pirate_band
-						create_ship = {
-							name = random
-							design = "NAME_Pirate_Lair"
-							graphical_culture = "pirate_01"
-						}
-						set_location = event_target:pirate_home
-					}
-				}
-			} else_if = {
-				limit = {
-					root = { has_technology = tech_missiles_1 }
-				}
-				create_fleet = {
-					name = "NAME_Pirate_Station"
-					effect = {
-						set_owner = event_target:pirate_band
-						create_ship = {
-							name = random
-							design = "NAME_Pirate_Den"
-							graphical_culture = "pirate_01"
-						}
-						set_location = event_target:pirate_home
-					}
-				}
-			}
 		}
 	}
 
 	option = {
 		name = pirate.2.a
-		trigger = {
-			has_spiritualist_government = yes
-		}
+		trigger = { has_spiritualist_government = yes }
 	}
 	option = {
 		name = pirate.2.b
@@ -189,15 +143,11 @@ country_event = {
 	}
 	option = {
 		name = pirate.2.c
-		trigger = {
-			has_materialist_government = yes
-		}
+		trigger = { has_materialist_government = yes }
 	}
 	option = {
 		name = pirate.2.d
-		trigger = {
-			has_pacifist_government = yes
-		}
+		trigger = { has_pacifist_government = yes }
 	}
 	option = {
 		name = pirate.2.e
@@ -242,7 +192,7 @@ country_event = {
 		}
 	}
 	option = {
-		name = pirate.2.i # none of the above
+		name = pirate.2.i # None of the above
 		trigger = {
 			NOR = {
 				has_spiritualist_government = yes
@@ -457,6 +407,7 @@ ship_event = {
 }
 
 # Pirate station spawns on disabled starbase (HIDDEN)
+# From = Disabler Ship
 ship_event = {
 	id = pirate.70
 	hide_window = yes
@@ -472,35 +423,45 @@ ship_event = {
 				}
 			}
 		}
-		solar_system = {
-			is_pirate_system = no
-		}
+		# solar_system = { is_pirate_system = no }
 	}
 	immediate = {
 		solar_system = {
-			random_system_planet = {
-				limit = { is_star = no }
-				weights = {
-					base = 1
-					modifier = { add = 1 is_asteroid = yes }
-				}
-				create_fleet = {
-					name = "NAME_Pirate_Station"
-					effect = {
-						set_owner = from.owner
-						create_ship = {
-							name = random
-							design = "NAME_Pirate_Nest"
-							graphical_culture = "pirate_01"
-						}
-						set_location = prev
-					}
-				}
-			}
-			# Another Pirate Republic start
 			if = {
+				limit = { is_pirate_system = no }
+				from.owner = { save_event_target_as = pirate_band }
+				random_system_planet = {
+					limit = { is_star = no }
+					weights = {
+						base = 1
+						modifier = { add = 1 is_asteroid = yes }
+					}
+					save_event_target_as = pirate_home
+					# create_fleet = {
+					# 	name = "NAME_Pirate_Station"
+					# 	effect = {
+					# 		set_owner = from.owner
+					# 		create_ship = {
+					# 			name = random
+					# 			design = "NAME_Pirate_Nest"
+					# 			graphical_culture = "pirate_01"
+					# 		}
+					# 		set_location = prev
+					# 	}
+					# }
+				}
+				create_pirate_base_1 = yes
+			} else_if = { # Another Pirate Republic start
 				limit = {
 					NOT = { has_global_flag = pirate_republic_inactive }
+					is_pirate_system = yes
+					NOT = {
+						any_fleet_in_system = {
+							is_ship_size = pirate_station
+							has_fleet_flag = pirate_waves_station_flag
+							has_fleet_flag = pirate_waves_station_life_flag # <- timed flag from on_pirate_spawn 10 years
+						}
+					}
 					space_owner = {
 						NOR = {
 							has_country_flag = pirates_spawned # <- timed flag from on_pirate_spawn
@@ -522,6 +483,7 @@ ship_event = {
 							any_system_planet = {
 								is_colony = yes
 								is_under_colonization = no
+								planet_stability < 90
 								NOT = { has_planet_flag = pirate_invasion }
 								has_ground_combat = no
 								owner = {
@@ -544,6 +506,7 @@ ship_event = {
 								is_owned_by = from.owner
 								is_controlled_by = from.owner
 							}
+							planet_stability < 90
 						}
 					}
 					closest_system = {
@@ -555,6 +518,7 @@ ship_event = {
 							any_system_planet = {
 								is_colony = yes
 								is_under_colonization = no
+								planet_stability < 90
 							}
 						}
 					}
@@ -585,63 +549,63 @@ ship_event = {
 # Pirates get the starbase (HIDDEN)
 # By FirePrince
 # They can grow to Marauders after some time.
-starbase_event = {
-	id = pirate.72
-	hide_window = yes
-	is_triggered_only = yes
-	trigger = {
-		is_scope_valid = yes
-		exists = owner
-		exists = from
-		solar_system = {
-			any_fleet_in_system = { is_ship_size = pirate_station }
-			any_fleet_in_system = {
-				is_ship_class = shipclass_military
-				owner = { is_pirate_country = yes }
-			}
-		}
-		owner = {
-			NOT = { is_same_empire = from }
-		}
-	}
-	immediate = {
-		if = {
-			limit = {
-				fleet = { is_disabled = yes }
-			}
-			solar_system = {
-				# Pirates get the system
-				if = {
-					limit = {
-						NOR = {
-							any_fleet_in_system = {
-								is_mobile = yes
-								exists = owner
-								is_owned_by = space_owner
-								is_civilian = no								# is_ship_class = shipclass_military
-							}
-							any_system_planet = {
-								has_owner = yes
-								NOR = {
-									is_owned_by = from
-									is_controlled_by = from
-								}
-							}
-						}
-					}
-					root = { set_owner = from }
-				}
-			}
-		} else = {
-			starbase_event = {
-				id = pirate.72
-				days = 32
-				random = 18
-				scopes = { from = from }
-			}
-		}
-	}
-}
+# starbase_event = {
+# 	id = pirate.72
+# 	hide_window = yes
+# 	is_triggered_only = yes
+# 	trigger = {
+# 		is_scope_valid = yes
+# 		exists = owner
+# 		exists = from
+# 		solar_system = {
+# 			any_fleet_in_system = { is_ship_size = pirate_station }
+# 			any_fleet_in_system = {
+# 				is_ship_class = shipclass_military
+# 				owner = { is_pirate_country = yes }
+# 			}
+# 		}
+# 		owner = {
+# 			NOT = { is_same_empire = from }
+# 		}
+# 	}
+# 	immediate = {
+# 		if = {
+# 			limit = {
+# 				fleet = { is_disabled = yes }
+# 			}
+# 			solar_system = {
+# 				# Pirates get the system
+# 				if = {
+# 					limit = {
+# 						NOR = {
+# 							any_fleet_in_system = {
+# 								is_mobile = yes
+# 								exists = owner
+# 								is_owned_by = space_owner
+# 								is_civilian = no								# is_ship_class = shipclass_military
+# 							}
+# 							any_system_planet = {
+# 								has_owner = yes
+# 								NOR = {
+# 									is_owned_by = from
+# 									is_controlled_by = from
+# 								}
+# 							}
+# 						}
+# 					}
+# 					root = { set_owner = from }
+# 				}
+# 			}
+# 		} else = {
+# 			starbase_event = {
+# 				id = pirate.72
+# 				days = 32
+# 				random = 18
+# 				scopes = { from = from }
+# 			}
+# 		}
+# 	}
+# }
 
 ### The Bemat Thalassocracy (by Gemma Thomson) ###
 # Setup (event_target:global_event_country scope; randomly triggered in pirate.100): Find a suitable spawn point

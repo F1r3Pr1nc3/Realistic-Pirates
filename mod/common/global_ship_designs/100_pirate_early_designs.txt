@@ -19,10 +19,10 @@ ship_design = {
 			slot = "SMALL_GUN_03"
 			template = "SMALL_MASS_DRIVER_1"
 		}
-		# component = {
-		# 	slot = "MEDIUM_GUN_01"
-		# 	template = "MEDIUM_MASS_DRIVER_1"
-		# }
+		component = {
+			slot = "MEDIUM_GUN_01"
+			template = "MEDIUM_MASS_DRIVER_1"
+		}
 		component = {
 			slot = "LARGE_UTILITY_1"
 			template = "LARGE_ARMOR_1"
@@ -175,7 +175,7 @@ ship_design = {
 			template = "LARGE_SHIELD_1"
 		}
 	}
-	required_component="SENSOR_1"
+	required_component="SENSOR_2"
 	required_component = "BATTLESHIP_FISSION_REACTOR"
 }
 

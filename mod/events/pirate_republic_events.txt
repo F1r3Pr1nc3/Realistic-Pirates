@@ -78,6 +78,10 @@ country_event = {
 				any_owned_fleet = {
 					is_ship_size = pirate_station
 					solar_system = { is_owned_by = root }
+					NAND = {
+						has_fleet_flag = pirate_waves_station_flag
+						has_fleet_flag = pirate_waves_station_life_flag
+					}
 				}
 			}
 			weights = {
@@ -89,7 +93,13 @@ country_event = {
 			}
 			save_event_target_as = pirate_band
 			random_owned_fleet = {
-				limit = { is_ship_size = pirate_station }
+				limit = {
+					is_ship_size = pirate_station
+					NAND = {
+						has_fleet_flag = pirate_waves_station_flag
+						has_fleet_flag = pirate_waves_station_life_flag
+					}
+				}
 				solar_system = {
 					save_event_target_as = pirate_system
 					if = {
@@ -101,6 +111,7 @@ country_event = {
 									is_owned_by = root
 									is_controlled_by = root
 								}
+								planet_stability < 90
 							}
 							NOT = {
 								any_fleet_in_system = {
@@ -117,6 +128,7 @@ country_event = {
 									is_owned_by = root
 									is_controlled_by = root
 								}
+								planet_stability < 90
 							}
 							save_event_target_as = pirate_target
 						}
@@ -135,6 +147,7 @@ country_event = {
 											is_owned_by = root
 											is_controlled_by = root
 										}
+										planet_stability < 90
 									}
 									NOT = {
 										any_fleet_in_system = {
@@ -160,6 +173,7 @@ country_event = {
 										is_owned_by = root
 										is_controlled_by = root
 									}
+									planet_stability < 90
 									# owner = {
 									# 	is_primitive = no
 									# 	is_hostile = event_target:pirate_band
@@ -182,6 +196,7 @@ country_event = {
 										is_owned_by = root
 										is_controlled_by = root
 									}
+									planet_stability < 90
 									# owner = {
 									# 	is_primitive = no
 									# 	is_hostile = event_target:pirate_band
@@ -287,6 +302,7 @@ country_event = {
 }
 
 ## Pirate invasion!
+#  From = probably root.owner
 planet_event = {
 	id = pirate_republic.11
 	title = pirate_republic.11.name
@@ -411,72 +427,106 @@ planet_event = {
 		}
 		set_planet_flag = pirate_invasion
 	}
-	after = {
-		# Fallback if race condition?
-		if = {
-			limit = { exists = event_target:pirate_republic }
-			event_target:pirate_republic = {
-				if = {
-					limit = { NOT = { has_country_flag = pirate_republic } }
-					randomize_flag_symbol = pirate
-					set_graphical_culture = "pirate_01"
-					set_country_flag = pirate_republic
-					establish_communications_no_message = root.owner
-					set_relation_flag = { flag = rebelling_pirates_former_owner who = root.owner }
-					root = {
-						owner = {
-							every_relation = {
-								limit = { has_communications = prev }
-								establish_communications_no_message = prevprevprev
+	# after = { }
+	option = {
+		name = pirate_republic.11.option
+		hidden_effect = {
+			# Fallback if race condition?
+			if = {
+				limit = { exists = event_target:pirate_republic }
+				event_target:pirate_republic = {
+					if = {
+						limit = { NOT = { has_country_flag = pirate_republic } }
+						randomize_flag_symbol = pirate
+						set_graphical_culture = "pirate_01"
+						set_country_flag = pirate_republic
+						establish_communications_no_message = root.owner
+						set_relation_flag = { flag = rebelling_pirates_former_owner who = root.owner }
+						root = {
+							owner = {
+								every_relation = {
+									limit = { has_communications = prev }
+									establish_communications_no_message = prevprevprev
+								}
+							}
+							# Dyn. amount
+							set_variable = { which = num_armies_var value = 1 }
+							change_variable = { which = num_armies_var value = owner.pirates_factor }
+							multiply_variable = { which = num_armies_var value = 10 }
+							while = {
+								count = event_target:pirate_republic.num_armies_var # 25
+								create_army = {
+									name = "Pirate Invaders"
+									owner = event_target:pirate_republic
+									species = root.owner_species
+									type = "pirate_army"
+								}
 							}
 						}
-						# Dyn. amount
-						set_variable = { which = num_armies_var value = 1 }
-						change_variable = { which = num_armies_var value = owner.pirates_factor }
-						multiply_variable = { which = num_armies_var value = 10 }
-						while = {
-							count = event_target:pirate_republic.num_armies_var # 25
-							create_army = {
-								name = "Pirate Invaders"
-								owner = event_target:pirate_republic
-								species = root.owner_species
-								type = "pirate_army"
-							}
+						create_leader = {
+							class = ruler
+							species = owner_main_species
+							name = random
+							skill = 2
+							traits = { trait = random_trait }
 						}
-					}
-					create_leader = {
-						class = ruler
-						species = owner_main_species
-						name = random
-						skill = 2
-						traits = { trait = random_trait }
-					}
-					assign_leader = last_created_leader
-					ruler = { add_random_leader_trait = yes }
-					set_pirates_difficulty = yes
-					# Create a fleet based on fleet power.
-					create_fleet = {
-						name = "NAME_Pirate_Fleet"
-						effect = {
-							save_event_target_as = pirate_waves_fleet
-							# Owner is set before the ships are created so that random naming works.
-							set_owner = prev
-							# Create ships
-							create_pirate_waves_fleet = yes
-							# Fleet settings
-							set_location = root
-							# set_fleet_stance = aggressive
-							set_aggro_range_measure_from = self
-							set_aggro_range = 150
+						assign_leader = last_created_leader
+						ruler = { add_random_leader_trait = yes }
+						set_pirates_difficulty = yes
+						# Create a fleet based on fleet power.
+						create_fleet = {
+							name = "NAME_Pirate_Fleet"
+							effect = {
+								save_event_target_as = pirate_waves_fleet
+								# Owner is set before the ships are created so that random naming works.
+								set_owner = prev
+								# Create ships
+								create_pirate_waves_fleet = yes
+								# Fleet settings
+								set_location = root
+								# set_fleet_stance = aggressive
+								set_aggro_range_measure_from = self
+								set_aggro_range = 150
+							}
 						}
 					}
 				}
+				clear_variable = num_armies_var
+				set_planet_flag = pirate_invasion
+
+				if = {
+					limit = {
+						exists = event_target:pirate_system
+						event_target:pirate_system = {
+							exists = starbase
+							starbase = { is_owned_by = from } # root.owner
+							NOR = {
+								any_fleet_in_system = {
+									is_mobile = yes
+									exists = owner
+									is_owned_by = from	# space_owner
+									is_civilian = no	# is_ship_class = shipclass_military
+								}
+								any_system_planet = {
+									has_owner = yes
+									OR = {
+										has_planet_flag = pirate_invasion
+										NOR = {
+											is_owned_by = from
+											is_controlled_by = from
+										}
+									}
+								}
+							}
+						}
+					}
+					event_target:pirate_system.starbase = {
+						set_owner = prev
+					}
+				}
 			}
-			clear_variable = num_armies_var
-			set_planet_flag = pirate_invasion
 		}
 	}
-	option = { name = pirate_republic.11.option }
 }
 
 ## Pirates lost
