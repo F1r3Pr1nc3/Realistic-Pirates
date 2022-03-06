@@ -138,7 +138,7 @@ hostile_init_117 = {
 							count = 3
 							create_ship = {
 								name = random
-								design = NAME_Reaver
+								design = "NAME_Reaver"
 								graphical_culture = "pirate_01"
 							}
 						}

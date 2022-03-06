@@ -19,10 +19,10 @@ ship_design = {
 			slot = "SMALL_GUN_03"
 			template = "SMALL_MASS_DRIVER_1"
 		}
-		component = {
-			slot = "MEDIUM_GUN_01"
-			template = "MEDIUM_MASS_DRIVER_1"
-		}
+		# component = {
+		# 	slot = "MEDIUM_GUN_01"
+		# 	template = "MEDIUM_MASS_DRIVER_1"
+		# }
 		component = {
 			slot = "LARGE_UTILITY_1"
 			template = "LARGE_ARMOR_1"
@@ -177,4 +177,122 @@ ship_design = {
 	}
 	required_component="SENSOR_1"
 	required_component = "BATTLESHIP_FISSION_REACTOR"
+}
+
+## Corvettes
+
+# Pirate Corvette
+ship_design = {
+	name = "NAME_Reaver"
+	ship_size = pirate_corvette
+	section = {
+		template = "PIRATE_CORVETTE_MID_M1S1"
+		slot = "mid"
+
+		component = {
+			slot = "SMALL_GUN_01"
+			template = "SMALL_MASS_DRIVER_1"
+		}
+		component = {
+			slot = "MEDIUM_GUN_01"
+			template = "MEDIUM_MASS_DRIVER_1"
+		}
+		component = {
+			slot = "SMALL_UTILITY_1"
+			template = "SMALL_SHIELD_1"
+		}
+		component = {
+			slot = "SMALL_UTILITY_2"
+			template = "SMALL_ARMOR_1"
+		}
+		component = {
+			slot = "SMALL_UTILITY_3"
+			template = "SMALL_ARMOR_1"
+		}
+	}
+	required_component = "SENSOR_1"
+	required_component = "HYPER_DRIVE_1"
+	required_component = "SHIP_THRUSTER_1"
+	required_component = "CORVETTE_FISSION_REACTOR"
+	required_component = "COMBAT_COMPUTER_SWARM_DEFAULT"
+}
+
+# Pirate Corvette II (Laser)
+ship_design = {
+	name = "NAME_Hunter"
+	ship_size = pirate_corvette
+	section = {
+		template = "PIRATE_CORVETTE_MID_M1S1"
+		slot = "mid"
+
+		component = {
+			slot = "SMALL_GUN_01"
+			template = "SMALL_RED_LASER"
+		}
+		component = {
+			slot = "MEDIUM_GUN_01"
+			template = "MEDIUM_RED_LASER"
+		}
+		component = {
+			slot = "SMALL_UTILITY_1"
+			template = "SMALL_SHIELD_1"
+		}
+		component = {
+			slot = "SMALL_UTILITY_2"
+			template = "SMALL_ARMOR_1"
+		}
+		component = {
+			slot = "SMALL_UTILITY_3"
+			template = "SMALL_ARMOR_1"
+		}
+		component = {
+			slot = "AUX_UTILITY_1"
+			template = "AFTERBURNER_1"
+		}
+	}
+	required_component = "SENSOR_1"
+	required_component = "HYPER_DRIVE_1"
+	required_component = "SHIP_THRUSTER_1"
+	required_component = "CORVETTE_FISSION_REACTOR"
+	required_component = "COMBAT_COMPUTER_SWARM_DEFAULT"
+}
+
+# Pirate Corvette III (Missiles)
+ship_design = {
+	name = "NAME_Vagabond"
+	ship_size = pirate_corvette
+	section = {
+		template = "PIRATE_CORVETTE_MID_M1S1"
+		slot = "mid"
+
+		component = {
+			slot = "SMALL_GUN_01"
+			template = "MISSILE_1"
+		}
+		component = {
+			slot = "MEDIUM_GUN_01"
+			template = "MISSILE_1"
+		}
+		component = {
+			slot = "SMALL_UTILITY_1"
+			template = "SMALL_SHIELD_1"
+		}
+		component = {
+			slot = "SMALL_UTILITY_2"
+			template = "SMALL_ARMOR_1"
+		}
+		component = {
+			slot = "SMALL_UTILITY_3"
+			template = "SMALL_ARMOR_1"
+		}
+		component = {
+			slot = "AUX_UTILITY_1"
+			template = "AFTERBURNER_1"
+		}
+	}
+	required_component = "SENSOR_1"
+	required_component = "HYPER_DRIVE_1"
+	required_component = "SHIP_THRUSTER_1"
+	required_component = "CORVETTE_FISSION_REACTOR"
+	required_component = "COMBAT_COMPUTER_SWARM_DEFAULT"
 }

@@ -51,7 +51,7 @@ supremacists_home = {
 				name_list = random
 				species = last_created_species
 				type = outer_bulwarks
-				civics = { civic = civic_mercenary_worshippers }
+				civics = { civic = random }
 				origin = "origin_default"
 				flag = {
 					icon = {
@@ -70,7 +70,7 @@ supremacists_home = {
 					}
 				}
 				ethos = {
-					ethic = ethic_fanatic_militarist
+					ethic = ethic_militarist
 					ethic = ethic_xenophile
 				}
 				ignore_initial_colony_error = yes
@@ -90,6 +90,8 @@ supremacists_home = {
 					}
 					save_global_event_target_as = bulwark_numbers_species_global
 				}
+				shift_ethic = ethic_fanatic_militarist
+				force_add_civic = civic_mercenary_worshippers
 			}
 			create_fleet = {
 				effect = {
@@ -756,7 +758,7 @@ technologists_home = {
 				name_list = random
 				species = last_created_species
 				type = outer_bulwarks
-				civics = { civic = civic_mercenary_worshippers }
+				civics = { civic = random }
 				origin = "origin_default"
 				flag = {
 					icon = {
@@ -775,7 +777,7 @@ technologists_home = {
 					}
 				}
 				ethos = {
-					ethic = ethic_fanatic_materialist
+					ethic = ethic_materialist
 					ethic = ethic_xenophile
 				}
 				ignore_initial_colony_error = yes
@@ -795,6 +797,8 @@ technologists_home = {
 					}
 					save_global_event_target_as = bulwark_techies_species_global
 				}
+				shift_ethic = ethic_fanatic_militarist
+				force_add_civic = civic_mercenary_worshippers
 			}
 			create_fleet = {
 				effect = {
@@ -1509,7 +1513,7 @@ tamers_home = {
 				name_list = random
 				species = last_created_species
 				type = outer_bulwarks
-				civics = { civic = civic_mercenary_worshippers }
+				civics = { civic = random }
 				origin = "origin_default"
 				flag = {
 					icon = {
@@ -1528,7 +1532,7 @@ tamers_home = {
 					}
 				}
 				ethos = {
-					ethic = ethic_fanatic_materialist
+					ethic = ethic_materialist
 					ethic = ethic_xenophile
 				}
 				ignore_initial_colony_error = yes
@@ -1548,6 +1552,8 @@ tamers_home = {
 					}
 					save_global_event_target_as = bulwark_monsters_species_global
 				}
+				shift_ethic = ethic_fanatic_militarist
+				force_add_civic = civic_mercenary_worshippers
 			}
 			create_fleet = {
 				effect = {

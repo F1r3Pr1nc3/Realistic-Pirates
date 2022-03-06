@@ -295,6 +295,9 @@ planet_event = {
 	show_sound = event_planetary_riot
 	location = root
 	is_triggered_only = yes
+	trigger = {
+		exists = event_target:pirate_target
+	}
 	immediate = {
 		if = {
 			limit = { host_has_dlc = "Megacorp" }
@@ -346,23 +349,7 @@ planet_event = {
 			set_country_flag = pirate_republic
 			establish_communications_no_message = root.owner
 			set_relation_flag = { flag = rebelling_pirates_former_owner who = root.owner }
-			root = {
-				owner = {
-					every_relation = {
-						limit = { has_communications = prev }
-						establish_communications_no_message = prevprevprev
-					}
-				}
-				while = {
-					count = 25 # TODO dyn
-					create_army = {
-						name = "Pirate Invaders"
-						owner = event_target:pirate_republic
-						species = root.owner_species
-						type = "pirate_army"
-					}
-				}
-			}
+
 			create_leader = {
 				class = ruler
 				species = owner_main_species
@@ -387,6 +374,37 @@ planet_event = {
 					# set_fleet_stance = aggressive
 					set_aggro_range_measure_from = self
 					set_aggro_range = 150
+				}
+			}
+			root = {
+				# TODO dyn
+				set_variable = { which = num_armies_var value = 20 }
+				multiply_variable = { which = num_armies_var value = pirates_factor } # as it is only half for marauders
+				while = {
+					count = event_target:pirate_republic.num_armies_var # 25
+					create_army = {
+						name = "Pirate Invaders"
+						owner = event_target:pirate_republic
+						species = root.owner_species
+						type = "pirate_army"
+					}
+				}
+				owner = {
+					every_relation = {
+						limit = { has_communications = prev }
+						establish_communications_no_message = prevprevprev
+					}
+					create_leader = {
+						class = general
+						species = owner_main_species
+						name = random
+						skill = 2
+						traits = { trait = random_trait }
+					}
+					# last_created_army = {
+					random_owned_army = {
+						assign_leader = last_created_leader
+					}
 				}
 			}
 		}

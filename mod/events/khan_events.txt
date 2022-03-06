@@ -1011,6 +1011,42 @@ system_event = {
 	}
 }
 
+# Assign Gov on capital for Marauders (on_capital_changed).
+planet_event = {
+	id = khan.320
+	hide_window = yes
+	is_triggered_only = yes
+	pre_triggers= {
+		has_owner = yes
+		is_ai = yes
+	}
+	trigger = {
+		exists = sector
+		NOT = { exists = sector.leader  }
+		owner = {
+			CmtTriggerIsMarauder = yes
+			any_owned_leader = {
+				leader_class = governor
+				NOT = { exists = sector }
+			}
+		}
+		# NOT = { has_global_flag = great_khan_wins }
+	}
+	immediate = {
+		owner = {
+			random_owned_leader = {
+				limit = {
+					leader_class = governor
+					NOT = { exists = sector }
+				}
+				root.sector = {
+					assign_leader = prev
+				}
+			}
+		}
+	}
+}
+
 # Handover parts of marauder country for Diadochi (HIDDEN)
 # Via marauder.601 and marauder.609
 # this = Diadochi
