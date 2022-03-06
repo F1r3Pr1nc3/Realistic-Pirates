@@ -377,9 +377,10 @@ planet_event = {
 				}
 			}
 			root = {
-				# TODO dyn
-				set_variable = { which = num_armies_var value = 20 }
-				multiply_variable = { which = num_armies_var value = pirates_factor } # as it is only half for marauders
+				# Dyn. amount
+				set_variable = { which = num_armies_var value = 1 }
+				change_variable = { which = num_armies_var value = owner.pirates_factor }
+				multiply_variable = { which = num_armies_var value = 10 }
 				while = {
 					count = event_target:pirate_republic.num_armies_var # 25
 					create_army = {
@@ -413,62 +414,65 @@ planet_event = {
 	after = {
 		# Fallback if race condition?
 		if = {
-			limit = {
-				exists = event_target:pirate_republic
-				event_target:pirate_republic = {
-					NOT = { has_country_flag = pirate_republic }
-				}
-		 	}
+			limit = { exists = event_target:pirate_republic }
 			event_target:pirate_republic = {
-				randomize_flag_symbol = pirate
-				set_graphical_culture = "pirate_01"
-				set_country_flag = pirate_republic
-				establish_communications_no_message = root.owner
-				set_relation_flag = { flag = rebelling_pirates_former_owner who = root.owner }
-				root = {
-					owner = {
-						every_relation = {
-							limit = { has_communications = prev }
-							establish_communications_no_message = prevprevprev
+				if = {
+					limit = { NOT = { has_country_flag = pirate_republic } }
+					randomize_flag_symbol = pirate
+					set_graphical_culture = "pirate_01"
+					set_country_flag = pirate_republic
+					establish_communications_no_message = root.owner
+					set_relation_flag = { flag = rebelling_pirates_former_owner who = root.owner }
+					root = {
+						owner = {
+							every_relation = {
+								limit = { has_communications = prev }
+								establish_communications_no_message = prevprevprev
+							}
+						}
+						# Dyn. amount
+						set_variable = { which = num_armies_var value = 1 }
+						change_variable = { which = num_armies_var value = owner.pirates_factor }
+						multiply_variable = { which = num_armies_var value = 10 }
+						while = {
+							count = event_target:pirate_republic.num_armies_var # 25
+							create_army = {
+								name = "Pirate Invaders"
+								owner = event_target:pirate_republic
+								species = root.owner_species
+								type = "pirate_army"
+							}
 						}
 					}
-					while = {
-						count = 25 # TODO dyn
-						create_army = {
-							name = "Pirate Invaders"
-							owner = event_target:pirate_republic
-							species = root.owner_species
-							type = "pirate_army"
-						}
+					create_leader = {
+						class = ruler
+						species = owner_main_species
+						name = random
+						skill = 2
+						traits = { trait = random_trait }
 					}
-				}
-				create_leader = {
-					class = ruler
-					species = owner_main_species
-					name = random
-					skill = 2
-					traits = { trait = random_trait }
-				}
-				assign_leader = last_created_leader
-				ruler = { add_random_leader_trait = yes }
-				set_pirates_difficulty = yes
-				# Create a fleet based on fleet power.
-				create_fleet = {
-					name = "NAME_Pirate_Fleet"
-					effect = {
-						save_event_target_as = pirate_waves_fleet
-						# Owner is set before the ships are created so that random naming works.
-						set_owner = prev
-						# Create ships
-						create_pirate_waves_fleet = yes
-						# Fleet settings
-						set_location = root
-						# set_fleet_stance = aggressive
-						set_aggro_range_measure_from = self
-						set_aggro_range = 150
+					assign_leader = last_created_leader
+					ruler = { add_random_leader_trait = yes }
+					set_pirates_difficulty = yes
+					# Create a fleet based on fleet power.
+					create_fleet = {
+						name = "NAME_Pirate_Fleet"
+						effect = {
+							save_event_target_as = pirate_waves_fleet
+							# Owner is set before the ships are created so that random naming works.
+							set_owner = prev
+							# Create ships
+							create_pirate_waves_fleet = yes
+							# Fleet settings
+							set_location = root
+							# set_fleet_stance = aggressive
+							set_aggro_range_measure_from = self
+							set_aggro_range = 150
+						}
 					}
 				}
 			}
+			clear_variable = num_armies_var
 			set_planet_flag = pirate_invasion
 		}
 	}
