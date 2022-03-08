@@ -15,6 +15,16 @@
 @ships_count_hard = 2000
 @ships_count_insane = 4000
 
+create_dyn_pirate_fleet = {
+	[[Reaver] create_ship_design = { design = "NAME_Reaver" } while = { count = $Reaver$ create_ship = { name = random design = last_created_design graphical_culture = "pirate_01" } } ]
+	[[Brigand] create_ship_design = { design = "NAME_Brigand" } while = { count = $Brigand$ create_ship = { name = random design = last_created_design graphical_culture = "pirate_01" } } ]
+	[[Skull] create_ship_design = { design = "NAME_Skull" } while = { count = $Skull$ create_ship = { name = random design = last_created_design graphical_culture = "pirate_01" } } ]
+	[[Marauder] create_ship_design = { design = "NAME_Marauder" } while = { count = $Marauder$ create_ship = { name = random design = last_created_design graphical_culture = "pirate_01" } } ]
+	[[Corsair] create_ship_design = { design = "NAME_Corsair" } while = { count = $Corsair$ create_ship = { name = random design = last_created_design graphical_culture = "pirate_01" } } ]
+	[[Black_Earl] create_ship_design = { design = "NAME_Black_Earl" } while = { count = $Black_Earl$ create_ship = { name = random design = last_created_design graphical_culture = "pirate_01" } } ]
+	[[Pirate_Galleon] create_ship_design = { design = "NAME_Pirate_Galleon" } while = { count = $Pirate_Galleon$ create_ship = { name = random design = last_created_design graphical_culture = "pirate_01" } } ]
+}
+
 # Creates both countries and management communications and enclave stations.
 create_pirate_waves_countries = {
 	# First Pirate Country
@@ -368,11 +378,7 @@ create_pirate_waves_fleet = {
 					}
 				}
 				20 = {
-					modifier = {
-						factor = 0
-						exists = event_target:current_pirate_country
-						mid_game_years_passed < 0
-					}
+					modifier = { factor = 0 exists = event_target:current_pirate_country mid_game_years_passed < 0 }
 					modifier = {
 						factor = 12
 						NOT = { exists = event_target:current_pirate_country }
@@ -397,11 +403,7 @@ create_pirate_waves_fleet = {
 					}
 				}
 				20 = {
-					modifier = {
-						factor = 0
-						exists = event_target:current_pirate_country
-						mid_game_years_passed < 0
-					}
+					modifier = { factor = 0 exists = event_target:current_pirate_country mid_game_years_passed < 0 }
 					modifier = {
 						factor = 12
 						NOT = { exists = event_target:current_pirate_country }
@@ -426,11 +428,7 @@ create_pirate_waves_fleet = {
 					}
 				}
 				20 = {
-					modifier = {
-						factor = 0
-						exists = event_target:current_pirate_country
-						mid_game_years_passed < 0
-					}
+					modifier = { factor = 0 exists = event_target:current_pirate_country mid_game_years_passed < 0 }
 					modifier = {
 						factor = 12
 						NOT = { exists = event_target:current_pirate_country }
@@ -471,11 +469,7 @@ create_pirate_waves_fleet = {
 						}
 					}
 					20 = {
-						modifier = {
-							factor = 0
-							exists = event_target:current_pirate_country
-							mid_game_years_passed < 0
-						}
+						modifier = { factor = 0 exists = event_target:current_pirate_country mid_game_years_passed < 0 }
 						modifier = {
 							factor = 12
 							NOT = { exists = event_target:current_pirate_country }
@@ -500,11 +494,7 @@ create_pirate_waves_fleet = {
 						}
 					}
 					20 = {
-						modifier = {
-							factor = 0
-							exists = event_target:current_pirate_country
-							mid_game_years_passed < 0
-						}
+						modifier = { factor = 0 exists = event_target:current_pirate_country mid_game_years_passed < 0 }
 						modifier = {
 							factor = 12
 							NOT = { exists = event_target:current_pirate_country }

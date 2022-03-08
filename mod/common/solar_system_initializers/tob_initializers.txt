@@ -1,5 +1,4 @@
 @base_moon_distance = 10
-
 # Supremacists
 supremacists_home = {
 	class = "rl_standard_stars"
@@ -8,7 +7,6 @@ supremacists_home = {
 		type = rocky_asteroid_belt
 		radius = 230
 	}
-
 	max_instances = 1
 	usage_odds = {
 		base = 0
@@ -19,33 +17,24 @@ supremacists_home = {
 		}
 	}
 	spawn_chance = 100
-
 	flags = { tob_system tob_supremacists }
-
 	planet = {
 		class = star
 		orbit_distance = 0
 		orbit_angle = 1
 		size = { min = 20 max = 30 }
 		has_ring = no
-
 		init_effect = {
 			create_species = {
 				name = random
 				class = random
-				blocked_archetypes = {
-					MACHINE
-					ROBOT
-					LITHOID
-				}
+				blocked_archetypes = { MACHINE ROBOT LITHOID }
 				portrait = random
 				traits = {
 					ideal_planet_class = pc_habitat
 					trait = random_traits
 				}
-				effect = {
-					set_species_flag = bulwark_numbers_species
-				}
+				effect = { set_species_flag = bulwark_numbers_species }
 			}
 			create_country = {
 				name_list = random
@@ -58,11 +47,11 @@ supremacists_home = {
 						category = "spherical"
 						file = "flag_spherical_22.dds"
 					}
-					background= {
+					background = {
 						category = "backgrounds"
 						file = "circle.dds"
 					}
-					colors={
+					colors = {
 						"black"
 						"black"
 						"null"
@@ -85,9 +74,7 @@ supremacists_home = {
 				create_ship_design = { design = "NAME_Marauder_Starbase" }
 				add_ship_design = last_created_design
 				random_owned_species = {
-					limit = {
-						has_species_flag = bulwark_numbers_species
-					}
+					limit = { has_species_flag = bulwark_numbers_species }
 					save_global_event_target_as = bulwark_numbers_species_global
 				}
 				shift_ethic = ethic_fanatic_militarist
@@ -99,12 +86,8 @@ supremacists_home = {
 					create_ship = {
 						name = random
 						design = "NAME_BULWARK_HABITAT"
-
 						effect = {
-							add_modifier = {
-								modifier = "bulwark_budget_repairs"
-								days = 5
-							}
+							add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
 						}
 					}
 					set_location = {
@@ -117,15 +100,12 @@ supremacists_home = {
 			}
 		}
 	}
-
 	change_orbit = 50
-
 	planet = {
 		class = pc_molten
 		orbit_distance = 25
 		size = 20
 		orbit_angle = 20
-
 		init_effect = {
 			create_fleet = {
 				effect = {
@@ -133,12 +113,8 @@ supremacists_home = {
 					create_ship = {
 						name = random
 						design = "NAME_BULWARK_HABITAT"
-
 						effect = {
-							add_modifier = {
-								modifier = "bulwark_budget_repairs"
-								days = 5
-							}
+							add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
 						}
 					}
 					set_location = {
@@ -151,13 +127,11 @@ supremacists_home = {
 			}
 		}
 	}
-
 	planet = {
 		class = pc_toxic
 		orbit_distance = 25
 		size = 11
 		orbit_angle = 100
-
 		init_effect = {
 			create_fleet = {
 				effect = {
@@ -165,12 +139,8 @@ supremacists_home = {
 					create_ship = {
 						name = random
 						design = "NAME_BULWARK_HABITAT"
-
 						effect = {
-							add_modifier = {
-								modifier = "bulwark_budget_repairs"
-								days = 5
-							}
+							add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
 						}
 					}
 					set_location = {
@@ -183,21 +153,17 @@ supremacists_home = {
 			}
 		}
 	}
-
 	planet = {
 		class = pc_gas_giant
 		orbit_distance = 40
 		orbit_angle = -60
 		size = 40
-
 		change_orbit = @base_moon_distance
-
 		moon = {
 			class = pc_barren
 			size = 8
 			orbit_angle = 90
 			orbit_distance = 6
-
 			init_effect = {
 				create_fleet = {
 					effect = {
@@ -205,12 +171,8 @@ supremacists_home = {
 						create_ship = {
 							name = random
 							design = "NAME_BULWARK_HABITAT"
-
 							effect = {
-								add_modifier = {
-									modifier = "bulwark_budget_repairs"
-									days = 5
-								}
+								add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
 							}
 						}
 						set_location = {
@@ -228,22 +190,17 @@ supremacists_home = {
 			size = 10
 			orbit_angle = 95
 			orbit_distance = 6
-
 			init_effect = {
 				every_country = {
-					limit = {
-						has_country_flag = bulwark_numbers
-					}
+					limit = { has_country_flag = bulwark_numbers }
 					create_leader = {
 						class = admiral
 						species = last_created_species
 						name = random
 						skill = 1
-						event_leader = yes	# Prevents this leader from leading factions and winning elections.
-						immortal = yes	# can't be killed (not even in battle, unless fleet is destroyed)
-						traits = {
-							trait = random_trait
-						}
+						event_leader = yes						# Prevents this leader from leading factions and winning elections.
+						immortal = yes						# can't be killed (not even in battle, unless fleet is destroyed)
+						traits = { trait = random_trait }
 					}
 				}
 				create_fleet = {
@@ -256,13 +213,9 @@ supremacists_home = {
 								name = random
 								design = "NAME_BULWARK_LOWCORVETTE"
 								graphical_culture = "pirate_01"
-
 								effect = {
 									set_ship_flag = bulwark_ship_techone
-									add_modifier = {
-										modifier = "bulwark_budget_repairs"
-										days = 5
-									}
+									add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
 								}
 							}
 						}
@@ -272,13 +225,9 @@ supremacists_home = {
 								name = random
 								design = "NAME_BULWARK_LOWDESTROYER"
 								graphical_culture = "pirate_01"
-
 								effect = {
 									set_ship_flag = bulwark_ship_techone
-									add_modifier = {
-										modifier = "bulwark_budget_repairs"
-										days = 5
-									}
+									add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
 								}
 							}
 						}
@@ -315,7 +264,6 @@ supremacists_home = {
 			size = 11
 			orbit_angle = 160
 			orbit_distance = 6
-
 			init_effect = {
 				create_fleet = {
 					effect = {
@@ -323,12 +271,8 @@ supremacists_home = {
 						create_ship = {
 							name = random
 							design = "NAME_BULWARK_HABITAT"
-
 							effect = {
-								add_modifier = {
-									modifier = "bulwark_budget_repairs"
-									days = 5
-								}
+								add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
 							}
 						}
 						set_location = {
@@ -342,37 +286,29 @@ supremacists_home = {
 			}
 		}
 	}
-
 	planet = {
 		class = pc_barren_cold
 		orbit_distance = 40
 		size = 25
 		orbit_angle = 55
-
 		init_effect = {
 			every_country = {
-				limit = {
-					has_country_flag = bulwark_numbers
-				}
+				limit = { has_country_flag = bulwark_numbers }
 				create_leader = {
 					class = admiral
 					species = last_created_species
 					name = random
 					skill = 1
-					event_leader = yes	# Prevents this leader from leading factions and winning elections.
-					immortal = yes	# can't be killed (not even in battle, unless fleet is destroyed)
+					event_leader = yes					# Prevents this leader from leading factions and winning elections.
+					immortal = yes					# can't be killed (not even in battle, unless fleet is destroyed)
 					traits = {
 						trait = leader_trait_bulwark_numbers
 						trait = leader_trait_bulwark_default
 					}
-					effect = {
-						set_leader_flag = bulwark_numbers_commander
-					}
+					effect = { set_leader_flag = bulwark_numbers_commander }
 				}
 				random_owned_leader = {
-					limit = {
-						has_leader_flag = bulwark_numbers_commander
-					}
+					limit = { has_leader_flag = bulwark_numbers_commander }
 					save_global_event_target_as = bulwark_supremacists_commander
 				}
 			}
@@ -387,13 +323,9 @@ supremacists_home = {
 							name = random
 							design = "NAME_BULWARK_LOWCORVETTE"
 							graphical_culture = "pirate_01"
-
 							effect = {
 								set_ship_flag = bulwark_ship_techone
-								add_modifier = {
-									modifier = "bulwark_budget_repairs"
-									days = 5
-								}
+								add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
 							}
 						}
 					}
@@ -403,13 +335,9 @@ supremacists_home = {
 							name = random
 							design = "NAME_BULWARK_LOWDESTROYER"
 							graphical_culture = "pirate_01"
-
 							effect = {
 								set_ship_flag = bulwark_ship_techone
-								add_modifier = {
-									modifier = "bulwark_budget_repairs"
-									days = 5
-								}
+								add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
 							}
 						}
 					}
@@ -436,36 +364,28 @@ supremacists_home = {
 			}
 		}
 	}
-
 	planet = {
 		class = pc_barren
 		orbit_distance = 25
 		size = 15
 		orbit_angle = 120
-
 		change_orbit = @base_moon_distance
-
 		moon = {
 			class = pc_frozen
 			size = 8
 			orbit_angle = 90
 			orbit_distance = 6
-
 			init_effect = {
 				every_country = {
-					limit = {
-						has_country_flag = bulwark_numbers
-					}
+					limit = { has_country_flag = bulwark_numbers }
 					create_leader = {
 						class = admiral
 						species = last_created_species
 						name = random
 						skill = 1
-						event_leader = yes	# Prevents this leader from leading factions and winning elections.
-						immortal = yes	# can't be killed (not even in battle, unless fleet is destroyed)
-						traits = {
-							trait = random_trait
-						}
+						event_leader = yes						# Prevents this leader from leading factions and winning elections.
+						immortal = yes						# can't be killed (not even in battle, unless fleet is destroyed)
+						traits = { trait = random_trait }
 					}
 				}
 				create_fleet = {
@@ -478,13 +398,9 @@ supremacists_home = {
 								name = random
 								design = "NAME_BULWARK_LOWCORVETTE"
 								graphical_culture = "pirate_01"
-
 								effect = {
 									set_ship_flag = bulwark_ship_techone
-									add_modifier = {
-										modifier = "bulwark_budget_repairs"
-										days = 5
-									}
+									add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
 								}
 							}
 						}
@@ -494,13 +410,9 @@ supremacists_home = {
 								name = random
 								design = "NAME_BULWARK_LOWDESTROYER"
 								graphical_culture = "pirate_01"
-
 								effect = {
 									set_ship_flag = bulwark_ship_techone
-									add_modifier = {
-										modifier = "bulwark_budget_repairs"
-										days = 5
-									}
+									add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
 								}
 							}
 						}
@@ -527,19 +439,14 @@ supremacists_home = {
 			}
 		}
 	}
-
 	planet = {
 		class = "pc_asteroid"
 		orbit_distance = 25
 		orbit_angle = -210
 		size = 5
 		has_ring = no
-
-		init_effect = {
-			set_deposit = d_minerals_8
-		}
+		init_effect = { set_deposit = d_minerals_8 }
 	}
-
 	planet = {
 		class = "pc_asteroid"
 		orbit_distance = 0
@@ -547,19 +454,14 @@ supremacists_home = {
 		size = 5
 		has_ring = no
 	}
-
 	planet = {
 		class = "pc_asteroid"
 		orbit_distance = 0
 		orbit_angle = 285
 		size = 5
 		has_ring = no
-
-		init_effect = {
-			set_deposit = d_minerals_8
-		}
+		init_effect = { set_deposit = d_minerals_8 }
 	}
-
 	planet = {
 		class = "pc_asteroid"
 		orbit_distance = 0
@@ -567,27 +469,14 @@ supremacists_home = {
 		size = 5
 		has_ring = no
 	}
-
 	planet = {
 		class = "pc_asteroid"
 		orbit_distance = 0
 		orbit_angle = -80
 		size = 5
 		has_ring = no
-
-		init_effect = {
-			set_deposit = d_minerals_8
-		}
+		init_effect = { set_deposit = d_minerals_8 }
 	}
-
-	planet = {
-		class = "pc_asteroid"
-		orbit_distance = 0
-		orbit_angle = -80
-		size = 5
-		has_ring = no
-	}
-
 	planet = {
 		class = "pc_asteroid"
 		orbit_distance = 0
@@ -595,7 +484,6 @@ supremacists_home = {
 		size = 5
 		has_ring = no
 	}
-
 	planet = {
 		class = "pc_asteroid"
 		orbit_distance = 0
@@ -603,13 +491,18 @@ supremacists_home = {
 		size = 5
 		has_ring = no
 	}
-
+	planet = {
+		class = "pc_asteroid"
+		orbit_distance = 0
+		orbit_angle = -80
+		size = 5
+		has_ring = no
+	}
 	planet = {
 		class = pc_barren_cold
 		orbit_distance = 30
 		size = 10
 		orbit_angle = 125
-
 		init_effect = {
 			create_fleet = {
 				effect = {
@@ -617,12 +510,8 @@ supremacists_home = {
 					create_ship = {
 						name = random
 						design = "NAME_BULWARK_HABITAT"
-
 						effect = {
-							add_modifier = {
-								modifier = "bulwark_budget_repairs"
-								days = 5
-							}
+							add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
 						}
 					}
 					set_location = {
@@ -635,13 +524,11 @@ supremacists_home = {
 			}
 		}
 	}
-
 	planet = {
 		class = pc_frozen
 		orbit_distance = 25
 		size = 8
 		orbit_angle = 125
-
 		init_effect = {
 			create_fleet = {
 				effect = {
@@ -649,12 +536,8 @@ supremacists_home = {
 					create_ship = {
 						name = random
 						design = "NAME_BULWARK_HABITAT"
-
 						effect = {
-							add_modifier = {
-								modifier = "bulwark_budget_repairs"
-								days = 5
-							}
+							add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
 						}
 					}
 					set_location = {
@@ -667,15 +550,12 @@ supremacists_home = {
 			}
 		}
 	}
-
 	planet = {
 		class = pc_frozen
 		orbit_distance = 25
 		size = 12
 		orbit_angle = 125
-
 		change_orbit = @base_moon_distance
-
 		moon = {
 			class = pc_frozen
 			size = 8
@@ -683,25 +563,16 @@ supremacists_home = {
 			orbit_distance = 6
 		}
 	}
-
 	init_effect = {
 		event_target:tob_supremacist_faction = { save_event_target_as = marauder_starbase_owner }
 		create_marauder_starbase = yes
 		event_target:tob_supremacist_faction = {
 			every_owned_ship = {
-				add_modifier = {
-					modifier = "bulwark_ships_unlimited"
-
-				}
+				add_modifier = { modifier = "bulwark_ships_unlimited" }
 			}
 			every_owned_ship = {
-				limit = {
-					is_ship_size = bulwark_station
-				}
-				add_modifier = {
-					modifier = "bulwark_core_station"
-
-				}
+				limit = { is_ship_size = bulwark_station }
+				add_modifier = { modifier = "bulwark_core_station" }
 			}
 		}
 	}
@@ -715,7 +586,6 @@ technologists_home = {
 		type = rocky_asteroid_belt
 		radius = 230
 	}
-
 	max_instances = 1
 	usage_odds = {
 		base = 0
@@ -726,33 +596,24 @@ technologists_home = {
 		}
 	}
 	spawn_chance = 100
-
 	flags = { tob_system tob_technologists }
-
 	planet = {
 		class = star
 		orbit_distance = 0
 		orbit_angle = 1
 		size = { min = 20 max = 30 }
 		has_ring = no
-
 		init_effect = {
 			create_species = {
 				name = random
 				class = random
-				blocked_archetypes = {
-					MACHINE
-					ROBOT
-					LITHOID
-				}
+				blocked_archetypes = { MACHINE ROBOT LITHOID }
 				portrait = random
 				traits = {
 					ideal_planet_class = pc_habitat
 					trait = random_traits
 				}
-				effect = {
-					set_species_flag = bulwark_techies_species
-				}
+				effect = { set_species_flag = bulwark_techies_species }
 			}
 			create_country = {
 				name_list = random
@@ -765,11 +626,11 @@ technologists_home = {
 						category = "spherical"
 						file = "flag_spherical_22.dds"
 					}
-					background= {
+					background = {
 						category = "backgrounds"
 						file = "circle.dds"
 					}
-					colors={
+					colors = {
 						"black"
 						"black"
 						"null"
@@ -792,9 +653,7 @@ technologists_home = {
 				create_ship_design = { design = "NAME_Marauder_Starbase" }
 				add_ship_design = last_created_design
 				random_owned_species = {
-					limit = {
-						has_species_flag = bulwark_techies_species
-					}
+					limit = { has_species_flag = bulwark_techies_species }
 					save_global_event_target_as = bulwark_techies_species_global
 				}
 				shift_ethic = ethic_fanatic_militarist
@@ -806,12 +665,8 @@ technologists_home = {
 					create_ship = {
 						name = random
 						design = "NAME_BULWARK_HABITAT"
-
 						effect = {
-							add_modifier = {
-								modifier = "bulwark_budget_repairs"
-								days = 5
-							}
+							add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
 						}
 					}
 					set_location = {
@@ -824,15 +679,12 @@ technologists_home = {
 			}
 		}
 	}
-
 	change_orbit = 50
-
 	planet = {
 		class = pc_molten
 		orbit_distance = 25
 		size = 20
 		orbit_angle = 20
-
 		init_effect = {
 			create_fleet = {
 				effect = {
@@ -840,12 +692,8 @@ technologists_home = {
 					create_ship = {
 						name = random
 						design = "NAME_BULWARK_HABITAT"
-
 						effect = {
-							add_modifier = {
-								modifier = "bulwark_budget_repairs"
-								days = 5
-							}
+							add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
 						}
 					}
 					set_location = {
@@ -858,13 +706,11 @@ technologists_home = {
 			}
 		}
 	}
-
 	planet = {
 		class = pc_toxic
 		orbit_distance = 25
 		size = 11
 		orbit_angle = 100
-
 		init_effect = {
 			create_fleet = {
 				effect = {
@@ -872,12 +718,8 @@ technologists_home = {
 					create_ship = {
 						name = random
 						design = "NAME_BULWARK_HABITAT"
-
 						effect = {
-							add_modifier = {
-								modifier = "bulwark_budget_repairs"
-								days = 5
-							}
+							add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
 						}
 					}
 					set_location = {
@@ -890,21 +732,17 @@ technologists_home = {
 			}
 		}
 	}
-
 	planet = {
 		class = pc_gas_giant
 		orbit_distance = 40
 		orbit_angle = -60
 		size = 40
-
 		change_orbit = @base_moon_distance
-
 		moon = {
 			class = pc_barren
 			size = 8
 			orbit_angle = 90
 			orbit_distance = 6
-
 			init_effect = {
 				create_fleet = {
 					effect = {
@@ -912,12 +750,8 @@ technologists_home = {
 						create_ship = {
 							name = random
 							design = "NAME_BULWARK_HABITAT"
-
 							effect = {
-								add_modifier = {
-									modifier = "bulwark_budget_repairs"
-									days = 5
-								}
+								add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
 							}
 						}
 						set_location = {
@@ -935,22 +769,17 @@ technologists_home = {
 			size = 10
 			orbit_angle = 95
 			orbit_distance = 6
-
 			init_effect = {
 				every_country = {
-					limit = {
-						has_country_flag = bulwark_techies
-					}
+					limit = { has_country_flag = bulwark_techies }
 					create_leader = {
 						class = admiral
 						species = last_created_species
 						name = random
 						skill = 1
-						event_leader = yes	# Prevents this leader from leading factions and winning elections.
-						immortal = yes	# can't be killed (not even in battle, unless fleet is destroyed)
-						traits = {
-							trait = random_trait
-						}
+						event_leader = yes						# Prevents this leader from leading factions and winning elections.
+						immortal = yes						# can't be killed (not even in battle, unless fleet is destroyed)
+						traits = { trait = random_trait }
 					}
 				}
 				create_fleet = {
@@ -963,13 +792,9 @@ technologists_home = {
 								name = random
 								design = "NAME_BULWARK_MEDCORVETTE"
 								graphical_culture = "pirate_01"
-
 								effect = {
 									set_ship_flag = bulwark_ship_techtwo
-									add_modifier = {
-										modifier = "bulwark_budget_repairs"
-										days = 5
-									}
+									add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
 								}
 							}
 						}
@@ -979,13 +804,9 @@ technologists_home = {
 								name = random
 								design = "NAME_BULWARK_MEDDESTROYER"
 								graphical_culture = "pirate_01"
-
 								effect = {
 									set_ship_flag = bulwark_ship_techtwo
-									add_modifier = {
-										modifier = "bulwark_budget_repairs"
-										days = 5
-									}
+									add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
 								}
 							}
 						}
@@ -995,13 +816,9 @@ technologists_home = {
 								name = random
 								design = "NAME_BULWARK_LOWCRUISER"
 								graphical_culture = "pirate_01"
-
 								effect = {
 									set_ship_flag = bulwark_ship_techtwo
-									add_modifier = {
-										modifier = "bulwark_budget_repairs"
-										days = 5
-									}
+									add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
 								}
 							}
 						}
@@ -1038,7 +855,6 @@ technologists_home = {
 			size = 11
 			orbit_angle = 160
 			orbit_distance = 6
-
 			init_effect = {
 				create_fleet = {
 					effect = {
@@ -1046,12 +862,8 @@ technologists_home = {
 						create_ship = {
 							name = random
 							design = "NAME_BULWARK_HABITAT"
-
 							effect = {
-								add_modifier = {
-									modifier = "bulwark_budget_repairs"
-									days = 5
-								}
+								add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
 							}
 						}
 						set_location = {
@@ -1065,37 +877,29 @@ technologists_home = {
 			}
 		}
 	}
-
 	planet = {
 		class = pc_barren_cold
 		orbit_distance = 40
 		size = 25
 		orbit_angle = 55
-
 		init_effect = {
 			every_country = {
-				limit = {
-					has_country_flag = bulwark_techies
-				}
+				limit = { has_country_flag = bulwark_techies }
 				create_leader = {
 					class = admiral
 					species = last_created_species
 					name = random
 					skill = 1
-					event_leader = yes	# Prevents this leader from leading factions and winning elections.
-					immortal = yes	# can't be killed (not even in battle, unless fleet is destroyed)
+					event_leader = yes					# Prevents this leader from leading factions and winning elections.
+					immortal = yes					# can't be killed (not even in battle, unless fleet is destroyed)
 					traits = {
 						trait = leader_trait_bulwark_techies
 						trait = leader_trait_bulwark_default
 					}
-					effect = {
-						set_leader_flag = bulwark_techies_commander
-					}
+					effect = { set_leader_flag = bulwark_techies_commander }
 				}
 				random_owned_leader = {
-					limit = {
-						has_leader_flag = bulwark_techies_commander
-					}
+					limit = { has_leader_flag = bulwark_techies_commander }
 					save_global_event_target_as = bulwark_technologists_commander
 				}
 			}
@@ -1110,13 +914,9 @@ technologists_home = {
 							name = random
 							design = "NAME_BULWARK_MEDCORVETTE"
 							graphical_culture = "pirate_01"
-
 							effect = {
 								set_ship_flag = bulwark_ship_techtwo
-								add_modifier = {
-									modifier = "bulwark_budget_repairs"
-									days = 5
-								}
+								add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
 							}
 						}
 					}
@@ -1126,13 +926,9 @@ technologists_home = {
 							name = random
 							design = "NAME_BULWARK_MEDDESTROYER"
 							graphical_culture = "pirate_01"
-
 							effect = {
 								set_ship_flag = bulwark_ship_techtwo
-								add_modifier = {
-									modifier = "bulwark_budget_repairs"
-									days = 5
-								}
+								add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
 							}
 						}
 					}
@@ -1142,13 +938,9 @@ technologists_home = {
 							name = random
 							design = "NAME_BULWARK_LOWCRUISER"
 							graphical_culture = "pirate_01"
-
 							effect = {
 								set_ship_flag = bulwark_ship_techtwo
-								add_modifier = {
-									modifier = "bulwark_budget_repairs"
-									days = 5
-								}
+								add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
 							}
 						}
 					}
@@ -1175,36 +967,28 @@ technologists_home = {
 			}
 		}
 	}
-
 	planet = {
 		class = pc_barren
 		orbit_distance = 25
 		size = 15
 		orbit_angle = 120
-
 		change_orbit = @base_moon_distance
-
 		moon = {
 			class = pc_frozen
 			size = 8
 			orbit_angle = 90
 			orbit_distance = 6
-
 			init_effect = {
 				every_country = {
-					limit = {
-						has_country_flag = bulwark_techies
-					}
+					limit = { has_country_flag = bulwark_techies }
 					create_leader = {
 						class = admiral
 						species = last_created_species
 						name = random
 						skill = 1
-						event_leader = yes	# Prevents this leader from leading factions and winning elections.
-						immortal = yes	# can't be killed (not even in battle, unless fleet is destroyed)
-						traits = {
-							trait = random_trait
-						}
+						event_leader = yes						# Prevents this leader from leading factions and winning elections.
+						immortal = yes						# can't be killed (not even in battle, unless fleet is destroyed)
+						traits = { trait = random_trait }
 					}
 				}
 				create_fleet = {
@@ -1217,13 +1001,9 @@ technologists_home = {
 								name = random
 								design = "NAME_BULWARK_MEDCORVETTE"
 								graphical_culture = "pirate_01"
-
 								effect = {
 									set_ship_flag = bulwark_ship_techtwo
-									add_modifier = {
-										modifier = "bulwark_budget_repairs"
-										days = 5
-									}
+									add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
 								}
 							}
 						}
@@ -1233,13 +1013,9 @@ technologists_home = {
 								name = random
 								design = "NAME_BULWARK_MEDDESTROYER"
 								graphical_culture = "pirate_01"
-
 								effect = {
 									set_ship_flag = bulwark_ship_techtwo
-									add_modifier = {
-										modifier = "bulwark_budget_repairs"
-										days = 5
-									}
+									add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
 								}
 							}
 						}
@@ -1249,13 +1025,9 @@ technologists_home = {
 								name = random
 								design = "NAME_BULWARK_LOWCRUISER"
 								graphical_culture = "pirate_01"
-
 								effect = {
 									set_ship_flag = bulwark_ship_techtwo
-									add_modifier = {
-										modifier = "bulwark_budget_repairs"
-										days = 5
-									}
+									add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
 								}
 							}
 						}
@@ -1282,19 +1054,14 @@ technologists_home = {
 			}
 		}
 	}
-
 	planet = {
 		class = "pc_asteroid"
 		orbit_distance = 25
 		orbit_angle = -210
 		size = 5
 		has_ring = no
-
-		init_effect = {
-			set_deposit = d_minerals_8
-		}
+		init_effect = { set_deposit = d_minerals_8 }
 	}
-
 	planet = {
 		class = "pc_asteroid"
 		orbit_distance = 0
@@ -1302,19 +1069,14 @@ technologists_home = {
 		size = 5
 		has_ring = no
 	}
-
 	planet = {
 		class = "pc_asteroid"
 		orbit_distance = 0
 		orbit_angle = 285
 		size = 5
 		has_ring = no
-
-		init_effect = {
-			set_deposit = d_minerals_8
-		}
+		init_effect = { set_deposit = d_minerals_8 }
 	}
-
 	planet = {
 		class = "pc_asteroid"
 		orbit_distance = 0
@@ -1322,27 +1084,14 @@ technologists_home = {
 		size = 5
 		has_ring = no
 	}
-
 	planet = {
 		class = "pc_asteroid"
 		orbit_distance = 0
 		orbit_angle = -80
 		size = 5
 		has_ring = no
-
-		init_effect = {
-			set_deposit = d_minerals_8
-		}
+		init_effect = { set_deposit = d_minerals_8 }
 	}
-
-	planet = {
-		class = "pc_asteroid"
-		orbit_distance = 0
-		orbit_angle = -80
-		size = 5
-		has_ring = no
-	}
-
 	planet = {
 		class = "pc_asteroid"
 		orbit_distance = 0
@@ -1350,7 +1099,6 @@ technologists_home = {
 		size = 5
 		has_ring = no
 	}
-
 	planet = {
 		class = "pc_asteroid"
 		orbit_distance = 0
@@ -1358,13 +1106,18 @@ technologists_home = {
 		size = 5
 		has_ring = no
 	}
-
+	planet = {
+		class = "pc_asteroid"
+		orbit_distance = 0
+		orbit_angle = -80
+		size = 5
+		has_ring = no
+	}
 	planet = {
 		class = pc_barren_cold
 		orbit_distance = 30
 		size = 10
 		orbit_angle = 125
-
 		init_effect = {
 			create_fleet = {
 				effect = {
@@ -1372,12 +1125,8 @@ technologists_home = {
 					create_ship = {
 						name = random
 						design = "NAME_BULWARK_HABITAT"
-
 						effect = {
-							add_modifier = {
-								modifier = "bulwark_budget_repairs"
-								days = 5
-							}
+							add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
 						}
 					}
 					set_location = {
@@ -1390,13 +1139,11 @@ technologists_home = {
 			}
 		}
 	}
-
 	planet = {
 		class = pc_frozen
 		orbit_distance = 25
 		size = 8
 		orbit_angle = 125
-
 		init_effect = {
 			create_fleet = {
 				effect = {
@@ -1404,12 +1151,8 @@ technologists_home = {
 					create_ship = {
 						name = random
 						design = "NAME_BULWARK_HABITAT"
-
 						effect = {
-							add_modifier = {
-								modifier = "bulwark_budget_repairs"
-								days = 5
-							}
+							add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
 						}
 					}
 					set_location = {
@@ -1422,15 +1165,12 @@ technologists_home = {
 			}
 		}
 	}
-
 	planet = {
 		class = pc_frozen
 		orbit_distance = 25
 		size = 12
 		orbit_angle = 125
-
 		change_orbit = @base_moon_distance
-
 		moon = {
 			class = pc_frozen
 			size = 8
@@ -1438,25 +1178,16 @@ technologists_home = {
 			orbit_distance = 6
 		}
 	}
-
 	init_effect = {
 		event_target:tob_technologist_faction = { save_event_target_as = marauder_starbase_owner }
 		create_marauder_starbase = yes
 		event_target:tob_technologist_faction = {
 			every_owned_ship = {
-				add_modifier = {
-					modifier = "bulwark_ships_unlimited"
-
-				}
+				add_modifier = { modifier = "bulwark_ships_unlimited" }
 			}
 			every_owned_ship = {
-				limit = {
-					is_ship_size = bulwark_station
-				}
-				add_modifier = {
-					modifier = "bulwark_core_station"
-
-				}
+				limit = { is_ship_size = bulwark_station }
+				add_modifier = { modifier = "bulwark_core_station" }
 			}
 		}
 	}
@@ -1470,7 +1201,6 @@ tamers_home = {
 		type = rocky_asteroid_belt
 		radius = 230
 	}
-
 	max_instances = 1
 	usage_odds = {
 		base = 0
@@ -1481,33 +1211,24 @@ tamers_home = {
 		}
 	}
 	spawn_chance = 100
-
 	flags = { tob_system tob_tamers }
-
 	planet = {
 		class = star
 		orbit_distance = 0
 		orbit_angle = 1
 		size = { min = 20 max = 30 }
 		has_ring = no
-
 		init_effect = {
 			create_species = {
 				name = random
 				class = random
-				blocked_archetypes = {
-					MACHINE
-					ROBOT
-					LITHOID
-				}
+				blocked_archetypes = { MACHINE ROBOT LITHOID }
 				portrait = random
 				traits = {
 					ideal_planet_class = pc_habitat
 					trait = random_traits
 				}
-				effect = {
-					set_species_flag = bulwark_monsters_species
-				}
+				effect = { set_species_flag = bulwark_monsters_species }
 			}
 			create_country = {
 				name_list = random
@@ -1520,11 +1241,11 @@ tamers_home = {
 						category = "spherical"
 						file = "flag_spherical_22.dds"
 					}
-					background= {
+					background = {
 						category = "backgrounds"
 						file = "circle.dds"
 					}
-					colors={
+					colors = {
 						"black"
 						"black"
 						"null"
@@ -1547,9 +1268,7 @@ tamers_home = {
 				create_ship_design = { design = "NAME_Marauder_Starbase" }
 				add_ship_design = last_created_design
 				random_owned_species = {
-					limit = {
-						has_species_flag = bulwark_monsters_species
-					}
+					limit = { has_species_flag = bulwark_monsters_species }
 					save_global_event_target_as = bulwark_monsters_species_global
 				}
 				shift_ethic = ethic_fanatic_militarist
@@ -1561,12 +1280,8 @@ tamers_home = {
 					create_ship = {
 						name = random
 						design = "NAME_BULWARK_HABITAT"
-
 						effect = {
-							add_modifier = {
-								modifier = "bulwark_budget_repairs"
-								days = 5
-							}
+							add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
 						}
 					}
 					set_location = {
@@ -1579,15 +1294,12 @@ tamers_home = {
 			}
 		}
 	}
-
 	change_orbit = 50
-
 	planet = {
 		class = pc_molten
 		orbit_distance = 25
 		size = 20
 		orbit_angle = 20
-
 		init_effect = {
 			create_fleet = {
 				effect = {
@@ -1595,12 +1307,8 @@ tamers_home = {
 					create_ship = {
 						name = random
 						design = "NAME_BULWARK_HABITAT"
-
 						effect = {
-							add_modifier = {
-								modifier = "bulwark_budget_repairs"
-								days = 5
-							}
+							add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
 						}
 					}
 					set_location = {
@@ -1613,13 +1321,11 @@ tamers_home = {
 			}
 		}
 	}
-
 	planet = {
 		class = pc_toxic
 		orbit_distance = 25
 		size = 11
 		orbit_angle = 100
-
 		init_effect = {
 			create_fleet = {
 				effect = {
@@ -1627,12 +1333,8 @@ tamers_home = {
 					create_ship = {
 						name = random
 						design = "NAME_BULWARK_HABITAT"
-
 						effect = {
-							add_modifier = {
-								modifier = "bulwark_budget_repairs"
-								days = 5
-							}
+							add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
 						}
 					}
 					set_location = {
@@ -1645,21 +1347,17 @@ tamers_home = {
 			}
 		}
 	}
-
 	planet = {
 		class = pc_gas_giant
 		orbit_distance = 40
 		orbit_angle = -60
 		size = 40
-
 		change_orbit = @base_moon_distance
-
 		moon = {
 			class = pc_barren
 			size = 8
 			orbit_angle = 90
 			orbit_distance = 6
-
 			init_effect = {
 				create_fleet = {
 					effect = {
@@ -1667,12 +1365,8 @@ tamers_home = {
 						create_ship = {
 							name = random
 							design = "NAME_BULWARK_HABITAT"
-
 							effect = {
-								add_modifier = {
-									modifier = "bulwark_budget_repairs"
-									days = 5
-								}
+								add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
 							}
 						}
 						set_location = {
@@ -1690,22 +1384,17 @@ tamers_home = {
 			size = 10
 			orbit_angle = 95
 			orbit_distance = 6
-
 			init_effect = {
 				every_country = {
-					limit = {
-						has_country_flag = bulwark_monsters
-					}
+					limit = { has_country_flag = bulwark_monsters }
 					create_leader = {
 						class = admiral
 						species = last_created_species
 						name = random
 						skill = 1
-						event_leader = yes	# Prevents this leader from leading factions and winning elections.
-						immortal = yes	# can't be killed (not even in battle, unless fleet is destroyed)
-						traits = {
-							trait = random_trait
-						}
+						event_leader = yes						# Prevents this leader from leading factions and winning elections.
+						immortal = yes						# can't be killed (not even in battle, unless fleet is destroyed)
+						traits = { trait = random_trait }
 					}
 				}
 				create_fleet = {
@@ -1718,13 +1407,9 @@ tamers_home = {
 								name = random
 								design = "NAME_BULWARK_LOWCORVETTE"
 								graphical_culture = "pirate_01"
-
 								effect = {
 									set_ship_flag = bulwark_ship_techone
-									add_modifier = {
-										modifier = "bulwark_budget_repairs"
-										days = 5
-									}
+									add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
 								}
 							}
 						}
@@ -1734,13 +1419,9 @@ tamers_home = {
 								name = random
 								design = "NAME_BULWARK_LOWDESTROYER"
 								graphical_culture = "pirate_01"
-
 								effect = {
 									set_ship_flag = bulwark_ship_techone
-									add_modifier = {
-										modifier = "bulwark_budget_repairs"
-										days = 5
-									}
+									add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
 								}
 							}
 						}
@@ -1777,7 +1458,6 @@ tamers_home = {
 			size = 11
 			orbit_angle = 160
 			orbit_distance = 6
-
 			init_effect = {
 				create_fleet = {
 					effect = {
@@ -1785,12 +1465,8 @@ tamers_home = {
 						create_ship = {
 							name = random
 							design = "NAME_BULWARK_HABITAT"
-
 							effect = {
-								add_modifier = {
-									modifier = "bulwark_budget_repairs"
-									days = 5
-								}
+								add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
 							}
 						}
 						set_location = {
@@ -1804,37 +1480,29 @@ tamers_home = {
 			}
 		}
 	}
-
 	planet = {
 		class = pc_barren_cold
 		orbit_distance = 40
 		size = 25
 		orbit_angle = 55
-
 		init_effect = {
 			every_country = {
-				limit = {
-					has_country_flag = bulwark_monsters
-				}
+				limit = { has_country_flag = bulwark_monsters }
 				create_leader = {
 					class = admiral
 					species = last_created_species
 					name = random
 					skill = 1
-					event_leader = yes	# Prevents this leader from leading factions and winning elections.
-					immortal = yes	# can't be killed (not even in battle, unless fleet is destroyed)
+					event_leader = yes					# Prevents this leader from leading factions and winning elections.
+					immortal = yes					# can't be killed (not even in battle, unless fleet is destroyed)
 					traits = {
 						trait = leader_trait_bulwark_monsters
 						trait = leader_trait_bulwark_default
 					}
-					effect = {
-						set_leader_flag = bulwark_monsters_commander
-					}
+					effect = { set_leader_flag = bulwark_monsters_commander }
 				}
 				random_owned_leader = {
-					limit = {
-						has_leader_flag = bulwark_monsters_commander
-					}
+					limit = { has_leader_flag = bulwark_monsters_commander }
 					save_global_event_target_as = bulwark_tamers_commander
 				}
 			}
@@ -1849,13 +1517,9 @@ tamers_home = {
 							name = random
 							design = "NAME_BULWARK_LOWCORVETTE"
 							graphical_culture = "pirate_01"
-
 							effect = {
 								set_ship_flag = bulwark_ship_techone
-								add_modifier = {
-									modifier = "bulwark_budget_repairs"
-									days = 5
-								}
+								add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
 							}
 						}
 					}
@@ -1865,13 +1529,9 @@ tamers_home = {
 							name = random
 							design = "NAME_BULWARK_LOWDESTROYER"
 							graphical_culture = "pirate_01"
-
 							effect = {
 								set_ship_flag = bulwark_ship_techone
-								add_modifier = {
-									modifier = "bulwark_budget_repairs"
-									days = 5
-								}
+								add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
 							}
 						}
 					}
@@ -1898,36 +1558,28 @@ tamers_home = {
 			}
 		}
 	}
-
 	planet = {
 		class = pc_barren
 		orbit_distance = 25
 		size = 15
 		orbit_angle = 120
-
 		change_orbit = @base_moon_distance
-
 		moon = {
 			class = pc_frozen
 			size = 8
 			orbit_angle = 90
 			orbit_distance = 6
-
 			init_effect = {
 				every_country = {
-					limit = {
-						has_country_flag = bulwark_monsters
-					}
+					limit = { has_country_flag = bulwark_monsters }
 					create_leader = {
 						class = admiral
 						species = last_created_species
 						name = random
 						skill = 1
-						event_leader = yes	# Prevents this leader from leading factions and winning elections.
-						immortal = yes	# can't be killed (not even in battle, unless fleet is destroyed)
-						traits = {
-							trait = random_trait
-						}
+						event_leader = yes						# Prevents this leader from leading factions and winning elections.
+						immortal = yes						# can't be killed (not even in battle, unless fleet is destroyed)
+						traits = { trait = random_trait }
 					}
 				}
 				create_fleet = {
@@ -1940,13 +1592,9 @@ tamers_home = {
 								name = random
 								design = "NAME_BULWARK_LOWCORVETTE"
 								graphical_culture = "pirate_01"
-
 								effect = {
 									set_ship_flag = bulwark_ship_techone
-									add_modifier = {
-										modifier = "bulwark_budget_repairs"
-										days = 5
-									}
+									add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
 								}
 							}
 						}
@@ -1956,13 +1604,9 @@ tamers_home = {
 								name = random
 								design = "NAME_BULWARK_LOWDESTROYER"
 								graphical_culture = "pirate_01"
-
 								effect = {
 									set_ship_flag = bulwark_ship_techone
-									add_modifier = {
-										modifier = "bulwark_budget_repairs"
-										days = 5
-									}
+									add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
 								}
 							}
 						}
@@ -1989,19 +1633,14 @@ tamers_home = {
 			}
 		}
 	}
-
 	planet = {
 		class = "pc_asteroid"
 		orbit_distance = 25
 		orbit_angle = -210
 		size = 5
 		has_ring = no
-
-		init_effect = {
-			set_deposit = d_minerals_8
-		}
+		init_effect = { set_deposit = d_minerals_8 }
 	}
-
 	planet = {
 		class = "pc_asteroid"
 		orbit_distance = 0
@@ -2009,19 +1648,14 @@ tamers_home = {
 		size = 5
 		has_ring = no
 	}
-
 	planet = {
 		class = "pc_asteroid"
 		orbit_distance = 0
 		orbit_angle = 285
 		size = 5
 		has_ring = no
-
-		init_effect = {
-			set_deposit = d_minerals_8
-		}
+		init_effect = { set_deposit = d_minerals_8 }
 	}
-
 	planet = {
 		class = "pc_asteroid"
 		orbit_distance = 0
@@ -2029,27 +1663,14 @@ tamers_home = {
 		size = 5
 		has_ring = no
 	}
-
 	planet = {
 		class = "pc_asteroid"
 		orbit_distance = 0
 		orbit_angle = -80
 		size = 5
 		has_ring = no
-
-		init_effect = {
-			set_deposit = d_minerals_8
-		}
+		init_effect = { set_deposit = d_minerals_8 }
 	}
-
-	planet = {
-		class = "pc_asteroid"
-		orbit_distance = 0
-		orbit_angle = -80
-		size = 5
-		has_ring = no
-	}
-
 	planet = {
 		class = "pc_asteroid"
 		orbit_distance = 0
@@ -2057,7 +1678,6 @@ tamers_home = {
 		size = 5
 		has_ring = no
 	}
-
 	planet = {
 		class = "pc_asteroid"
 		orbit_distance = 0
@@ -2065,13 +1685,18 @@ tamers_home = {
 		size = 5
 		has_ring = no
 	}
-
+	planet = {
+		class = "pc_asteroid"
+		orbit_distance = 0
+		orbit_angle = -80
+		size = 5
+		has_ring = no
+	}
 	planet = {
 		class = pc_barren_cold
 		orbit_distance = 30
 		size = 10
 		orbit_angle = 125
-
 		init_effect = {
 			create_fleet = {
 				effect = {
@@ -2079,12 +1704,8 @@ tamers_home = {
 					create_ship = {
 						name = random
 						design = "NAME_BULWARK_HABITAT"
-
 						effect = {
-							add_modifier = {
-								modifier = "bulwark_budget_repairs"
-								days = 5
-							}
+							add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
 						}
 					}
 					set_location = {
@@ -2097,13 +1718,11 @@ tamers_home = {
 			}
 		}
 	}
-
 	planet = {
 		class = pc_frozen
 		orbit_distance = 25
 		size = 8
 		orbit_angle = 125
-
 		init_effect = {
 			create_fleet = {
 				effect = {
@@ -2111,12 +1730,8 @@ tamers_home = {
 					create_ship = {
 						name = random
 						design = "NAME_BULWARK_HABITAT"
-
 						effect = {
-							add_modifier = {
-								modifier = "bulwark_budget_repairs"
-								days = 5
-							}
+							add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
 						}
 					}
 					set_location = {
@@ -2129,15 +1744,12 @@ tamers_home = {
 			}
 		}
 	}
-
 	planet = {
 		class = pc_frozen
 		orbit_distance = 25
 		size = 12
 		orbit_angle = 125
-
 		change_orbit = @base_moon_distance
-
 		moon = {
 			class = pc_frozen
 			size = 8
@@ -2145,25 +1757,16 @@ tamers_home = {
 			orbit_distance = 6
 		}
 	}
-
 	init_effect = {
 		event_target:tob_tamer_faction = { save_event_target_as = marauder_starbase_owner }
 		create_marauder_starbase = yes
 		event_target:tob_tamer_faction = {
 			every_owned_ship = {
-				add_modifier = {
-					modifier = "bulwark_ships_unlimited"
-
-				}
+				add_modifier = { modifier = "bulwark_ships_unlimited" }
 			}
 			every_owned_ship = {
-				limit = {
-					is_ship_size = bulwark_station
-				}
-				add_modifier = {
-					modifier = "bulwark_core_station"
-
-				}
+				limit = { is_ship_size = bulwark_station }
+				add_modifier = { modifier = "bulwark_core_station" }
 			}
 		}
 	}

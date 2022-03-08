@@ -10,6 +10,6 @@ is_regular_empire = {
 		hfe_trigger_is_human_fallen = yes # HFE mod compat. hack
 		hfe_trigger_insane_admiral_trait = yes # HFE mod compat. hack
 	}
-	is_gestalt = on
+	is_gestalt = no
 	# NOT = { has_ethic = ethic_gestalt_consciousness	}
 }
