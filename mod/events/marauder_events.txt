@@ -1275,7 +1275,7 @@ country_event = {
 					wait = 5
 					find_closest_planet = {
 						trigger = {
-							id = marauder_infighting.t1
+							id = "marauder_infighting.t1[infighting_marauders.GetName]"
 							solar_system = {
 								prevprev = { can_access_system = prev }
 								has_owner = yes
@@ -1297,7 +1297,7 @@ country_event = {
 					wait = 5
 					find_closest_planet = {
 						trigger = {
-							id = marauder_infighting.t2
+							id = "marauder_infighting.t2[infighting_marauders.GetName]"
 							is_same_value = event_target:return_point
 						}
 						found_planet = {
@@ -1306,7 +1306,7 @@ country_event = {
 						}
 					}
 					effect = {
-						id = marauder_infighting.e2
+						id = "marauder_infighting.e2[infighting_marauders.GetName]"
 						destroy_fleet = this
 					}
 				}
