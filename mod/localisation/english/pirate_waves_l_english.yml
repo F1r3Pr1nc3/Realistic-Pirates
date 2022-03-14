@@ -13,7 +13,11 @@
  MERCENARY_MODE_disable_desc: "§R$DISABLE$§! $SETTINGS$ for Mercenaries."
  MERCENARY_MODE_disabled: "Inclusive Mercenaries: §R$OFF$§!"
  MERCENARY_MODE_enable_desc: "§G$ENABLE$§! $SETTINGS$ also for Mercenaries."
- MERCENARY_MODE_enabled: "Inclusive Mercenaries: §G$ON$§!"
+ MERCENARY_MODE_enabled: "Inclusive Privateers: §G$ON$§!"
+ PRIVATEER_MODE_disable_desc: "§R$DISABLE$§! $SETTINGS$ for Privateers."
+ PRIVATEER_MODE_disabled: "Inclusive Privateers: §R$OFF$§!"
+ PRIVATEER_MODE_enable_desc: "§G$ENABLE$§! $SETTINGS$ also for Privateers."
+ PRIVATEER_MODE_enabled: "Inclusive Privateers: §G$ON$§!"
 
  pirate_waves.10.name: "10 Pirate Fleets"
  pirate_waves.10.desc: "Creates a ten pirate fleets and stations immediately"

@@ -388,6 +388,8 @@ country_event = {
 }
 
 # Marauder Vengeance
+# This = target country
+# From = Marauder
 country_event = {
 	id = marauder.6
 	title = "marauder.6.name"
@@ -2642,6 +2644,9 @@ country_event = {
 	}
 	option = {
 		name = marauder.31.e
+		trigger = {
+			NOT = { has_active_event = { marauder.21 } }
+		}
 		hidden_effect = {
 			country_event = { id = marauder.21 }
 		}
@@ -2685,6 +2690,7 @@ country_event = {
 
 		## Dynamic raid costs TODO needs update each effect.
 		event_target:current_marauder_diplomacy = {
+			set_variable = { which = raidcost value = 1 }
 			if = { limit = { has_global_flag = pirate_waves_active }
 				set_pirates_difficulty = yes
 				set_variable = { which = raidcost value = 1.5 }
@@ -2731,7 +2737,10 @@ country_event = {
 	option = {
 		name = marauder.32.a
 		trigger = {
-			event_target:current_marauder_diplomacy = { has_country_flag = marauder_1 }
+			event_target:current_marauder_diplomacy = {
+				has_country_flag = marauder_1
+				is_variable_set = raidcost
+			}
 		}
 		allow = {
 			resource_stockpile_compare = {
@@ -2756,7 +2765,10 @@ country_event = {
 	option = {
 		name = marauder.32.a
 		trigger = {
-			event_target:current_marauder_diplomacy = { has_country_flag = marauder_2 }
+			event_target:current_marauder_diplomacy = {
+				has_country_flag = marauder_2
+				is_variable_set = raidcost
+			}
 		}
 		allow = {
 			resource_stockpile_compare = {
@@ -2781,7 +2793,10 @@ country_event = {
 	option = {
 		name = marauder.32.a
 		trigger = {
-			event_target:current_marauder_diplomacy = { has_country_flag = marauder_3 }
+			event_target:current_marauder_diplomacy = {
+				has_country_flag = marauder_3
+				is_variable_set = raidcost
+			}
 		}
 		allow = {
 			resource_stockpile_compare = {
@@ -2805,6 +2820,9 @@ country_event = {
 	}
 	option = {
 		name = marauder.31.e
+		trigger = {
+			NOT = { has_active_event = { marauder.21 } }
+		}
 		hidden_effect = {
 			country_event = { id = marauder.21 }
 		}
@@ -3279,6 +3297,9 @@ country_event = {
 	}
 	option = {
 		name = marauder.34.d
+		trigger = {
+			NOT = { has_active_event = { marauder.21 } }
+		}
 		hidden_effect = {
 			country_event = { id = marauder.21 }
 		}
@@ -3323,6 +3344,9 @@ country_event = {
 	}
 	option = {
 		name = marauder.31.e
+		trigger = {
+			NOT = { has_active_event = { marauder.21 } }
+		}
 		hidden_effect = {
 			country_event = { id = marauder.21 }
 		}
@@ -3427,6 +3451,9 @@ country_event = {
 	}
 	option = {
 		name = marauder.37.a
+		trigger = {
+			NOT = { has_active_event = { marauder.21 } }
+		}
 		hidden_effect = {
 			country_event = { id = marauder.21 }
 		}
@@ -3912,6 +3939,9 @@ country_event = {
 	}
 	option = {
 		name = marauder.31.e
+		trigger = {
+			NOT = { has_active_event = { marauder.21 } }
+		}
 		hidden_effect = {
 			country_event = { id = marauder.21 }
 		}
@@ -7007,7 +7037,6 @@ event = {
 				# Moved out of random_list
 				# random_playble_country = {
 				#	limit = {
-				#		is_country_type = default
 				#		is_ai = yes
 				#		NOR = {
 				#			has_valid_civic = civic_fanatic_purifiers
@@ -8361,9 +8390,9 @@ country_event = {
 			}
 			if = {
 				limit = {
+					# merg_is_default_empire = no
 					NOT = {
-						is_country_type = default
-						# any_playable_country = { is_same_empire = root }
+						any_playable_country = { is_same_empire = root }
 					}
 				}
 				set_country_type = default
@@ -11100,7 +11129,7 @@ country_event = {
 		has_been_declared_crisis = no
 		NOT = { has_country_flag = rebellion_cooldown }
 		CmtTriggerExistKhanCountry = yes		# exists = event_target:raider_khanate
-		CmtTriggerIsPlayableEmpire = yes		# is_country_type = default
+		CmtTriggerIsPlayableEmpire = yes		# merg_is_default_empire = yes
 		is_subject = no
 		is_ai = yes
 		check_variable = { which = "planets_lost_to_marauder" value > 2 }

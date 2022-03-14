@@ -40,13 +40,16 @@ supremacists_home = {
 				name_list = random
 				species = last_created_species
 				type = outer_bulwarks
-				civics = { civic = random }
+				civics = {
+					civic = civic_mercenary_worshippers
+					civic = random
+				}
 				origin = "origin_default"
 				flag = {
-					icon = {
-						category = "spherical"
-						file = "flag_spherical_22.dds"
-					}
+					# icon = {
+					# 	category = "spherical"
+					# 	file = "flag_spherical_22.dds"
+					# }
 					background = {
 						category = "backgrounds"
 						file = "circle.dds"
@@ -59,27 +62,27 @@ supremacists_home = {
 					}
 				}
 				ethos = {
-					ethic = ethic_militarist
-					ethic = ethic_xenophile
+					ethic = ethic_fanatic_militarist
+					ethic = ethic_xenophobe
 				}
 				ignore_initial_colony_error = yes
-			}
-			last_created_country = {
-				set_graphical_culture = pirate_01
-				save_global_event_target_as = tob_supremacist_faction
-				set_country_flag = bulwark_numbers
-				set_country_flag = bulwark_country_techone
-				set_country_flag = bulwark_country_numberstwo
-				set_name = "The Peripheral Heart"
-				create_ship_design = { design = "NAME_Marauder_Starbase" }
-				add_ship_design = last_created_design
-				random_owned_species = {
-					limit = { has_species_flag = bulwark_numbers_species }
-					save_global_event_target_as = bulwark_numbers_species_global
+				effect = {
+					set_graphical_culture = pirate_01
+					randomize_flag_symbol = "spherical"
+					save_global_event_target_as = tob_supremacist_faction
+					set_country_flag = bulwark_numbers
+					set_country_flag = bulwark_country_techone
+					set_country_flag = bulwark_country_numberstwo
+					set_name = "The Peripheral Heart"
+					create_ship_design = { design = "NAME_Marauder_Starbase" }
+					add_ship_design = last_created_design
+					random_owned_species = {
+						limit = { has_species_flag = bulwark_numbers_species }
+						save_global_event_target_as = bulwark_numbers_species_global
+					}
 				}
-				shift_ethic = ethic_fanatic_militarist
-				force_add_civic = civic_mercenary_worshippers
 			}
+
 			create_fleet = {
 				effect = {
 					set_owner = event_target:tob_supremacist_faction
@@ -204,6 +207,7 @@ supremacists_home = {
 					}
 				}
 				create_fleet = {
+					# TODO: dyn
 					effect = {
 						set_owner = event_target:tob_supremacist_faction
 						set_fleet_flag = bulwark_vanguard_one
@@ -313,6 +317,7 @@ supremacists_home = {
 				}
 			}
 			create_fleet = {
+				# TODO: dyn
 				effect = {
 					set_owner = event_target:tob_supremacist_faction
 					set_fleet_flag = bulwark_numbers_mercfleet
@@ -389,6 +394,7 @@ supremacists_home = {
 					}
 				}
 				create_fleet = {
+					# TODO: dyn
 					effect = {
 						set_owner = event_target:tob_supremacist_faction
 						set_fleet_flag = bulwark_vanguard_two
@@ -619,13 +625,16 @@ technologists_home = {
 				name_list = random
 				species = last_created_species
 				type = outer_bulwarks
-				civics = { civic = random }
+				civics = {
+					civic = civic_mercenary_worshippers
+					civic = random
+				}
 				origin = "origin_default"
 				flag = {
-					icon = {
-						category = "spherical"
-						file = "flag_spherical_22.dds"
-					}
+					# icon = {
+					# 	category = "spherical"
+					# 	file = "flag_spherical_22.dds"
+					# }
 					background = {
 						category = "backgrounds"
 						file = "circle.dds"
@@ -642,23 +651,25 @@ technologists_home = {
 					ethic = ethic_xenophile
 				}
 				ignore_initial_colony_error = yes
-			}
-			last_created_country = {
-				set_graphical_culture = pirate_01
-				save_global_event_target_as = tob_technologist_faction
-				set_country_flag = bulwark_techies
-				set_country_flag = bulwark_country_techtwo
-				set_country_flag = bulwark_country_numbersone
-				set_name = "The Focal Eye"
-				create_ship_design = { design = "NAME_Marauder_Starbase" }
-				add_ship_design = last_created_design
-				random_owned_species = {
-					limit = { has_species_flag = bulwark_techies_species }
-					save_global_event_target_as = bulwark_techies_species_global
+				effect = {
+					set_graphical_culture = pirate_01
+					randomize_flag_symbol = "spherical"
+					save_global_event_target_as = tob_technologist_faction
+					set_country_flag = bulwark_techies
+					set_country_flag = bulwark_country_techtwo
+					set_country_flag = bulwark_country_numbersone
+					set_name = "The Focal Eye"
+					create_ship_design = { design = "NAME_Marauder_Starbase" }
+					add_ship_design = last_created_design
+					random_owned_species = {
+						limit = { has_species_flag = bulwark_techies_species }
+						save_global_event_target_as = bulwark_techies_species_global
+					}
+					shift_ethic = ethic_fanatic_militarist
+					# force_add_civic = civic_mercenary_worshippers
 				}
-				shift_ethic = ethic_fanatic_militarist
-				force_add_civic = civic_mercenary_worshippers
 			}
+
 			create_fleet = {
 				effect = {
 					set_owner = event_target:tob_technologist_faction
@@ -783,6 +794,7 @@ technologists_home = {
 					}
 				}
 				create_fleet = {
+					# TODO: dyn
 					effect = {
 						set_owner = event_target:tob_technologist_faction
 						set_fleet_flag = bulwark_vanguard_one
@@ -904,6 +916,7 @@ technologists_home = {
 				}
 			}
 			create_fleet = {
+				# TODO: dyn
 				effect = {
 					set_owner = event_target:tob_technologist_faction
 					set_fleet_flag = bulwark_techies_mercfleet
@@ -992,6 +1005,7 @@ technologists_home = {
 					}
 				}
 				create_fleet = {
+					# TODO: dyn
 					effect = {
 						set_owner = event_target:tob_technologist_faction
 						set_fleet_flag = bulwark_vanguard_two
@@ -1234,13 +1248,16 @@ tamers_home = {
 				name_list = random
 				species = last_created_species
 				type = outer_bulwarks
-				civics = { civic = random }
+				civics = {
+					civic = civic_mercenary_worshippers
+					civic = random
+				}
 				origin = "origin_default"
 				flag = {
-					icon = {
-						category = "spherical"
-						file = "flag_spherical_22.dds"
-					}
+					# icon = {
+					# 	category = "spherical"
+					# 	file = "flag_spherical_22.dds"
+					# }
 					background = {
 						category = "backgrounds"
 						file = "circle.dds"
@@ -1257,23 +1274,25 @@ tamers_home = {
 					ethic = ethic_xenophile
 				}
 				ignore_initial_colony_error = yes
-			}
-			last_created_country = {
-				set_graphical_culture = pirate_01
-				save_global_event_target_as = tob_tamer_faction
-				set_country_flag = bulwark_monsters
-				set_country_flag = bulwark_country_techone
-				set_country_flag = bulwark_country_numbersone
-				set_name = "The Inmost Mind"
-				create_ship_design = { design = "NAME_Marauder_Starbase" }
-				add_ship_design = last_created_design
-				random_owned_species = {
-					limit = { has_species_flag = bulwark_monsters_species }
-					save_global_event_target_as = bulwark_monsters_species_global
+				effect = {
+					set_graphical_culture = pirate_01
+					randomize_flag_symbol = "spherical"
+					save_global_event_target_as = tob_tamer_faction
+					set_country_flag = bulwark_monsters
+					set_country_flag = bulwark_country_techone
+					set_country_flag = bulwark_country_numbersone
+					set_name = "The Inmost Mind"
+					create_ship_design = { design = "NAME_Marauder_Starbase" }
+					add_ship_design = last_created_design
+					random_owned_species = {
+						limit = { has_species_flag = bulwark_monsters_species }
+						save_global_event_target_as = bulwark_monsters_species_global
+					}
+					shift_ethic = ethic_fanatic_militarist
+					# force_add_civic = civic_mercenary_worshippers
 				}
-				shift_ethic = ethic_fanatic_militarist
-				force_add_civic = civic_mercenary_worshippers
 			}
+
 			create_fleet = {
 				effect = {
 					set_owner = event_target:tob_tamer_faction
@@ -1398,6 +1417,7 @@ tamers_home = {
 					}
 				}
 				create_fleet = {
+					# TODO: dyn
 					effect = {
 						set_owner = event_target:tob_tamer_faction
 						set_fleet_flag = bulwark_vanguard_one
@@ -1507,6 +1527,7 @@ tamers_home = {
 				}
 			}
 			create_fleet = {
+				# TODO: dyn
 				effect = {
 					set_owner = event_target:tob_tamer_faction
 					set_fleet_flag = bulwark_monsters_mercfleet
@@ -1583,6 +1604,7 @@ tamers_home = {
 					}
 				}
 				create_fleet = {
+					# TODO: dyn
 					effect = {
 						set_owner = event_target:tob_tamer_faction
 						set_fleet_flag = bulwark_vanguard_two

@@ -37,14 +37,12 @@ event = {
 				any_system_within_border = {
 					is_capital_system = no
 					any_system_planet = {
+						has_owner = yes
 						is_colony = yes
 						is_under_colonization = no
 						NOT = { has_planet_flag = pirate_invasion }
 						has_ground_combat = no
-						owner = {
-							is_primitive = no
-							is_hostile = event_target:pirate_band
-						}
+						owner = { is_primitive = no }
 					}
 					NOT = {
 						any_fleet_in_system = {
@@ -86,10 +84,7 @@ country_event = {
 			}
 			weights = {
 				base = 1
-				modifier = {
-					add = 20
-					is_country_type = pirate
-				}
+				modifier = { add = 20 is_country_type = pirate }
 			}
 			save_event_target_as = pirate_band
 			random_owned_fleet = {
@@ -206,12 +201,8 @@ country_event = {
 							}
 						}
 					} else_if = {
-						limit = {
-							exists = prevprev.species
-						}
-						prevprev.species = {
-							save_event_target_as = pirate_species
-						}
+						limit = { exists = prevprev.species }
+						prevprev.species = { save_event_target_as = pirate_species }
 						closest_system = {
 							min_steps = 0
 							max_steps = 10
@@ -250,9 +241,7 @@ country_event = {
 								if = {
 									limit = { is_planet_class = pc_habitat }
 									add_building = building_hab_capital
-								} else = {
-									add_building = building_slave_capital
-								}
+								} else = { add_building = building_slave_capital }
 							}
 						}
 					}
@@ -267,9 +256,7 @@ country_event = {
 								target = this
 								# kill_leader = no
 							}
-						} else = {
-							destroy_fleet = this
-						}
+						} else = { destroy_fleet = this }
 					}
 				}
 			}
@@ -294,15 +281,13 @@ country_event = {
 				event_target:pirate_target = {
 					planet_event = { id = pirate_republic.11 days = 16 random = 8 }
 				}
-			} else = {
-				log="pirate_target not found for \\[This.GetName]"
-			}
+			} else = { log="pirate_target not found for \\[This.GetName]" }
 		}
 	}
 }
 
 ## Pirate invasion!
-#  From = probably root.owner
+# From = probably root.owner
 planet_event = {
 	id = pirate_republic.11
 	title = pirate_republic.11.name
@@ -311,9 +296,7 @@ planet_event = {
 	show_sound = event_planetary_riot
 	location = root
 	is_triggered_only = yes
-	trigger = {
-		exists = event_target:pirate_target
-	}
+	trigger = { exists = event_target:pirate_target }
 	immediate = {
 		if = {
 			limit = { host_has_dlc = "Megacorp" }
@@ -331,9 +314,7 @@ planet_event = {
 				origin = "origin_separatists" # "origin_void_dwellers"
 				species = root.owner_species
 				flag = random
-				effect = {
-					save_event_target_as = pirate_republic
-				}
+				effect = { save_event_target_as = pirate_republic }
 			}
 		} else = {
 			create_rebels = {
@@ -350,9 +331,7 @@ planet_event = {
 				origin = "origin_separatists" # "origin_void_dwellers"
 				species = root.owner_species
 				flag = random
-				effect = {
-					save_event_target_as = pirate_republic
-				}
+				effect = { save_event_target_as = pirate_republic }
 			}
 		}
 		if = {
@@ -398,7 +377,7 @@ planet_event = {
 				change_variable = { which = num_armies_var value = owner.pirates_factor }
 				multiply_variable = { which = num_armies_var value = 10 }
 				while = {
-					count = event_target:pirate_republic.num_armies_var # 25
+					count = num_armies_var # 25
 					create_army = {
 						name = "Pirate Invaders"
 						owner = event_target:pirate_republic
@@ -419,15 +398,13 @@ planet_event = {
 						traits = { trait = random_trait }
 					}
 					# last_created_army = {
-					random_owned_army = {
-						assign_leader = last_created_leader
-					}
+					random_owned_army = { assign_leader = last_created_leader }
 				}
 			}
 		}
 		set_planet_flag = pirate_invasion
 	}
-	# after = { }
+	after = { clear_variable = num_armies_var }
 	option = {
 		name = pirate_republic.11.option
 		hidden_effect = {
@@ -454,7 +431,7 @@ planet_event = {
 							change_variable = { which = num_armies_var value = owner.pirates_factor }
 							multiply_variable = { which = num_armies_var value = 10 }
 							while = {
-								count = event_target:pirate_republic.num_armies_var # 25
+								count = num_armies_var # 25
 								create_army = {
 									name = "Pirate Invaders"
 									owner = event_target:pirate_republic
@@ -520,9 +497,7 @@ planet_event = {
 							}
 						}
 					}
-					event_target:pirate_system.starbase = {
-						set_owner = prev
-					}
+					event_target:pirate_system.starbase = { set_owner = prev }
 				}
 			}
 		}
@@ -539,7 +514,7 @@ country_event = {
 	location = event_target:pirate_target
 	is_triggered_only = yes
 	trigger = {
-		CmtTriggerIsPlayableEmpire = yes # is_country_type = default
+		CmtTriggerIsPlayableEmpire = yes # merg_is_default_empire = yes
 		fromfrom = {
 			has_planet_flag = pirate_invasion
 			controller = { is_same_empire = root }
@@ -684,9 +659,7 @@ country_event = {
 								limit = { exists = leader }
 								prevprevprev = {
 									random_owned_army = {
-										limit = {
-											exists = fleet
-										}
+										limit = { exists = fleet }
 										assign_leader = prevprev.leader
 									}
 								}
@@ -768,9 +741,7 @@ country_event = {
 		hidden_effect = {
 			country_event = { id = pirate_republic.101 }
 		}
-		ai_chance = {
-			factor = 1
-		}
+		ai_chance = { factor = 1 }
 	}
 }
 
@@ -802,9 +773,7 @@ country_event = {
 		hidden_effect = {
 			country_event = { id = pirate_republic.104 }
 		}
-		ai_chance = {
-			factor = 1
-		}
+		ai_chance = { factor = 1 }
 	}
 }
 
@@ -836,9 +805,7 @@ country_event = {
 		hidden_effect = {
 			country_event = { id = pirate_republic.104 }
 		}
-		ai_chance = {
-			factor = 1
-		}
+		ai_chance = { factor = 1 }
 	}
 }
 

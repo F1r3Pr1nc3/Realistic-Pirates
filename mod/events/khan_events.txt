@@ -916,7 +916,7 @@ country_event = {
 				# if = {
 				# 	limit = {
 				# 		has_global_flag = great_khan_wins
-				# 		NOT = { is_country_type = default }
+				# 		NOT = { merg_is_default_empire = yes }
 				# 	}
 				# 	set_country_type = default
 				# }

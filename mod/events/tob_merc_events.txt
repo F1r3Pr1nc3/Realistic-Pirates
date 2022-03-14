@@ -1,4 +1,5 @@
 namespace = tob_merc
+# special_project INVESTIGATE_BULWARK
 country_event = {
 	id = tob_merc.1
 	title = "tob_merc.1.name"
@@ -187,10 +188,12 @@ country_event = {
 	option = {
 		name = tob_merc.3.c
 		trigger = {
-			OR = {
-				event_target:current_bulwark_diplomacy = { has_country_flag = bulwark_numbers }
-				event_target:current_bulwark_diplomacy = { has_country_flag = bulwark_techies }
-				event_target:current_bulwark_diplomacy = { has_country_flag = bulwark_monsters }
+			event_target:current_bulwark_diplomacy = {
+				OR = {
+					has_country_flag = bulwark_numbers
+					has_country_flag = bulwark_techies
+					has_country_flag = bulwark_monsters
+				}
 			}
 			NOR = {
 				has_country_flag = bulwark_at_war_quest
@@ -229,10 +232,12 @@ country_event = {
 	option = {
 		name = tob_merc.3.d
 		trigger = {
-			OR = {
-				event_target:current_bulwark_diplomacy = { has_country_flag = bulwark_numbers }
-				event_target:current_bulwark_diplomacy = { has_country_flag = bulwark_techies }
-				event_target:current_bulwark_diplomacy = { has_country_flag = bulwark_monsters }
+			event_target:current_bulwark_diplomacy = {
+				OR = {
+					has_country_flag = bulwark_numbers
+					has_country_flag = bulwark_techies
+					has_country_flag = bulwark_monsters
+				}
 			}
 			NOR = {
 				has_country_flag = bulwark_at_war_quest
@@ -249,10 +254,12 @@ country_event = {
 	option = {
 		name = tob_merc.3.f
 		trigger = {
-			OR = {
-				event_target:current_bulwark_diplomacy = { has_country_flag = bulwark_numbers }
-				event_target:current_bulwark_diplomacy = { has_country_flag = bulwark_techies }
-				event_target:current_bulwark_diplomacy = { has_country_flag = bulwark_monsters }
+			event_target:current_bulwark_diplomacy = {
+				OR = {
+					has_country_flag = bulwark_numbers
+					has_country_flag = bulwark_techies
+					has_country_flag = bulwark_monsters
+				}
 			}
 			NOR = {
 				has_country_flag = bulwark_at_war_quest
@@ -270,10 +277,12 @@ country_event = {
 	option = {
 		name = tob_merc.3.g
 		trigger = {
-			OR = {
-				event_target:current_bulwark_diplomacy = { has_country_flag = bulwark_numbers }
-				event_target:current_bulwark_diplomacy = { has_country_flag = bulwark_techies }
-				event_target:current_bulwark_diplomacy = { has_country_flag = bulwark_monsters }
+			event_target:current_bulwark_diplomacy = {
+				OR = {
+					has_country_flag = bulwark_numbers
+					has_country_flag = bulwark_techies
+					has_country_flag = bulwark_monsters
+				}
 			}
 			NOR = {
 				has_country_flag = bulwark_at_war_quest

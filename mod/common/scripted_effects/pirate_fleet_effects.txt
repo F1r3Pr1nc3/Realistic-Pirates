@@ -136,7 +136,7 @@ create_machine_pirate_country_2 = {
 	}
 }
 
-# root = pirate_target country
+# root = pirate_target country / ship
 create_pirate_base_1 = {
 	create_fleet = {
 		name = "NAME_Pirate_Station"
@@ -147,7 +147,7 @@ create_pirate_base_1 = {
 					modifier = {
 						factor = 0.02
 						NOT = {
-							root = { has_technology = tech_mass_drivers_1 }
+							root.owner = { has_technology = tech_mass_drivers_1 }
 						}
 					}
 					create_ship = {
@@ -159,7 +159,7 @@ create_pirate_base_1 = {
 				3 = {
 					modifier = {
 						factor = 0.1
-						root = { has_technology = tech_missiles_1 }
+						root.owner = { has_technology = tech_missiles_1 }
 					}
 					create_ship = {
 						name = random
@@ -170,7 +170,7 @@ create_pirate_base_1 = {
 				2 = {
 					modifier = {
 						factor = 0.1
-						root = { has_technology = tech_lasers_1 }
+						root.owner = { has_technology = tech_lasers_1 }
 					}
 					create_ship = {
 						name = random
@@ -654,7 +654,30 @@ create_privateer_country = {
 }
 
 create_privateer_fleet = {
+	#  event targtes created by create_privateer_country
 	event_target:privateer_band = {
+		if = {
+			limit = {
+				has_global_flag = pirate_waves_active
+				NOT = { has_global_flag = pirate_waves_PRIVATEER_inactive }
+			}
+			set_pirates_difficulty = yes
+			set_variable = { which = pirates_f_tmp value = pirates_factor }
+			# Time passed based modifiers
+			get_galaxy_setup_value = { which = mid_year setting = mid_game_year } # 100%
+			divide_variable = { which = mid_year value = 2 }
+			set_variable = { which = current_year_factor value = trigger:years_passed }
+			# only partial =  (cy/my*1.25 + 0.75)/2
+			divide_variable = { which = current_year_factor value = mid_year }
+			multiply_variable = { which = pirates_f_tmp value = 1.25 }
+			change_variable = { which = pirates_f_tmp value = 0.75 }
+			divide_variable = { which = current_year_factor value = 2 }
+			multiply_variable = { which = pirates_f_tmp value = current_year_factor }
+			# round_variable_to_closest = { which = pirates_f_tmp value = 0.001 }
+		} else = {
+			set_variable = { which = pirates_f_tmp value = 1 }
+		}
+
 		create_leader = {
 			class = admiral
 			species = owner_main_species
@@ -665,7 +688,7 @@ create_privateer_fleet = {
 		create_fleet = {
 			name = "NAME_Privateers"
 			effect = {
-				set_owner = event_target:privateer_band
+				set_owner = prev
 				event_target:target_country = {
 					switch = {
 						trigger = fleet_power
@@ -695,501 +718,6 @@ create_privateer_fleet = {
 		}
 	}
 }
-
-# create_privateer_ships_0 = {
-# 	create_ship_design = { design = "NAME_Brigand" }
-# 	while = {
-# 		count = 1
-# 		create_ship = {
-# 			name = random
-# 			design = last_created_design
-# 			graphical_culture = "pirate_01"
-# 		}
-# 	}
-# }
-
-# create_privateer_ships_1 = {
-# 	create_ship_design = { design = "NAME_Reaver" }
-# 	while = {
-# 		count = 2
-# 		create_ship = {
-# 			name = random
-# 			design = last_created_design
-# 			graphical_culture = "pirate_01"
-# 		}
-# 	}
-# }
-
-# create_privateer_ships_2 = {
-# 	create_ship_design = { design = "NAME_Reaver" }
-# 	while = {
-# 		count = 4
-# 		create_ship = {
-# 			name = random
-# 			design = last_created_design
-# 			graphical_culture = "pirate_01"
-# 		}
-# 	}
-# 	create_ship_design = { design = "NAME_Brigand" }
-# 	while = {
-# 		count = 2
-# 		create_ship = {
-# 			name = random
-# 			design = last_created_design
-# 			graphical_culture = "pirate_01"
-# 		}
-# 	}
-# }
-
-# create_privateer_ships_3 = {
-# 	create_ship_design = { design = "NAME_Skull" }
-# 	while = {
-# 		count = 7
-# 		create_ship = {
-# 			name = random
-# 			design = last_created_design
-# 			graphical_culture = "pirate_01"
-# 		}
-# 	}
-# }
-
-# create_privateer_ships_4 = {
-# 	create_ship_design = { design = "NAME_Skull" }
-# 	while = {
-# 		count = 11
-# 		create_ship = {
-# 			name = random
-# 			design = last_created_design
-# 			graphical_culture = "pirate_01"
-# 		}
-# 	}
-# }
-
-# create_privateer_ships_5 = {
-# 	create_ship_design = { design = "NAME_Skull" }
-# 	while = {
-# 		count = 10
-# 		create_ship = {
-# 			name = random
-# 			design = last_created_design
-# 			graphical_culture = "pirate_01"
-# 		}
-# 	}
-# 	create_ship_design = { design = "NAME_Corsair" }
-# 	while = {
-# 		count = 4
-# 		create_ship = {
-# 			name = random
-# 			design = last_created_design
-# 			graphical_culture = "pirate_01"
-# 		}
-# 	}
-# }
-
-# create_privateer_ships_6 = {
-# 	create_ship_design = { design = "NAME_Skull" }
-# 	while = {
-# 		count = 6
-# 		create_ship = {
-# 			name = random
-# 			design = last_created_design
-# 			graphical_culture = "pirate_01"
-# 		}
-# 	}
-# 	create_ship_design = { design = "NAME_Brigand" }
-# 	while = {
-# 		count = 6
-# 		create_ship = {
-# 			name = random
-# 			design = last_created_design
-# 			graphical_culture = "pirate_01"
-# 		}
-# 	}
-# 	create_ship_design = { design = "NAME_Corsair" }
-# 	while = {
-# 		count = 6
-# 		create_ship = {
-# 			name = random
-# 			design = last_created_design
-# 			graphical_culture = "pirate_01"
-# 		}
-# 	}
-# 	create_ship_design = { design = "NAME_Black_Earl" }
-# 	while = {
-# 		count = 2
-# 		create_ship = {
-# 			name = random
-# 			design = last_created_design
-# 			graphical_culture = "pirate_01"
-# 		}
-# 	}
-# }
-
-# create_privateer_ships_7 = {
-# 	create_ship_design = { design = "NAME_Skull" }
-# 	while = {
-# 		count = 6
-# 		create_ship = {
-# 			name = random
-# 			design = last_created_design
-# 			graphical_culture = "pirate_01"
-# 		}
-# 	}
-# 	create_ship_design = { design = "NAME_Brigand" }
-# 	while = {
-# 		count = 6
-# 		create_ship = {
-# 			name = random
-# 			design = last_created_design
-# 			graphical_culture = "pirate_01"
-# 		}
-# 	}
-# 	create_ship_design = { design = "NAME_Marauder" }
-# 	while = {
-# 		count = 4
-# 		create_ship = {
-# 			name = random
-# 			design = last_created_design
-# 			graphical_culture = "pirate_01"
-# 		}
-# 	}
-# 	create_ship_design = { design = "NAME_Corsair" }
-# 	while = {
-# 		count = 4
-# 		create_ship = {
-# 			name = random
-# 			design = last_created_design
-# 			graphical_culture = "pirate_01"
-# 		}
-# 	}
-# 	create_ship_design = { design = "NAME_Black_Earl" }
-# 	while = {
-# 		count = 6
-# 		create_ship = {
-# 			name = random
-# 			design = last_created_design
-# 			graphical_culture = "pirate_01"
-# 		}
-# 	}
-# }
-
-# create_privateer_ships_8 = {
-# 	create_ship_design = { design = "NAME_Skull" }
-# 	while = {
-# 		count = 8
-# 		create_ship = {
-# 			name = random
-# 			design = last_created_design
-# 			graphical_culture = "pirate_01"
-# 		}
-# 	}
-# 	create_ship_design = { design = "NAME_Brigand" }
-# 	while = {
-# 		count = 6
-# 		create_ship = {
-# 			name = random
-# 			design = last_created_design
-# 			graphical_culture = "pirate_01"
-# 		}
-# 	}
-# 	create_ship_design = { design = "NAME_Marauder" }
-# 	while = {
-# 		count = 4
-# 		create_ship = {
-# 			name = random
-# 			design = last_created_design
-# 			graphical_culture = "pirate_01"
-# 		}
-# 	}
-# 	create_ship_design = { design = "NAME_Corsair" }
-# 	while = {
-# 		count = 8
-# 		create_ship = {
-# 			name = random
-# 			design = last_created_design
-# 			graphical_culture = "pirate_01"
-# 		}
-# 	}
-# 	create_ship_design = { design = "NAME_Black_Earl" }
-# 	while = {
-# 		count = 8
-# 		create_ship = {
-# 			name = random
-# 			design = last_created_design
-# 			graphical_culture = "pirate_01"
-# 		}
-# 	}
-# }
-
-# create_privateer_ships_9 = {
-# 	create_ship_design = { design = "NAME_Pirate_Galleon" }
-# 	while = {
-# 		count = 1
-# 		create_ship = {
-# 			name = random
-# 			design = last_created_design
-# 			graphical_culture = "pirate_01"
-# 		}
-# 	}
-# 	create_ship_design = { design = "NAME_Black_Earl" }
-# 	while = {
-# 		count = 3
-# 		create_ship = {
-# 			name = random
-# 			design = last_created_design
-# 			graphical_culture = "pirate_01"
-# 		}
-# 	}
-# 	create_ship_design = { design = "NAME_Corsair" }
-# 	while = {
-# 		count = 5
-# 		create_ship = {
-# 			name = random
-# 			design = last_created_design
-# 			graphical_culture = "pirate_01"
-# 		}
-# 	}
-# }
-
-# create_privateer_ships_10 = {
-# 	create_ship_design = { design = "NAME_Pirate_Galleon" }
-# 	while = {
-# 		count = 1
-# 		create_ship = {
-# 			name = random
-# 			design = last_created_design
-# 			graphical_culture = "pirate_01"
-# 		}
-# 	}
-# 	create_ship_design = { design = "NAME_Skull" }
-# 	while = {
-# 		count = 6
-# 		create_ship = {
-# 			name = random
-# 			design = last_created_design
-# 			graphical_culture = "pirate_01"
-# 		}
-# 	}
-# 	create_ship_design = { design = "NAME_Brigand" }
-# 	while = {
-# 		count = 6
-# 		create_ship = {
-# 			name = random
-# 			design = last_created_design
-# 			graphical_culture = "pirate_01"
-# 		}
-# 	}
-# 	create_ship_design = { design = "NAME_Black_Earl" }
-# 	while = {
-# 		count = 6
-# 		create_ship = {
-# 			name = random
-# 			design = last_created_design
-# 			graphical_culture = "pirate_01"
-# 		}
-# 	}
-# 	create_ship_design = { design = "NAME_Corsair" }
-# 	while = {
-# 		count = 10
-# 		create_ship = {
-# 			name = random
-# 			design = last_created_design
-# 			graphical_culture = "pirate_01"
-# 		}
-# 	}
-# }
-
-# create_privateer_ships_11 = {
-# 	create_ship_design = { design = "NAME_Pirate_Galleon" }
-# 	while = {
-# 		count = 2
-# 		create_ship = {
-# 			name = random
-# 			design = last_created_design
-# 			graphical_culture = "pirate_01"
-# 		}
-# 	}
-# 	create_ship_design = { design = "NAME_Skull" }
-# 	while = {
-# 		count = 4
-# 		create_ship = {
-# 			name = random
-# 			design = last_created_design
-# 			graphical_culture = "pirate_01"
-# 		}
-# 	}
-# 	create_ship_design = { design = "NAME_Brigand" }
-# 	while = {
-# 		count = 4
-# 		create_ship = {
-# 			name = random
-# 			design = last_created_design
-# 			graphical_culture = "pirate_01"
-# 		}
-# 	}
-# 	create_ship_design = { design = "NAME_Black_Earl" }
-# 	while = {
-# 		count = 3
-# 		create_ship = {
-# 			name = random
-# 			design = last_created_design
-# 			graphical_culture = "pirate_01"
-# 		}
-# 	}
-# 	create_ship_design = { design = "NAME_Corsair" }
-# 	while = {
-# 		count = 4
-# 		create_ship = {
-# 			name = random
-# 			design = last_created_design
-# 			graphical_culture = "pirate_01"
-# 		}
-# 	}
-# }
-
-# create_privateer_ships_12 = {
-# 	create_ship_design = { design = "NAME_Pirate_Galleon" }
-# 	while = {
-# 		count = 2
-# 		create_ship = {
-# 			name = random
-# 			design = last_created_design
-# 			graphical_culture = "pirate_01"
-# 		}
-# 	}
-# 	create_ship_design = { design = "NAME_Skull" }
-# 	while = {
-# 		count = 8
-# 		create_ship = {
-# 			name = random
-# 			design = last_created_design
-# 			graphical_culture = "pirate_01"
-# 		}
-# 	}
-# 	create_ship_design = { design = "NAME_Brigand" }
-# 	while = {
-# 		count = 8
-# 		create_ship = {
-# 			name = random
-# 			design = last_created_design
-# 			graphical_culture = "pirate_01"
-# 		}
-# 	}
-# 	create_ship_design = { design = "NAME_Black_Earl" }
-# 	while = {
-# 		count = 8
-# 		create_ship = {
-# 			name = random
-# 			design = last_created_design
-# 			graphical_culture = "pirate_01"
-# 		}
-# 	}
-# 	create_ship_design = { design = "NAME_Corsair" }
-# 	while = {
-# 		count = 12
-# 		create_ship = {
-# 			name = random
-# 			design = last_created_design
-# 			graphical_culture = "pirate_01"
-# 		}
-# 	}
-# }
-
-# create_privateer_ships_13 = {
-# 	create_ship_design = { design = "NAME_Pirate_Galleon" }
-# 	while = {
-# 		count = 3
-# 		create_ship = {
-# 			name = random
-# 			design = last_created_design
-# 			graphical_culture = "pirate_01"
-# 		}
-# 	}
-# 	create_ship_design = { design = "NAME_Skull" }
-# 	while = {
-# 		count = 12
-# 		create_ship = {
-# 			name = random
-# 			design = last_created_design
-# 			graphical_culture = "pirate_01"
-# 		}
-# 	}
-# 	create_ship_design = { design = "NAME_Brigand" }
-# 	while = {
-# 		count = 12
-# 		create_ship = {
-# 			name = random
-# 			design = last_created_design
-# 			graphical_culture = "pirate_01"
-# 		}
-# 	}
-# 	create_ship_design = { design = "NAME_Black_Earl" }
-# 	while = {
-# 		count = 12
-# 		create_ship = {
-# 			name = random
-# 			design = last_created_design
-# 			graphical_culture = "pirate_01"
-# 		}
-# 	}
-# 	create_ship_design = { design = "NAME_Corsair" }
-# 	while = {
-# 		count = 18
-# 		create_ship = {
-# 			name = random
-# 			design = last_created_design
-# 			graphical_culture = "pirate_01"
-# 		}
-# 	}
-# }
-
-# create_privateer_ships_14 = {
-# 	create_ship_design = { design = "NAME_Pirate_Galleon" }
-# 	while = {
-# 		count = 4
-# 		create_ship = {
-# 			name = random
-# 			design = last_created_design
-# 			graphical_culture = "pirate_01"
-# 		}
-# 	}
-# 	create_ship_design = { design = "NAME_Skull" }
-# 	while = {
-# 		count = 16
-# 		create_ship = {
-# 			name = random
-# 			design = last_created_design
-# 			graphical_culture = "pirate_01"
-# 		}
-# 	}
-# 	create_ship_design = { design = "NAME_Brigand" }
-# 	while = {
-# 		count = 16
-# 		create_ship = {
-# 			name = random
-# 			design = last_created_design
-# 			graphical_culture = "pirate_01"
-# 		}
-# 	}
-# 	create_ship_design = { design = "NAME_Black_Earl" }
-# 	while = {
-# 		count = 16
-# 		create_ship = {
-# 			name = random
-# 			design = last_created_design
-# 			graphical_culture = "pirate_01"
-# 		}
-# 	}
-# 	create_ship_design = { design = "NAME_Corsair" }
-# 	while = {
-# 		count = 24
-# 		create_ship = {
-# 			name = random
-# 			design = last_created_design
-# 			graphical_culture = "pirate_01"
-# 		}
-# 	}
-# }
 
 #####################
 # Late-game Pirates

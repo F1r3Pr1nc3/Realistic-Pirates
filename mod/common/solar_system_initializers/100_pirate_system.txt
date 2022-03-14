@@ -1,5 +1,6 @@
 ### Pirate System
 hostile_init_116 = {
+	class = "rl_all_stars"
 	usage = misc_system_init
 	usage_odds = {
 		base = 4
@@ -134,14 +135,15 @@ hostile_init_117 = {
 					name = "NAME_Pirate_Fleet"
 					effect = {
 						set_owner = event_target:pirate_country
-						while = {
-							count = 3
-							create_ship = {
-								name = random
-								design = "NAME_Reaver"
-								graphical_culture = "pirate_01"
-							}
-						}
+						# create_dyn_pirate_fleet = {
+						# 	Reaver = 3
+						# 	# Brigand = 3
+						# 	Marauder = 3
+						# 	Corsair = 3
+						# 	Black_Earl = 2
+						# }
+						# TODO dyn reinforcement
+						create_pirate_waves_fleet = yes
 						while = {
 							count = 3
 							create_ship = {
@@ -155,30 +157,6 @@ hostile_init_117 = {
 							create_ship = {
 								name = random
 								design = NAME_Vagabond
-								graphical_culture = "pirate_01"
-							}
-						}
-						while = {
-							count = 3
-							create_ship = {
-								name = random
-								design = "NAME_Corsair"
-								graphical_culture = "pirate_01"
-							}
-						}
-						while = {
-							count = 3
-							create_ship = {
-								name = random
-								design = "NAME_Marauder"
-								graphical_culture = "pirate_01"
-							}
-						}
-						while = {
-							count = 2
-							create_ship = {
-								name = random
-								design = "NAME_Black_Earl"
 								graphical_culture = "pirate_01"
 							}
 						}

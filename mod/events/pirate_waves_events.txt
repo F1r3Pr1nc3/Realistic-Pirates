@@ -12,6 +12,7 @@ namespace = pirate_waves
 #	Pirates										#
 #################################################
 
+# TODO: Maybe convert global flags to global country flags for performance reason!?
 country_event = {
 	id = pirate_waves.0
 	title = pirate_waves.0.title
@@ -207,7 +208,10 @@ country_event = {
 			NOT = { has_global_flag = pirate_waves_marauders_inactive }
 			host_has_dlc = Apocalypse
 		}
-		allow = { has_global_flag = pirate_waves_active }
+		allow = {
+			has_global_flag = pirate_waves_active
+			NOT = { has_global_flag = CmtFlagMidGameEdition }
+		}
 		hidden_effect = {
 			set_global_flag = pirate_waves_marauders_inactive
 			country_event = { id = pirate_waves.0 }
@@ -220,7 +224,10 @@ country_event = {
 			has_global_flag = pirate_waves_marauders_inactive
 			host_has_dlc = Apocalypse
 		}
-		allow = { has_global_flag = pirate_waves_active }
+		allow = {
+			has_global_flag = pirate_waves_active
+			NOT = { has_global_flag = CmtFlagMidGameEdition }
+		}
 		hidden_effect = {
 			remove_global_flag = pirate_waves_marauders_inactive
 			country_event = { id = pirate_waves.0 }
@@ -250,6 +257,37 @@ country_event = {
 		allow = { has_global_flag = pirate_waves_active }
 		hidden_effect = {
 			remove_global_flag = pirate_waves_mercenary_inactive
+			country_event = { id = pirate_waves.0 }
+		}
+	}
+	## PRIVATEER_MODE
+	option = {
+		name = "PRIVATEER_MODE_enabled"
+		custom_tooltip = "PRIVATEER_MODE_disable_desc"
+		trigger = {
+			NOT = { has_global_flag = pirate_waves_PRIVATEER_inactive }
+			host_has_dlc = Nemesis
+		}
+		allow = {
+			has_global_flag = pirate_waves_active
+		}
+		hidden_effect = {
+			set_global_flag = pirate_waves_PRIVATEER_inactive
+			country_event = { id = pirate_waves.0 }
+		}
+	}
+	option = {
+		name = "PRIVATEER_MODE_disabled"
+		custom_tooltip = "PRIVATEER_MODE_enable_desc"
+		trigger = {
+			has_global_flag = pirate_waves_PRIVATEER_inactive
+			host_has_dlc = Nemesis
+		}
+		allow = {
+			has_global_flag = pirate_waves_active
+		}
+		hidden_effect = {
+			remove_global_flag = pirate_waves_PRIVATEER_inactive
 			country_event = { id = pirate_waves.0 }
 		}
 	}
@@ -293,6 +331,7 @@ country_event = {
 		}
 	}
 	# # Enable
+	# custom_tooltip = "Not implemented yet, work in progress."
 	# option = {
 	# 	name = DEBUG_MODE_enable
 	# 	custom_tooltip = DEBUG_MODE_DESC
@@ -1696,7 +1735,7 @@ country_event = {
 }
 
 # Creates ten pirate fleets immediately (HIDDEN)
-# Called through the console
+# Can be called via console
 country_event = {
 	id = pirate_waves.10
 	hide_window = yes
@@ -1717,7 +1756,7 @@ country_event = {
 }
 
 # Creates one pirate fleet immediately (HIDDEN)
-# Called through the console
+# Can be called via console
 country_event = {
 	id = pirate_waves.11
 	hide_window = yes
@@ -1734,7 +1773,7 @@ country_event = {
 }
 
 # Creates a hundred pirate fleets and stations immediately (HIDDEN)
-# Called through the console
+# Can be called via console
 country_event = {
 	id = pirate_waves.100
 	hide_window = yes
@@ -1755,7 +1794,7 @@ country_event = {
 }
 
 # Creates a thousand pirate fleets and stations immediately (HIDDEN)
-# Called through the console
+# Can be called via console
 country_event = {
 	id = pirate_waves.1000
 	hide_window = yes
@@ -1776,7 +1815,7 @@ country_event = {
 }
 
 # Tries to fix any bugs by destroying the pirate countries and recreate them (HIDDEN)
-# Called through the console
+# Can be called via console
 country_event = {
 	id = pirate_waves.666
 	hide_window = yes
@@ -1796,7 +1835,7 @@ country_event = {
 }
 
 # Remove all pirate countries (HIDDEN)
-# Called through the console
+# Can be called via console
 country_event = {
 	id = pirate_waves.667
 	hide_window = yes
@@ -1813,6 +1852,36 @@ country_event = {
 				}
 			}
 			destroy_country = yes
+		}
+	}
+}
+
+### Arm Privateers - Intermediate setup
+# espionage_operation_event
+country_event = {
+	id = pirate_waves.668
+	title = operation.6202.name
+	desc = operation.6202.desc
+	picture = GFX_evt_gunrunning
+	show_sound = event_inhabited_solar_system
+	# espionage_operation = yes
+	# hide_window = yes
+	is_triggered_only = yes
+	trigger = {
+		NOR = {
+			has_active_event = { pirate_waves.668 }
+			has_global_flag = pirate_waves_668
+			has_country_flag = target_of_operation_arm_privateers
+		}
+	}
+	immediate = {
+		set_timed_global_flag = { flag = pirate_waves_668 days = 30 }
+		save_event_target_as = target_country
+	}
+	option = {
+		name = LAUNCH_OPERATION
+		hidden_effect = {
+			country_event = { id = operation.6204 }
 		}
 	}
 }
@@ -1882,11 +1951,23 @@ country_event = {
 	option = {
 		name = "pirate.1000.name"
 		custom_tooltip = "pirate.1000.desc"
-		# trigger = { has_global_flag = debug_mode }
+		trigger = { has_global_flag = debug_mode }
 		allow = {
 			NOT = { has_active_event = { pirate.1000 } }
 		}
 		country_event = { id = pirate.1000 }
+	}
+	option = {
+		name = "operation.6202.name"
+		custom_tooltip = "operation.6202.desc"
+		trigger = { NOT = { has_active_event = { pirate_waves.668 } } }
+		allow = {
+			NOR = {
+				has_global_flag = pirate_waves_668
+				has_country_flag = target_of_operation_arm_privateers
+			}
+		}
+		country_event = { id = pirate_waves.668 }
 	}
 	option = {
 		name = CLOSE

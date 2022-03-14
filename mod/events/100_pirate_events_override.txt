@@ -90,7 +90,7 @@ country_event = {
 	}
 
 	trigger = {
-		CmtTriggerIsPlayableEmpire = yes # is_country_type = default
+		CmtTriggerIsPlayableEmpire = yes # merg_is_default_empire = yes
 		NOR = {
 			has_country_flag = birth_of_piracy
 			has_ethic = ethic_gestalt_consciousness
@@ -229,7 +229,6 @@ event = {
 	trigger = {
 		mid_game_years_passed < 20
 		any_playable_country = {
-			# is_country_type = default
 			has_country_flag = birth_of_piracy
 			exists = capital_scope
 			any_system_within_border = {
