@@ -1,21 +1,21 @@
-is_homicidal = {
-	OR = {
-		has_valid_civic = civic_fanatic_purifiers
-		has_valid_civic = civic_machine_terminator
-		has_valid_civic = civic_hive_devouring_swarm
-		# has_origin = origin_void_reavers
-	}
-}
+# is_homicidal = {
+# 	OR = {
+# 		has_valid_civic = civic_fanatic_purifiers
+# 		has_valid_civic = civic_machine_terminator
+# 		has_valid_civic = civic_hive_devouring_swarm
+# 		# has_origin = origin_void_reavers
+# 	}
+# }
 
-is_unfriendly = {
-	OR = {
-		has_valid_civic = civic_fanatic_purifiers
-		has_valid_civic = civic_machine_terminator
-		has_valid_civic = civic_hive_devouring_swarm
-		# has_origin = origin_void_reavers
-		has_valid_civic = civic_barbaric_despoilers
-	}
-}
+# is_unfriendly = {
+# 	OR = {
+# 		has_valid_civic = civic_fanatic_purifiers
+# 		has_valid_civic = civic_machine_terminator
+# 		has_valid_civic = civic_hive_devouring_swarm
+# 		# has_origin = origin_void_reavers
+# 		has_valid_civic = civic_barbaric_despoilers
+# 	}
+# }
 
 # Merger of Rules scripted triggers.
 # Extended Merger of Rules with Nomads: The wondering Void Farers

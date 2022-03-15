@@ -28,7 +28,21 @@ country_event = {
 	}
 	immediate = {
 		from = { save_event_target_as = encountered_bulwark }
-		capital_scope = { save_event_target_as = pc_home }
+		if = {
+			limit = { exists = capital_scope }
+			capital_scope = { save_event_target_as = pc_home }
+		} else_if = {
+			limit = { any_owned_planet = { has_owner = yes } }
+			random_owned_planet = {
+				limit = { has_owner = yes }
+				save_event_target_as = pc_home
+			}
+		} else = {
+			random_planet_within_border = {
+				limit = { exists = space_owner }
+				save_event_target_as = pc_home
+			}
+		}
 		from = {
 			enable_special_project = {
 				name = "INVESTIGATE_BULWARK"

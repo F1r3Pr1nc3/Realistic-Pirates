@@ -1960,7 +1960,10 @@ country_event = {
 	option = {
 		name = "operation.6202.name"
 		custom_tooltip = "operation.6202.desc"
-		trigger = { NOT = { has_active_event = { pirate_waves.668 } } }
+		trigger = {
+			has_global_flag = debug_mode
+			NOT = { has_active_event = { pirate_waves.668 } }
+		}
 		allow = {
 			NOR = {
 				has_global_flag = pirate_waves_668

@@ -21,7 +21,7 @@ special_project = {
 	}
 
 	on_success = {
-		owner = {
+		space_owner = {
 			country_event = { id = tob_merc.1 }
 		}
 	}
