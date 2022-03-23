@@ -17,10 +17,17 @@
 # 	}
 # }
 
+is_zofe_country = {
+	always = no
+	# OR = {
+	# 	is_country_type = ascended_empire
+	# 	is_country_type = lost_empire
+	# }
+}
+
 # Merger of Rules scripted triggers.
 # Extended Merger of Rules with Nomads: The wondering Void Farers
 # These triggers are also meant as a library for modders who want to reuse them in their own mods.
-
 merg_is_standard_empire = {
 	OR = {
 		is_country_type = default
@@ -47,7 +54,7 @@ merg_is_default_empire = {
 		# ZOFE
 		is_zofe_country = yes
 		# The Empty Vagrant
-		# is_country_type = default_ev
+		is_country_type = default_ev
 		# # Nomads: The wondering Void Farers.
 		# is_country_type = void_farer
 	}

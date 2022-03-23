@@ -52,6 +52,7 @@
  tob_merc.2.2.desc: "Salutations outsider! I am your species' guide and delegate when dealing with us. We are the §HFocal Eye§!, one of three factions in the §GOuter Bulwark§!. Our goal is to provide the highest quality soldiers and equipment for hire, and are open to trading with you upon your return."
  tob_merc.2.3.desc: "We greet you as one. We are the §HInmost Mind§!, one of three factions in the §GOuter Bulwark§!. We strive to strengthen our people, including those who are born of the Void, and will not hesitate to defend you. For the right price, of course."
  tob_merc.2.a: "We'll be in contact."
+ tob_merc.3.name: "The Outer Bulwark"
  tob_merc.3.1.desc_01: "Greetings, valued customer. Interested in our services this fine day?"
  tob_merc.3.1.desc_02: "More outsiders interested in hiring us? We have plently of options available, so don't hesitate to ask!"
  tob_merc.3.1.desc_03: "We offer our lives. What is it you desire of us?"

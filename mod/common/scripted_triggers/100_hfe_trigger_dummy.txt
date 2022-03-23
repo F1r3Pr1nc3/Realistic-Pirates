@@ -1,8 +1,0 @@
-# For compat. HFE
-hfe_trigger_insane_admiral_trait = {
-	always = no
-}
-
-hfe_trigger_is_human_fallen = {
-	always = no
-}

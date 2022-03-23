@@ -84,13 +84,23 @@ country_event = {
 	id = tob_action.2
 	hide_window = yes
 	is_triggered_only = yes
+	trigger = {
+		fromfrom = {
+			has_fleet_flag = bulwark_mercenary_fleet
+			# OR = {
+			# 	has_fleet_flag = bulwark_numbers_mercfleet
+			# 	has_fleet_flag = bulwark_techies_mercfleet
+			# 	has_fleet_flag = bulwark_monsters_mercfleet
+			# }
+		}
+	}
 	immediate = {
 		if = {
 			limit = {
 				fromfrom = { has_fleet_flag = bulwark_numbers_mercfleet }
 			}
 			set_global_flag = bulwark_numbers_mercs_gone
-			every_country = {
+			random_country = {
 				limit = {
 					has_country_flag = bulwark_merc_fleet_hired
 					has_country_flag = bulwark_numbers
@@ -102,7 +112,7 @@ country_event = {
 				fromfrom = { has_fleet_flag = bulwark_techies_mercfleet }
 			}
 			set_global_flag = bulwark_techies_mercs_gone
-			every_country = {
+			random_country = {
 				limit = {
 					has_country_flag = bulwark_merc_fleet_hired
 					has_country_flag = bulwark_techies
@@ -114,7 +124,7 @@ country_event = {
 				fromfrom = { has_fleet_flag = bulwark_monsters_mercfleet }
 			}
 			set_global_flag = bulwark_monsters_mercs_gone
-			every_country = {
+			random_country = {
 				limit = {
 					has_country_flag = bulwark_merc_fleet_hired
 					has_country_flag = bulwark_monsters
@@ -135,20 +145,20 @@ country_event = {
 	hide_window = yes
 	is_triggered_only = yes
 	trigger = {
+		OR = {
+			is_country_type = outer_bulwarks
+			from = { is_country_type = outer_bulwarks }
+		}
 		NOR = {
-			OR = {
-				has_country_flag = bulwark_complete_traitors
-				has_country_flag = bulwark_at_war_quest
-			}
-			from = {
-				OR = {
-					has_country_flag = bulwark_complete_traitors
-					has_country_flag = bulwark_at_war_quest
-				}
-			}
-			OR = {
-				this = { is_country_type = outer_bulwarks }
-				from = { is_country_type = outer_bulwarks }
+			is_country_type = outer_bulwarks
+			has_country_flag = bulwark_complete_traitors # player
+			has_country_flag = bulwark_at_war_quest # player
+		}
+		from = {
+			NOR = {
+				is_country_type = outer_bulwarks
+				has_country_flag = bulwark_complete_traitors # player
+				has_country_flag = bulwark_at_war_quest # player
 			}
 		}
 	}
@@ -157,26 +167,46 @@ country_event = {
 			limit = {
 				NOT = { is_country_type = outer_bulwarks }
 				any_owned_fleet = {
-					OR = {
-						has_fleet_flag = bulwark_numbers_mercfleet
-						has_fleet_flag = bulwark_techies_mercfleet
-						has_fleet_flag = bulwark_numbers_mercfleet
+					has_fleet_flag = bulwark_mercenary_fleet
+					# OR = {
+					# 	has_fleet_flag = bulwark_numbers_mercfleet
+					# 	has_fleet_flag = bulwark_techies_mercfleet
+					# 	has_fleet_flag = bulwark_monsters_mercfleet
+					# }
+				}
+			}
+			save_event_target_as = traitors
+		} else_if = {
+			limit = {
+				from = {
+					NOT = { is_country_type = outer_bulwarks }
+					any_owned_fleet = {
+						has_fleet_flag = bulwark_mercenary_fleet
+						# OR = {
+						# 	has_fleet_flag = bulwark_numbers_mercfleet
+						# 	has_fleet_flag = bulwark_techies_mercfleet
+						# 	has_fleet_flag = bulwark_monsters_mercfleet
+						# }
 					}
 				}
 			}
+			from = { save_event_target_as = traitors }
+		}
+		event_target:traitors = {
 			country_event = { id = tob_action.7 days = 2 }
 			every_owned_fleet = {
 				limit = {
-					OR = {
-						has_fleet_flag = bulwark_numbers_mercfleet
-						has_fleet_flag = bulwark_techies_mercfleet
-						has_fleet_flag = bulwark_numbers_mercfleet
-					}
+					has_fleet_flag = bulwark_mercenary_fleet
+					# OR = {
+					# 	has_fleet_flag = bulwark_numbers_mercfleet
+					# 	has_fleet_flag = bulwark_techies_mercfleet
+					# 	has_fleet_flag = bulwark_monsters_mercfleet
+					# }
 				}
 				if = {
 					limit = { has_fleet_flag = bulwark_numbers_mercfleet }
 					set_global_flag = bulwark_numbers_mercs_gone
-					every_country = {
+					every_playable_country = {
 						limit = {
 							has_country_flag = bulwark_merc_fleet_hired
 							has_country_flag = bulwark_numbers
@@ -184,7 +214,7 @@ country_event = {
 						remove_country_flag = bulwark_merc_fleet_hired
 					}
 					destroy_fleet = this
-					every_country = {
+					random_country = {
 						limit = {
 							is_country_type = outer_bulwarks
 							has_country_flag = bulwark_numbers
@@ -194,7 +224,7 @@ country_event = {
 				} else_if = {
 					limit = { has_fleet_flag = bulwark_techies_mercfleet }
 					set_global_flag = bulwark_techies_mercs_gone
-					every_country = {
+					every_playable_country = {
 						limit = {
 							has_country_flag = bulwark_merc_fleet_hired
 							has_country_flag = bulwark_techies
@@ -202,7 +232,7 @@ country_event = {
 						remove_country_flag = bulwark_merc_fleet_hired
 					}
 					destroy_fleet = this
-					every_country = {
+					random_country = {
 						limit = {
 							is_country_type = outer_bulwarks
 							has_country_flag = bulwark_techies
@@ -212,7 +242,7 @@ country_event = {
 				} else_if = {
 					limit = { has_fleet_flag = bulwark_monsters_mercfleet }
 					set_global_flag = bulwark_monsters_mercs_gone
-					every_country = {
+					every_playable_country = {
 						limit = {
 							has_country_flag = bulwark_merc_fleet_hired
 							has_country_flag = bulwark_monsters
@@ -220,7 +250,7 @@ country_event = {
 						remove_country_flag = bulwark_merc_fleet_hired
 					}
 					destroy_fleet = this
-					every_country = {
+					random_country = {
 						limit = {
 							is_country_type = outer_bulwarks
 							has_country_flag = bulwark_monsters
@@ -229,377 +259,219 @@ country_event = {
 					}
 				}
 			}
-		}
-		if = {
-			limit = {
-				from = {
-					NOT = { is_country_type = outer_bulwarks }
-					any_owned_fleet = {
-						OR = {
-							has_fleet_flag = bulwark_numbers_mercfleet
-							has_fleet_flag = bulwark_techies_mercfleet
-							has_fleet_flag = bulwark_numbers_mercfleet
-						}
-					}
-				}
-			}
-			from = {
-				country_event = { id = tob_action.7 days = 2 }
-				every_owned_fleet = {
-					limit = {
-						OR = {
-							has_fleet_flag = bulwark_numbers_mercfleet
-							has_fleet_flag = bulwark_techies_mercfleet
-							has_fleet_flag = bulwark_numbers_mercfleet
-						}
-					}
-					if = {
-						limit = { has_fleet_flag = bulwark_numbers_mercfleet }
-						destroy_fleet = this
-						every_country = {
-							limit = {
-								is_country_type = outer_bulwarks
-								has_country_flag = bulwark_numbers
-							}
-							change_variable = { which = bulwarkbudget value = 250 }
-						}
-					} else_if = {
-						limit = { has_fleet_flag = bulwark_techies_mercfleet }
-						destroy_fleet = this
-						every_country = {
-							limit = {
-								is_country_type = outer_bulwarks
-								has_country_flag = bulwark_numbers
-							}
-							change_variable = { which = bulwarkbudget value = 250 }
-						}
-					} else_if = {
-						limit = { has_fleet_flag = bulwark_monsters_mercfleet }
-						destroy_fleet = this
-						every_country = {
-							limit = {
-								is_country_type = outer_bulwarks
-								has_country_flag = bulwark_numbers
-							}
-							change_variable = { which = bulwarkbudget value = 250 }
-						}
-					}
-				}
-			}
-		}
-		if = {
-			limit = {
-				OR = {
-					AND = {
-						NOT = { is_country_type = outer_bulwarks }
-						OR = {
-							has_modifier = bulwark_expert_military_training
-							has_modifier = bulwark_good_military_training
-							has_modifier = bulwark_expert_science_training
-							has_modifier = bulwark_good_science_training
-							has_modifier = bulwark_expert_populace_training
-							has_modifier = bulwark_good_populace_training
-						}
-					}
-					from = {
-						NOT = { is_country_type = outer_bulwarks }
-						OR = {
-							has_modifier = bulwark_expert_military_training
-							has_modifier = bulwark_good_military_training
-							has_modifier = bulwark_expert_science_training
-							has_modifier = bulwark_good_science_training
-							has_modifier = bulwark_expert_populace_training
-							has_modifier = bulwark_good_populace_training
-						}
-					}
-				}
-			}
+
 			if = {
 				limit = {
-					has_modifier = bulwark_expert_military_training
-					NOT = { is_country_type = outer_bulwarks }
-				}
-				this = {
-					remove_modifier = bulwark_expert_military_training
-					country_event = { id = tob_action.8 days = 2 }
-				}
-				every_country = {
-					limit = { is_country_type = outer_bulwarks }
-					change_variable = { which = bulwarkbudget value = 50 }
-				}
-			} else_if = {
-				limit = {
-					from = {
+					OR = {
 						has_modifier = bulwark_expert_military_training
-						NOT = { is_country_type = outer_bulwarks }
-					}
-				}
-				from = {
-					remove_modifier = bulwark_expert_military_training
-					country_event = { id = tob_action.8 days = 2 }
-				}
-				every_country = {
-					limit = { is_country_type = outer_bulwarks }
-					change_variable = { which = bulwarkbudget value = 50 }
-				}
-			} else_if = {
-				limit = {
-					has_modifier = bulwark_good_military_training
-					NOT = { is_country_type = outer_bulwarks }
-				}
-				this = {
-					remove_modifier = bulwark_good_military_training
-					country_event = { id = tob_action.8 days = 2 }
-				}
-				every_country = {
-					limit = { is_country_type = outer_bulwarks }
-					change_variable = { which = bulwarkbudget value = 50 }
-				}
-			} else_if = {
-				limit = {
-					from = {
 						has_modifier = bulwark_good_military_training
-						NOT = { is_country_type = outer_bulwarks }
-					}
-				}
-				from = {
-					remove_modifier = bulwark_good_military_training
-					country_event = { id = tob_action.8 days = 2 }
-				}
-				every_country = {
-					limit = { is_country_type = outer_bulwarks }
-					change_variable = { which = bulwarkbudget value = 50 }
-				}
-			} else_if = {
-				limit = {
-					has_modifier = bulwark_expert_science_training
-					NOT = { is_country_type = outer_bulwarks }
-				}
-				this = {
-					remove_modifier = bulwark_expert_science_training
-					country_event = { id = tob_action.8 days = 2 }
-				}
-				every_country = {
-					limit = { is_country_type = outer_bulwarks }
-					change_variable = { which = bulwarkbudget value = 50 }
-				}
-			} else_if = {
-				limit = {
-					from = {
 						has_modifier = bulwark_expert_science_training
-						NOT = { is_country_type = outer_bulwarks }
-					}
-				}
-				from = {
-					remove_modifier = bulwark_expert_science_training
-					country_event = { id = tob_action.8 days = 2 }
-				}
-				every_country = {
-					limit = { is_country_type = outer_bulwarks }
-					change_variable = { which = bulwarkbudget value = 50 }
-				}
-			} else_if = {
-				limit = {
-					has_modifier = bulwark_good_science_training
-					NOT = { is_country_type = outer_bulwarks }
-				}
-				this = {
-					remove_modifier = bulwark_good_science_training
-					country_event = { id = tob_action.8 days = 2 }
-				}
-				every_country = {
-					limit = { is_country_type = outer_bulwarks }
-					change_variable = { which = bulwarkbudget value = 50 }
-				}
-			} else_if = {
-				limit = {
-					from = {
 						has_modifier = bulwark_good_science_training
-						NOT = { is_country_type = outer_bulwarks }
-					}
-				}
-				from = {
-					remove_modifier = bulwark_good_science_training
-					country_event = { id = tob_action.8 days = 2 }
-				}
-				every_country = {
-					limit = { is_country_type = outer_bulwarks }
-					change_variable = { which = bulwarkbudget value = 50 }
-				}
-			} else_if = {
-				limit = {
-					has_modifier = bulwark_expert_populace_training
-					NOT = { is_country_type = outer_bulwarks }
-				}
-				this = {
-					remove_modifier = bulwark_expert_populace_training
-					country_event = { id = tob_action.8 days = 2 }
-				}
-				every_country = {
-					limit = { is_country_type = outer_bulwarks }
-					change_variable = { which = bulwarkbudget value = 50 }
-				}
-			} else_if = {
-				limit = {
-					from = {
 						has_modifier = bulwark_expert_populace_training
-						NOT = { is_country_type = outer_bulwarks }
-					}
-				}
-				from = {
-					remove_modifier = bulwark_expert_populace_training
-					country_event = { id = tob_action.8 days = 2 }
-				}
-				every_country = {
-					limit = { is_country_type = outer_bulwarks }
-					change_variable = { which = bulwarkbudget value = 50 }
-				}
-			} else_if = {
-				limit = {
-					has_modifier = bulwark_good_populace_training
-					NOT = { is_country_type = outer_bulwarks }
-				}
-				this = {
-					remove_modifier = bulwark_good_populace_training
-					country_event = { id = tob_action.8 days = 2 }
-				}
-				every_country = {
-					limit = { is_country_type = outer_bulwarks }
-					change_variable = { which = bulwarkbudget value = 50 }
-				}
-			} else_if = {
-				limit = {
-					from = {
 						has_modifier = bulwark_good_populace_training
-						NOT = { is_country_type = outer_bulwarks }
 					}
-				}
-				from = {
-					remove_modifier = bulwark_good_populace_training
-					country_event = { id = tob_action.8 days = 2 }
 				}
 				every_country = {
 					limit = { is_country_type = outer_bulwarks }
 					change_variable = { which = bulwarkbudget value = 50 }
 				}
-			}
-		}
-		if = {
-			limit = {
-				from = {
-					NOT = { is_country_type = outer_bulwarks }
+				country_event = { id = tob_action.8 days = 2 }
+				switch = {
+					trigger = has_modifier
+					bulwark_expert_military_training	= { remove_modifier = bulwark_expert_military_training }
+					bulwark_good_military_training		= { remove_modifier = bulwark_good_military_training }
+					bulwark_expert_science_training		= { remove_modifier = bulwark_expert_science_training }
+					bulwark_good_science_training		= { remove_modifier = bulwark_good_science_training }
+					bulwark_expert_populace_training	= { remove_modifier = bulwark_expert_populace_training }
+					bulwark_good_populace_training		= { remove_modifier = bulwark_good_populace_training }
 				}
 			}
-			from = {
-				if = {
-					limit = {
-						NOR = {
-							has_country_flag = bulwark_has_been_betrayed_by_us
-							has_country_flag = bulwark_redeemed_us
-						}
+
+			if = {
+				limit = {
+					NOR = {
+						has_country_flag = bulwark_has_been_betrayed_by_us
+						has_country_flag = bulwark_redeemed_us
 					}
-					set_country_flag = bulwark_has_been_betrayed_by_us
-				} else_if = {
-					limit = { has_country_flag = bulwark_redeemed_us }
-					remove_country_flag = bulwark_redeemed_us
-					set_country_flag = bulwark_complete_traitors
 				}
-			}
-		} else_if = {
-			limit = {
-				this = {
-					NOT = { is_country_type = outer_bulwarks }
-				}
-			}
-			this = {
-				if = {
-					limit = {
-						NOR = {
-							has_country_flag = bulwark_has_been_betrayed_by_us
-							has_country_flag = bulwark_redeemed_us
-						}
-					}
-					set_country_flag = bulwark_has_been_betrayed_by_us
-				} else_if = {
-					limit = { has_country_flag = bulwark_redeemed_us }
-					remove_country_flag = bulwark_redeemed_us
-					set_country_flag = bulwark_complete_traitors
-				}
+				set_country_flag = bulwark_has_been_betrayed_by_us
+			} else_if = {
+				limit = { has_country_flag = bulwark_redeemed_us }
+				remove_country_flag = bulwark_redeemed_us
+				set_country_flag = bulwark_complete_traitors
 			}
 		}
 	}
 }
 
 # Merc country got killed
+# TODO make mercfleet vengeance
+#This = destroyed country
+#From = optional, destroyer (country)
 country_event = {
 	id = tob_action.5
 	hide_window = yes
 	is_triggered_only = yes
+	trigger = { is_country_type = outer_bulwarks }
 	immediate = {
+		set_timed_global_flag = { flag = bulwark_trainers_scared days = 3600 }
+		every_country = {
+			limit = { is_country_type = outer_bulwarks }
+			change_variable = { which = bulwarkbudget value = 1000 }
+		}
+		every_playable_country = {
+			country_event = { id = tob_action.6 days = 1 }
+		}
+
 		if = {
 			limit = { has_country_flag = bulwark_numbers }
 			set_global_flag = bulwark_supremacists_killed
-			set_timed_global_flag = { flag = bulwark_trainers_scared days = 3600 }
-			every_country = {
-				limit = { is_country_type = outer_bulwarks }
-				change_variable = { which = bulwarkbudget value = 1000 }
-			}
-			every_country = {
-				country_event = { id = tob_action.6 days = 1 }
-				remove_modifier = bulwark_expert_military_training
-				remove_modifier = bulwark_good_military_training
-				remove_modifier = bulwark_expert_science_training
-				remove_modifier = bulwark_good_science_training
-				remove_modifier = bulwark_expert_populace_training
-				remove_modifier = bulwark_good_populace_training
-				random_owned_fleet = {
-					limit = { has_fleet_flag = bulwark_numbers_mercfleet }
-					destroy_fleet = this
-				}
+			random_galaxy_fleet = {
+				limit = { has_fleet_flag = bulwark_numbers_mercfleet }
+				# destroy_fleet = this
+				save_event_target_as = lost_bulwark_mercfleet
 			}
 		} else_if = {
 			limit = { has_country_flag = bulwark_techies }
 			set_global_flag = bulwark_technologists_killed
-			set_timed_global_flag = { flag = bulwark_trainers_scared days = 3600 }
-			every_country = {
-				limit = { is_country_type = outer_bulwarks }
-				change_variable = { which = bulwarkbudget value = 1000 }
-			}
-			every_country = {
-				country_event = { id = tob_action.6 days = 1 }
-				remove_modifier = bulwark_expert_military_training
-				remove_modifier = bulwark_good_military_training
-				remove_modifier = bulwark_expert_science_training
-				remove_modifier = bulwark_good_science_training
-				remove_modifier = bulwark_expert_populace_training
-				remove_modifier = bulwark_good_populace_training
-				random_owned_fleet = {
-					limit = { has_fleet_flag = bulwark_techies_mercfleet }
-					destroy_fleet = this
-				}
+			random_galaxy_fleet = {
+				limit = { has_fleet_flag = bulwark_techies_mercfleet }
+				# destroy_fleet = this
+				save_event_target_as = lost_bulwark_mercfleet
 			}
 		} else_if = {
 			limit = { has_country_flag = bulwark_monsters }
 			set_global_flag = bulwark_tamers_killed
-			set_timed_global_flag = { flag = bulwark_trainers_scared days = 3600 }
-			every_country = {
-				limit = { is_country_type = outer_bulwarks }
-				change_variable = { which = bulwarkbudget value = 1000 }
-			}
-			every_country = {
-				country_event = { id = tob_action.6 days = 1 }
-				remove_modifier = bulwark_expert_military_training
-				remove_modifier = bulwark_good_military_training
-				remove_modifier = bulwark_expert_science_training
-				remove_modifier = bulwark_good_science_training
-				remove_modifier = bulwark_expert_populace_training
-				remove_modifier = bulwark_good_populace_training
-				random_owned_fleet = {
-					limit = { has_fleet_flag = bulwark_monsters_mercfleet }
-					destroy_fleet = this
-				}
+			random_galaxy_fleet = {
+				limit = { has_fleet_flag = bulwark_monsters_mercfleet }
+				# destroy_fleet = this
+				save_event_target_as = lost_bulwark_mercfleet
 			}
 		}
+
+		# Vengeance if Mercenaries hired (marauder.4)
+		if = {
+			limit = {
+				exists = from
+				from = { CmtTriggerIsPlayableEmpire = yes }
+				# OR = {
+				# 	has_country_flag = merc_fleet_1_hired
+				# 	has_country_flag = merc_fleet_2_hired
+				# 	has_country_flag = merc_fleet_3_hired
+				# }
+			}
+			owner_species = { save_event_target_as = marauder_species }
+			from = {
+				save_event_target_as = marauder_killer
+				# Marauder Vengeance
+				# This = target country
+				# From = Marauder
+				every_country = {
+					limit = { is_country_type = outer_bulwarks }
+					prev = {
+						country_event = {
+							id = marauder.6
+							days = 100
+							random = 50
+							scopes = { from = prev }
+						}
+					}
+				}
+			}
+			### Mercenaries Leave
+			# every_playable_country = {
+			# 	limit = { any_owned_fleet = { has_fleet_flag = bulwark_mercenary_fleet } }
+			# 	if = {
+			# 		limit = { any_owned_fleet = { has_fleet_flag = bulwark_numbers_mercfleet } }
+			# 		set_country_flag = CmtFlagHiringMarauder1
+			# 	} else_if = {
+			# 		limit = { any_owned_fleet = { has_fleet_flag = bulwark_techies_mercfleet } }
+			# 		set_country_flag = CmtFlagHiringMarauder2
+			# 	} else = {
+			# 		set_country_flag = CmtFlagHiringMarauder3
+			# 	}
+			# 	every_country = {
+			# 		limit = { is_country_type = outer_bulwarks }
+			# 		# this = Hiring country
+			# 		# from = Destroyed Marauders
+			# 		prev = {
+			# 			country_event = {
+			# 				id = marauder.76
+			# 				days = 20
+			# 				random = 20
+			# 				scopes = { from = prev }
+			# 			}
+			# 		}
+			# 	}
+			# }
+
+
+			random_system = {
+				limit = {
+					has_star_flag = tob_system
+				}
+				weights = {
+					base = 1
+					modifier = {
+						add = 3
+						exists = space_owner
+					}
+					modifier = {
+						add = 3
+						exists = space_owner
+						space_owner = { is_country_type = outer_bulwarks }
+					}
+				}
+				random_system_planet = {
+					limit = { is_a_planet = yes }
+					weights = {
+						base = 1
+						modifier = { add = 3 has_planet_flag = raid_source }
+						modifier = { add = 2 is_colony = yes }
+					}
+					save_event_target_as = OuterBulwarkRallyPoint
+				}
+			}
+			if = {
+				limit = {
+					exists = event_target:OuterBulwarkRallyPoint
+					exists = event_target:lost_bulwark_mercfleet
+				}
+				random_country = {
+					limit = {
+						is_country_type = outer_bulwarks
+						NOT = { is_same_empire = root }
+					}
+					event_target:lost_bulwark_mercfleet = {
+						set_owner = prev
+						if = {
+							limit = { exists = leader }
+							leader = {
+								remove_leader_flag = marauder_merc_leader
+								set_owner = from
+							}
+						}
+						auto_move_to_planet = {
+							target = event_target:OuterBulwarkRallyPoint
+							clear_auto_move_on_arrival = no
+						}
+					}
+				}
+			}
+			set_country_type = ruined_marauders			# Kill diplomacy
+			every_country = {
+				limit = { is_country_type = outer_bulwarks }
+				if = {
+					limit = {
+						NOT = { is_hostile = from }
+					}
+					set_faction_hostility = {
+						target = from
+						set_hostile = yes
+					}
+				}
+			}
+		} else = { destroy_country = yes }
 	}
 }
 
@@ -611,10 +483,18 @@ country_event = {
 	picture = GFX_evt_zro_3
 	show_sound = event_radio_chatter
 	is_triggered_only = yes
-	option = {
-		name = tob_action.6.a
-		default_hide_option = yes
+	immediate = {
+		switch = {
+			trigger = has_modifier
+			bulwark_expert_military_training	= { remove_modifier = bulwark_expert_military_training }
+			bulwark_good_military_training		= { remove_modifier = bulwark_good_military_training }
+			bulwark_expert_science_training		= { remove_modifier = bulwark_expert_science_training }
+			bulwark_good_science_training		= { remove_modifier = bulwark_good_science_training }
+			bulwark_expert_populace_training	= { remove_modifier = bulwark_expert_populace_training }
+			bulwark_good_populace_training		= { remove_modifier = bulwark_good_populace_training }
+		}
 	}
+	option = { name = tob_action.6.a }
 }
 
 country_event = {
@@ -624,10 +504,7 @@ country_event = {
 	picture = GFX_evt_zro_3
 	show_sound = event_radio_chatter
 	is_triggered_only = yes
-	option = {
-		name = tob_action.7.a
-		default_hide_option = yes
-	}
+	option = { name = tob_action.7.a }
 }
 
 country_event = {
@@ -637,10 +514,7 @@ country_event = {
 	picture = GFX_evt_zro_3
 	show_sound = event_radio_chatter
 	is_triggered_only = yes
-	option = {
-		name = tob_action.8.a
-		default_hide_option = yes
-	}
+	option = { name = tob_action.8.a }
 }
 
 # Some fool destroyed a logistics station! (on_fleet_destroyed_victim)
@@ -725,19 +599,17 @@ country_event = {
 	hide_window = yes
 	is_triggered_only = yes
 	trigger = {
+		has_country_flag = bulwark_at_war_quest
 		OR = {
 			AND = {
-				has_country_flag = bulwark_at_war_quest
 				has_country_flag = bulwark_on_numbers_quest
 				from = { is_same_empire = event_target:tob_supremacist_faction }
 			}
 			AND = {
-				has_country_flag = bulwark_at_war_quest
 				has_country_flag = bulwark_on_techies_quest
 				from = { is_same_empire = event_target:tob_technologist_faction }
 			}
 			AND = {
-				has_country_flag = bulwark_at_war_quest
 				has_country_flag = bulwark_on_monsters_quest
 				from = { is_same_empire = event_target:tob_tamer_faction }
 			}
@@ -825,74 +697,120 @@ country_event = {
 	}
 }
 
+# DEPRECATED for inperformance, replaced by tob_action.13
 # A world "bombarded" by a bulwark faction has been raided. (on_monthly_pulse)
 event = {
 	id = tob_action.12
 	hide_window = yes
 	is_triggered_only = yes
 	trigger = {
-		OR = {
-			any_country = { has_country_flag = bulwark_at_war_quest }
-			any_galaxy_planet = { has_modifier = bulwark_extensive_raids }
-		}
+		# OR = {
+		# 	any_country = { has_country_flag = bulwark_at_war_quest }
+		# 	any_galaxy_planet = { has_modifier = bulwark_extensive_raids }
+		# }
 	}
 	immediate = {
 		# Check to add modifier
-		every_system_planet = {
-			limit = {
-				is_colony = yes
-				exists = owner
-				owner = { has_country_flag = bulwark_at_war_quest }
-				any_fleet_in_orbit = {
-					owner = { is_country_type = outer_bulwarks }
-				}
-				NOT = { has_modifier = bulwark_extensive_raids }
-			}
-			add_planet_devastation = 0.5
-			add_modifier = { modifier = bulwark_extensive_raids }
-			if = {
-				limit = {
-					owner = {
-						has_country_flag = bulwark_at_war_quest
-						has_country_flag = bulwark_on_numbers_quest
-					}
-				}
-				event_target:tob_supremacist_faction = {
-					change_variable = { which = bulwarkwarscore value = 25 }
-				}
-			} else_if = {
-				limit = {
-					owner = {
-						has_country_flag = bulwark_at_war_quest
-						has_country_flag = bulwark_on_techies_quest
-					}
-				}
-				event_target:tob_technologist_faction = {
-					change_variable = { which = bulwarkwarscore value = 25 }
-				}
-			} else_if = {
-				limit = {
-					owner = {
-						has_country_flag = bulwark_at_war_quest
-						has_country_flag = bulwark_on_monsters_quest
-					}
-				}
-				event_target:tob_tamer_faction = {
-					change_variable = { which = bulwarkwarscore value = 25 }
-				}
-			}
-		}
+		# every_galaxy_planet = {
+		# 	limit = {
+		# 		has_owner = yes
+		# 		is_colony = yes
+		# 		# exists = owner
+		# 		owner = { has_country_flag = bulwark_at_war_quest }
+		# 		any_fleet_in_orbit = {
+		# 			owner = { is_country_type = outer_bulwarks }
+		# 		}
+		# 		NOT = { has_modifier = bulwark_extensive_raids }
+		# 	}
+		# 	add_planet_devastation = 0.5
+		# 	add_modifier = { modifier = bulwark_extensive_raids }
+		# 	if = {
+		# 		limit = {
+		# 			owner = {
+		# 				has_country_flag = bulwark_on_numbers_quest
+		# 			}
+		# 		}
+		# 		event_target:tob_supremacist_faction = {
+		# 			change_variable = { which = bulwarkwarscore value = 25 }
+		# 		}
+		# 	} else_if = {
+		# 		limit = {
+		# 			owner = {
+		# 				has_country_flag = bulwark_on_techies_quest
+		# 			}
+		# 		}
+		# 		event_target:tob_technologist_faction = {
+		# 			change_variable = { which = bulwarkwarscore value = 25 }
+		# 		}
+		# 	} else_if = {
+		# 		limit = {
+		# 			owner = {
+		# 				has_country_flag = bulwark_on_monsters_quest
+		# 			}
+		# 		}
+		# 		event_target:tob_tamer_faction = {
+		# 			change_variable = { which = bulwarkwarscore value = 25 }
+		# 		}
+		# 	}
+		# }
 		# Check to remove modifier
-		every_system_planet = {
+		random_galaxy_planet = {
 			limit = {
-				NOT = {
+				has_modifier = bulwark_extensive_raids
+				NAND = {
+					any_fleet_in_orbit = { }
 					any_fleet_in_orbit = {
 						owner = { is_country_type = outer_bulwarks }
 					}
 				}
-				has_modifier = bulwark_extensive_raids
 			}
 			remove_modifier = bulwark_extensive_raids
 		}
+	}
+}
+
+# Check to add modifier
+# A world "bombarded" by a bulwark faction has been raided (on_planet_bombarded).
+# This = Planet
+# From = Bombarder
+planet_event = {
+	id = tob_action.13
+	hide_window = yes
+	is_triggered_only = yes
+	pre_triggers = { has_owner = yes }
+	trigger = {
+		is_colony = yes
+		from = { is_country_type = outer_bulwarks }
+		owner = { has_country_flag = bulwark_at_war_quest }
+		NOR = {
+			# has_planet_flag = bulwark_extensive_raid
+			has_modifier = bulwark_extensive_raids
+			is_under_colonization = yes
+		}
+	}
+	immediate = {
+		owner = {
+			switch = {
+				trigger = has_country_flag
+				bulwark_on_numbers_quest = {
+					event_target:tob_supremacist_faction = {
+						change_variable = { which = bulwarkwarscore value = 25 }
+					}
+				}
+				bulwark_on_techies_quest = {
+					event_target:tob_technologist_faction = {
+						change_variable = { which = bulwarkwarscore value = 25 }
+					}
+				}
+				bulwark_on_monsters_quest = {
+					event_target:tob_tamer_faction = {
+						change_variable = { which = bulwarkwarscore value = 25 }
+					}
+				}
+			}
+		}
+		# set_timed_planet_flag = { flag = bulwark_extensive_raid days = 30 }
+		add_planet_devastation = 0.4
+		add_modifier = { modifier = bulwark_extensive_raids days = 30  clear_on_owner_change = yes }
 	}
 }

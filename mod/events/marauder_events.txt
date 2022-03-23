@@ -24,6 +24,11 @@ namespace = marauder
 # 	marauder.85		# Mercenaries Available
 # 	marauder.160	# Raiding End Failsafe
 # 	marauder.699	# Neighbor Events - .707
+
+#	marauder.19		#  Diplomacy Denied
+#	marauder.102	#  Diplomacy while target of raid.
+#	marauder.112	#  Diplomacy while target of Hired raid.
+
 ###		Khan Dead Events		###
 # on_ship_destroyed_victim	marauder.505 Defeated in Combat but NOT die.
 # on_ship_destroyed_victim	marauder.509 Defeated in Combat and die.
@@ -1483,35 +1488,30 @@ country_event = {
 	is_triggered_only = yes
 	force_open = yes
 	trigger = {
-		from = { is_country_type = dormant_marauders }
+		from = {
+			OR = {
+				is_country_type = dormant_marauders
+				is_country_type = outer_bulwarks
+			}
+		}
 		is_homicidal = yes
 		NOR = {
-			AND = {
-				has_relation_flag = { who = from flag = current_target }
-				from = { is_country_type = dormant_marauders }
-			}
-			AND = {
-				from = { is_country_type = marauder_raiders }
-				any_country = {
-					is_country_type = dormant_marauders
-					has_country_flag = parent_of@from
-					root = {
-						has_relation_flag = { who = prev flag = current_target }
-					}
+			has_relation_flag = { who = from flag = current_target }
+			any_country = {
+				is_country_type = dormant_marauders
+				has_country_flag = parent_of@from
+				root = {
+					has_relation_flag = { who = prev flag = current_target }
 				}
 			}
+			has_country_flag = marauder_diplomacy_engaged
 		}
-		NOT = { has_country_flag = marauder_diplomacy_engaged }
 	}
 	immediate = {
-		random_country = {
-			limit = {
-				is_country_type = dormant_marauders
-				has_country_flag = marauder_1
-			}
+		from = {
 			owner_species = { save_event_target_as = marauder_species }
 		}
-		set_country_flag = marauder_diplomacy_engaged
+		set_timed_country_flag = { flag = bulwark_diplomacy_engaged days = 30 }
 	}
 	after = {
 		hidden_effect = { remove_country_flag = marauder_diplomacy_engaged }
@@ -5411,7 +5411,9 @@ country_event = {
 		OR = {
 			AND = {
 				has_relation_flag = { who = from flag = current_target }
-				from = { is_country_type = dormant_marauders }
+				from = {
+					is_country_type = dormant_marauders
+				}
 			}
 			AND = {
 				from = { is_country_type = marauder_raiders }
@@ -6549,7 +6551,12 @@ country_event = {
 		OR = {
 			AND = {
 				has_relation_flag = { who = from flag = current_hired_target }
-				from = { is_country_type = dormant_marauders }
+				from = {
+					OR = {
+						is_country_type = dormant_marauders
+						is_country_type = outer_bulwarks
+					}
+				}
 			}
 			AND = {
 				from = { is_country_type = marauder_raiders }

@@ -1,11 +1,9 @@
 namespace = tob_quest
-
 #Set flag
 country_event = {
 	id = tob_quest.1
 	hide_window = yes
 	is_triggered_only = yes
-
 	immediate = {
 		if = {
 			limit = {
@@ -13,45 +11,34 @@ country_event = {
 				has_country_flag = bulwark_country_numbersfive
 			}
 			set_country_flag = bulwark_finished_all_quests
-		} else = {
-			set_country_flag = bulwark_questing
-		}
+		} else = { set_country_flag = bulwark_questing }
 	}
 }
 
 # Decide on what quest type to go on, then what actual quest. Quest types; Establish Logistics Station, Establish Knowledge Vault, Assault a FE/AE, Spy on a FE/AE, Assault a Crisis. Tamer-unique quests include Acquire New Species, Acquire Stronger Species, Tame a Leviathan, Acquire a Drake, Contain the Voidling(Giant Monster from planet egg), Acquire Unique Ships (Lost Amoeba, Tiyanki Matriarch Ship, SRB.1, etc/). Technologists can perform a quest on the Shroud.
-
 event = {
 	id = tob_quest.2
 	hide_window = yes
 	is_triggered_only = yes
-
 	trigger = {
 		any_country = {
 			has_country_flag = bulwark_questing
-			NOT = {
-				has_country_flag = bulwark_quest_decided
-			}
+			NOT = { has_country_flag = bulwark_quest_decided }
 		}
 	}
-
 	immediate = {
 		# Randomly decide what quest to do.
 		while = {
 			limit = {
 				any_country = {
 					has_country_flag = bulwark_questing
-					NOT = {
-						has_country_flag = bulwark_quest_decided
-					}
+					NOT = { has_country_flag = bulwark_quest_decided }
 				}
 			}
 			random_country = {
 				limit = {
 					has_country_flag = bulwark_questing
-					NOT = {
-						has_country_flag = bulwark_quest_decided
-					}
+					NOT = { has_country_flag = bulwark_quest_decided }
 				}
 				save_event_target_as = bulwark_looking_for_quest_country
 			}
@@ -73,12 +60,8 @@ event = {
 						event_target:bulwark_looking_for_quest_country = {
 							set_country_flag = bulwark_quest_decided
 							random_list = {
-								50 = {
-									set_country_flag = bulwark_looking_for_country_log
-								}
-								50 = {
-									set_country_flag = bulwark_looking_for_country_vault
-								}
+								50 = { set_country_flag = bulwark_looking_for_country_log }
+								50 = { set_country_flag = bulwark_looking_for_country_vault }
 							}
 							country_event = { id = tob_quest.3 days = 2 }
 						}
@@ -91,21 +74,15 @@ event = {
 							any_playable_country = {
 								OR = {
 									AND = {
-										event_target:bulwark_looking_for_quest_country = {
-											has_country_flag = bulwark_numbers
-										}
+										event_target:bulwark_looking_for_quest_country = { has_country_flag = bulwark_numbers }
 										has_country_flag = bulwark_numbers_encountered
 									}
 									AND = {
-										event_target:bulwark_looking_for_quest_country = {
-											has_country_flag = bulwark_techies
-										}
+										event_target:bulwark_looking_for_quest_country = { has_country_flag = bulwark_techies }
 										has_country_flag = bulwark_techies_encountered
 									}
 									AND = {
-										event_target:bulwark_looking_for_quest_country = {
-											has_country_flag = bulwark_monsters
-										}
+										event_target:bulwark_looking_for_quest_country = { has_country_flag = bulwark_monsters }
 										has_country_flag = bulwark_monsters_encountered
 									}
 								}
@@ -120,33 +97,23 @@ event = {
 							save_global_event_target_as = bulwark_wants_to_contact
 							set_country_flag = bulwark_quest_decided
 							random_list = {
-								50 = {
-									set_country_flag = bulwark_wants_log_station
-								}
-								50 = {
-									set_country_flag = bulwark_wants_knowledge_vault
-								}
+								50 = { set_country_flag = bulwark_wants_log_station }
+								50 = { set_country_flag = bulwark_wants_knowledge_vault }
 							}
 						}
 						random_playable_country = {
 							limit = {
 								OR = {
 									AND = {
-										event_target:bulwark_looking_for_quest_country = {
-											has_country_flag = bulwark_numbers
-										}
+										event_target:bulwark_looking_for_quest_country = { has_country_flag = bulwark_numbers }
 										has_country_flag = bulwark_numbers_encountered
 									}
 									AND = {
-										event_target:bulwark_looking_for_quest_country = {
-											has_country_flag = bulwark_techies
-										}
+										event_target:bulwark_looking_for_quest_country = { has_country_flag = bulwark_techies }
 										has_country_flag = bulwark_techies_encountered
 									}
 									AND = {
-										event_target:bulwark_looking_for_quest_country = {
-											has_country_flag = bulwark_monsters
-										}
+										event_target:bulwark_looking_for_quest_country = { has_country_flag = bulwark_monsters }
 										has_country_flag = bulwark_monsters_encountered
 									}
 								}
@@ -170,7 +137,6 @@ country_event = {
 	id = tob_quest.3
 	hide_window = yes
 	is_triggered_only = yes
-
 	immediate = {
 		save_event_target_as = bulwark_exploring_galaxy
 		set_variable = { which = bulwarkquestexplorationfleetbudget value = 100 }
@@ -179,9 +145,7 @@ country_event = {
 		random_system = {
 			limit = {
 				exists = owner
-				owner = {
-					is_same_empire = root
-				}
+				owner = { is_same_empire = root }
 			}
 			random_system_planet = {
 				while = {
@@ -200,10 +164,7 @@ country_event = {
 								name = random
 								design = "NAME_BULWARK_EYE_SPY"
 								graphical_culture = "pirate_01"
-
-								effect = {
-									set_ship_flag = bulwark_spy
-								}
+								effect = { set_ship_flag = bulwark_spy }
 							}
 							set_location = prev
 							set_fleet_stance = passive
@@ -222,13 +183,10 @@ country_event = {
 	id = tob_quest.4
 	hide_window = yes
 	is_triggered_only = yes
-
 	immediate = {
 		save_event_target_as = bulwark_evaluating_exploration
 		every_owned_ship = {
-			limit = {
-				is_ship_size = constructor
-			}
+			limit = { is_ship_size = constructor }
 			delete_ship = this
 		}
 		if = {
@@ -236,21 +194,15 @@ country_event = {
 				any_playable_country = {
 					OR = {
 						AND = {
-							event_target:bulwark_evaluating_exploration = {
-								has_country_flag = bulwark_numbers
-							}
+							event_target:bulwark_evaluating_exploration = { has_country_flag = bulwark_numbers }
 							has_country_flag = bulwark_numbers_encountered
 						}
 						AND = {
-							event_target:bulwark_evaluating_exploration = {
-								has_country_flag = bulwark_techies
-							}
+							event_target:bulwark_evaluating_exploration = { has_country_flag = bulwark_techies }
 							has_country_flag = bulwark_techies_encountered
 						}
 						AND = {
-							event_target:bulwark_evaluating_exploration = {
-								has_country_flag = bulwark_monsters
-							}
+							event_target:bulwark_evaluating_exploration = { has_country_flag = bulwark_monsters }
 							has_country_flag = bulwark_monsters_encountered
 						}
 					}
@@ -263,15 +215,11 @@ country_event = {
 			event_target:bulwark_evaluating_exploration = {
 				save_global_event_target_as = bulwark_wants_to_contact
 				if = {
-					limit = {
-						has_country_flag = bulwark_looking_for_country_log
-					}
+					limit = { has_country_flag = bulwark_looking_for_country_log }
 					remove_country_flag = bulwark_looking_for_country_log
 					set_country_flag = bulwark_wants_log_station
 				} else_if = {
-					limit = {
-						has_country_flag = bulwark_looking_for_country_vault
-					}
+					limit = { has_country_flag = bulwark_looking_for_country_vault }
 					remove_country_flag = bulwark_looking_for_country_vault
 					set_country_flag = bulwark_wants_knowledge_vault
 				}
@@ -280,21 +228,15 @@ country_event = {
 				limit = {
 					OR = {
 						AND = {
-							event_target:bulwark_evaluating_exploration = {
-								has_country_flag = bulwark_numbers
-							}
+							event_target:bulwark_evaluating_exploration = { has_country_flag = bulwark_numbers }
 							has_country_flag = bulwark_numbers_encountered
 						}
 						AND = {
-							event_target:bulwark_evaluating_exploration = {
-								has_country_flag = bulwark_techies
-							}
+							event_target:bulwark_evaluating_exploration = { has_country_flag = bulwark_techies }
 							has_country_flag = bulwark_techies_encountered
 						}
 						AND = {
-							event_target:bulwark_evaluating_exploration = {
-								has_country_flag = bulwark_monsters
-							}
+							event_target:bulwark_evaluating_exploration = { has_country_flag = bulwark_monsters }
 							has_country_flag = bulwark_monsters_encountered
 						}
 					}
@@ -318,13 +260,10 @@ country_event = {
 	id = tob_quest.5
 	hide_window = yes
 	is_triggered_only = yes
-
 	immediate = {
 		save_event_target_as = bulwark_developed_new_station
 		if = {
-			limit = {
-				has_country_flag = bulwark_looking_for_country_log
-			}
+			limit = { has_country_flag = bulwark_looking_for_country_log }
 			event_target:bulwark_developed_new_station = {
 				set_variable = { which = bulwarkquestbudget value = 0 }
 				remove_country_flag = bulwark_looking_for_country_log
@@ -332,9 +271,7 @@ country_event = {
 				random_system = {
 					limit = {
 						exists = owner
-						owner = {
-							is_same_empire = event_target:bulwark_developed_new_station
-						}
+						owner = { is_same_empire = event_target:bulwark_developed_new_station }
 					}
 					random_system_planet = {
 						create_fleet = {
@@ -344,16 +281,9 @@ country_event = {
 								create_ship = {
 									name = random
 									design = "NAME_BULWARK_HABITAT"
-
 									effect = {
-										add_modifier = {
-											modifier = "bulwark_budget_repairs"
-											days = 5
-										}
-										add_modifier = {
-											modifier = "bulwark_core_station"
-
-										}
+										add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
+										add_modifier = { modifier = "bulwark_core_station" }
 									}
 								}
 								set_location = {
@@ -367,33 +297,25 @@ country_event = {
 					}
 				}
 				if = {
-					limit = {
-						has_country_flag = bulwark_country_numbersone
-					}
+					limit = { has_country_flag = bulwark_country_numbersone }
 					remove_country_flag = bulwark_country_numbersone
 					remove_country_flag = bulwark_questing
 					set_timed_country_flag = { flag = bulwark_recently_quested days = 3600 }
 					set_country_flag = bulwark_country_numberstwo
 				} else_if = {
-					limit = {
-						has_country_flag = bulwark_country_numberstwo
-					}
+					limit = { has_country_flag = bulwark_country_numberstwo }
 					remove_country_flag = bulwark_country_numberstwo
 					remove_country_flag = bulwark_questing
 					set_timed_country_flag = { flag = bulwark_recently_quested days = 3600 }
 					set_country_flag = bulwark_country_numbersthree
 				} else_if = {
-					limit = {
-						has_country_flag = bulwark_country_numbersthree
-					}
+					limit = { has_country_flag = bulwark_country_numbersthree }
 					remove_country_flag = bulwark_country_numbersthree
 					remove_country_flag = bulwark_questing
 					set_timed_country_flag = { flag = bulwark_recently_quested days = 3600 }
 					set_country_flag = bulwark_country_numbersfour
 				} else_if = {
-					limit = {
-						has_country_flag = bulwark_country_numbersfour
-					}
+					limit = { has_country_flag = bulwark_country_numbersfour }
 					remove_country_flag = bulwark_country_numbersfour
 					remove_country_flag = bulwark_questing
 					set_timed_country_flag = { flag = bulwark_recently_quested days = 3600 }
@@ -402,9 +324,7 @@ country_event = {
 			}
 		} else_if = {
 			limit = {
-				event_target:bulwark_developed_new_station = {
-					has_country_flag = bulwark_looking_for_country_vault
-				}
+				event_target:bulwark_developed_new_station = { has_country_flag = bulwark_looking_for_country_vault }
 			}
 			event_target:bulwark_developed_new_station = {
 				set_variable = { which = bulwarkquestbudget value = 0 }
@@ -413,9 +333,7 @@ country_event = {
 				random_system = {
 					limit = {
 						exists = owner
-						owner = {
-							is_same_empire = event_target:bulwark_developed_new_station
-						}
+						owner = { is_same_empire = event_target:bulwark_developed_new_station }
 					}
 					random_system_planet = {
 						create_fleet = {
@@ -425,16 +343,9 @@ country_event = {
 								create_ship = {
 									name = random
 									design = "NAME_BULWARK_HABITAT"
-
 									effect = {
-										add_modifier = {
-											modifier = "bulwark_budget_repairs"
-											days = 5
-										}
-										add_modifier = {
-											modifier = "bulwark_core_station"
-
-										}
+										add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
+										add_modifier = { modifier = "bulwark_core_station" }
 									}
 								}
 								set_location = {
@@ -448,33 +359,25 @@ country_event = {
 					}
 				}
 				if = {
-					limit = {
-						has_country_flag = bulwark_country_techone
-					}
+					limit = { has_country_flag = bulwark_country_techone }
 					remove_country_flag = bulwark_country_techone
 					remove_country_flag = bulwark_questing
 					set_timed_country_flag = { flag = bulwark_recently_quested days = 3600 }
 					set_country_flag = bulwark_country_techtwo
 				} else_if = {
-					limit = {
-						has_country_flag = bulwark_country_techtwo
-					}
+					limit = { has_country_flag = bulwark_country_techtwo }
 					remove_country_flag = bulwark_country_techtwo
 					remove_country_flag = bulwark_questing
 					set_timed_country_flag = { flag = bulwark_recently_quested days = 3600 }
 					set_country_flag = bulwark_country_techthree
 				} else_if = {
-					limit = {
-						has_country_flag = bulwark_country_techthree
-					}
+					limit = { has_country_flag = bulwark_country_techthree }
 					remove_country_flag = bulwark_country_techthree
 					remove_country_flag = bulwark_questing
 					set_timed_country_flag = { flag = bulwark_recently_quested days = 3600 }
 					set_country_flag = bulwark_country_techfour
 				} else_if = {
-					limit = {
-						has_country_flag = bulwark_country_techfour
-					}
+					limit = { has_country_flag = bulwark_country_techfour }
 					remove_country_flag = bulwark_country_techfour
 					remove_country_flag = bulwark_questing
 					set_timed_country_flag = { flag = bulwark_recently_quested days = 3600 }
@@ -489,17 +392,12 @@ country_event = {
 country_event = {
 	id = tob_quest.6
 	title = "TRANSMISSION"
-
 	# Didn't betray us! (Log)
 	desc = {
 		text = tob_quest.6.desc.a
 		trigger = {
-			NOT = {
-				has_country_flag = bulwark_has_been_betrayed_by_us
-			}
-			event_target:bulwark_wants_to_contact = {
-				has_country_flag = bulwark_wants_log_station
-			}
+			NOT = { has_country_flag = bulwark_has_been_betrayed_by_us }
+			event_target:bulwark_wants_to_contact = { has_country_flag = bulwark_wants_log_station }
 		}
 	}
 	# Did betray us! (Log)
@@ -507,21 +405,15 @@ country_event = {
 		text = tob_quest.6.desc.b
 		trigger = {
 			has_country_flag = bulwark_has_been_betrayed_by_us
-			event_target:bulwark_wants_to_contact = {
-				has_country_flag = bulwark_wants_log_station
-			}
+			event_target:bulwark_wants_to_contact = { has_country_flag = bulwark_wants_log_station }
 		}
 	}
 	# Didn't betray us! (Vault)
 	desc = {
 		text = tob_quest.6.desc.c
 		trigger = {
-			NOT = {
-				has_country_flag = bulwark_has_been_betrayed_by_us
-			}
-			event_target:bulwark_wants_to_contact = {
-				has_country_flag = bulwark_wants_knowledge_vault
-			}
+			NOT = { has_country_flag = bulwark_has_been_betrayed_by_us }
+			event_target:bulwark_wants_to_contact = { has_country_flag = bulwark_wants_knowledge_vault }
 		}
 	}
 	# Did betray us! (Vault)
@@ -529,83 +421,58 @@ country_event = {
 		text = tob_quest.6.desc.d
 		trigger = {
 			has_country_flag = bulwark_has_been_betrayed_by_us
-			event_target:bulwark_wants_to_contact = {
-				has_country_flag = bulwark_wants_knowledge_vault
-			}
+			event_target:bulwark_wants_to_contact = { has_country_flag = bulwark_wants_knowledge_vault }
 		}
 	}
-
 	picture_event_data = {
 		portrait = event_target:bulwark_wants_to_contact
 		room = ethic_spaceship_room
 	}
-
 	is_triggered_only = yes
 	force_open = yes
 	diplomatic = yes
-
-	immediate = {
-		set_country_flag = being_contacted_by_bulwark
-	}
-
+	immediate = { set_country_flag = being_contacted_by_bulwark }
 	option = {
 		name = tob_quest.6.a
 		hidden_effect = {
 			remove_country_flag = being_contacted_by_bulwark
 			if = {
-				limit = {
-					has_country_flag = bulwark_has_been_betrayed_by_us
-				}
+				limit = { has_country_flag = bulwark_has_been_betrayed_by_us }
 				remove_country_flag = bulwark_has_been_betrayed_by_us
 				set_country_flag = bulwark_redeemed_us
 			}
 			set_country_flag = doing_quest_for_bulwark
-			if = {
-				limit = {
-					event_target:bulwark_wants_to_contact = {
-						has_country_flag = bulwark_numbers
+			event_target:bulwark_wants_to_contact = {
+				switch = {
+					trigger = has_country_flag
+					bulwark_numbers = {
+						prev = { set_country_flag = bulwark_on_numbers_quest }
+					}
+					bulwark_techies = {
+						prev = { set_country_flag = bulwark_on_techies_quest }
+					}
+					bulwark_monsters = {
+						prev = { set_country_flag = bulwark_on_monsters_quest }
 					}
 				}
-				set_country_flag = bulwark_on_numbers_quest
-			} else_if = {
-				limit = {
-					event_target:bulwark_wants_to_contact = {
-						has_country_flag = bulwark_techies
-					}
-				}
-				set_country_flag = bulwark_on_techies_quest
-			} else_if = {
-				limit = {
-					event_target:bulwark_wants_to_contact = {
-						has_country_flag = bulwark_monsters
-					}
-				}
-				set_country_flag = bulwark_on_monsters_quest
 			}
 			every_owned_planet = {
-				limit = {
-					is_colony = yes
-				}
+				limit = { is_colony = yes }
 				add_modifier = { modifier = bulwark_outpost_established years = 10 }
 			}
 			if = {
 				limit = {
-					event_target:bulwark_wants_to_contact = {
-						has_country_flag = bulwark_wants_log_station
-					}
+					event_target:bulwark_wants_to_contact = { has_country_flag = bulwark_wants_log_station }
 				}
 				country_event = { id = tob_quest.8 days = 3600 }
 			} else_if = {
 				limit = {
-					event_target:bulwark_wants_to_contact = {
-						has_country_flag = bulwark_wants_knowledge_vault
-					}
+					event_target:bulwark_wants_to_contact = { has_country_flag = bulwark_wants_knowledge_vault }
 				}
 				country_event = { id = tob_quest.9 days = 3600 }
 			}
 		}
 	}
-
 	option = {
 		name = tob_quest.6.b
 		hidden_effect = {
@@ -616,21 +483,15 @@ country_event = {
 					any_playable_country = {
 						OR = {
 							AND = {
-								event_target:bulwark_wants_to_contact = {
-									has_country_flag = bulwark_numbers
-								}
+								event_target:bulwark_wants_to_contact = { has_country_flag = bulwark_numbers }
 								has_country_flag = bulwark_numbers_encountered
 							}
 							AND = {
-								event_target:bulwark_wants_to_contact = {
-									has_country_flag = bulwark_techies
-								}
+								event_target:bulwark_wants_to_contact = { has_country_flag = bulwark_techies }
 								has_country_flag = bulwark_techies_encountered
 							}
 							AND = {
-								event_target:bulwark_wants_to_contact = {
-									has_country_flag = bulwark_monsters
-								}
+								event_target:bulwark_wants_to_contact = { has_country_flag = bulwark_monsters }
 								has_country_flag = bulwark_monsters_encountered
 							}
 						}
@@ -643,63 +504,47 @@ country_event = {
 				}
 				random_playable_country = {
 					limit = {
-							OR = {
-								AND = {
-									event_target:bulwark_wants_to_contact = {
-										has_country_flag = bulwark_numbers
-									}
-									has_country_flag = bulwark_numbers_encountered
-								}
-								AND = {
-									event_target:bulwark_wants_to_contact = {
-										has_country_flag = bulwark_techies
-									}
-									has_country_flag = bulwark_techies_encountered
-								}
-								AND = {
-									event_target:bulwark_wants_to_contact = {
-										has_country_flag = bulwark_monsters
-									}
-									has_country_flag = bulwark_monsters_encountered
-								}
+						OR = {
+							AND = {
+								event_target:bulwark_wants_to_contact = { has_country_flag = bulwark_numbers }
+								has_country_flag = bulwark_numbers_encountered
 							}
-							NOR = {
-								has_country_flag = bulwark_complete_traitors
-								has_country_flag = doing_quest_for_bulwark
-								has_country_flag = bulwark_denied_quest
+							AND = {
+								event_target:bulwark_wants_to_contact = { has_country_flag = bulwark_techies }
+								has_country_flag = bulwark_techies_encountered
 							}
+							AND = {
+								event_target:bulwark_wants_to_contact = { has_country_flag = bulwark_monsters }
+								has_country_flag = bulwark_monsters_encountered
+							}
+						}
+						NOR = {
+							has_country_flag = bulwark_complete_traitors
+							has_country_flag = doing_quest_for_bulwark
+							has_country_flag = bulwark_denied_quest
+						}
 					}
 					country_event = { id = tob_quest.6 }
 				}
 			} else = {
-				if = {
-					limit = {
-						event_target:bulwark_wants_to_contact = {
-							has_country_flag = bulwark_numbers
+				event_target:bulwark_wants_to_contact = {
+					switch = {
+						trigger = has_country_flag
+						bulwark_numbers = {
+							prev = { set_country_flag = bulwark_on_numbers_quest }
+						}
+						bulwark_techies = {
+							prev = { set_country_flag = bulwark_on_techies_quest }
+						}
+						bulwark_monsters = {
+							prev = { set_country_flag = bulwark_on_monsters_quest }
 						}
 					}
-					set_country_flag = bulwark_on_numbers_quest
-				} else_if = {
-					limit = {
-						event_target:bulwark_wants_to_contact = {
-							has_country_flag = bulwark_techies
-						}
-					}
-					set_country_flag = bulwark_on_techies_quest
-				} else_if = {
-					limit = {
-						event_target:bulwark_wants_to_contact = {
-							has_country_flag = bulwark_monsters
-						}
-					}
-					set_country_flag = bulwark_on_monsters_quest
+					save_global_event_target_as = bulwark_committing_to_war_global
 				}
 				set_country_flag = bulwark_at_war_quest
 				set_country_flag = doing_quest_for_bulwark
 				country_event = { id = tob_quest.10 }
-				event_target:bulwark_wants_to_contact = {
-					save_global_event_target_as = bulwark_committing_to_war_global
-				}
 			}
 		}
 	}
@@ -712,39 +557,25 @@ country_event = {
 	desc = tob_quest.8.desc
 	picture = GFX_evt_pirate_armada
 	show_sound = event_radio_chatter
-
 	is_triggered_only = yes
-
 	immediate = {
 		remove_country_flag = doing_quest_for_bulwark
 		if = {
-			limit = {
-				has_country_flag = bulwark_on_numbers_quest
-			}
+			limit = { has_country_flag = bulwark_on_numbers_quest }
 			random_country = {
-				limit = {
-					has_country_flag = bulwark_numbers
-				}
+				limit = { has_country_flag = bulwark_numbers }
 				save_event_target_as = bulwark_finished_quest_normal_log
 			}
 		} else_if = {
-			limit = {
-				has_country_flag = bulwark_on_techies_quest
-			}
+			limit = { has_country_flag = bulwark_on_techies_quest }
 			random_country = {
-				limit = {
-					has_country_flag = bulwark_techies
-				}
+				limit = { has_country_flag = bulwark_techies }
 				save_event_target_as = bulwark_finished_quest_normal_log
 			}
 		} else_if = {
-			limit = {
-				has_country_flag = bulwark_on_monsters_quest
-			}
+			limit = { has_country_flag = bulwark_on_monsters_quest }
 			random_country = {
-				limit = {
-					has_country_flag = bulwark_monsters
-				}
+				limit = { has_country_flag = bulwark_monsters }
 				save_event_target_as = bulwark_finished_quest_normal_log
 			}
 		}
@@ -759,9 +590,7 @@ country_event = {
 			random_system = {
 				limit = {
 					exists = owner
-					owner = {
-						is_same_empire = event_target:bulwark_finished_quest_normal_log
-					}
+					owner = { is_same_empire = event_target:bulwark_finished_quest_normal_log }
 				}
 				random_system_planet = {
 					create_fleet = {
@@ -771,16 +600,9 @@ country_event = {
 							create_ship = {
 								name = random
 								design = "NAME_BULWARK_HABITAT"
-
 								effect = {
-									add_modifier = {
-										modifier = "bulwark_budget_repairs"
-										days = 5
-									}
-									add_modifier = {
-										modifier = "bulwark_core_station"
-
-									}
+									add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
+									add_modifier = { modifier = "bulwark_core_station" }
 								}
 							}
 							set_location = {
@@ -794,33 +616,25 @@ country_event = {
 				}
 			}
 			if = {
-				limit = {
-					has_country_flag = bulwark_country_numbersone
-				}
+				limit = { has_country_flag = bulwark_country_numbersone }
 				remove_country_flag = bulwark_country_numbersone
 				remove_country_flag = bulwark_questing
 				set_timed_country_flag = { flag = bulwark_recently_quested days = 3600 }
 				set_country_flag = bulwark_country_numberstwo
 			} else_if = {
-				limit = {
-					has_country_flag = bulwark_country_numberstwo
-				}
+				limit = { has_country_flag = bulwark_country_numberstwo }
 				remove_country_flag = bulwark_country_numberstwo
 				remove_country_flag = bulwark_questing
 				set_timed_country_flag = { flag = bulwark_recently_quested days = 3600 }
 				set_country_flag = bulwark_country_numbersthree
 			} else_if = {
-				limit = {
-					has_country_flag = bulwark_country_numbersthree
-				}
+				limit = { has_country_flag = bulwark_country_numbersthree }
 				remove_country_flag = bulwark_country_numbersthree
 				remove_country_flag = bulwark_questing
 				set_timed_country_flag = { flag = bulwark_recently_quested days = 3600 }
 				set_country_flag = bulwark_country_numbersfour
 			} else_if = {
-				limit = {
-					has_country_flag = bulwark_country_numbersfour
-				}
+				limit = { has_country_flag = bulwark_country_numbersfour }
 				remove_country_flag = bulwark_country_numbersfour
 				remove_country_flag = bulwark_questing
 				set_timed_country_flag = { flag = bulwark_recently_quested days = 3600 }
@@ -828,38 +642,45 @@ country_event = {
 			}
 		}
 	}
-
 	option = {
 		name = tob_quest.8.a
 		hidden_effect = {
 			if = {
 				limit = {
-					event_target:bulwark_finished_quest_normal_log = {
-						has_country_flag = bulwark_country_numberstwo
-					}
+					event_target:bulwark_finished_quest_normal_log = { has_country_flag = bulwark_country_numberstwo }
 				}
-				add_resource = { energy = 750 minerals = 500 alloys = 250 }
+				add_resource = {
+					energy = 750
+					minerals = 500
+					alloys = 250
+				}
 			} else_if = {
 				limit = {
-					event_target:bulwark_finished_quest_normal_log = {
-						has_country_flag = bulwark_country_numbersthree
-					}
+					event_target:bulwark_finished_quest_normal_log = { has_country_flag = bulwark_country_numbersthree }
 				}
-				add_resource = { energy = 1250 minerals = 1000 alloys = 500 }
+				add_resource = {
+					energy = 1250
+					minerals = 1000
+					alloys = 500
+				}
 			} else_if = {
 				limit = {
-					event_target:bulwark_finished_quest_normal_log = {
-						has_country_flag = bulwark_country_numbersfour
-					}
+					event_target:bulwark_finished_quest_normal_log = { has_country_flag = bulwark_country_numbersfour }
 				}
-				add_resource = { energy = 1750 minerals = 1500 alloys = 750 }
+				add_resource = {
+					energy = 1750
+					minerals = 1500
+					alloys = 750
+				}
 			} else_if = {
 				limit = {
-					event_target:bulwark_finished_quest_normal_log = {
-						has_country_flag = bulwark_country_numbersfive
-					}
+					event_target:bulwark_finished_quest_normal_log = { has_country_flag = bulwark_country_numbersfive }
 				}
-				add_resource = { energy = 2250 minerals = 2000 alloys = 1000 }
+				add_resource = {
+					energy = 2250
+					minerals = 2000
+					alloys = 1000
+				}
 			}
 		}
 	}
@@ -872,39 +693,25 @@ country_event = {
 	desc = tob_quest.9.desc
 	picture = GFX_evt_pirate_armada
 	show_sound = event_radio_chatter
-
 	is_triggered_only = yes
-
 	immediate = {
 		remove_country_flag = doing_quest_for_bulwark
 		if = {
-			limit = {
-				has_country_flag = bulwark_on_numbers_quest
-			}
+			limit = { has_country_flag = bulwark_on_numbers_quest }
 			random_country = {
-				limit = {
-					has_country_flag = bulwark_numbers
-				}
+				limit = { has_country_flag = bulwark_numbers }
 				save_event_target_as = bulwark_finished_quest_normal_vault
 			}
 		} else_if = {
-			limit = {
-				has_country_flag = bulwark_on_techies_quest
-			}
+			limit = { has_country_flag = bulwark_on_techies_quest }
 			random_country = {
-				limit = {
-					has_country_flag = bulwark_techies
-				}
+				limit = { has_country_flag = bulwark_techies }
 				save_event_target_as = bulwark_finished_quest_normal_vault
 			}
 		} else_if = {
-			limit = {
-				has_country_flag = bulwark_on_monsters_quest
-			}
+			limit = { has_country_flag = bulwark_on_monsters_quest }
 			random_country = {
-				limit = {
-					has_country_flag = bulwark_monsters
-				}
+				limit = { has_country_flag = bulwark_monsters }
 				save_event_target_as = bulwark_finished_quest_normal_vault
 			}
 		}
@@ -919,9 +726,7 @@ country_event = {
 			random_system = {
 				limit = {
 					exists = owner
-					owner = {
-						is_same_empire = event_target:bulwark_finished_quest_normal_vault
-					}
+					owner = { is_same_empire = event_target:bulwark_finished_quest_normal_vault }
 				}
 				random_system_planet = {
 					create_fleet = {
@@ -931,16 +736,9 @@ country_event = {
 							create_ship = {
 								name = random
 								design = "NAME_BULWARK_HABITAT"
-
 								effect = {
-									add_modifier = {
-										modifier = "bulwark_budget_repairs"
-										days = 5
-									}
-									add_modifier = {
-										modifier = "bulwark_core_station"
-
-									}
+									add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
+									add_modifier = { modifier = "bulwark_core_station" }
 								}
 							}
 							set_location = {
@@ -954,33 +752,25 @@ country_event = {
 				}
 			}
 			if = {
-				limit = {
-					has_country_flag = bulwark_country_techone
-				}
+				limit = { has_country_flag = bulwark_country_techone }
 				remove_country_flag = bulwark_country_techone
 				remove_country_flag = bulwark_questing
 				set_timed_country_flag = { flag = bulwark_recently_quested days = 3600 }
 				set_country_flag = bulwark_country_techtwo
 			} else_if = {
-				limit = {
-					has_country_flag = bulwark_country_techtwo
-				}
+				limit = { has_country_flag = bulwark_country_techtwo }
 				remove_country_flag = bulwark_country_techtwo
 				remove_country_flag = bulwark_questing
 				set_timed_country_flag = { flag = bulwark_recently_quested days = 3600 }
 				set_country_flag = bulwark_country_techthree
 			} else_if = {
-				limit = {
-					has_country_flag = bulwark_country_techthree
-				}
+				limit = { has_country_flag = bulwark_country_techthree }
 				remove_country_flag = bulwark_country_techthree
 				remove_country_flag = bulwark_questing
 				set_timed_country_flag = { flag = bulwark_recently_quested days = 3600 }
 				set_country_flag = bulwark_country_techfour
 			} else_if = {
-				limit = {
-					has_country_flag = bulwark_country_techfour
-				}
+				limit = { has_country_flag = bulwark_country_techfour }
 				remove_country_flag = bulwark_country_techfour
 				remove_country_flag = bulwark_questing
 				set_timed_country_flag = { flag = bulwark_recently_quested days = 3600 }
@@ -988,38 +778,45 @@ country_event = {
 			}
 		}
 	}
-
 	option = {
 		name = tob_quest.8.a
 		hidden_effect = {
 			if = {
 				limit = {
-					event_target:bulwark_finished_quest_normal_vault = {
-						has_country_flag = bulwark_country_techtwo
-					}
+					event_target:bulwark_finished_quest_normal_vault = { has_country_flag = bulwark_country_techtwo }
 				}
-				add_resource = { energy = 750 minerals = 500 alloys = 250 }
+				add_resource = {
+					energy = 750
+					minerals = 500
+					alloys = 250
+				}
 			} else_if = {
 				limit = {
-					event_target:bulwark_finished_quest_normal_vault = {
-						has_country_flag = bulwark_country_techthree
-					}
+					event_target:bulwark_finished_quest_normal_vault = { has_country_flag = bulwark_country_techthree }
 				}
-				add_resource = { energy = 1250 minerals = 1000 alloys = 500 }
+				add_resource = {
+					energy = 1250
+					minerals = 1000
+					alloys = 500
+				}
 			} else_if = {
 				limit = {
-					event_target:bulwark_finished_quest_normal_vault = {
-						has_country_flag = bulwark_country_techfour
-					}
+					event_target:bulwark_finished_quest_normal_vault = { has_country_flag = bulwark_country_techfour }
 				}
-				add_resource = { energy = 1750 minerals = 1500 alloys = 750 }
+				add_resource = {
+					energy = 1750
+					minerals = 1500
+					alloys = 750
+				}
 			} else_if = {
 				limit = {
-					event_target:bulwark_finished_quest_normal_vault = {
-						has_country_flag = bulwark_country_techfive
-					}
+					event_target:bulwark_finished_quest_normal_vault = { has_country_flag = bulwark_country_techfive }
 				}
-				add_resource = { energy = 2250 minerals = 2000 alloys = 1000 }
+				add_resource = {
+					energy = 2250
+					minerals = 2000
+					alloys = 1000
+				}
 			}
 		}
 	}
@@ -1030,42 +827,31 @@ country_event = {
 	id = tob_quest.10
 	title = "TRANSMISSION"
 	desc = tob_quest.10.desc
-
 	picture_event_data = {
 		portrait = event_target:bulwark_committing_to_war_global
 		room = ethic_spaceship_room
 	}
-
 	is_triggered_only = yes
 	force_open = yes
 	diplomatic = yes
-
 	immediate = {
 		if = {
 			limit = {
-				event_target:bulwark_committing_to_war_global = {
-					has_country_flag = bulwark_numbers
-				}
+				event_target:bulwark_committing_to_war_global = { has_country_flag = bulwark_numbers }
 			}
 			set_country_flag = bulwark_on_numbers_quest
 		} else_if = {
 			limit = {
-				event_target:bulwark_committing_to_war_global = {
-					has_country_flag = bulwark_techies
-				}
+				event_target:bulwark_committing_to_war_global = { has_country_flag = bulwark_techies }
 			}
 			set_country_flag = bulwark_on_techies_quest
 		} else_if = {
 			limit = {
-				event_target:bulwark_committing_to_war_global = {
-					has_country_flag = bulwark_monsters
-				}
+				event_target:bulwark_committing_to_war_global = { has_country_flag = bulwark_monsters }
 			}
 			set_country_flag = bulwark_on_monsters_quest
 		}
-		event_target:bulwark_committing_to_war_global = {
-			save_event_target_as = bulwark_committing_to_war
-		}
+		event_target:bulwark_committing_to_war_global = { save_event_target_as = bulwark_committing_to_war }
 		save_event_target_as = bulwark_war_target
 		event_target:bulwark_committing_to_war = {
 			country_event = { id = tob_quest.11 days = 5400 }
@@ -1087,17 +873,11 @@ country_event = {
 						find_random_system = {
 							trigger = {
 								id = "tob_quest_assault.1"
-									exists = owner
-									owner = {
-										is_same_empire = event_target:bulwark_war_target
-									}
-									any_system_planet = {
-										is_colony = yes
-									}
+								exists = owner
+								owner = { is_same_empire = event_target:bulwark_war_target }
+								any_system_planet = { is_colony = yes }
 							}
-							found_system = {
-								move_to = this
-							}
+							found_system = { move_to = this }
 						}
 						find_closest_planet = {
 							trigger = {
@@ -1106,9 +886,7 @@ country_event = {
 							}
 							found_planet = {
 								orbit_planet = this
-								wait = {
-									duration = 181
-								}
+								wait = { duration = 181 }
 							}
 						}
 					}
@@ -1116,10 +894,7 @@ country_event = {
 			}
 		}
 	}
-
-	option = {
-		name = tob_quest.14.a
-	}
+	option = { name = tob_quest.14.a }
 }
 
 # War ends, did we win?
@@ -1127,7 +902,6 @@ country_event = {
 	id = tob_quest.11
 	hide_window = yes
 	is_triggered_only = yes
-
 	immediate = {
 		save_event_target_as = bulwark_evaluating_war_efforts
 		random_country = {
@@ -1149,25 +923,19 @@ country_event = {
 			}
 			if = {
 				limit = {
-					root = {
-						has_country_flag = bulwark_numbers
-					}
+					root = { has_country_flag = bulwark_numbers }
 					has_country_flag = bulwark_on_numbers_quest
 				}
 				save_event_target_as = bulwark_war_target
 			} else_if = {
 				limit = {
-					root = {
-						has_country_flag = bulwark_techies
-					}
+					root = { has_country_flag = bulwark_techies }
 					has_country_flag = bulwark_on_techies_quest
 				}
 				save_event_target_as = bulwark_war_target
 			} else_if = {
 				limit = {
-					root = {
-						has_country_flag = bulwark_monsters
-					}
+					root = { has_country_flag = bulwark_monsters }
 					has_country_flag = bulwark_on_monsters_quest
 				}
 				save_event_target_as = bulwark_war_target
@@ -1199,9 +967,7 @@ country_event = {
 				}
 				if = {
 					limit = {
-						event_target:bulwark_evaluating_war_efforts = {
-							has_country_flag = bulwark_numbers
-						}
+						event_target:bulwark_evaluating_war_efforts = { has_country_flag = bulwark_numbers }
 					}
 					queue_actions = {
 						find_random_system = {
@@ -1209,27 +975,19 @@ country_event = {
 								id = "tob_assault.3"
 								has_star_flag = tob_supremacists
 							}
-							found_system = {
-								move_to = this
-							}
+							found_system = { move_to = this }
 						}
 						find_random_planet = {
 							trigger = {
 								id = tob_assault.4
-								NOT = {
-									is_star = yes
-								}
+								NOT = { is_star = yes }
 							}
-							found_planet = {
-								orbit_planet = this
-							}
+							found_planet = { orbit_planet = this }
 						}
 					}
 				} else_if = {
 					limit = {
-						event_target:bulwark_evaluating_war_efforts = {
-							has_country_flag = bulwark_techies
-						}
+						event_target:bulwark_evaluating_war_efforts = { has_country_flag = bulwark_techies }
 					}
 					queue_actions = {
 						find_random_system = {
@@ -1237,27 +995,19 @@ country_event = {
 								id = "tob_assault.5"
 								has_star_flag = tob_technologists
 							}
-							found_system = {
-								move_to = this
-							}
+							found_system = { move_to = this }
 						}
 						find_random_planet = {
 							trigger = {
 								id = tob_assault.6
-								NOT = {
-									is_star = yes
-								}
+								NOT = { is_star = yes }
 							}
-							found_planet = {
-								orbit_planet = this
-							}
+							found_planet = { orbit_planet = this }
 						}
 					}
 				} else_if = {
 					limit = {
-						event_target:bulwark_evaluating_war_efforts = {
-							has_country_flag = bulwark_monsters
-						}
+						event_target:bulwark_evaluating_war_efforts = { has_country_flag = bulwark_monsters }
 					}
 					queue_actions = {
 						find_random_system = {
@@ -1265,20 +1015,14 @@ country_event = {
 								id = "tob_assault.7"
 								has_star_flag = tob_tamers
 							}
-							found_system = {
-								move_to = this
-							}
+							found_system = { move_to = this }
 						}
 						find_random_planet = {
 							trigger = {
 								id = tob_assault.8
-								NOT = {
-									is_star = yes
-								}
+								NOT = { is_star = yes }
 							}
-							found_planet = {
-								orbit_planet = this
-							}
+							found_planet = { orbit_planet = this }
 						}
 					}
 				}
@@ -1287,8 +1031,8 @@ country_event = {
 		if = {
 			limit = {
 				event_target:bulwark_evaluating_war_efforts = {
-						check_variable = { which = bulwarkwarscore value >= 1000 }
-						has_country_flag = bulwark_wants_log_station
+					check_variable = { which = bulwarkwarscore value >= 1000 }
+					has_country_flag = bulwark_wants_log_station
 				}
 			}
 			event_target:bulwark_evaluating_war_efforts = {
@@ -1298,9 +1042,7 @@ country_event = {
 				random_system = {
 					limit = {
 						exists = owner
-						owner = {
-							is_same_empire = event_target:bulwark_evaluating_war_efforts
-						}
+						owner = { is_same_empire = event_target:bulwark_evaluating_war_efforts }
 					}
 					random_system_planet = {
 						create_fleet = {
@@ -1310,16 +1052,9 @@ country_event = {
 								create_ship = {
 									name = random
 									design = "NAME_BULWARK_HABITAT"
-
 									effect = {
-										add_modifier = {
-											modifier = "bulwark_budget_repairs"
-											days = 5
-										}
-										add_modifier = {
-											modifier = "bulwark_core_station"
-
-										}
+										add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
+										add_modifier = { modifier = "bulwark_core_station" }
 									}
 								}
 								set_location = {
@@ -1333,33 +1068,25 @@ country_event = {
 					}
 				}
 				if = {
-					limit = {
-						has_country_flag = bulwark_country_numbersone
-					}
+					limit = { has_country_flag = bulwark_country_numbersone }
 					remove_country_flag = bulwark_country_numbersone
 					remove_country_flag = bulwark_questing
 					set_timed_country_flag = { flag = bulwark_recently_quested days = 3600 }
 					set_country_flag = bulwark_country_numberstwo
 				} else_if = {
-					limit = {
-						has_country_flag = bulwark_country_numberstwo
-					}
+					limit = { has_country_flag = bulwark_country_numberstwo }
 					remove_country_flag = bulwark_country_numberstwo
 					remove_country_flag = bulwark_questing
 					set_timed_country_flag = { flag = bulwark_recently_quested days = 3600 }
 					set_country_flag = bulwark_country_numbersthree
 				} else_if = {
-					limit = {
-						has_country_flag = bulwark_country_numbersthree
-					}
+					limit = { has_country_flag = bulwark_country_numbersthree }
 					remove_country_flag = bulwark_country_numbersthree
 					remove_country_flag = bulwark_questing
 					set_timed_country_flag = { flag = bulwark_recently_quested days = 3600 }
 					set_country_flag = bulwark_country_numbersfour
 				} else_if = {
-					limit = {
-						has_country_flag = bulwark_country_numbersfour
-					}
+					limit = { has_country_flag = bulwark_country_numbersfour }
 					remove_country_flag = bulwark_country_numbersfour
 					remove_country_flag = bulwark_questing
 					set_timed_country_flag = { flag = bulwark_recently_quested days = 3600 }
@@ -1369,8 +1096,8 @@ country_event = {
 		} else_if = {
 			limit = {
 				event_target:bulwark_evaluating_war_efforts = {
-						check_variable = { which = bulwarkwarscore value >= 1000 }
-						has_country_flag = bulwark_wants_knowledge_vault
+					check_variable = { which = bulwarkwarscore value >= 1000 }
+					has_country_flag = bulwark_wants_knowledge_vault
 				}
 			}
 			event_target:bulwark_evaluating_war_efforts = {
@@ -1380,9 +1107,7 @@ country_event = {
 				random_system = {
 					limit = {
 						exists = owner
-						owner = {
-							is_same_empire = event_target:bulwark_evaluating_war_efforts
-						}
+						owner = { is_same_empire = event_target:bulwark_evaluating_war_efforts }
 					}
 					random_system_planet = {
 						create_fleet = {
@@ -1392,16 +1117,9 @@ country_event = {
 								create_ship = {
 									name = random
 									design = "NAME_BULWARK_HABITAT"
-
 									effect = {
-										add_modifier = {
-											modifier = "bulwark_budget_repairs"
-											days = 5
-										}
-										add_modifier = {
-											modifier = "bulwark_core_station"
-
-										}
+										add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
+										add_modifier = { modifier = "bulwark_core_station" }
 									}
 								}
 								set_location = {
@@ -1415,33 +1133,25 @@ country_event = {
 					}
 				}
 				if = {
-					limit = {
-						has_country_flag = bulwark_country_techone
-					}
+					limit = { has_country_flag = bulwark_country_techone }
 					remove_country_flag = bulwark_country_techone
 					remove_country_flag = bulwark_questing
 					set_timed_country_flag = { flag = bulwark_recently_quested days = 3600 }
 					set_country_flag = bulwark_country_techtwo
 				} else_if = {
-					limit = {
-						has_country_flag = bulwark_country_techtwo
-					}
+					limit = { has_country_flag = bulwark_country_techtwo }
 					remove_country_flag = bulwark_country_techtwo
 					remove_country_flag = bulwark_questing
 					set_timed_country_flag = { flag = bulwark_recently_quested days = 3600 }
 					set_country_flag = bulwark_country_techthree
 				} else_if = {
-					limit = {
-						has_country_flag = bulwark_country_techthree
-					}
+					limit = { has_country_flag = bulwark_country_techthree }
 					remove_country_flag = bulwark_country_techthree
 					remove_country_flag = bulwark_questing
 					set_timed_country_flag = { flag = bulwark_recently_quested days = 3600 }
 					set_country_flag = bulwark_country_techfour
 				} else_if = {
-					limit = {
-						has_country_flag = bulwark_country_techfour
-					}
+					limit = { has_country_flag = bulwark_country_techfour }
 					remove_country_flag = bulwark_country_techfour
 					remove_country_flag = bulwark_questing
 					set_timed_country_flag = { flag = bulwark_recently_quested days = 3600 }
@@ -1451,8 +1161,8 @@ country_event = {
 		} else_if = {
 			limit = {
 				event_target:bulwark_evaluating_war_efforts = {
-						check_variable = { which = bulwarkwarscore value < 1000 }
-						has_country_flag = bulwark_wants_log_station
+					check_variable = { which = bulwarkwarscore value < 1000 }
+					has_country_flag = bulwark_wants_log_station
 				}
 			}
 			event_target:bulwark_evaluating_war_efforts = {
@@ -1463,8 +1173,8 @@ country_event = {
 		} else_if = {
 			limit = {
 				event_target:bulwark_evaluating_war_efforts = {
-						check_variable = { which = bulwarkwarscore value < 1000 }
-						has_country_flag = bulwark_wants_knowledge_vault
+					check_variable = { which = bulwarkwarscore value < 1000 }
+					has_country_flag = bulwark_wants_knowledge_vault
 				}
 			}
 			event_target:bulwark_evaluating_war_efforts = {
@@ -1481,19 +1191,14 @@ country_event = {
 	id = tob_quest.14
 	title = "TRANSMISSION"
 	desc = tob_quest.14.desc
-
 	picture_event_data = {
 		portrait = event_target:tob_supremacist_faction
 		room = ethic_spaceship_room
 	}
-
 	is_triggered_only = yes
 	force_open = yes
 	diplomatic = yes
-
-	option = {
-		name = tob_quest.14.a
-	}
+	option = { name = tob_quest.14.a }
 }
 
 # Event to make explorers explore right.
@@ -1501,11 +1206,8 @@ fleet_event = {
 	id = tob_quest.1000
 	hide_window = yes
 	is_triggered_only = yes
-
 	immediate = {
-		owner = {
-			save_event_target_as = bulwark_eye_owner
-		}
+		owner = { save_event_target_as = bulwark_eye_owner }
 		solar_system = {
 			random_neighbor_system = {
 				limit = {
@@ -1514,21 +1216,15 @@ fleet_event = {
 							exists = owner
 							owner = {
 								is_fallen_empire = yes
-								NOT = {
-									has_authority = auth_machine_intelligence
-								}
+								NOT = { has_authority = auth_machine_intelligence }
 							}
 						}
 						any_fleet_in_system = {
-							owner = {
-								is_hostile_to = event_target:bulwark_eye_owner
-							}
+							owner = { is_hostile_to = event_target:bulwark_eye_owner }
 						}
 					}
 				}
-				random_system_planet = {
-					save_event_target_as = bulwark_exploration_planet_target
-				}
+				random_system_planet = { save_event_target_as = bulwark_exploration_planet_target }
 				root = {
 					auto_move_to_planet = {
 						target = event_target:bulwark_exploration_planet_target

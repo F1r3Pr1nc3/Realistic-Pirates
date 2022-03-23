@@ -79,32 +79,33 @@ country_event = {
 }
 
 # Main Menu (Initial)
+# From = event_target:current_bulwark_diplomacy
 country_event = {
 	id = tob_merc.3
-	title = "The Outer Bulwark"
+	title = tob_merc.3.name
 	# Supremacists
 	desc = {
 		text = tob_merc.3.1.desc_01
 		trigger = {
-			event_target:current_bulwark_diplomacy = { has_country_flag = bulwark_numbers }
+			from = { has_country_flag = bulwark_numbers }
 		}
 	}
 	# Technologists
 	desc = {
 		text = tob_merc.3.1.desc_02
 		trigger = {
-			event_target:current_bulwark_diplomacy = { has_country_flag = bulwark_techies }
+			from = { has_country_flag = bulwark_techies }
 		}
 	}
 	# Tamers
 	desc = {
 		text = tob_merc.3.1.desc_03
 		trigger = {
-			event_target:current_bulwark_diplomacy = { has_country_flag = bulwark_monsters }
+			from = { has_country_flag = bulwark_monsters }
 		}
 	}
 	picture_event_data = {
-		portrait = event_target:current_bulwark_diplomacy
+		portrait = from
 		room = ethic_spaceship_room
 	}
 	is_triggered_only = yes
@@ -116,16 +117,16 @@ country_event = {
 			has_country_flag = bulwark_diplomacy_engaged
 			has_country_flag = bulwark_has_been_betrayed_by_us
 			has_country_flag = bulwark_complete_traitors
-			has_relation_flag = { who = from flag = current_target }
+			# has_relation_flag = { who = from flag = current_target }
 			has_relation_flag = { who = from flag = current_hired_target }
 		}
 	}
 	immediate = {
-		set_country_flag = bulwark_diplomacy_engaged
 		from = {
 			owner_species = { save_event_target_as = bulwark_species }
 			save_event_target_as = current_bulwark_diplomacy
 		}
+		set_timed_country_flag = { flag = bulwark_diplomacy_engaged days = 30 }
 	}
 	after = {
 		hidden_effect = { remove_country_flag = bulwark_diplomacy_engaged }
@@ -198,11 +199,12 @@ country_event = {
 			NOR = {
 				has_country_flag = bulwark_at_war_quest
 				any_owned_fleet = {
-					OR = {
-						has_fleet_flag = bulwark_numbers_mercfleet
-						has_fleet_flag = bulwark_techies_mercfleet
-						has_fleet_flag = bulwark_monsters_mercfleet
-					}
+					has_fleet_flag = bulwark_mercenary_fleet
+					# OR = {
+					# 	has_fleet_flag = bulwark_numbers_mercfleet
+					# 	has_fleet_flag = bulwark_techies_mercfleet
+					# 	has_fleet_flag = bulwark_monsters_mercfleet
+					# }
 				}
 				event_target:current_bulwark_diplomacy = { has_country_flag = bulwark_merc_fleet_hired }
 				if = {
@@ -569,29 +571,24 @@ fleet_event = {
 	location = this
 	is_triggered_only = yes
 	trigger = {
-		OR = {
-			any_country = {
+		any_country = {
+			has_country_flag = bulwark_merc_fleet_hired
+			OR = {
 				has_country_flag = bulwark_numbers
-				has_country_flag = bulwark_merc_fleet_hired
-			}
-			any_country = {
 				has_country_flag = bulwark_techies
-				has_country_flag = bulwark_merc_fleet_hired
-			}
-			any_country = {
 				has_country_flag = bulwark_monsters
-				has_country_flag = bulwark_merc_fleet_hired
 			}
 		}
 	}
 	immediate = {
 		if = {
 			limit = {
-				OR = {
-					has_fleet_flag = bulwark_numbers_mercfleet
-					has_fleet_flag = bulwark_techies_mercfleet
-					has_fleet_flag = bulwark_monsters_mercfleet
-				}
+				has_fleet_flag = bulwark_mercenary_fleet
+				# OR = {
+				# 	has_fleet_flag = bulwark_numbers_mercfleet
+				# 	has_fleet_flag = bulwark_techies_mercfleet
+				# 	has_fleet_flag = bulwark_monsters_mercfleet
+				# }
 			}
 			set_event_locked = yes
 		}
@@ -606,11 +603,12 @@ fleet_event = {
 			}
 		}
 		trigger = {
-			OR = {
-				has_fleet_flag = bulwark_numbers_mercfleet
-				has_fleet_flag = bulwark_techies_mercfleet
-				has_fleet_flag = bulwark_monsters_mercfleet
-			}
+			has_fleet_flag = bulwark_mercenary_fleet
+			# OR = {
+			# 	has_fleet_flag = bulwark_numbers_mercfleet
+			# 	has_fleet_flag = bulwark_techies_mercfleet
+			# 	has_fleet_flag = bulwark_monsters_mercfleet
+			# }
 			NOT = {
 				owner = { has_country_flag = bulwark_has_been_betrayed_by_us }
 			}
@@ -652,11 +650,12 @@ fleet_event = {
 			}
 		}
 		trigger = {
-			OR = {
-				has_fleet_flag = bulwark_numbers_mercfleet
-				has_fleet_flag = bulwark_techies_mercfleet
-				has_fleet_flag = bulwark_monsters_mercfleet
-			}
+			has_fleet_flag = bulwark_mercenary_fleet
+			# OR = {
+			# 	has_fleet_flag = bulwark_numbers_mercfleet
+			# 	has_fleet_flag = bulwark_techies_mercfleet
+			# 	has_fleet_flag = bulwark_monsters_mercfleet
+			# }
 			NOT = {
 				owner = { has_country_flag = bulwark_has_been_betrayed_by_us }
 			}
@@ -698,11 +697,12 @@ fleet_event = {
 			}
 		}
 		trigger = {
-			OR = {
-				has_fleet_flag = bulwark_numbers_mercfleet
-				has_fleet_flag = bulwark_techies_mercfleet
-				has_fleet_flag = bulwark_monsters_mercfleet
-			}
+			has_fleet_flag = bulwark_mercenary_fleet
+			# OR = {
+			# 	has_fleet_flag = bulwark_numbers_mercfleet
+			# 	has_fleet_flag = bulwark_techies_mercfleet
+			# 	has_fleet_flag = bulwark_monsters_mercfleet
+			# }
 			NOT = {
 				owner = { has_country_flag = bulwark_has_been_betrayed_by_us }
 			}

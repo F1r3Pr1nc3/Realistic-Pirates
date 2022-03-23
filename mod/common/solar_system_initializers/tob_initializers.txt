@@ -34,7 +34,10 @@ supremacists_home = {
 					ideal_planet_class = pc_habitat
 					trait = random_traits
 				}
-				effect = { set_species_flag = bulwark_numbers_species }
+				effect = {
+					set_species_flag = bulwark_numbers_species
+					save_global_event_target_as = bulwark_numbers_species_global
+				}
 			}
 			create_country = {
 				name = random
@@ -74,13 +77,10 @@ supremacists_home = {
 					set_country_flag = bulwark_numbers
 					set_country_flag = bulwark_country_techone
 					set_country_flag = bulwark_country_numberstwo
+					set_country_flag = marauder_1
 					set_name = "The Peripheral Heart"
 					create_ship_design = { design = "NAME_Marauder_Starbase" }
 					add_ship_design = last_created_design
-					random_owned_species = {
-						limit = { has_species_flag = bulwark_numbers_species }
-						save_global_event_target_as = bulwark_numbers_species_global
-					}
 				}
 			}
 
@@ -195,7 +195,7 @@ supremacists_home = {
 			orbit_angle = 95
 			orbit_distance = 6
 			init_effect = {
-				every_country = {
+				random_country = {
 					limit = { has_country_flag = bulwark_numbers }
 					create_leader = {
 						class = admiral
@@ -297,7 +297,7 @@ supremacists_home = {
 		size = 25
 		orbit_angle = 55
 		init_effect = {
-			every_country = {
+			random_country = {
 				limit = { has_country_flag = bulwark_numbers }
 				create_leader = {
 					class = admiral
@@ -382,7 +382,7 @@ supremacists_home = {
 			orbit_angle = 90
 			orbit_distance = 6
 			init_effect = {
-				every_country = {
+				random_country = {
 					limit = { has_country_flag = bulwark_numbers }
 					create_leader = {
 						class = admiral
@@ -620,7 +620,10 @@ technologists_home = {
 					ideal_planet_class = pc_habitat
 					trait = random_traits
 				}
-				effect = { set_species_flag = bulwark_techies_species }
+				effect = {
+					set_species_flag = bulwark_techies_species
+					save_global_event_target_as = bulwark_techies_species_global
+				}
 			}
 			create_country = {
 				name = random
@@ -660,13 +663,10 @@ technologists_home = {
 					set_country_flag = bulwark_techies
 					set_country_flag = bulwark_country_techtwo
 					set_country_flag = bulwark_country_numbersone
+					set_country_flag = marauder_2
 					set_name = "The Focal Eye"
 					create_ship_design = { design = "NAME_Marauder_Starbase" }
 					add_ship_design = last_created_design
-					random_owned_species = {
-						limit = { has_species_flag = bulwark_techies_species }
-						save_global_event_target_as = bulwark_techies_species_global
-					}
 					# shift_ethic = ethic_fanatic_militarist
 					# force_add_civic = civic_mercenary_worshippers
 				}
@@ -783,7 +783,7 @@ technologists_home = {
 			orbit_angle = 95
 			orbit_distance = 6
 			init_effect = {
-				every_country = {
+				random_country = {
 					limit = { has_country_flag = bulwark_techies }
 					create_leader = {
 						class = admiral
@@ -897,7 +897,7 @@ technologists_home = {
 		size = 25
 		orbit_angle = 55
 		init_effect = {
-			every_country = {
+			random_country = {
 				limit = { has_country_flag = bulwark_techies }
 				create_leader = {
 					class = admiral
@@ -994,7 +994,7 @@ technologists_home = {
 			orbit_angle = 90
 			orbit_distance = 6
 			init_effect = {
-				every_country = {
+				random_country = {
 					limit = { has_country_flag = bulwark_techies }
 					create_leader = {
 						class = admiral
@@ -1244,7 +1244,10 @@ tamers_home = {
 					ideal_planet_class = pc_habitat
 					trait = random_traits
 				}
-				effect = { set_species_flag = bulwark_monsters_species }
+				effect = {
+					set_species_flag = bulwark_monsters_species
+					save_global_event_target_as = bulwark_monsters_species_global
+				}
 			}
 			create_country = {
 				name = random
@@ -1284,13 +1287,10 @@ tamers_home = {
 					set_country_flag = bulwark_monsters
 					set_country_flag = bulwark_country_techone
 					set_country_flag = bulwark_country_numbersone
+					set_country_flag = marauder_3
 					set_name = "The Inmost Mind"
 					create_ship_design = { design = "NAME_Marauder_Starbase" }
 					add_ship_design = last_created_design
-					random_owned_species = {
-						limit = { has_species_flag = bulwark_monsters_species }
-						save_global_event_target_as = bulwark_monsters_species_global
-					}
 				}
 			}
 
@@ -1405,7 +1405,7 @@ tamers_home = {
 			orbit_angle = 95
 			orbit_distance = 6
 			init_effect = {
-				every_country = {
+				random_country = {
 					limit = { has_country_flag = bulwark_monsters }
 					create_leader = {
 						class = admiral
@@ -1507,7 +1507,7 @@ tamers_home = {
 		size = 25
 		orbit_angle = 55
 		init_effect = {
-			every_country = {
+			random_country = {
 				limit = { has_country_flag = bulwark_monsters }
 				create_leader = {
 					class = admiral
@@ -1592,7 +1592,7 @@ tamers_home = {
 			orbit_angle = 90
 			orbit_distance = 6
 			init_effect = {
-				every_country = {
+				random_country = {
 					limit = { has_country_flag = bulwark_monsters }
 					create_leader = {
 						class = admiral
