@@ -9115,12 +9115,8 @@ country_event = {
 		}
 	}
 	immediate = {
-		set_global_flag = great_khan_dead
 		# set_global_flag not needed
-		change_variable = {
-			which = CmtVarKhanRemainingLive
-			value = -1
-		}		## Not CmtGlobalVar
+		change_variable = { which = CmtVarKhanRemainingLive value = -1 }		## Not CmtGlobalVar
 		if = {
 			limit = { exists = from }
 			from = {
@@ -9128,8 +9124,7 @@ country_event = {
 				change_variable = { which = "planets_lost_to_marauder" value = -5 }
 			}
 		}
-		if = {
-			# 505 but NOT die.
+		if = { # 505 but NOT die.
 			limit = {
 				check_variable = {
 					which = CmtVarKhanRemainingLive
@@ -9176,8 +9171,8 @@ country_event = {
 				}
 				fleet_event = { id = khan.611 }
 			}
-		} else = {
-			# Khan dies (former .509)
+		} else = { # Khan dies (former .509)
+			set_global_flag = great_khan_dead
 			set_country_flag = khan_dead_event_fine
 			set_country_flag = great_khan_defeated_once			# CmtFlagKhanDefeatCountry
 			if = {
@@ -9287,13 +9282,35 @@ country_event = {
 }
 
 ### Return of Khan
+# This = raider_khanate
 country_event = {
 	id = marauder.507
 	hide_window = yes
 	is_triggered_only = yes
-	trigger = { has_global_flag = great_khan_dead }
+	trigger = {
+		exists = event_target:raider_khanate
+		event_target:raider_khanate = {
+			NOT = { has_country_flag = khan_dead_age }
+			OR = {
+				has_global_flag = great_khan_dead
+				has_country_flag = great_khan_defeated_once
+				has_country_flag = khan_dead_event_fine
+			}
+		}
+		NAND = {
+			exists = event_target:great_khan
+			exists = event_target:great_khan.fleet
+		}
+	}
 	immediate = {
-		remove_global_flag = great_khan_dead
+		if = { limit = { has_global_flag = great_khan_dead }
+			remove_global_flag = great_khan_dead
+		}
+		event_target:raider_khanate = {
+			if = { limit = { has_country_flag = khan_dead_event_fine }
+				remove_country_flag = khan_dead_event_fine
+			}
+		}
 		country_event = { id = khan.306 }		# Check/Create fallback rally_point
 		event_target:marauder_rally_point = {
 			# CmtEffectCreateAdmiralty_Khan2ndFleetSet = yes
@@ -10069,7 +10086,7 @@ country_event = {
 	}
 }
 
-# Return of the Great Khan (HIDDEN)
+# Return of the Great Khan (HIDDEN) (due .505 timer)
 country_event = {
 	id = marauder.523
 	hide_window = yes
@@ -11352,11 +11369,21 @@ fleet_event = {
 			# 		}
 			# 	}
 			fleet_event = { id = marauder.560 days = 600 random = 300 }
+
+			set_variable = { which = "satrapy_fleet_power" value = trigger:fleet_power }
+			divide_variable = { which = "satrapy_fleet_power" value = 26000 }
+			divide_variable = { which = "satrapy_fleet_power" value = trigger:used_naval_capacity_percent }
+			round_variable = "satrapy_fleet_power"
+			if = { limit = { check_variable = { which = "satrapy_fleet_power" value < 2 }
+				set_variable = { which = "satrapy_fleet_power" value = 2 }
+			} else_if = { limit = { check_variable = { which = "satrapy_fleet_power" value > 6 }
+				set_variable = { which = "satrapy_fleet_power" value = 6 }
+			}
 			if = {
 				limit = {
 					solar_system = {
 						count_fleet_in_system = {
-							count < 5
+							count < root.satrapy_fleet_power
 							limit = {
 								is_owned_by = event_target:raider_khanate
 								has_fleet_flag = horde_auxuliaries

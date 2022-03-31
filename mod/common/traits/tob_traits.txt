@@ -1,7 +1,6 @@
 leader_trait_bulwark_numbers = {
 	cost = 1
 	icon = "gfx/interface/icons/traits/leader_traits/leader_trait_ship.dds"
-	species_potential_add = { always = no }
 	modifier = {
 		ship_speed_mult = 0.2
 		ship_fire_rate_mult = 0.25
@@ -16,7 +15,6 @@ leader_trait_bulwark_numbers = {
 leader_trait_bulwark_default = {
 	cost = 1
 	icon = "gfx/interface/icons/traits/leader_traits/leader_trait_ship.dds"
-	species_potential_add = { always = no }
 	modifier = {
 		ship_armor_regen_add_perc = 5
 		ship_hull_regen_add_perc = 5
@@ -35,7 +33,6 @@ leader_trait_bulwark_default = {
 leader_trait_bulwark_techies = {
 	cost = 1
 	icon = "gfx/interface/icons/traits/leader_traits/leader_trait_ship.dds"
-	species_potential_add = { always = no }
 	modifier = {
 		ship_armor_damage_mult = 0.2
 		ship_hull_damage_mult = 0.2
@@ -54,7 +51,6 @@ leader_trait_bulwark_techies = {
 leader_trait_bulwark_monsters = {
 	cost = 1
 	icon = "gfx/interface/icons/traits/leader_traits/leader_trait_ship.dds"
-	species_potential_add = { always = no }
 	modifier = {
 		damage_vs_country_type_amoeba_mult = 1
 		damage_vs_country_type_cloud_mult = 1

@@ -68,6 +68,7 @@
  tob_merc.3.e: "$graygoo.115.d$"
  tob_merc.3.f: "We want to commission some trainers."
  tob_merc.3.g: "We want to commission a few stations."
+ tob_merc.3.name: "The Outer Bulwark"
  tob_merc.4.1.desc: "Ah, sellswords. Not many are reputable, you know, but we do keep ours in line better than all others. We have a single 'flagship' fleet ready for your disposal, just choose your payment plan."
  tob_merc.4.2.desc: "Wonderful. We have our most advanced fleet ready to assist you, for how long is up to you."
  tob_merc.4.3.desc: "We have one fleet available for you. Do not mind those of the Void present in it, we assure you they are under control."

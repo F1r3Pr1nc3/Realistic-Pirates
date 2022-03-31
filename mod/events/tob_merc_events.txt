@@ -118,7 +118,7 @@ country_event = {
 			has_country_flag = bulwark_has_been_betrayed_by_us
 			has_country_flag = bulwark_complete_traitors
 			# has_relation_flag = { who = from flag = current_target }
-			has_relation_flag = { who = from flag = current_hired_target }
+			# has_relation_flag = { who = from flag = current_hired_target }
 		}
 	}
 	immediate = {
@@ -190,11 +190,12 @@ country_event = {
 		name = tob_merc.3.c
 		trigger = {
 			event_target:current_bulwark_diplomacy = {
-				OR = {
-					has_country_flag = bulwark_numbers
-					has_country_flag = bulwark_techies
-					has_country_flag = bulwark_monsters
-				}
+				is_country_type = outer_bulwarks
+				# OR = {
+				# 	has_country_flag = bulwark_numbers
+				# 	has_country_flag = bulwark_techies
+				# 	has_country_flag = bulwark_monsters
+				# }
 			}
 			NOR = {
 				has_country_flag = bulwark_at_war_quest
@@ -227,7 +228,7 @@ country_event = {
 		}
 		custom_tooltip = hire_mercenaries
 		hidden_effect = {
-			country_event = { id = tob_merc.4 }
+			country_event = { id = tob_merc.4 scopes = { from = from } }
 		}
 	}
 	# Commission Bulwark Fleet
@@ -235,11 +236,12 @@ country_event = {
 		name = tob_merc.3.d
 		trigger = {
 			event_target:current_bulwark_diplomacy = {
-				OR = {
-					has_country_flag = bulwark_numbers
-					has_country_flag = bulwark_techies
-					has_country_flag = bulwark_monsters
-				}
+				is_country_type = outer_bulwarks
+				# OR = {
+				# 	has_country_flag = bulwark_numbers
+				# 	has_country_flag = bulwark_techies
+				# 	has_country_flag = bulwark_monsters
+				# }
 			}
 			NOR = {
 				has_country_flag = bulwark_at_war_quest
@@ -257,11 +259,12 @@ country_event = {
 		name = tob_merc.3.f
 		trigger = {
 			event_target:current_bulwark_diplomacy = {
-				OR = {
-					has_country_flag = bulwark_numbers
-					has_country_flag = bulwark_techies
-					has_country_flag = bulwark_monsters
-				}
+				is_country_type = outer_bulwarks
+				# OR = {
+				# 	has_country_flag = bulwark_numbers
+				# 	has_country_flag = bulwark_techies
+				# 	has_country_flag = bulwark_monsters
+				# }
 			}
 			NOR = {
 				has_country_flag = bulwark_at_war_quest
@@ -280,11 +283,12 @@ country_event = {
 		name = tob_merc.3.g
 		trigger = {
 			event_target:current_bulwark_diplomacy = {
-				OR = {
-					has_country_flag = bulwark_numbers
-					has_country_flag = bulwark_techies
-					has_country_flag = bulwark_monsters
-				}
+				is_country_type = outer_bulwarks
+				# OR = {
+				# 	has_country_flag = bulwark_numbers
+				# 	has_country_flag = bulwark_techies
+				# 	has_country_flag = bulwark_monsters
+				# }
 			}
 			NOR = {
 				has_country_flag = bulwark_at_war_quest
@@ -305,6 +309,7 @@ country_event = {
 }
 
 # Hire Mercenaries
+# From = event_target:current_bulwark_diplomacy
 country_event = {
 	id = tob_merc.4
 	title = "Mercenary Options"
@@ -332,7 +337,15 @@ country_event = {
 		room = "ethic_spaceship_room"
 	}
 	is_triggered_only = yes
-	immediate = { set_country_flag = bulwark_diplomacy_engaged }
+	trigger = {}
+	immediate = {
+		set_country_flag = bulwark_diplomacy_engaged
+		from = {
+			if = { limit =  { is_hostile = root }
+				set_faction_hostility = { target = root set_hostile = no set_neutral = yes }
+			}
+		}
+	}
 	after = {
 		hidden_effect = { remove_country_flag = bulwark_diplomacy_engaged }
 	}
@@ -345,14 +358,14 @@ country_event = {
 			}
 		}
 		allow = {
-			resource_stockpile_compare = { resource = energy value >= 5000 }
+			resource_stockpile_compare = { resource = energy value > 5000 }
 			hidden_trigger = {
 				NOT = {
 					event_target:current_bulwark_diplomacy = { has_country_flag = bulwark_merc_fleet_hired }
 				}
 			}
 		}
-		set_timed_country_flag = { flag = bulwark_mercs_hired_safeguard days = 2 }
+		set_timed_country_flag = { flag = bulwark_mercs_hired_safeguard days = 3 }
 		add_resource = { energy = -5000 }
 		custom_tooltip = bulwark_mercenaries_hire_low
 		hidden_effect = {
@@ -360,7 +373,7 @@ country_event = {
 				limit = {
 					event_target:current_bulwark_diplomacy = { has_country_flag = bulwark_numbers }
 				}
-				random_country = {
+				random_playable_country = {
 					limit = { has_country_flag = bulwark_mercs_hired_safeguard }
 					save_event_target_as = receiving_bulwark_numbers_fleet
 				}
@@ -368,7 +381,7 @@ country_event = {
 				limit = {
 					event_target:current_bulwark_diplomacy = { has_country_flag = bulwark_techies }
 				}
-				random_country = {
+				random_playable_country = {
 					limit = { has_country_flag = bulwark_mercs_hired_safeguard }
 					save_event_target_as = receiving_bulwark_techies_fleet
 				}
@@ -376,7 +389,7 @@ country_event = {
 				limit = {
 					event_target:current_bulwark_diplomacy = { has_country_flag = bulwark_monsters }
 				}
-				random_country = {
+				random_playable_country = {
 					limit = { has_country_flag = bulwark_mercs_hired_safeguard }
 					save_event_target_as = receiving_bulwark_monsters_fleet
 				}
@@ -418,14 +431,14 @@ country_event = {
 			}
 		}
 		allow = {
-			resource_stockpile_compare = { resource = energy value >= 10000 }
+			resource_stockpile_compare = { resource = energy value > 10000 }
 			hidden_trigger = {
 				NOT = {
 					event_target:current_bulwark_diplomacy = { has_country_flag = bulwark_merc_fleet_hired }
 				}
 			}
 		}
-		set_timed_country_flag = { flag = bulwark_mercs_hired_safeguard days = 2 }
+		set_timed_country_flag = { flag = bulwark_mercs_hired_safeguard days = 3 }
 		add_resource = { energy = -10000 }
 		custom_tooltip = bulwark_mercenaries_hire_low
 		hidden_effect = {
@@ -433,7 +446,7 @@ country_event = {
 				limit = {
 					event_target:current_bulwark_diplomacy = { has_country_flag = bulwark_numbers }
 				}
-				random_country = {
+				random_playable_country = {
 					limit = { has_country_flag = bulwark_mercs_hired_safeguard }
 					save_event_target_as = receiving_bulwark_numbers_fleet
 				}
@@ -441,7 +454,7 @@ country_event = {
 				limit = {
 					event_target:current_bulwark_diplomacy = { has_country_flag = bulwark_techies }
 				}
-				random_country = {
+				random_playable_country = {
 					limit = { has_country_flag = bulwark_mercs_hired_safeguard }
 					save_event_target_as = receiving_bulwark_techies_fleet
 				}
@@ -449,7 +462,7 @@ country_event = {
 				limit = {
 					event_target:current_bulwark_diplomacy = { has_country_flag = bulwark_monsters }
 				}
-				random_country = {
+				random_playable_country = {
 					limit = { has_country_flag = bulwark_mercs_hired_safeguard }
 					save_event_target_as = receiving_bulwark_monsters_fleet
 				}
@@ -491,14 +504,14 @@ country_event = {
 			}
 		}
 		allow = {
-			resource_stockpile_compare = { resource = energy value >= 20000 }
+			resource_stockpile_compare = { resource = energy value > 20000 }
 			hidden_trigger = {
 				NOT = {
 					event_target:current_bulwark_diplomacy = { has_country_flag = bulwark_merc_fleet_hired }
 				}
 			}
 		}
-		set_timed_country_flag = { flag = bulwark_mercs_hired_safeguard days = 2 }
+		set_timed_country_flag = { flag = bulwark_mercs_hired_safeguard days = 3 }
 		add_resource = { energy = -20000 }
 		custom_tooltip = bulwark_mercenaries_hire_low
 		hidden_effect = {
@@ -506,7 +519,7 @@ country_event = {
 				limit = {
 					event_target:current_bulwark_diplomacy = { has_country_flag = bulwark_numbers }
 				}
-				random_country = {
+				random_playable_country = {
 					limit = { has_country_flag = bulwark_mercs_hired_safeguard }
 					save_event_target_as = receiving_bulwark_numbers_fleet
 				}
@@ -514,7 +527,7 @@ country_event = {
 				limit = {
 					event_target:current_bulwark_diplomacy = { has_country_flag = bulwark_techies }
 				}
-				random_country = {
+				random_playable_country = {
 					limit = { has_country_flag = bulwark_mercs_hired_safeguard }
 					save_event_target_as = receiving_bulwark_techies_fleet
 				}
@@ -522,7 +535,7 @@ country_event = {
 				limit = {
 					event_target:current_bulwark_diplomacy = { has_country_flag = bulwark_monsters }
 				}
-				random_country = {
+				random_playable_country = {
 					limit = { has_country_flag = bulwark_mercs_hired_safeguard }
 					save_event_target_as = receiving_bulwark_monsters_fleet
 				}
@@ -573,11 +586,12 @@ fleet_event = {
 	trigger = {
 		any_country = {
 			has_country_flag = bulwark_merc_fleet_hired
-			OR = {
-				has_country_flag = bulwark_numbers
-				has_country_flag = bulwark_techies
-				has_country_flag = bulwark_monsters
-			}
+			is_country_type = outer_bulwarks
+			# OR = {
+			# 	has_country_flag = bulwark_numbers
+			# 	has_country_flag = bulwark_techies
+			# 	has_country_flag = bulwark_monsters
+			# }
 		}
 	}
 	immediate = {
@@ -598,7 +612,7 @@ fleet_event = {
 		name = tob_merc.5.a
 		allow = {
 			owner = {
-				resource_stockpile_compare = { resource = energy value >= 5000 }
+				resource_stockpile_compare = { resource = energy value > 5000 }
 				NOT = { has_country_flag = bulwark_has_been_betrayed_by_us }
 			}
 		}
@@ -645,7 +659,7 @@ fleet_event = {
 		name = tob_merc.5.b
 		allow = {
 			owner = {
-				resource_stockpile_compare = { resource = energy value >= 5000 }
+				resource_stockpile_compare = { resource = energy value > 5000 }
 				NOT = { has_country_flag = bulwark_has_been_betrayed_by_us }
 			}
 		}
@@ -692,7 +706,7 @@ fleet_event = {
 		name = tob_merc.5.c
 		allow = {
 			owner = {
-				resource_stockpile_compare = { resource = energy value >= 5000 }
+				resource_stockpile_compare = { resource = energy value > 5000 }
 				NOT = { has_country_flag = bulwark_has_been_betrayed_by_us }
 			}
 		}
@@ -822,7 +836,14 @@ country_event = {
 		room = "ethic_spaceship_room"
 	}
 	is_triggered_only = yes
-	immediate = { set_country_flag = bulwark_diplomacy_engaged }
+	immediate = {
+		set_country_flag = bulwark_diplomacy_engaged
+		event_target:current_bulwark_diplomacy = {
+			if = { limit =  { is_hostile = root }
+				set_faction_hostility = { target = root set_hostile = no set_neutral = yes }
+			}
+		}
+	}
 	after = {
 		hidden_effect = { remove_country_flag = bulwark_diplomacy_engaged }
 	}
@@ -835,1387 +856,218 @@ country_event = {
 			}
 		}
 		allow = {
-			resource_stockpile_compare = { resource = energy value >= 7500 }
+			resource_stockpile_compare = { resource = energy value > 7500 }
 			hidden_trigger = {
 				NOT = {
 					event_target:current_bulwark_diplomacy = { has_country_flag = bulwark_commissioned_fleet_recently }
 				}
 			}
 		}
-		set_timed_country_flag = { flag = bulwark_commissioned_fleet_recently_safeguard days = 2 }
+		set_timed_country_flag = { flag = bulwark_commissioned_fleet_recently_safeguard days = 3 }
 		set_timed_country_flag = { flag = bulwark_commissioned_fleet_recently_target days = 900 }
 		add_resource = { energy = -7500 }
 		hidden_effect = {
-			random_country = {
+			random_playable_country = {
 				limit = { has_country_flag = bulwark_commissioned_fleet_recently_safeguard }
 				save_event_target_as = receiving_bulwark_fleet_commission
 			}
-			event_target:receiving_bulwark_fleet_commission = {
-				random_owned_planet = {
-					limit = { is_capital = yes }
-					save_event_target_as = bulwark_fleet_commission_goes_here
-				}
-			}
 			event_target:current_bulwark_diplomacy = {
+				random_system_within_border = {
+					# limit = { }
+					if = {
+						limit = {
+							closest_system = {
+								limit = { space_owner = { is_same_empire = event_target:receiving_bulwark_fleet_commission } }
+								min_steps = 1
+								max_steps = 50
+								use_bypasses = no
+							}
+						}
+						closest_system = {
+							min_steps = 1
+							max_steps = 50
+							use_bypasses = no
+							limit = { space_owner = { is_same_empire = event_target:receiving_bulwark_fleet_commission } }
+							save_event_target_as = bulwark_fleet_commission_goes_here
+						}
+					} else = {
+						event_target:receiving_bulwark_fleet_commission = {
+							random_owned_planet = {
+								limit = { is_colony = yes num_pops > 5 }
+								weights = { base = 1 modifier = { add = 2 is_capital = yes } }
+								save_event_target_as = bulwark_fleet_commission_goes_here
+							}
+						}
+					}
+				}
 				set_timed_country_flag = { flag = bulwark_commissioned_fleet_recently days = 1800 }
 				change_variable = { which = bulwarkbudget value = 375 }
-				if = {
-					limit = {
-						has_country_flag = bulwark_country_techone
-						has_country_flag = bulwark_country_numbersone
+				create_fleet = {
+					settings = {
+						spawn_debris = no
+						can_change_composition = no
+						uses_naval_capacity = no
+						can_upgrade = no
 					}
-					create_fleet = {
-						settings = {
-							spawn_debris = no
-							can_change_composition = no
-							uses_naval_capacity = no
-							can_upgrade = no
+					effect = {
+						set_owner = event_target:receiving_bulwark_fleet_commission
+						prev = {
+							if = {
+								limit = {
+									has_country_flag = bulwark_country_techone
+									has_country_flag = bulwark_country_numbersone
+								}
+								create_dyn_bulwark_fleet = { LOWCORVETTE = 20 LOWDESTROYER = 5 }
+							} else_if = {
+								limit = {
+									has_country_flag = bulwark_country_techtwo
+									has_country_flag = bulwark_country_numbersone
+								}
+								create_dyn_bulwark_fleet = { MEDCORVETTE = 20 MEDDESTROYER = 5 }
+							} else_if = {
+								limit = {
+									has_country_flag = bulwark_country_techthree
+									has_country_flag = bulwark_country_numbersone
+								}
+								create_dyn_bulwark_fleet = { HIGHCORVETTE = 20 HIGHDESTROYER = 5 }
+							} else_if = {
+								limit = {
+									has_country_flag = bulwark_country_techfour
+									has_country_flag = bulwark_country_numbersone
+								}
+								create_dyn_bulwark_fleet = { HIGHERCORVETTE = 20 HIGHERDESTROYER = 5 }
+							} else_if = {
+								limit = {
+									has_country_flag = bulwark_country_techfive
+									has_country_flag = bulwark_country_numbersone
+								}
+								create_dyn_bulwark_fleet = { HIGHESTCORVETTE = 20 HIGHESTDESTROYER = 5 }
+							} else_if = {
+								limit = {
+									has_country_flag = bulwark_country_techone
+									has_country_flag = bulwark_country_numberstwo
+								}
+								create_dyn_bulwark_fleet = { LOWCORVETTE = 40 LOWDESTROYER = 20 }
+							} else_if = {
+								limit = {
+									has_country_flag = bulwark_country_techone
+									has_country_flag = bulwark_country_numbersthree
+								}
+								create_dyn_bulwark_fleet = { LOWCORVETTE = 60 LOWDESTROYER = 35 }
+							} else_if = {
+								limit = {
+									has_country_flag = bulwark_country_techone
+									has_country_flag = bulwark_country_numbersfour
+								}
+								create_dyn_bulwark_fleet = { LOWCORVETTE = 80 LOWDESTROYER = 50 }
+							} else_if = {
+								limit = {
+									has_country_flag = bulwark_country_techone
+									has_country_flag = bulwark_country_numbersfive
+								}
+								create_dyn_bulwark_fleet = { LOWCORVETTE = 100 LOWDESTROYER = 65 }
+							} else_if = {
+								limit = {
+									has_country_flag = bulwark_country_techtwo
+									has_country_flag = bulwark_country_numberstwo
+								}
+								create_dyn_bulwark_fleet = { MEDCORVETTE = 40 MEDDESTROYER = 20 LOWCRUISER = 10 }
+							} else_if = {
+								limit = {
+									has_country_flag = bulwark_country_techtwo
+									has_country_flag = bulwark_country_numbersthree
+								}
+								create_dyn_bulwark_fleet = { MEDCORVETTE = 60 MEDDESTROYER = 35 LOWCRUISER = 20 }
+							} else_if = {
+								limit = {
+									has_country_flag = bulwark_country_techtwo
+									has_country_flag = bulwark_country_numbersfour
+								}
+								create_dyn_bulwark_fleet = { MEDCORVETTE = 80 MEDDESTROYER = 50 LOWCRUISER = 30 }
+							} else_if = {
+								limit = {
+									has_country_flag = bulwark_country_techtwo
+									has_country_flag = bulwark_country_numbersfive
+								}
+								create_dyn_bulwark_fleet = { MEDCORVETTE = 100 MEDDESTROYER = 65 LOWCRUISER = 40 }
+							} else_if = {
+								limit = {
+									has_country_flag = bulwark_country_techthree
+									has_country_flag = bulwark_country_numberstwo
+								}
+								create_dyn_bulwark_fleet = { HIGHCORVETTE = 40 HIGHDESTROYER = 20 MEDCRUISER = 10 LOWBATTLESHIP = 5 }
+							} else_if = {
+								limit = {
+									has_country_flag = bulwark_country_techthree
+									has_country_flag = bulwark_country_numbersthree
+								}
+								create_dyn_bulwark_fleet = { HIGHCORVETTE = 60 HIGHDESTROYER = 35 MEDCRUISER = 20 LOWBATTLESHIP = 10 }
+							} else_if = {
+								limit = {
+									has_country_flag = bulwark_country_techthree
+									has_country_flag = bulwark_country_numbersfour
+								}
+								create_dyn_bulwark_fleet = { HIGHCORVETTE = 80 HIGHDESTROYER = 50 MEDCRUISER = 30 LOWBATTLESHIP = 15 }
+							} else_if = {
+								limit = {
+									has_country_flag = bulwark_country_techthree
+									has_country_flag = bulwark_country_numbersfive
+								}
+								create_dyn_bulwark_fleet = { HIGHCORVETTE = 100 HIGHDESTROYER = 65 MEDCRUISER = 40 LOWBATTLESHIP = 20 }
+							} else_if = {
+								limit = {
+									has_country_flag = bulwark_country_techfour
+									has_country_flag = bulwark_country_numberstwo
+								}
+								create_dyn_bulwark_fleet = { HIGHERCORVETTE = 40 HIGHERDESTROYER = 20 HIGHCRUISER = 10 MEDBATTLESHIP = 5 }
+							} else_if = {
+								limit = {
+									has_country_flag = bulwark_country_techfour
+									has_country_flag = bulwark_country_numbersthree
+								}
+								create_dyn_bulwark_fleet = { HIGHERCORVETTE = 60 HIGHERDESTROYER = 35 HIGHCRUISER = 20 MEDBATTLESHIP = 10 }
+							} else_if = {
+								limit = {
+									has_country_flag = bulwark_country_techfour
+									has_country_flag = bulwark_country_numbersfour
+								}
+								create_dyn_bulwark_fleet = { HIGHERCORVETTE = 80 HIGHERDESTROYER = 50 HIGHCRUISER = 30 MEDBATTLESHIP = 15 }
+							} else_if = {
+								limit = {
+									has_country_flag = bulwark_country_techfour
+									has_country_flag = bulwark_country_numbersfive
+								}
+								create_dyn_bulwark_fleet = { HIGHERCORVETTE = 100 HIGHERDESTROYER = 65 HIGHCRUISER = 40 MEDBATTLESHIP = 20 }
+							} else_if = {
+								limit = {
+									has_country_flag = bulwark_country_techfive
+									has_country_flag = bulwark_country_numberstwo
+								}
+								create_dyn_bulwark_fleet = { HIGHESTCORVETTE = 40 HIGHESTDESTROYER = 20 HIGHESTCRUISER = 10 HIGHESTBATTLESHIP = 5 }
+							} else_if = {
+								limit = {
+									has_country_flag = bulwark_country_techfive
+									has_country_flag = bulwark_country_numbersthree
+								}
+								create_dyn_bulwark_fleet = { HIGHESTCORVETTE = 60 HIGHESTDESTROYER = 35 HIGHESTCRUISER = 20 HIGHESTBATTLESHIP = 10 }
+							} else_if = {
+								limit = {
+									has_country_flag = bulwark_country_techfive
+									has_country_flag = bulwark_country_numbersfour
+								}
+								create_dyn_bulwark_fleet = { HIGHESTCORVETTE = 80 HIGHESTDESTROYER = 50 HIGHESTCRUISER = 30 HIGHESTBATTLESHIP = 15 }
+							} else_if = {
+								limit = {
+									has_country_flag = bulwark_country_techfive
+									has_country_flag = bulwark_country_numbersfive
+								}
+								create_dyn_bulwark_fleet = { HIGHESTCORVETTE = 100 HIGHESTDESTROYER = 65 HIGHESTCRUISER = 40 HIGHESTBATTLESHIP = 20 }
+							}
 						}
-						effect = {
-							set_owner = event_target:receiving_bulwark_fleet_commission
-							while = {
-								count = 20
-								create_ship = {
-									name = random
-									design = "NAME_BULWARK_LOWCORVETTE"
-									graphical_culture = "pirate_01"
-									effect = {
-										add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
-									}
-								}
-							}
-							while = {
-								count = 5
-								create_ship = {
-									name = random
-									design = "NAME_BULWARK_LOWDESTROYER"
-									graphical_culture = "pirate_01"
-									effect = {
-										add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
-									}
-								}
-							}
-							set_location = event_target:bulwark_fleet_commission_goes_here
-							set_fleet_stance = aggressive
-							set_aggro_range_measure_from = self
-							set_aggro_range = 250
-						}
-					}
-				} else_if = {
-					limit = {
-						has_country_flag = bulwark_country_techtwo
-						has_country_flag = bulwark_country_numbersone
-					}
-					create_fleet = {
-						settings = {
-							spawn_debris = no
-							can_change_composition = no
-							uses_naval_capacity = no
-							can_upgrade = no
-						}
-						effect = {
-							set_owner = event_target:receiving_bulwark_fleet_commission
-							while = {
-								count = 20
-								create_ship = {
-									name = random
-									design = "NAME_BULWARK_MEDCORVETTE"
-									graphical_culture = "pirate_01"
-									effect = {
-										add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
-									}
-								}
-							}
-							while = {
-								count = 5
-								create_ship = {
-									name = random
-									design = "NAME_BULWARK_MEDDESTROYER"
-									graphical_culture = "pirate_01"
-									effect = {
-										add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
-									}
-								}
-							}
-							set_location = event_target:bulwark_fleet_commission_goes_here
-							set_fleet_stance = aggressive
-							set_aggro_range_measure_from = self
-							set_aggro_range = 250
-						}
-					}
-				} else_if = {
-					limit = {
-						has_country_flag = bulwark_country_techthree
-						has_country_flag = bulwark_country_numbersone
-					}
-					create_fleet = {
-						settings = {
-							spawn_debris = no
-							can_change_composition = no
-							uses_naval_capacity = no
-							can_upgrade = no
-						}
-						effect = {
-							set_owner = event_target:receiving_bulwark_fleet_commission
-							while = {
-								count = 20
-								create_ship = {
-									name = random
-									design = "NAME_BULWARK_HIGHCORVETTE"
-									graphical_culture = "pirate_01"
-									effect = {
-										add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
-									}
-								}
-							}
-							while = {
-								count = 5
-								create_ship = {
-									name = random
-									design = "NAME_BULWARK_HIGHDESTROYER"
-									graphical_culture = "pirate_01"
-									effect = {
-										add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
-									}
-								}
-							}
-							set_location = event_target:bulwark_fleet_commission_goes_here
-							set_fleet_stance = aggressive
-							set_aggro_range_measure_from = self
-							set_aggro_range = 250
-						}
-					}
-				} else_if = {
-					limit = {
-						has_country_flag = bulwark_country_techfour
-						has_country_flag = bulwark_country_numbersone
-					}
-					create_fleet = {
-						settings = {
-							spawn_debris = no
-							can_change_composition = no
-							uses_naval_capacity = no
-							can_upgrade = no
-						}
-						effect = {
-							set_owner = event_target:receiving_bulwark_fleet_commission
-							while = {
-								count = 20
-								create_ship = {
-									name = random
-									design = "NAME_BULWARK_HIGHERCORVETTE"
-									graphical_culture = "pirate_01"
-									effect = {
-										add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
-									}
-								}
-							}
-							while = {
-								count = 5
-								create_ship = {
-									name = random
-									design = "NAME_BULWARK_HIGHERDESTROYER"
-									graphical_culture = "pirate_01"
-									effect = {
-										add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
-									}
-								}
-							}
-							set_location = event_target:bulwark_fleet_commission_goes_here
-							set_fleet_stance = aggressive
-							set_aggro_range_measure_from = self
-							set_aggro_range = 250
-						}
-					}
-				} else_if = {
-					limit = {
-						has_country_flag = bulwark_country_techfive
-						has_country_flag = bulwark_country_numbersone
-					}
-					create_fleet = {
-						settings = {
-							spawn_debris = no
-							can_change_composition = no
-							uses_naval_capacity = no
-							can_upgrade = no
-						}
-						effect = {
-							set_owner = event_target:receiving_bulwark_fleet_commission
-							while = {
-								count = 20
-								create_ship = {
-									name = random
-									design = "NAME_BULWARK_HIGHESTCORVETTE"
-									graphical_culture = "pirate_01"
-									effect = {
-										add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
-									}
-								}
-							}
-							while = {
-								count = 5
-								create_ship = {
-									name = random
-									design = "NAME_BULWARK_HIGHESTDESTROYER"
-									graphical_culture = "pirate_01"
-									effect = {
-										add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
-									}
-								}
-							}
-							set_location = event_target:bulwark_fleet_commission_goes_here
-							set_fleet_stance = aggressive
-							set_aggro_range_measure_from = self
-							set_aggro_range = 250
-						}
-					}
-				} else_if = {
-					limit = {
-						has_country_flag = bulwark_country_techone
-						has_country_flag = bulwark_country_numberstwo
-					}
-					create_fleet = {
-						settings = {
-							spawn_debris = no
-							can_change_composition = no
-							uses_naval_capacity = no
-							can_upgrade = no
-						}
-						effect = {
-							set_owner = event_target:receiving_bulwark_fleet_commission
-							while = {
-								count = 40
-								create_ship = {
-									name = random
-									design = "NAME_BULWARK_LOWCORVETTE"
-									graphical_culture = "pirate_01"
-									effect = {
-										add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
-									}
-								}
-							}
-							while = {
-								count = 20
-								create_ship = {
-									name = random
-									design = "NAME_BULWARK_LOWDESTROYER"
-									graphical_culture = "pirate_01"
-									effect = {
-										add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
-									}
-								}
-							}
-							set_location = event_target:bulwark_fleet_commission_goes_here
-							set_fleet_stance = aggressive
-							set_aggro_range_measure_from = self
-							set_aggro_range = 250
-						}
-					}
-				} else_if = {
-					limit = {
-						has_country_flag = bulwark_country_techone
-						has_country_flag = bulwark_country_numbersthree
-					}
-					create_fleet = {
-						settings = {
-							spawn_debris = no
-							can_change_composition = no
-							uses_naval_capacity = no
-							can_upgrade = no
-						}
-						effect = {
-							set_owner = event_target:receiving_bulwark_fleet_commission
-							while = {
-								count = 60
-								create_ship = {
-									name = random
-									design = "NAME_BULWARK_LOWCORVETTE"
-									graphical_culture = "pirate_01"
-									effect = {
-										add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
-									}
-								}
-							}
-							while = {
-								count = 35
-								create_ship = {
-									name = random
-									design = "NAME_BULWARK_LOWDESTROYER"
-									graphical_culture = "pirate_01"
-									effect = {
-										add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
-									}
-								}
-							}
-							set_location = event_target:bulwark_fleet_commission_goes_here
-							set_fleet_stance = aggressive
-							set_aggro_range_measure_from = self
-							set_aggro_range = 250
-						}
-					}
-				} else_if = {
-					limit = {
-						has_country_flag = bulwark_country_techone
-						has_country_flag = bulwark_country_numbersfour
-					}
-					create_fleet = {
-						settings = {
-							spawn_debris = no
-							can_change_composition = no
-							uses_naval_capacity = no
-							can_upgrade = no
-						}
-						effect = {
-							set_owner = event_target:receiving_bulwark_fleet_commission
-							while = {
-								count = 80
-								create_ship = {
-									name = random
-									design = "NAME_BULWARK_LOWCORVETTE"
-									graphical_culture = "pirate_01"
-									effect = {
-										add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
-									}
-								}
-							}
-							while = {
-								count = 50
-								create_ship = {
-									name = random
-									design = "NAME_BULWARK_LOWDESTROYER"
-									graphical_culture = "pirate_01"
-									effect = {
-										add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
-									}
-								}
-							}
-							set_location = event_target:bulwark_fleet_commission_goes_here
-							set_fleet_stance = aggressive
-							set_aggro_range_measure_from = self
-							set_aggro_range = 250
-						}
-					}
-				} else_if = {
-					limit = {
-						has_country_flag = bulwark_country_techone
-						has_country_flag = bulwark_country_numbersfive
-					}
-					create_fleet = {
-						settings = {
-							spawn_debris = no
-							can_change_composition = no
-							uses_naval_capacity = no
-							can_upgrade = no
-						}
-						effect = {
-							set_owner = event_target:receiving_bulwark_fleet_commission
-							while = {
-								count = 100
-								create_ship = {
-									name = random
-									design = "NAME_BULWARK_LOWCORVETTE"
-									graphical_culture = "pirate_01"
-									effect = {
-										add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
-									}
-								}
-							}
-							while = {
-								count = 65
-								create_ship = {
-									name = random
-									design = "NAME_BULWARK_LOWDESTROYER"
-									graphical_culture = "pirate_01"
-									effect = {
-										add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
-									}
-								}
-							}
-							set_location = event_target:bulwark_fleet_commission_goes_here
-							set_fleet_stance = aggressive
-							set_aggro_range_measure_from = self
-							set_aggro_range = 250
-						}
-					}
-				} else_if = {
-					limit = {
-						has_country_flag = bulwark_country_techtwo
-						has_country_flag = bulwark_country_numberstwo
-					}
-					create_fleet = {
-						settings = {
-							spawn_debris = no
-							can_change_composition = no
-							uses_naval_capacity = no
-							can_upgrade = no
-						}
-						effect = {
-							set_owner = event_target:receiving_bulwark_fleet_commission
-							while = {
-								count = 40
-								create_ship = {
-									name = random
-									design = "NAME_BULWARK_MEDCORVETTE"
-									graphical_culture = "pirate_01"
-									effect = {
-										add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
-									}
-								}
-							}
-							while = {
-								count = 20
-								create_ship = {
-									name = random
-									design = "NAME_BULWARK_MEDDESTROYER"
-									graphical_culture = "pirate_01"
-									effect = {
-										add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
-									}
-								}
-							}
-							while = {
-								count = 10
-								create_ship = {
-									name = random
-									design = "NAME_BULWARK_LOWCRUISER"
-									graphical_culture = "pirate_01"
-									effect = {
-										add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
-									}
-								}
-							}
-							set_location = event_target:bulwark_fleet_commission_goes_here
-							set_fleet_stance = aggressive
-							set_aggro_range_measure_from = self
-							set_aggro_range = 250
-						}
-					}
-				} else_if = {
-					limit = {
-						has_country_flag = bulwark_country_techtwo
-						has_country_flag = bulwark_country_numbersthree
-					}
-					create_fleet = {
-						settings = {
-							spawn_debris = no
-							can_change_composition = no
-							uses_naval_capacity = no
-							can_upgrade = no
-						}
-						effect = {
-							set_owner = event_target:receiving_bulwark_fleet_commission
-							while = {
-								count = 60
-								create_ship = {
-									name = random
-									design = "NAME_BULWARK_MEDCORVETTE"
-									graphical_culture = "pirate_01"
-									effect = {
-										add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
-									}
-								}
-							}
-							while = {
-								count = 35
-								create_ship = {
-									name = random
-									design = "NAME_BULWARK_MEDDESTROYER"
-									graphical_culture = "pirate_01"
-									effect = {
-										add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
-									}
-								}
-							}
-							while = {
-								count = 20
-								create_ship = {
-									name = random
-									design = "NAME_BULWARK_LOWCRUISER"
-									graphical_culture = "pirate_01"
-									effect = {
-										add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
-									}
-								}
-							}
-							set_location = event_target:bulwark_fleet_commission_goes_here
-							set_fleet_stance = aggressive
-							set_aggro_range_measure_from = self
-							set_aggro_range = 250
-						}
-					}
-				} else_if = {
-					limit = {
-						has_country_flag = bulwark_country_techtwo
-						has_country_flag = bulwark_country_numbersfour
-					}
-					create_fleet = {
-						settings = {
-							spawn_debris = no
-							can_change_composition = no
-							uses_naval_capacity = no
-							can_upgrade = no
-						}
-						effect = {
-							set_owner = event_target:receiving_bulwark_fleet_commission
-							while = {
-								count = 80
-								create_ship = {
-									name = random
-									design = "NAME_BULWARK_MEDCORVETTE"
-									graphical_culture = "pirate_01"
-									effect = {
-										add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
-									}
-								}
-							}
-							while = {
-								count = 50
-								create_ship = {
-									name = random
-									design = "NAME_BULWARK_MEDDESTROYER"
-									graphical_culture = "pirate_01"
-									effect = {
-										add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
-									}
-								}
-							}
-							while = {
-								count = 30
-								create_ship = {
-									name = random
-									design = "NAME_BULWARK_LOWCRUISER"
-									graphical_culture = "pirate_01"
-									effect = {
-										add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
-									}
-								}
-							}
-							set_location = event_target:bulwark_fleet_commission_goes_here
-							set_fleet_stance = aggressive
-							set_aggro_range_measure_from = self
-							set_aggro_range = 250
-						}
-					}
-				} else_if = {
-					limit = {
-						has_country_flag = bulwark_country_techtwo
-						has_country_flag = bulwark_country_numbersfive
-					}
-					create_fleet = {
-						settings = {
-							spawn_debris = no
-							can_change_composition = no
-							uses_naval_capacity = no
-							can_upgrade = no
-						}
-						effect = {
-							set_owner = event_target:receiving_bulwark_fleet_commission
-							while = {
-								count = 100
-								create_ship = {
-									name = random
-									design = "NAME_BULWARK_MEDCORVETTE"
-									graphical_culture = "pirate_01"
-									effect = {
-										add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
-									}
-								}
-							}
-							while = {
-								count = 65
-								create_ship = {
-									name = random
-									design = "NAME_BULWARK_MEDDESTROYER"
-									graphical_culture = "pirate_01"
-									effect = {
-										add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
-									}
-								}
-							}
-							while = {
-								count = 40
-								create_ship = {
-									name = random
-									design = "NAME_BULWARK_LOWCRUISER"
-									graphical_culture = "pirate_01"
-									effect = {
-										add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
-									}
-								}
-							}
-							set_location = event_target:bulwark_fleet_commission_goes_here
-							set_fleet_stance = aggressive
-							set_aggro_range_measure_from = self
-							set_aggro_range = 250
-						}
-					}
-				} else_if = {
-					limit = {
-						has_country_flag = bulwark_country_techthree
-						has_country_flag = bulwark_country_numberstwo
-					}
-					create_fleet = {
-						settings = {
-							spawn_debris = no
-							can_change_composition = no
-							uses_naval_capacity = no
-							can_upgrade = no
-						}
-						effect = {
-							set_owner = event_target:receiving_bulwark_fleet_commission
-							while = {
-								count = 40
-								create_ship = {
-									name = random
-									design = "NAME_BULWARK_HIGHCORVETTE"
-									graphical_culture = "pirate_01"
-									effect = {
-										add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
-									}
-								}
-							}
-							while = {
-								count = 20
-								create_ship = {
-									name = random
-									design = "NAME_BULWARK_HIGHDESTROYER"
-									graphical_culture = "pirate_01"
-									effect = {
-										add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
-									}
-								}
-							}
-							while = {
-								count = 10
-								create_ship = {
-									name = random
-									design = "NAME_BULWARK_MEDCRUISER"
-									graphical_culture = "pirate_01"
-									effect = {
-										add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
-									}
-								}
-							}
-							while = {
-								count = 5
-								create_ship = {
-									name = random
-									design = "NAME_BULWARK_LOWBATTLESHIP"
-									graphical_culture = "pirate_01"
-									effect = {
-										add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
-									}
-								}
-							}
-							set_location = event_target:bulwark_fleet_commission_goes_here
-							set_fleet_stance = aggressive
-							set_aggro_range_measure_from = self
-							set_aggro_range = 250
-						}
-					}
-				} else_if = {
-					limit = {
-						has_country_flag = bulwark_country_techthree
-						has_country_flag = bulwark_country_numbersthree
-					}
-					create_fleet = {
-						settings = {
-							spawn_debris = no
-							can_change_composition = no
-							uses_naval_capacity = no
-							can_upgrade = no
-						}
-						effect = {
-							set_owner = event_target:receiving_bulwark_fleet_commission
-							while = {
-								count = 60
-								create_ship = {
-									name = random
-									design = "NAME_BULWARK_HIGHCORVETTE"
-									graphical_culture = "pirate_01"
-									effect = {
-										add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
-									}
-								}
-							}
-							while = {
-								count = 35
-								create_ship = {
-									name = random
-									design = "NAME_BULWARK_HIGHDESTROYER"
-									graphical_culture = "pirate_01"
-									effect = {
-										add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
-									}
-								}
-							}
-							while = {
-								count = 20
-								create_ship = {
-									name = random
-									design = "NAME_BULWARK_MEDCRUISER"
-									graphical_culture = "pirate_01"
-									effect = {
-										add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
-									}
-								}
-							}
-							while = {
-								count = 10
-								create_ship = {
-									name = random
-									design = "NAME_BULWARK_LOWBATTLESHIP"
-									graphical_culture = "pirate_01"
-									effect = {
-										add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
-									}
-								}
-							}
-							set_location = event_target:bulwark_fleet_commission_goes_here
-							set_fleet_stance = aggressive
-							set_aggro_range_measure_from = self
-							set_aggro_range = 250
-						}
-					}
-				} else_if = {
-					limit = {
-						has_country_flag = bulwark_country_techthree
-						has_country_flag = bulwark_country_numbersfour
-					}
-					create_fleet = {
-						settings = {
-							spawn_debris = no
-							can_change_composition = no
-							uses_naval_capacity = no
-							can_upgrade = no
-						}
-						effect = {
-							set_owner = event_target:receiving_bulwark_fleet_commission
-							while = {
-								count = 80
-								create_ship = {
-									name = random
-									design = "NAME_BULWARK_HIGHCORVETTE"
-									graphical_culture = "pirate_01"
-									effect = {
-										add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
-									}
-								}
-							}
-							while = {
-								count = 50
-								create_ship = {
-									name = random
-									design = "NAME_BULWARK_HIGHDESTROYER"
-									graphical_culture = "pirate_01"
-									effect = {
-										add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
-									}
-								}
-							}
-							while = {
-								count = 30
-								create_ship = {
-									name = random
-									design = "NAME_BULWARK_MEDCRUISER"
-									graphical_culture = "pirate_01"
-									effect = {
-										add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
-									}
-								}
-							}
-							while = {
-								count = 15
-								create_ship = {
-									name = random
-									design = "NAME_BULWARK_LOWBATTLESHIP"
-									graphical_culture = "pirate_01"
-									effect = {
-										add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
-									}
-								}
-							}
-							set_location = event_target:bulwark_fleet_commission_goes_here
-							set_fleet_stance = aggressive
-							set_aggro_range_measure_from = self
-							set_aggro_range = 250
-						}
-					}
-				} else_if = {
-					limit = {
-						has_country_flag = bulwark_country_techthree
-						has_country_flag = bulwark_country_numbersfive
-					}
-					create_fleet = {
-						settings = {
-							spawn_debris = no
-							can_change_composition = no
-							uses_naval_capacity = no
-							can_upgrade = no
-						}
-						effect = {
-							set_owner = event_target:receiving_bulwark_fleet_commission
-							while = {
-								count = 100
-								create_ship = {
-									name = random
-									design = "NAME_BULWARK_HIGHCORVETTE"
-									graphical_culture = "pirate_01"
-									effect = {
-										add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
-									}
-								}
-							}
-							while = {
-								count = 65
-								create_ship = {
-									name = random
-									design = "NAME_BULWARK_HIGHDESTROYER"
-									graphical_culture = "pirate_01"
-									effect = {
-										add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
-									}
-								}
-							}
-							while = {
-								count = 40
-								create_ship = {
-									name = random
-									design = "NAME_BULWARK_MEDCRUISER"
-									graphical_culture = "pirate_01"
-									effect = {
-										add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
-									}
-								}
-							}
-							while = {
-								count = 20
-								create_ship = {
-									name = random
-									design = "NAME_BULWARK_LOWBATTLESHIP"
-									graphical_culture = "pirate_01"
-									effect = {
-										add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
-									}
-								}
-							}
-							set_location = event_target:bulwark_fleet_commission_goes_here
-							set_fleet_stance = aggressive
-							set_aggro_range_measure_from = self
-							set_aggro_range = 250
-						}
-					}
-				} else_if = {
-					limit = {
-						has_country_flag = bulwark_country_techfour
-						has_country_flag = bulwark_country_numberstwo
-					}
-					create_fleet = {
-						settings = {
-							spawn_debris = no
-							can_change_composition = no
-							uses_naval_capacity = no
-							can_upgrade = no
-						}
-						effect = {
-							set_owner = event_target:receiving_bulwark_fleet_commission
-							while = {
-								count = 40
-								create_ship = {
-									name = random
-									design = "NAME_BULWARK_HIGHERCORVETTE"
-									graphical_culture = "pirate_01"
-									effect = {
-										add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
-									}
-								}
-							}
-							while = {
-								count = 20
-								create_ship = {
-									name = random
-									design = "NAME_BULWARK_HIGHERDESTROYER"
-									graphical_culture = "pirate_01"
-									effect = {
-										add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
-									}
-								}
-							}
-							while = {
-								count = 10
-								create_ship = {
-									name = random
-									design = "NAME_BULWARK_HIGHCRUISER"
-									graphical_culture = "pirate_01"
-									effect = {
-										add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
-									}
-								}
-							}
-							while = {
-								count = 5
-								create_ship = {
-									name = random
-									design = "NAME_BULWARK_MEDBATTLESHIP"
-									graphical_culture = "pirate_01"
-									effect = {
-										add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
-									}
-								}
-							}
-							set_location = event_target:bulwark_fleet_commission_goes_here
-							set_fleet_stance = aggressive
-							set_aggro_range_measure_from = self
-							set_aggro_range = 250
-						}
-					}
-				} else_if = {
-					limit = {
-						has_country_flag = bulwark_country_techfour
-						has_country_flag = bulwark_country_numbersthree
-					}
-					create_fleet = {
-						settings = {
-							spawn_debris = no
-							can_change_composition = no
-							uses_naval_capacity = no
-							can_upgrade = no
-						}
-						effect = {
-							set_owner = event_target:receiving_bulwark_fleet_commission
-							while = {
-								count = 60
-								create_ship = {
-									name = random
-									design = "NAME_BULWARK_HIGHERCORVETTE"
-									graphical_culture = "pirate_01"
-									effect = {
-										add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
-									}
-								}
-							}
-							while = {
-								count = 35
-								create_ship = {
-									name = random
-									design = "NAME_BULWARK_HIGHERDESTROYER"
-									graphical_culture = "pirate_01"
-									effect = {
-										add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
-									}
-								}
-							}
-							while = {
-								count = 20
-								create_ship = {
-									name = random
-									design = "NAME_BULWARK_HIGHCRUISER"
-									graphical_culture = "pirate_01"
-									effect = {
-										add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
-									}
-								}
-							}
-							while = {
-								count = 10
-								create_ship = {
-									name = random
-									design = "NAME_BULWARK_MEDBATTLESHIP"
-									graphical_culture = "pirate_01"
-									effect = {
-										add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
-									}
-								}
-							}
-							set_location = event_target:bulwark_fleet_commission_goes_here
-							set_fleet_stance = aggressive
-							set_aggro_range_measure_from = self
-							set_aggro_range = 250
-						}
-					}
-				} else_if = {
-					limit = {
-						has_country_flag = bulwark_country_techfour
-						has_country_flag = bulwark_country_numbersfour
-					}
-					create_fleet = {
-						settings = {
-							spawn_debris = no
-							can_change_composition = no
-							uses_naval_capacity = no
-							can_upgrade = no
-						}
-						effect = {
-							set_owner = event_target:receiving_bulwark_fleet_commission
-							while = {
-								count = 80
-								create_ship = {
-									name = random
-									design = "NAME_BULWARK_HIGHERCORVETTE"
-									graphical_culture = "pirate_01"
-									effect = {
-										add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
-									}
-								}
-							}
-							while = {
-								count = 50
-								create_ship = {
-									name = random
-									design = "NAME_BULWARK_HIGHERDESTROYER"
-									graphical_culture = "pirate_01"
-									effect = {
-										add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
-									}
-								}
-							}
-							while = {
-								count = 30
-								create_ship = {
-									name = random
-									design = "NAME_BULWARK_HIGHCRUISER"
-									graphical_culture = "pirate_01"
-									effect = {
-										add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
-									}
-								}
-							}
-							while = {
-								count = 15
-								create_ship = {
-									name = random
-									design = "NAME_BULWARK_MEDBATTLESHIP"
-									graphical_culture = "pirate_01"
-									effect = {
-										add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
-									}
-								}
-							}
-							set_location = event_target:bulwark_fleet_commission_goes_here
-							set_fleet_stance = aggressive
-							set_aggro_range_measure_from = self
-							set_aggro_range = 250
-						}
-					}
-				} else_if = {
-					limit = {
-						has_country_flag = bulwark_country_techfour
-						has_country_flag = bulwark_country_numbersfive
-					}
-					create_fleet = {
-						settings = {
-							spawn_debris = no
-							can_change_composition = no
-							uses_naval_capacity = no
-							can_upgrade = no
-						}
-						effect = {
-							set_owner = event_target:receiving_bulwark_fleet_commission
-							while = {
-								count = 100
-								create_ship = {
-									name = random
-									design = "NAME_BULWARK_HIGHERCORVETTE"
-									graphical_culture = "pirate_01"
-									effect = {
-										add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
-									}
-								}
-							}
-							while = {
-								count = 65
-								create_ship = {
-									name = random
-									design = "NAME_BULWARK_HIGHERDESTROYER"
-									graphical_culture = "pirate_01"
-									effect = {
-										add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
-									}
-								}
-							}
-							while = {
-								count = 40
-								create_ship = {
-									name = random
-									design = "NAME_BULWARK_HIGHCRUISER"
-									graphical_culture = "pirate_01"
-									effect = {
-										add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
-									}
-								}
-							}
-							while = {
-								count = 20
-								create_ship = {
-									name = random
-									design = "NAME_BULWARK_MEDBATTLESHIP"
-									graphical_culture = "pirate_01"
-									effect = {
-										add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
-									}
-								}
-							}
-							set_location = event_target:bulwark_fleet_commission_goes_here
-							set_fleet_stance = aggressive
-							set_aggro_range_measure_from = self
-							set_aggro_range = 250
-						}
-					}
-				} else_if = {
-					limit = {
-						has_country_flag = bulwark_country_techfive
-						has_country_flag = bulwark_country_numberstwo
-					}
-					create_fleet = {
-						settings = {
-							spawn_debris = no
-							can_change_composition = no
-							uses_naval_capacity = no
-							can_upgrade = no
-						}
-						effect = {
-							set_owner = event_target:receiving_bulwark_fleet_commission
-							while = {
-								count = 40
-								create_ship = {
-									name = random
-									design = "NAME_BULWARK_HIGHESTCORVETTE"
-									graphical_culture = "pirate_01"
-									effect = {
-										add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
-									}
-								}
-							}
-							while = {
-								count = 20
-								create_ship = {
-									name = random
-									design = "NAME_BULWARK_HIGHESTDESTROYER"
-									graphical_culture = "pirate_01"
-									effect = {
-										add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
-									}
-								}
-							}
-							while = {
-								count = 10
-								create_ship = {
-									name = random
-									design = "NAME_BULWARK_HIGHESTCRUISER"
-									graphical_culture = "pirate_01"
-									effect = {
-										add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
-									}
-								}
-							}
-							while = {
-								count = 5
-								create_ship = {
-									name = random
-									design = "NAME_BULWARK_HIGHESTBATTLESHIP"
-									graphical_culture = "pirate_01"
-									effect = {
-										add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
-									}
-								}
-							}
-							set_location = event_target:bulwark_fleet_commission_goes_here
-							set_fleet_stance = aggressive
-							set_aggro_range_measure_from = self
-							set_aggro_range = 250
-						}
-					}
-				} else_if = {
-					limit = {
-						has_country_flag = bulwark_country_techfive
-						has_country_flag = bulwark_country_numbersthree
-					}
-					create_fleet = {
-						settings = {
-							spawn_debris = no
-							can_change_composition = no
-							uses_naval_capacity = no
-							can_upgrade = no
-						}
-						effect = {
-							set_owner = event_target:receiving_bulwark_fleet_commission
-							while = {
-								count = 60
-								create_ship = {
-									name = random
-									design = "NAME_BULWARK_HIGHESTCORVETTE"
-									graphical_culture = "pirate_01"
-									effect = {
-										add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
-									}
-								}
-							}
-							while = {
-								count = 35
-								create_ship = {
-									name = random
-									design = "NAME_BULWARK_HIGHESTDESTROYER"
-									graphical_culture = "pirate_01"
-									effect = {
-										add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
-									}
-								}
-							}
-							while = {
-								count = 20
-								create_ship = {
-									name = random
-									design = "NAME_BULWARK_HIGHESTCRUISER"
-									graphical_culture = "pirate_01"
-									effect = {
-										add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
-									}
-								}
-							}
-							while = {
-								count = 10
-								create_ship = {
-									name = random
-									design = "NAME_BULWARK_HIGHESTBATTLESHIP"
-									graphical_culture = "pirate_01"
-									effect = {
-										add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
-									}
-								}
-							}
-							set_location = event_target:bulwark_fleet_commission_goes_here
-							set_fleet_stance = aggressive
-							set_aggro_range_measure_from = self
-							set_aggro_range = 250
-						}
-					}
-				} else_if = {
-					limit = {
-						has_country_flag = bulwark_country_techfive
-						has_country_flag = bulwark_country_numbersfour
-					}
-					create_fleet = {
-						settings = {
-							spawn_debris = no
-							can_change_composition = no
-							uses_naval_capacity = no
-							can_upgrade = no
-						}
-						effect = {
-							set_owner = event_target:receiving_bulwark_fleet_commission
-							while = {
-								count = 80
-								create_ship = {
-									name = random
-									design = "NAME_BULWARK_HIGHESTCORVETTE"
-									graphical_culture = "pirate_01"
-									effect = {
-										add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
-									}
-								}
-							}
-							while = {
-								count = 50
-								create_ship = {
-									name = random
-									design = "NAME_BULWARK_HIGHESTDESTROYER"
-									graphical_culture = "pirate_01"
-									effect = {
-										add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
-									}
-								}
-							}
-							while = {
-								count = 30
-								create_ship = {
-									name = random
-									design = "NAME_BULWARK_HIGHESTCRUISER"
-									graphical_culture = "pirate_01"
-									effect = {
-										add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
-									}
-								}
-							}
-							while = {
-								count = 15
-								create_ship = {
-									name = random
-									design = "NAME_BULWARK_HIGHESTBATTLESHIP"
-									graphical_culture = "pirate_01"
-									effect = {
-										add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
-									}
-								}
-							}
-							set_location = event_target:bulwark_fleet_commission_goes_here
-							set_fleet_stance = aggressive
-							set_aggro_range_measure_from = self
-							set_aggro_range = 250
-						}
-					}
-				} else_if = {
-					limit = {
-						has_country_flag = bulwark_country_techfive
-						has_country_flag = bulwark_country_numbersfive
-					}
-					create_fleet = {
-						settings = {
-							spawn_debris = no
-							can_change_composition = no
-							uses_naval_capacity = no
-							can_upgrade = no
-						}
-						effect = {
-							set_owner = event_target:receiving_bulwark_fleet_commission
-							while = {
-								count = 100
-								create_ship = {
-									name = random
-									design = "NAME_BULWARK_HIGHESTCORVETTE"
-									graphical_culture = "pirate_01"
-									effect = {
-										add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
-									}
-								}
-							}
-							while = {
-								count = 65
-								create_ship = {
-									name = random
-									design = "NAME_BULWARK_HIGHESTDESTROYER"
-									graphical_culture = "pirate_01"
-									effect = {
-										add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
-									}
-								}
-							}
-							while = {
-								count = 40
-								create_ship = {
-									name = random
-									design = "NAME_BULWARK_HIGHESTCRUISER"
-									graphical_culture = "pirate_01"
-									effect = {
-										add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
-									}
-								}
-							}
-							while = {
-								count = 20
-								create_ship = {
-									name = random
-									design = "NAME_BULWARK_HIGHESTBATTLESHIP"
-									graphical_culture = "pirate_01"
-									effect = {
-										add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
-									}
-								}
-							}
-							set_location = event_target:bulwark_fleet_commission_goes_here
-							set_fleet_stance = aggressive
-							set_aggro_range_measure_from = self
-							set_aggro_range = 250
-						}
+						set_location = event_target:bulwark_fleet_commission_goes_here
+						set_fleet_stance = aggressive
+						set_aggro_range_measure_from = self
+						set_aggro_range = 250
 					}
 				}
 			}
@@ -2230,1387 +1082,218 @@ country_event = {
 			}
 		}
 		allow = {
-			resource_stockpile_compare = { resource = energy value >= 12500 }
+			resource_stockpile_compare = { resource = energy value > 12500 }
 			hidden_trigger = {
 				NOT = {
 					event_target:current_bulwark_diplomacy = { has_country_flag = bulwark_commissioned_fleet_recently }
 				}
 			}
 		}
-		set_timed_country_flag = { flag = bulwark_commissioned_fleet_recently_safeguard days = 2 }
+		set_timed_country_flag = { flag = bulwark_commissioned_fleet_recently_safeguard days = 3 }
 		set_timed_country_flag = { flag = bulwark_commissioned_fleet_recently_target days = 900 }
 		add_resource = { energy = -12500 }
 		hidden_effect = {
-			random_country = {
+			random_playable_country = {
 				limit = { has_country_flag = bulwark_commissioned_fleet_recently_safeguard }
 				save_event_target_as = receiving_bulwark_fleet_commission
 			}
-			event_target:receiving_bulwark_fleet_commission = {
-				random_owned_planet = {
-					limit = { is_capital = yes }
-					save_event_target_as = bulwark_fleet_commission_goes_here
-				}
-			}
 			event_target:current_bulwark_diplomacy = {
+				random_system_within_border = {
+					# limit = { }
+					if = {
+						limit = {
+							closest_system = {
+								limit = { space_owner = { is_same_empire = event_target:receiving_bulwark_fleet_commission } }
+								min_steps = 1
+								max_steps = 50
+								use_bypasses = no
+							}
+						}
+						closest_system = {
+							min_steps = 1
+							max_steps = 50
+							use_bypasses = no
+							limit = { space_owner = { is_same_empire = event_target:receiving_bulwark_fleet_commission } }
+							save_event_target_as = bulwark_fleet_commission_goes_here
+						}
+					} else = {
+						event_target:receiving_bulwark_fleet_commission = {
+							random_owned_planet = {
+								limit = { is_colony = yes num_pops > 5 }
+								weights = { base = 1 modifier = { add = 2 is_capital = yes } }
+								save_event_target_as = bulwark_fleet_commission_goes_here
+							}
+						}
+					}
+				}
 				set_timed_country_flag = { flag = bulwark_commissioned_fleet_recently days = 2700 }
 				change_variable = { which = bulwarkbudget value = 625 }
-				if = {
-					limit = {
-						has_country_flag = bulwark_country_techone
-						has_country_flag = bulwark_country_numbersone
+				create_fleet = {
+					settings = {
+						spawn_debris = no
+						can_change_composition = no
+						uses_naval_capacity = no
+						can_upgrade = no
 					}
-					create_fleet = {
-						settings = {
-							spawn_debris = no
-							can_change_composition = no
-							uses_naval_capacity = no
-							can_upgrade = no
+					effect = {
+						set_owner = event_target:receiving_bulwark_fleet_commission
+						prev = {
+							if = {
+								limit = {
+									has_country_flag = bulwark_country_techone
+									has_country_flag = bulwark_country_numbersone
+								}
+								create_dyn_bulwark_fleet = { LOWCORVETTE = 30 LOWDESTROYER = 15 }
+							} else_if = {
+								limit = {
+									has_country_flag = bulwark_country_techtwo
+									has_country_flag = bulwark_country_numbersone
+								}
+								create_dyn_bulwark_fleet = { MEDCORVETTE = 30 MEDDESTROYER = 15 }
+							} else_if = {
+								limit = {
+									has_country_flag = bulwark_country_techthree
+									has_country_flag = bulwark_country_numbersone
+								}
+								create_dyn_bulwark_fleet = { HIGHCORVETTE = 30 HIGHDESTROYER = 15 }
+							} else_if = {
+								limit = {
+									has_country_flag = bulwark_country_techfour
+									has_country_flag = bulwark_country_numbersone
+								}
+								create_dyn_bulwark_fleet = { HIGHERCORVETTE = 30 HIGHERDESTROYER = 15 }
+							} else_if = {
+								limit = {
+									has_country_flag = bulwark_country_techfive
+									has_country_flag = bulwark_country_numbersone
+								}
+								create_dyn_bulwark_fleet = { HIGHESTCORVETTE = 30 HIGHESTDESTROYER = 15 }
+							} else_if = {
+								limit = {
+									has_country_flag = bulwark_country_techone
+									has_country_flag = bulwark_country_numberstwo
+								}
+								create_dyn_bulwark_fleet = { LOWCORVETTE = 50 LOWDESTROYER = 30 }
+							} else_if = {
+								limit = {
+									has_country_flag = bulwark_country_techone
+									has_country_flag = bulwark_country_numbersthree
+								}
+								create_dyn_bulwark_fleet = { LOWCORVETTE = 70 LOWDESTROYER = 45 }
+							} else_if = {
+								limit = {
+									has_country_flag = bulwark_country_techone
+									has_country_flag = bulwark_country_numbersfour
+								}
+								create_dyn_bulwark_fleet = { LOWCORVETTE = 90 LOWDESTROYER = 60 }
+							} else_if = {
+								limit = {
+									has_country_flag = bulwark_country_techone
+									has_country_flag = bulwark_country_numbersfive
+								}
+								create_dyn_bulwark_fleet = { LOWCORVETTE = 110 LOWDESTROYER = 75 }
+							} else_if = {
+								limit = {
+									has_country_flag = bulwark_country_techtwo
+									has_country_flag = bulwark_country_numberstwo
+								}
+								create_dyn_bulwark_fleet = { MEDCORVETTE = 50 MEDDESTROYER = 30 LOWCRUISER = 10 }
+							} else_if = {
+								limit = {
+									has_country_flag = bulwark_country_techtwo
+									has_country_flag = bulwark_country_numbersthree
+								}
+								create_dyn_bulwark_fleet = { MEDCORVETTE = 70 MEDDESTROYER = 45 LOWCRUISER = 20 }
+							} else_if = {
+								limit = {
+									has_country_flag = bulwark_country_techtwo
+									has_country_flag = bulwark_country_numbersfour
+								}
+								create_dyn_bulwark_fleet = { MEDCORVETTE = 90 MEDDESTROYER = 60 LOWCRUISER = 30 }
+							} else_if = {
+								limit = {
+									has_country_flag = bulwark_country_techtwo
+									has_country_flag = bulwark_country_numbersfive
+								}
+								create_dyn_bulwark_fleet = { MEDCORVETTE = 110 MEDDESTROYER = 75 LOWCRUISER = 40 }
+							} else_if = {
+								limit = {
+									has_country_flag = bulwark_country_techthree
+									has_country_flag = bulwark_country_numberstwo
+								}
+								create_dyn_bulwark_fleet = { HIGHCORVETTE = 50 HIGHDESTROYER = 30 MEDCRUISER = 10 LOWBATTLESHIP = 5 }
+							} else_if = {
+								limit = {
+									has_country_flag = bulwark_country_techthree
+									has_country_flag = bulwark_country_numbersthree
+								}
+								create_dyn_bulwark_fleet = { HIGHCORVETTE = 70 HIGHDESTROYER = 45 MEDCRUISER = 20 LOWBATTLESHIP = 10 }
+							} else_if = {
+								limit = {
+									has_country_flag = bulwark_country_techthree
+									has_country_flag = bulwark_country_numbersfour
+								}
+								create_dyn_bulwark_fleet = { HIGHCORVETTE = 90 HIGHDESTROYER = 60 MEDCRUISER = 30 LOWBATTLESHIP = 15 }
+							} else_if = {
+								limit = {
+									has_country_flag = bulwark_country_techthree
+									has_country_flag = bulwark_country_numbersfive
+								}
+								create_dyn_bulwark_fleet = { HIGHCORVETTE = 110 HIGHDESTROYER = 75 MEDCRUISER = 40 LOWBATTLESHIP = 20 }
+							} else_if = {
+								limit = {
+									has_country_flag = bulwark_country_techfour
+									has_country_flag = bulwark_country_numberstwo
+								}
+								create_dyn_bulwark_fleet = { HIGHERCORVETTE = 50 HIGHERDESTROYER = 30 HIGHCRUISER = 10 MEDBATTLESHIP = 5 }
+							} else_if = {
+								limit = {
+									has_country_flag = bulwark_country_techfour
+									has_country_flag = bulwark_country_numbersthree
+								}
+								create_dyn_bulwark_fleet = { HIGHERCORVETTE = 70 HIGHERDESTROYER = 45 HIGHCRUISER = 20 MEDBATTLESHIP = 10 }
+							} else_if = {
+								limit = {
+									has_country_flag = bulwark_country_techfour
+									has_country_flag = bulwark_country_numbersfour
+								}
+								create_dyn_bulwark_fleet = { HIGHERCORVETTE = 90 HIGHERDESTROYER = 60 HIGHCRUISER = 30 MEDBATTLESHIP = 15 }
+							} else_if = {
+								limit = {
+									has_country_flag = bulwark_country_techfour
+									has_country_flag = bulwark_country_numbersfive
+								}
+								create_dyn_bulwark_fleet = { HIGHERCORVETTE = 110 HIGHERDESTROYER = 75 HIGHCRUISER = 40 MEDBATTLESHIP = 20 }
+							} else_if = {
+								limit = {
+									has_country_flag = bulwark_country_techfive
+									has_country_flag = bulwark_country_numberstwo
+								}
+								create_dyn_bulwark_fleet = { HIGHESTCORVETTE = 50 HIGHESTDESTROYER = 30 HIGHESTCRUISER = 10 HIGHESTBATTLESHIP = 5 }
+							} else_if = {
+								limit = {
+									has_country_flag = bulwark_country_techfive
+									has_country_flag = bulwark_country_numbersthree
+								}
+								create_dyn_bulwark_fleet = { HIGHESTCORVETTE = 70 HIGHESTDESTROYER = 45 HIGHESTCRUISER = 20 HIGHESTBATTLESHIP = 10 }
+							} else_if = {
+								limit = {
+									has_country_flag = bulwark_country_techfive
+									has_country_flag = bulwark_country_numbersfour
+								}
+								create_dyn_bulwark_fleet = { HIGHESTCORVETTE = 90 HIGHESTDESTROYER = 60 HIGHESTCRUISER = 30 HIGHESTBATTLESHIP = 15 }
+							} else_if = {
+								limit = {
+									has_country_flag = bulwark_country_techfive
+									has_country_flag = bulwark_country_numbersfive
+								}
+								create_dyn_bulwark_fleet = { HIGHESTCORVETTE = 110 HIGHESTDESTROYER = 75 HIGHESTCRUISER = 40 HIGHESTBATTLESHIP = 20 }
+							}
 						}
-						effect = {
-							set_owner = event_target:receiving_bulwark_fleet_commission
-							while = {
-								count = 30
-								create_ship = {
-									name = random
-									design = "NAME_BULWARK_LOWCORVETTE"
-									graphical_culture = "pirate_01"
-									effect = {
-										add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
-									}
-								}
-							}
-							while = {
-								count = 15
-								create_ship = {
-									name = random
-									design = "NAME_BULWARK_LOWDESTROYER"
-									graphical_culture = "pirate_01"
-									effect = {
-										add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
-									}
-								}
-							}
-							set_location = event_target:bulwark_fleet_commission_goes_here
-							set_fleet_stance = aggressive
-							set_aggro_range_measure_from = self
-							set_aggro_range = 250
-						}
-					}
-				} else_if = {
-					limit = {
-						has_country_flag = bulwark_country_techtwo
-						has_country_flag = bulwark_country_numbersone
-					}
-					create_fleet = {
-						settings = {
-							spawn_debris = no
-							can_change_composition = no
-							uses_naval_capacity = no
-							can_upgrade = no
-						}
-						effect = {
-							set_owner = event_target:receiving_bulwark_fleet_commission
-							while = {
-								count = 30
-								create_ship = {
-									name = random
-									design = "NAME_BULWARK_MEDCORVETTE"
-									graphical_culture = "pirate_01"
-									effect = {
-										add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
-									}
-								}
-							}
-							while = {
-								count = 15
-								create_ship = {
-									name = random
-									design = "NAME_BULWARK_MEDDESTROYER"
-									graphical_culture = "pirate_01"
-									effect = {
-										add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
-									}
-								}
-							}
-							set_location = event_target:bulwark_fleet_commission_goes_here
-							set_fleet_stance = aggressive
-							set_aggro_range_measure_from = self
-							set_aggro_range = 250
-						}
-					}
-				} else_if = {
-					limit = {
-						has_country_flag = bulwark_country_techthree
-						has_country_flag = bulwark_country_numbersone
-					}
-					create_fleet = {
-						settings = {
-							spawn_debris = no
-							can_change_composition = no
-							uses_naval_capacity = no
-							can_upgrade = no
-						}
-						effect = {
-							set_owner = event_target:receiving_bulwark_fleet_commission
-							while = {
-								count = 30
-								create_ship = {
-									name = random
-									design = "NAME_BULWARK_HIGHCORVETTE"
-									graphical_culture = "pirate_01"
-									effect = {
-										add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
-									}
-								}
-							}
-							while = {
-								count = 15
-								create_ship = {
-									name = random
-									design = "NAME_BULWARK_HIGHDESTROYER"
-									graphical_culture = "pirate_01"
-									effect = {
-										add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
-									}
-								}
-							}
-							set_location = event_target:bulwark_fleet_commission_goes_here
-							set_fleet_stance = aggressive
-							set_aggro_range_measure_from = self
-							set_aggro_range = 250
-						}
-					}
-				} else_if = {
-					limit = {
-						has_country_flag = bulwark_country_techfour
-						has_country_flag = bulwark_country_numbersone
-					}
-					create_fleet = {
-						settings = {
-							spawn_debris = no
-							can_change_composition = no
-							uses_naval_capacity = no
-							can_upgrade = no
-						}
-						effect = {
-							set_owner = event_target:receiving_bulwark_fleet_commission
-							while = {
-								count = 30
-								create_ship = {
-									name = random
-									design = "NAME_BULWARK_HIGHERCORVETTE"
-									graphical_culture = "pirate_01"
-									effect = {
-										add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
-									}
-								}
-							}
-							while = {
-								count = 15
-								create_ship = {
-									name = random
-									design = "NAME_BULWARK_HIGHERDESTROYER"
-									graphical_culture = "pirate_01"
-									effect = {
-										add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
-									}
-								}
-							}
-							set_location = event_target:bulwark_fleet_commission_goes_here
-							set_fleet_stance = aggressive
-							set_aggro_range_measure_from = self
-							set_aggro_range = 250
-						}
-					}
-				} else_if = {
-					limit = {
-						has_country_flag = bulwark_country_techfive
-						has_country_flag = bulwark_country_numbersone
-					}
-					create_fleet = {
-						settings = {
-							spawn_debris = no
-							can_change_composition = no
-							uses_naval_capacity = no
-							can_upgrade = no
-						}
-						effect = {
-							set_owner = event_target:receiving_bulwark_fleet_commission
-							while = {
-								count = 30
-								create_ship = {
-									name = random
-									design = "NAME_BULWARK_HIGHESTCORVETTE"
-									graphical_culture = "pirate_01"
-									effect = {
-										add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
-									}
-								}
-							}
-							while = {
-								count = 15
-								create_ship = {
-									name = random
-									design = "NAME_BULWARK_HIGHESTDESTROYER"
-									graphical_culture = "pirate_01"
-									effect = {
-										add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
-									}
-								}
-							}
-							set_location = event_target:bulwark_fleet_commission_goes_here
-							set_fleet_stance = aggressive
-							set_aggro_range_measure_from = self
-							set_aggro_range = 250
-						}
-					}
-				} else_if = {
-					limit = {
-						has_country_flag = bulwark_country_techone
-						has_country_flag = bulwark_country_numberstwo
-					}
-					create_fleet = {
-						settings = {
-							spawn_debris = no
-							can_change_composition = no
-							uses_naval_capacity = no
-							can_upgrade = no
-						}
-						effect = {
-							set_owner = event_target:receiving_bulwark_fleet_commission
-							while = {
-								count = 50
-								create_ship = {
-									name = random
-									design = "NAME_BULWARK_LOWCORVETTE"
-									graphical_culture = "pirate_01"
-									effect = {
-										add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
-									}
-								}
-							}
-							while = {
-								count = 30
-								create_ship = {
-									name = random
-									design = "NAME_BULWARK_LOWDESTROYER"
-									graphical_culture = "pirate_01"
-									effect = {
-										add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
-									}
-								}
-							}
-							set_location = event_target:bulwark_fleet_commission_goes_here
-							set_fleet_stance = aggressive
-							set_aggro_range_measure_from = self
-							set_aggro_range = 250
-						}
-					}
-				} else_if = {
-					limit = {
-						has_country_flag = bulwark_country_techone
-						has_country_flag = bulwark_country_numbersthree
-					}
-					create_fleet = {
-						settings = {
-							spawn_debris = no
-							can_change_composition = no
-							uses_naval_capacity = no
-							can_upgrade = no
-						}
-						effect = {
-							set_owner = event_target:receiving_bulwark_fleet_commission
-							while = {
-								count = 70
-								create_ship = {
-									name = random
-									design = "NAME_BULWARK_LOWCORVETTE"
-									graphical_culture = "pirate_01"
-									effect = {
-										add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
-									}
-								}
-							}
-							while = {
-								count = 45
-								create_ship = {
-									name = random
-									design = "NAME_BULWARK_LOWDESTROYER"
-									graphical_culture = "pirate_01"
-									effect = {
-										add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
-									}
-								}
-							}
-							set_location = event_target:bulwark_fleet_commission_goes_here
-							set_fleet_stance = aggressive
-							set_aggro_range_measure_from = self
-							set_aggro_range = 250
-						}
-					}
-				} else_if = {
-					limit = {
-						has_country_flag = bulwark_country_techone
-						has_country_flag = bulwark_country_numbersfour
-					}
-					create_fleet = {
-						settings = {
-							spawn_debris = no
-							can_change_composition = no
-							uses_naval_capacity = no
-							can_upgrade = no
-						}
-						effect = {
-							set_owner = event_target:receiving_bulwark_fleet_commission
-							while = {
-								count = 90
-								create_ship = {
-									name = random
-									design = "NAME_BULWARK_LOWCORVETTE"
-									graphical_culture = "pirate_01"
-									effect = {
-										add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
-									}
-								}
-							}
-							while = {
-								count = 60
-								create_ship = {
-									name = random
-									design = "NAME_BULWARK_LOWDESTROYER"
-									graphical_culture = "pirate_01"
-									effect = {
-										add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
-									}
-								}
-							}
-							set_location = event_target:bulwark_fleet_commission_goes_here
-							set_fleet_stance = aggressive
-							set_aggro_range_measure_from = self
-							set_aggro_range = 250
-						}
-					}
-				} else_if = {
-					limit = {
-						has_country_flag = bulwark_country_techone
-						has_country_flag = bulwark_country_numbersfive
-					}
-					create_fleet = {
-						settings = {
-							spawn_debris = no
-							can_change_composition = no
-							uses_naval_capacity = no
-							can_upgrade = no
-						}
-						effect = {
-							set_owner = event_target:receiving_bulwark_fleet_commission
-							while = {
-								count = 110
-								create_ship = {
-									name = random
-									design = "NAME_BULWARK_LOWCORVETTE"
-									graphical_culture = "pirate_01"
-									effect = {
-										add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
-									}
-								}
-							}
-							while = {
-								count = 75
-								create_ship = {
-									name = random
-									design = "NAME_BULWARK_LOWDESTROYER"
-									graphical_culture = "pirate_01"
-									effect = {
-										add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
-									}
-								}
-							}
-							set_location = event_target:bulwark_fleet_commission_goes_here
-							set_fleet_stance = aggressive
-							set_aggro_range_measure_from = self
-							set_aggro_range = 250
-						}
-					}
-				} else_if = {
-					limit = {
-						has_country_flag = bulwark_country_techtwo
-						has_country_flag = bulwark_country_numberstwo
-					}
-					create_fleet = {
-						settings = {
-							spawn_debris = no
-							can_change_composition = no
-							uses_naval_capacity = no
-							can_upgrade = no
-						}
-						effect = {
-							set_owner = event_target:receiving_bulwark_fleet_commission
-							while = {
-								count = 50
-								create_ship = {
-									name = random
-									design = "NAME_BULWARK_MEDCORVETTE"
-									graphical_culture = "pirate_01"
-									effect = {
-										add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
-									}
-								}
-							}
-							while = {
-								count = 30
-								create_ship = {
-									name = random
-									design = "NAME_BULWARK_MEDDESTROYER"
-									graphical_culture = "pirate_01"
-									effect = {
-										add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
-									}
-								}
-							}
-							while = {
-								count = 10
-								create_ship = {
-									name = random
-									design = "NAME_BULWARK_LOWCRUISER"
-									graphical_culture = "pirate_01"
-									effect = {
-										add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
-									}
-								}
-							}
-							set_location = event_target:bulwark_fleet_commission_goes_here
-							set_fleet_stance = aggressive
-							set_aggro_range_measure_from = self
-							set_aggro_range = 250
-						}
-					}
-				} else_if = {
-					limit = {
-						has_country_flag = bulwark_country_techtwo
-						has_country_flag = bulwark_country_numbersthree
-					}
-					create_fleet = {
-						settings = {
-							spawn_debris = no
-							can_change_composition = no
-							uses_naval_capacity = no
-							can_upgrade = no
-						}
-						effect = {
-							set_owner = event_target:receiving_bulwark_fleet_commission
-							while = {
-								count = 70
-								create_ship = {
-									name = random
-									design = "NAME_BULWARK_MEDCORVETTE"
-									graphical_culture = "pirate_01"
-									effect = {
-										add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
-									}
-								}
-							}
-							while = {
-								count = 45
-								create_ship = {
-									name = random
-									design = "NAME_BULWARK_MEDDESTROYER"
-									graphical_culture = "pirate_01"
-									effect = {
-										add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
-									}
-								}
-							}
-							while = {
-								count = 20
-								create_ship = {
-									name = random
-									design = "NAME_BULWARK_LOWCRUISER"
-									graphical_culture = "pirate_01"
-									effect = {
-										add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
-									}
-								}
-							}
-							set_location = event_target:bulwark_fleet_commission_goes_here
-							set_fleet_stance = aggressive
-							set_aggro_range_measure_from = self
-							set_aggro_range = 250
-						}
-					}
-				} else_if = {
-					limit = {
-						has_country_flag = bulwark_country_techtwo
-						has_country_flag = bulwark_country_numbersfour
-					}
-					create_fleet = {
-						settings = {
-							spawn_debris = no
-							can_change_composition = no
-							uses_naval_capacity = no
-							can_upgrade = no
-						}
-						effect = {
-							set_owner = event_target:receiving_bulwark_fleet_commission
-							while = {
-								count = 90
-								create_ship = {
-									name = random
-									design = "NAME_BULWARK_MEDCORVETTE"
-									graphical_culture = "pirate_01"
-									effect = {
-										add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
-									}
-								}
-							}
-							while = {
-								count = 60
-								create_ship = {
-									name = random
-									design = "NAME_BULWARK_MEDDESTROYER"
-									graphical_culture = "pirate_01"
-									effect = {
-										add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
-									}
-								}
-							}
-							while = {
-								count = 30
-								create_ship = {
-									name = random
-									design = "NAME_BULWARK_LOWCRUISER"
-									graphical_culture = "pirate_01"
-									effect = {
-										add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
-									}
-								}
-							}
-							set_location = event_target:bulwark_fleet_commission_goes_here
-							set_fleet_stance = aggressive
-							set_aggro_range_measure_from = self
-							set_aggro_range = 250
-						}
-					}
-				} else_if = {
-					limit = {
-						has_country_flag = bulwark_country_techtwo
-						has_country_flag = bulwark_country_numbersfive
-					}
-					create_fleet = {
-						settings = {
-							spawn_debris = no
-							can_change_composition = no
-							uses_naval_capacity = no
-							can_upgrade = no
-						}
-						effect = {
-							set_owner = event_target:receiving_bulwark_fleet_commission
-							while = {
-								count = 110
-								create_ship = {
-									name = random
-									design = "NAME_BULWARK_MEDCORVETTE"
-									graphical_culture = "pirate_01"
-									effect = {
-										add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
-									}
-								}
-							}
-							while = {
-								count = 75
-								create_ship = {
-									name = random
-									design = "NAME_BULWARK_MEDDESTROYER"
-									graphical_culture = "pirate_01"
-									effect = {
-										add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
-									}
-								}
-							}
-							while = {
-								count = 40
-								create_ship = {
-									name = random
-									design = "NAME_BULWARK_LOWCRUISER"
-									graphical_culture = "pirate_01"
-									effect = {
-										add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
-									}
-								}
-							}
-							set_location = event_target:bulwark_fleet_commission_goes_here
-							set_fleet_stance = aggressive
-							set_aggro_range_measure_from = self
-							set_aggro_range = 250
-						}
-					}
-				} else_if = {
-					limit = {
-						has_country_flag = bulwark_country_techthree
-						has_country_flag = bulwark_country_numberstwo
-					}
-					create_fleet = {
-						settings = {
-							spawn_debris = no
-							can_change_composition = no
-							uses_naval_capacity = no
-							can_upgrade = no
-						}
-						effect = {
-							set_owner = event_target:receiving_bulwark_fleet_commission
-							while = {
-								count = 50
-								create_ship = {
-									name = random
-									design = "NAME_BULWARK_HIGHCORVETTE"
-									graphical_culture = "pirate_01"
-									effect = {
-										add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
-									}
-								}
-							}
-							while = {
-								count = 30
-								create_ship = {
-									name = random
-									design = "NAME_BULWARK_HIGHDESTROYER"
-									graphical_culture = "pirate_01"
-									effect = {
-										add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
-									}
-								}
-							}
-							while = {
-								count = 10
-								create_ship = {
-									name = random
-									design = "NAME_BULWARK_MEDCRUISER"
-									graphical_culture = "pirate_01"
-									effect = {
-										add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
-									}
-								}
-							}
-							while = {
-								count = 5
-								create_ship = {
-									name = random
-									design = "NAME_BULWARK_LOWBATTLESHIP"
-									graphical_culture = "pirate_01"
-									effect = {
-										add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
-									}
-								}
-							}
-							set_location = event_target:bulwark_fleet_commission_goes_here
-							set_fleet_stance = aggressive
-							set_aggro_range_measure_from = self
-							set_aggro_range = 250
-						}
-					}
-				} else_if = {
-					limit = {
-						has_country_flag = bulwark_country_techthree
-						has_country_flag = bulwark_country_numbersthree
-					}
-					create_fleet = {
-						settings = {
-							spawn_debris = no
-							can_change_composition = no
-							uses_naval_capacity = no
-							can_upgrade = no
-						}
-						effect = {
-							set_owner = event_target:receiving_bulwark_fleet_commission
-							while = {
-								count = 70
-								create_ship = {
-									name = random
-									design = "NAME_BULWARK_HIGHCORVETTE"
-									graphical_culture = "pirate_01"
-									effect = {
-										add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
-									}
-								}
-							}
-							while = {
-								count = 45
-								create_ship = {
-									name = random
-									design = "NAME_BULWARK_HIGHDESTROYER"
-									graphical_culture = "pirate_01"
-									effect = {
-										add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
-									}
-								}
-							}
-							while = {
-								count = 20
-								create_ship = {
-									name = random
-									design = "NAME_BULWARK_MEDCRUISER"
-									graphical_culture = "pirate_01"
-									effect = {
-										add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
-									}
-								}
-							}
-							while = {
-								count = 10
-								create_ship = {
-									name = random
-									design = "NAME_BULWARK_LOWBATTLESHIP"
-									graphical_culture = "pirate_01"
-									effect = {
-										add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
-									}
-								}
-							}
-							set_location = event_target:bulwark_fleet_commission_goes_here
-							set_fleet_stance = aggressive
-							set_aggro_range_measure_from = self
-							set_aggro_range = 250
-						}
-					}
-				} else_if = {
-					limit = {
-						has_country_flag = bulwark_country_techthree
-						has_country_flag = bulwark_country_numbersfour
-					}
-					create_fleet = {
-						settings = {
-							spawn_debris = no
-							can_change_composition = no
-							uses_naval_capacity = no
-							can_upgrade = no
-						}
-						effect = {
-							set_owner = event_target:receiving_bulwark_fleet_commission
-							while = {
-								count = 90
-								create_ship = {
-									name = random
-									design = "NAME_BULWARK_HIGHCORVETTE"
-									graphical_culture = "pirate_01"
-									effect = {
-										add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
-									}
-								}
-							}
-							while = {
-								count = 60
-								create_ship = {
-									name = random
-									design = "NAME_BULWARK_HIGHDESTROYER"
-									graphical_culture = "pirate_01"
-									effect = {
-										add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
-									}
-								}
-							}
-							while = {
-								count = 30
-								create_ship = {
-									name = random
-									design = "NAME_BULWARK_MEDCRUISER"
-									graphical_culture = "pirate_01"
-									effect = {
-										add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
-									}
-								}
-							}
-							while = {
-								count = 15
-								create_ship = {
-									name = random
-									design = "NAME_BULWARK_LOWBATTLESHIP"
-									graphical_culture = "pirate_01"
-									effect = {
-										add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
-									}
-								}
-							}
-							set_location = event_target:bulwark_fleet_commission_goes_here
-							set_fleet_stance = aggressive
-							set_aggro_range_measure_from = self
-							set_aggro_range = 250
-						}
-					}
-				} else_if = {
-					limit = {
-						has_country_flag = bulwark_country_techthree
-						has_country_flag = bulwark_country_numbersfive
-					}
-					create_fleet = {
-						settings = {
-							spawn_debris = no
-							can_change_composition = no
-							uses_naval_capacity = no
-							can_upgrade = no
-						}
-						effect = {
-							set_owner = event_target:receiving_bulwark_fleet_commission
-							while = {
-								count = 110
-								create_ship = {
-									name = random
-									design = "NAME_BULWARK_HIGHCORVETTE"
-									graphical_culture = "pirate_01"
-									effect = {
-										add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
-									}
-								}
-							}
-							while = {
-								count = 75
-								create_ship = {
-									name = random
-									design = "NAME_BULWARK_HIGHDESTROYER"
-									graphical_culture = "pirate_01"
-									effect = {
-										add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
-									}
-								}
-							}
-							while = {
-								count = 40
-								create_ship = {
-									name = random
-									design = "NAME_BULWARK_MEDCRUISER"
-									graphical_culture = "pirate_01"
-									effect = {
-										add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
-									}
-								}
-							}
-							while = {
-								count = 20
-								create_ship = {
-									name = random
-									design = "NAME_BULWARK_LOWBATTLESHIP"
-									graphical_culture = "pirate_01"
-									effect = {
-										add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
-									}
-								}
-							}
-							set_location = event_target:bulwark_fleet_commission_goes_here
-							set_fleet_stance = aggressive
-							set_aggro_range_measure_from = self
-							set_aggro_range = 250
-						}
-					}
-				} else_if = {
-					limit = {
-						has_country_flag = bulwark_country_techfour
-						has_country_flag = bulwark_country_numberstwo
-					}
-					create_fleet = {
-						settings = {
-							spawn_debris = no
-							can_change_composition = no
-							uses_naval_capacity = no
-							can_upgrade = no
-						}
-						effect = {
-							set_owner = event_target:receiving_bulwark_fleet_commission
-							while = {
-								count = 50
-								create_ship = {
-									name = random
-									design = "NAME_BULWARK_HIGHERCORVETTE"
-									graphical_culture = "pirate_01"
-									effect = {
-										add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
-									}
-								}
-							}
-							while = {
-								count = 30
-								create_ship = {
-									name = random
-									design = "NAME_BULWARK_HIGHERDESTROYER"
-									graphical_culture = "pirate_01"
-									effect = {
-										add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
-									}
-								}
-							}
-							while = {
-								count = 10
-								create_ship = {
-									name = random
-									design = "NAME_BULWARK_HIGHCRUISER"
-									graphical_culture = "pirate_01"
-									effect = {
-										add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
-									}
-								}
-							}
-							while = {
-								count = 5
-								create_ship = {
-									name = random
-									design = "NAME_BULWARK_MEDBATTLESHIP"
-									graphical_culture = "pirate_01"
-									effect = {
-										add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
-									}
-								}
-							}
-							set_location = event_target:bulwark_fleet_commission_goes_here
-							set_fleet_stance = aggressive
-							set_aggro_range_measure_from = self
-							set_aggro_range = 250
-						}
-					}
-				} else_if = {
-					limit = {
-						has_country_flag = bulwark_country_techfour
-						has_country_flag = bulwark_country_numbersthree
-					}
-					create_fleet = {
-						settings = {
-							spawn_debris = no
-							can_change_composition = no
-							uses_naval_capacity = no
-							can_upgrade = no
-						}
-						effect = {
-							set_owner = event_target:receiving_bulwark_fleet_commission
-							while = {
-								count = 70
-								create_ship = {
-									name = random
-									design = "NAME_BULWARK_HIGHERCORVETTE"
-									graphical_culture = "pirate_01"
-									effect = {
-										add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
-									}
-								}
-							}
-							while = {
-								count = 45
-								create_ship = {
-									name = random
-									design = "NAME_BULWARK_HIGHERDESTROYER"
-									graphical_culture = "pirate_01"
-									effect = {
-										add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
-									}
-								}
-							}
-							while = {
-								count = 20
-								create_ship = {
-									name = random
-									design = "NAME_BULWARK_HIGHCRUISER"
-									graphical_culture = "pirate_01"
-									effect = {
-										add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
-									}
-								}
-							}
-							while = {
-								count = 10
-								create_ship = {
-									name = random
-									design = "NAME_BULWARK_MEDBATTLESHIP"
-									graphical_culture = "pirate_01"
-									effect = {
-										add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
-									}
-								}
-							}
-							set_location = event_target:bulwark_fleet_commission_goes_here
-							set_fleet_stance = aggressive
-							set_aggro_range_measure_from = self
-							set_aggro_range = 250
-						}
-					}
-				} else_if = {
-					limit = {
-						has_country_flag = bulwark_country_techfour
-						has_country_flag = bulwark_country_numbersfour
-					}
-					create_fleet = {
-						settings = {
-							spawn_debris = no
-							can_change_composition = no
-							uses_naval_capacity = no
-							can_upgrade = no
-						}
-						effect = {
-							set_owner = event_target:receiving_bulwark_fleet_commission
-							while = {
-								count = 90
-								create_ship = {
-									name = random
-									design = "NAME_BULWARK_HIGHERCORVETTE"
-									graphical_culture = "pirate_01"
-									effect = {
-										add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
-									}
-								}
-							}
-							while = {
-								count = 60
-								create_ship = {
-									name = random
-									design = "NAME_BULWARK_HIGHERDESTROYER"
-									graphical_culture = "pirate_01"
-									effect = {
-										add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
-									}
-								}
-							}
-							while = {
-								count = 30
-								create_ship = {
-									name = random
-									design = "NAME_BULWARK_HIGHCRUISER"
-									graphical_culture = "pirate_01"
-									effect = {
-										add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
-									}
-								}
-							}
-							while = {
-								count = 15
-								create_ship = {
-									name = random
-									design = "NAME_BULWARK_MEDBATTLESHIP"
-									graphical_culture = "pirate_01"
-									effect = {
-										add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
-									}
-								}
-							}
-							set_location = event_target:bulwark_fleet_commission_goes_here
-							set_fleet_stance = aggressive
-							set_aggro_range_measure_from = self
-							set_aggro_range = 250
-						}
-					}
-				} else_if = {
-					limit = {
-						has_country_flag = bulwark_country_techfour
-						has_country_flag = bulwark_country_numbersfive
-					}
-					create_fleet = {
-						settings = {
-							spawn_debris = no
-							can_change_composition = no
-							uses_naval_capacity = no
-							can_upgrade = no
-						}
-						effect = {
-							set_owner = event_target:receiving_bulwark_fleet_commission
-							while = {
-								count = 110
-								create_ship = {
-									name = random
-									design = "NAME_BULWARK_HIGHERCORVETTE"
-									graphical_culture = "pirate_01"
-									effect = {
-										add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
-									}
-								}
-							}
-							while = {
-								count = 75
-								create_ship = {
-									name = random
-									design = "NAME_BULWARK_HIGHERDESTROYER"
-									graphical_culture = "pirate_01"
-									effect = {
-										add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
-									}
-								}
-							}
-							while = {
-								count = 40
-								create_ship = {
-									name = random
-									design = "NAME_BULWARK_HIGHCRUISER"
-									graphical_culture = "pirate_01"
-									effect = {
-										add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
-									}
-								}
-							}
-							while = {
-								count = 20
-								create_ship = {
-									name = random
-									design = "NAME_BULWARK_MEDBATTLESHIP"
-									graphical_culture = "pirate_01"
-									effect = {
-										add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
-									}
-								}
-							}
-							set_location = event_target:bulwark_fleet_commission_goes_here
-							set_fleet_stance = aggressive
-							set_aggro_range_measure_from = self
-							set_aggro_range = 250
-						}
-					}
-				} else_if = {
-					limit = {
-						has_country_flag = bulwark_country_techfive
-						has_country_flag = bulwark_country_numberstwo
-					}
-					create_fleet = {
-						settings = {
-							spawn_debris = no
-							can_change_composition = no
-							uses_naval_capacity = no
-							can_upgrade = no
-						}
-						effect = {
-							set_owner = event_target:receiving_bulwark_fleet_commission
-							while = {
-								count = 50
-								create_ship = {
-									name = random
-									design = "NAME_BULWARK_HIGHESTCORVETTE"
-									graphical_culture = "pirate_01"
-									effect = {
-										add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
-									}
-								}
-							}
-							while = {
-								count = 30
-								create_ship = {
-									name = random
-									design = "NAME_BULWARK_HIGHESTDESTROYER"
-									graphical_culture = "pirate_01"
-									effect = {
-										add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
-									}
-								}
-							}
-							while = {
-								count = 10
-								create_ship = {
-									name = random
-									design = "NAME_BULWARK_HIGHESTCRUISER"
-									graphical_culture = "pirate_01"
-									effect = {
-										add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
-									}
-								}
-							}
-							while = {
-								count = 5
-								create_ship = {
-									name = random
-									design = "NAME_BULWARK_HIGHESTBATTLESHIP"
-									graphical_culture = "pirate_01"
-									effect = {
-										add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
-									}
-								}
-							}
-							set_location = event_target:bulwark_fleet_commission_goes_here
-							set_fleet_stance = aggressive
-							set_aggro_range_measure_from = self
-							set_aggro_range = 250
-						}
-					}
-				} else_if = {
-					limit = {
-						has_country_flag = bulwark_country_techfive
-						has_country_flag = bulwark_country_numbersthree
-					}
-					create_fleet = {
-						settings = {
-							spawn_debris = no
-							can_change_composition = no
-							uses_naval_capacity = no
-							can_upgrade = no
-						}
-						effect = {
-							set_owner = event_target:receiving_bulwark_fleet_commission
-							while = {
-								count = 70
-								create_ship = {
-									name = random
-									design = "NAME_BULWARK_HIGHESTCORVETTE"
-									graphical_culture = "pirate_01"
-									effect = {
-										add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
-									}
-								}
-							}
-							while = {
-								count = 45
-								create_ship = {
-									name = random
-									design = "NAME_BULWARK_HIGHESTDESTROYER"
-									graphical_culture = "pirate_01"
-									effect = {
-										add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
-									}
-								}
-							}
-							while = {
-								count = 20
-								create_ship = {
-									name = random
-									design = "NAME_BULWARK_HIGHESTCRUISER"
-									graphical_culture = "pirate_01"
-									effect = {
-										add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
-									}
-								}
-							}
-							while = {
-								count = 10
-								create_ship = {
-									name = random
-									design = "NAME_BULWARK_HIGHESTBATTLESHIP"
-									graphical_culture = "pirate_01"
-									effect = {
-										add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
-									}
-								}
-							}
-							set_location = event_target:bulwark_fleet_commission_goes_here
-							set_fleet_stance = aggressive
-							set_aggro_range_measure_from = self
-							set_aggro_range = 250
-						}
-					}
-				} else_if = {
-					limit = {
-						has_country_flag = bulwark_country_techfive
-						has_country_flag = bulwark_country_numbersfour
-					}
-					create_fleet = {
-						settings = {
-							spawn_debris = no
-							can_change_composition = no
-							uses_naval_capacity = no
-							can_upgrade = no
-						}
-						effect = {
-							set_owner = event_target:receiving_bulwark_fleet_commission
-							while = {
-								count = 90
-								create_ship = {
-									name = random
-									design = "NAME_BULWARK_HIGHESTCORVETTE"
-									graphical_culture = "pirate_01"
-									effect = {
-										add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
-									}
-								}
-							}
-							while = {
-								count = 60
-								create_ship = {
-									name = random
-									design = "NAME_BULWARK_HIGHESTDESTROYER"
-									graphical_culture = "pirate_01"
-									effect = {
-										add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
-									}
-								}
-							}
-							while = {
-								count = 30
-								create_ship = {
-									name = random
-									design = "NAME_BULWARK_HIGHESTCRUISER"
-									graphical_culture = "pirate_01"
-									effect = {
-										add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
-									}
-								}
-							}
-							while = {
-								count = 15
-								create_ship = {
-									name = random
-									design = "NAME_BULWARK_HIGHESTBATTLESHIP"
-									graphical_culture = "pirate_01"
-									effect = {
-										add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
-									}
-								}
-							}
-							set_location = event_target:bulwark_fleet_commission_goes_here
-							set_fleet_stance = aggressive
-							set_aggro_range_measure_from = self
-							set_aggro_range = 250
-						}
-					}
-				} else_if = {
-					limit = {
-						has_country_flag = bulwark_country_techfive
-						has_country_flag = bulwark_country_numbersfive
-					}
-					create_fleet = {
-						settings = {
-							spawn_debris = no
-							can_change_composition = no
-							uses_naval_capacity = no
-							can_upgrade = no
-						}
-						effect = {
-							set_owner = event_target:receiving_bulwark_fleet_commission
-							while = {
-								count = 110
-								create_ship = {
-									name = random
-									design = "NAME_BULWARK_HIGHESTCORVETTE"
-									graphical_culture = "pirate_01"
-									effect = {
-										add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
-									}
-								}
-							}
-							while = {
-								count = 75
-								create_ship = {
-									name = random
-									design = "NAME_BULWARK_HIGHESTDESTROYER"
-									graphical_culture = "pirate_01"
-									effect = {
-										add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
-									}
-								}
-							}
-							while = {
-								count = 40
-								create_ship = {
-									name = random
-									design = "NAME_BULWARK_HIGHESTCRUISER"
-									graphical_culture = "pirate_01"
-									effect = {
-										add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
-									}
-								}
-							}
-							while = {
-								count = 20
-								create_ship = {
-									name = random
-									design = "NAME_BULWARK_HIGHESTBATTLESHIP"
-									graphical_culture = "pirate_01"
-									effect = {
-										add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
-									}
-								}
-							}
-							set_location = event_target:bulwark_fleet_commission_goes_here
-							set_fleet_stance = aggressive
-							set_aggro_range_measure_from = self
-							set_aggro_range = 250
-						}
+						set_location = event_target:bulwark_fleet_commission_goes_here
+						set_fleet_stance = aggressive
+						set_aggro_range_measure_from = self
+						set_aggro_range = 250
 					}
 				}
 			}
@@ -3625,1387 +1308,218 @@ country_event = {
 			}
 		}
 		allow = {
-			resource_stockpile_compare = { resource = energy value >= 17500 }
+			resource_stockpile_compare = { resource = energy value > 17500 }
 			hidden_trigger = {
 				NOT = {
 					event_target:current_bulwark_diplomacy = { has_country_flag = bulwark_commissioned_fleet_recently }
 				}
 			}
 		}
-		set_timed_country_flag = { flag = bulwark_commissioned_fleet_recently_safeguard days = 2 }
+		set_timed_country_flag = { flag = bulwark_commissioned_fleet_recently_safeguard days = 3 }
 		set_timed_country_flag = { flag = bulwark_commissioned_fleet_recently_target days = 900 }
 		add_resource = { energy = -17500 }
 		hidden_effect = {
-			random_country = {
+			random_playable_country = {
 				limit = { has_country_flag = bulwark_commissioned_fleet_recently_safeguard }
 				save_event_target_as = receiving_bulwark_fleet_commission
 			}
-			event_target:receiving_bulwark_fleet_commission = {
-				random_owned_planet = {
-					limit = { is_capital = yes }
-					save_event_target_as = bulwark_fleet_commission_goes_here
-				}
-			}
 			event_target:current_bulwark_diplomacy = {
+				random_system_within_border = {
+					# limit = { }
+					if = {
+						limit = {
+							closest_system = {
+								limit = { space_owner = { is_same_empire = event_target:receiving_bulwark_fleet_commission } }
+								min_steps = 1
+								max_steps = 50
+								use_bypasses = no
+							}
+						}
+						closest_system = {
+							min_steps = 1
+							max_steps = 50
+							use_bypasses = no
+							limit = { space_owner = { is_same_empire = event_target:receiving_bulwark_fleet_commission } }
+							save_event_target_as = bulwark_fleet_commission_goes_here
+						}
+					} else = {
+						event_target:receiving_bulwark_fleet_commission = {
+							random_owned_planet = {
+								limit = { is_colony = yes num_pops > 5 }
+								weights = { base = 1 modifier = { add = 2 is_capital = yes } }
+								save_event_target_as = bulwark_fleet_commission_goes_here
+							}
+						}
+					}
+				}
 				set_timed_country_flag = { flag = bulwark_commissioned_fleet_recently days = 3600 }
 				change_variable = { which = bulwarkbudget value = 875 }
-				if = {
-					limit = {
-						has_country_flag = bulwark_country_techone
-						has_country_flag = bulwark_country_numbersone
+				create_fleet = {
+					settings = {
+						spawn_debris = no
+						can_change_composition = no
+						uses_naval_capacity = no
+						can_upgrade = no
 					}
-					create_fleet = {
-						settings = {
-							spawn_debris = no
-							can_change_composition = no
-							uses_naval_capacity = no
-							can_upgrade = no
+					effect = {
+						set_owner = event_target:receiving_bulwark_fleet_commission
+						prev = {
+							if = {
+								limit = {
+									has_country_flag = bulwark_country_techone
+									has_country_flag = bulwark_country_numbersone
+								}
+								create_dyn_bulwark_fleet = { LOWCORVETTE = 40 LOWDESTROYER = 25 }
+							} else_if = {
+								limit = {
+									has_country_flag = bulwark_country_techtwo
+									has_country_flag = bulwark_country_numbersone
+								}
+								create_dyn_bulwark_fleet = { MEDCORVETTE = 40 MEDDESTROYER = 25 }
+							} else_if = {
+								limit = {
+									has_country_flag = bulwark_country_techthree
+									has_country_flag = bulwark_country_numbersone
+								}
+								create_dyn_bulwark_fleet = { HIGHCORVETTE = 40 HIGHDESTROYER = 25 }
+							} else_if = {
+								limit = {
+									has_country_flag = bulwark_country_techfour
+									has_country_flag = bulwark_country_numbersone
+								}
+								create_dyn_bulwark_fleet = { HIGHERCORVETTE = 40 HIGHERDESTROYER = 25 }
+							} else_if = {
+								limit = {
+									has_country_flag = bulwark_country_techfive
+									has_country_flag = bulwark_country_numbersone
+								}
+								create_dyn_bulwark_fleet = { HIGHESTCORVETTE = 40 HIGHESTDESTROYER = 25 }
+							} else_if = {
+								limit = {
+									has_country_flag = bulwark_country_techone
+									has_country_flag = bulwark_country_numberstwo
+								}
+								create_dyn_bulwark_fleet = { LOWCORVETTE = 60 LOWDESTROYER = 40 }
+							} else_if = {
+								limit = {
+									has_country_flag = bulwark_country_techone
+									has_country_flag = bulwark_country_numbersthree
+								}
+								create_dyn_bulwark_fleet = { LOWCORVETTE = 80 LOWDESTROYER = 55 }
+							} else_if = {
+								limit = {
+									has_country_flag = bulwark_country_techone
+									has_country_flag = bulwark_country_numbersfour
+								}
+								create_dyn_bulwark_fleet = { LOWCORVETTE = 100 LOWDESTROYER = 70 }
+							} else_if = {
+								limit = {
+									has_country_flag = bulwark_country_techone
+									has_country_flag = bulwark_country_numbersfive
+								}
+								create_dyn_bulwark_fleet = { LOWCORVETTE = 120 LOWDESTROYER = 85 }
+							} else_if = {
+								limit = {
+									has_country_flag = bulwark_country_techtwo
+									has_country_flag = bulwark_country_numberstwo
+								}
+								create_dyn_bulwark_fleet = { MEDCORVETTE = 60 MEDDESTROYER = 40 LOWCRUISER = 10 }
+							} else_if = {
+								limit = {
+									has_country_flag = bulwark_country_techtwo
+									has_country_flag = bulwark_country_numbersthree
+								}
+								create_dyn_bulwark_fleet = { MEDCORVETTE = 80 MEDDESTROYER = 55 LOWCRUISER = 20 }
+							} else_if = {
+								limit = {
+									has_country_flag = bulwark_country_techtwo
+									has_country_flag = bulwark_country_numbersfour
+								}
+								create_dyn_bulwark_fleet = { MEDCORVETTE = 100 MEDDESTROYER = 70 LOWCRUISER = 30 }
+							} else_if = {
+								limit = {
+									has_country_flag = bulwark_country_techtwo
+									has_country_flag = bulwark_country_numbersfive
+								}
+								create_dyn_bulwark_fleet = { MEDCORVETTE = 120 MEDDESTROYER = 85 LOWCRUISER = 40 }
+							} else_if = {
+								limit = {
+									has_country_flag = bulwark_country_techthree
+									has_country_flag = bulwark_country_numberstwo
+								}
+								create_dyn_bulwark_fleet = { HIGHCORVETTE = 60 HIGHDESTROYER = 40 MEDCRUISER = 10 LOWBATTLESHIP = 5 }
+							} else_if = {
+								limit = {
+									has_country_flag = bulwark_country_techthree
+									has_country_flag = bulwark_country_numbersthree
+								}
+								create_dyn_bulwark_fleet = { HIGHCORVETTE = 80 HIGHDESTROYER = 55 MEDCRUISER = 20 LOWBATTLESHIP = 10 }
+							} else_if = {
+								limit = {
+									has_country_flag = bulwark_country_techthree
+									has_country_flag = bulwark_country_numbersfour
+								}
+								create_dyn_bulwark_fleet = { HIGHCORVETTE = 100 HIGHDESTROYER = 70 MEDCRUISER = 30 LOWBATTLESHIP = 15 }
+							} else_if = {
+								limit = {
+									has_country_flag = bulwark_country_techthree
+									has_country_flag = bulwark_country_numbersfive
+								}
+								create_dyn_bulwark_fleet = { HIGHCORVETTE = 120 HIGHDESTROYER = 85 MEDCRUISER = 40 LOWBATTLESHIP = 20 }
+							} else_if = {
+								limit = {
+									has_country_flag = bulwark_country_techfour
+									has_country_flag = bulwark_country_numberstwo
+								}
+								create_dyn_bulwark_fleet = { HIGHERCORVETTE = 60 HIGHERDESTROYER = 40 HIGHCRUISER = 10 MEDBATTLESHIP = 5 }
+							} else_if = {
+								limit = {
+									has_country_flag = bulwark_country_techfour
+									has_country_flag = bulwark_country_numbersthree
+								}
+								create_dyn_bulwark_fleet = { HIGHERCORVETTE = 80 HIGHERDESTROYER = 55 HIGHCRUISER = 20 MEDBATTLESHIP = 10 }
+							} else_if = {
+								limit = {
+									has_country_flag = bulwark_country_techfour
+									has_country_flag = bulwark_country_numbersfour
+								}
+								create_dyn_bulwark_fleet = { HIGHERCORVETTE = 100 HIGHERDESTROYER = 70 HIGHCRUISER = 30 MEDBATTLESHIP = 15 }
+							} else_if = {
+								limit = {
+									has_country_flag = bulwark_country_techfour
+									has_country_flag = bulwark_country_numbersfive
+								}
+								create_dyn_bulwark_fleet = { HIGHERCORVETTE = 120 HIGHERDESTROYER = 75 HIGHCRUISER = 40 MEDBATTLESHIP = 20 }
+							} else_if = {
+								limit = {
+									has_country_flag = bulwark_country_techfive
+									has_country_flag = bulwark_country_numberstwo
+								}
+								create_dyn_bulwark_fleet = { HIGHESTCORVETTE = 60 HIGHESTDESTROYER = 40 HIGHESTCRUISER = 10 HIGHESTBATTLESHIP = 5 }
+							} else_if = {
+								limit = {
+									has_country_flag = bulwark_country_techfive
+									has_country_flag = bulwark_country_numbersthree
+								}
+								create_dyn_bulwark_fleet = { HIGHESTCORVETTE = 80 HIGHESTDESTROYER = 55 HIGHESTCRUISER = 20 HIGHESTBATTLESHIP = 10 }
+							} else_if = {
+								limit = {
+									has_country_flag = bulwark_country_techfive
+									has_country_flag = bulwark_country_numbersfour
+								}
+								create_dyn_bulwark_fleet = { HIGHESTCORVETTE = 100 HIGHESTDESTROYER = 70 HIGHESTCRUISER = 30 HIGHESTBATTLESHIP = 15 }
+							} else_if = {
+								limit = {
+									has_country_flag = bulwark_country_techfive
+									has_country_flag = bulwark_country_numbersfive
+								}
+								create_dyn_bulwark_fleet = { HIGHESTCORVETTE = 120 HIGHESTDESTROYER = 85 HIGHESTCRUISER = 40 HIGHESTBATTLESHIP = 20 }
+							}
 						}
-						effect = {
-							set_owner = event_target:receiving_bulwark_fleet_commission
-							while = {
-								count = 40
-								create_ship = {
-									name = random
-									design = "NAME_BULWARK_LOWCORVETTE"
-									graphical_culture = "pirate_01"
-									effect = {
-										add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
-									}
-								}
-							}
-							while = {
-								count = 25
-								create_ship = {
-									name = random
-									design = "NAME_BULWARK_LOWDESTROYER"
-									graphical_culture = "pirate_01"
-									effect = {
-										add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
-									}
-								}
-							}
-							set_location = event_target:bulwark_fleet_commission_goes_here
-							set_fleet_stance = aggressive
-							set_aggro_range_measure_from = self
-							set_aggro_range = 250
-						}
-					}
-				} else_if = {
-					limit = {
-						has_country_flag = bulwark_country_techtwo
-						has_country_flag = bulwark_country_numbersone
-					}
-					create_fleet = {
-						settings = {
-							spawn_debris = no
-							can_change_composition = no
-							uses_naval_capacity = no
-							can_upgrade = no
-						}
-						effect = {
-							set_owner = event_target:receiving_bulwark_fleet_commission
-							while = {
-								count = 40
-								create_ship = {
-									name = random
-									design = "NAME_BULWARK_MEDCORVETTE"
-									graphical_culture = "pirate_01"
-									effect = {
-										add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
-									}
-								}
-							}
-							while = {
-								count = 25
-								create_ship = {
-									name = random
-									design = "NAME_BULWARK_MEDDESTROYER"
-									graphical_culture = "pirate_01"
-									effect = {
-										add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
-									}
-								}
-							}
-							set_location = event_target:bulwark_fleet_commission_goes_here
-							set_fleet_stance = aggressive
-							set_aggro_range_measure_from = self
-							set_aggro_range = 250
-						}
-					}
-				} else_if = {
-					limit = {
-						has_country_flag = bulwark_country_techthree
-						has_country_flag = bulwark_country_numbersone
-					}
-					create_fleet = {
-						settings = {
-							spawn_debris = no
-							can_change_composition = no
-							uses_naval_capacity = no
-							can_upgrade = no
-						}
-						effect = {
-							set_owner = event_target:receiving_bulwark_fleet_commission
-							while = {
-								count = 40
-								create_ship = {
-									name = random
-									design = "NAME_BULWARK_HIGHCORVETTE"
-									graphical_culture = "pirate_01"
-									effect = {
-										add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
-									}
-								}
-							}
-							while = {
-								count = 25
-								create_ship = {
-									name = random
-									design = "NAME_BULWARK_HIGHDESTROYER"
-									graphical_culture = "pirate_01"
-									effect = {
-										add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
-									}
-								}
-							}
-							set_location = event_target:bulwark_fleet_commission_goes_here
-							set_fleet_stance = aggressive
-							set_aggro_range_measure_from = self
-							set_aggro_range = 250
-						}
-					}
-				} else_if = {
-					limit = {
-						has_country_flag = bulwark_country_techfour
-						has_country_flag = bulwark_country_numbersone
-					}
-					create_fleet = {
-						settings = {
-							spawn_debris = no
-							can_change_composition = no
-							uses_naval_capacity = no
-							can_upgrade = no
-						}
-						effect = {
-							set_owner = event_target:receiving_bulwark_fleet_commission
-							while = {
-								count = 40
-								create_ship = {
-									name = random
-									design = "NAME_BULWARK_HIGHERCORVETTE"
-									graphical_culture = "pirate_01"
-									effect = {
-										add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
-									}
-								}
-							}
-							while = {
-								count = 25
-								create_ship = {
-									name = random
-									design = "NAME_BULWARK_HIGHERDESTROYER"
-									graphical_culture = "pirate_01"
-									effect = {
-										add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
-									}
-								}
-							}
-							set_location = event_target:bulwark_fleet_commission_goes_here
-							set_fleet_stance = aggressive
-							set_aggro_range_measure_from = self
-							set_aggro_range = 250
-						}
-					}
-				} else_if = {
-					limit = {
-						has_country_flag = bulwark_country_techfive
-						has_country_flag = bulwark_country_numbersone
-					}
-					create_fleet = {
-						settings = {
-							spawn_debris = no
-							can_change_composition = no
-							uses_naval_capacity = no
-							can_upgrade = no
-						}
-						effect = {
-							set_owner = event_target:receiving_bulwark_fleet_commission
-							while = {
-								count = 40
-								create_ship = {
-									name = random
-									design = "NAME_BULWARK_HIGHESTCORVETTE"
-									graphical_culture = "pirate_01"
-									effect = {
-										add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
-									}
-								}
-							}
-							while = {
-								count = 25
-								create_ship = {
-									name = random
-									design = "NAME_BULWARK_HIGHESTDESTROYER"
-									graphical_culture = "pirate_01"
-									effect = {
-										add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
-									}
-								}
-							}
-							set_location = event_target:bulwark_fleet_commission_goes_here
-							set_fleet_stance = aggressive
-							set_aggro_range_measure_from = self
-							set_aggro_range = 250
-						}
-					}
-				} else_if = {
-					limit = {
-						has_country_flag = bulwark_country_techone
-						has_country_flag = bulwark_country_numberstwo
-					}
-					create_fleet = {
-						settings = {
-							spawn_debris = no
-							can_change_composition = no
-							uses_naval_capacity = no
-							can_upgrade = no
-						}
-						effect = {
-							set_owner = event_target:receiving_bulwark_fleet_commission
-							while = {
-								count = 60
-								create_ship = {
-									name = random
-									design = "NAME_BULWARK_LOWCORVETTE"
-									graphical_culture = "pirate_01"
-									effect = {
-										add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
-									}
-								}
-							}
-							while = {
-								count = 40
-								create_ship = {
-									name = random
-									design = "NAME_BULWARK_LOWDESTROYER"
-									graphical_culture = "pirate_01"
-									effect = {
-										add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
-									}
-								}
-							}
-							set_location = event_target:bulwark_fleet_commission_goes_here
-							set_fleet_stance = aggressive
-							set_aggro_range_measure_from = self
-							set_aggro_range = 250
-						}
-					}
-				} else_if = {
-					limit = {
-						has_country_flag = bulwark_country_techone
-						has_country_flag = bulwark_country_numbersthree
-					}
-					create_fleet = {
-						settings = {
-							spawn_debris = no
-							can_change_composition = no
-							uses_naval_capacity = no
-							can_upgrade = no
-						}
-						effect = {
-							set_owner = event_target:receiving_bulwark_fleet_commission
-							while = {
-								count = 80
-								create_ship = {
-									name = random
-									design = "NAME_BULWARK_LOWCORVETTE"
-									graphical_culture = "pirate_01"
-									effect = {
-										add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
-									}
-								}
-							}
-							while = {
-								count = 55
-								create_ship = {
-									name = random
-									design = "NAME_BULWARK_LOWDESTROYER"
-									graphical_culture = "pirate_01"
-									effect = {
-										add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
-									}
-								}
-							}
-							set_location = event_target:bulwark_fleet_commission_goes_here
-							set_fleet_stance = aggressive
-							set_aggro_range_measure_from = self
-							set_aggro_range = 250
-						}
-					}
-				} else_if = {
-					limit = {
-						has_country_flag = bulwark_country_techone
-						has_country_flag = bulwark_country_numbersfour
-					}
-					create_fleet = {
-						settings = {
-							spawn_debris = no
-							can_change_composition = no
-							uses_naval_capacity = no
-							can_upgrade = no
-						}
-						effect = {
-							set_owner = event_target:receiving_bulwark_fleet_commission
-							while = {
-								count = 100
-								create_ship = {
-									name = random
-									design = "NAME_BULWARK_LOWCORVETTE"
-									graphical_culture = "pirate_01"
-									effect = {
-										add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
-									}
-								}
-							}
-							while = {
-								count = 70
-								create_ship = {
-									name = random
-									design = "NAME_BULWARK_LOWDESTROYER"
-									graphical_culture = "pirate_01"
-									effect = {
-										add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
-									}
-								}
-							}
-							set_location = event_target:bulwark_fleet_commission_goes_here
-							set_fleet_stance = aggressive
-							set_aggro_range_measure_from = self
-							set_aggro_range = 250
-						}
-					}
-				} else_if = {
-					limit = {
-						has_country_flag = bulwark_country_techone
-						has_country_flag = bulwark_country_numbersfive
-					}
-					create_fleet = {
-						settings = {
-							spawn_debris = no
-							can_change_composition = no
-							uses_naval_capacity = no
-							can_upgrade = no
-						}
-						effect = {
-							set_owner = event_target:receiving_bulwark_fleet_commission
-							while = {
-								count = 120
-								create_ship = {
-									name = random
-									design = "NAME_BULWARK_LOWCORVETTE"
-									graphical_culture = "pirate_01"
-									effect = {
-										add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
-									}
-								}
-							}
-							while = {
-								count = 85
-								create_ship = {
-									name = random
-									design = "NAME_BULWARK_LOWDESTROYER"
-									graphical_culture = "pirate_01"
-									effect = {
-										add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
-									}
-								}
-							}
-							set_location = event_target:bulwark_fleet_commission_goes_here
-							set_fleet_stance = aggressive
-							set_aggro_range_measure_from = self
-							set_aggro_range = 250
-						}
-					}
-				} else_if = {
-					limit = {
-						has_country_flag = bulwark_country_techtwo
-						has_country_flag = bulwark_country_numberstwo
-					}
-					create_fleet = {
-						settings = {
-							spawn_debris = no
-							can_change_composition = no
-							uses_naval_capacity = no
-							can_upgrade = no
-						}
-						effect = {
-							set_owner = event_target:receiving_bulwark_fleet_commission
-							while = {
-								count = 60
-								create_ship = {
-									name = random
-									design = "NAME_BULWARK_MEDCORVETTE"
-									graphical_culture = "pirate_01"
-									effect = {
-										add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
-									}
-								}
-							}
-							while = {
-								count = 40
-								create_ship = {
-									name = random
-									design = "NAME_BULWARK_MEDDESTROYER"
-									graphical_culture = "pirate_01"
-									effect = {
-										add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
-									}
-								}
-							}
-							while = {
-								count = 10
-								create_ship = {
-									name = random
-									design = "NAME_BULWARK_LOWCRUISER"
-									graphical_culture = "pirate_01"
-									effect = {
-										add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
-									}
-								}
-							}
-							set_location = event_target:bulwark_fleet_commission_goes_here
-							set_fleet_stance = aggressive
-							set_aggro_range_measure_from = self
-							set_aggro_range = 250
-						}
-					}
-				} else_if = {
-					limit = {
-						has_country_flag = bulwark_country_techtwo
-						has_country_flag = bulwark_country_numbersthree
-					}
-					create_fleet = {
-						settings = {
-							spawn_debris = no
-							can_change_composition = no
-							uses_naval_capacity = no
-							can_upgrade = no
-						}
-						effect = {
-							set_owner = event_target:receiving_bulwark_fleet_commission
-							while = {
-								count = 80
-								create_ship = {
-									name = random
-									design = "NAME_BULWARK_MEDCORVETTE"
-									graphical_culture = "pirate_01"
-									effect = {
-										add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
-									}
-								}
-							}
-							while = {
-								count = 55
-								create_ship = {
-									name = random
-									design = "NAME_BULWARK_MEDDESTROYER"
-									graphical_culture = "pirate_01"
-									effect = {
-										add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
-									}
-								}
-							}
-							while = {
-								count = 20
-								create_ship = {
-									name = random
-									design = "NAME_BULWARK_LOWCRUISER"
-									graphical_culture = "pirate_01"
-									effect = {
-										add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
-									}
-								}
-							}
-							set_location = event_target:bulwark_fleet_commission_goes_here
-							set_fleet_stance = aggressive
-							set_aggro_range_measure_from = self
-							set_aggro_range = 250
-						}
-					}
-				} else_if = {
-					limit = {
-						has_country_flag = bulwark_country_techtwo
-						has_country_flag = bulwark_country_numbersfour
-					}
-					create_fleet = {
-						settings = {
-							spawn_debris = no
-							can_change_composition = no
-							uses_naval_capacity = no
-							can_upgrade = no
-						}
-						effect = {
-							set_owner = event_target:receiving_bulwark_fleet_commission
-							while = {
-								count = 100
-								create_ship = {
-									name = random
-									design = "NAME_BULWARK_MEDCORVETTE"
-									graphical_culture = "pirate_01"
-									effect = {
-										add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
-									}
-								}
-							}
-							while = {
-								count = 70
-								create_ship = {
-									name = random
-									design = "NAME_BULWARK_MEDDESTROYER"
-									graphical_culture = "pirate_01"
-									effect = {
-										add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
-									}
-								}
-							}
-							while = {
-								count = 30
-								create_ship = {
-									name = random
-									design = "NAME_BULWARK_LOWCRUISER"
-									graphical_culture = "pirate_01"
-									effect = {
-										add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
-									}
-								}
-							}
-							set_location = event_target:bulwark_fleet_commission_goes_here
-							set_fleet_stance = aggressive
-							set_aggro_range_measure_from = self
-							set_aggro_range = 250
-						}
-					}
-				} else_if = {
-					limit = {
-						has_country_flag = bulwark_country_techtwo
-						has_country_flag = bulwark_country_numbersfive
-					}
-					create_fleet = {
-						settings = {
-							spawn_debris = no
-							can_change_composition = no
-							uses_naval_capacity = no
-							can_upgrade = no
-						}
-						effect = {
-							set_owner = event_target:receiving_bulwark_fleet_commission
-							while = {
-								count = 120
-								create_ship = {
-									name = random
-									design = "NAME_BULWARK_MEDCORVETTE"
-									graphical_culture = "pirate_01"
-									effect = {
-										add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
-									}
-								}
-							}
-							while = {
-								count = 85
-								create_ship = {
-									name = random
-									design = "NAME_BULWARK_MEDDESTROYER"
-									graphical_culture = "pirate_01"
-									effect = {
-										add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
-									}
-								}
-							}
-							while = {
-								count = 40
-								create_ship = {
-									name = random
-									design = "NAME_BULWARK_LOWCRUISER"
-									graphical_culture = "pirate_01"
-									effect = {
-										add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
-									}
-								}
-							}
-							set_location = event_target:bulwark_fleet_commission_goes_here
-							set_fleet_stance = aggressive
-							set_aggro_range_measure_from = self
-							set_aggro_range = 250
-						}
-					}
-				} else_if = {
-					limit = {
-						has_country_flag = bulwark_country_techthree
-						has_country_flag = bulwark_country_numberstwo
-					}
-					create_fleet = {
-						settings = {
-							spawn_debris = no
-							can_change_composition = no
-							uses_naval_capacity = no
-							can_upgrade = no
-						}
-						effect = {
-							set_owner = event_target:receiving_bulwark_fleet_commission
-							while = {
-								count = 60
-								create_ship = {
-									name = random
-									design = "NAME_BULWARK_HIGHCORVETTE"
-									graphical_culture = "pirate_01"
-									effect = {
-										add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
-									}
-								}
-							}
-							while = {
-								count = 40
-								create_ship = {
-									name = random
-									design = "NAME_BULWARK_HIGHDESTROYER"
-									graphical_culture = "pirate_01"
-									effect = {
-										add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
-									}
-								}
-							}
-							while = {
-								count = 10
-								create_ship = {
-									name = random
-									design = "NAME_BULWARK_MEDCRUISER"
-									graphical_culture = "pirate_01"
-									effect = {
-										add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
-									}
-								}
-							}
-							while = {
-								count = 5
-								create_ship = {
-									name = random
-									design = "NAME_BULWARK_LOWBATTLESHIP"
-									graphical_culture = "pirate_01"
-									effect = {
-										add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
-									}
-								}
-							}
-							set_location = event_target:bulwark_fleet_commission_goes_here
-							set_fleet_stance = aggressive
-							set_aggro_range_measure_from = self
-							set_aggro_range = 250
-						}
-					}
-				} else_if = {
-					limit = {
-						has_country_flag = bulwark_country_techthree
-						has_country_flag = bulwark_country_numbersthree
-					}
-					create_fleet = {
-						settings = {
-							spawn_debris = no
-							can_change_composition = no
-							uses_naval_capacity = no
-							can_upgrade = no
-						}
-						effect = {
-							set_owner = event_target:receiving_bulwark_fleet_commission
-							while = {
-								count = 80
-								create_ship = {
-									name = random
-									design = "NAME_BULWARK_HIGHCORVETTE"
-									graphical_culture = "pirate_01"
-									effect = {
-										add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
-									}
-								}
-							}
-							while = {
-								count = 55
-								create_ship = {
-									name = random
-									design = "NAME_BULWARK_HIGHDESTROYER"
-									graphical_culture = "pirate_01"
-									effect = {
-										add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
-									}
-								}
-							}
-							while = {
-								count = 20
-								create_ship = {
-									name = random
-									design = "NAME_BULWARK_MEDCRUISER"
-									graphical_culture = "pirate_01"
-									effect = {
-										add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
-									}
-								}
-							}
-							while = {
-								count = 10
-								create_ship = {
-									name = random
-									design = "NAME_BULWARK_LOWBATTLESHIP"
-									graphical_culture = "pirate_01"
-									effect = {
-										add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
-									}
-								}
-							}
-							set_location = event_target:bulwark_fleet_commission_goes_here
-							set_fleet_stance = aggressive
-							set_aggro_range_measure_from = self
-							set_aggro_range = 250
-						}
-					}
-				} else_if = {
-					limit = {
-						has_country_flag = bulwark_country_techthree
-						has_country_flag = bulwark_country_numbersfour
-					}
-					create_fleet = {
-						settings = {
-							spawn_debris = no
-							can_change_composition = no
-							uses_naval_capacity = no
-							can_upgrade = no
-						}
-						effect = {
-							set_owner = event_target:receiving_bulwark_fleet_commission
-							while = {
-								count = 100
-								create_ship = {
-									name = random
-									design = "NAME_BULWARK_HIGHCORVETTE"
-									graphical_culture = "pirate_01"
-									effect = {
-										add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
-									}
-								}
-							}
-							while = {
-								count = 70
-								create_ship = {
-									name = random
-									design = "NAME_BULWARK_HIGHDESTROYER"
-									graphical_culture = "pirate_01"
-									effect = {
-										add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
-									}
-								}
-							}
-							while = {
-								count = 30
-								create_ship = {
-									name = random
-									design = "NAME_BULWARK_MEDCRUISER"
-									graphical_culture = "pirate_01"
-									effect = {
-										add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
-									}
-								}
-							}
-							while = {
-								count = 15
-								create_ship = {
-									name = random
-									design = "NAME_BULWARK_LOWBATTLESHIP"
-									graphical_culture = "pirate_01"
-									effect = {
-										add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
-									}
-								}
-							}
-							set_location = event_target:bulwark_fleet_commission_goes_here
-							set_fleet_stance = aggressive
-							set_aggro_range_measure_from = self
-							set_aggro_range = 250
-						}
-					}
-				} else_if = {
-					limit = {
-						has_country_flag = bulwark_country_techthree
-						has_country_flag = bulwark_country_numbersfive
-					}
-					create_fleet = {
-						settings = {
-							spawn_debris = no
-							can_change_composition = no
-							uses_naval_capacity = no
-							can_upgrade = no
-						}
-						effect = {
-							set_owner = event_target:receiving_bulwark_fleet_commission
-							while = {
-								count = 120
-								create_ship = {
-									name = random
-									design = "NAME_BULWARK_HIGHCORVETTE"
-									graphical_culture = "pirate_01"
-									effect = {
-										add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
-									}
-								}
-							}
-							while = {
-								count = 85
-								create_ship = {
-									name = random
-									design = "NAME_BULWARK_HIGHDESTROYER"
-									graphical_culture = "pirate_01"
-									effect = {
-										add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
-									}
-								}
-							}
-							while = {
-								count = 40
-								create_ship = {
-									name = random
-									design = "NAME_BULWARK_MEDCRUISER"
-									graphical_culture = "pirate_01"
-									effect = {
-										add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
-									}
-								}
-							}
-							while = {
-								count = 20
-								create_ship = {
-									name = random
-									design = "NAME_BULWARK_LOWBATTLESHIP"
-									graphical_culture = "pirate_01"
-									effect = {
-										add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
-									}
-								}
-							}
-							set_location = event_target:bulwark_fleet_commission_goes_here
-							set_fleet_stance = aggressive
-							set_aggro_range_measure_from = self
-							set_aggro_range = 250
-						}
-					}
-				} else_if = {
-					limit = {
-						has_country_flag = bulwark_country_techfour
-						has_country_flag = bulwark_country_numberstwo
-					}
-					create_fleet = {
-						settings = {
-							spawn_debris = no
-							can_change_composition = no
-							uses_naval_capacity = no
-							can_upgrade = no
-						}
-						effect = {
-							set_owner = event_target:receiving_bulwark_fleet_commission
-							while = {
-								count = 60
-								create_ship = {
-									name = random
-									design = "NAME_BULWARK_HIGHERCORVETTE"
-									graphical_culture = "pirate_01"
-									effect = {
-										add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
-									}
-								}
-							}
-							while = {
-								count = 40
-								create_ship = {
-									name = random
-									design = "NAME_BULWARK_HIGHERDESTROYER"
-									graphical_culture = "pirate_01"
-									effect = {
-										add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
-									}
-								}
-							}
-							while = {
-								count = 10
-								create_ship = {
-									name = random
-									design = "NAME_BULWARK_HIGHCRUISER"
-									graphical_culture = "pirate_01"
-									effect = {
-										add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
-									}
-								}
-							}
-							while = {
-								count = 5
-								create_ship = {
-									name = random
-									design = "NAME_BULWARK_MEDBATTLESHIP"
-									graphical_culture = "pirate_01"
-									effect = {
-										add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
-									}
-								}
-							}
-							set_location = event_target:bulwark_fleet_commission_goes_here
-							set_fleet_stance = aggressive
-							set_aggro_range_measure_from = self
-							set_aggro_range = 250
-						}
-					}
-				} else_if = {
-					limit = {
-						has_country_flag = bulwark_country_techfour
-						has_country_flag = bulwark_country_numbersthree
-					}
-					create_fleet = {
-						settings = {
-							spawn_debris = no
-							can_change_composition = no
-							uses_naval_capacity = no
-							can_upgrade = no
-						}
-						effect = {
-							set_owner = event_target:receiving_bulwark_fleet_commission
-							while = {
-								count = 80
-								create_ship = {
-									name = random
-									design = "NAME_BULWARK_HIGHERCORVETTE"
-									graphical_culture = "pirate_01"
-									effect = {
-										add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
-									}
-								}
-							}
-							while = {
-								count = 55
-								create_ship = {
-									name = random
-									design = "NAME_BULWARK_HIGHERDESTROYER"
-									graphical_culture = "pirate_01"
-									effect = {
-										add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
-									}
-								}
-							}
-							while = {
-								count = 20
-								create_ship = {
-									name = random
-									design = "NAME_BULWARK_HIGHCRUISER"
-									graphical_culture = "pirate_01"
-									effect = {
-										add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
-									}
-								}
-							}
-							while = {
-								count = 10
-								create_ship = {
-									name = random
-									design = "NAME_BULWARK_MEDBATTLESHIP"
-									graphical_culture = "pirate_01"
-									effect = {
-										add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
-									}
-								}
-							}
-							set_location = event_target:bulwark_fleet_commission_goes_here
-							set_fleet_stance = aggressive
-							set_aggro_range_measure_from = self
-							set_aggro_range = 250
-						}
-					}
-				} else_if = {
-					limit = {
-						has_country_flag = bulwark_country_techfour
-						has_country_flag = bulwark_country_numbersfour
-					}
-					create_fleet = {
-						settings = {
-							spawn_debris = no
-							can_change_composition = no
-							uses_naval_capacity = no
-							can_upgrade = no
-						}
-						effect = {
-							set_owner = event_target:receiving_bulwark_fleet_commission
-							while = {
-								count = 100
-								create_ship = {
-									name = random
-									design = "NAME_BULWARK_HIGHERCORVETTE"
-									graphical_culture = "pirate_01"
-									effect = {
-										add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
-									}
-								}
-							}
-							while = {
-								count = 70
-								create_ship = {
-									name = random
-									design = "NAME_BULWARK_HIGHERDESTROYER"
-									graphical_culture = "pirate_01"
-									effect = {
-										add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
-									}
-								}
-							}
-							while = {
-								count = 30
-								create_ship = {
-									name = random
-									design = "NAME_BULWARK_HIGHCRUISER"
-									graphical_culture = "pirate_01"
-									effect = {
-										add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
-									}
-								}
-							}
-							while = {
-								count = 15
-								create_ship = {
-									name = random
-									design = "NAME_BULWARK_MEDBATTLESHIP"
-									graphical_culture = "pirate_01"
-									effect = {
-										add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
-									}
-								}
-							}
-							set_location = event_target:bulwark_fleet_commission_goes_here
-							set_fleet_stance = aggressive
-							set_aggro_range_measure_from = self
-							set_aggro_range = 250
-						}
-					}
-				} else_if = {
-					limit = {
-						has_country_flag = bulwark_country_techfour
-						has_country_flag = bulwark_country_numbersfive
-					}
-					create_fleet = {
-						settings = {
-							spawn_debris = no
-							can_change_composition = no
-							uses_naval_capacity = no
-							can_upgrade = no
-						}
-						effect = {
-							set_owner = event_target:receiving_bulwark_fleet_commission
-							while = {
-								count = 120
-								create_ship = {
-									name = random
-									design = "NAME_BULWARK_HIGHERCORVETTE"
-									graphical_culture = "pirate_01"
-									effect = {
-										add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
-									}
-								}
-							}
-							while = {
-								count = 75
-								create_ship = {
-									name = random
-									design = "NAME_BULWARK_HIGHERDESTROYER"
-									graphical_culture = "pirate_01"
-									effect = {
-										add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
-									}
-								}
-							}
-							while = {
-								count = 40
-								create_ship = {
-									name = random
-									design = "NAME_BULWARK_HIGHCRUISER"
-									graphical_culture = "pirate_01"
-									effect = {
-										add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
-									}
-								}
-							}
-							while = {
-								count = 20
-								create_ship = {
-									name = random
-									design = "NAME_BULWARK_MEDBATTLESHIP"
-									graphical_culture = "pirate_01"
-									effect = {
-										add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
-									}
-								}
-							}
-							set_location = event_target:bulwark_fleet_commission_goes_here
-							set_fleet_stance = aggressive
-							set_aggro_range_measure_from = self
-							set_aggro_range = 250
-						}
-					}
-				} else_if = {
-					limit = {
-						has_country_flag = bulwark_country_techfive
-						has_country_flag = bulwark_country_numberstwo
-					}
-					create_fleet = {
-						settings = {
-							spawn_debris = no
-							can_change_composition = no
-							uses_naval_capacity = no
-							can_upgrade = no
-						}
-						effect = {
-							set_owner = event_target:receiving_bulwark_fleet_commission
-							while = {
-								count = 60
-								create_ship = {
-									name = random
-									design = "NAME_BULWARK_HIGHESTCORVETTE"
-									graphical_culture = "pirate_01"
-									effect = {
-										add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
-									}
-								}
-							}
-							while = {
-								count = 40
-								create_ship = {
-									name = random
-									design = "NAME_BULWARK_HIGHESTDESTROYER"
-									graphical_culture = "pirate_01"
-									effect = {
-										add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
-									}
-								}
-							}
-							while = {
-								count = 10
-								create_ship = {
-									name = random
-									design = "NAME_BULWARK_HIGHESTCRUISER"
-									graphical_culture = "pirate_01"
-									effect = {
-										add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
-									}
-								}
-							}
-							while = {
-								count = 5
-								create_ship = {
-									name = random
-									design = "NAME_BULWARK_HIGHESTBATTLESHIP"
-									graphical_culture = "pirate_01"
-									effect = {
-										add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
-									}
-								}
-							}
-							set_location = event_target:bulwark_fleet_commission_goes_here
-							set_fleet_stance = aggressive
-							set_aggro_range_measure_from = self
-							set_aggro_range = 250
-						}
-					}
-				} else_if = {
-					limit = {
-						has_country_flag = bulwark_country_techfive
-						has_country_flag = bulwark_country_numbersthree
-					}
-					create_fleet = {
-						settings = {
-							spawn_debris = no
-							can_change_composition = no
-							uses_naval_capacity = no
-							can_upgrade = no
-						}
-						effect = {
-							set_owner = event_target:receiving_bulwark_fleet_commission
-							while = {
-								count = 80
-								create_ship = {
-									name = random
-									design = "NAME_BULWARK_HIGHESTCORVETTE"
-									graphical_culture = "pirate_01"
-									effect = {
-										add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
-									}
-								}
-							}
-							while = {
-								count = 55
-								create_ship = {
-									name = random
-									design = "NAME_BULWARK_HIGHESTDESTROYER"
-									graphical_culture = "pirate_01"
-									effect = {
-										add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
-									}
-								}
-							}
-							while = {
-								count = 20
-								create_ship = {
-									name = random
-									design = "NAME_BULWARK_HIGHESTCRUISER"
-									graphical_culture = "pirate_01"
-									effect = {
-										add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
-									}
-								}
-							}
-							while = {
-								count = 10
-								create_ship = {
-									name = random
-									design = "NAME_BULWARK_HIGHESTBATTLESHIP"
-									graphical_culture = "pirate_01"
-									effect = {
-										add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
-									}
-								}
-							}
-							set_location = event_target:bulwark_fleet_commission_goes_here
-							set_fleet_stance = aggressive
-							set_aggro_range_measure_from = self
-							set_aggro_range = 250
-						}
-					}
-				} else_if = {
-					limit = {
-						has_country_flag = bulwark_country_techfive
-						has_country_flag = bulwark_country_numbersfour
-					}
-					create_fleet = {
-						settings = {
-							spawn_debris = no
-							can_change_composition = no
-							uses_naval_capacity = no
-							can_upgrade = no
-						}
-						effect = {
-							set_owner = event_target:receiving_bulwark_fleet_commission
-							while = {
-								count = 100
-								create_ship = {
-									name = random
-									design = "NAME_BULWARK_HIGHESTCORVETTE"
-									graphical_culture = "pirate_01"
-									effect = {
-										add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
-									}
-								}
-							}
-							while = {
-								count = 70
-								create_ship = {
-									name = random
-									design = "NAME_BULWARK_HIGHESTDESTROYER"
-									graphical_culture = "pirate_01"
-									effect = {
-										add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
-									}
-								}
-							}
-							while = {
-								count = 30
-								create_ship = {
-									name = random
-									design = "NAME_BULWARK_HIGHESTCRUISER"
-									graphical_culture = "pirate_01"
-									effect = {
-										add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
-									}
-								}
-							}
-							while = {
-								count = 15
-								create_ship = {
-									name = random
-									design = "NAME_BULWARK_HIGHESTBATTLESHIP"
-									graphical_culture = "pirate_01"
-									effect = {
-										add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
-									}
-								}
-							}
-							set_location = event_target:bulwark_fleet_commission_goes_here
-							set_fleet_stance = aggressive
-							set_aggro_range_measure_from = self
-							set_aggro_range = 250
-						}
-					}
-				} else_if = {
-					limit = {
-						has_country_flag = bulwark_country_techfive
-						has_country_flag = bulwark_country_numbersfive
-					}
-					create_fleet = {
-						settings = {
-							spawn_debris = no
-							can_change_composition = no
-							uses_naval_capacity = no
-							can_upgrade = no
-						}
-						effect = {
-							set_owner = event_target:receiving_bulwark_fleet_commission
-							while = {
-								count = 120
-								create_ship = {
-									name = random
-									design = "NAME_BULWARK_HIGHESTCORVETTE"
-									graphical_culture = "pirate_01"
-									effect = {
-										add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
-									}
-								}
-							}
-							while = {
-								count = 85
-								create_ship = {
-									name = random
-									design = "NAME_BULWARK_HIGHESTDESTROYER"
-									graphical_culture = "pirate_01"
-									effect = {
-										add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
-									}
-								}
-							}
-							while = {
-								count = 40
-								create_ship = {
-									name = random
-									design = "NAME_BULWARK_HIGHESTCRUISER"
-									graphical_culture = "pirate_01"
-									effect = {
-										add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
-									}
-								}
-							}
-							while = {
-								count = 20
-								create_ship = {
-									name = random
-									design = "NAME_BULWARK_HIGHESTBATTLESHIP"
-									graphical_culture = "pirate_01"
-									effect = {
-										add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
-									}
-								}
-							}
-							set_location = event_target:bulwark_fleet_commission_goes_here
-							set_fleet_stance = aggressive
-							set_aggro_range_measure_from = self
-							set_aggro_range = 250
-						}
+						set_location = event_target:bulwark_fleet_commission_goes_here
+						set_fleet_stance = aggressive
+						set_aggro_range_measure_from = self
+						set_aggro_range = 250
 					}
 				}
 			}
@@ -5056,11 +1570,11 @@ country_event = {
 			NOT = { has_country_flag = bulwark_trainers_hired }
 		}
 		allow = {
-			resource_stockpile_compare = { resource = energy value >= 2500 }
+			resource_stockpile_compare = { resource = energy value > 2500 }
 			NOT = { has_country_flag = bulwark_trainers_hired }
 		}
 		set_timed_country_flag = { flag = bulwark_trainers_hired days = 3600 }
-		set_timed_country_flag = { flag = bulwark_trainers_hired_safeguard days = 2 }
+		set_timed_country_flag = { flag = bulwark_trainers_hired_safeguard days = 3 }
 		add_resource = { energy = -2500 }
 		hidden_effect = {
 			if = {
@@ -5094,11 +1608,11 @@ country_event = {
 			NOT = { has_country_flag = bulwark_trainers_hired }
 		}
 		allow = {
-			resource_stockpile_compare = { resource = energy value >= 2500 }
+			resource_stockpile_compare = { resource = energy value > 2500 }
 			NOT = { has_country_flag = bulwark_trainers_hired }
 		}
 		set_timed_country_flag = { flag = bulwark_trainers_hired days = 3600 }
-		set_timed_country_flag = { flag = bulwark_trainers_hired_safeguard days = 2 }
+		set_timed_country_flag = { flag = bulwark_trainers_hired_safeguard days = 3 }
 		add_resource = { energy = -2500 }
 		hidden_effect = {
 			if = {
@@ -5127,11 +1641,11 @@ country_event = {
 			NOT = { has_country_flag = bulwark_trainers_hired }
 		}
 		allow = {
-			resource_stockpile_compare = { resource = energy value >= 2500 }
+			resource_stockpile_compare = { resource = energy value > 2500 }
 			NOT = { has_country_flag = bulwark_trainers_hired }
 		}
 		set_timed_country_flag = { flag = bulwark_trainers_hired days = 3600 }
-		set_timed_country_flag = { flag = bulwark_trainers_hired_safeguard days = 2 }
+		set_timed_country_flag = { flag = bulwark_trainers_hired_safeguard days = 3 }
 		add_resource = { energy = -2500 }
 		hidden_effect = {
 			if = {
@@ -5208,14 +1722,14 @@ country_event = {
 			}
 		}
 		allow = {
-			resource_stockpile_compare = { resource = energy value >= 1000 }
+			resource_stockpile_compare = { resource = energy value > 1000 }
 			hidden_trigger = {
 				NOT = {
 					event_target:current_bulwark_diplomacy = { has_country_flag = bulwark_commission_stations_root }
 				}
 			}
 		}
-		set_timed_country_flag = { flag = bulwark_commissioned_stations_recently_safeguard days = 2 }
+		set_timed_country_flag = { flag = bulwark_commissioned_stations_recently_safeguard days = 3 }
 		set_timed_country_flag = { flag = bulwark_commission_stations_target days = 720 }
 		add_resource = { energy = -1000 }
 		hidden_effect = {
@@ -5227,7 +1741,7 @@ country_event = {
 					set_timed_country_flag = { flag = bulwark_commission_stations_root days = 1440 }
 					change_variable = { which = bulwarkbudget value = 50 }
 				}
-				random_country = {
+				random_playable_country = {
 					limit = { has_country_flag = bulwark_commissioned_stations_recently_safeguard }
 					save_global_event_target_as = receiving_bulwark_station_commission
 					set_variable = { which = bulwarkstations value = 10 }
@@ -5316,7 +1830,7 @@ country_event = {
 					set_timed_country_flag = { flag = bulwark_commission_stations_root days = 1440 }
 					change_variable = { which = bulwarkbudget value = 50 }
 				}
-				random_country = {
+				random_playable_country = {
 					limit = { has_country_flag = bulwark_commissioned_stations_recently_safeguard }
 					save_global_event_target_as = receiving_bulwark_station_commission
 					set_variable = { which = bulwarkstations value = 10 }
@@ -5405,7 +1919,7 @@ country_event = {
 					set_timed_country_flag = { flag = bulwark_commission_stations_root days = 1440 }
 					change_variable = { which = bulwarkbudget value = 50 }
 				}
-				random_country = {
+				random_playable_country = {
 					limit = { has_country_flag = bulwark_commissioned_stations_recently_safeguard }
 					save_global_event_target_as = receiving_bulwark_station_commission
 					set_variable = { which = bulwarkstations value = 10 }
@@ -5494,7 +2008,7 @@ country_event = {
 					set_timed_country_flag = { flag = bulwark_commission_stations_root days = 1440 }
 					change_variable = { which = bulwarkbudget value = 50 }
 				}
-				random_country = {
+				random_playable_country = {
 					limit = { has_country_flag = bulwark_commissioned_stations_recently_safeguard }
 					save_global_event_target_as = receiving_bulwark_station_commission
 					set_variable = { which = bulwarkstations value = 10 }
@@ -5583,7 +2097,7 @@ country_event = {
 					set_timed_country_flag = { flag = bulwark_commission_stations_root days = 1440 }
 					change_variable = { which = bulwarkbudget value = 50 }
 				}
-				random_country = {
+				random_playable_country = {
 					limit = { has_country_flag = bulwark_commissioned_stations_recently_safeguard }
 					save_global_event_target_as = receiving_bulwark_station_commission
 					set_variable = { which = bulwarkstations value = 10 }
@@ -5676,14 +2190,14 @@ country_event = {
 			}
 		}
 		allow = {
-			resource_stockpile_compare = { resource = energy value >= 2000 }
+			resource_stockpile_compare = { resource = energy value > 2000 }
 			hidden_trigger = {
 				NOT = {
 					event_target:current_bulwark_diplomacy = { has_country_flag = bulwark_commission_stations_root }
 				}
 			}
 		}
-		set_timed_country_flag = { flag = bulwark_commissioned_stations_recently_safeguard days = 2 }
+		set_timed_country_flag = { flag = bulwark_commissioned_stations_recently_safeguard days = 3 }
 		set_timed_country_flag = { flag = bulwark_commission_stations_target days = 720 }
 		add_resource = { energy = -2000 }
 		hidden_effect = {
@@ -5695,7 +2209,7 @@ country_event = {
 					set_timed_country_flag = { flag = bulwark_commission_stations_root days = 1440 }
 					change_variable = { which = bulwarkbudget value = 100 }
 				}
-				random_country = {
+				random_playable_country = {
 					limit = { has_country_flag = bulwark_commissioned_stations_recently_safeguard }
 					save_global_event_target_as = receiving_bulwark_station_commission
 					set_variable = { which = bulwarkstations value = 20 }
@@ -5784,7 +2298,7 @@ country_event = {
 					set_timed_country_flag = { flag = bulwark_commission_stations_root days = 1440 }
 					change_variable = { which = bulwarkbudget value = 100 }
 				}
-				random_country = {
+				random_playable_country = {
 					limit = { has_country_flag = bulwark_commissioned_stations_recently_safeguard }
 					save_global_event_target_as = receiving_bulwark_station_commission
 					set_variable = { which = bulwarkstations value = 20 }
@@ -5873,7 +2387,7 @@ country_event = {
 					set_timed_country_flag = { flag = bulwark_commission_stations_root days = 1440 }
 					change_variable = { which = bulwarkbudget value = 100 }
 				}
-				random_country = {
+				random_playable_country = {
 					limit = { has_country_flag = bulwark_commissioned_stations_recently_safeguard }
 					save_global_event_target_as = receiving_bulwark_station_commission
 					set_variable = { which = bulwarkstations value = 20 }
@@ -5962,7 +2476,7 @@ country_event = {
 					set_timed_country_flag = { flag = bulwark_commission_stations_root days = 1440 }
 					change_variable = { which = bulwarkbudget value = 100 }
 				}
-				random_country = {
+				random_playable_country = {
 					limit = { has_country_flag = bulwark_commissioned_stations_recently_safeguard }
 					save_global_event_target_as = receiving_bulwark_station_commission
 					set_variable = { which = bulwarkstations value = 20 }
@@ -6051,7 +2565,7 @@ country_event = {
 					set_timed_country_flag = { flag = bulwark_commission_stations_root days = 1440 }
 					change_variable = { which = bulwarkbudget value = 100 }
 				}
-				random_country = {
+				random_playable_country = {
 					limit = { has_country_flag = bulwark_commissioned_stations_recently_safeguard }
 					save_global_event_target_as = receiving_bulwark_station_commission
 					set_variable = { which = bulwarkstations value = 20 }
@@ -6144,14 +2658,14 @@ country_event = {
 			}
 		}
 		allow = {
-			resource_stockpile_compare = { resource = energy value >= 3000 }
+			resource_stockpile_compare = { resource = energy value > 3000 }
 			hidden_trigger = {
 				NOT = {
 					event_target:current_bulwark_diplomacy = { has_country_flag = bulwark_commission_stations_root }
 				}
 			}
 		}
-		set_timed_country_flag = { flag = bulwark_commissioned_stations_recently_safeguard days = 2 }
+		set_timed_country_flag = { flag = bulwark_commissioned_stations_recently_safeguard days = 3 }
 		set_timed_country_flag = { flag = bulwark_commission_stations_target days = 720 }
 		add_resource = { energy = -3000 }
 		hidden_effect = {
@@ -6163,7 +2677,7 @@ country_event = {
 					set_timed_country_flag = { flag = bulwark_commission_stations_root days = 1440 }
 					change_variable = { which = bulwarkbudget value = 150 }
 				}
-				random_country = {
+				random_playable_country = {
 					limit = { has_country_flag = bulwark_commissioned_stations_recently_safeguard }
 					save_global_event_target_as = receiving_bulwark_station_commission
 					set_variable = { which = bulwarkstations value = 30 }
@@ -6252,7 +2766,7 @@ country_event = {
 					set_timed_country_flag = { flag = bulwark_commission_stations_root days = 1440 }
 					change_variable = { which = bulwarkbudget value = 150 }
 				}
-				random_country = {
+				random_playable_country = {
 					limit = { has_country_flag = bulwark_commissioned_stations_recently_safeguard }
 					save_global_event_target_as = receiving_bulwark_station_commission
 					set_variable = { which = bulwarkstations value = 30 }
@@ -6341,7 +2855,7 @@ country_event = {
 					set_timed_country_flag = { flag = bulwark_commission_stations_root days = 1440 }
 					change_variable = { which = bulwarkbudget value = 150 }
 				}
-				random_country = {
+				random_playable_country = {
 					limit = { has_country_flag = bulwark_commissioned_stations_recently_safeguard }
 					save_global_event_target_as = receiving_bulwark_station_commission
 					set_variable = { which = bulwarkstations value = 30 }
@@ -6430,7 +2944,7 @@ country_event = {
 					set_timed_country_flag = { flag = bulwark_commission_stations_root days = 1440 }
 					change_variable = { which = bulwarkbudget value = 150 }
 				}
-				random_country = {
+				random_playable_country = {
 					limit = { has_country_flag = bulwark_commissioned_stations_recently_safeguard }
 					save_global_event_target_as = receiving_bulwark_station_commission
 					set_variable = { which = bulwarkstations value = 30 }
@@ -6519,7 +3033,7 @@ country_event = {
 					set_timed_country_flag = { flag = bulwark_commission_stations_root days = 1440 }
 					change_variable = { which = bulwarkbudget value = 150 }
 				}
-				random_country = {
+				random_playable_country = {
 					limit = { has_country_flag = bulwark_commissioned_stations_recently_safeguard }
 					save_global_event_target_as = receiving_bulwark_station_commission
 					set_variable = { which = bulwarkstations value = 30 }

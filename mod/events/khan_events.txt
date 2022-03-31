@@ -92,6 +92,8 @@ event = {
 				# Fix ongoing hostility (is_hostile seems not immediately working on load)
 				country_event = { id = khan.309 }
 				country_event = { id = khan.309 days = 4 }
+				# TEMP FIX KHAN NO RESPAWN
+				country_event = { id = marauder.507 days = 105 random = 80 }
 			}
 		}
 		## TEST raiding_marauder stuck fix

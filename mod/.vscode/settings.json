@@ -1,7 +1,0 @@
-{
-"cwtools.errors.ignore": [
-    "CW100", // localisation
-    "CW242",
-    "CW262"
-],
-}

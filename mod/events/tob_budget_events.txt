@@ -74,10 +74,14 @@ country_event = {
 
 		random_system_within_border = {
 			limit = {
-				has_owner = yes
-				is_owned_by = prev
+				# has_owner = yes
+				# is_owned_by = prev
+				any_system_planet = { is_star = no }
 			}
-			random_system_planet = { save_event_target_as = bulwark_mercs_respawn_here }
+			random_system_planet = {
+				limit = { is_star = no }
+				save_event_target_as = bulwark_mercs_respawn_here
+			}
 		}
 		if = {
 			limit = { has_country_flag = bulwark_numbers }

@@ -27,54 +27,37 @@ country_event = {
 		}
 	}
 	immediate = {
-		from = { save_event_target_as = encountered_bulwark }
+		from = {
+			save_event_target_as = encountered_bulwark
+		}
 		if = {
 			limit = { exists = capital_scope }
 			capital_scope = { save_event_target_as = pc_home }
 		} else_if = {
-			limit = { any_owned_planet = { has_owner = yes } }
+			limit = { any_owned_planet = { is_colony = yes num_pops > 9 } }
 			random_owned_planet = {
-				limit = { has_owner = yes }
+				limit = { is_colony = yes num_pops > 9 }
 				save_event_target_as = pc_home
 			}
 		} else = {
 			random_planet_within_border = {
-				limit = { exists = space_owner }
+				limit = { exists = space_owner colonizable_planet = yes }
+				weights = { base = 1 modifier = { add = 3 is_colony = yes } }
 				save_event_target_as = pc_home
 			}
 		}
-		from = {
-			enable_special_project = {
-				name = "INVESTIGATE_BULWARK"
-				location = event_target:pc_home
-				owner = root
-			}
-		}
-		if = {
-			limit = {
-				from = { has_country_flag = bulwark_numbers }
-			}
+		if = { limit = { from = { has_country_flag = bulwark_numbers } }
 			set_country_flag = bulwark_numbers_encountered
-		} else_if = {
-			limit = {
-				from = { has_country_flag = bulwark_techies }
-			}
+		} else_if = { limit = { from = { has_country_flag = bulwark_techies } }
 			set_country_flag = bulwark_techies_encountered
-		} else_if = {
-			limit = {
-				from = { has_country_flag = bulwark_monsters }
-			}
+		} else_if = { limit = { from = { has_country_flag = bulwark_monsters } }
 			set_country_flag = bulwark_monsters_encountered
 		}
 	}
 	option = {
 		name = "action.10.a"
 		tooltip = {
-			enable_special_project = {
-				name = "INVESTIGATE_BULWARK"
-				location = event_target:pc_home
-				owner = root
-			}
+			enable_special_project = { name = "INVESTIGATE_BULWARK" location = event_target:pc_home }
 		}
 	}
 }
@@ -363,18 +346,25 @@ country_event = {
 			owner_species = { save_event_target_as = marauder_species }
 			from = {
 				save_event_target_as = marauder_killer
+				random_owned_fleet = {
+					limit = {
+						is_mobile = yes
+						is_civilian = no
+						exists = solar_system
+						solar_system = { has_star_flag = tob_system }
+					}
+					solar_system = { save_event_target_as = attacked_system }
+				}
 				# Marauder Vengeance
 				# This = target country
 				# From = Marauder
 				every_country = {
-					limit = { is_country_type = outer_bulwarks }
+					limit = {
+						is_country_type = outer_bulwarks
+						NOT = { is_same_empire = root }
+					}
 					prev = {
-						country_event = {
-							id = marauder.6
-							days = 100
-							random = 50
-							scopes = { from = prev }
-						}
+						country_event = { id = marauder.6 days = 100 random = 50 scopes = { from = prevprev } }
 					}
 				}
 			}
@@ -405,17 +395,11 @@ country_event = {
 			# 	}
 			# }
 
-
 			random_system = {
-				limit = {
-					has_star_flag = tob_system
-				}
+				limit = { has_star_flag = tob_system }
 				weights = {
 					base = 1
-					modifier = {
-						add = 3
-						exists = space_owner
-					}
+					modifier = { add = 3 exists = space_owner }
 					modifier = {
 						add = 3
 						exists = space_owner
@@ -458,20 +442,14 @@ country_event = {
 					}
 				}
 			}
-			set_country_type = ruined_marauders			# Kill diplomacy
+			# set_country_type = ruined_marauders			# Kill diplomacy
 			every_country = {
 				limit = { is_country_type = outer_bulwarks }
-				if = {
-					limit = {
-						NOT = { is_hostile = from }
-					}
-					set_faction_hostility = {
-						target = from
-						set_hostile = yes
-					}
+				if = { limit = { NOT = { is_hostile = from } }
+					set_faction_hostility = { target = from set_hostile = yes }
 				}
 			}
-		} else = { destroy_country = yes }
+		} # else = { destroy_country = yes }
 	}
 }
 
