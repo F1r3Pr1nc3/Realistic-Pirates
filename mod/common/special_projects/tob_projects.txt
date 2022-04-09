@@ -1,3 +1,4 @@
+# DEPRECATED First Contact
 special_project = {
 	key = "INVESTIGATE_BULWARK"
 	picture = GFX_evt_star_chart

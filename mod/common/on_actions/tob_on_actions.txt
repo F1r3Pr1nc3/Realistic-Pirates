@@ -1,8 +1,15 @@
 # scope = country
-on_first_contact = {
-	events = {
-		tob_action.1
-	}
+# on_first_contact = {
+# 	events = {
+# 		tob_action.1
+# 	}
+# }
+
+# scope = first_contact
+on_first_contact_stage_1_no_path = {
+    events = {
+        first_contact_bulwarks.10
+    }
 }
 
 on_monthly_pulse = {

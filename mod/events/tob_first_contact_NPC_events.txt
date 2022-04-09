@@ -1,0 +1,105 @@
+namespace = first_contact_bulwarks
+
+first_contact_event = {
+    id = first_contact_bulwarks.10
+	hide_window = yes
+	is_triggered_only = yes
+    
+    trigger = {
+        contact_country = {
+            is_country_type = outer_bulwarks
+        }
+    }
+    immediate = {
+        setup_first_contact_path = { TYPE = outer_bulwarks }
+    }
+}
+
+first_contact_event = {
+	id = first_contact_bulwarks.50
+	title = first_contact_bulwarks.50.name
+	desc = first_contact_bulwarks.50.desc
+	picture = GFX_evt_star_chart
+	show_sound = event_worrying_signal
+
+	is_triggered_only = yes
+	first_contact = yes
+
+	immediate = {
+		set_site_progress_locked = yes
+	}
+
+	after = {
+		set_site_progress_locked = no
+	}
+
+	option = {
+		name = first_contact_bulwarks.50.A
+		set_first_contact_stage = outer_bulwarks_stage_2
+	}
+}
+
+first_contact_event = {
+	id = first_contact_bulwarks.55
+	title = tob_merc.1.name
+	desc = tob_merc.1.desc
+	picture = GFX_evt_pirate_armada
+	show_sound = event_radio_chatter
+
+	location = event_target:tob_discovered_bulwark_home
+
+	is_triggered_only = yes
+	first_contact = yes
+
+	immediate = {
+		set_site_progress_locked = yes
+
+		contact_country = {
+			save_event_target_as = encountered_bulwark
+			owner_species = { save_event_target_as = bulwark_species }
+		}
+        
+		if = {
+            limit = { contact_country = { has_country_flag = bulwark_numbers } }
+			root.owner = { set_country_flag = bulwark_numbers_encountered }
+            contact_country = {
+                random_system = {
+                    limit = { has_star_flag = tob_supremacists }
+                    save_event_target_as = tob_discovered_bulwark_home
+                }
+            }
+		}
+        else_if = {
+            limit = { contact_country = { has_country_flag = bulwark_techies } }
+			root.owner = { set_country_flag = bulwark_techies_encountered }
+            contact_country = {
+                random_system = {
+                    limit = { has_star_flag = tob_technologists }
+                    save_event_target_as = tob_discovered_bulwark_home
+                }
+            }
+		}
+        else_if = {
+            limit = { contact_country = { has_country_flag = bulwark_monsters } }
+			root.owner = { set_country_flag = bulwark_monsters_encountered }
+            contact_country = {
+                random_system = {
+                    limit = { has_star_flag = tob_tamers }
+                    save_event_target_as = tob_discovered_bulwark_home
+                }
+            }
+		}
+	}
+
+	after = {
+		set_site_progress_locked = no
+	}
+
+	option = {
+		name = tob_merc.1.a
+        owner = {
+            country_event = { id = tob_merc.2 }
+        }
+		finish_first_contact_effect = yes
+	}
+}

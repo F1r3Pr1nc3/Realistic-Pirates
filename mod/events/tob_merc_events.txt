@@ -9,6 +9,7 @@ country_event = {
 	location = event_target:tob_discovered_bulwark_home
 	is_triggered_only = yes
 	immediate = {
+		establish_communications_no_message = event_target:encountered_bulwark
 		event_target:encountered_bulwark = {
 			establish_communications_no_message = root
 			owner_species = { save_event_target_as = bulwark_species }

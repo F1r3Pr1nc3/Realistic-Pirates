@@ -1,0 +1,39 @@
+# outer bulwarks - start off event
+outer_bulwarks_stage_1 = {
+	icon = GFX_firstcontact_icon_progress
+	picture = GFX_evt_star_chart
+
+	difficulty = 3
+
+	stage_event = {
+		summary = fcsum_marauders_1
+		event_weight = {
+			weight = 1
+		}
+		event = first_contact_bulwarks.50
+	}
+
+	on_roll_failed = {
+		standard_first_contact_on_roll_failed = { RANDOM_EVENTS = early_fc_random_events }
+	}
+}
+
+# outer_bulwark finish
+outer_bulwarks_stage_2 = {
+	icon = GFX_firstcontact_icon_success
+	picture = GFX_evt_pirates_attacking_cargo
+
+	difficulty = 5
+
+	stage_event = {
+		summary = fcsum_comms_established
+		event_weight = {
+			weight = 1
+		}
+		event = first_contact_bulwarks.55
+	}
+
+	on_roll_failed = {
+		standard_first_contact_on_roll_failed = { RANDOM_EVENTS = late_fc_random_events }
+	}
+}

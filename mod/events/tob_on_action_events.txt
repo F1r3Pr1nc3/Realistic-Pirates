@@ -1,5 +1,5 @@
 namespace = tob_action
-# First Contact
+# DEPRECATED First Contact
 country_event = {
 	id = tob_action.1
 	title = "action.10.name"
