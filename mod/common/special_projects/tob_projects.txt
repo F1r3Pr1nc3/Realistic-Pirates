@@ -22,7 +22,7 @@ special_project = {
 
 	on_success = {
 		space_owner = {
-			country_event = { id = tob_merc.1 }
+			country_event = { id = tob_merc.1 scopes = { from = event_target:encountered_bulwark } }
 		}
 	}
 

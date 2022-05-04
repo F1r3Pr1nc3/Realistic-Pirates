@@ -1,5 +1,7 @@
 namespace = tob_merc
+# DEPRECATED First Contact
 # special_project INVESTIGATE_BULWARK
+# From = contact_country = encountered_bulwark
 country_event = {
 	id = tob_merc.1
 	title = "tob_merc.1.name"
@@ -9,14 +11,14 @@ country_event = {
 	location = event_target:tob_discovered_bulwark_home
 	is_triggered_only = yes
 	immediate = {
-		establish_communications_no_message = event_target:encountered_bulwark
-		event_target:encountered_bulwark = {
+		establish_communications_no_message = from
+		from = {
 			establish_communications_no_message = root
 			owner_species = { save_event_target_as = bulwark_species }
 		}
 		if = {
 			limit = {
-				event_target:encountered_bulwark = { has_country_flag = bulwark_numbers }
+				from = { has_country_flag = bulwark_numbers }
 			}
 			random_system = {
 				limit = { has_star_flag = tob_supremacists }
@@ -24,7 +26,7 @@ country_event = {
 			}
 		} else_if = {
 			limit = {
-				event_target:encountered_bulwark = { has_country_flag = bulwark_techies }
+				from = { has_country_flag = bulwark_techies }
 			}
 			random_system = {
 				limit = { has_star_flag = tob_technologists }
@@ -32,7 +34,7 @@ country_event = {
 			}
 		} else_if = {
 			limit = {
-				event_target:encountered_bulwark = { has_country_flag = bulwark_monsters }
+				from = { has_country_flag = bulwark_monsters }
 			}
 			random_system = {
 				limit = { has_star_flag = tob_tamers }
@@ -43,43 +45,44 @@ country_event = {
 	option = {
 		name = tob_merc.1.a
 		hidden_effect = {
-			country_event = { id = tob_merc.2 }
+			country_event = { id = tob_merc.2 scopes = { from = from } }
 		}
 	}
 }
 
 # Introduction
+# From = contact_country = encountered_bulwark
 country_event = {
 	id = tob_merc.2
 	title = "TRANSMISSION"
 	desc = {
 		text = tob_merc.2.1.desc
 		trigger = {
-			event_target:encountered_bulwark = { has_country_flag = bulwark_numbers }
+			from = { has_country_flag = bulwark_numbers }
 		}
 	}
 	desc = {
 		text = tob_merc.2.2.desc
 		trigger = {
-			event_target:encountered_bulwark = { has_country_flag = bulwark_techies }
+			from = { has_country_flag = bulwark_techies }
 		}
 	}
 	desc = {
 		text = tob_merc.2.3.desc
 		trigger = {
-			event_target:encountered_bulwark = { has_country_flag = bulwark_monsters }
+			from = { has_country_flag = bulwark_monsters }
 		}
 	}
 	diplomatic = yes
 	picture_event_data = {
-		portrait = event_target:encountered_bulwark
+		portrait = from
 		room = "ethic_spaceship_room"
 	}
 	is_triggered_only = yes
 	option = { name = tob_merc.2.a }
 }
 
-# Main Menu (Initial)
+# Main Menu (Initial - on_custom_diplomacy)
 # From = event_target:current_bulwark_diplomacy
 country_event = {
 	id = tob_merc.3
@@ -125,9 +128,9 @@ country_event = {
 	immediate = {
 		from = {
 			owner_species = { save_event_target_as = bulwark_species }
-			save_event_target_as = current_bulwark_diplomacy
+			# save_event_target_as = current_bulwark_diplomacy #somehow not working
 		}
-		set_timed_country_flag = { flag = bulwark_diplomacy_engaged days = 30 }
+		set_timed_country_flag = { flag = bulwark_diplomacy_engaged months = 1 }
 	}
 	after = {
 		hidden_effect = { remove_country_flag = bulwark_diplomacy_engaged }
@@ -136,7 +139,7 @@ country_event = {
 	option = {
 		name = tob_merc.3.a
 		trigger = {
-			event_target:current_bulwark_diplomacy = { has_country_flag = bulwark_numbers }
+			from = { has_country_flag = bulwark_numbers }
 		}
 		response_text = tob_merc.3.a.response
 		is_dialog_only = yes
@@ -145,7 +148,7 @@ country_event = {
 	option = {
 		name = tob_merc.3.a
 		trigger = {
-			event_target:current_bulwark_diplomacy = { has_country_flag = bulwark_techies }
+			from = { has_country_flag = bulwark_techies }
 		}
 		response_text = tob_merc.3.a.1.response
 		is_dialog_only = yes
@@ -154,7 +157,7 @@ country_event = {
 	option = {
 		name = tob_merc.3.a
 		trigger = {
-			event_target:current_bulwark_diplomacy = { has_country_flag = bulwark_monsters }
+			from = { has_country_flag = bulwark_monsters }
 		}
 		response_text = tob_merc.3.a.2.response
 		is_dialog_only = yes
@@ -163,7 +166,7 @@ country_event = {
 	option = {
 		name = tob_merc.3.b
 		trigger = {
-			event_target:current_bulwark_diplomacy = { has_country_flag = bulwark_numbers }
+			from = { has_country_flag = bulwark_numbers }
 		}
 		response_text = tob_merc.3.b.response
 		is_dialog_only = yes
@@ -172,7 +175,7 @@ country_event = {
 	option = {
 		name = tob_merc.3.b
 		trigger = {
-			event_target:current_bulwark_diplomacy = { has_country_flag = bulwark_techies }
+			from = { has_country_flag = bulwark_techies }
 		}
 		response_text = tob_merc.3.b.1.response
 		is_dialog_only = yes
@@ -181,7 +184,7 @@ country_event = {
 	option = {
 		name = tob_merc.3.b
 		trigger = {
-			event_target:current_bulwark_diplomacy = { has_country_flag = bulwark_monsters }
+			from = { has_country_flag = bulwark_monsters }
 		}
 		response_text = tob_merc.3.b.2.response
 		is_dialog_only = yes
@@ -190,7 +193,7 @@ country_event = {
 	option = {
 		name = tob_merc.3.c
 		trigger = {
-			event_target:current_bulwark_diplomacy = {
+			from = {
 				is_country_type = outer_bulwarks
 				# OR = {
 				# 	has_country_flag = bulwark_numbers
@@ -208,20 +211,20 @@ country_event = {
 					# 	has_fleet_flag = bulwark_monsters_mercfleet
 					# }
 				}
-				event_target:current_bulwark_diplomacy = { has_country_flag = bulwark_merc_fleet_hired }
+				from = { has_country_flag = bulwark_merc_fleet_hired }
 				if = {
 					limit = {
-						event_target:current_bulwark_diplomacy = { has_country_flag = bulwark_numbers }
+						from = { has_country_flag = bulwark_numbers }
 					}
 					has_global_flag = bulwark_numbers_mercs_gone
 				} else_if = {
 					limit = {
-						event_target:current_bulwark_diplomacy = { has_country_flag = bulwark_techies }
+						from = { has_country_flag = bulwark_techies }
 					}
 					has_global_flag = bulwark_techies_mercs_gone
 				} else_if = {
 					limit = {
-						event_target:current_bulwark_diplomacy = { has_country_flag = bulwark_monsters }
+						from = { has_country_flag = bulwark_monsters }
 					}
 					has_global_flag = bulwark_monsters_mercs_gone
 				}
@@ -236,7 +239,7 @@ country_event = {
 	option = {
 		name = tob_merc.3.d
 		trigger = {
-			event_target:current_bulwark_diplomacy = {
+			from = {
 				is_country_type = outer_bulwarks
 				# OR = {
 				# 	has_country_flag = bulwark_numbers
@@ -247,19 +250,19 @@ country_event = {
 			NOR = {
 				has_country_flag = bulwark_at_war_quest
 				has_country_flag = bulwark_commissioned_fleet_recently_target
-				event_target:current_bulwark_diplomacy = { has_country_flag = bulwark_commissioned_fleet_recently }
+				from = { has_country_flag = bulwark_commissioned_fleet_recently }
 			}
 		}
 		custom_tooltip = commission_fleet
 		hidden_effect = {
-			country_event = { id = tob_merc.6 }
+			country_event = { id = tob_merc.6 scopes = { from = from } }
 		}
 	}
 	# Commission Training
 	option = {
 		name = tob_merc.3.f
 		trigger = {
-			event_target:current_bulwark_diplomacy = {
+			from = {
 				is_country_type = outer_bulwarks
 				# OR = {
 				# 	has_country_flag = bulwark_numbers
@@ -271,19 +274,19 @@ country_event = {
 				has_country_flag = bulwark_at_war_quest
 				has_country_flag = bulwark_trainers_hired
 				has_global_flag = bulwark_trainers_scared
-				event_target:current_bulwark_diplomacy = { has_country_flag = bulwark_commissioned_training_recently }
+				from = { has_country_flag = bulwark_commissioned_training_recently }
 			}
 		}
 		custom_tooltip = commission_trainers
 		hidden_effect = {
-			country_event = { id = tob_merc.7 }
+			country_event = { id = tob_merc.7 scopes = { from = from } }
 		}
 	}
 	# Commission Stations
 	option = {
 		name = tob_merc.3.g
 		trigger = {
-			event_target:current_bulwark_diplomacy = {
+			from = {
 				is_country_type = outer_bulwarks
 				# OR = {
 				# 	has_country_flag = bulwark_numbers
@@ -294,12 +297,12 @@ country_event = {
 			NOR = {
 				has_country_flag = bulwark_at_war_quest
 				has_country_flag = bulwark_commission_stations_target
-				event_target:current_bulwark_diplomacy = { has_country_flag = bulwark_commission_stations_root }
+				from = { has_country_flag = bulwark_commission_stations_root }
 			}
 		}
 		custom_tooltip = commission_stations
 		hidden_effect = {
-			country_event = { id = tob_merc.9 }
+			country_event = { id = tob_merc.9 scopes = { from = from } }
 		}
 	}
 	# Terminate communications
@@ -317,24 +320,24 @@ country_event = {
 	desc = {
 		text = tob_merc.4.1.desc
 		trigger = {
-			event_target:current_bulwark_diplomacy = { has_country_flag = bulwark_numbers }
+			from = { has_country_flag = bulwark_numbers }
 		}
 	}
 	desc = {
 		text = tob_merc.4.2.desc
 		trigger = {
-			event_target:current_bulwark_diplomacy = { has_country_flag = bulwark_techies }
+			from = { has_country_flag = bulwark_techies }
 		}
 	}
 	desc = {
 		text = tob_merc.4.3.desc
 		trigger = {
-			event_target:current_bulwark_diplomacy = { has_country_flag = bulwark_monsters }
+			from = { has_country_flag = bulwark_monsters }
 		}
 	}
 	diplomatic = yes
 	picture_event_data = {
-		portrait = event_target:current_bulwark_diplomacy
+		portrait = from
 		room = "ethic_spaceship_room"
 	}
 	is_triggered_only = yes
@@ -355,14 +358,14 @@ country_event = {
 		name = tob_merc.4.a
 		trigger = {
 			NOT = {
-				event_target:current_bulwark_diplomacy = { has_country_flag = bulwark_merc_fleet_hired }
+				from = { has_country_flag = bulwark_merc_fleet_hired }
 			}
 		}
 		allow = {
 			resource_stockpile_compare = { resource = energy value > 5000 }
 			hidden_trigger = {
 				NOT = {
-					event_target:current_bulwark_diplomacy = { has_country_flag = bulwark_merc_fleet_hired }
+					from = { has_country_flag = bulwark_merc_fleet_hired }
 				}
 			}
 		}
@@ -372,7 +375,7 @@ country_event = {
 		hidden_effect = {
 			if = {
 				limit = {
-					event_target:current_bulwark_diplomacy = { has_country_flag = bulwark_numbers }
+					from = { has_country_flag = bulwark_numbers }
 				}
 				random_playable_country = {
 					limit = { has_country_flag = bulwark_mercs_hired_safeguard }
@@ -380,7 +383,7 @@ country_event = {
 				}
 			} else_if = {
 				limit = {
-					event_target:current_bulwark_diplomacy = { has_country_flag = bulwark_techies }
+					from = { has_country_flag = bulwark_techies }
 				}
 				random_playable_country = {
 					limit = { has_country_flag = bulwark_mercs_hired_safeguard }
@@ -388,14 +391,14 @@ country_event = {
 				}
 			} else_if = {
 				limit = {
-					event_target:current_bulwark_diplomacy = { has_country_flag = bulwark_monsters }
+					from = { has_country_flag = bulwark_monsters }
 				}
 				random_playable_country = {
 					limit = { has_country_flag = bulwark_mercs_hired_safeguard }
 					save_event_target_as = receiving_bulwark_monsters_fleet
 				}
 			}
-			event_target:current_bulwark_diplomacy = {
+			from = {
 				set_country_flag = bulwark_merc_fleet_hired
 				change_variable = { which = bulwarkbudget value = 250 }
 				if = {
@@ -428,14 +431,14 @@ country_event = {
 		name = tob_merc.4.b
 		trigger = {
 			NOT = {
-				event_target:current_bulwark_diplomacy = { has_country_flag = bulwark_merc_fleet_hired }
+				from = { has_country_flag = bulwark_merc_fleet_hired }
 			}
 		}
 		allow = {
 			resource_stockpile_compare = { resource = energy value > 10000 }
 			hidden_trigger = {
 				NOT = {
-					event_target:current_bulwark_diplomacy = { has_country_flag = bulwark_merc_fleet_hired }
+					from = { has_country_flag = bulwark_merc_fleet_hired }
 				}
 			}
 		}
@@ -445,7 +448,7 @@ country_event = {
 		hidden_effect = {
 			if = {
 				limit = {
-					event_target:current_bulwark_diplomacy = { has_country_flag = bulwark_numbers }
+					from = { has_country_flag = bulwark_numbers }
 				}
 				random_playable_country = {
 					limit = { has_country_flag = bulwark_mercs_hired_safeguard }
@@ -453,7 +456,7 @@ country_event = {
 				}
 			} else_if = {
 				limit = {
-					event_target:current_bulwark_diplomacy = { has_country_flag = bulwark_techies }
+					from = { has_country_flag = bulwark_techies }
 				}
 				random_playable_country = {
 					limit = { has_country_flag = bulwark_mercs_hired_safeguard }
@@ -461,14 +464,14 @@ country_event = {
 				}
 			} else_if = {
 				limit = {
-					event_target:current_bulwark_diplomacy = { has_country_flag = bulwark_monsters }
+					from = { has_country_flag = bulwark_monsters }
 				}
 				random_playable_country = {
 					limit = { has_country_flag = bulwark_mercs_hired_safeguard }
 					save_event_target_as = receiving_bulwark_monsters_fleet
 				}
 			}
-			event_target:current_bulwark_diplomacy = {
+			from = {
 				set_country_flag = bulwark_merc_fleet_hired
 				change_variable = { which = bulwarkbudget value = 500 }
 				if = {
@@ -501,14 +504,14 @@ country_event = {
 		name = tob_merc.4.c
 		trigger = {
 			NOT = {
-				event_target:current_bulwark_diplomacy = { has_country_flag = bulwark_merc_fleet_hired }
+				from = { has_country_flag = bulwark_merc_fleet_hired }
 			}
 		}
 		allow = {
 			resource_stockpile_compare = { resource = energy value > 20000 }
 			hidden_trigger = {
 				NOT = {
-					event_target:current_bulwark_diplomacy = { has_country_flag = bulwark_merc_fleet_hired }
+					from = { has_country_flag = bulwark_merc_fleet_hired }
 				}
 			}
 		}
@@ -518,7 +521,7 @@ country_event = {
 		hidden_effect = {
 			if = {
 				limit = {
-					event_target:current_bulwark_diplomacy = { has_country_flag = bulwark_numbers }
+					from = { has_country_flag = bulwark_numbers }
 				}
 				random_playable_country = {
 					limit = { has_country_flag = bulwark_mercs_hired_safeguard }
@@ -526,7 +529,7 @@ country_event = {
 				}
 			} else_if = {
 				limit = {
-					event_target:current_bulwark_diplomacy = { has_country_flag = bulwark_techies }
+					from = { has_country_flag = bulwark_techies }
 				}
 				random_playable_country = {
 					limit = { has_country_flag = bulwark_mercs_hired_safeguard }
@@ -534,14 +537,14 @@ country_event = {
 				}
 			} else_if = {
 				limit = {
-					event_target:current_bulwark_diplomacy = { has_country_flag = bulwark_monsters }
+					from = { has_country_flag = bulwark_monsters }
 				}
 				random_playable_country = {
 					limit = { has_country_flag = bulwark_mercs_hired_safeguard }
 					save_event_target_as = receiving_bulwark_monsters_fleet
 				}
 			}
-			event_target:current_bulwark_diplomacy = {
+			from = {
 				set_country_flag = bulwark_merc_fleet_hired
 				change_variable = { which = bulwarkbudget value = 1000 }
 				if = {
@@ -833,13 +836,13 @@ country_event = {
 	desc = tob_merc.6.desc
 	diplomatic = yes
 	picture_event_data = {
-		portrait = event_target:current_bulwark_diplomacy
+		portrait = from
 		room = "ethic_spaceship_room"
 	}
 	is_triggered_only = yes
 	immediate = {
 		set_country_flag = bulwark_diplomacy_engaged
-		event_target:current_bulwark_diplomacy = {
+		from = {
 			if = { limit =  { is_hostile = root }
 				set_faction_hostility = { target = root set_hostile = no set_neutral = yes }
 			}
@@ -853,26 +856,26 @@ country_event = {
 		name = tob_merc.6.a
 		trigger = {
 			NOT = {
-				event_target:current_bulwark_diplomacy = { has_country_flag = bulwark_commissioned_fleet_recently }
+				from = { has_country_flag = bulwark_commissioned_fleet_recently }
 			}
 		}
 		allow = {
 			resource_stockpile_compare = { resource = energy value > 7500 }
 			hidden_trigger = {
 				NOT = {
-					event_target:current_bulwark_diplomacy = { has_country_flag = bulwark_commissioned_fleet_recently }
+					from = { has_country_flag = bulwark_commissioned_fleet_recently }
 				}
 			}
 		}
 		set_timed_country_flag = { flag = bulwark_commissioned_fleet_recently_safeguard days = 3 }
-		set_timed_country_flag = { flag = bulwark_commissioned_fleet_recently_target days = 900 }
+		set_timed_country_flag = { flag = bulwark_commissioned_fleet_recently_target months = 30 }
 		add_resource = { energy = -7500 }
 		hidden_effect = {
 			random_playable_country = {
 				limit = { has_country_flag = bulwark_commissioned_fleet_recently_safeguard }
 				save_event_target_as = receiving_bulwark_fleet_commission
 			}
-			event_target:current_bulwark_diplomacy = {
+			from = {
 				random_system_within_border = {
 					# limit = { }
 					if = {
@@ -901,7 +904,7 @@ country_event = {
 						}
 					}
 				}
-				set_timed_country_flag = { flag = bulwark_commissioned_fleet_recently days = 1800 }
+				set_timed_country_flag = { flag = bulwark_commissioned_fleet_recently years = 5 }
 				change_variable = { which = bulwarkbudget value = 375 }
 				create_fleet = {
 					settings = {
@@ -1079,26 +1082,26 @@ country_event = {
 		name = tob_merc.6.b
 		trigger = {
 			NOT = {
-				event_target:current_bulwark_diplomacy = { has_country_flag = bulwark_commissioned_fleet_recently }
+				from = { has_country_flag = bulwark_commissioned_fleet_recently }
 			}
 		}
 		allow = {
 			resource_stockpile_compare = { resource = energy value > 12500 }
 			hidden_trigger = {
 				NOT = {
-					event_target:current_bulwark_diplomacy = { has_country_flag = bulwark_commissioned_fleet_recently }
+					from = { has_country_flag = bulwark_commissioned_fleet_recently }
 				}
 			}
 		}
 		set_timed_country_flag = { flag = bulwark_commissioned_fleet_recently_safeguard days = 3 }
-		set_timed_country_flag = { flag = bulwark_commissioned_fleet_recently_target days = 900 }
+		set_timed_country_flag = { flag = bulwark_commissioned_fleet_recently_target months = 30 }
 		add_resource = { energy = -12500 }
 		hidden_effect = {
 			random_playable_country = {
 				limit = { has_country_flag = bulwark_commissioned_fleet_recently_safeguard }
 				save_event_target_as = receiving_bulwark_fleet_commission
 			}
-			event_target:current_bulwark_diplomacy = {
+			from = {
 				random_system_within_border = {
 					# limit = { }
 					if = {
@@ -1127,7 +1130,7 @@ country_event = {
 						}
 					}
 				}
-				set_timed_country_flag = { flag = bulwark_commissioned_fleet_recently days = 2700 }
+				set_timed_country_flag = { flag = bulwark_commissioned_fleet_recently months = 90 }
 				change_variable = { which = bulwarkbudget value = 625 }
 				create_fleet = {
 					settings = {
@@ -1305,26 +1308,26 @@ country_event = {
 		name = tob_merc.6.c
 		trigger = {
 			NOT = {
-				event_target:current_bulwark_diplomacy = { has_country_flag = bulwark_commissioned_fleet_recently }
+				from = { has_country_flag = bulwark_commissioned_fleet_recently }
 			}
 		}
 		allow = {
 			resource_stockpile_compare = { resource = energy value > 17500 }
 			hidden_trigger = {
 				NOT = {
-					event_target:current_bulwark_diplomacy = { has_country_flag = bulwark_commissioned_fleet_recently }
+					from = { has_country_flag = bulwark_commissioned_fleet_recently }
 				}
 			}
 		}
 		set_timed_country_flag = { flag = bulwark_commissioned_fleet_recently_safeguard days = 3 }
-		set_timed_country_flag = { flag = bulwark_commissioned_fleet_recently_target days = 900 }
+		set_timed_country_flag = { flag = bulwark_commissioned_fleet_recently_target months = 30 }
 		add_resource = { energy = -17500 }
 		hidden_effect = {
 			random_playable_country = {
 				limit = { has_country_flag = bulwark_commissioned_fleet_recently_safeguard }
 				save_event_target_as = receiving_bulwark_fleet_commission
 			}
-			event_target:current_bulwark_diplomacy = {
+			from = {
 				random_system_within_border = {
 					# limit = { }
 					if = {
@@ -1353,7 +1356,7 @@ country_event = {
 						}
 					}
 				}
-				set_timed_country_flag = { flag = bulwark_commissioned_fleet_recently days = 3600 }
+				set_timed_country_flag = { flag = bulwark_commissioned_fleet_recently years = 10 }
 				change_variable = { which = bulwarkbudget value = 875 }
 				create_fleet = {
 					settings = {
@@ -1539,24 +1542,24 @@ country_event = {
 	desc = {
 		text = tob_merc.7.1.desc
 		trigger = {
-			event_target:current_bulwark_diplomacy = { has_country_flag = bulwark_numbers }
+			from = { has_country_flag = bulwark_numbers }
 		}
 	}
 	desc = {
 		text = tob_merc.7.2.desc
 		trigger = {
-			event_target:current_bulwark_diplomacy = { has_country_flag = bulwark_techies }
+			from = { has_country_flag = bulwark_techies }
 		}
 	}
 	desc = {
 		text = tob_merc.7.3.desc
 		trigger = {
-			event_target:current_bulwark_diplomacy = { has_country_flag = bulwark_monsters }
+			from = { has_country_flag = bulwark_monsters }
 		}
 	}
 	diplomatic = yes
 	picture_event_data = {
-		portrait = event_target:current_bulwark_diplomacy
+		portrait = from
 		room = "ethic_spaceship_room"
 	}
 	is_triggered_only = yes
@@ -1574,17 +1577,17 @@ country_event = {
 			resource_stockpile_compare = { resource = energy value > 2500 }
 			NOT = { has_country_flag = bulwark_trainers_hired }
 		}
-		set_timed_country_flag = { flag = bulwark_trainers_hired days = 3600 }
+		set_timed_country_flag = { flag = bulwark_trainers_hired years = 10 }
 		set_timed_country_flag = { flag = bulwark_trainers_hired_safeguard days = 3 }
 		add_resource = { energy = -2500 }
 		hidden_effect = {
 			if = {
 				limit = {
-					event_target:current_bulwark_diplomacy = { has_country_flag = bulwark_numbers }
+					from = { has_country_flag = bulwark_numbers }
 				}
-				add_modifier = { modifier = bulwark_expert_military_training days = 3601 }
+				add_modifier = { modifier = bulwark_expert_military_training years = 10 }
 			} else = {
-				add_modifier = { modifier = bulwark_good_military_training days = 3601 }
+				add_modifier = { modifier = bulwark_good_military_training years = 10 }
 			}
 			every_owned_leader = {
 				limit = {
@@ -1595,8 +1598,8 @@ country_event = {
 				}
 				add_experience = 100
 			}
-			event_target:current_bulwark_diplomacy = {
-				set_timed_country_flag = { flag = bulwark_commissioned_training_recently days = 3600 }
+			from = {
+				set_timed_country_flag = { flag = bulwark_commissioned_training_recently years = 10 }
 				change_variable = { which = bulwarkbudget value = 125 }
 			}
 			country_event = { id = tob_merc.8 days = 3600 }
@@ -1612,24 +1615,24 @@ country_event = {
 			resource_stockpile_compare = { resource = energy value > 2500 }
 			NOT = { has_country_flag = bulwark_trainers_hired }
 		}
-		set_timed_country_flag = { flag = bulwark_trainers_hired days = 3600 }
+		set_timed_country_flag = { flag = bulwark_trainers_hired years = 10 }
 		set_timed_country_flag = { flag = bulwark_trainers_hired_safeguard days = 3 }
 		add_resource = { energy = -2500 }
 		hidden_effect = {
 			if = {
 				limit = {
-					event_target:current_bulwark_diplomacy = { has_country_flag = bulwark_techies }
+					from = { has_country_flag = bulwark_techies }
 				}
-				add_modifier = { modifier = bulwark_expert_science_training days = 3601 }
+				add_modifier = { modifier = bulwark_expert_science_training years = 10 }
 			} else = {
-				add_modifier = { modifier = bulwark_good_science_training days = 3601 }
+				add_modifier = { modifier = bulwark_good_science_training years = 10 }
 			}
 			every_owned_leader = {
 				limit = { leader_class = scientist }
 				add_experience = 200
 			}
-			event_target:current_bulwark_diplomacy = {
-				set_timed_country_flag = { flag = bulwark_commissioned_training_recently days = 3600 }
+			from = {
+				set_timed_country_flag = { flag = bulwark_commissioned_training_recently years = 10 }
 				change_variable = { which = bulwarkbudget value = 125 }
 			}
 			country_event = { id = tob_merc.8 days = 3600 }
@@ -1645,24 +1648,24 @@ country_event = {
 			resource_stockpile_compare = { resource = energy value > 2500 }
 			NOT = { has_country_flag = bulwark_trainers_hired }
 		}
-		set_timed_country_flag = { flag = bulwark_trainers_hired days = 3600 }
+		set_timed_country_flag = { flag = bulwark_trainers_hired years = 10 }
 		set_timed_country_flag = { flag = bulwark_trainers_hired_safeguard days = 3 }
 		add_resource = { energy = -2500 }
 		hidden_effect = {
 			if = {
 				limit = {
-					event_target:current_bulwark_diplomacy = { has_country_flag = bulwark_monsters }
+					from = { has_country_flag = bulwark_monsters }
 				}
-				add_modifier = { modifier = bulwark_expert_populace_training days = 3601 }
+				add_modifier = { modifier = bulwark_expert_populace_training years = 10 }
 			} else = {
-				add_modifier = { modifier = bulwark_good_populace_training days = 3601 }
+				add_modifier = { modifier = bulwark_good_populace_training years = 10 }
 			}
 			every_owned_leader = {
 				limit = { leader_class = governor }
 				add_experience = 200
 			}
-			event_target:current_bulwark_diplomacy = {
-				set_timed_country_flag = { flag = bulwark_commissioned_training_recently days = 3600 }
+			from = {
+				set_timed_country_flag = { flag = bulwark_commissioned_training_recently years = 10 }
 				change_variable = { which = bulwarkbudget value = 125 }
 			}
 			country_event = { id = tob_merc.8 days = 3600 }
@@ -1675,6 +1678,7 @@ country_event = {
 }
 
 # Trainers leave
+# From = event_target:current_bulwark_diplomacy
 country_event = {
 	id = tob_merc.8
 	title = "Trainers Leave"
@@ -1700,13 +1704,14 @@ country_event = {
 }
 
 # Commission Stations
+# From = event_target:current_bulwark_diplomacy
 country_event = {
 	id = tob_merc.9
 	title = "Station Options"
 	desc = tob_merc.9.desc
 	diplomatic = yes
 	picture_event_data = {
-		portrait = event_target:current_bulwark_diplomacy
+		portrait = from
 		room = "ethic_spaceship_room"
 	}
 	is_triggered_only = yes
@@ -1719,27 +1724,27 @@ country_event = {
 		name = tob_merc.9.a
 		trigger = {
 			NOT = {
-				event_target:current_bulwark_diplomacy = { has_country_flag = bulwark_commission_stations_root }
+				from = { has_country_flag = bulwark_commission_stations_root }
 			}
 		}
 		allow = {
 			resource_stockpile_compare = { resource = energy value > 1000 }
 			hidden_trigger = {
 				NOT = {
-					event_target:current_bulwark_diplomacy = { has_country_flag = bulwark_commission_stations_root }
+					from = { has_country_flag = bulwark_commission_stations_root }
 				}
 			}
 		}
 		set_timed_country_flag = { flag = bulwark_commissioned_stations_recently_safeguard days = 3 }
-		set_timed_country_flag = { flag = bulwark_commission_stations_target days = 720 }
+		set_timed_country_flag = { flag = bulwark_commission_stations_target years = 2 }
 		add_resource = { energy = -1000 }
 		hidden_effect = {
 			if = {
 				limit = {
-					event_target:current_bulwark_diplomacy = { has_country_flag = bulwark_country_techone }
+					from = { has_country_flag = bulwark_country_techone }
 				}
-				event_target:current_bulwark_diplomacy = {
-					set_timed_country_flag = { flag = bulwark_commission_stations_root days = 1440 }
+				from = {
+					set_timed_country_flag = { flag = bulwark_commission_stations_root years = 4 }
 					change_variable = { which = bulwarkbudget value = 50 }
 				}
 				random_playable_country = {
@@ -1825,10 +1830,10 @@ country_event = {
 				}
 			} else_if = {
 				limit = {
-					event_target:current_bulwark_diplomacy = { has_country_flag = bulwark_country_techtwo }
+					from = { has_country_flag = bulwark_country_techtwo }
 				}
-				event_target:current_bulwark_diplomacy = {
-					set_timed_country_flag = { flag = bulwark_commission_stations_root days = 1440 }
+				from = {
+					set_timed_country_flag = { flag = bulwark_commission_stations_root years = 4 }
 					change_variable = { which = bulwarkbudget value = 50 }
 				}
 				random_playable_country = {
@@ -1914,10 +1919,10 @@ country_event = {
 				}
 			} else_if = {
 				limit = {
-					event_target:current_bulwark_diplomacy = { has_country_flag = bulwark_country_techthree }
+					from = { has_country_flag = bulwark_country_techthree }
 				}
-				event_target:current_bulwark_diplomacy = {
-					set_timed_country_flag = { flag = bulwark_commission_stations_root days = 1440 }
+				from = {
+					set_timed_country_flag = { flag = bulwark_commission_stations_root years = 4 }
 					change_variable = { which = bulwarkbudget value = 50 }
 				}
 				random_playable_country = {
@@ -2003,10 +2008,10 @@ country_event = {
 				}
 			} else_if = {
 				limit = {
-					event_target:current_bulwark_diplomacy = { has_country_flag = bulwark_country_techfour }
+					from = { has_country_flag = bulwark_country_techfour }
 				}
-				event_target:current_bulwark_diplomacy = {
-					set_timed_country_flag = { flag = bulwark_commission_stations_root days = 1440 }
+				from = {
+					set_timed_country_flag = { flag = bulwark_commission_stations_root years = 4 }
 					change_variable = { which = bulwarkbudget value = 50 }
 				}
 				random_playable_country = {
@@ -2092,10 +2097,10 @@ country_event = {
 				}
 			} else_if = {
 				limit = {
-					event_target:current_bulwark_diplomacy = { has_country_flag = bulwark_country_techfive }
+					from = { has_country_flag = bulwark_country_techfive }
 				}
-				event_target:current_bulwark_diplomacy = {
-					set_timed_country_flag = { flag = bulwark_commission_stations_root days = 1440 }
+				from = {
+					set_timed_country_flag = { flag = bulwark_commission_stations_root years = 4 }
 					change_variable = { which = bulwarkbudget value = 50 }
 				}
 				random_playable_country = {
@@ -2187,27 +2192,27 @@ country_event = {
 		name = tob_merc.9.b
 		trigger = {
 			NOT = {
-				event_target:current_bulwark_diplomacy = { has_country_flag = bulwark_commission_stations_root }
+				from = { has_country_flag = bulwark_commission_stations_root }
 			}
 		}
 		allow = {
 			resource_stockpile_compare = { resource = energy value > 2000 }
 			hidden_trigger = {
 				NOT = {
-					event_target:current_bulwark_diplomacy = { has_country_flag = bulwark_commission_stations_root }
+					from = { has_country_flag = bulwark_commission_stations_root }
 				}
 			}
 		}
 		set_timed_country_flag = { flag = bulwark_commissioned_stations_recently_safeguard days = 3 }
-		set_timed_country_flag = { flag = bulwark_commission_stations_target days = 720 }
+		set_timed_country_flag = { flag = bulwark_commission_stations_target years = 2 }
 		add_resource = { energy = -2000 }
 		hidden_effect = {
 			if = {
 				limit = {
-					event_target:current_bulwark_diplomacy = { has_country_flag = bulwark_country_techone }
+					from = { has_country_flag = bulwark_country_techone }
 				}
-				event_target:current_bulwark_diplomacy = {
-					set_timed_country_flag = { flag = bulwark_commission_stations_root days = 1440 }
+				from = {
+					set_timed_country_flag = { flag = bulwark_commission_stations_root years = 4 }
 					change_variable = { which = bulwarkbudget value = 100 }
 				}
 				random_playable_country = {
@@ -2293,10 +2298,10 @@ country_event = {
 				}
 			} else_if = {
 				limit = {
-					event_target:current_bulwark_diplomacy = { has_country_flag = bulwark_country_techtwo }
+					from = { has_country_flag = bulwark_country_techtwo }
 				}
-				event_target:current_bulwark_diplomacy = {
-					set_timed_country_flag = { flag = bulwark_commission_stations_root days = 1440 }
+				from = {
+					set_timed_country_flag = { flag = bulwark_commission_stations_root years = 4 }
 					change_variable = { which = bulwarkbudget value = 100 }
 				}
 				random_playable_country = {
@@ -2382,10 +2387,10 @@ country_event = {
 				}
 			} else_if = {
 				limit = {
-					event_target:current_bulwark_diplomacy = { has_country_flag = bulwark_country_techthree }
+					from = { has_country_flag = bulwark_country_techthree }
 				}
-				event_target:current_bulwark_diplomacy = {
-					set_timed_country_flag = { flag = bulwark_commission_stations_root days = 1440 }
+				from = {
+					set_timed_country_flag = { flag = bulwark_commission_stations_root years = 4 }
 					change_variable = { which = bulwarkbudget value = 100 }
 				}
 				random_playable_country = {
@@ -2471,10 +2476,10 @@ country_event = {
 				}
 			} else_if = {
 				limit = {
-					event_target:current_bulwark_diplomacy = { has_country_flag = bulwark_country_techfour }
+					from = { has_country_flag = bulwark_country_techfour }
 				}
-				event_target:current_bulwark_diplomacy = {
-					set_timed_country_flag = { flag = bulwark_commission_stations_root days = 1440 }
+				from = {
+					set_timed_country_flag = { flag = bulwark_commission_stations_root years = 4 }
 					change_variable = { which = bulwarkbudget value = 100 }
 				}
 				random_playable_country = {
@@ -2560,10 +2565,10 @@ country_event = {
 				}
 			} else_if = {
 				limit = {
-					event_target:current_bulwark_diplomacy = { has_country_flag = bulwark_country_techfive }
+					from = { has_country_flag = bulwark_country_techfive }
 				}
-				event_target:current_bulwark_diplomacy = {
-					set_timed_country_flag = { flag = bulwark_commission_stations_root days = 1440 }
+				from = {
+					set_timed_country_flag = { flag = bulwark_commission_stations_root years = 4 }
 					change_variable = { which = bulwarkbudget value = 100 }
 				}
 				random_playable_country = {
@@ -2655,27 +2660,27 @@ country_event = {
 		name = tob_merc.9.c
 		trigger = {
 			NOT = {
-				event_target:current_bulwark_diplomacy = { has_country_flag = bulwark_commission_stations_root }
+				from = { has_country_flag = bulwark_commission_stations_root }
 			}
 		}
 		allow = {
 			resource_stockpile_compare = { resource = energy value > 3000 }
 			hidden_trigger = {
 				NOT = {
-					event_target:current_bulwark_diplomacy = { has_country_flag = bulwark_commission_stations_root }
+					from = { has_country_flag = bulwark_commission_stations_root }
 				}
 			}
 		}
 		set_timed_country_flag = { flag = bulwark_commissioned_stations_recently_safeguard days = 3 }
-		set_timed_country_flag = { flag = bulwark_commission_stations_target days = 720 }
+		set_timed_country_flag = { flag = bulwark_commission_stations_target years = 2 }
 		add_resource = { energy = -3000 }
 		hidden_effect = {
 			if = {
 				limit = {
-					event_target:current_bulwark_diplomacy = { has_country_flag = bulwark_country_techone }
+					from = { has_country_flag = bulwark_country_techone }
 				}
-				event_target:current_bulwark_diplomacy = {
-					set_timed_country_flag = { flag = bulwark_commission_stations_root days = 1440 }
+				from = {
+					set_timed_country_flag = { flag = bulwark_commission_stations_root years = 4 }
 					change_variable = { which = bulwarkbudget value = 150 }
 				}
 				random_playable_country = {
@@ -2761,10 +2766,10 @@ country_event = {
 				}
 			} else_if = {
 				limit = {
-					event_target:current_bulwark_diplomacy = { has_country_flag = bulwark_country_techtwo }
+					from = { has_country_flag = bulwark_country_techtwo }
 				}
-				event_target:current_bulwark_diplomacy = {
-					set_timed_country_flag = { flag = bulwark_commission_stations_root days = 1440 }
+				from = {
+					set_timed_country_flag = { flag = bulwark_commission_stations_root years = 4 }
 					change_variable = { which = bulwarkbudget value = 150 }
 				}
 				random_playable_country = {
@@ -2850,10 +2855,10 @@ country_event = {
 				}
 			} else_if = {
 				limit = {
-					event_target:current_bulwark_diplomacy = { has_country_flag = bulwark_country_techthree }
+					from = { has_country_flag = bulwark_country_techthree }
 				}
-				event_target:current_bulwark_diplomacy = {
-					set_timed_country_flag = { flag = bulwark_commission_stations_root days = 1440 }
+				from = {
+					set_timed_country_flag = { flag = bulwark_commission_stations_root years = 4 }
 					change_variable = { which = bulwarkbudget value = 150 }
 				}
 				random_playable_country = {
@@ -2939,10 +2944,10 @@ country_event = {
 				}
 			} else_if = {
 				limit = {
-					event_target:current_bulwark_diplomacy = { has_country_flag = bulwark_country_techfour }
+					from = { has_country_flag = bulwark_country_techfour }
 				}
-				event_target:current_bulwark_diplomacy = {
-					set_timed_country_flag = { flag = bulwark_commission_stations_root days = 1440 }
+				from = {
+					set_timed_country_flag = { flag = bulwark_commission_stations_root years = 4 }
 					change_variable = { which = bulwarkbudget value = 150 }
 				}
 				random_playable_country = {
@@ -3028,10 +3033,10 @@ country_event = {
 				}
 			} else_if = {
 				limit = {
-					event_target:current_bulwark_diplomacy = { has_country_flag = bulwark_country_techfive }
+					from = { has_country_flag = bulwark_country_techfive }
 				}
-				event_target:current_bulwark_diplomacy = {
-					set_timed_country_flag = { flag = bulwark_commission_stations_root days = 1440 }
+				from = {
+					set_timed_country_flag = { flag = bulwark_commission_stations_root years = 4 }
 					change_variable = { which = bulwarkbudget value = 150 }
 				}
 				random_playable_country = {

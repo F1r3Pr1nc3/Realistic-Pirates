@@ -8736,7 +8736,7 @@ country_event = {
 	immediate = {
 		while = {
 			limit = {
-				check_variable = { which = bulwarkbudget value >= 20 }
+				check_variable = { which = bulwarkbudget value > 19 }
 				any_owned_fleet = {
 					OR = {
 						has_fleet_flag = bulwark_mercenary_fleet

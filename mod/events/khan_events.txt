@@ -452,7 +452,7 @@ ship_event = {
 			limit = { # Keep station
 				NOT = { is_ship_size = starbase_marauder }
 				exists = from.owner
-				from.owner = { CmtTriggerIsPlayableEmpire = yes }
+				from.owner = { merg_is_default_empire = yes }
 				solar_system = { # Not dead end systems
 					OR = {
 						count_neighbor_system = { count > 1 }

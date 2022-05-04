@@ -1875,7 +1875,7 @@ country_event = {
 		}
 	}
 	immediate = {
-		set_timed_global_flag = { flag = pirate_waves_668 days = 30 }
+		set_timed_global_flag = { flag = pirate_waves_668 months = 1 }
 		save_event_target_as = target_country
 	}
 	option = {
@@ -1982,7 +1982,7 @@ country_event = {
 
 # Rebird of Marauder enclave (HIDDEN)
 # TODO if primitive system enlighten them?
-country_event = {
+event = {
 	id = pirate_waves.200
 	hide_window = yes
 	is_triggered_only = yes
@@ -2229,7 +2229,7 @@ country_event = {
 									owner = { is_pirate_country = yes }
 									AND = {
 										is_mobile = no
-										owner = { CmtTriggerIsPlayableEmpire = yes }
+										owner = { merg_is_default_empire = yes }
 									}
 								}
 							}
@@ -2369,7 +2369,7 @@ country_event = {
 										owner = { is_pirate_country = yes }
 										AND = {
 											is_mobile = no
-											owner = { CmtTriggerIsPlayableEmpire = yes }
+											owner = { merg_is_default_empire = yes }
 										}
 									}
 								}

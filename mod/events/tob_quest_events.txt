@@ -300,25 +300,25 @@ country_event = {
 					limit = { has_country_flag = bulwark_country_numbersone }
 					remove_country_flag = bulwark_country_numbersone
 					remove_country_flag = bulwark_questing
-					set_timed_country_flag = { flag = bulwark_recently_quested days = 3600 }
+					set_timed_country_flag = { flag = bulwark_recently_quested years = 10 }
 					set_country_flag = bulwark_country_numberstwo
 				} else_if = {
 					limit = { has_country_flag = bulwark_country_numberstwo }
 					remove_country_flag = bulwark_country_numberstwo
 					remove_country_flag = bulwark_questing
-					set_timed_country_flag = { flag = bulwark_recently_quested days = 3600 }
+					set_timed_country_flag = { flag = bulwark_recently_quested years = 10 }
 					set_country_flag = bulwark_country_numbersthree
 				} else_if = {
 					limit = { has_country_flag = bulwark_country_numbersthree }
 					remove_country_flag = bulwark_country_numbersthree
 					remove_country_flag = bulwark_questing
-					set_timed_country_flag = { flag = bulwark_recently_quested days = 3600 }
+					set_timed_country_flag = { flag = bulwark_recently_quested years = 10 }
 					set_country_flag = bulwark_country_numbersfour
 				} else_if = {
 					limit = { has_country_flag = bulwark_country_numbersfour }
 					remove_country_flag = bulwark_country_numbersfour
 					remove_country_flag = bulwark_questing
-					set_timed_country_flag = { flag = bulwark_recently_quested days = 3600 }
+					set_timed_country_flag = { flag = bulwark_recently_quested years = 10 }
 					set_country_flag = bulwark_country_numbersfive
 				}
 			}
@@ -362,25 +362,25 @@ country_event = {
 					limit = { has_country_flag = bulwark_country_techone }
 					remove_country_flag = bulwark_country_techone
 					remove_country_flag = bulwark_questing
-					set_timed_country_flag = { flag = bulwark_recently_quested days = 3600 }
+					set_timed_country_flag = { flag = bulwark_recently_quested years = 10 }
 					set_country_flag = bulwark_country_techtwo
 				} else_if = {
 					limit = { has_country_flag = bulwark_country_techtwo }
 					remove_country_flag = bulwark_country_techtwo
 					remove_country_flag = bulwark_questing
-					set_timed_country_flag = { flag = bulwark_recently_quested days = 3600 }
+					set_timed_country_flag = { flag = bulwark_recently_quested years = 10 }
 					set_country_flag = bulwark_country_techthree
 				} else_if = {
 					limit = { has_country_flag = bulwark_country_techthree }
 					remove_country_flag = bulwark_country_techthree
 					remove_country_flag = bulwark_questing
-					set_timed_country_flag = { flag = bulwark_recently_quested days = 3600 }
+					set_timed_country_flag = { flag = bulwark_recently_quested years = 10 }
 					set_country_flag = bulwark_country_techfour
 				} else_if = {
 					limit = { has_country_flag = bulwark_country_techfour }
 					remove_country_flag = bulwark_country_techfour
 					remove_country_flag = bulwark_questing
-					set_timed_country_flag = { flag = bulwark_recently_quested days = 3600 }
+					set_timed_country_flag = { flag = bulwark_recently_quested years = 10 }
 					set_country_flag = bulwark_country_techfive
 				}
 			}
@@ -619,25 +619,25 @@ country_event = {
 				limit = { has_country_flag = bulwark_country_numbersone }
 				remove_country_flag = bulwark_country_numbersone
 				remove_country_flag = bulwark_questing
-				set_timed_country_flag = { flag = bulwark_recently_quested days = 3600 }
+				set_timed_country_flag = { flag = bulwark_recently_quested years = 10 }
 				set_country_flag = bulwark_country_numberstwo
 			} else_if = {
 				limit = { has_country_flag = bulwark_country_numberstwo }
 				remove_country_flag = bulwark_country_numberstwo
 				remove_country_flag = bulwark_questing
-				set_timed_country_flag = { flag = bulwark_recently_quested days = 3600 }
+				set_timed_country_flag = { flag = bulwark_recently_quested years = 10 }
 				set_country_flag = bulwark_country_numbersthree
 			} else_if = {
 				limit = { has_country_flag = bulwark_country_numbersthree }
 				remove_country_flag = bulwark_country_numbersthree
 				remove_country_flag = bulwark_questing
-				set_timed_country_flag = { flag = bulwark_recently_quested days = 3600 }
+				set_timed_country_flag = { flag = bulwark_recently_quested years = 10 }
 				set_country_flag = bulwark_country_numbersfour
 			} else_if = {
 				limit = { has_country_flag = bulwark_country_numbersfour }
 				remove_country_flag = bulwark_country_numbersfour
 				remove_country_flag = bulwark_questing
-				set_timed_country_flag = { flag = bulwark_recently_quested days = 3600 }
+				set_timed_country_flag = { flag = bulwark_recently_quested years = 10 }
 				set_country_flag = bulwark_country_numbersfive
 			}
 		}
@@ -755,25 +755,25 @@ country_event = {
 				limit = { has_country_flag = bulwark_country_techone }
 				remove_country_flag = bulwark_country_techone
 				remove_country_flag = bulwark_questing
-				set_timed_country_flag = { flag = bulwark_recently_quested days = 3600 }
+				set_timed_country_flag = { flag = bulwark_recently_quested years = 10 }
 				set_country_flag = bulwark_country_techtwo
 			} else_if = {
 				limit = { has_country_flag = bulwark_country_techtwo }
 				remove_country_flag = bulwark_country_techtwo
 				remove_country_flag = bulwark_questing
-				set_timed_country_flag = { flag = bulwark_recently_quested days = 3600 }
+				set_timed_country_flag = { flag = bulwark_recently_quested years = 10 }
 				set_country_flag = bulwark_country_techthree
 			} else_if = {
 				limit = { has_country_flag = bulwark_country_techthree }
 				remove_country_flag = bulwark_country_techthree
 				remove_country_flag = bulwark_questing
-				set_timed_country_flag = { flag = bulwark_recently_quested days = 3600 }
+				set_timed_country_flag = { flag = bulwark_recently_quested years = 10 }
 				set_country_flag = bulwark_country_techfour
 			} else_if = {
 				limit = { has_country_flag = bulwark_country_techfour }
 				remove_country_flag = bulwark_country_techfour
 				remove_country_flag = bulwark_questing
-				set_timed_country_flag = { flag = bulwark_recently_quested days = 3600 }
+				set_timed_country_flag = { flag = bulwark_recently_quested years = 10 }
 				set_country_flag = bulwark_country_techfive
 			}
 		}
@@ -852,11 +852,11 @@ country_event = {
 			set_country_flag = bulwark_on_monsters_quest
 		}
 		event_target:bulwark_committing_to_war_global = { save_event_target_as = bulwark_committing_to_war }
-		save_event_target_as = bulwark_war_target
+		# save_event_target_as = bulwark_war_target
 		event_target:bulwark_committing_to_war = {
 			country_event = { id = tob_quest.11 days = 5400 }
 			set_faction_hostility = {
-				target = event_target:bulwark_war_target
+				target = root
 				set_hostile = yes
 				set_neutral = no
 				set_friendly = no
@@ -874,7 +874,7 @@ country_event = {
 							trigger = {
 								id = "tob_quest_assault.1"
 								exists = owner
-								owner = { is_same_empire = event_target:bulwark_war_target }
+								owner = { is_same_empire = root } # event_target:bulwark_war_target
 								any_system_planet = { is_colony = yes }
 							}
 							found_system = { move_to = this }
@@ -1071,25 +1071,25 @@ country_event = {
 					limit = { has_country_flag = bulwark_country_numbersone }
 					remove_country_flag = bulwark_country_numbersone
 					remove_country_flag = bulwark_questing
-					set_timed_country_flag = { flag = bulwark_recently_quested days = 3600 }
+					set_timed_country_flag = { flag = bulwark_recently_quested years = 10 }
 					set_country_flag = bulwark_country_numberstwo
 				} else_if = {
 					limit = { has_country_flag = bulwark_country_numberstwo }
 					remove_country_flag = bulwark_country_numberstwo
 					remove_country_flag = bulwark_questing
-					set_timed_country_flag = { flag = bulwark_recently_quested days = 3600 }
+					set_timed_country_flag = { flag = bulwark_recently_quested years = 10 }
 					set_country_flag = bulwark_country_numbersthree
 				} else_if = {
 					limit = { has_country_flag = bulwark_country_numbersthree }
 					remove_country_flag = bulwark_country_numbersthree
 					remove_country_flag = bulwark_questing
-					set_timed_country_flag = { flag = bulwark_recently_quested days = 3600 }
+					set_timed_country_flag = { flag = bulwark_recently_quested years = 10 }
 					set_country_flag = bulwark_country_numbersfour
 				} else_if = {
 					limit = { has_country_flag = bulwark_country_numbersfour }
 					remove_country_flag = bulwark_country_numbersfour
 					remove_country_flag = bulwark_questing
-					set_timed_country_flag = { flag = bulwark_recently_quested days = 3600 }
+					set_timed_country_flag = { flag = bulwark_recently_quested years = 10 }
 					set_country_flag = bulwark_country_numbersfive
 				}
 			}
@@ -1136,25 +1136,25 @@ country_event = {
 					limit = { has_country_flag = bulwark_country_techone }
 					remove_country_flag = bulwark_country_techone
 					remove_country_flag = bulwark_questing
-					set_timed_country_flag = { flag = bulwark_recently_quested days = 3600 }
+					set_timed_country_flag = { flag = bulwark_recently_quested years = 10 }
 					set_country_flag = bulwark_country_techtwo
 				} else_if = {
 					limit = { has_country_flag = bulwark_country_techtwo }
 					remove_country_flag = bulwark_country_techtwo
 					remove_country_flag = bulwark_questing
-					set_timed_country_flag = { flag = bulwark_recently_quested days = 3600 }
+					set_timed_country_flag = { flag = bulwark_recently_quested years = 10 }
 					set_country_flag = bulwark_country_techthree
 				} else_if = {
 					limit = { has_country_flag = bulwark_country_techthree }
 					remove_country_flag = bulwark_country_techthree
 					remove_country_flag = bulwark_questing
-					set_timed_country_flag = { flag = bulwark_recently_quested days = 3600 }
+					set_timed_country_flag = { flag = bulwark_recently_quested years = 10 }
 					set_country_flag = bulwark_country_techfour
 				} else_if = {
 					limit = { has_country_flag = bulwark_country_techfour }
 					remove_country_flag = bulwark_country_techfour
 					remove_country_flag = bulwark_questing
-					set_timed_country_flag = { flag = bulwark_recently_quested days = 3600 }
+					set_timed_country_flag = { flag = bulwark_recently_quested years = 10 }
 					set_country_flag = bulwark_country_techfive
 				}
 			}

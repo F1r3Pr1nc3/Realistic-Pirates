@@ -297,7 +297,7 @@ country_event = {
 	is_triggered_only = yes
 	trigger = { is_country_type = outer_bulwarks }
 	immediate = {
-		set_timed_global_flag = { flag = bulwark_trainers_scared days = 3600 }
+		set_timed_global_flag = { flag = bulwark_trainers_scared years = 10 }
 		every_country = {
 			limit = { is_country_type = outer_bulwarks }
 			change_variable = { which = bulwarkbudget value = 1000 }
@@ -336,7 +336,7 @@ country_event = {
 		if = {
 			limit = {
 				exists = from
-				from = { CmtTriggerIsPlayableEmpire = yes }
+				from = { merg_is_default_empire = yes }
 				# OR = {
 				# 	has_country_flag = merc_fleet_1_hired
 				# 	has_country_flag = merc_fleet_2_hired
@@ -787,7 +787,7 @@ planet_event = {
 				}
 			}
 		}
-		# set_timed_planet_flag = { flag = bulwark_extensive_raid days = 30 }
+		# set_timed_planet_flag = { flag = bulwark_extensive_raid months = 1 }
 		add_planet_devastation = 0.4
 		add_modifier = { modifier = bulwark_extensive_raids days = 30  clear_on_owner_change = yes }
 	}

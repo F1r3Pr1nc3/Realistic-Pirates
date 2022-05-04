@@ -313,7 +313,7 @@ set_pirates_difficulty = {
 		}		# compat. CM
 		if = {
 			limit = { num_ships < @ships_count_very_easy }
-			set_timed_country_flag = { flag = pirate_waves_spawn_allowed days = 30 }
+			set_timed_country_flag = { flag = pirate_waves_spawn_allowed months = 1 }
 		}
 	} else_if = {
 		limit = {
@@ -326,7 +326,7 @@ set_pirates_difficulty = {
 		}		# compat. CM
 		if = {
 			limit = { num_ships < @ships_count_easy }
-			set_timed_country_flag = { flag = pirate_waves_spawn_allowed days = 30 }
+			set_timed_country_flag = { flag = pirate_waves_spawn_allowed months = 1 }
 		}
 	} else_if = {
 		limit = {
@@ -339,7 +339,7 @@ set_pirates_difficulty = {
 		}		# compat. CM
 		if = {
 			limit = { num_ships < @ships_count_medium }
-			set_timed_country_flag = { flag = pirate_waves_spawn_allowed days = 30 }
+			set_timed_country_flag = { flag = pirate_waves_spawn_allowed months = 1 }
 		}
 	} else_if = {
 		limit = {
@@ -352,7 +352,7 @@ set_pirates_difficulty = {
 		}		# compat. CM
 		if = {
 			limit = { num_ships < @ships_count_hard }
-			set_timed_country_flag = { flag = pirate_waves_spawn_allowed days = 30 }
+			set_timed_country_flag = { flag = pirate_waves_spawn_allowed months = 1 }
 		}
 	} else_if = {
 		limit = {
@@ -365,7 +365,7 @@ set_pirates_difficulty = {
 		}		# compat. CM
 		if = {
 			limit = { num_ships < @ships_count_insane }
-			set_timed_country_flag = { flag = pirate_waves_spawn_allowed days = 30 }
+			set_timed_country_flag = { flag = pirate_waves_spawn_allowed months = 1 }
 		}
 	}
 	if = {
@@ -779,7 +779,7 @@ create_pirate_waves_fleet = {
 make_moderately_hostile = {
 	every_country = {
 		limit = {
-			CmtTriggerIsPlayableEmpire = no
+			merg_is_default_empire = no
 			OR = {
 				is_country_type = fallen_empire				# is_fallen_empire = yes
 				is_country_type = enclave

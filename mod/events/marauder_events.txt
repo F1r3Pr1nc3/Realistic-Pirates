@@ -91,10 +91,10 @@ country_event = {
 	trigger = {
 		is_country_type = dormant_marauders
 		any_relation = {
-			CmtTriggerIsPlayableEmpire = yes
+			merg_is_default_empire = yes
 			has_communications = root
 			any_relation = {
-				CmtTriggerIsPlayableEmpire = yes
+				merg_is_default_empire = yes
 				NOT = { has_communications = root }
 			}
 		}
@@ -104,15 +104,15 @@ country_event = {
 		random_relation = {
 			limit = {
 				has_communications = root
-				CmtTriggerIsPlayableEmpire = yes
+				merg_is_default_empire = yes
 				any_relation = {
-					CmtTriggerIsPlayableEmpire = yes
+					merg_is_default_empire = yes
 					NOT = { has_communications = root }
 				}
 			}
 			random_relation = {
 				limit = {
-					CmtTriggerIsPlayableEmpire = yes
+					merg_is_default_empire = yes
 					NOT = { has_communications = root }
 				}
 				root = { establish_communications_no_message = prev }
@@ -212,7 +212,7 @@ country_event = {
 		}
 		random_relation = {
 			limit = {
-				CmtTriggerIsPlayableEmpire = yes
+				merg_is_default_empire = yes
 				has_policy_flag = refugees_allowed
 				has_communications = root
 			}
@@ -225,7 +225,7 @@ country_event = {
 		# Vengeance if Mercenaries hired
 		if = {
 			limit = {
-				from = { CmtTriggerIsPlayableEmpire = yes }
+				from = { merg_is_default_empire = yes }
 				OR = {
 					has_country_flag = merc_fleet_1_hired
 					has_country_flag = merc_fleet_2_hired
@@ -863,7 +863,7 @@ country_event = {
 	hide_window = yes
 	is_triggered_only = yes
 	trigger = {
-		CmtTriggerIsPlayableEmpire = yes
+		merg_is_default_empire = yes
 		has_policy_flag = refugees_allowed
 		any_owned_planet = {
 			habitability = {
@@ -903,7 +903,7 @@ country_event = {
 					}
 					planet_event = { id = marauder.10 }
 				}
-				set_timed_country_flag = { flag = recivied_marauder_refugees days = 60 }
+				set_timed_country_flag = { flag = recivied_marauder_refugees months = 2 }
 			}
 			50 = { }
 		}
@@ -1511,7 +1511,7 @@ country_event = {
 		from = {
 			owner_species = { save_event_target_as = marauder_species }
 		}
-		set_timed_country_flag = { flag = bulwark_diplomacy_engaged days = 30 }
+		set_timed_country_flag = { flag = bulwark_diplomacy_engaged months = 1 }
 	}
 	after = {
 		hidden_effect = { remove_country_flag = marauder_diplomacy_engaged }
@@ -5981,7 +5981,7 @@ planet_event = {
 				break = yes				# Target not valid anymore
 			}
 		}
-		set_timed_planet_flag = { flag = planet_raided days = 600 }
+		set_timed_planet_flag = { flag = planet_raided months = 20 }
 		event_target:raiding_fleet = {
 			# Return home
 			set_event_locked = no
@@ -7066,7 +7066,7 @@ event = {
 							}
 						}
 						save_event_target_as = marauder_target
-						set_timed_country_flag = { flag = target_of_hired_ai_raid days = 7200 }
+						set_timed_country_flag = { flag = target_of_hired_ai_raid years = 20 }
 					}
 					random_relation = {
 						limit = {
@@ -7480,7 +7480,7 @@ event = {
 							}
 						}
 						event_target:mercenary_hirer = {
-							set_timed_country_flag = { flag = ai_hired_mercs days = 1800 }
+							set_timed_country_flag = { flag = ai_hired_mercs years = 5 }
 						}
 					}
 					if = {
@@ -7510,7 +7510,7 @@ event = {
 							}
 						}
 						event_target:mercenary_hirer = {
-							set_timed_country_flag = { flag = ai_hired_mercs days = 1800 }
+							set_timed_country_flag = { flag = ai_hired_mercs years = 5 }
 						}
 					}
 					if = {
@@ -7540,7 +7540,7 @@ event = {
 							}
 						}
 						event_target:mercenary_hirer = {
-							set_timed_country_flag = { flag = ai_hired_mercs days = 1800 }
+							set_timed_country_flag = { flag = ai_hired_mercs years = 5 }
 						}
 					}
 					modifier = {
@@ -7581,7 +7581,7 @@ event = {
 							}
 						}
 						event_target:mercenary_hirer = {
-							set_timed_country_flag = { flag = ai_hired_mercs days = 1800 }
+							set_timed_country_flag = { flag = ai_hired_mercs years = 5 }
 						}
 					}
 					if = {
@@ -7611,7 +7611,7 @@ event = {
 							}
 						}
 						event_target:mercenary_hirer = {
-							set_timed_country_flag = { flag = ai_hired_mercs days = 1800 }
+							set_timed_country_flag = { flag = ai_hired_mercs years = 5 }
 						}
 					}
 					if = {
@@ -7641,7 +7641,7 @@ event = {
 							}
 						}
 						event_target:mercenary_hirer = {
-							set_timed_country_flag = { flag = ai_hired_mercs days = 1800 }
+							set_timed_country_flag = { flag = ai_hired_mercs years = 5 }
 						}
 					}
 					modifier = {
@@ -7682,7 +7682,7 @@ event = {
 							}
 						}
 						event_target:mercenary_hirer = {
-							set_timed_country_flag = { flag = ai_hired_mercs days = 1800 }
+							set_timed_country_flag = { flag = ai_hired_mercs years = 5 }
 						}
 					}
 					if = {
@@ -7712,7 +7712,7 @@ event = {
 							}
 						}
 						event_target:mercenary_hirer = {
-							set_timed_country_flag = { flag = ai_hired_mercs days = 1800 }
+							set_timed_country_flag = { flag = ai_hired_mercs years = 5 }
 						}
 					}
 					if = {
@@ -7742,7 +7742,7 @@ event = {
 							}
 						}
 						event_target:mercenary_hirer = {
-							set_timed_country_flag = { flag = ai_hired_mercs days = 1800 }
+							set_timed_country_flag = { flag = ai_hired_mercs years = 5 }
 						}
 					}
 					modifier = {
@@ -8592,8 +8592,8 @@ country_event = {
 					limit = { event_target:CmtGlobalVar = { check_variable = { which = CmtVarWhileControlFleet value > 0.125 } } }
 					event_target:CmtGlobalVar = { change_variable = { which = CmtVarWhileControlFleet value = -0.25 } }
 					CmtEffectCreateFleet_KhanArmy = yes
-					random_list = { 300 = { CmtEffectCreateFleet_KhanStandard = yes } 100 = { } }
-					random_list = { 300 = { CmtEffectCreateFleet_KhanConstructor = yes } 100 = { } }
+					random = { chance = 75 CmtEffectCreateFleet_KhanStandard = yes }
+					random = { chance = 75 CmtEffectCreateFleet_KhanConstructor = yes }
 				}
 			}
 		}
@@ -8629,14 +8629,14 @@ country_event = {
 		if = {
 			limit = { has_country_flag = CmtFlagKhanVengeanceCountry }
 			every_playable_country = {
-				# limit = { CmtTriggerIsPlayableEmpire = yes }
+				# limit = { merg_is_default_empire = yes }
 				establish_communications_no_message = root
 				country_event = { id = marauder.526 }
 				observer_event = { id = observer.18 }
 			}
 		} else = {
 			every_playable_country = {
-				# limit = { CmtTriggerIsPlayableEmpire = yes }
+				# limit = { merg_is_default_empire = yes }
 				establish_communications_no_message = root
 				country_event = { id = marauder.501 }
 				observer_event = { id = observer.13 }
@@ -8645,7 +8645,7 @@ country_event = {
 		# every_country = {
 		# 	limit = {
 		# 		is_ai = yes
-		# 		CmtTriggerIsPlayableEmpire = yes # is_country_type_with_subjects = yes
+		# 		merg_is_default_empire = yes # is_country_type_with_subjects = yes
 		# 	}
 		# 	establish_communications_no_message = root
 		# }
@@ -8786,7 +8786,7 @@ country_event = {
 				}
 			}
 		}
-		from = { CmtTriggerIsPlayableEmpire = yes }
+		from = { merg_is_default_empire = yes }
 	}
 	immediate = {
 		fromfrom = {
@@ -9191,7 +9191,7 @@ country_event = {
 				# save_event_target_as = khan_destroyer
 				set_country_flag = no_khan_do
 				if = {
-					limit = { CmtTriggerIsPlayableEmpire = yes }					# is_ai = no
+					limit = { merg_is_default_empire = yes }					# is_ai = no
 					country_event = {
 						id = marauder.710
 						days = 7
@@ -10099,7 +10099,7 @@ country_event = {
 			}
 		} else = {
 			every_playable_country = {
-				# limit = { CmtTriggerIsPlayableEmpire = yes }
+				# limit = { merg_is_default_empire = yes }
 				country_event = { id = marauder.524 }
 			}
 		}
@@ -10178,7 +10178,7 @@ country_event = {
 				is_ship_size = starbase_marauder
 			}
 		}
-		from = { CmtTriggerIsPlayableEmpire = yes }		# There are some unpredictable possiblities.
+		from = { merg_is_default_empire = yes }		# There are some unpredictable possiblities.
 		count_owned_ship = {
 			limit = { is_ship_size = marauder_void_dwelling }
 			count > 1
@@ -10253,7 +10253,7 @@ starbase_event = {
 		exists = from
 		exists = owner
 		has_starbase_size > starbase_outpost
-		owner = { CmtTriggerIsPlayableEmpire = yes }
+		owner = { merg_is_default_empire = yes }
 		from.owner = {
 			OR = {
 				CmtTriggerIsKhanCountry = yes
@@ -10372,12 +10372,12 @@ planet_event = {
 		}
 	}
 	immediate = {
-		set_timed_planet_flag = { flag = planet_raided days = 300 }
+		set_timed_planet_flag = { flag = planet_raided months = 10 }
 		if = {
 			limit = {
 				num_pops < 2
 				owner = {
-					CmtTriggerIsPlayableEmpire = yes
+					merg_is_default_empire = yes
 					num_owned_planets > 1
 				}
 			}
@@ -10390,7 +10390,7 @@ planet_event = {
 				exists = owner
 				owner = {
 					num_owned_planets < 2
-					CmtTriggerIsPlayableEmpire = yes
+					merg_is_default_empire = yes
 				}
 			}
 			## Complete takeover
@@ -11153,7 +11153,7 @@ country_event = {
 		has_been_declared_crisis = no
 		NOT = { has_country_flag = rebellion_cooldown }
 		CmtTriggerExistKhanCountry = yes		# exists = event_target:raider_khanate
-		CmtTriggerIsPlayableEmpire = yes		# merg_is_default_empire = yes
+		merg_is_default_empire = yes		# merg_is_default_empire = yes
 		is_subject = no
 		is_ai = yes
 		check_variable = { which = "planets_lost_to_marauder" value > 2 }
@@ -11374,8 +11374,8 @@ fleet_event = {
 				divide_variable = { which = "satrapy_fleet_power" value = 26000 }
 				divide_variable = { which = "satrapy_fleet_power" value = trigger:used_naval_capacity_percent }
 				round_variable = "satrapy_fleet_power"
-				if = { limit = { check_variable = { which = "satrapy_fleet_power" value < 2 } }
-					set_variable = { which = "satrapy_fleet_power" value = 2 }
+				if = { limit = { check_variable = { which = "satrapy_fleet_power" value < 3 } }
+					set_variable = { which = "satrapy_fleet_power" value = 3 }
 				} else_if = { limit = { check_variable = { which = "satrapy_fleet_power" value > 6 } }
 					set_variable = { which = "satrapy_fleet_power" value = 6 }
 				}
@@ -11760,7 +11760,7 @@ country_event = {
 			}
 			random_playable_country = {
 				limit = {
-					# CmtTriggerIsPlayableEmpire = yes
+					# merg_is_default_empire = yes
 					has_country_flag = no_khan_do
 					is_subject_of_khan = no
 				}
@@ -12143,7 +12143,7 @@ country_event = {
 			set_owner = event_target:new_khanate
 			set_controller = event_target:new_khanate
 			# Just to keep the initial conquered planets in line while they stabilize.
-			add_modifier = { modifier = "revolt_suppressed" days = 600 }
+			add_modifier = { modifier = "revolt_suppressed" months = 20  }
 		}
 		event_target:new_khanate = {
 			if = {
@@ -12614,12 +12614,7 @@ event = {
 					}
 				}
 			}
-			random_list = {
-				20 = {
-					country_event = { id = marauder.700 }
-				}
-				80 = { }
-			}
+			random = { chance = 20 country_event = { id = marauder.700 } }
 		}
 	}
 }
@@ -12768,7 +12763,7 @@ country_event = {
 	immediate = { set_country_flag = marauder_neighbor_event_2 }
 	option = {
 		name = EXCELLENT
-		add_modifier = { modifier = "marauder_skirmishing" days = 3600 }
+		add_modifier = { modifier = "marauder_skirmishing" years = 10 }
 	}
 }
 

@@ -90,7 +90,7 @@ country_event = {
 	}
 
 	trigger = {
-		CmtTriggerIsPlayableEmpire = yes # merg_is_default_empire = yes
+		merg_is_default_empire = yes # merg_is_default_empire = yes
 		NOR = {
 			has_country_flag = birth_of_piracy
 			has_ethic = ethic_gestalt_consciousness
@@ -105,7 +105,7 @@ country_event = {
 	is_triggered_only = yes
 
 	immediate = {
-		set_timed_country_flag = { flag = pirates_spawned days = 3600 }
+		set_timed_country_flag = { flag = pirates_spawned years = 10 }
 		set_country_flag = birth_of_piracy
 		set_country_flag = pirate_encountered
 		capital_scope = {

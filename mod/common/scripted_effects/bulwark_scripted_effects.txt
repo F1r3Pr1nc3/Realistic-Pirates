@@ -2,11 +2,8 @@
 # from = fleet
 # fromfrom = planet (if any)
 bulwark_exploration_effect = {
-	log = "triggered bulwark_exploration_effect"
-
-	owner = {
-		save_event_target_as = bulwark_eye_owner
-	}
+	#log = "triggered bulwark_exploration_effect"
+	owner = { save_event_target_as = bulwark_eye_owner }
 	solar_system = {
 		random_neighbor_system = {
 			limit = {
@@ -15,21 +12,15 @@ bulwark_exploration_effect = {
 						exists = owner
 						owner = {
 							is_fallen_empire = yes
-							NOT = {
-								has_authority = auth_machine_intelligence
-							}
+							NOT = { has_authority = auth_machine_intelligence }
 						}
 					}
 					any_fleet_in_system = {
-						owner = {
-							is_hostile_to = event_target:bulwark_eye_owner
-						}
+						owner = { is_hostile_to = event_target:bulwark_eye_owner }
 					}
 				}
 			}
-			random_system_planet = {
-				save_event_target_as = bulwark_exploration_planet_target
-			}
+			random_system_planet = { save_event_target_as = bulwark_exploration_planet_target }
 		}
 	}
 	auto_move_to_planet = {
@@ -39,338 +30,339 @@ bulwark_exploration_effect = {
 	}
 }
 
-
 # This = country
 # Prev = fleet
 create_dyn_bulwark_fleet = {
-		if = { limit = { NOT = { is_variable_set = pirates_f_tmp } }
-			set_variable = { which = pirates_f_tmp value = 1 }
+	if = {
+		limit = {
+			NOT = { is_variable_set = pirates_f_tmp }
 		}
+		set_variable = { which = pirates_f_tmp value = 1 }
+	}
 	prev = {
-
 		# log="create_dyn_pirate_fleet \\[prev.pirates_f_tmp]"
 		[[LOWCORVETTE]
-			create_ship_design = { design = "NAME_BULWARK_LOWCORVETTE" }
-			set_variable = { which = fleet_f_tmp value = prev.pirates_f_tmp }
-			multiply_variable = { which = fleet_f_tmp value = $LOWCORVETTE$ }
-			ceiling_variable = fleet_f_tmp
-			while = {
-				count = fleet_f_tmp
-				create_ship = {
-					name = random
-					design = last_created_design
-					graphical_culture = "pirate_01"
-					effect = {
-						add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
-					}
+		create_ship_design = { design = "NAME_BULWARK_LOWCORVETTE" }
+		set_variable = { which = fleet_f_tmp value = prev.pirates_f_tmp }
+		multiply_variable = { which = fleet_f_tmp value = $LOWCORVETTE$ }
+		ceiling_variable = fleet_f_tmp
+		while = {
+			count = fleet_f_tmp
+			create_ship = {
+				name = random
+				design = last_created_design
+				graphical_culture = "pirate_01"
+				effect = {
+					add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
 				}
 			}
+		}
 		]
 		[[LOWDESTROYER]
-			create_ship_design = { design = "NAME_BULWARK_LOWDESTROYER" }
-			set_variable = { which = fleet_f_tmp value = prev.pirates_f_tmp }
-			multiply_variable = { which = fleet_f_tmp value = $LOWDESTROYER$ }
-			ceiling_variable = fleet_f_tmp
-			while = {
-				count = fleet_f_tmp
-				create_ship = {
-					name = random
-					design = last_created_design
-					graphical_culture = "pirate_01"
-					effect = {
-						add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
-					}
+		create_ship_design = { design = "NAME_BULWARK_LOWDESTROYER" }
+		set_variable = { which = fleet_f_tmp value = prev.pirates_f_tmp }
+		multiply_variable = { which = fleet_f_tmp value = $LOWDESTROYER$ }
+		ceiling_variable = fleet_f_tmp
+		while = {
+			count = fleet_f_tmp
+			create_ship = {
+				name = random
+				design = last_created_design
+				graphical_culture = "pirate_01"
+				effect = {
+					add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
 				}
 			}
+		}
 		]
 		[[LOWCRUISER]
-			create_ship_design = { design = "NAME_BULWARK_LOWCRUISER" }
-			set_variable = { which = fleet_f_tmp value = prev.pirates_f_tmp }
-			multiply_variable = { which = fleet_f_tmp value = $LOWCRUISER$ }
-			ceiling_variable = fleet_f_tmp
-			while = {
-				count = fleet_f_tmp
-				create_ship = {
-					name = random
-					design = last_created_design
-					graphical_culture = "pirate_01"
-					effect = {
-						add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
-					}
+		create_ship_design = { design = "NAME_BULWARK_LOWCRUISER" }
+		set_variable = { which = fleet_f_tmp value = prev.pirates_f_tmp }
+		multiply_variable = { which = fleet_f_tmp value = $LOWCRUISER$ }
+		ceiling_variable = fleet_f_tmp
+		while = {
+			count = fleet_f_tmp
+			create_ship = {
+				name = random
+				design = last_created_design
+				graphical_culture = "pirate_01"
+				effect = {
+					add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
 				}
 			}
+		}
 		]
 		[[LOWBATTLESHIP]
-			create_ship_design = { design = "NAME_BULWARK_LOWBATTLESHIP" }
-			set_variable = { which = fleet_f_tmp value = prev.pirates_f_tmp }
-			multiply_variable = { which = fleet_f_tmp value = $LOWBATTLESHIP$ }
-			ceiling_variable = fleet_f_tmp
-			while = {
-				count = fleet_f_tmp
-				create_ship = {
-					name = random
-					design = last_created_design
-					graphical_culture = "pirate_01"
-					effect = {
-						add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
-					}
+		create_ship_design = { design = "NAME_BULWARK_LOWBATTLESHIP" }
+		set_variable = { which = fleet_f_tmp value = prev.pirates_f_tmp }
+		multiply_variable = { which = fleet_f_tmp value = $LOWBATTLESHIP$ }
+		ceiling_variable = fleet_f_tmp
+		while = {
+			count = fleet_f_tmp
+			create_ship = {
+				name = random
+				design = last_created_design
+				graphical_culture = "pirate_01"
+				effect = {
+					add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
 				}
 			}
+		}
 		]
 		[[MEDCORVETTE]
-			create_ship_design = { design = "NAME_BULWARK_MEDCORVETTE" }
-			set_variable = { which = fleet_f_tmp value = prev.pirates_f_tmp }
-			multiply_variable = { which = fleet_f_tmp value = $MEDCORVETTE$ }
-			ceiling_variable = fleet_f_tmp
-			while = {
-				count = fleet_f_tmp
-				create_ship = {
-					name = random
-					design = last_created_design
-					graphical_culture = "pirate_01"
-					effect = {
-						add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
-					}
+		create_ship_design = { design = "NAME_BULWARK_MEDCORVETTE" }
+		set_variable = { which = fleet_f_tmp value = prev.pirates_f_tmp }
+		multiply_variable = { which = fleet_f_tmp value = $MEDCORVETTE$ }
+		ceiling_variable = fleet_f_tmp
+		while = {
+			count = fleet_f_tmp
+			create_ship = {
+				name = random
+				design = last_created_design
+				graphical_culture = "pirate_01"
+				effect = {
+					add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
 				}
 			}
+		}
 		]
 		[[MEDDESTROYER]
-			create_ship_design = { design = "NAME_BULWARK_MEDDESTROYER" }
-			set_variable = { which = fleet_f_tmp value = prev.pirates_f_tmp }
-			multiply_variable = { which = fleet_f_tmp value = $MEDDESTROYER$ }
-			ceiling_variable = fleet_f_tmp
-			while = {
-				count = fleet_f_tmp
-				create_ship = {
-					name = random
-					design = last_created_design
-					graphical_culture = "pirate_01"
-					effect = {
-						add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
-					}
+		create_ship_design = { design = "NAME_BULWARK_MEDDESTROYER" }
+		set_variable = { which = fleet_f_tmp value = prev.pirates_f_tmp }
+		multiply_variable = { which = fleet_f_tmp value = $MEDDESTROYER$ }
+		ceiling_variable = fleet_f_tmp
+		while = {
+			count = fleet_f_tmp
+			create_ship = {
+				name = random
+				design = last_created_design
+				graphical_culture = "pirate_01"
+				effect = {
+					add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
 				}
 			}
+		}
 		]
 		[[MEDCRUISER]
-			create_ship_design = { design = "NAME_BULWARK_MEDCRUISER" }
-			set_variable = { which = fleet_f_tmp value = prev.pirates_f_tmp }
-			multiply_variable = { which = fleet_f_tmp value = $MEDCRUISER$ }
-			ceiling_variable = fleet_f_tmp
-			while = {
-				count = fleet_f_tmp
-				create_ship = {
-					name = random
-					design = last_created_design
-					graphical_culture = "pirate_01"
-					effect = {
-						add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
-					}
+		create_ship_design = { design = "NAME_BULWARK_MEDCRUISER" }
+		set_variable = { which = fleet_f_tmp value = prev.pirates_f_tmp }
+		multiply_variable = { which = fleet_f_tmp value = $MEDCRUISER$ }
+		ceiling_variable = fleet_f_tmp
+		while = {
+			count = fleet_f_tmp
+			create_ship = {
+				name = random
+				design = last_created_design
+				graphical_culture = "pirate_01"
+				effect = {
+					add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
 				}
 			}
+		}
 		]
 		[[MEDBATTLESHIP]
-			create_ship_design = { design = "NAME_BULWARK_MEDBATTLESHIP" }
-			set_variable = { which = fleet_f_tmp value = prev.pirates_f_tmp }
-			multiply_variable = { which = fleet_f_tmp value = $MEDBATTLESHIP$ }
-			ceiling_variable = fleet_f_tmp
-			while = {
-				count = fleet_f_tmp
-				create_ship = {
-					name = random
-					design = last_created_design
-					graphical_culture = "pirate_01"
-					effect = {
-						add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
-					}
+		create_ship_design = { design = "NAME_BULWARK_MEDBATTLESHIP" }
+		set_variable = { which = fleet_f_tmp value = prev.pirates_f_tmp }
+		multiply_variable = { which = fleet_f_tmp value = $MEDBATTLESHIP$ }
+		ceiling_variable = fleet_f_tmp
+		while = {
+			count = fleet_f_tmp
+			create_ship = {
+				name = random
+				design = last_created_design
+				graphical_culture = "pirate_01"
+				effect = {
+					add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
 				}
 			}
+		}
 		]
 		[[HIGHCORVETTE]
-			create_ship_design = { design = "NAME_BULWARK_HIGHCORVETTE" }
-			set_variable = { which = fleet_f_tmp value = prev.pirates_f_tmp }
-			multiply_variable = { which = fleet_f_tmp value = $HIGHCORVETTE$ }
-			ceiling_variable = fleet_f_tmp
-			while = {
-				count = fleet_f_tmp
-				create_ship = {
-					name = random
-					design = last_created_design
-					graphical_culture = "pirate_01"
-					effect = {
-						add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
-					}
+		create_ship_design = { design = "NAME_BULWARK_HIGHCORVETTE" }
+		set_variable = { which = fleet_f_tmp value = prev.pirates_f_tmp }
+		multiply_variable = { which = fleet_f_tmp value = $HIGHCORVETTE$ }
+		ceiling_variable = fleet_f_tmp
+		while = {
+			count = fleet_f_tmp
+			create_ship = {
+				name = random
+				design = last_created_design
+				graphical_culture = "pirate_01"
+				effect = {
+					add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
 				}
 			}
+		}
 		]
 		[[HIGHDESTROYER]
-			create_ship_design = { design = "NAME_BULWARK_HIGHDESTROYER" }
-			set_variable = { which = fleet_f_tmp value = prev.pirates_f_tmp }
-			multiply_variable = { which = fleet_f_tmp value = $HIGHDESTROYER$ }
-			ceiling_variable = fleet_f_tmp
-			while = {
-				count = fleet_f_tmp
-				create_ship = {
-					name = random
-					design = last_created_design
-					graphical_culture = "pirate_01"
-					effect = {
-						add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
-					}
+		create_ship_design = { design = "NAME_BULWARK_HIGHDESTROYER" }
+		set_variable = { which = fleet_f_tmp value = prev.pirates_f_tmp }
+		multiply_variable = { which = fleet_f_tmp value = $HIGHDESTROYER$ }
+		ceiling_variable = fleet_f_tmp
+		while = {
+			count = fleet_f_tmp
+			create_ship = {
+				name = random
+				design = last_created_design
+				graphical_culture = "pirate_01"
+				effect = {
+					add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
 				}
 			}
+		}
 		]
 		[[HIGHCRUISER]
-			create_ship_design = { design = "NAME_BULWARK_HIGHCRUISER" }
-			set_variable = { which = fleet_f_tmp value = prev.pirates_f_tmp }
-			multiply_variable = { which = fleet_f_tmp value = $HIGHCRUISER$ }
-			ceiling_variable = fleet_f_tmp
-			while = {
-				count = fleet_f_tmp
-				create_ship = {
-					name = random
-					design = last_created_design
-					graphical_culture = "pirate_01"
-					effect = {
-						add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
-					}
+		create_ship_design = { design = "NAME_BULWARK_HIGHCRUISER" }
+		set_variable = { which = fleet_f_tmp value = prev.pirates_f_tmp }
+		multiply_variable = { which = fleet_f_tmp value = $HIGHCRUISER$ }
+		ceiling_variable = fleet_f_tmp
+		while = {
+			count = fleet_f_tmp
+			create_ship = {
+				name = random
+				design = last_created_design
+				graphical_culture = "pirate_01"
+				effect = {
+					add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
 				}
 			}
+		}
 		]
 		[[HIGHERCORVETTE]
-			create_ship_design = { design = "NAME_BULWARK_HIGHERCORVETTE" }
-			set_variable = { which = fleet_f_tmp value = prev.pirates_f_tmp }
-			multiply_variable = { which = fleet_f_tmp value = $HIGHERCORVETTE$ }
-			ceiling_variable = fleet_f_tmp
-			while = {
-				count = fleet_f_tmp
-				create_ship = {
-					name = random
-					design = last_created_design
-					graphical_culture = "pirate_01"
-					effect = {
-						add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
-					}
+		create_ship_design = { design = "NAME_BULWARK_HIGHERCORVETTE" }
+		set_variable = { which = fleet_f_tmp value = prev.pirates_f_tmp }
+		multiply_variable = { which = fleet_f_tmp value = $HIGHERCORVETTE$ }
+		ceiling_variable = fleet_f_tmp
+		while = {
+			count = fleet_f_tmp
+			create_ship = {
+				name = random
+				design = last_created_design
+				graphical_culture = "pirate_01"
+				effect = {
+					add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
 				}
 			}
+		}
 		]
 		[[HIGHERDESTROYER]
-			create_ship_design = { design = "NAME_BULWARK_HIGHERDESTROYER" }
-			set_variable = { which = fleet_f_tmp value = prev.pirates_f_tmp }
-			multiply_variable = { which = fleet_f_tmp value = $HIGHERDESTROYER$ }
-			ceiling_variable = fleet_f_tmp
-			while = {
-				count = fleet_f_tmp
-				create_ship = {
-					name = random
-					design = last_created_design
-					graphical_culture = "pirate_01"
-					effect = {
-						add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
-					}
+		create_ship_design = { design = "NAME_BULWARK_HIGHERDESTROYER" }
+		set_variable = { which = fleet_f_tmp value = prev.pirates_f_tmp }
+		multiply_variable = { which = fleet_f_tmp value = $HIGHERDESTROYER$ }
+		ceiling_variable = fleet_f_tmp
+		while = {
+			count = fleet_f_tmp
+			create_ship = {
+				name = random
+				design = last_created_design
+				graphical_culture = "pirate_01"
+				effect = {
+					add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
 				}
 			}
+		}
 		]
 		[[HIGHERCRUISER]
-			create_ship_design = { design = "NAME_BULWARK_HIGHERCRUISER" }
-			set_variable = { which = fleet_f_tmp value = prev.pirates_f_tmp }
-			multiply_variable = { which = fleet_f_tmp value = $HIGHERCRUISER$ }
-			ceiling_variable = fleet_f_tmp
-			while = {
-				count = fleet_f_tmp
-				create_ship = {
-					name = random
-					design = last_created_design
-					graphical_culture = "pirate_01"
-					effect = {
-						add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
-					}
+		create_ship_design = { design = "NAME_BULWARK_HIGHERCRUISER" }
+		set_variable = { which = fleet_f_tmp value = prev.pirates_f_tmp }
+		multiply_variable = { which = fleet_f_tmp value = $HIGHERCRUISER$ }
+		ceiling_variable = fleet_f_tmp
+		while = {
+			count = fleet_f_tmp
+			create_ship = {
+				name = random
+				design = last_created_design
+				graphical_culture = "pirate_01"
+				effect = {
+					add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
 				}
 			}
+		}
 		]
 		[[HIGHERBATTLESHIP]
-			create_ship_design = { design = "NAME_BULWARK_HIGHERBATTLESHIP" }
-			set_variable = { which = fleet_f_tmp value = prev.pirates_f_tmp }
-			multiply_variable = { which = fleet_f_tmp value = $HIGHERBATTLESHIP$ }
-			ceiling_variable = fleet_f_tmp
-			while = {
-				count = fleet_f_tmp
-				create_ship = {
-					name = random
-					design = last_created_design
-					graphical_culture = "pirate_01"
-					effect = {
-						add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
-					}
+		create_ship_design = { design = "NAME_BULWARK_HIGHERBATTLESHIP" }
+		set_variable = { which = fleet_f_tmp value = prev.pirates_f_tmp }
+		multiply_variable = { which = fleet_f_tmp value = $HIGHERBATTLESHIP$ }
+		ceiling_variable = fleet_f_tmp
+		while = {
+			count = fleet_f_tmp
+			create_ship = {
+				name = random
+				design = last_created_design
+				graphical_culture = "pirate_01"
+				effect = {
+					add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
 				}
 			}
+		}
 		]
 		[[HIGHESTCORVETTE]
-			create_ship_design = { design = "NAME_BULWARK_HIGHESTCORVETTE" }
-			set_variable = { which = fleet_f_tmp value = prev.pirates_f_tmp }
-			multiply_variable = { which = fleet_f_tmp value = $HIGHESTCORVETTE$ }
-			ceiling_variable = fleet_f_tmp
-			while = {
-				count = fleet_f_tmp
-				create_ship = {
-					name = random
-					design = last_created_design
-					graphical_culture = "pirate_01"
-					effect = {
-						add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
-					}
+		create_ship_design = { design = "NAME_BULWARK_HIGHESTCORVETTE" }
+		set_variable = { which = fleet_f_tmp value = prev.pirates_f_tmp }
+		multiply_variable = { which = fleet_f_tmp value = $HIGHESTCORVETTE$ }
+		ceiling_variable = fleet_f_tmp
+		while = {
+			count = fleet_f_tmp
+			create_ship = {
+				name = random
+				design = last_created_design
+				graphical_culture = "pirate_01"
+				effect = {
+					add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
 				}
 			}
+		}
 		]
 		[[HIGHESTDESTROYER]
-			create_ship_design = { design = "NAME_BULWARK_HIGHESTDESTROYER" }
-			set_variable = { which = fleet_f_tmp value = prev.pirates_f_tmp }
-			multiply_variable = { which = fleet_f_tmp value = $HIGHESTDESTROYER$ }
-			ceiling_variable = fleet_f_tmp
-			while = {
-				count = fleet_f_tmp
-				create_ship = {
-					name = random
-					design = last_created_design
-					graphical_culture = "pirate_01"
-					effect = {
-						add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
-					}
+		create_ship_design = { design = "NAME_BULWARK_HIGHESTDESTROYER" }
+		set_variable = { which = fleet_f_tmp value = prev.pirates_f_tmp }
+		multiply_variable = { which = fleet_f_tmp value = $HIGHESTDESTROYER$ }
+		ceiling_variable = fleet_f_tmp
+		while = {
+			count = fleet_f_tmp
+			create_ship = {
+				name = random
+				design = last_created_design
+				graphical_culture = "pirate_01"
+				effect = {
+					add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
 				}
 			}
+		}
 		]
 		[[HIGHESTCRUISER]
-			create_ship_design = { design = "NAME_BULWARK_HIGHESTCRUISER" }
-			set_variable = { which = fleet_f_tmp value = prev.pirates_f_tmp }
-			multiply_variable = { which = fleet_f_tmp value = $HIGHESTCRUISER$ }
-			ceiling_variable = fleet_f_tmp
-			while = {
-				count = fleet_f_tmp
-				create_ship = {
-					name = random
-					design = last_created_design
-					graphical_culture = "pirate_01"
-					effect = {
-						add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
-					}
+		create_ship_design = { design = "NAME_BULWARK_HIGHESTCRUISER" }
+		set_variable = { which = fleet_f_tmp value = prev.pirates_f_tmp }
+		multiply_variable = { which = fleet_f_tmp value = $HIGHESTCRUISER$ }
+		ceiling_variable = fleet_f_tmp
+		while = {
+			count = fleet_f_tmp
+			create_ship = {
+				name = random
+				design = last_created_design
+				graphical_culture = "pirate_01"
+				effect = {
+					add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
 				}
 			}
+		}
 		]
 		[[HIGHESTBATTLESHIP]
-			create_ship_design = { design = "NAME_BULWARK_HIGHESTBATTLESHIP" }
-			set_variable = { which = fleet_f_tmp value = prev.pirates_f_tmp }
-			multiply_variable = { which = fleet_f_tmp value = $HIGHESTBATTLESHIP$ }
-			ceiling_variable = fleet_f_tmp
-			while = {
-				count = fleet_f_tmp
-				create_ship = {
-					name = random
-					design = last_created_design
-					graphical_culture = "pirate_01"
-					effect = {
-						add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
-					}
+		create_ship_design = { design = "NAME_BULWARK_HIGHESTBATTLESHIP" }
+		set_variable = { which = fleet_f_tmp value = prev.pirates_f_tmp }
+		multiply_variable = { which = fleet_f_tmp value = $HIGHESTBATTLESHIP$ }
+		ceiling_variable = fleet_f_tmp
+		while = {
+			count = fleet_f_tmp
+			create_ship = {
+				name = random
+				design = last_created_design
+				graphical_culture = "pirate_01"
+				effect = {
+					add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
 				}
 			}
+		}
 		]
 		clear_variable = fleet_f_tmp
 	}

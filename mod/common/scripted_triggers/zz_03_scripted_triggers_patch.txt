@@ -38,7 +38,7 @@ has_total_war_cb = {
 		}
 		# End threat checks
 		AND = {
-			CmtTriggerIsPlayableEmpire = yes
+			merg_is_default_empire = yes
 			NOR = {
 				# is_country_type = awakened_fallen_empire meaningless
 				has_valid_civic = civic_fanatic_purifiers
@@ -79,7 +79,7 @@ is_subject_of_khan = {
 # As is_pirate is bugged (still 3.3)
 is_pirate_country = {
 	OR = {
-		is_country_type = pirate
+		is_pirate = yes # is_country_type = pirate
 		is_country_type = pirate_waves_country
 		is_country_type = dormant_marauders
 		is_country_type = ruined_marauders

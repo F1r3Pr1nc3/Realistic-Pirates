@@ -515,7 +515,7 @@ country_event = {
 	location = event_target:pirate_target
 	is_triggered_only = yes
 	trigger = {
-		CmtTriggerIsPlayableEmpire = yes # merg_is_default_empire = yes
+		merg_is_default_empire = yes # merg_is_default_empire = yes
 		fromfrom = {
 			has_planet_flag = pirate_invasion
 			controller = { is_same_empire = root }
@@ -523,7 +523,7 @@ country_event = {
 	}
 	immediate = {
 		fromfrom = {
-			add_modifier = { modifier = revolt_suppressed days = 3600 }
+			add_modifier = { modifier = revolt_suppressed years = 10 }
 			save_event_target_as = pirate_target
 			remove_planet_flag = pirate_invasion
 		}
