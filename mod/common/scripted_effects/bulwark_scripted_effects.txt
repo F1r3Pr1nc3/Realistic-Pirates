@@ -33,11 +33,8 @@ bulwark_exploration_effect = {
 # This = country
 # Prev = fleet
 create_dyn_bulwark_fleet = {
-	if = {
-		limit = {
-			NOT = { is_variable_set = pirates_f_tmp }
-		}
-		set_variable = { which = pirates_f_tmp value = 1 }
+	if = { limit = { NOT = { is_variable_set = pirates_f_tmp } }
+		set_variable = { which = pirates_f_tmp value = 0.5 }
 	}
 	prev = {
 		# log="create_dyn_pirate_fleet \\[prev.pirates_f_tmp]"

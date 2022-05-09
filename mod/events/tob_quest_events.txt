@@ -874,6 +874,7 @@ country_event = {
 							trigger = {
 								id = "tob_quest_assault.1"
 								exists = owner
+								exists = root
 								owner = { is_same_empire = root } # event_target:bulwark_war_target
 								any_system_planet = { is_colony = yes }
 							}
