@@ -7,8 +7,8 @@
 
 # scope = first_contact
 on_first_contact_stage_1_no_path = {
-    events = {
-        first_contact_bulwarks.10
+	events = {
+		first_contact_bulwarks.10
     }
 }
 

@@ -654,7 +654,7 @@ create_privateer_country = {
 }
 
 create_privateer_fleet = {
-	#  event targtes created by create_privateer_country
+	# Event targtes created by create_privateer_country.
 	event_target:privateer_band = {
 		if = {
 			limit = {
@@ -667,7 +667,7 @@ create_privateer_fleet = {
 			get_galaxy_setup_value = { which = mid_year setting = mid_game_year } # 100%
 			divide_variable = { which = mid_year value = 2 }
 			set_variable = { which = current_year_factor value = trigger:years_passed }
-			# only partial =  (cy/my*1.25 + 0.75)/2
+			# Only partial =  (cy/my*1.25 + 0.75)/2
 			divide_variable = { which = current_year_factor value = mid_year }
 			multiply_variable = { which = pirates_f_tmp value = 1.25 }
 			change_variable = { which = pirates_f_tmp value = 0.75 }
@@ -752,20 +752,9 @@ create_thalassocracy_country = {
 			species = event_target:thalassocracy_species
 			name_list = "HUM2"
 			flag = {
-				icon = {
-					category = "pirate"
-					file = "flag_pirate_9.dds"
-				}
-				background = {
-					category = "backgrounds"
-					file = "pattern_01.dds"
-				}
-				colors = {
-					"red"
-					"black"
-					"null"
-					"null"
-				}
+				icon = { category = "pirate" file = "flag_pirate_9.dds" }
+				background = { category = "backgrounds" file = "pattern_01.dds" }
+				colors = { "red" "black" "null" "null" }
 			}
 			effect = {
 				save_global_event_target_as = thalassocracy_country

@@ -2,7 +2,7 @@
 # from = fleet
 # fromfrom = planet (if any)
 bulwark_exploration_effect = {
-	#log = "triggered bulwark_exploration_effect"
+	# log = "triggered bulwark_exploration_effect"
 	owner = { save_event_target_as = bulwark_eye_owner }
 	solar_system = {
 		random_neighbor_system = {
@@ -16,6 +16,7 @@ bulwark_exploration_effect = {
 						}
 					}
 					any_fleet_in_system = {
+						exists = owner
 						owner = { is_hostile_to = event_target:bulwark_eye_owner }
 					}
 				}

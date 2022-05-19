@@ -95,7 +95,7 @@ country_event = {
 				# random_system = {
 				# 	limit = {
 				# 		exists = owner
-				# 		owner = { is_same_empire = event_target:tob_tamer_faction }
+				# 		is_owned_by = event_target:tob_tamer_faction
 				# 	}
 				# 	random_system_planet = { save_event_target_as = bulwark_mercs_respawn_here }
 				# }
@@ -5212,10 +5212,8 @@ country_event = {
 				check_variable = { which = bulwarkbudget value >= 700 }
 			}
 			subtract_variable = { which = bulwarkbudget value = 700 }
-			random_system = {
+			random_system_within_border = {
 				limit = {
-					exists = owner
-					owner = { is_same_empire = root }
 				}
 				random_system_planet = { save_event_target_as = bulwark_vanguard_one_respawns_here }
 			}
@@ -6910,10 +6908,8 @@ country_event = {
 				check_variable = { which = bulwarkbudget value >= 700 }
 			}
 			subtract_variable = { which = bulwarkbudget value = 700 }
-			random_system = {
+			random_system_within_border = {
 				limit = {
-					exists = owner
-					owner = { is_same_empire = root }
 				}
 				random_system_planet = { save_event_target_as = bulwark_vanguard_two_respawns_here }
 			}
@@ -8630,10 +8626,8 @@ country_event = {
 					}
 				}
 				subtract_variable = { which = bulwarkbudget value = 200 }
-				random_system = {
+				random_system_within_border = {
 					limit = {
-						exists = owner
-						owner = { is_same_empire = root }
 					}
 					random_system_planet = {
 						limit = {

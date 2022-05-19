@@ -573,7 +573,7 @@ country_event = {
 				unity = 20000
 				influence = 400
 			}
-			add_100_unity_per_year_passed = yes
+			add_500_unity_per_year_passed = yes
 			create_starting_leaders = yes
 
 			country_event = { id = game_start.6 days = 6 random = 2 } # advanced_empire
@@ -831,7 +831,7 @@ country_event = {
 			set_country_type = default
 			set_subject_of = {
 				who = root
-				subject_type = tributary
+				preset = preset_tributary
 			}
 		}
 	}

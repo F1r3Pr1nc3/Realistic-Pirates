@@ -13,7 +13,7 @@
 ###- Check Country Type -###
 ############################
 
-### replaced merg_is_default_empire
+### Replaced merg_is_default_empire
 ### DEPRECATED
 CmtTriggerIsPlayableEmpire = {
 	OR = {		## Written in also Cmt40 and Cmt50.
@@ -24,7 +24,7 @@ CmtTriggerIsPlayableEmpire = {
 	}
 }
 
-# replaced by merg_is_standard_empire
+# Replaced by merg_is_standard_empire
 CmtTriggerIsEmpire = {		## Written in also Cmt50
 	OR = {
 		merg_is_standard_empire = yes

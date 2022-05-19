@@ -5,5 +5,5 @@ pirate_army = {
 	morale_damage = 1.5
 	collateral_damage = 2
 	icon = GFX_army_type_assault
-	potential = { always = no }
+	potential_country = { always = no }
 }

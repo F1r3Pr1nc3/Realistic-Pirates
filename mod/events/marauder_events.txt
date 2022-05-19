@@ -197,6 +197,16 @@ country_event = {
 				}
 				num_starbases = 1				# Last one still counts as alive when this fires.
 			}
+			AND = {
+				count_owned_ship = {
+					limit = { is_ship_size = marauder_void_dwelling }
+					count = 0
+				}
+				count_owned_ship = {
+					limit = { is_ship_size = starbase_marauder }
+					count = 0
+				}
+			}
 		}
 	}
 	immediate = {
@@ -376,7 +386,12 @@ country_event = {
 					set_hostile = yes
 				}
 			}
-		} else = { destroy_country = yes }
+		} else = {
+			every_owned_megastructure = {
+				set_ruined_megastructure = yes
+			}
+			destroy_country = yes
+		}
 	}
 }
 
@@ -2319,7 +2334,7 @@ fleet_event = {
 			# max_steps = 40
 			use_bypasses = yes
 			limit = {
-				exists = owner
+				has_owner = yes
 				is_owned_by = from
 				exists = starbase
 				starbase = {
@@ -2956,7 +2971,7 @@ country_event = {
 					closest_system = {
 						limit = {
 							any_system_planet = {
-								has_owner = yes								# exists = owner
+								has_owner = yes								# has_owner = yes
 								is_owned_by = event_target:marauder_target
 								num_pops > 0
 							}
@@ -2964,7 +2979,7 @@ country_event = {
 						}
 						random_system_planet = {
 							limit = {
-								has_owner = yes								# exists = owner
+								has_owner = yes								# has_owner = yes
 								is_owned_by = event_target:marauder_target
 								num_pops > 0
 							}
@@ -4219,6 +4234,7 @@ country_event = {
 		from = {
 			has_leader_flag = marauder_merc_leader
 			leader_class = admiral
+			exists = fleet
 		}
 	}
 	immediate = {
@@ -5137,7 +5153,7 @@ country_event = {
 					closest_system = {
 						limit = {
 							any_system_planet = {
-								has_owner = yes								# exists = owner
+								has_owner = yes								# has_owner = yes
 								is_owned_by = root
 								num_pops > 0
 							}
@@ -5145,7 +5161,7 @@ country_event = {
 						}
 						random_system_planet = {
 							limit = {
-								has_owner = yes								# exists = owner
+								has_owner = yes								# has_owner = yes
 								is_owned_by = root
 								num_pops > 0
 							}
@@ -5923,7 +5939,7 @@ planet_event = {
 					closest_system = {
 						limit = {
 							any_system_planet = {
-								exists = owner
+								has_owner = yes
 								is_owned_by = event_target:raid_victim
 								is_colony = yes
 								is_occupied_flag = no
@@ -5934,7 +5950,7 @@ planet_event = {
 						}
 						random_system_planet = {
 							limit = {
-								exists = owner
+								has_owner = yes
 								is_owned_by = event_target:raid_victim
 								is_colony = yes
 								is_occupied_flag = no
@@ -7220,7 +7236,7 @@ event = {
 								use_bypasses = yes
 								limit = {
 									any_system_planet = {
-										has_owner = yes										# exists = owner
+										has_owner = yes										# has_owner = yes
 										is_owned_by = event_target:marauder_target
 										num_pops > 0
 									}
@@ -7228,7 +7244,7 @@ event = {
 								}
 								random_system_planet = {
 									limit = {
-										has_owner = yes										# exists = owner
+										has_owner = yes										# has_owner = yes
 										is_owned_by = event_target:marauder_target
 										num_pops > 0
 									}
@@ -8330,7 +8346,7 @@ country_event = {
 					}
 					set_subject_of = {
 						who = root
-						subject_type = satrapy
+						preset = preset_satrapy
 					}
 					# set_subject_of = { who = none }
 				}
@@ -9373,7 +9389,7 @@ country_event = {
 	desc = {
 		trigger = {
 			OR = {
-				is_subject_type = satrapy
+				any_agreement = { agreement_preset = preset_satrapy }
 				has_country_flag = rebelling_satrapy
 			}
 		}
@@ -9382,7 +9398,7 @@ country_event = {
 	desc = {
 		trigger = {
 			NOR = {
-				is_subject_type = satrapy
+				any_agreement = { agreement_preset = preset_satrapy }
 				has_country_flag = rebelling_satrapy
 				is_homicidal = yes
 			}
@@ -9504,10 +9520,10 @@ country_event = {
 			set_origin = "origin_khan_successor"
 			event_target:raider_khanate = {
 				every_subject = {
-					limit = { has_modifier = "satrapy_of_horde" }
+					# limit = { has_modifier = "satrapy_of_horde" }
 					country_event = { id = marauder.671 }					# Do it immediately as raider_khanate should exists.
 					set_subject_of = { who = none }
-					remove_modifier = "satrapy_of_horde"
+					# remove_modifier = "satrapy_of_horde"
 				}
 				# Inheritance old flag
 				switch = {
@@ -10431,27 +10447,27 @@ country_event = {
 	id = marauder.550
 	title = "greatkhan_diplo_header"
 	# desc = {
-	# 	trigger = { is_subject_type = fabricator_satrapy }
+	# 	trigger = { any_agreement = { agreement_preset = preset_fabricator_satrapy } }
 	# 	text = "marauder_fabricator_greeting1"
 	# }
 	# desc = {
-	# 	trigger = { is_subject_type = fabricator_satrapy }
+	# 	trigger = { any_agreement = { agreement_preset = preset_fabricator_satrapy } }
 	# 	text = "marauder_fabricator_greeting2"
 	# }
 	# desc = {
-	# 	trigger = { is_subject_type = fabricator_satrapy }
+	# 	trigger = { any_agreement = { agreement_preset = preset_fabricator_satrapy } }
 	# 	text = "marauder_fabricator_greeting3"
 	# }
 	# desc = {
-	# 	trigger = { is_subject_type = machinesmith }
+	# 	trigger = { any_agreement = { agreement_preset = preset_machinesmith } }
 	# 	text = "khan.899.g.desc"
 	# }
 	# desc = {
-	# 	trigger = { is_subject_type = machinesmith }
+	# 	trigger = { any_agreement = { agreement_preset = preset_machinesmith } }
 	# 	text = "khan.898.g.desc"
 	# }
 	# desc = {
-	# 	trigger = { is_subject_type = machinesmith }
+	# 	trigger = { any_agreement = { agreement_preset = preset_machinesmith } }
 	# 	text = "khan.897.g.desc"
 	# }
 	desc = {
@@ -10529,55 +10545,55 @@ country_event = {
 	desc = {
 		trigger = {
 			is_subject = yes
-			is_subject_type = satrapy
+			any_agreement = { agreement_preset = preset_satrapy }
 		}
 		text = "marauder.550.j.desc"
 	}
 	desc = {
 		trigger = {
 			is_subject = yes
-			is_subject_type = satrapy
+			any_agreement = { agreement_preset = preset_satrapy }
 		}
 		text = "marauder.550.k.desc"
 	}
 	desc = {
 		trigger = {
-			is_subject_type = satrapy
+			any_agreement = { agreement_preset = preset_satrapy }
 			has_authority = auth_machine_intelligence
 		}
 		text = "marauder.550.l.desc"
 	}
 	desc = {
 		trigger = {
-			is_subject_type = satrapy
+			any_agreement = { agreement_preset = preset_satrapy }
 			has_authority = auth_machine_intelligence
 		}
 		text = "marauder.550.m.desc"
 	}
 	desc = {
 		trigger = {
-			is_subject_type = satrapy
+			any_agreement = { agreement_preset = preset_satrapy }
 			has_authority = auth_hive_mind
 		}
 		text = "marauder.550.n.desc"
 	}
 	desc = {
 		trigger = {
-			is_subject_type = satrapy
+			any_agreement = { agreement_preset = preset_satrapy }
 			has_authority = auth_hive_mind
 		}
 		text = "marauder.550.o.desc"
 	}
 	desc = {
 		trigger = {
-			is_subject_type = satrapy
+			any_agreement = { agreement_preset = preset_satrapy }
 			NOT = { has_ethic = ethic_gestalt_consciousness }
 		}
 		text = "marauder.550.p.desc"
 	}
 	desc = {
 		trigger = {
-			is_subject_type = satrapy
+			any_agreement = { agreement_preset = preset_satrapy }
 			NOT = { has_ethic = ethic_gestalt_consciousness }
 		}
 		text = "marauder.550.q.desc"
@@ -10758,13 +10774,20 @@ country_event = {
 	option = {
 		name = marauder.551.a
 		# sound = advisor_clicking_respons_01
-		# trigger = { has_been_declared_crisis = no }
+		trigger = { has_been_declared_crisis = no }
 		response_text = marauder.551.a.response
-		country_event = { id = marauder.559 }		# Pre-Submit to Khan
+		allow = {
+			custom_tooltip = {
+				text = "ACTION_ACTOR_MUST_BE_INDEPENDENT"
+				is_subject = no
+			}
+		}
+		custom_tooltip = marauder.551.a.tt
 		hidden_effect = {
+			country_event = { id = marauder.559 }		# Pre-Submit to Khan
 			set_subject_of = {
 				who = event_target:raider_khanate
-				subject_type = satrapy
+				preset = preset_satrapy
 			}
 		}
 	}
@@ -10795,7 +10818,7 @@ country_event = {
 	# 	hidden_effect = {
 	# 		set_subject_of = {
 	# 			who = event_target:raider_khanate
-	# 			subject_type = war_satrapy
+	# 			preset = preset_war_satrapy
 	# 		}
 	# 	}
 	# 	ai_chance = { factor = 5 }
@@ -10915,7 +10938,7 @@ country_event = {
 	desc = marauder.554.a.desc
 	# desc = {
 	# 	text = marauder_fabricator_threat
-	# 	exclusive_trigger = { is_subject_type = fabricator_satrapy }
+	# 	exclusive_trigger = { any_agreement = { agreement_preset = preset_fabricator_satrapy } }
 	# }
 	picture_event_data = {
 		portrait = event_target:raider_khanate
@@ -10935,7 +10958,7 @@ country_event = {
 	# option = {
 	# 	name = marauder_fabricator_disloyal
 	# 	response_text = marauder.554.a.response
-	# 	exclusive_trigger = { is_subject_type = fabricator_satrapy }
+	# 	exclusive_trigger = { any_agreement = { agreement_preset = preset_fabricator_satrapy } }
 	# }
 	option = {
 		name = marauder.554.a
@@ -10945,10 +10968,10 @@ country_event = {
 		hidden_effect = {
 			set_country_flag = rebelling_satrapy
 			set_timed_country_flag = { flag = rebellion_cooldown days = @CmtConstKhanLifespan_5e }
-			if = {
-				limit = { has_modifier = "satrapy_of_horde" }
-				remove_modifier = "satrapy_of_horde"
-			}
+			# if = {
+			# 	limit = { has_modifier = "satrapy_of_horde" }
+			# 	remove_modifier = "satrapy_of_horde"
+			# }
 			if = {
 				limit = { is_variable_set = "planets_lost_to_marauder" }
 				divide_variable = {
@@ -11061,7 +11084,7 @@ country_event = {
 								NOT = {
 									# is_same_empire = prevprev
 									has_origin = "origin_khan_successor"
-									# is_subject_type = war_satrapy
+									# any_agreement = { agreement_preset = preset_war_satrapy }
 								}
 								CmtTriggerIsMarauder = no
 							}
@@ -11123,13 +11146,13 @@ country_event = {
 	}
 	# option = {
 	# 	name = marauder_fabricator_loyal
-	# 	trigger = { is_subject_type = fabricator_satrapy }
+	# 	trigger = { any_agreement = { agreement_preset = preset_fabricator_satrapy } }
 	# 	response_text = marauder.554.b.response
 	# 	ai_chance = { factor = 0 }
 	# }
 	# option = {
 	# 	name = marauder.554.b
-	# 	trigger = { NOT = { is_subject_type = fabricator_satrapy } }
+	# 	trigger = { NOT = { any_agreement = { agreement_preset = preset_fabricator_satrapy } } }
 	# 	# sound = no_tut_advior_07
 	# 	response_text = marauder.554.b.response
 	# 	ai_chance = { factor = 0 }
@@ -11228,7 +11251,7 @@ country_event = {
 		country_event = { id = marauder.559 }		# Pre-Submit to Khan
 		set_subject_of = {
 			who = event_target:raider_khanate
-			subject_type = satrapy
+			preset = preset_satrapy
 		}
 	}
 }
@@ -11286,9 +11309,9 @@ country_event = {
 				country_event = { id = marauder.551 }
 				# set_subject_of = {
 				# 	who = event_target:raider_khanate
-				# 	subject_type = satrapy
+				# 	preset = preset_satrapy
 				# }
-				add_modifier = { modifier = "satrapy_of_horde" }
+				# add_modifier = { modifier = "satrapy_of_horde" }
 				change_variable = { which = "planets_lost_to_marauder" value = 1 }
 				event_target:raider_khanate = {
 					copy_random_tech_from = { who = prev area = engineering }
@@ -11320,7 +11343,7 @@ country_event = {
 		}
 		observer_event = { id = observer.19 }
 		country_event = { id = marauder.553 days = 12 } # Init base
-		add_modifier = { modifier = "satrapy_of_horde" }
+		# add_modifier = { modifier = "satrapy_of_horde" }
 
 		event_target:raider_khanate = {
 			copy_random_tech_from = { who = prev area = physics }
@@ -11521,7 +11544,7 @@ country_event = {
 						OR = {
 							num_owned_planets > 15
 							count_country = {
-								limit = { is_subject_type = satrapy }
+								limit = { any_agreement = { agreement_preset = preset_satrapy } }
 								count < 2
 							}
 						}
@@ -11553,23 +11576,17 @@ country_event = {
 		# }
 		every_subject = {
 			set_subject_of = { who = none }
-			if = {
-				limit = { has_modifier = "satrapy_of_horde" }
-				remove_modifier = "satrapy_of_horde"
-			}
-			country_event = {
-				id = marauder.670
-				days = 2
-			}			# Notify
+			# if = {
+			# 	limit = { has_modifier = "satrapy_of_horde" }
+			# 	remove_modifier = "satrapy_of_horde"
+			# }
+			country_event = { id = marauder.670 days = 2 }			# Notify
 		}
-		every_country = {
-			limit = { has_modifier = "satrapy_of_horde" }
-			country_event = {
-				id = marauder.670
-				days = 4
-			}			# Notify
-			remove_modifier = "satrapy_of_horde"
-		}
+		# every_country = {
+		# 	limit = { has_modifier = "satrapy_of_horde" }
+		# 	country_event = { id = marauder.670 days = 4 }			# Notify
+		# 	remove_modifier = "satrapy_of_horde"
+		# }
 		if = {
 			limit = {
 				OR = {
@@ -11693,24 +11710,18 @@ country_event = {
 		country_event = { id = marauder.609 }		# Fully handover
 		every_subject = {
 			set_subject_of = { who = none }
-			if = {
-				limit = { has_modifier = "satrapy_of_horde" }
-				remove_modifier = "satrapy_of_horde"
-			}
-			country_event = {
-				id = marauder.670
-				days = 2
-			}			# Notify
+			# if = {
+			# 	limit = { has_modifier = "satrapy_of_horde" }
+			# 	remove_modifier = "satrapy_of_horde"
+			# }
+			country_event = { id = marauder.670 days = 2 }			# Notify
 			country_event = { id = marauder.671 days = 8 }
 		}
-		every_country = {
-			limit = { has_modifier = "satrapy_of_horde" }
-			country_event = {
-				id = marauder.670
-				days = 4
-			}			# Notify
-			remove_modifier = "satrapy_of_horde"
-		}
+		# every_country = {
+		# 	limit = { has_modifier = "satrapy_of_horde" }
+		# 	country_event = { id = marauder.670 days = 4 }			# Notify
+		# 	remove_modifier = "satrapy_of_horde"
+		# }
 		every_playable_country = {
 			limit = { is_ai = no }
 			country_event = { id = marauder.640 }			# Notify
@@ -11789,22 +11800,20 @@ country_event = {
 		}
 		every_subject = {
 			set_subject_of = { who = none }
-			if = {
-				limit = { has_modifier = "satrapy_of_horde" }
-				remove_modifier = "satrapy_of_horde"
-			}
+			# if = {
+			# 	limit = { has_modifier = "satrapy_of_horde" }
+			# 	remove_modifier = "satrapy_of_horde"
+			# }
 			country_event = { id = marauder.660 }
 		}
-		every_country = {
-			limit = {
-				has_modifier = "satrapy_of_horde"
-				NOT = {
-					has_active_event = { marauder.660 }
-				}
-			}
-			country_event = { id = marauder.660 days = 2 }
-			remove_modifier = "satrapy_of_horde"
-		}
+		# every_country = {
+		# 	limit = {
+		# 		has_modifier = "satrapy_of_horde"
+		# 		NOT = { has_active_event = { marauder.660 } }
+		# 	}
+		# 	country_event = { id = marauder.660 days = 2 }
+		# 	remove_modifier = "satrapy_of_horde"
+		# }
 		observer_event = { id = observer.23 }
 		country_event = { id = marauder.609 }		# Fully handover
 		if = {
@@ -11976,24 +11985,18 @@ country_event = {
 		}
 		every_subject = {
 			set_subject_of = { who = none }
-			if = {
-				limit = { has_modifier = "satrapy_of_horde" }
-				remove_modifier = "satrapy_of_horde"
-			}
-			country_event = {
-				id = marauder.670
-				days = 3
-			}			# Notify
+			# if = {
+			# 	limit = { has_modifier = "satrapy_of_horde" }
+			# 	remove_modifier = "satrapy_of_horde"
+			# }
+			country_event = { id = marauder.670 days = 3 }			# Notify
 			country_event = { id = marauder.671 days = 10 }
 		}
-		every_country = {
-			limit = { has_modifier = "satrapy_of_horde" }
-			country_event = {
-				id = marauder.670
-				days = 8
-			}			# Notify
-			remove_modifier = "satrapy_of_horde"
-		}
+		# every_country = {
+		# 	limit = { has_modifier = "satrapy_of_horde" }
+		# 	country_event = { id = marauder.670 days = 8 }			# Notify
+		# 	remove_modifier = "satrapy_of_horde"
+		# }
 		observer_event = { id = observer.21 }
 		every_playable_country = {
 			limit = { is_ai = no }
@@ -12111,7 +12114,7 @@ country_event = {
 			event_target:new_khanate = {
 				if = {
 					limit = { is_ai = yes }
-					add_100_unity_per_year_passed = yes
+					add_500_unity_per_year_passed = yes
 					# random_system_within_border = {
 					# 	limit = { CmtTriggerMarauderCapitalSystem = yes }
 					# 	system_event = { id = khan.301 } # Create Citadel
@@ -12235,7 +12238,7 @@ country_event = {
 			}
 			if = {
 				limit = { CmtTriggerIsMarauder = no }
-				add_100_unity_per_year_passed = yes
+				add_500_unity_per_year_passed = yes
 				country_event = {
 					id = game_start.6
 					days = 6

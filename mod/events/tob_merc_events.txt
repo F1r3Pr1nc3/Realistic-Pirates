@@ -128,7 +128,7 @@ country_event = {
 	immediate = {
 		from = {
 			owner_species = { save_event_target_as = bulwark_species }
-			# save_event_target_as = current_bulwark_diplomacy #somehow not working
+			# save_event_target_as = current_bulwark_diplomacy # somehow not working
 		}
 		set_timed_country_flag = { flag = bulwark_diplomacy_engaged months = 1 }
 	}
@@ -1435,9 +1435,7 @@ country_event = {
 					limit = {
 						event_target:receiving_bulwark_station_commission = {
 							check_variable = { which = bulwarkstations value > 0 }
-							any_system = {
-								exists = owner
-								is_owned_by = event_target:receiving_bulwark_station_commission
+							any_system_within_border = {
 								any_system_planet = {
 									NOT = {
 										any_fleet_in_orbit = { is_ship_size = marauder_station }
@@ -1449,10 +1447,8 @@ country_event = {
 					event_target:receiving_bulwark_station_commission = {
 						subtract_variable = { which = bulwarkstations value = 1 }
 					}
-					random_system = {
+					random_system_within_border = {
 						limit = {
-							exists = owner
-							is_owned_by = event_target:receiving_bulwark_station_commission
 							exists = starbase
 							OR = {
 								has_any_megastructure = yes
@@ -1509,9 +1505,7 @@ country_event = {
 					limit = {
 						event_target:receiving_bulwark_station_commission = {
 							check_variable = { which = bulwarkstations value > 0 }
-							any_system = {
-								exists = owner
-								is_owned_by = event_target:receiving_bulwark_station_commission
+							any_system_within_border = {
 								any_system_planet = {
 									NOT = {
 										any_fleet_in_orbit = { is_ship_size = marauder_station }
@@ -1523,10 +1517,8 @@ country_event = {
 					event_target:receiving_bulwark_station_commission = {
 						subtract_variable = { which = bulwarkstations value = 1 }
 					}
-					random_system = {
+					random_system_within_border = {
 						limit = {
-							exists = owner
-							is_owned_by = event_target:receiving_bulwark_station_commission
 							exists = starbase
 							OR = {
 								has_any_megastructure = yes
@@ -1583,9 +1575,7 @@ country_event = {
 					limit = {
 						event_target:receiving_bulwark_station_commission = {
 							check_variable = { which = bulwarkstations value > 0 }
-							any_system = {
-								exists = owner
-								is_owned_by = event_target:receiving_bulwark_station_commission
+							any_system_within_border = {
 								any_system_planet = {
 									NOT = {
 										any_fleet_in_orbit = { is_ship_size = marauder_station }
@@ -1597,10 +1587,8 @@ country_event = {
 					event_target:receiving_bulwark_station_commission = {
 						subtract_variable = { which = bulwarkstations value = 1 }
 					}
-					random_system = {
+					random_system_within_border = {
 						limit = {
-							exists = owner
-							is_owned_by = event_target:receiving_bulwark_station_commission
 							exists = starbase
 							OR = {
 								has_any_megastructure = yes
@@ -1657,9 +1645,7 @@ country_event = {
 					limit = {
 						event_target:receiving_bulwark_station_commission = {
 							check_variable = { which = bulwarkstations value > 0 }
-							any_system = {
-								exists = owner
-								is_owned_by = event_target:receiving_bulwark_station_commission
+							any_system_within_border = {
 								any_system_planet = {
 									NOT = {
 										any_fleet_in_orbit = { is_ship_size = marauder_station }
@@ -1671,10 +1657,8 @@ country_event = {
 					event_target:receiving_bulwark_station_commission = {
 						subtract_variable = { which = bulwarkstations value = 1 }
 					}
-					random_system = {
+					random_system_within_border = {
 						limit = {
-							exists = owner
-							is_owned_by = event_target:receiving_bulwark_station_commission
 							exists = starbase
 							OR = {
 								has_any_megastructure = yes
@@ -1731,9 +1715,7 @@ country_event = {
 					limit = {
 						event_target:receiving_bulwark_station_commission = {
 							check_variable = { which = bulwarkstations value > 0 }
-							any_system = {
-								exists = owner
-								is_owned_by = event_target:receiving_bulwark_station_commission
+							any_system_within_border = {
 								any_system_planet = {
 									NOT = {
 										any_fleet_in_orbit = { is_ship_size = marauder_station }
@@ -1745,10 +1727,8 @@ country_event = {
 					event_target:receiving_bulwark_station_commission = {
 						subtract_variable = { which = bulwarkstations value = 1 }
 					}
-					random_system = {
+					random_system_within_border = {
 						limit = {
-							exists = owner
-							is_owned_by = event_target:receiving_bulwark_station_commission
 							exists = starbase
 							OR = {
 								has_any_megastructure = yes
@@ -1828,9 +1808,7 @@ country_event = {
 					limit = {
 						event_target:receiving_bulwark_station_commission = {
 							check_variable = { which = bulwarkstations value > 0 }
-							any_system = {
-								exists = owner
-								is_owned_by = event_target:receiving_bulwark_station_commission
+							any_system_within_border = {
 								any_system_planet = {
 									NOT = {
 										any_fleet_in_orbit = { is_ship_size = marauder_station }
@@ -1842,10 +1820,8 @@ country_event = {
 					event_target:receiving_bulwark_station_commission = {
 						subtract_variable = { which = bulwarkstations value = 1 }
 					}
-					random_system = {
+					random_system_within_border = {
 						limit = {
-							exists = owner
-							is_owned_by = event_target:receiving_bulwark_station_commission
 							exists = starbase
 							OR = {
 								has_any_megastructure = yes
@@ -1902,9 +1878,7 @@ country_event = {
 					limit = {
 						event_target:receiving_bulwark_station_commission = {
 							check_variable = { which = bulwarkstations value > 0 }
-							any_system = {
-								exists = owner
-								is_owned_by = event_target:receiving_bulwark_station_commission
+							any_system_within_border = {
 								any_system_planet = {
 									NOT = {
 										any_fleet_in_orbit = { is_ship_size = marauder_station }
@@ -1916,10 +1890,8 @@ country_event = {
 					event_target:receiving_bulwark_station_commission = {
 						subtract_variable = { which = bulwarkstations value = 1 }
 					}
-					random_system = {
+					random_system_within_border = {
 						limit = {
-							exists = owner
-							is_owned_by = event_target:receiving_bulwark_station_commission
 							exists = starbase
 							OR = {
 								has_any_megastructure = yes
@@ -1976,9 +1948,7 @@ country_event = {
 					limit = {
 						event_target:receiving_bulwark_station_commission = {
 							check_variable = { which = bulwarkstations value > 0 }
-							any_system = {
-								exists = owner
-								is_owned_by = event_target:receiving_bulwark_station_commission
+							any_system_within_border = {
 								any_system_planet = {
 									NOT = {
 										any_fleet_in_orbit = { is_ship_size = marauder_station }
@@ -1990,10 +1960,8 @@ country_event = {
 					event_target:receiving_bulwark_station_commission = {
 						subtract_variable = { which = bulwarkstations value = 1 }
 					}
-					random_system = {
+					random_system_within_border = {
 						limit = {
-							exists = owner
-							is_owned_by = event_target:receiving_bulwark_station_commission
 							exists = starbase
 							OR = {
 								has_any_megastructure = yes
@@ -2050,9 +2018,7 @@ country_event = {
 					limit = {
 						event_target:receiving_bulwark_station_commission = {
 							check_variable = { which = bulwarkstations value > 0 }
-							any_system = {
-								exists = owner
-								is_owned_by = event_target:receiving_bulwark_station_commission
+							any_system_within_border = {
 								any_system_planet = {
 									NOT = {
 										any_fleet_in_orbit = { is_ship_size = marauder_station }
@@ -2064,10 +2030,8 @@ country_event = {
 					event_target:receiving_bulwark_station_commission = {
 						subtract_variable = { which = bulwarkstations value = 1 }
 					}
-					random_system = {
+					random_system_within_border = {
 						limit = {
-							exists = owner
-							is_owned_by = event_target:receiving_bulwark_station_commission
 							exists = starbase
 							OR = {
 								has_any_megastructure = yes
@@ -2124,9 +2088,7 @@ country_event = {
 					limit = {
 						event_target:receiving_bulwark_station_commission = {
 							check_variable = { which = bulwarkstations value > 0 }
-							any_system = {
-								exists = owner
-								is_owned_by = event_target:receiving_bulwark_station_commission
+							any_system_within_border = {
 								any_system_planet = {
 									NOT = {
 										any_fleet_in_orbit = { is_ship_size = marauder_station }
@@ -2138,10 +2100,8 @@ country_event = {
 					event_target:receiving_bulwark_station_commission = {
 						subtract_variable = { which = bulwarkstations value = 1 }
 					}
-					random_system = {
+					random_system_within_border = {
 						limit = {
-							exists = owner
-							is_owned_by = event_target:receiving_bulwark_station_commission
 							exists = starbase
 							OR = {
 								has_any_megastructure = yes
@@ -2221,9 +2181,7 @@ country_event = {
 					limit = {
 						event_target:receiving_bulwark_station_commission = {
 							check_variable = { which = bulwarkstations value > 0 }
-							any_system = {
-								exists = owner
-								is_owned_by = event_target:receiving_bulwark_station_commission
+							any_system_within_border = {
 								any_system_planet = {
 									NOT = {
 										any_fleet_in_orbit = { is_ship_size = marauder_station }
@@ -2235,10 +2193,8 @@ country_event = {
 					event_target:receiving_bulwark_station_commission = {
 						subtract_variable = { which = bulwarkstations value = 1 }
 					}
-					random_system = {
+					random_system_within_border = {
 						limit = {
-							exists = owner
-							is_owned_by = event_target:receiving_bulwark_station_commission
 							exists = starbase
 							OR = {
 								has_any_megastructure = yes
@@ -2295,9 +2251,7 @@ country_event = {
 					limit = {
 						event_target:receiving_bulwark_station_commission = {
 							check_variable = { which = bulwarkstations value > 0 }
-							any_system = {
-								exists = owner
-								is_owned_by = event_target:receiving_bulwark_station_commission
+							any_system_within_border = {
 								any_system_planet = {
 									NOT = {
 										any_fleet_in_orbit = { is_ship_size = marauder_station }
@@ -2309,10 +2263,8 @@ country_event = {
 					event_target:receiving_bulwark_station_commission = {
 						subtract_variable = { which = bulwarkstations value = 1 }
 					}
-					random_system = {
+					random_system_within_border = {
 						limit = {
-							exists = owner
-							is_owned_by = event_target:receiving_bulwark_station_commission
 							exists = starbase
 							OR = {
 								has_any_megastructure = yes
@@ -2369,9 +2321,7 @@ country_event = {
 					limit = {
 						event_target:receiving_bulwark_station_commission = {
 							check_variable = { which = bulwarkstations value > 0 }
-							any_system = {
-								exists = owner
-								is_owned_by = event_target:receiving_bulwark_station_commission
+							any_system_within_border = {
 								any_system_planet = {
 									NOT = {
 										any_fleet_in_orbit = { is_ship_size = marauder_station }
@@ -2383,10 +2333,8 @@ country_event = {
 					event_target:receiving_bulwark_station_commission = {
 						subtract_variable = { which = bulwarkstations value = 1 }
 					}
-					random_system = {
+					random_system_within_border = {
 						limit = {
-							exists = owner
-							is_owned_by = event_target:receiving_bulwark_station_commission
 							exists = starbase
 							OR = {
 								has_any_megastructure = yes
@@ -2443,9 +2391,7 @@ country_event = {
 					limit = {
 						event_target:receiving_bulwark_station_commission = {
 							check_variable = { which = bulwarkstations value > 0 }
-							any_system = {
-								exists = owner
-								is_owned_by = event_target:receiving_bulwark_station_commission
+							any_system_within_border = {
 								any_system_planet = {
 									NOT = {
 										any_fleet_in_orbit = { is_ship_size = marauder_station }
@@ -2457,10 +2403,8 @@ country_event = {
 					event_target:receiving_bulwark_station_commission = {
 						subtract_variable = { which = bulwarkstations value = 1 }
 					}
-					random_system = {
+					random_system_within_border = {
 						limit = {
-							exists = owner
-							is_owned_by = event_target:receiving_bulwark_station_commission
 							exists = starbase
 							OR = {
 								has_any_megastructure = yes
@@ -2517,9 +2461,7 @@ country_event = {
 					limit = {
 						event_target:receiving_bulwark_station_commission = {
 							check_variable = { which = bulwarkstations value > 0 }
-							any_system = {
-								exists = owner
-								is_owned_by = event_target:receiving_bulwark_station_commission
+							any_system_within_border = {
 								any_system_planet = {
 									NOT = {
 										any_fleet_in_orbit = { is_ship_size = marauder_station }
@@ -2531,10 +2473,8 @@ country_event = {
 					event_target:receiving_bulwark_station_commission = {
 						subtract_variable = { which = bulwarkstations value = 1 }
 					}
-					random_system = {
+					random_system_within_border = {
 						limit = {
-							exists = owner
-							is_owned_by = event_target:receiving_bulwark_station_commission
 							exists = starbase
 							OR = {
 								has_any_megastructure = yes

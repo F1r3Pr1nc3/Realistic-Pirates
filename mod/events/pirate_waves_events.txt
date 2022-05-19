@@ -1735,7 +1735,7 @@ country_event = {
 }
 
 # Creates ten pirate fleets immediately (HIDDEN)
-# Can be called via console
+# Can be called via console.
 country_event = {
 	id = pirate_waves.10
 	hide_window = yes
@@ -1756,7 +1756,7 @@ country_event = {
 }
 
 # Creates one pirate fleet immediately (HIDDEN)
-# Can be called via console
+# Can be called via console.
 country_event = {
 	id = pirate_waves.11
 	hide_window = yes
@@ -1773,7 +1773,7 @@ country_event = {
 }
 
 # Creates a hundred pirate fleets and stations immediately (HIDDEN)
-# Can be called via console
+# Can be called via console.
 country_event = {
 	id = pirate_waves.100
 	hide_window = yes
@@ -1794,7 +1794,7 @@ country_event = {
 }
 
 # Creates a thousand pirate fleets and stations immediately (HIDDEN)
-# Can be called via console
+# Can be called via console.
 country_event = {
 	id = pirate_waves.1000
 	hide_window = yes
@@ -1815,7 +1815,7 @@ country_event = {
 }
 
 # Tries to fix any bugs by destroying the pirate countries and recreate them (HIDDEN)
-# Can be called via console
+# Can be called via console.
 country_event = {
 	id = pirate_waves.666
 	hide_window = yes
@@ -1835,7 +1835,7 @@ country_event = {
 }
 
 # Remove all pirate countries (HIDDEN)
-# Can be called via console
+# Can be called via console.
 country_event = {
 	id = pirate_waves.667
 	hide_window = yes
@@ -2028,7 +2028,10 @@ event = {
 				}
 			}
 			random_fleet_in_system = {
-				limit = { is_ship_size = pirate_station }
+				limit = {
+					is_ship_size = pirate_station
+					exists = owner_species
+				}
 				owner_species = { save_event_target_as = pirate_species }
 			}
 

@@ -402,6 +402,7 @@ create_first_diadochi = {
 			ethos = {
 				ethic = ethic_fanatic_militarist
 				ethic = ethic_xenophobe
+				ethic = ethic_authoritarian
 			}
 			ignore_initial_colony_error = yes
 			effect = {
@@ -464,6 +465,7 @@ create_second_diadochi = {
 			ethos = {
 				ethic = ethic_fanatic_militarist
 				ethic = ethic_xenophobe
+				ethic = ethic_authoritarian
 			}
 			ignore_initial_colony_error = yes
 			effect = {
@@ -526,6 +528,7 @@ create_third_diadochi = {
 			ethos = {
 				ethic = ethic_fanatic_militarist
 				ethic = ethic_xenophobe
+				ethic = ethic_authoritarian
 			}
 			ignore_initial_colony_error = yes
 			effect = {
@@ -588,6 +591,7 @@ create_fourth_diadochi = {
 			ethos = {
 				ethic = ethic_fanatic_militarist
 				ethic = ethic_xenophobe
+				ethic = ethic_authoritarian
 			}
 			ignore_initial_colony_error = yes
 			effect = {

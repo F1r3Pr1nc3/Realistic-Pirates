@@ -289,8 +289,8 @@ country_event = {
 
 # Merc country got killed
 # TODO make mercfleet vengeance
-#This = destroyed country
-#From = optional, destroyer (country)
+# This = destroyed country
+# From = optional, destroyer (country)
 country_event = {
 	id = tob_action.5
 	hide_window = yes

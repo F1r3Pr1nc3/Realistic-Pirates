@@ -1,4 +1,4 @@
-# outer bulwarks - start off event
+# Outer bulwarks - start off event.
 outer_bulwarks_stage_1 = {
 	icon = GFX_firstcontact_icon_progress
 	picture = GFX_evt_star_chart

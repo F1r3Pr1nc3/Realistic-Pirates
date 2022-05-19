@@ -92,7 +92,7 @@ event = {
 				# Fix ongoing hostility (is_hostile seems not immediately working on load)
 				country_event = { id = khan.309 }
 				country_event = { id = khan.309 days = 4 }
-				# TEMP FIX KHAN NO RESPAWN
+				# TEMP FIX KHAN NO RESPAWN.
 				country_event = { id = marauder.507 days = 105 random = 80 }
 			}
 		}
@@ -586,10 +586,12 @@ ship_event = {
 					NOT = {
 						any_fleet_in_system = {
 							NOT = { is_same_value = root.fleet }
+							exists = owner
 							is_owned_by = root.owner
 						}
 					}
 					any_fleet_in_system = {
+						exists = owner
 						NOT = { is_owned_by = root.owner }
 						owner = { is_hostile = root.owner }
 						is_civilian = no
@@ -632,6 +634,7 @@ country_event = {
 						}
 						NOT = {
 							any_fleet_in_system = {
+								exists = owner
 								OR = {
 									is_in_combat = yes
 									owner = { is_hostile = root }
@@ -918,7 +921,7 @@ country_event = {
 				# if = {
 				# 	limit = {
 				# 		has_global_flag = great_khan_wins
-				# 		NOT = { merg_is_default_empire = yes }
+				# 		merg_is_default_empire = no
 				# 	}
 				# 	set_country_type = default
 				# }
@@ -1130,7 +1133,7 @@ country_event = {
 						relic = random
 					}
 				}
-				add_100_unity_per_year_passed = yes
+				add_500_unity_per_year_passed = yes
 				# Normalize Starbases
 				every_owned_starbase = {
 					limit = { has_starbase_size = starbase_marauder }					# Maybe all?

@@ -142,10 +142,8 @@ country_event = {
 		set_variable = { which = bulwarkquestexplorationfleetbudget value = 100 }
 		subtract_variable = { which = bulwarkquestbudget value = 100 }
 		country_event = { id = tob_quest.4 days = 1800 }
-		random_system = {
+		random_system_within_border = {
 			limit = {
-				exists = owner
-				owner = { is_same_empire = root }
 			}
 			random_system_planet = {
 				while = {
@@ -268,10 +266,8 @@ country_event = {
 				set_variable = { which = bulwarkquestbudget value = 0 }
 				remove_country_flag = bulwark_looking_for_country_log
 				remove_country_flag = bulwark_quest_decided
-				random_system = {
+				random_system_within_border = {
 					limit = {
-						exists = owner
-						owner = { is_same_empire = event_target:bulwark_developed_new_station }
 					}
 					random_system_planet = {
 						create_fleet = {
@@ -330,10 +326,8 @@ country_event = {
 				set_variable = { which = bulwarkquestbudget value = 0 }
 				remove_country_flag = bulwark_looking_for_country_vault
 				remove_country_flag = bulwark_quest_decided
-				random_system = {
+				random_system_within_border = {
 					limit = {
-						exists = owner
-						owner = { is_same_empire = event_target:bulwark_developed_new_station }
 					}
 					random_system_planet = {
 						create_fleet = {
@@ -587,10 +581,8 @@ country_event = {
 			remove_country_flag = bulwark_wants_knowledge_vault
 			remove_country_flag = bulwark_wants_log_station
 			remove_country_flag = bulwark_quest_decided
-			random_system = {
+			random_system_within_border = {
 				limit = {
-					exists = owner
-					owner = { is_same_empire = event_target:bulwark_finished_quest_normal_log }
 				}
 				random_system_planet = {
 					create_fleet = {
@@ -723,10 +715,8 @@ country_event = {
 			remove_country_flag = bulwark_wants_knowledge_vault
 			remove_country_flag = bulwark_wants_log_station
 			remove_country_flag = bulwark_quest_decided
-			random_system = {
+			random_system_within_border = {
 				limit = {
-					exists = owner
-					owner = { is_same_empire = event_target:bulwark_finished_quest_normal_vault }
 				}
 				random_system_planet = {
 					create_fleet = {
@@ -875,7 +865,7 @@ country_event = {
 								id = "tob_quest_assault.1"
 								exists = owner
 								exists = root
-								owner = { is_same_empire = root } # event_target:bulwark_war_target
+								is_owned_by = root # event_target:bulwark_war_target
 								any_system_planet = { is_colony = yes }
 							}
 							found_system = { move_to = this }
@@ -981,7 +971,7 @@ country_event = {
 						find_random_planet = {
 							trigger = {
 								id = tob_assault.4
-								NOT = { is_star = yes }
+								is_star = no
 							}
 							found_planet = { orbit_planet = this }
 						}
@@ -1001,7 +991,7 @@ country_event = {
 						find_random_planet = {
 							trigger = {
 								id = tob_assault.6
-								NOT = { is_star = yes }
+								is_star = no
 							}
 							found_planet = { orbit_planet = this }
 						}
@@ -1021,7 +1011,7 @@ country_event = {
 						find_random_planet = {
 							trigger = {
 								id = tob_assault.8
-								NOT = { is_star = yes }
+								is_star = no
 							}
 							found_planet = { orbit_planet = this }
 						}
@@ -1040,10 +1030,8 @@ country_event = {
 				remove_country_flag = bulwark_quest_decided
 				remove_country_flag = bulwark_wants_log_station
 				set_variable = { which = bulwarkwarscore value = 0 }
-				random_system = {
+				random_system_within_border = {
 					limit = {
-						exists = owner
-						owner = { is_same_empire = event_target:bulwark_evaluating_war_efforts }
 					}
 					random_system_planet = {
 						create_fleet = {
@@ -1105,10 +1093,8 @@ country_event = {
 				remove_country_flag = bulwark_quest_decided
 				remove_country_flag = bulwark_wants_knowledge_vault
 				set_variable = { which = bulwarkwarscore value = 0 }
-				random_system = {
+				random_system_within_border = {
 					limit = {
-						exists = owner
-						owner = { is_same_empire = event_target:bulwark_evaluating_war_efforts }
 					}
 					random_system_planet = {
 						create_fleet = {
@@ -1221,6 +1207,7 @@ fleet_event = {
 							}
 						}
 						any_fleet_in_system = {
+							exists = owner
 							owner = { is_hostile_to = event_target:bulwark_eye_owner }
 						}
 					}
