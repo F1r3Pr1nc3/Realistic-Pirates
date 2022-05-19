@@ -1,5 +1,5 @@
 namespace = tob_merc
-# DEPRECATED First Contact
+# LEGACY/DEPRECATED First Contact
 # special_project INVESTIGATE_BULWARK
 # From = contact_country = encountered_bulwark
 country_event = {

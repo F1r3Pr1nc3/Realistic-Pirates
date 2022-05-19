@@ -50,20 +50,9 @@ supremacists_home = {
 				}
 				origin = "origin_default"
 				flag = {
-					icon = {
-						category = "spherical"
-						file = "flag_spherical_22.dds"
-					}
-					background = {
-						category = "backgrounds"
-						file = "circle.dds"
-					}
-					colors = {
-						"black"
-						"black"
-						"null"
-						"null"
-					}
+					icon = { category = "spherical" file = "flag_spherical_22.dds" }
+					background = { category = "backgrounds" file = "circle.dds" }
+					colors = { "black" "black" "null" "null" }
 				}
 				ethos = {
 					ethic = ethic_fanatic_militarist
@@ -640,16 +629,8 @@ technologists_home = {
 					# 	category = "spherical"
 					# 	file = "flag_spherical_22.dds"
 					# }
-					background = {
-						category = "backgrounds"
-						file = "circle.dds"
-					}
-					colors = {
-						"black"
-						"black"
-						"null"
-						"null"
-					}
+					background = { category = "backgrounds" file = "circle.dds" }
+					colors = { "black" "black" "null" "null" }
 				}
 				ethos = {
 					ethic = ethic_fanatic_materialist

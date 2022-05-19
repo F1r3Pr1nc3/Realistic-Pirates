@@ -1706,7 +1706,7 @@ country_event = {
 			}
 		}
 		hidden_effect = {
-			country_event = { id = marauder.31 }
+			country_event = { id = marauder.31 scopes = { from = from } }
 		}
 	}
 	# Already raiding someone (Marauder 1)
@@ -1786,7 +1786,7 @@ country_event = {
 		name = marauder.20.g
 		custom_tooltip = hire_mercenary_leader
 		hidden_effect = {
-			country_event = { id = marauder.40 }
+			country_event = { id = marauder.40 scopes = { from = from } }
 		}
 	}
 	# Hire Mercenary Fleet
@@ -1817,7 +1817,7 @@ country_event = {
 		}
 		custom_tooltip = hire_mercenaries
 		hidden_effect = {
-			country_event = { id = marauder.34 }
+			country_event = { id = marauder.34 scopes = { from = from } }
 		}
 	}
 	# Marauder 2 special
@@ -1959,6 +1959,18 @@ country_event = {
 	diplomatic = yes
 	immediate = {
 		set_country_flag = marauder_diplomacy_engaged
+		if = {
+			limit = { NOT = { exists = event_target:current_marauder_diplomacy } }
+			from = {
+				owner_species = { save_event_target_as = marauder_species }
+				save_event_target_as = current_marauder_diplomacy
+			}
+		} else = {
+			event_target:current_marauder_diplomacy = {
+				owner_species = { save_event_target_as = marauder_species }
+				save_event_target_as = current_marauder_diplomacy
+			}
+		}
 		event_target:current_marauder_diplomacy = {
 			country_event = { id = marauder.28 days = 8 }
 		}
@@ -1987,7 +1999,7 @@ country_event = {
 			}
 		}
 		hidden_effect = {
-			country_event = { id = marauder.31 }
+			country_event = { id = marauder.31 scopes = { from = from } }
 		}
 	}
 	# Already raiding someone (Marauder 1)
@@ -2067,7 +2079,7 @@ country_event = {
 		name = marauder.20.g
 		custom_tooltip = hire_mercenary_leader
 		hidden_effect = {
-			country_event = { id = marauder.40 }
+			country_event = { id = marauder.40 scopes = { from = from } }
 		}
 	}
 	# Hire Mercenary Fleet
@@ -2098,7 +2110,7 @@ country_event = {
 		}
 		custom_tooltip = hire_mercenaries
 		hidden_effect = {
-			country_event = { id = marauder.34 }
+			country_event = { id = marauder.34 scopes = { from = from } }
 		}
 	}
 	# Terminate communications
@@ -2501,31 +2513,49 @@ country_event = {
 	}
 	immediate = {
 		set_country_flag = marauder_diplomacy_engaged
-		random_rival_country = { save_event_target_as = raid_target_1 }
-		random_rival_country = {
-			limit = {
-				NOT = { is_same_value = event_target:raid_target_1 }
+		if = {
+			limit = { NOT = { exists = event_target:current_marauder_diplomacy } }
+			from = {
+				owner_species = { save_event_target_as = marauder_species }
+				save_event_target_as = current_marauder_diplomacy
 			}
-			save_event_target_as = raid_target_2
+		} else = {
+			event_target:current_marauder_diplomacy = {
+				owner_species = { save_event_target_as = marauder_species }
+				save_event_target_as = current_marauder_diplomacy
+			}
 		}
 		random_rival_country = {
-			limit = {
-				NOR = {
-					is_same_value = event_target:raid_target_1
-					is_same_value = event_target:raid_target_2
+			save_event_target_as = raid_target_1
+			root = {
+				random_rival_country = {
+					limit = { NOT = { is_same_empire = event_target:raid_target_1 } }
+					save_event_target_as = raid_target_2
+					root = {
+						random_rival_country = {
+							limit = {
+								NOR = {
+									is_same_empire = event_target:raid_target_1
+									is_same_empire = event_target:raid_target_2
+								}
+							}
+							save_event_target_as = raid_target_3
+							root = {
+								random_rival_country = {
+									limit = {
+										NOR = {
+											is_same_empire = event_target:raid_target_1
+											is_same_empire = event_target:raid_target_2
+											is_same_empire = event_target:raid_target_3
+										}
+									}
+									save_event_target_as = raid_target_4
+								}
+							}
+						}
+					}
 				}
 			}
-			save_event_target_as = raid_target_3
-		}
-		random_rival_country = {
-			limit = {
-				NOR = {
-					is_same_value = event_target:raid_target_1
-					is_same_value = event_target:raid_target_2
-					is_same_value = event_target:raid_target_3
-				}
-			}
-			save_event_target_as = raid_target_4
 		}
 		# event_target:current_marauder_diplomacy = {
 		# 	random_owned_fleet = {
@@ -2558,12 +2588,12 @@ country_event = {
 				limit = {
 					event_target:raid_target_1 = { is_fallen_empire = no }
 				}
-				country_event = { id = marauder.32 }
+				country_event = { id = marauder.32 scopes = { from = from } }
 			} else_if = {
 				limit = {
 					event_target:raid_target_1 = { is_fallen_empire = yes }
 				}
-				country_event = { id = marauder.35 }
+				country_event = { id = marauder.35 scopes = { from = from } }
 			}
 		}
 	}
@@ -2588,12 +2618,12 @@ country_event = {
 				limit = {
 					event_target:raid_target_2 = { is_fallen_empire = no }
 				}
-				country_event = { id = marauder.32 }
+				country_event = { id = marauder.32 scopes = { from = from } }
 			} else_if = {
 				limit = {
 					event_target:raid_target_2 = { is_fallen_empire = yes }
 				}
-				country_event = { id = marauder.35 }
+				country_event = { id = marauder.35 scopes = { from = from } }
 			}
 		}
 	}
@@ -2618,12 +2648,12 @@ country_event = {
 				limit = {
 					event_target:raid_target_3 = { is_fallen_empire = no }
 				}
-				country_event = { id = marauder.32 }
+				country_event = { id = marauder.32 scopes = { from = from } }
 			} else_if = {
 				limit = {
 					event_target:raid_target_3 = { is_fallen_empire = yes }
 				}
-				country_event = { id = marauder.35 }
+				country_event = { id = marauder.35 scopes = { from = from } }
 			}
 		}
 	}
@@ -2648,12 +2678,12 @@ country_event = {
 				limit = {
 					event_target:raid_target_4 = { is_fallen_empire = no }
 				}
-				country_event = { id = marauder.32 }
+				country_event = { id = marauder.32 scopes = { from = from } }
 			} else_if = {
 				limit = {
 					event_target:raid_target_4 = { is_fallen_empire = yes }
 				}
-				country_event = { id = marauder.35 }
+				country_event = { id = marauder.35 scopes = { from = from } }
 			}
 		}
 	}
@@ -2663,7 +2693,7 @@ country_event = {
 			NOT = { has_active_event = { marauder.21 } }
 		}
 		hidden_effect = {
-			country_event = { id = marauder.21 }
+			country_event = { id = marauder.21 scopes = { from = from } }
 		}
 	}
 	option = {
@@ -2702,7 +2732,18 @@ country_event = {
 	is_triggered_only = yes
 	immediate = {
 		set_country_flag = marauder_diplomacy_engaged
-
+		if = {
+			limit = { NOT = { exists = event_target:current_marauder_diplomacy } }
+			from = {
+				owner_species = { save_event_target_as = marauder_species }
+				save_event_target_as = current_marauder_diplomacy
+			}
+		} else = {
+			event_target:current_marauder_diplomacy = {
+				owner_species = { save_event_target_as = marauder_species }
+				save_event_target_as = current_marauder_diplomacy
+			}
+		}
 		## Dynamic raid costs TODO needs update each effect.
 		event_target:current_marauder_diplomacy = {
 			set_variable = { which = raidcost value = 1 }
@@ -2773,7 +2814,7 @@ country_event = {
 		hidden_effect = {
 			event_target:current_marauder_diplomacy = { save_event_target_as = raiding_marauder }
 			event_target:preliminary_target = {
-				country_event = { id = marauder.33 }
+				country_event = { id = marauder.33 scopes = { from = from } }
 			}
 		}
 	}
@@ -2801,7 +2842,7 @@ country_event = {
 		hidden_effect = {
 			event_target:current_marauder_diplomacy = { save_event_target_as = raiding_marauder }
 			event_target:preliminary_target = {
-				country_event = { id = marauder.33 }
+				country_event = { id = marauder.33 scopes = { from = from } }
 			}
 		}
 	}
@@ -2829,7 +2870,7 @@ country_event = {
 		hidden_effect = {
 			event_target:current_marauder_diplomacy = { save_event_target_as = raiding_marauder }
 			event_target:preliminary_target = {
-				country_event = { id = marauder.33 }
+				country_event = { id = marauder.33 scopes = { from = from } }
 			}
 		}
 	}
@@ -2839,7 +2880,7 @@ country_event = {
 			NOT = { has_active_event = { marauder.21 } }
 		}
 		hidden_effect = {
-			country_event = { id = marauder.21 }
+			country_event = { id = marauder.21 scopes = { from = from } }
 		}
 	}
 	option = {
@@ -3053,7 +3094,18 @@ country_event = {
 	is_triggered_only = yes
 	immediate = {
 		set_country_flag = marauder_diplomacy_engaged
-
+		if = {
+			limit = { NOT = { exists = event_target:current_marauder_diplomacy } }
+			from = {
+				owner_species = { save_event_target_as = marauder_species }
+				save_event_target_as = current_marauder_diplomacy
+			}
+		} else = {
+			event_target:current_marauder_diplomacy = {
+				owner_species = { save_event_target_as = marauder_species }
+				save_event_target_as = current_marauder_diplomacy
+			}
+		}
 		## Dynamic hiring costs TODO needs update each effect.
 		# event_target:current_marauder_diplomacy = {
 		# 	set_pirates_difficulty = yes
@@ -3107,7 +3159,7 @@ country_event = {
 		hidden_effect = {
 			event_target:current_marauder_diplomacy = { set_country_flag = merc_fleet_1_hired }
 			set_country_flag = merc_fleet_1_1_hired
-			country_event = { id = marauder.37 }
+			country_event = { id = marauder.37 scopes = { from = from } }
 		}
 	}
 	# Hire Star Rider Flotilla
@@ -3132,7 +3184,7 @@ country_event = {
 		hidden_effect = {
 			event_target:current_marauder_diplomacy = { set_country_flag = merc_fleet_2_hired }
 			set_country_flag = merc_fleet_2_1_hired
-			country_event = { id = marauder.37 }
+			country_event = { id = marauder.37 scopes = { from = from } }
 		}
 	}
 	# Hire First Storm Wing
@@ -3157,7 +3209,7 @@ country_event = {
 		hidden_effect = {
 			event_target:current_marauder_diplomacy = { set_country_flag = merc_fleet_3_hired }
 			set_country_flag = merc_fleet_3_1_hired
-			country_event = { id = marauder.37 }
+			country_event = { id = marauder.37 scopes = { from = from } }
 		}
 	}
 	# Hire 234th Dwamak-Bashers
@@ -3182,7 +3234,7 @@ country_event = {
 		hidden_effect = {
 			event_target:current_marauder_diplomacy = { set_country_flag = merc_fleet_1_hired }
 			set_country_flag = merc_fleet_1_2_hired
-			country_event = { id = marauder.37 }
+			country_event = { id = marauder.37 scopes = { from = from } }
 		}
 	}
 	# Hire Unhinged Screamer Flotilla
@@ -3207,7 +3259,7 @@ country_event = {
 		hidden_effect = {
 			event_target:current_marauder_diplomacy = { set_country_flag = merc_fleet_2_hired }
 			set_country_flag = merc_fleet_2_2_hired
-			country_event = { id = marauder.37 }
+			country_event = { id = marauder.37 scopes = { from = from } }
 		}
 	}
 	# Hire Frenzied Volunteer Squadron
@@ -3232,7 +3284,7 @@ country_event = {
 		hidden_effect = {
 			event_target:current_marauder_diplomacy = { set_country_flag = merc_fleet_3_hired }
 			set_country_flag = merc_fleet_3_2_hired
-			country_event = { id = marauder.37 }
+			country_event = { id = marauder.37 scopes = { from = from } }
 		}
 	}
 	# Hire Her Chosen Champions
@@ -3257,7 +3309,7 @@ country_event = {
 		hidden_effect = {
 			event_target:current_marauder_diplomacy = { set_country_flag = merc_fleet_1_hired }
 			set_country_flag = merc_fleet_1_3_hired
-			country_event = { id = marauder.37 }
+			country_event = { id = marauder.37 scopes = { from = from } }
 		}
 	}
 	# Hire Order of Eternal Night.
@@ -3282,7 +3334,7 @@ country_event = {
 		hidden_effect = {
 			event_target:current_marauder_diplomacy = { set_country_flag = merc_fleet_2_hired }
 			set_country_flag = merc_fleet_2_3_hired
-			country_event = { id = marauder.37 }
+			country_event = { id = marauder.37 scopes = { from = from } }
 		}
 	}
 	# Hire Twilight Congregation
@@ -3307,7 +3359,7 @@ country_event = {
 		hidden_effect = {
 			event_target:current_marauder_diplomacy = { set_country_flag = merc_fleet_3_hired }
 			set_country_flag = merc_fleet_3_3_hired
-			country_event = { id = marauder.37 }
+			country_event = { id = marauder.37 scopes = { from = from } }
 		}
 	}
 	option = {
@@ -3316,7 +3368,7 @@ country_event = {
 			NOT = { has_active_event = { marauder.21 } }
 		}
 		hidden_effect = {
-			country_event = { id = marauder.21 }
+			country_event = { id = marauder.21 scopes = { from = from } }
 		}
 	}
 	option = {
@@ -3363,7 +3415,7 @@ country_event = {
 			NOT = { has_active_event = { marauder.21 } }
 		}
 		hidden_effect = {
-			country_event = { id = marauder.21 }
+			country_event = { id = marauder.21 scopes = { from = from } }
 		}
 	}
 	option = {
@@ -3412,6 +3464,18 @@ country_event = {
 	is_triggered_only = yes
 	immediate = {
 		set_country_flag = marauder_diplomacy_engaged
+		if = {
+			limit = { NOT = { exists = event_target:current_marauder_diplomacy } }
+			from = {
+				owner_species = { save_event_target_as = marauder_species }
+				save_event_target_as = current_marauder_diplomacy
+			}
+		} else = {
+			event_target:current_marauder_diplomacy = {
+				owner_species = { save_event_target_as = marauder_species }
+				save_event_target_as = current_marauder_diplomacy
+			}
+		}
 		random_relation = {
 			limit = { is_fallen_empire = yes }
 			save_event_target_as = random_fallen_empire
@@ -3458,7 +3522,7 @@ country_event = {
 			}
 			country_event = { id = marauder.38 days = 20 }
 		} else = {
-			country_event = { id = marauder.38 }			# Use mia
+			country_event = { id = marauder.38 scopes = { from = from } }			# Use mia
 		}
 	}
 	after = {
@@ -3470,7 +3534,7 @@ country_event = {
 			NOT = { has_active_event = { marauder.21 } }
 		}
 		hidden_effect = {
-			country_event = { id = marauder.21 }
+			country_event = { id = marauder.21 scopes = { from = from } }
 		}
 	}
 	option = {
@@ -3958,7 +4022,7 @@ country_event = {
 			NOT = { has_active_event = { marauder.21 } }
 		}
 		hidden_effect = {
-			country_event = { id = marauder.21 }
+			country_event = { id = marauder.21 scopes = { from = from } }
 		}
 	}
 	option = {

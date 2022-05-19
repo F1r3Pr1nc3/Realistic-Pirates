@@ -1,4 +1,4 @@
-# DEPRECATED First Contact
+# LEGACY/DEPRECATED First Contact
 special_project = {
 	key = "INVESTIGATE_BULWARK"
 	picture = GFX_evt_star_chart
@@ -8,23 +8,18 @@ special_project = {
 	days_to_research = 0
 	location = no
 	timelimit = -1
-
 	event_scope = planet_event
-
 	requirements = {  }
-
 	abort_trigger = {
 		OR = {
 			NOT = { exists = event_target:encountered_bulwark }
 			has_communications = event_target:encountered_bulwark
 		}
 	}
-
 	on_success = {
 		space_owner = {
 			country_event = { id = tob_merc.1 scopes = { from = event_target:encountered_bulwark } }
 		}
 	}
-
 	on_fail = {  }
 }
