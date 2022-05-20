@@ -400,7 +400,7 @@ create_first_diadochi = {
 			civics = { civic = civic_diadochi civic = random civic = random }
 			origin = "origin_khan_successor"
 			ethos = {
-				ethic = ethic_fanatic_militarist
+				ethic = ethic_militarist
 				ethic = ethic_xenophobe
 				ethic = ethic_authoritarian
 			}
@@ -423,6 +423,7 @@ create_first_diadochi = {
 				save_event_target_as = first_diadochi
 				set_country_flag = diadochi_1
 				set_name = random
+				shift_ethic = ethic_fanatic_militarist
 			}
 		}
 		# Flip Starbases
@@ -463,7 +464,7 @@ create_second_diadochi = {
 			civics = { civic = civic_diadochi civic = random civic = random }
 			origin = "origin_khan_successor"
 			ethos = {
-				ethic = ethic_fanatic_militarist
+				ethic = ethic_militarist
 				ethic = ethic_xenophobe
 				ethic = ethic_authoritarian
 			}
@@ -486,6 +487,7 @@ create_second_diadochi = {
 				save_event_target_as = second_diadochi
 				set_country_flag = diadochi_2
 				set_name = random
+				shift_ethic = ethic_fanatic_militarist
 			}
 		}
 		# Flip Starbases
@@ -526,7 +528,7 @@ create_third_diadochi = {
 			civics = { civic = civic_diadochi civic = random civic = random }
 			origin = "origin_khan_successor"
 			ethos = {
-				ethic = ethic_fanatic_militarist
+				ethic = ethic_militarist
 				ethic = ethic_xenophobe
 				ethic = ethic_authoritarian
 			}
@@ -549,6 +551,7 @@ create_third_diadochi = {
 				save_event_target_as = third_diadochi
 				set_country_flag = diadochi_3
 				set_name = random
+				shift_ethic = ethic_fanatic_militarist
 			}
 		}
 		# Flip Starbases
@@ -589,7 +592,7 @@ create_fourth_diadochi = {
 			civics = { civic = civic_diadochi civic = random civic = random }
 			origin = "origin_khan_successor"
 			ethos = {
-				ethic = ethic_fanatic_militarist
+				ethic = ethic_militarist
 				ethic = ethic_xenophobe
 				ethic = ethic_authoritarian
 			}
@@ -612,6 +615,7 @@ create_fourth_diadochi = {
 				save_event_target_as = fourth_diadochi
 				set_country_flag = diadochi_4
 				set_name = random
+				shift_ethic = ethic_fanatic_militarist
 			}
 		}
 		# Flip Starbases
