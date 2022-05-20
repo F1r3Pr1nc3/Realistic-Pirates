@@ -319,7 +319,7 @@ country_event = {
 		hidden_effect = {
 			set_global_flag = outer_bulwark_inactive
 			every_country = {
-				limit = { is_country_typ = outer_bulwarks }
+				limit = { is_country_type = outer_bulwarks }
 				set_country_type = dormant_marauders
 			}
 			country_event = { id = pirate_waves.0 }
@@ -333,7 +333,7 @@ country_event = {
 			remove_global_flag = outer_bulwark_inactive
 			every_country = {
 				limit = {
-					is_country_typ = dormant_marauders
+					is_country_type = dormant_marauders
 					OR = {
 						has_country_flag = bulwark_numbers
 						has_country_flag = bulwark_techies

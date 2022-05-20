@@ -5,12 +5,8 @@ bulwark_station = {
 	max_speed = 0.0
 	acceleration = 0.0
 	rotation_speed = 0.10
-	modifier = {
-		ship_evasion_mult = -1
-	}
-	ship_modifier = {
-		ship_weapon_range_mult = 0.20
-	}
+	modifier = { ship_evasion_mult = -1 }
+	ship_modifier = { ship_weapon_range_mult = 0.20 }
 	max_hitpoints = 25000
 	combat_size_multiplier = 20
 	size_multiplier = 8
@@ -19,7 +15,8 @@ bulwark_station = {
 	num_target_locators = 0
 	is_space_station = yes
 	build_block_radius = @build_block_radius_civilian
-
 	class = shipclass_military_station
 	is_designable = no
+	potential_construction = { always = no }
+	possible_construction = { always = no }
 }
