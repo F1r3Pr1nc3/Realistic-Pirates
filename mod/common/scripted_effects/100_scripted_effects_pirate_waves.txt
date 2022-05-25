@@ -265,10 +265,9 @@ set_pirates_difficulty = {
 	remove_country_flag = pirate_waves_medium
 	remove_country_flag = pirate_waves_hard
 	remove_country_flag = pirate_waves_insane
-	set_variable = {
-		which = pirate_waves_difficulty
-		value = 4
-	}	# reset
+	if = { limit = { is_variable_set = pirate_waves_difficulty }
+		set_variable = { which = pirate_waves_difficulty value = 4 } # reset
+	} else = { set_variable = { which = pirate_waves_difficulty value = 1 } }
 	if = {
 		limit = { is_multiplayer = yes }
 		# set_variable = { which = num_pirate_waves_player value = 0 }
@@ -304,6 +303,23 @@ set_pirates_difficulty = {
 	# Checks the ship limit of this country.
 	if = {
 		limit = {
+			OR = {
+				NOT = { is_variable_set = pirate_waves_difficulty }
+				check_variable = { which = pirate_waves_difficulty value = 1 }
+			}
+		}
+		set_variable = { which = pirate_waves_difficulty value = 1 }
+		set_country_flag = pirate_waves_easy
+		set_variable = { which = pirates_factor value = 0.5 }
+		event_target:global_event_country = {
+			set_variable = { which = CmtVarCombatFleetNumber_Khan value = 0.75 }
+		}		# compat. CM
+		if = {
+			limit = { num_ships < @ships_count_easy }
+			set_timed_country_flag = { flag = pirate_waves_spawn_allowed months = 1 }
+		}
+	} else_if = {
+		limit = {
 			check_variable = { which = pirate_waves_difficulty value = 0 }
 		}
 		set_country_flag = pirate_waves_very_easy
@@ -313,19 +329,6 @@ set_pirates_difficulty = {
 		}		# compat. CM
 		if = {
 			limit = { num_ships < @ships_count_very_easy }
-			set_timed_country_flag = { flag = pirate_waves_spawn_allowed months = 1 }
-		}
-	} else_if = {
-		limit = {
-			check_variable = { which = pirate_waves_difficulty value = 1 }
-		}
-		set_country_flag = pirate_waves_easy
-		set_variable = { which = pirates_factor value = 0.5 }
-		event_target:global_event_country = {
-			set_variable = { which = CmtVarCombatFleetNumber_Khan value = 0.75 }
-		}		# compat. CM
-		if = {
-			limit = { num_ships < @ships_count_easy }
 			set_timed_country_flag = { flag = pirate_waves_spawn_allowed months = 1 }
 		}
 	} else_if = {
@@ -393,10 +396,7 @@ set_pirates_difficulty = {
 				}
 			}
 		}
-		divide_variable = {
-			which = pirates_factor
-			value = 2
-		}		# Only half
+		divide_variable = { which = pirates_factor value = 2 }		# Only half
 		# switch = { # full
 		# 	trigger = has_country_flag
 		# 	pirate_waves_very_easy = {
@@ -462,14 +462,9 @@ add_pirate_waves_pirate_event_chain = {
 	if = {
 		limit = {
 			exists = from
-			from = {
-				NOT = { has_event_chain = "pirate_waves_pirate_event_chain" }
-			}
+			from = { NOT = { has_event_chain = "pirate_waves_pirate_event_chain" } }
 		}
-		begin_event_chain = {
-			event_chain = "pirate_waves_pirate_event_chain"
-			target = from
-		}
+		begin_event_chain = { event_chain = "pirate_waves_pirate_event_chain" target = from }
 	}
 }
 
@@ -527,22 +522,8 @@ create_pirate_waves_fleet = {
 			chance = prev.pirates_f_tmp
 			# Create a ship
 			random_list = {
-				80 = {
-					create_ship = {
-						name = random
-						design = "NAME_Reaver"
-						prefix = no
-						graphical_culture = "pirate_01"
-					}
-				}
-				20 = {
-					modifier = { factor = 0 exists = event_target:current_pirate_country mid_game_years_passed < 0 }
-					modifier = {
-						factor = 12
-						NOT = { exists = event_target:current_pirate_country }
-					}
-					CmtEffectCreateShip_Outrider = yes
-				}
+				80 = { create_ship = { name = random design = "NAME_Reaver" prefix = no graphical_culture = "pirate_01" } }
+				20 = { modifier = { factor = 0 exists = event_target:current_pirate_country mid_game_years_passed < 0 } modifier = { factor = 12 NOT = { exists = event_target:current_pirate_country } } }
 			}
 		}
 	}
@@ -552,22 +533,8 @@ create_pirate_waves_fleet = {
 			chance = prev.pirates_f_tmp
 			# Create a ship
 			random_list = {
-				80 = {
-					create_ship = {
-						name = random
-						design = "NAME_Brigand"
-						prefix = no
-						graphical_culture = "pirate_01"
-					}
-				}
-				20 = {
-					modifier = { factor = 0 exists = event_target:current_pirate_country mid_game_years_passed < 0 }
-					modifier = {
-						factor = 12
-						NOT = { exists = event_target:current_pirate_country }
-					}
-					CmtEffectCreateShip_Outrider = yes
-				}
+				80 = { create_ship = { name = random design = "NAME_Brigand" prefix = no graphical_culture = "pirate_01" } }
+				20 = { modifier = { factor = 0 exists = event_target:current_pirate_country mid_game_years_passed < 0 } modifier = { factor = 12 NOT = { exists = event_target:current_pirate_country } } }
 			}
 		}
 	}
@@ -577,22 +544,8 @@ create_pirate_waves_fleet = {
 			chance = prev.pirates_f_tmp
 			# Create a ship
 			random_list = {
-				80 = {
-					create_ship = {
-						name = random
-						design = "NAME_Skull"
-						prefix = no
-						graphical_culture = "pirate_01"
-					}
-				}
-				20 = {
-					modifier = { factor = 0 exists = event_target:current_pirate_country mid_game_years_passed < 0 }
-					modifier = {
-						factor = 12
-						NOT = { exists = event_target:current_pirate_country }
-					}
-					CmtEffectCreateShip_Outrider = yes
-				}
+				80 = { create_ship = { name = random design = "NAME_Skull" prefix = no graphical_culture = "pirate_01" } }
+				20 = { modifier = { factor = 0 exists = event_target:current_pirate_country mid_game_years_passed < 0 } modifier = { factor = 12 NOT = { exists = event_target:current_pirate_country } } }
 			}
 		}
 	}
@@ -628,22 +581,8 @@ create_pirate_waves_fleet = {
 				chance = prev.pirates_f_tmp
 				# Create a ship
 				random_list = {
-					80 = {
-						create_ship = {
-							name = random
-							design = "NAME_Marauder"
-							prefix = no
-							graphical_culture = "pirate_01"
-						}
-					}
-					20 = {
-						modifier = { factor = 0 exists = event_target:current_pirate_country mid_game_years_passed < 0 }
-						modifier = {
-							factor = 12
-							NOT = { exists = event_target:current_pirate_country }
-						}
-						CmtEffectCreateShip_VoidChampion = yes
-					}
+					80 = { create_ship = { name = random design = "NAME_Marauder" prefix = no graphical_culture = "pirate_01" } }
+					20 = { modifier = { factor = 0 exists = event_target:current_pirate_country mid_game_years_passed < 0 } modifier = { factor = 12 NOT = { exists = event_target:current_pirate_country } } }
 				}
 			}
 		}
@@ -653,22 +592,8 @@ create_pirate_waves_fleet = {
 				chance = prev.pirates_f_tmp
 				# Create a ship
 				random_list = {
-					80 = {
-						create_ship = {
-							name = random
-							design = "NAME_Corsair"
-							prefix = no
-							graphical_culture = "pirate_01"
-						}
-					}
-					20 = {
-						modifier = { factor = 0 exists = event_target:current_pirate_country mid_game_years_passed < 0 }
-						modifier = {
-							factor = 12
-							NOT = { exists = event_target:current_pirate_country }
-						}
-						CmtEffectCreateShip_VoidChampion = yes
-					}
+					80 = { create_ship = { name = random design = "NAME_Corsair" prefix = no graphical_culture = "pirate_01" } }
+					20 = { modifier = { factor = 0 exists = event_target:current_pirate_country mid_game_years_passed < 0 } modifier = { factor = 12 NOT = { exists = event_target:current_pirate_country } } }
 				}
 			}
 		}
@@ -706,21 +631,8 @@ create_pirate_waves_fleet = {
 				chance = prev.pirates_f_tmp
 				# Create a ship
 				random_list = {
-					80 = {
-						create_ship = {
-							name = random
-							design = "NAME_Black_Earl"
-							prefix = no
-							graphical_culture = "pirate_01"
-						}
-					}
-					20 = {
-						modifier = {
-							factor = 12
-							NOT = { exists = event_target:current_pirate_country }
-						}
-						CmtEffectCreateShip_VoidChampion = yes
-					}
+					80 = { create_ship = { name = random design = "NAME_Black_Earl" prefix = no graphical_culture = "pirate_01" } }
+					20 = { modifier = { factor = 12 NOT = { exists = event_target:current_pirate_country } } CmtEffectCreateShip_VoidChampion = yes }
 				}
 			}
 		}
@@ -753,21 +665,8 @@ create_pirate_waves_fleet = {
 				chance = prev.pirates_f_tmp
 				# Create a ship
 				random_list = {
-					80 = {
-						create_ship = {
-							name = random
-							design = "NAME_Pirate_Galleon"
-							prefix = no
-							graphical_culture = "pirate_01"
-						}
-					}
-					20 = {
-						modifier = {
-							factor = 12
-							NOT = { exists = event_target:current_pirate_country }
-						}
-						CmtEffectCreateShip_AncestralGlory = yes
-					}
+					80 = { create_ship = { name = random design = "NAME_Pirate_Galleon" prefix = no graphical_culture = "pirate_01" } }
+					20 = { modifier = { factor = 12 NOT = { exists = event_target:current_pirate_country } } CmtEffectCreateShip_AncestralGlory = yes }
 				}
 			}
 		}
@@ -811,6 +710,93 @@ make_moderately_hostile = {
 				set_hostile = no
 				set_neutral = yes
 				# set_friendly = no
+			}
+		}
+	}
+}
+
+# This = Marauder
+get_marauder_species = {
+	if = {
+		limit = { exists = owner_species }
+		owner_species = { save_event_target_as = marauder_species }
+	}
+	if = {
+		limit = {
+			OR = {
+				NOT = { exists = event_target:marauder_species }
+				event_target:marauder_species = {
+					OR = {
+						species_can_be_necrophaged = no							# Implies is_robotic
+						is_archetype = LITHOID
+						is_archetype = PRESAPIENT
+					}
+				}
+			}
+		}
+		random_owned_pop_species = {
+			limit = {
+				species_can_be_necrophaged = yes
+				NOR = {
+					is_archetype = LITHOID
+					is_archetype = PRESAPIENT
+				}
+			}
+			weights = {
+				base = 1
+				modifier = {
+					add = 1
+					prev = {
+						count_owned_pop = {
+							count > 5
+							limit = { is_same_species = prevprev }
+						}
+					}
+				}
+				modifier = {
+					add = 2
+					prev = {
+						count_owned_pop = {
+							count > 10
+							limit = { is_same_species = prevprev }
+						}
+					}
+				}
+				modifier = {
+					add = 3
+					prev = {
+						count_owned_pop = {
+							count > 17
+							limit = { is_same_species = prevprev }
+						}
+					}
+				}
+				# modifier = { add = 3 is_same_species = root.owner_species }
+				modifier = {
+					add = 2
+					prev = {
+						capital_scope = {
+							habitability = {
+								who = prev
+								value > 0.6
+							}
+						}
+					}
+				}
+				modifier = {
+					add = 4
+					root = {
+						any_owned_planet = {
+							is_homeworld = yes
+							is_same_value = prevprev.home_planet
+						}
+					}
+				}
+			}
+			save_event_target_as = marauder_species
+			root = {
+				change_dominant_species = { species = prev }
+				set_built_species = prev
 			}
 		}
 	}

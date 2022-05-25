@@ -66,6 +66,8 @@ country_event = {
 					} else_if = {
 						limit = { check_variable = { which = CmtVarFleetPower_Khan value < 0.95 } }
 						prev = { set_variable = { which = pirate_waves_difficulty value = 1 } }
+					} else = {
+						prev = { set_variable = { which = pirate_waves_difficulty value = 2 } }
 					}
 				}
 			}
@@ -314,10 +316,11 @@ country_event = {
 		name = "outer_bulwark_MODE_disable"
 		custom_tooltip = "outer_bulwark_MODE_DESC"
 		trigger = {
-			NOT = { has_global_flag = outer_bulwark_inactive }
+			event_target:global_event_country = { NOT = { has_country_flag = outer_bulwark_inactive } }
 		}
+		allow = { any_country = { is_country_type = outer_bulwarks } }
 		hidden_effect = {
-			set_global_flag = outer_bulwark_inactive
+			event_target:global_event_country = { set_country_flag = outer_bulwark_inactive }
 			every_country = {
 				limit = { is_country_type = outer_bulwarks }
 				set_country_type = dormant_marauders
@@ -328,9 +331,24 @@ country_event = {
 	option = {
 		name = "outer_bulwark_MODE_enable"
 		custom_tooltip = "outer_bulwark_MODE_DESC"
-		trigger = { has_global_flag = outer_bulwark_inactive }
+		trigger = {
+			event_target:global_event_country = { has_country_flag = outer_bulwark_inactive }
+		}
+		allow = {
+			any_country = {
+				is_country_type = dormant_marauders
+				OR = {
+					has_country_flag = bulwark_numbers
+					has_country_flag = bulwark_techies
+					has_country_flag = bulwark_monsters
+				}
+			}
+		}
 		hidden_effect = {
-			remove_global_flag = outer_bulwark_inactive
+			event_target:global_event_country = { remove_country_flag = outer_bulwark_inactive }
+			if = { limit = { has_global_flag = outer_bulwark_inactive } # TODO REMOVE ME >3.4.3
+				remove_global_flag = outer_bulwark_inactive
+			}
 			every_country = {
 				limit = {
 					is_country_type = dormant_marauders
@@ -1296,7 +1314,7 @@ country_event = {
 	after = {
 		hidden_effect = {
 			if = {
-				limit = { NOT = { has_active_event = { pirate_waves.112 } } }
+				limit = { NOT = { has_active_event = { pirate_waves.0 pirate_waves.112 } } }
 				country_event = { id = pirate_waves.0 }
 			}
 		}
@@ -1493,7 +1511,7 @@ country_event = {
 	after = {
 		hidden_effect = {
 			if = {
-				limit = { NOT = { has_active_event = { pirate_waves.111 } } }
+				limit = { NOT = { has_active_event = { pirate_waves.0 pirate_waves.111 } } }
 				country_event = { id = pirate_waves.0 }
 			}
 

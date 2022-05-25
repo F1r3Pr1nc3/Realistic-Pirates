@@ -10,9 +10,9 @@
 # Ship limit for pirate countries.
 # @count_ship_very_easy	= 250
 # @count_ship_easy		= 500
-# @count_ship_medium		= 1000
+# @count_ship_medium	= 1000
 # @count_ship_hard		= 2000
-# @count_ship_insane 		= 4000
+# @count_ship_insane 	= 4000
 
 #############################################
 # 	Triggers								#
