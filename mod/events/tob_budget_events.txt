@@ -8625,35 +8625,41 @@ country_event = {
 						count < 7
 					}
 				}
+				count < 7
 				subtract_variable = { which = bulwarkbudget value = 200 }
 				random_system_within_border = {
 					limit = {
+						any_system_planet = {
+							is_star = no
+							NOT = { any_fleet_in_orbit = { any_owned_ship = { is_ship_size = bulwark_station } } }
+						}
 					}
 					random_system_planet = {
 						limit = {
+							is_star = no
 							NOT = {
 								any_fleet_in_orbit = {
 									any_owned_ship = { is_ship_size = bulwark_station }
 								}
 							}
 						}
-						save_event_target_as = bulwark_station_respawn_here
-					}
-				}
-				create_fleet = {
-					effect = {
-						set_owner = root
-						create_ship = {
-							name = random
-							design = "NAME_BULWARK_HABITAT"
+						# save_event_target_as = bulwark_station_respawn_here
+						create_fleet = {
 							effect = {
-								# add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
-								add_modifier = { modifier = "bulwark_core_station" }
+								set_owner = root
+								create_ship = {
+									name = random
+									design = "NAME_BULWARK_HABITAT"
+									effect = {
+										# add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
+										add_modifier = { modifier = "bulwark_core_station" }
+									}
+								}
+								set_location = prev # event_target:bulwark_station_respawn_here
 							}
+							settings = { spawn_debris = no }
 						}
-						set_location = event_target:bulwark_station_respawn_here
 					}
-					settings = { spawn_debris = no }
 				}
 			}
 		}
@@ -9213,10 +9219,10 @@ country_event = {
 						effect = { set_ship_flag = bulwark_ship_techfive }
 					}
 				}
-				last_created_ship = {
-					# add_modifier = { modifier = "bulwark_ships_unlimited" }
-					# add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
-				}
+				# last_created_ship = {
+				# 	# add_modifier = { modifier = "bulwark_ships_unlimited" }
+				# 	# add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
+				# }
 			}
 		}
 		if = { limit = { check_variable = { which = bulwarkbudget value > 19 } }
@@ -9694,10 +9700,10 @@ country_event = {
 						}
 					}
 				}
-				last_created_ship = {
-					# add_modifier = { modifier = "bulwark_ships_unlimited" }
-					# add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
-				}
+				# last_created_ship = {
+				# 	# add_modifier = { modifier = "bulwark_ships_unlimited" }
+				# 	# add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
+				# }
 			}
 		}
 		if = { limit = { check_variable = { which = bulwarkbudget value > 19 } }
@@ -10010,10 +10016,10 @@ country_event = {
 						}
 					}
 				}
-				last_created_ship = {
-					# add_modifier = { modifier = "bulwark_ships_unlimited" }
-					# add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
-				}
+				# last_created_ship = {
+				# 	# add_modifier = { modifier = "bulwark_ships_unlimited" }
+				# 	# add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
+				# }
 			}
 		}
 		if = { limit = { check_variable = { which = bulwarkbudget value > 19 } }
@@ -10255,10 +10261,10 @@ country_event = {
 						}
 					}
 				}
-				last_created_ship = {
+				# last_created_ship = { exists = last_created_ship Invalid context switch
 					# add_modifier = { modifier = "bulwark_ships_unlimited" }
 					# add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
-				}
+				# }
 			}
 		}
 		country_event = { id = tob_budget.3004 days = 5 }

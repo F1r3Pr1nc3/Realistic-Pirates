@@ -1,8 +1,9 @@
+# TODO enable on game init!?
 @base_moon_distance = 10
 # Supremacists
 supremacists_home = {
 	class = "rl_standard_stars"
-	usage = misc_system_init
+	# usage = misc_system_init
 	asteroid_belt = {
 		type = rocky_asteroid_belt
 		radius = 230
@@ -577,7 +578,7 @@ supremacists_home = {
 # Technologists
 technologists_home = {
 	class = "rl_standard_stars"
-	usage = misc_system_init
+	# usage = misc_system_init
 	asteroid_belt = {
 		type = rocky_asteroid_belt
 		radius = 230
@@ -1193,7 +1194,7 @@ technologists_home = {
 #Tamers
 tamers_home = {
 	class = "rl_standard_stars"
-	usage = misc_system_init
+	# usage = misc_system_init
 	asteroid_belt = {
 		type = rocky_asteroid_belt
 		radius = 230

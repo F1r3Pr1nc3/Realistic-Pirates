@@ -881,7 +881,7 @@ country_event = {
 					if = {
 						limit = {
 							closest_system = {
-								limit = { space_owner = { is_same_empire = event_target:receiving_bulwark_fleet_commission } }
+								limit = { exists = space_owner space_owner = { is_same_empire = event_target:receiving_bulwark_fleet_commission } }
 								min_steps = 1
 								max_steps = 50
 								use_bypasses = no
@@ -891,7 +891,7 @@ country_event = {
 							min_steps = 1
 							max_steps = 50
 							use_bypasses = no
-							limit = { space_owner = { is_same_empire = event_target:receiving_bulwark_fleet_commission } }
+							limit = { exists = space_owner space_owner = { is_same_empire = event_target:receiving_bulwark_fleet_commission } }
 							save_event_target_as = bulwark_fleet_commission_goes_here
 						}
 					} else = {
@@ -1000,7 +1000,7 @@ country_event = {
 					if = {
 						limit = {
 							closest_system = {
-								limit = { space_owner = { is_same_empire = event_target:receiving_bulwark_fleet_commission } }
+								limit = { exists = space_owner space_owner = { is_same_empire = event_target:receiving_bulwark_fleet_commission } }
 								min_steps = 1
 								max_steps = 50
 								use_bypasses = no
@@ -1010,7 +1010,7 @@ country_event = {
 							min_steps = 1
 							max_steps = 50
 							use_bypasses = no
-							limit = { space_owner = { is_same_empire = event_target:receiving_bulwark_fleet_commission } }
+							limit = { exists = space_owner space_owner = { is_same_empire = event_target:receiving_bulwark_fleet_commission } }
 							save_event_target_as = bulwark_fleet_commission_goes_here
 						}
 					} else = {
@@ -1119,7 +1119,7 @@ country_event = {
 					if = {
 						limit = {
 							closest_system = {
-								limit = { space_owner = { is_same_empire = event_target:receiving_bulwark_fleet_commission } }
+								limit = { exists = space_owner space_owner = { is_same_empire = event_target:receiving_bulwark_fleet_commission } }
 								min_steps = 1
 								max_steps = 50
 								use_bypasses = no
@@ -1129,7 +1129,7 @@ country_event = {
 							min_steps = 1
 							max_steps = 50
 							use_bypasses = no
-							limit = { space_owner = { is_same_empire = event_target:receiving_bulwark_fleet_commission } }
+							limit = { exists = space_owner space_owner = { is_same_empire = event_target:receiving_bulwark_fleet_commission } }
 							save_event_target_as = bulwark_fleet_commission_goes_here
 						}
 					} else = {
