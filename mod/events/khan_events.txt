@@ -661,7 +661,7 @@ country_event = {
 			random_system_within_border = {
 				limit = {
 					exists = starbase
-					any_system_planet = { is_a_planet = yes }
+					any_system_planet = { is_star = no }
 				}
 				weights = {
 					base = 1
@@ -684,9 +684,10 @@ country_event = {
 					modifier = { add = 1 is_capital_system = yes }
 				}
 				random_system_planet = {
-					limit = { is_a_planet = yes }
+					limit = { is_star = no }
 					weights = {
 						base = 1
+						modifier = { add = 1 is_a_planet = yes } # possible inconsisent due other mods
 						modifier = { add = 2 has_planet_flag = raid_source }
 						modifier = { add = 2 is_colony = yes }
 						modifier = { add = 3 is_capital = yes }
@@ -1421,7 +1422,7 @@ country_event = {
 				limit = {
 					exists = starbase
 					any_system_planet = {
-						is_a_planet = yes
+						is_star = no
 						NOR = {
 							has_planet_flag = megastructure
 							has_planet_flag = has_megastructure
@@ -1430,10 +1431,7 @@ country_event = {
 				}
 				weights = {
 					base = 1
-					modifier = {
-						add = 3
-						any_system_planet = { colonizable_planet = yes }
-					}
+					modifier = { add = 3 any_system_planet = { colonizable_planet = yes } }
 					# Prefer to place with existing planets.
 					modifier = {
 						add = 1
@@ -1477,16 +1475,16 @@ system_event = {
 		# log = "---Attempting habitat construction in \\[This.GetName]"
 		random_system_planet = {
 			limit = {
-				# is_star = no
+				is_star = no
 				is_moon = no
-				# is_asteroid = no
+				is_asteroid = no
 				NOR = {
 					has_planet_flag = megastructure
 					has_planet_flag = has_megastructure
 				}
 				is_ringworld = no
-				is_a_planet = yes
 			}
+			weights = { base = 1 modifier = { add = 2 is_a_planet = yes } }
 			# log = "--- Habitat build site chosen on planet \\[This.GetName], proceeding..."
 			prev = {
 				# Spawn marauder habitat

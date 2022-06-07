@@ -2,6 +2,32 @@ is_bulwark_empire = {
 	is_country_type = outer_bulwarks
 }
 
+### For Spawning Each Countries, Scope: this = Stellar System
+CmtTriggerSpawnableSystem = {
+	NOR = {
+		is_star_class = sc_pulsar
+		is_star_class = sc_binary_1
+		is_capital_system = yes
+		has_star_flag = swarm_invasion_target_1
+		has_star_flag = swarm_invasion_target_2
+		has_star_flag = swarm_invasion_target_3
+		has_star_flag = swarm_invasion_target_4
+		has_star_flag = sentinel_system
+		has_star_flag = extradimensional_origin_system
+		has_star_flag = extradimensional_second_portal_system
+		has_star_flag = extradimensional_third_portal_system
+		has_star_flag = AI_hub				## Machiene World 1-4, cf. planet_flag = machine_world_1
+		has_star_flag = AI_lair				## Final MAchiene World, cf. planet flag = machine_lair
+		has_star_flag = cybrex_beta
+		has_star_flag = marauder_capital_1
+		has_star_flag = marauder_capital_2
+		has_star_flag = marauder_capital_3
+		has_star_flag = lgate
+		has_star_flag = lcluster
+		has_star_flag = sealed_system		## The system with no hyperlanes.
+	}
+}
+
 bulwark_fleet_needs_reinforcements = {
 	OR = {
 		AND = {

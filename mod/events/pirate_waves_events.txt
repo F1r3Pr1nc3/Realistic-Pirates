@@ -317,8 +317,9 @@ country_event = {
 		custom_tooltip = "outer_bulwark_MODE_DESC"
 		trigger = {
 			event_target:global_event_country = { NOT = { has_country_flag = outer_bulwark_inactive } }
+			any_country = { is_country_type = outer_bulwarks }
 		}
-		allow = { any_country = { is_country_type = outer_bulwarks } }
+		# allow = { any_country = { is_country_type = outer_bulwarks } }
 		hidden_effect = {
 			event_target:global_event_country = { set_country_flag = outer_bulwark_inactive }
 			every_country = {
@@ -328,6 +329,85 @@ country_event = {
 			country_event = { id = pirate_waves.0 }
 		}
 	}
+	option = {
+		name = "outer_bulwark_MODE_enable"
+		custom_tooltip = "outer_bulwark_MODE_DESC"
+		trigger = {
+			NOR = {
+				has_global_flag = outer_bulwark_initialized
+				event_target:global_event_country = { has_country_flag = outer_bulwark_inactive }
+				any_country = {
+					OR = {
+						is_country_type = dormant_marauders
+						is_country_type = outer_bulwarks
+					}
+					OR = {
+						has_country_flag = bulwark_numbers
+						has_country_flag = bulwark_techies
+						has_country_flag = bulwark_monsters
+					}
+				}
+			}
+		}
+		allow = {
+			NOT = { any_system = { has_star_flag = tob_system } }
+		}
+		hidden_effect = {
+			set_global_flag = outer_bulwark_initialized
+			event_target:global_event_country = { remove_country_flag = outer_bulwark_inactive }
+			# while = { count = trigger:num_marauder_empires_to_spawn
+			set_spawn_system_batch = begin
+			# batch-processes the spawn_system effects between "begin" and "end",
+			# so caches are recalculated only once rather than for every system spawned
+			# can also be used when removing and adding hyperlanes
+			no_scope = {
+			# makes system positions originate from galactic core
+				random_rim_system = {
+					limit = { CmtTriggerSpawnableSystem = yes }
+					weights = { base = 1 modifier = { add = 1 has_owner = no } }
+					spawn_system = {
+						min_distance >= 41
+						max_distance <= 64
+						min_orientation_angle = 300
+						max_orientation_angle = 330
+						initializer = supremacists_home
+						direction = corewards
+					}
+				}
+				if = { limit = { num_marauder_empires_to_spawn > 0 }
+					random_rim_system = {
+						limit = { CmtTriggerSpawnableSystem = yes }
+						weights = { base = 1 modifier = { add = 1 has_owner = no } }
+						spawn_system = {
+							min_distance >= 42
+							max_distance <= 65
+							min_orientation_angle = 320
+							max_orientation_angle = 350
+							initializer = technologists_home
+							direction = corewards
+						}
+					}
+					if = { limit = { num_marauder_empires_to_spawn > 1 }
+						random_rim_system = {
+							limit = { CmtTriggerSpawnableSystem = yes }
+							weights = { base = 1 modifier = { add = 1 has_owner = no } }
+							spawn_system = {
+								min_distance >= 43
+								max_distance <= 66
+								min_orientation_angle = 10
+								max_orientation_angle = 30
+								initializer = tamers_home
+								direction = corewards
+							}
+						}
+					}
+				}
+			}
+			set_spawn_system_batch = end
+			country_event = { id = pirate_waves.0 }
+		}
+	}
+
 	option = {
 		name = "outer_bulwark_MODE_enable"
 		custom_tooltip = "outer_bulwark_MODE_DESC"
@@ -346,9 +426,6 @@ country_event = {
 		}
 		hidden_effect = {
 			event_target:global_event_country = { remove_country_flag = outer_bulwark_inactive }
-			if = { limit = { has_global_flag = outer_bulwark_inactive } # TODO REMOVE ME >3.4.3
-				remove_global_flag = outer_bulwark_inactive
-			}
 			every_country = {
 				limit = {
 					is_country_type = dormant_marauders

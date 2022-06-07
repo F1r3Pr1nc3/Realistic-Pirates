@@ -252,9 +252,10 @@ country_event = {
 					fromfrom.solar_system = {
 						save_event_target_as = attacked_system
 						random_system_planet = {
-							limit = { is_a_planet = yes }
+							limit = { is_star = no }
 							weights = {
 								base = 1
+								modifier = { add = 1 is_a_planet = yes } # possible inconsisent due other mods
 								modifier = { add = 3 has_planet_flag = raid_source }
 								modifier = { add = 2 is_colony = yes }
 							}
@@ -290,9 +291,10 @@ country_event = {
 							modifier = { add = 3 has_star_flag = marauder_capital_1 }
 						}
 						random_system_planet = {
-							limit = { is_a_planet = yes }
+							limit = { is_star = no }
 							weights = {
 								base = 1
+								modifier = { add = 1 is_a_planet = yes } # possible inconsisent due other mods
 								modifier = { add = 3 has_planet_flag = raid_source }
 								modifier = { add = 2 is_colony = yes }
 							}
@@ -327,9 +329,10 @@ country_event = {
 							modifier = { add = 3 has_star_flag = marauder_capital_2 }
 						}
 						random_system_planet = {
-							limit = { is_a_planet = yes }
+							limit = { is_star = no }
 							weights = {
 								base = 1
+								modifier = { add = 1 is_a_planet = yes } # possible inconsisent due other mods
 								modifier = { add = 3 has_planet_flag = raid_source }
 								modifier = { add = 2 is_colony = yes }
 							}
@@ -364,9 +367,10 @@ country_event = {
 							modifier = { add = 3 has_star_flag = marauder_capital_3 }
 						}
 						random_system_planet = {
-							limit = { is_a_planet = yes }
+							limit = { is_star = no }
 							weights = {
 								base = 1
+								modifier = { add = 1 is_a_planet = yes } # possible inconsisent due other mods
 								modifier = { add = 3 has_planet_flag = raid_source }
 								modifier = { add = 2 is_colony = yes }
 							}
@@ -1307,7 +1311,7 @@ country_event = {
 									is_owned_by = from
 								}
 							}
-							is_a_planet = yes
+							is_star = no # is_a_planet = yes
 						}
 						found_planet = {
 							move_to = this
@@ -8036,7 +8040,7 @@ country_event = {
 						} else = {
 							## Backup Code: raid_source NOT Found in Capital System
 							random_system_planet = {
-								limit = { is_planet = this }
+								limit = { is_star = no }
 								weights = {
 									base = 1
 									modifier = { add = 2 is_colony = yes }
@@ -8050,7 +8054,7 @@ country_event = {
 				} else = {
 					## Backup Code: Capital System NOT Found
 					random_planet_within_border = {
-						limit = { is_planet = this }
+						limit = { is_star = no }
 						weights = {
 							base = 1
 							modifier = { add = 2 is_colony = yes }
@@ -8104,7 +8108,7 @@ country_event = {
 						} else = {
 							## Backup Code: raid_source NOT found in Capital System
 							random_system_planet = {
-								limit = { is_planet = this }
+								limit = { is_star = no }
 								weights = {
 									base = 1
 									modifier = { add = 2 is_colony = yes }
@@ -8118,7 +8122,7 @@ country_event = {
 				} else = {
 					## Backup Code: Capital System NOT Found
 					random_planet_within_border = {
-						limit = { is_planet = this }
+						limit = { is_star = no }
 						weights = {
 							base = 1
 							modifier = { add = 2 is_colony = yes }
@@ -8172,7 +8176,7 @@ country_event = {
 						} else = {
 							## Backup Code: raid_source NOT Found in Capital System
 							random_system_planet = {
-								limit = { is_planet = this }
+								limit = { is_star = no }
 								weights = {
 									base = 1
 									modifier = { add = 2 is_colony = yes }
@@ -8186,7 +8190,7 @@ country_event = {
 				} else = {
 					## Backup Code: Capital System NOT Found
 					random_planet_within_border = {
-						limit = { is_planet = this }
+						limit = { is_star = no }
 						weights = {
 							base = 1
 							modifier = { add = 2 is_colony = yes }
@@ -8379,7 +8383,8 @@ country_event = {
 				NOT = { exists = event_target:marauder_rally_point }
 			}
 			random_planet_within_border = {
-				limit = { is_a_planet = yes }
+				limit = { is_star = no }
+				weights = { base = 1 modifier = { add = 2 is_a_planet = yes } } # possible inconsisent due other mods
 				save_global_event_target_as = marauder_rally_point
 				set_planet_flag = marauder_rally_point
 				log = "Backup Code for marauder_rally_point Processed"
@@ -9619,7 +9624,7 @@ country_event = {
 					}
 					capital_scope = { origin_nsc_freebooter_start_setup = yes }
 				}
-				country_event = { id = marauder.609 }				# Fully handover?
+				country_event = { id = marauder.609 days = -1 }				# Fully handover?
 				# set_country_type = dormant_marauders
 				destroy_country = yes
 			}
@@ -10476,7 +10481,7 @@ planet_event = {
 			## Complete takeover
 			from = { save_event_target_as = new_khanate }
 			owner = {
-				country_event = { id = marauder.609 }
+				country_event = { id = marauder.609 days = -1 }
 			}			# Fully handover
 			from = {
 				country_event = {
@@ -11771,7 +11776,7 @@ country_event = {
 		}
 		# last_created_country = {}
 		clear_global_event_target = marauder_precursor
-		country_event = { id = marauder.609 }		# Fully handover
+		country_event = { id = marauder.609 days = -1 }		# Fully handover
 		every_subject = {
 			set_subject_of = { who = none }
 			# if = {
@@ -11879,7 +11884,7 @@ country_event = {
 		# 	remove_modifier = "satrapy_of_horde"
 		# }
 		observer_event = { id = observer.23 }
-		country_event = { id = marauder.609 }		# Fully handover
+		country_event = { id = marauder.609 days = -1 }		# Fully handover
 		if = {
 			limit = { is_ai = yes }
 			destroy_country = yes

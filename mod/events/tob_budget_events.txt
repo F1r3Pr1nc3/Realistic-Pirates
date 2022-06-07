@@ -103,7 +103,7 @@ country_event = {
 					limit = { has_country_flag = bulwark_numbers }
 					create_leader = {
 						class = admiral
-						species = event_target:bulwark_numbers_species_global
+						species = owner_species
 						name = random
 						skill = 1
 						event_leader = yes							# Prevents this leader from leading factions and winning elections.
@@ -1797,7 +1797,7 @@ country_event = {
 					limit = { has_country_flag = bulwark_techies }
 					create_leader = {
 						class = admiral
-						species = event_target:bulwark_techies_species_global
+						species = owner_species
 						name = random
 						skill = 1
 						event_leader = yes							# Prevents this leader from leading factions and winning elections.
@@ -3491,7 +3491,7 @@ country_event = {
 					limit = { has_country_flag = bulwark_monsters }
 					create_leader = {
 						class = admiral
-						species = event_target:bulwark_monsters_species_global
+						species = owner_species
 						name = random
 						skill = 1
 						event_leader = yes							# Prevents this leader from leading factions and winning elections.
@@ -5223,7 +5223,7 @@ country_event = {
 					limit = { has_country_flag = bulwark_numbers }
 					create_leader = {
 						class = admiral
-						species = event_target:bulwark_numbers_species_global
+						species = owner_species
 						name = random
 						skill = 1
 						event_leader = yes							# Prevents this leader from leading factions and winning elections.
@@ -5237,7 +5237,7 @@ country_event = {
 					limit = { has_country_flag = bulwark_techies }
 					create_leader = {
 						class = admiral
-						species = event_target:bulwark_techies_species_global
+						species = owner_species
 						name = random
 						skill = 1
 						event_leader = yes							# Prevents this leader from leading factions and winning elections.
@@ -5251,7 +5251,7 @@ country_event = {
 					limit = { has_country_flag = bulwark_monsters }
 					create_leader = {
 						class = admiral
-						species = event_target:bulwark_monsters_species_global
+						species = owner_species
 						name = random
 						skill = 1
 						event_leader = yes							# Prevents this leader from leading factions and winning elections.
@@ -6919,7 +6919,7 @@ country_event = {
 					limit = { has_country_flag = bulwark_numbers }
 					create_leader = {
 						class = admiral
-						species = event_target:bulwark_numbers_species_global
+						species = owner_species
 						name = random
 						skill = 1
 						event_leader = yes							# Prevents this leader from leading factions and winning elections.
@@ -6933,7 +6933,7 @@ country_event = {
 					limit = { has_country_flag = bulwark_techies }
 					create_leader = {
 						class = admiral
-						species = event_target:bulwark_techies_species_global
+						species = owner_species
 						name = random
 						skill = 1
 						event_leader = yes							# Prevents this leader from leading factions and winning elections.
@@ -6947,7 +6947,7 @@ country_event = {
 					limit = { has_country_flag = bulwark_monsters }
 					create_leader = {
 						class = admiral
-						species = event_target:bulwark_monsters_species_global
+						species = owner_species
 						name = random
 						skill = 1
 						event_leader = yes							# Prevents this leader from leading factions and winning elections.
