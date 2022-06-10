@@ -894,7 +894,7 @@ country_event = {
 	hide_window = yes
 	is_triggered_only = yes
 	immediate = {
-		save_event_target_as = bulwark_evaluating_war_efforts
+		# save_event_target_as = bulwark_evaluating_war_efforts
 		random_country = {
 			limit = {
 				OR = {
@@ -931,243 +931,244 @@ country_event = {
 				}
 				save_event_target_as = bulwark_war_target
 			}
-		}
-		event_target:bulwark_war_target = {
-			country_event = { id = tob_quest.14 }
-			remove_country_flag = bulwark_at_war_quest
-			remove_country_flag = doing_quest_for_bulwark
-			remove_country_flag = bulwark_on_numbers_quest
-			remove_country_flag = bulwark_on_techies_quest
-			remove_country_flag = bulwark_on_monsters_quest
-		}
-		event_target:bulwark_evaluating_war_efforts = {
-			set_variable = { which = bulwarkquestbudget value = 0 }
-			remove_country_flag = bulwark_quest_decided
-			set_faction_hostility = {
-				target = event_target:bulwark_war_target
-				set_hostile = no
-				set_neutral = yes
-				set_friendly = no
+
+			event_target:bulwark_war_target = {
+				country_event = { id = tob_quest.14 }
+				remove_country_flag = bulwark_at_war_quest
+				remove_country_flag = doing_quest_for_bulwark
+				remove_country_flag = bulwark_on_numbers_quest
+				remove_country_flag = bulwark_on_techies_quest
+				remove_country_flag = bulwark_on_monsters_quest
 			}
-			every_owned_fleet = {
+			root = {
+				set_variable = { which = bulwarkquestbudget value = 0 }
+				remove_country_flag = bulwark_quest_decided
+				set_faction_hostility = {
+					target = event_target:bulwark_war_target
+					set_hostile = no
+					set_neutral = yes
+					set_friendly = no
+				}
+				every_owned_fleet = {
+					limit = {
+						OR = {
+							has_fleet_flag = bulwark_vanguard_one
+							has_fleet_flag = bulwark_vanguard_two
+						}
+					}
+					if = {
+						limit = {
+							root = { has_country_flag = bulwark_numbers }
+						}
+						queue_actions = {
+							find_random_system = {
+								trigger = {
+									id = "tob_assault.3"
+									has_star_flag = tob_supremacists
+								}
+								found_system = { move_to = this }
+							}
+							find_random_planet = {
+								trigger = {
+									id = tob_assault.4
+									is_star = no
+								}
+								found_planet = { orbit_planet = this }
+							}
+						}
+					} else_if = {
+						limit = {
+							root = { has_country_flag = bulwark_techies }
+						}
+						queue_actions = {
+							find_random_system = {
+								trigger = {
+									id = "tob_assault.5"
+									has_star_flag = tob_technologists
+								}
+								found_system = { move_to = this }
+							}
+							find_random_planet = {
+								trigger = {
+									id = tob_assault.6
+									is_star = no
+								}
+								found_planet = { orbit_planet = this }
+							}
+						}
+					} else_if = {
+						limit = {
+							root = { has_country_flag = bulwark_monsters }
+						}
+						queue_actions = {
+							find_random_system = {
+								trigger = {
+									id = "tob_assault.7"
+									has_star_flag = tob_tamers
+								}
+								found_system = { move_to = this }
+							}
+							find_random_planet = {
+								trigger = {
+									id = tob_assault.8
+									is_star = no
+								}
+								found_planet = { orbit_planet = this }
+							}
+						}
+					}
+				}
+			}
+			if = {
 				limit = {
-					OR = {
-						has_fleet_flag = bulwark_vanguard_one
-						has_fleet_flag = bulwark_vanguard_two
+					root = {
+						check_variable = { which = bulwarkwarscore value >= 1000 }
+						has_country_flag = bulwark_wants_log_station
 					}
 				}
-				if = {
-					limit = {
-						event_target:bulwark_evaluating_war_efforts = { has_country_flag = bulwark_numbers }
-					}
-					queue_actions = {
-						find_random_system = {
-							trigger = {
-								id = "tob_assault.3"
-								has_star_flag = tob_supremacists
-							}
-							found_system = { move_to = this }
+				root = {
+					remove_country_flag = bulwark_quest_decided
+					remove_country_flag = bulwark_wants_log_station
+					set_variable = { which = bulwarkwarscore value = 0 }
+					random_system_within_border = {
+						limit = {
 						}
-						find_random_planet = {
-							trigger = {
-								id = tob_assault.4
-								is_star = no
-							}
-							found_planet = { orbit_planet = this }
-						}
-					}
-				} else_if = {
-					limit = {
-						event_target:bulwark_evaluating_war_efforts = { has_country_flag = bulwark_techies }
-					}
-					queue_actions = {
-						find_random_system = {
-							trigger = {
-								id = "tob_assault.5"
-								has_star_flag = tob_technologists
-							}
-							found_system = { move_to = this }
-						}
-						find_random_planet = {
-							trigger = {
-								id = tob_assault.6
-								is_star = no
-							}
-							found_planet = { orbit_planet = this }
-						}
-					}
-				} else_if = {
-					limit = {
-						event_target:bulwark_evaluating_war_efforts = { has_country_flag = bulwark_monsters }
-					}
-					queue_actions = {
-						find_random_system = {
-							trigger = {
-								id = "tob_assault.7"
-								has_star_flag = tob_tamers
-							}
-							found_system = { move_to = this }
-						}
-						find_random_planet = {
-							trigger = {
-								id = tob_assault.8
-								is_star = no
-							}
-							found_planet = { orbit_planet = this }
-						}
-					}
-				}
-			}
-		}
-		if = {
-			limit = {
-				event_target:bulwark_evaluating_war_efforts = {
-					check_variable = { which = bulwarkwarscore value >= 1000 }
-					has_country_flag = bulwark_wants_log_station
-				}
-			}
-			event_target:bulwark_evaluating_war_efforts = {
-				remove_country_flag = bulwark_quest_decided
-				remove_country_flag = bulwark_wants_log_station
-				set_variable = { which = bulwarkwarscore value = 0 }
-				random_system_within_border = {
-					limit = {
-					}
-					random_system_planet = {
-						create_fleet = {
-							effect = {
-								set_owner = event_target:bulwark_evaluating_war_efforts
-								set_fleet_flag = bulwark_log_station
-								create_ship = {
-									name = random
-									design = "NAME_BULWARK_HABITAT"
-									effect = {
-										add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
-										add_modifier = { modifier = "bulwark_core_station" }
+						random_system_planet = {
+							create_fleet = {
+								effect = {
+									set_owner = root
+									set_fleet_flag = bulwark_log_station
+									create_ship = {
+										name = random
+										design = "NAME_BULWARK_HABITAT"
+										effect = {
+											add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
+											add_modifier = { modifier = "bulwark_core_station" }
+										}
+									}
+									set_location = {
+										target = prev
+										distance = 230
+										angle = 40
 									}
 								}
-								set_location = {
-									target = prev
-									distance = 230
-									angle = 40
-								}
+								settings = { spawn_debris = no }
 							}
-							settings = { spawn_debris = no }
 						}
 					}
-				}
-				if = {
-					limit = { has_country_flag = bulwark_country_numbersone }
-					remove_country_flag = bulwark_country_numbersone
-					remove_country_flag = bulwark_questing
-					set_timed_country_flag = { flag = bulwark_recently_quested years = 10 }
-					set_country_flag = bulwark_country_numberstwo
-				} else_if = {
-					limit = { has_country_flag = bulwark_country_numberstwo }
-					remove_country_flag = bulwark_country_numberstwo
-					remove_country_flag = bulwark_questing
-					set_timed_country_flag = { flag = bulwark_recently_quested years = 10 }
-					set_country_flag = bulwark_country_numbersthree
-				} else_if = {
-					limit = { has_country_flag = bulwark_country_numbersthree }
-					remove_country_flag = bulwark_country_numbersthree
-					remove_country_flag = bulwark_questing
-					set_timed_country_flag = { flag = bulwark_recently_quested years = 10 }
-					set_country_flag = bulwark_country_numbersfour
-				} else_if = {
-					limit = { has_country_flag = bulwark_country_numbersfour }
-					remove_country_flag = bulwark_country_numbersfour
-					remove_country_flag = bulwark_questing
-					set_timed_country_flag = { flag = bulwark_recently_quested years = 10 }
-					set_country_flag = bulwark_country_numbersfive
-				}
-			}
-		} else_if = {
-			limit = {
-				event_target:bulwark_evaluating_war_efforts = {
-					check_variable = { which = bulwarkwarscore value >= 1000 }
-					has_country_flag = bulwark_wants_knowledge_vault
-				}
-			}
-			event_target:bulwark_evaluating_war_efforts = {
-				remove_country_flag = bulwark_quest_decided
-				remove_country_flag = bulwark_wants_knowledge_vault
-				set_variable = { which = bulwarkwarscore value = 0 }
-				random_system_within_border = {
-					limit = {
+					if = {
+						limit = { has_country_flag = bulwark_country_numbersone }
+						remove_country_flag = bulwark_country_numbersone
+						remove_country_flag = bulwark_questing
+						set_timed_country_flag = { flag = bulwark_recently_quested years = 10 }
+						set_country_flag = bulwark_country_numberstwo
+					} else_if = {
+						limit = { has_country_flag = bulwark_country_numberstwo }
+						remove_country_flag = bulwark_country_numberstwo
+						remove_country_flag = bulwark_questing
+						set_timed_country_flag = { flag = bulwark_recently_quested years = 10 }
+						set_country_flag = bulwark_country_numbersthree
+					} else_if = {
+						limit = { has_country_flag = bulwark_country_numbersthree }
+						remove_country_flag = bulwark_country_numbersthree
+						remove_country_flag = bulwark_questing
+						set_timed_country_flag = { flag = bulwark_recently_quested years = 10 }
+						set_country_flag = bulwark_country_numbersfour
+					} else_if = {
+						limit = { has_country_flag = bulwark_country_numbersfour }
+						remove_country_flag = bulwark_country_numbersfour
+						remove_country_flag = bulwark_questing
+						set_timed_country_flag = { flag = bulwark_recently_quested years = 10 }
+						set_country_flag = bulwark_country_numbersfive
 					}
-					random_system_planet = {
-						create_fleet = {
-							effect = {
-								set_owner = event_target:bulwark_evaluating_war_efforts
-								set_fleet_flag = bulwark_knowledge_vault
-								create_ship = {
-									name = random
-									design = "NAME_BULWARK_HABITAT"
-									effect = {
-										add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
-										add_modifier = { modifier = "bulwark_core_station" }
+				}
+			} else_if = {
+				limit = {
+					root = {
+						check_variable = { which = bulwarkwarscore value >= 1000 }
+						has_country_flag = bulwark_wants_knowledge_vault
+					}
+				}
+				root = {
+					remove_country_flag = bulwark_quest_decided
+					remove_country_flag = bulwark_wants_knowledge_vault
+					set_variable = { which = bulwarkwarscore value = 0 }
+					random_system_within_border = {
+						limit = {
+						}
+						random_system_planet = {
+							create_fleet = {
+								effect = {
+									set_owner = root
+									set_fleet_flag = bulwark_knowledge_vault
+									create_ship = {
+										name = random
+										design = "NAME_BULWARK_HABITAT"
+										effect = {
+											add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
+											add_modifier = { modifier = "bulwark_core_station" }
+										}
+									}
+									set_location = {
+										target = prev
+										distance = 230
+										angle = 40
 									}
 								}
-								set_location = {
-									target = prev
-									distance = 230
-									angle = 40
-								}
+								settings = { spawn_debris = no }
 							}
-							settings = { spawn_debris = no }
 						}
 					}
+					if = {
+						limit = { has_country_flag = bulwark_country_techone }
+						remove_country_flag = bulwark_country_techone
+						remove_country_flag = bulwark_questing
+						set_timed_country_flag = { flag = bulwark_recently_quested years = 10 }
+						set_country_flag = bulwark_country_techtwo
+					} else_if = {
+						limit = { has_country_flag = bulwark_country_techtwo }
+						remove_country_flag = bulwark_country_techtwo
+						remove_country_flag = bulwark_questing
+						set_timed_country_flag = { flag = bulwark_recently_quested years = 10 }
+						set_country_flag = bulwark_country_techthree
+					} else_if = {
+						limit = { has_country_flag = bulwark_country_techthree }
+						remove_country_flag = bulwark_country_techthree
+						remove_country_flag = bulwark_questing
+						set_timed_country_flag = { flag = bulwark_recently_quested years = 10 }
+						set_country_flag = bulwark_country_techfour
+					} else_if = {
+						limit = { has_country_flag = bulwark_country_techfour }
+						remove_country_flag = bulwark_country_techfour
+						remove_country_flag = bulwark_questing
+						set_timed_country_flag = { flag = bulwark_recently_quested years = 10 }
+						set_country_flag = bulwark_country_techfive
+					}
 				}
-				if = {
-					limit = { has_country_flag = bulwark_country_techone }
-					remove_country_flag = bulwark_country_techone
-					remove_country_flag = bulwark_questing
-					set_timed_country_flag = { flag = bulwark_recently_quested years = 10 }
-					set_country_flag = bulwark_country_techtwo
-				} else_if = {
-					limit = { has_country_flag = bulwark_country_techtwo }
-					remove_country_flag = bulwark_country_techtwo
-					remove_country_flag = bulwark_questing
-					set_timed_country_flag = { flag = bulwark_recently_quested years = 10 }
-					set_country_flag = bulwark_country_techthree
-				} else_if = {
-					limit = { has_country_flag = bulwark_country_techthree }
-					remove_country_flag = bulwark_country_techthree
-					remove_country_flag = bulwark_questing
-					set_timed_country_flag = { flag = bulwark_recently_quested years = 10 }
-					set_country_flag = bulwark_country_techfour
-				} else_if = {
-					limit = { has_country_flag = bulwark_country_techfour }
-					remove_country_flag = bulwark_country_techfour
-					remove_country_flag = bulwark_questing
-					set_timed_country_flag = { flag = bulwark_recently_quested years = 10 }
-					set_country_flag = bulwark_country_techfive
+			} else_if = {
+				limit = {
+					root = {
+						check_variable = { which = bulwarkwarscore value < 1000 }
+						has_country_flag = bulwark_wants_log_station
+					}
 				}
-			}
-		} else_if = {
-			limit = {
-				event_target:bulwark_evaluating_war_efforts = {
-					check_variable = { which = bulwarkwarscore value < 1000 }
-					has_country_flag = bulwark_wants_log_station
+				root = {
+					set_country_flag = bulwark_looking_for_country_log
+					country_event = { id = tob_quest.5 days = 3600 }
+					set_variable = { which = bulwarkwarscore value = 0 }
 				}
-			}
-			event_target:bulwark_evaluating_war_efforts = {
-				set_country_flag = bulwark_looking_for_country_log
-				country_event = { id = tob_quest.5 days = 3600 }
-				set_variable = { which = bulwarkwarscore value = 0 }
-			}
-		} else_if = {
-			limit = {
-				event_target:bulwark_evaluating_war_efforts = {
-					check_variable = { which = bulwarkwarscore value < 1000 }
-					has_country_flag = bulwark_wants_knowledge_vault
+			} else_if = {
+				limit = {
+					root = {
+						check_variable = { which = bulwarkwarscore value < 1000 }
+						has_country_flag = bulwark_wants_knowledge_vault
+					}
 				}
-			}
-			event_target:bulwark_evaluating_war_efforts = {
-				set_country_flag = bulwark_looking_for_country_vault
-				country_event = { id = tob_quest.5 days = 3600 }
-				set_variable = { which = bulwarkwarscore value = 0 }
+				root = {
+					set_country_flag = bulwark_looking_for_country_vault
+					country_event = { id = tob_quest.5 days = 3600 }
+					set_variable = { which = bulwarkwarscore value = 0 }
+				}
 			}
 		}
 	}

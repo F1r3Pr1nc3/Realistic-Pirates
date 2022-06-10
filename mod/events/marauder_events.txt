@@ -6058,7 +6058,7 @@ planet_event = {
 					# log="No new Marauder Raid Target found, return home"
 					event_target:raiding_fleet = {
 						set_event_locked = no
-						fleet_event = { id = marauder.110 days = 7 }
+						fleet_event = { id = marauder.110 days = 7 scopes = { from = event_target:raid_victim } }
 					}
 				}
 				set_timed_planet_flag = { flag = planet_raided days = 9 }
@@ -6069,7 +6069,7 @@ planet_event = {
 		event_target:raiding_fleet = {
 			# Return home
 			set_event_locked = no
-			fleet_event = { id = marauder.110 days = 20 }
+			fleet_event = { id = marauder.110 days = 20 scopes = { from = event_target:raid_victim } }
 		}
 		owner = { save_event_target_as = raid_victim }
 		if = {
@@ -6482,6 +6482,7 @@ planet_event = {
 }
 
 # Raiders Withdraw (HIDDEN)
+# From = event_target:raid_victim
 fleet_event = {
 	id = marauder.110
 	hide_window = yes
@@ -6528,8 +6529,8 @@ fleet_event = {
 		clear_fleet_actions = this
 		auto_move_to_planet = {
 			target = event_target:raid_source
-			destroy_on_arrival = yes
 			clear_auto_move_on_arrival = yes
+			destroy_on_arrival = yes
 		}
 		fleet_event = { id = marauder.118 days = 360 }
 		# Kill fleet after 1 year regardless.
@@ -6543,8 +6544,15 @@ fleet_event = {
 			set_timed_country_flag = { flag = raid_cooldown days = @raidcooldown }
 		}
 		owner = { remove_country_flag = raid_ongoing }
+		if = { limit = { NOT = { exists = event_target:raid_victim } }
+			if = { limit = { exists = from from = { is_scope_type = country } }
+				from = { save_event_target_as = raid_victim }
+			} else_if = { limit = { exists = orbit exists = orbit.owner }
+				orbit.owner = { save_event_target_as = raid_victim }
+			}
+		}
 		if = {
-			limit = { exists = event_target:raid_parent }
+			limit = { exists = event_target:raid_parent exists = event_target:raid_victim }
 			event_target:raid_victim = {
 				country_event = { id = marauder.111 }
 				remove_country_flag = raid_target_of@event_target:raid_parent
@@ -10285,7 +10293,9 @@ country_event = {
 			change_variable = { which = CmtVarHalfMidgame value = 10 }
 			divide_variable = { which = CmtVarHalfMidgame value = 2 }
 		}
-		divide_variable = { which = CmtVarKhanProbability value = CmtVarHalfMidgame }
+		if = { limit = { check_variable = { which = CmtVarHalfMidgame value > 0 } }
+			divide_variable = { which = CmtVarKhanProbability value = CmtVarHalfMidgame }
+		}
 		subtract_variable = { which = CmtVarKhanProbability value = 1 }
 		random_list = {
 			2 = {
@@ -11041,18 +11051,11 @@ country_event = {
 			# 	limit = { has_modifier = "satrapy_of_horde" }
 			# 	remove_modifier = "satrapy_of_horde"
 			# }
-			if = {
-				limit = { is_variable_set = "planets_lost_to_marauder" }
-				divide_variable = {
-					which = "planets_lost_to_marauder"
-					value = 5
-				}				# clear_variable = "planets_lost_to_marauder"
+			if = { limit = { is_variable_set = "planets_lost_to_marauder" }
+				divide_variable = { which = "planets_lost_to_marauder" value = 5 }				# clear_variable = "planets_lost_to_marauder"
 			}
 			if = {
-				limit = {
-					has_federation = yes
-					is_in_federation_with = event_target:raider_khanate
-				}
+				limit = { has_federation = yes is_in_federation_with = event_target:raider_khanate }
 				leave_alliance = { override_requirements = yes }
 			}
 			if = {
@@ -11463,8 +11466,11 @@ fleet_event = {
 			fleet_event = { id = marauder.560 days = 600 random = 300 }
 			event_target:satrapy_empire = {
 				set_variable = { which = "satrapy_fleet_power" value = trigger:fleet_power }
+				# Get normal possible capacity (divide by 0 cause crash)
+				if = { limit = { check_variable_arithmetic = { which = trigger:used_naval_capacity_percent value > 0 } }
+					divide_variable = { which = "satrapy_fleet_power" value = trigger:used_naval_capacity_percent }
+				} else = { multiply_variable = { which = "satrapy_fleet_power" value = 11 } }
 				divide_variable = { which = "satrapy_fleet_power" value = 26000 }
-				divide_variable = { which = "satrapy_fleet_power" value = trigger:used_naval_capacity_percent }
 				round_variable = "satrapy_fleet_power"
 				if = { limit = { check_variable = { which = "satrapy_fleet_power" value < 3 } }
 					set_variable = { which = "satrapy_fleet_power" value = 3 }
