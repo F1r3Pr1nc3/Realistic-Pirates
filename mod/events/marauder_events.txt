@@ -8419,12 +8419,10 @@ country_event = {
 				limit = { is_overlord = yes }
 				every_subject = {
 					limit = {
+						merg_is_standard_empire = yes
 						NOT = { is_at_war_with = overlord }
 					}
-					set_subject_of = {
-						who = root
-						preset = preset_satrapy
-					}
+					set_subject_of = { who = root preset = preset_satrapy }
 					# set_subject_of = { who = none }
 				}
 			}
@@ -9645,7 +9643,7 @@ country_event = {
 			}
 			country_event = { id = marauder.500 days = 3 }
 		}
-		ai_chance = { factor = 0 }
+		ai_chance = { factor = 0.1 }
 	}
 	option = {
 		# name = great_khan_integrate_response # "This isn't good..."
@@ -9931,6 +9929,7 @@ country_event = {
 		set_global_flag = great_khan_dead
 		set_country_flag = khan_dead_event_fine
 		set_country_flag = khan_dead_age
+
 		if = {
 			limit = { exists = event_target:great_khan_ruler }
 			event_target:great_khan_ruler = {
@@ -10807,7 +10806,7 @@ country_event = {
 		response_text = marauder.550.b.response
 		is_dialog_only = yes
 		hidden_effect = { set_country_flag = asked_about_language }
-		ai_chance = { factor = 0 }
+		ai_chance = { factor = 0.1 }
 	}
 	option = {
 		name = marauder.550.c
@@ -10821,12 +10820,12 @@ country_event = {
 		response_text = marauder.550.c.response
 		is_dialog_only = yes
 		hidden_effect = { set_country_flag = asked_about_religion }
-		ai_chance = { factor = 0 }
+		ai_chance = { factor = 0.1 }
 	}
 	option = {
 		name = marauder.20.e
 		default_hide_option = yes
-		ai_chance = { factor = 0 }
+		ai_chance = { factor = 0.1 }
 	}
 }
 
@@ -10853,7 +10852,7 @@ country_event = {
 	option = {
 		name = marauder.551.a
 		# sound = advisor_clicking_respons_01
-		trigger = { has_been_declared_crisis = no }
+		# trigger = { has_been_declared_crisis = no }
 		response_text = marauder.551.a.response
 		allow = {
 			custom_tooltip = {
@@ -10864,10 +10863,7 @@ country_event = {
 		custom_tooltip = marauder.551.a.tt
 		hidden_effect = {
 			country_event = { id = marauder.559 }		# Pre-Submit to Khan
-			set_subject_of = {
-				who = event_target:raider_khanate
-				preset = preset_satrapy
-			}
+			set_subject_of = { who = event_target:raider_khanate preset = preset_satrap }
 		}
 	}
 	# option = {
@@ -10906,7 +10902,6 @@ country_event = {
 		name = marauder.551.b
 		response_text = marauder.551.b.response
 		default_hide_option = yes
-		ai_chance = { factor = 0 }
 	}
 }
 
@@ -11220,14 +11215,14 @@ country_event = {
 	# 	name = marauder_fabricator_loyal
 	# 	trigger = { any_agreement = { agreement_preset = preset_fabricator_satrapy } }
 	# 	response_text = marauder.554.b.response
-	# 	ai_chance = { factor = 0 }
+	# 	ai_chance = { factor = 0.1 }
 	# }
 	# option = {
 	# 	name = marauder.554.b
 	# 	trigger = { NOT = { any_agreement = { agreement_preset = preset_fabricator_satrapy } } }
 	# 	# sound = no_tut_advior_07
 	# 	response_text = marauder.554.b.response
-	# 	ai_chance = { factor = 0 }
+	# 	ai_chance = { factor = 0.1 }
 	# }
 }
 
@@ -11321,10 +11316,7 @@ country_event = {
 		# var = "planets_lost_to_marauder" is increased on .503, .527 and .528
 		# country_event = { id = marauder.550 } # Submit to Khan
 		country_event = { id = marauder.559 }		# Pre-Submit to Khan
-		set_subject_of = {
-			who = event_target:raider_khanate
-			preset = preset_satrapy
-		}
+		set_subject_of = { who = event_target:raider_khanate preset = preset_satrap }
 	}
 }
 
@@ -11377,6 +11369,7 @@ country_event = {
 
 		if = { limit = { is_overlord = yes }
 			every_subject = {
+				limit = { merg_is_standard_empire = yes }
 				country_event = { id = marauder.553 days = 12 }
 				country_event = { id = marauder.551 }
 				# set_subject_of = {
@@ -11587,8 +11580,9 @@ country_event = {
 	}
 	immediate = {
 		set_country_flag = marauder600_happened
-		set_global_flag = khan_dead_event_fine
+		set_country_flag = khan_dead_event_fine
 		remove_global_flag = khan_no_die
+		remove_global_flag = great_khan_announcement
 		remove_country_flag = CmtFlagKhanNoDieCountry
 		if = {
 			# Reverts to old ways.
@@ -11725,7 +11719,7 @@ country_event = {
 	hide_window = yes
 	is_triggered_only = yes
 	immediate = {
-		get_marauder_species = yes
+		get_marauder_species = yes # country_event = { id = khan.303 days = -1 }
 		create_country = {
 			name_list = random
 			species = event_target:marauder_species
@@ -11818,7 +11812,7 @@ country_event = {
 	hide_window = yes
 	is_triggered_only = yes
 	immediate = {
-		get_marauder_species = yes
+		get_marauder_species = yes # country_event = { id = khan.303 days = -1 }
 		create_country = {
 			name_list = random
 			name = random
@@ -11993,7 +11987,7 @@ country_event = {
 				}
 			}
 		}
-		every_owned_fleet = {
+		every_controlled_fleet = {
 			limit = {
 				OR = {
 					has_fleet_flag = satrapy_garrison
@@ -12059,6 +12053,7 @@ country_event = {
 			establish_communications_no_message = event_target:restored_marauders
 		}
 		every_subject = {
+			limit = { merg_is_standard_empire = yes }
 			set_subject_of = { who = none }
 			# if = {
 			# 	limit = { has_modifier = "satrapy_of_horde" }
@@ -12213,7 +12208,7 @@ country_event = {
 					}
 					assign_leader = leader
 				}
-				fleet_event = { id = khan.611 }
+				fleet_event = { id = khan.611 days = -1 }
 			}
 		}
 		# Needs to be last (as the country gets destroyed without planet)
@@ -12489,6 +12484,7 @@ country_event = {
 	show_sound = event_conversation
 	is_triggered_only = yes
 	trigger = {
+		merg_is_standard_empire = yes
 		NOT = { has_country_flag = marauder_diplomacy_engaged }
 	}
 	immediate = {
@@ -12526,6 +12522,7 @@ country_event = {
 	show_sound = event_conversation
 	is_triggered_only = yes
 	trigger = {
+		merg_is_standard_empire = yes
 		NOT = { has_country_flag = marauder_diplomacy_engaged }
 	}
 	immediate = { set_country_flag = marauder_diplomacy_engaged }
@@ -12576,6 +12573,7 @@ country_event = {
 	diplomatic = yes
 	trigger = {
 		has_global_flag = great_khan_dead
+		is_ai = no
 		from = {
 			OR = {
 				is_country_type = awakened_marauders
@@ -12593,7 +12591,7 @@ country_event = {
 	}
 	option = {
 		name = marauder.665.a
-		default_hide_option = yes
+		# default_hide_option = yes
 	}
 }
 
@@ -12606,6 +12604,7 @@ country_event = {
 	show_sound = event_conversation
 	is_triggered_only = yes
 	trigger = {
+		merg_is_standard_empire = yes
 		NOT = { has_country_flag = marauder_diplomacy_engaged }
 	}
 	immediate = {
@@ -12638,7 +12637,7 @@ country_event = {
 			# To be sure (normally there should be nothing - used by khan.710)
 			limit = { exists = event_target:raider_khanate }
 			event_target:raider_khanate = {
-				every_owned_fleet = {
+				every_controlled_fleet = {
 					limit = {
 						OR = {
 							has_fleet_flag = satrapy_garrison
@@ -13214,7 +13213,7 @@ country_event = {
 			limit = {
 				NOR = {
 					has_global_flag = great_khan_dead
-					has_global_flag = khan_dead_event_fine
+					has_country_flag = khan_dead_event_fine
 				}
 			}
 			country_event = { id = marauder.514 days = 2 }

@@ -710,7 +710,7 @@ country_event = {
 	trigger = { has_country_flag = attacking_fleets_stopped }
 	immediate = {
 		remove_country_flag = attacking_fleets_stopped
-		every_owned_fleet = {
+		every_controlled_fleet = {
 			limit = {
 				is_mobile = yes
 				is_ship_class = shipclass_military
@@ -748,7 +748,7 @@ country_event = {
 	immediate = {
 		log = "Fix ongoing hostility"		# \\[This.GetName]
 		# Before we need to stop fleets attacking.
-		every_owned_fleet = {
+		every_controlled_fleet = {
 			limit = {
 				is_mobile = yes
 				is_in_combat = yes
@@ -779,7 +779,7 @@ country_event = {
 			}
 		}
 		from = {
-			every_owned_fleet = {
+			every_controlled_fleet = {
 				limit = {
 					is_mobile = yes
 					is_in_combat = yes
@@ -910,7 +910,7 @@ country_event = {
 					NOT = { has_country_flag = rebelling_satrapy }
 					is_hostile = prev
 				}
-				log = "Fix ongoing hostilityy"				# \\[This.GetName]
+				log = "Fix ongoing hostility for \\[This.GetName]"
 				prev = {
 					country_event = {
 						id = khan.308
@@ -1510,8 +1510,8 @@ system_event = {
 						ethos = { ethic = "ethic_militarist" }
 					}
 				}
-				set_controller = space_owner
-				set_owner = space_owner
+				set_controller = from # space_owner
+				# set_owner = space_owner
 				add_building = building_hab_major_capital				# 3 jobs
 				# add_building = building_foundry_1			# 2
 				# add_building = building_foundry_1			# 2
@@ -1538,32 +1538,42 @@ system_event = {
 				}
 				from = {
 					change_variable = { which = marauder_habitat_count value = -1 }
-					country_event = { id = khan.612 days = 480 }
-					# Build Habitats
+					country_event = { id = khan.612 days = 480 }		# Build Habitats
 				}
-				# start_colony = {
-				# 	owner = space_owner # from
-				# 	species = space_owner # from.species
-				# 	# ethos = random
-				# }
-				# TODO "Unexpected token: (everything after scope start_colony)
+				# TODO: Add negative modifier that needs to be removed with expensive decision?
+				start_colony = {
+					owner = from
+					species = from.species
+					# ethos = random
+				} # "Unexpected token:  (everything after scope start_colony)
 			}
 		}
-		# from = {			# Build Habitats
-		# 	random_planet_within_border = {
-		# 		limit = {
-		# 			OR = {
-		# 				uses_district_set = habitat
-		# 				uses_district_set = ring_world
-		# 			}
-		# 			is_colonizable = yes
-		# 		}
-		# 		start_colony = {
-		# 			owner = prev
-		# 			species = prev
-		# 			# ethos = owner
-		# 		}
-		# 	}
-		# }
+		# Unknown "Unexpected token: country_event, near line: 3543
+		from = {
+			random_planet_within_border = {
+				limit = {
+					is_colonizable = yes
+					habitability = {
+						who = this
+						value > 0.65
+					}
+				}
+				weights = {
+					base = 1
+					modifier = {
+						add = 3
+						OR = {
+							uses_district_set = habitat
+							uses_district_set = ring_world
+						}
+					}
+				}
+				start_colony = {
+					owner = prev
+					species = prev.species
+					# ethos = owner
+				}
+			}
+		}
 	}
 }

@@ -678,8 +678,7 @@ country_event = {
 	}
 	immediate = {
 		create_thalassocracy_country = yes
-		if = {
-			# Prioritise unoccupied systems
+		if = { # Prioritise unoccupied systems
 			limit = {
 				any_system = {
 					is_valid_crystal_splitter_system = yes
@@ -711,6 +710,7 @@ country_event = {
 				# Must be duplicated below, in the random_system effect.
 				any_system = {
 					has_owner = yes
+					exists = space_owner
 					num_planets_in_system > 1
 					NOR = {
 						is_pirate_system = yes
@@ -730,7 +730,8 @@ country_event = {
 			}
 			random_system = {
 				limit = {
-					has_owner = yes # exists = space_owner
+					has_owner = yes
+					exists = space_owner
 					num_planets_in_system > 1
 					NOR = {
 						is_pirate_system = yes
