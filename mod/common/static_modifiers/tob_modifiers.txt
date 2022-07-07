@@ -4,20 +4,20 @@ bulwark_ships_unlimited = {
 }
 
 bulwark_budget_repairs = {
-	ship_armor_regen_add_perc = 5
-	ship_shield_regen_add_perc = 5
-	ship_hull_regen_add_perc = 5
+	ship_armor_regen_add_perc = 2	# 5 v3.4
+	ship_shield_regen_add_perc = 2	# 5 v3.4
+	ship_hull_regen_add_perc = 2	# 5 v3.4
 }
 
 bulwark_core_station = {
-	ship_weapon_range_mult = 1.0
-	ship_fire_rate_mult = 1.0
-	ship_weapon_damage = 1.0
-	ship_accuracy_mult = 1.0
-	ship_armor_mult = 1.0
-	ship_shield_mult = 1.0
+	ship_weapon_range_mult = 1
+	ship_fire_rate_mult = 1
+	ship_weapon_damage = 1
+	ship_accuracy_mult = 1
+	ship_armor_mult = 1
+	ship_shield_mult = 1
 	ship_armor_regen_add_perc = 1
-	ship_hull_regen_add_perc = 2
+	ship_hull_regen_add_perc = 0.5	# 2 v3.4
 	ship_shield_regen_add_perc = 1
 }
 

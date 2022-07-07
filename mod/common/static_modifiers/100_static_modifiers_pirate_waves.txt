@@ -12,6 +12,19 @@ pirate_waves_station = {
 # Pirate Station levels
 ##########################################################################
 pirate_station_level_1 = {
+	ship_hull_mult = 0.25
+	ship_shield_mult = 0.25
+	ship_armor_mult = 0.25
+	ship_hull_regen_add_perc = 0.05
+	ship_armor_regen_add_perc = 0.05
+	ship_shield_regen_add_perc = 0.05
+	ship_weapon_damage = 0.25
+	ship_fire_rate_mult = 0.25
+	ship_weapon_range_mult = 0.05
+	ship_tracking_add = 0.5
+}
+
+pirate_station_level_2 = {
 	ship_hull_mult = 0.5
 	ship_shield_mult = 0.5
 	ship_armor_mult = 0.5
@@ -24,7 +37,7 @@ pirate_station_level_1 = {
 	ship_tracking_add = 1
 }
 
-pirate_station_level_2 = {
+pirate_station_level_3 = {
 	ship_hull_mult = 1
 	ship_shield_mult = 1
 	ship_armor_mult = 1
@@ -37,7 +50,7 @@ pirate_station_level_2 = {
 	ship_tracking_add = 2
 }
 
-pirate_station_level_3 = {
+pirate_station_level_4 = {
 	ship_hull_mult = 1.5
 	ship_shield_mult = 1.5
 	ship_armor_mult = 1.5
@@ -50,7 +63,7 @@ pirate_station_level_3 = {
 	ship_tracking_add = 3
 }
 
-pirate_station_level_4 = {
+pirate_station_level_5 = {
 	ship_hull_mult = 2
 	ship_shield_mult = 2
 	ship_armor_mult = 2
@@ -63,7 +76,7 @@ pirate_station_level_4 = {
 	ship_tracking_add = 4
 }
 
-pirate_station_level_5 = {
+pirate_station_level_6 = {
 	ship_hull_mult = 2.5
 	ship_shield_mult = 2.5
 	ship_armor_mult = 2.5
@@ -76,7 +89,7 @@ pirate_station_level_5 = {
 	ship_tracking_add = 5
 }
 
-pirate_station_level_6 = {
+pirate_station_level_7 = {
 	ship_hull_mult = 3
 	ship_shield_mult = 3
 	ship_armor_mult = 3
@@ -89,7 +102,7 @@ pirate_station_level_6 = {
 	ship_tracking_add = 6
 }
 
-pirate_station_level_7 = {
+pirate_station_level_8 = {
 	ship_hull_mult = 3.5
 	ship_shield_mult = 3.5
 	ship_armor_mult = 3.5
@@ -102,7 +115,7 @@ pirate_station_level_7 = {
 	ship_tracking_add = 7
 }
 
-pirate_station_level_8 = {
+pirate_station_level_9 = {
 	ship_hull_mult = 4
 	ship_shield_mult = 4
 	ship_armor_mult = 4
@@ -115,7 +128,7 @@ pirate_station_level_8 = {
 	ship_tracking_add = 8
 }
 
-pirate_station_level_9 = {
+pirate_station_level_10 = {
 	ship_hull_mult = 4.5
 	ship_shield_mult = 4.5
 	ship_armor_mult = 4.5
@@ -128,7 +141,7 @@ pirate_station_level_9 = {
 	ship_tracking_add = 9
 }
 
-pirate_station_level_10 = {
+pirate_station_level_11 = {
 	ship_hull_mult = 5
 	ship_shield_mult = 5
 	ship_armor_mult = 5
@@ -141,7 +154,7 @@ pirate_station_level_10 = {
 	ship_tracking_add = 10
 }
 
-pirate_station_level_11 = {
+pirate_station_level_12 = {
 	ship_hull_mult = 5.5
 	ship_shield_mult = 5.5
 	ship_armor_mult = 5.5
@@ -154,7 +167,7 @@ pirate_station_level_11 = {
 	ship_tracking_add = 11
 }
 
-pirate_station_level_12 = {
+pirate_station_level_13 = {
 	ship_hull_mult = 6
 	ship_shield_mult = 6
 	ship_armor_mult = 6
@@ -167,7 +180,7 @@ pirate_station_level_12 = {
 	ship_tracking_add = 12
 }
 
-pirate_station_level_13 = {
+pirate_station_level_14 = {
 	ship_hull_mult = 6.5
 	ship_shield_mult = 6.5
 	ship_armor_mult = 6.5
@@ -180,7 +193,7 @@ pirate_station_level_13 = {
 	ship_tracking_add = 13
 }
 
-pirate_station_level_14 = {
+pirate_station_level_15 = {
 	ship_hull_mult = 7
 	ship_shield_mult = 7
 	ship_armor_mult = 7
@@ -193,7 +206,7 @@ pirate_station_level_14 = {
 	ship_tracking_add = 14
 }
 
-pirate_station_level_15 = {
+pirate_station_level_16 = {
 	ship_hull_mult = 7.5
 	ship_shield_mult = 7.5
 	ship_armor_mult = 7.5
@@ -206,7 +219,7 @@ pirate_station_level_15 = {
 	ship_tracking_add = 15
 }
 
-pirate_station_level_16 = {
+pirate_station_level_17 = {
 	ship_hull_mult = 8
 	ship_shield_mult = 8
 	ship_armor_mult = 8
@@ -219,7 +232,7 @@ pirate_station_level_16 = {
 	ship_tracking_add = 16
 }
 
-pirate_station_level_17 = {
+pirate_station_level_18 = {
 	ship_hull_mult = 8.5
 	ship_shield_mult = 8.5
 	ship_armor_mult = 8.5
@@ -232,7 +245,7 @@ pirate_station_level_17 = {
 	ship_tracking_add = 17
 }
 
-pirate_station_level_18 = {
+pirate_station_level_19 = {
 	ship_hull_mult = 9
 	ship_shield_mult = 9
 	ship_armor_mult = 9
@@ -245,7 +258,7 @@ pirate_station_level_18 = {
 	ship_tracking_add = 18
 }
 
-pirate_station_level_19 = {
+pirate_station_level_20 = {
 	ship_hull_mult = 9.5
 	ship_shield_mult = 9.5
 	ship_armor_mult = 9.5
@@ -258,7 +271,7 @@ pirate_station_level_19 = {
 	ship_tracking_add = 19
 }
 
-pirate_station_level_20 = {
+pirate_station_level_21 = {
 	ship_hull_mult = 10
 	ship_shield_mult = 10
 	ship_armor_mult = 10

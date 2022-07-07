@@ -1,10 +1,12 @@
 outer_bulwarks = {
 	attack_unarmed_orbital_stations = yes
 	scaled_difficulty_bonuses = 0.5	# Scales to setting
+	blocks_piracy = no
 	destroys_starbases = yes
 	show_in_contacts_list = yes
 	minimalist_contacts_list_profile = yes
 	share_survey_data = no
+	piracy_risk = yes
 	custom_diplomacy = yes
 	enforces_borders = no
 	needs_survey = no

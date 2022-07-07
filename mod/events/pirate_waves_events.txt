@@ -967,8 +967,8 @@ planet_event = {
 							5 = { modifier = { factor = 0 OR = { years_passed < 265	years_passed > 315 } } add_modifier = { modifier = pirate_station_level_17 } }
 							5 = { modifier = { factor = 0 OR = { years_passed < 280	years_passed > 330 } } add_modifier = { modifier = pirate_station_level_18 } }
 							5 = { modifier = { factor = 0 OR = { years_passed < 295	years_passed > 345 } } add_modifier = { modifier = pirate_station_level_19 } }
-							# 5 = { modifier = { factor = 0 OR = { years_passed < 310	years_passed > 360 } } add_modifier = { modifier = pirate_station_level_ } }
-							5 = { modifier = { factor = 0 years_passed < 330 } add_modifier = { modifier = pirate_station_level_20 } }
+							5 = { modifier = { factor = 0 OR = { years_passed < 315	years_passed > 370 } } add_modifier = { modifier = pirate_station_level_20 } }
+							5 = { modifier = { factor = 0 years_passed < 360 } add_modifier = { modifier = pirate_station_level_21 } }
 						}
 					}
 					set_location = root

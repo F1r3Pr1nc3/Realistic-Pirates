@@ -12,13 +12,14 @@ leader_trait_bulwark_numbers = {
 	randomized = no
 }
 
+
 leader_trait_bulwark_default = {
 	cost = 1
 	icon = "gfx/interface/icons/traits/leader_traits/leader_trait_ship.dds"
 	modifier = {
-		ship_armor_regen_add_perc = 5
-		ship_hull_regen_add_perc = 5
-		ship_shield_regen_add_perc = 5
+		ship_armor_regen_add_perc = 1	# 5 v3.4
+		ship_hull_regen_add_perc = 1	# 5 v3.4
+		ship_shield_regen_add_perc = 1	# 5 v3.4
 		ship_ftl_jumpdrive_range_mult = 0.2
 		ship_interstellar_speed_mult = 0.5
 		ship_winddown_mult = -0.5
