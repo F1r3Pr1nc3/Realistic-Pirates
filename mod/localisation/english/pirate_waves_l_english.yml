@@ -157,3 +157,9 @@
  marauder_defense_army: "$occupation_army$"
  marauder_defense_army_plural: "$occupation_army_plural$"
  marauder_defense_army_desc: "$defense_army_desc$"
+
+ marauder.31.k:0 "§YThe [raid_target_5.GetName].§!"
+ marauder.31.g:0 "§YThe [raid_target_6.GetName].§!"
+ marauder.31.h:0 "§YThe [raid_target_7.GetName].§!"
+ marauder.31.i:0 "§YThe [raid_target_8.GetName].§!"
+ marauder.31.j:0 "§YThe [raid_target_9.GetName].§!"

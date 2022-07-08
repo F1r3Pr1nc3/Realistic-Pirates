@@ -405,7 +405,11 @@ planet_event = {
 		}
 		set_planet_flag = pirate_invasion
 	}
-	after = { clear_variable = num_armies_var }
+	after = {
+		if = { limit = { is_variable_set = num_armies_var }
+			clear_variable = num_armies_var
+		}
+	}
 	option = {
 		name = pirate_republic.11.option
 		hidden_effect = {
