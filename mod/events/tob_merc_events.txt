@@ -357,71 +357,54 @@ country_event = {
 	option = {
 		name = tob_merc.4.a
 		trigger = {
-			NOT = {
-				from = { has_country_flag = bulwark_merc_fleet_hired }
-			}
+			NOT = { from = { has_country_flag = bulwark_merc_fleet_hired } }
 		}
 		allow = {
 			resource_stockpile_compare = { resource = energy value > 5000 }
 			hidden_trigger = {
-				NOT = {
-					from = { has_country_flag = bulwark_merc_fleet_hired }
-				}
+				NOT = { from = { has_country_flag = bulwark_merc_fleet_hired } }
 			}
 		}
 		set_timed_country_flag = { flag = bulwark_mercs_hired_safeguard days = 3 }
 		add_resource = { energy = -5000 }
 		custom_tooltip = bulwark_mercenaries_hire_low
 		hidden_effect = {
-			if = {
-				limit = {
-					from = { has_country_flag = bulwark_numbers }
-				}
-				random_playable_country = {
-					limit = { has_country_flag = bulwark_mercs_hired_safeguard }
-					save_event_target_as = receiving_bulwark_numbers_fleet
-				}
-			} else_if = {
-				limit = {
-					from = { has_country_flag = bulwark_techies }
-				}
-				random_playable_country = {
-					limit = { has_country_flag = bulwark_mercs_hired_safeguard }
-					save_event_target_as = receiving_bulwark_techies_fleet
-				}
-			} else_if = {
-				limit = {
-					from = { has_country_flag = bulwark_monsters }
-				}
-				random_playable_country = {
-					limit = { has_country_flag = bulwark_mercs_hired_safeguard }
-					save_event_target_as = receiving_bulwark_monsters_fleet
-				}
-			}
+			# WTF ?
+			# random_playable_country = {
+			# 	limit = { has_country_flag = bulwark_mercs_hired_safeguard }
+			# 	save_event_target_as = receiving_bulwark_fleet
+			# }
 			from = {
 				set_country_flag = bulwark_merc_fleet_hired
 				change_variable = { which = bulwarkbudget value = 250 }
-				if = {
-					limit = { has_country_flag = bulwark_numbers }
-					random_owned_fleet = {
-						limit = { has_fleet_flag = bulwark_numbers_mercfleet }
-						set_owner = event_target:receiving_bulwark_numbers_fleet
-						fleet_event = { id = tob_merc.5 days = 1800 }
-					}
-				} else_if = {
-					limit = { has_country_flag = bulwark_techies }
-					random_owned_fleet = {
-						limit = { has_fleet_flag = bulwark_techies_mercfleet }
-						set_owner = event_target:receiving_bulwark_techies_fleet
-						fleet_event = { id = tob_merc.5 days = 1800 }
-					}
-				} else_if = {
-					limit = { has_country_flag = bulwark_monsters }
-					random_owned_fleet = {
-						limit = { has_fleet_flag = bulwark_monsters_mercfleet }
-						set_owner = event_target:receiving_bulwark_monsters_fleet
-						fleet_event = { id = tob_merc.5 days = 1800 }
-					}
+				# switch = {
+				# 	trigger = has_country_flag
+				# 	bulwark_numbers =	{
+				# 		random_owned_fleet = {
+				# 			limit = { has_fleet_flag = bulwark_numbers_mercfleet }
+				# 			give_fleet = { controller = root days = 1800 } # set_owner = root
+				# 			fleet_event = { id = tob_merc.5 days = 1800 }
+				# 		}
+				# 	 }
+				# 	bulwark_techies =	{
+				# 		random_owned_fleet = {
+				# 			limit = { has_fleet_flag = bulwark_techies_mercfleet }
+				# 			give_fleet = { controller = root days = 1800 } # set_owner = root
+				# 			fleet_event = { id = tob_merc.5 days = 1800 }
+				# 		}
+				# 	 }
+				# 	bulwark_monsters =	{
+				# 		random_owned_fleet = {
+				# 			limit = { has_fleet_flag = bulwark_monsters_mercfleet }
+				# 			give_fleet = { controller = root days = 1800 } # set_owner = root
+				# 			fleet_event = { id = tob_merc.5 days = 1800 }
+				# 		}
+				# 	 }
+				# }
+				random_owned_fleet = {
+					limit = { has_fleet_flag = bulwark_mercenary_fleet }
+					give_fleet = { controller = root days = 1805 } # set_owner = root
+					fleet_event = { id = tob_merc.5 days = 1800 }
 				}
 			}
 		}
@@ -430,71 +413,49 @@ country_event = {
 	option = {
 		name = tob_merc.4.b
 		trigger = {
-			NOT = {
-				from = { has_country_flag = bulwark_merc_fleet_hired }
-			}
+			NOT = { from = { has_country_flag = bulwark_merc_fleet_hired } }
 		}
 		allow = {
 			resource_stockpile_compare = { resource = energy value > 10000 }
 			hidden_trigger = {
-				NOT = {
-					from = { has_country_flag = bulwark_merc_fleet_hired }
-				}
+				NOT = { from = { has_country_flag = bulwark_merc_fleet_hired } }
 			}
 		}
 		set_timed_country_flag = { flag = bulwark_mercs_hired_safeguard days = 3 }
 		add_resource = { energy = -10000 }
 		custom_tooltip = bulwark_mercenaries_hire_low
 		hidden_effect = {
-			if = {
-				limit = {
-					from = { has_country_flag = bulwark_numbers }
-				}
-				random_playable_country = {
-					limit = { has_country_flag = bulwark_mercs_hired_safeguard }
-					save_event_target_as = receiving_bulwark_numbers_fleet
-				}
-			} else_if = {
-				limit = {
-					from = { has_country_flag = bulwark_techies }
-				}
-				random_playable_country = {
-					limit = { has_country_flag = bulwark_mercs_hired_safeguard }
-					save_event_target_as = receiving_bulwark_techies_fleet
-				}
-			} else_if = {
-				limit = {
-					from = { has_country_flag = bulwark_monsters }
-				}
-				random_playable_country = {
-					limit = { has_country_flag = bulwark_mercs_hired_safeguard }
-					save_event_target_as = receiving_bulwark_monsters_fleet
-				}
-			}
 			from = {
 				set_country_flag = bulwark_merc_fleet_hired
 				change_variable = { which = bulwarkbudget value = 500 }
-				if = {
-					limit = { has_country_flag = bulwark_numbers }
-					random_owned_fleet = {
-						limit = { has_fleet_flag = bulwark_numbers_mercfleet }
-						set_owner = event_target:receiving_bulwark_numbers_fleet
-						fleet_event = { id = tob_merc.5 days = 3600 }
-					}
-				} else_if = {
-					limit = { has_country_flag = bulwark_techies }
-					random_owned_fleet = {
-						limit = { has_fleet_flag = bulwark_techies_mercfleet }
-						set_owner = event_target:receiving_bulwark_techies_fleet
-						fleet_event = { id = tob_merc.5 days = 3600 }
-					}
-				} else_if = {
-					limit = { has_country_flag = bulwark_monsters }
-					random_owned_fleet = {
-						limit = { has_fleet_flag = bulwark_monsters_mercfleet }
-						set_owner = event_target:receiving_bulwark_monsters_fleet
-						fleet_event = { id = tob_merc.5 days = 3600 }
-					}
+				# switch = {
+				# 	trigger = has_country_flag
+				# 	bulwark_numbers =	{
+				# 		random_owned_fleet = {
+				# 			limit = { has_fleet_flag = bulwark_numbers_mercfleet }
+				# 			give_fleet = { controller = root days = 3600 } # set_owner = root
+				# 			fleet_event = { id = tob_merc.5 days = 3600 }
+				# 		}
+				# 	 }
+				# 	bulwark_techies =	{
+				# 		random_owned_fleet = {
+				# 			limit = { has_fleet_flag = bulwark_techies_mercfleet }
+				# 			give_fleet = { controller = root days = 3600 } # set_owner = root
+				# 			fleet_event = { id = tob_merc.5 days = 3600 }
+				# 		}
+				# 	 }
+				# 	bulwark_monsters =	{
+				# 		random_owned_fleet = {
+				# 			limit = { has_fleet_flag = bulwark_monsters_mercfleet }
+				# 			give_fleet = { controller = root days = 3600 } # set_owner = root
+				# 			fleet_event = { id = tob_merc.5 days = 3600 }
+				# 		}
+				# 	 }
+				# }
+				random_owned_fleet = {
+					limit = { has_fleet_flag = bulwark_mercenary_fleet }
+					give_fleet = { controller = root days = 3605 } # set_owner = root
+					fleet_event = { id = tob_merc.5 days = 3600 }
 				}
 			}
 		}
@@ -503,71 +464,49 @@ country_event = {
 	option = {
 		name = tob_merc.4.c
 		trigger = {
-			NOT = {
-				from = { has_country_flag = bulwark_merc_fleet_hired }
-			}
+			NOT = { from = { has_country_flag = bulwark_merc_fleet_hired } }
 		}
 		allow = {
 			resource_stockpile_compare = { resource = energy value > 20000 }
 			hidden_trigger = {
-				NOT = {
-					from = { has_country_flag = bulwark_merc_fleet_hired }
-				}
+				NOT = { from = { has_country_flag = bulwark_merc_fleet_hired } }
 			}
 		}
 		set_timed_country_flag = { flag = bulwark_mercs_hired_safeguard days = 3 }
 		add_resource = { energy = -20000 }
 		custom_tooltip = bulwark_mercenaries_hire_low
 		hidden_effect = {
-			if = {
-				limit = {
-					from = { has_country_flag = bulwark_numbers }
-				}
-				random_playable_country = {
-					limit = { has_country_flag = bulwark_mercs_hired_safeguard }
-					save_event_target_as = receiving_bulwark_numbers_fleet
-				}
-			} else_if = {
-				limit = {
-					from = { has_country_flag = bulwark_techies }
-				}
-				random_playable_country = {
-					limit = { has_country_flag = bulwark_mercs_hired_safeguard }
-					save_event_target_as = receiving_bulwark_techies_fleet
-				}
-			} else_if = {
-				limit = {
-					from = { has_country_flag = bulwark_monsters }
-				}
-				random_playable_country = {
-					limit = { has_country_flag = bulwark_mercs_hired_safeguard }
-					save_event_target_as = receiving_bulwark_monsters_fleet
-				}
-			}
 			from = {
 				set_country_flag = bulwark_merc_fleet_hired
 				change_variable = { which = bulwarkbudget value = 1000 }
-				if = {
-					limit = { has_country_flag = bulwark_numbers }
-					random_owned_fleet = {
-						limit = { has_fleet_flag = bulwark_numbers_mercfleet }
-						set_owner = event_target:receiving_bulwark_numbers_fleet
-						fleet_event = { id = tob_merc.5 days = 7200 }
-					}
-				} else_if = {
-					limit = { has_country_flag = bulwark_techies }
-					random_owned_fleet = {
-						limit = { has_fleet_flag = bulwark_techies_mercfleet }
-						set_owner = event_target:receiving_bulwark_techies_fleet
-						fleet_event = { id = tob_merc.5 days = 7200 }
-					}
-				} else_if = {
-					limit = { has_country_flag = bulwark_monsters }
-					random_owned_fleet = {
-						limit = { has_fleet_flag = bulwark_monsters_mercfleet }
-						set_owner = event_target:receiving_bulwark_monsters_fleet
-						fleet_event = { id = tob_merc.5 days = 7200 }
-					}
+				# switch = {
+				# 	trigger = has_country_flag
+				# 	bulwark_numbers =	{
+				# 		random_owned_fleet = {
+				# 			limit = { has_fleet_flag = bulwark_numbers_mercfleet }
+				# 			give_fleet = { controller = root days = 7200 } # set_owner = root
+				# 			fleet_event = { id = tob_merc.5 days = 7200 }
+				# 		}
+				# 	 }
+				# 	bulwark_techies =	{
+				# 		random_owned_fleet = {
+				# 			limit = { has_fleet_flag = bulwark_techies_mercfleet }
+				# 			give_fleet = { controller = root days = 7200 } # set_owner = root
+				# 			fleet_event = { id = tob_merc.5 days = 7200 }
+				# 		}
+				# 	 }
+				# 	bulwark_monsters =	{
+				# 		random_owned_fleet = {
+				# 			limit = { has_fleet_flag = bulwark_monsters_mercfleet }
+				# 			give_fleet = { controller = root days = 7200 } # set_owner = root
+				# 			fleet_event = { id = tob_merc.5 days = 7200 }
+				# 		}
+				# 	 }
+				# }
+				random_owned_fleet = {
+					limit = { has_fleet_flag = bulwark_mercenary_fleet }
+					give_fleet = { controller = root days = 7205 } # set_owner = root
+					fleet_event = { id = tob_merc.5 days = 7200 }
 				}
 			}
 		}
@@ -588,6 +527,7 @@ fleet_event = {
 	location = this
 	is_triggered_only = yes
 	trigger = {
+		is_leased = yes
 		any_country = {
 			has_country_flag = bulwark_merc_fleet_hired
 			is_country_type = outer_bulwarks
@@ -615,7 +555,7 @@ fleet_event = {
 		# Extend contract 1
 		name = tob_merc.5.a
 		allow = {
-			owner = {
+			controller = {
 				resource_stockpile_compare = { resource = energy value > 5000 }
 				NOT = { has_country_flag = bulwark_has_been_betrayed_by_us }
 			}
@@ -627,11 +567,10 @@ fleet_event = {
 			# 	has_fleet_flag = bulwark_techies_mercfleet
 			# 	has_fleet_flag = bulwark_monsters_mercfleet
 			# }
-			NOT = {
-				owner = { has_country_flag = bulwark_has_been_betrayed_by_us }
-			}
+			exists = controller
+			NOT = { controller = { has_country_flag = bulwark_has_been_betrayed_by_us } }
 		}
-		owner = {
+		controller = {
 			add_resource = { energy = -5000 }
 		}
 		if = {
@@ -654,6 +593,7 @@ fleet_event = {
 			}
 		}
 		hidden_effect = {
+			give_fleet = { controller = controller days = 1805 }
 			fleet_event = { id = tob_merc.5 days = 1800 }
 			set_event_locked = no
 		}
@@ -662,7 +602,7 @@ fleet_event = {
 		# Extend contract 2
 		name = tob_merc.5.b
 		allow = {
-			owner = {
+			controller = {
 				resource_stockpile_compare = { resource = energy value > 5000 }
 				NOT = { has_country_flag = bulwark_has_been_betrayed_by_us }
 			}
@@ -674,9 +614,8 @@ fleet_event = {
 			# 	has_fleet_flag = bulwark_techies_mercfleet
 			# 	has_fleet_flag = bulwark_monsters_mercfleet
 			# }
-			NOT = {
-				owner = { has_country_flag = bulwark_has_been_betrayed_by_us }
-			}
+			exists = controller
+			NOT = { controller = { has_country_flag = bulwark_has_been_betrayed_by_us } }
 		}
 		owner = {
 			add_resource = { energy = -10000 }
@@ -701,6 +640,7 @@ fleet_event = {
 			}
 		}
 		hidden_effect = {
+			give_fleet = { controller = controller days = 3605 }
 			fleet_event = { id = tob_merc.5 days = 3600 }
 			set_event_locked = no
 		}
@@ -709,7 +649,7 @@ fleet_event = {
 		# Extend contract 3
 		name = tob_merc.5.c
 		allow = {
-			owner = {
+			controller = {
 				resource_stockpile_compare = { resource = energy value > 5000 }
 				NOT = { has_country_flag = bulwark_has_been_betrayed_by_us }
 			}
@@ -721,11 +661,10 @@ fleet_event = {
 			# 	has_fleet_flag = bulwark_techies_mercfleet
 			# 	has_fleet_flag = bulwark_monsters_mercfleet
 			# }
-			NOT = {
-				owner = { has_country_flag = bulwark_has_been_betrayed_by_us }
-			}
+			exists = controller
+			NOT = { controller = { has_country_flag = bulwark_has_been_betrayed_by_us } }
 		}
-		owner = {
+		controller = {
 			add_resource = { energy = -20000 }
 		}
 		if = {
@@ -748,6 +687,7 @@ fleet_event = {
 			}
 		}
 		hidden_effect = {
+			give_fleet = { controller = controller days = 7205 }
 			fleet_event = { id = tob_merc.5 days = 7200 }
 			set_event_locked = no
 		}
@@ -761,67 +701,61 @@ fleet_event = {
 			if = {
 				limit = { has_fleet_flag = bulwark_numbers_mercfleet }
 				event_target:tob_supremacist_faction = { remove_country_flag = bulwark_merc_fleet_hired }
-				root = {
-					set_owner = event_target:tob_supremacist_faction
-					queue_actions = {
-						find_random_system = {
-							trigger = {
-								id = "tob_merc_return.1"
-								has_star_flag = tob_supremacists
-							}
-							found_system = { move_to = this }
+				set_owner = event_target:tob_supremacist_faction
+				queue_actions = {
+					find_random_system = {
+						trigger = {
+							id = "tob_merc_return.1"
+							has_star_flag = tob_supremacists
 						}
-						find_closest_planet = {
-							trigger = {
-								id = tob_merc_return.2
-								is_star = yes
-							}
-							found_planet = { orbit_planet = this }
+						found_system = { move_to = this }
+					}
+					find_closest_planet = {
+						trigger = {
+							id = tob_merc_return.2
+							is_star = yes
 						}
+						found_planet = { orbit_planet = this }
 					}
 				}
 			} else_if = {
 				limit = { has_fleet_flag = bulwark_techies_mercfleet }
 				event_target:tob_technologist_faction = { remove_country_flag = bulwark_merc_fleet_hired }
-				root = {
-					set_owner = event_target:tob_technologist_faction
-					queue_actions = {
-						find_random_system = {
-							trigger = {
-								id = "tob_merc_return.3"
-								has_star_flag = tob_technologists
-							}
-							found_system = { move_to = this }
+				set_owner = event_target:tob_technologist_faction
+				queue_actions = {
+					find_random_system = {
+						trigger = {
+							id = "tob_merc_return.3"
+							has_star_flag = tob_technologists
 						}
-						find_closest_planet = {
-							trigger = {
-								id = tob_merc_return.4
-								is_star = yes
-							}
-							found_planet = { orbit_planet = this }
+						found_system = { move_to = this }
+					}
+					find_closest_planet = {
+						trigger = {
+							id = tob_merc_return.4
+							is_star = yes
 						}
+						found_planet = { orbit_planet = this }
 					}
 				}
 			} else_if = {
 				limit = { has_fleet_flag = bulwark_monsters_mercfleet }
 				event_target:tob_tamer_faction = { remove_country_flag = bulwark_merc_fleet_hired }
-				root = {
-					set_owner = event_target:tob_tamer_faction
-					queue_actions = {
-						find_random_system = {
-							trigger = {
-								id = "tob_merc_return.5"
-								has_star_flag = tob_tamers
-							}
-							found_system = { move_to = this }
+				set_owner = event_target:tob_tamer_faction
+				queue_actions = {
+					find_random_system = {
+						trigger = {
+							id = "tob_merc_return.5"
+							has_star_flag = tob_tamers
 						}
-						find_closest_planet = {
-							trigger = {
-								id = tob_merc_return.6
-								is_star = yes
-							}
-							found_planet = { orbit_planet = this }
+						found_system = { move_to = this }
+					}
+					find_closest_planet = {
+						trigger = {
+							id = tob_merc_return.6
+							is_star = yes
 						}
+						found_planet = { orbit_planet = this }
 					}
 				}
 			}

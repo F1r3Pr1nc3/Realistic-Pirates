@@ -20,7 +20,7 @@ supremacists_home = {
 		modifier = { factor = 0 is_bottleneck_system = yes }
 	}
 	spawn_chance = 0
-	flags = { tob_system tob_supremacists }
+	flags = { tob_system tob_supremacists marauder_system }
 	planet = {
 		class = star
 		orbit_distance = 0
@@ -30,7 +30,7 @@ supremacists_home = {
 		init_effect = {
 			create_species = {
 				name = random
-				class = random
+				class = random_non_machine
 				blocked_archetypes = { MACHINE ROBOT LITHOID }
 				portrait = random
 				traits = {
@@ -597,7 +597,7 @@ technologists_home = {
 		modifier = { factor = 0 is_bottleneck_system = yes }
 	}
 	spawn_chance = 0
-	flags = { tob_system tob_technologists }
+	flags = { tob_system tob_technologists marauder_system }
 	planet = {
 		class = star
 		orbit_distance = 0
@@ -607,7 +607,7 @@ technologists_home = {
 		init_effect = {
 			create_species = {
 				name = random
-				class = random
+				class = random_non_machine
 				blocked_archetypes = { MACHINE ROBOT LITHOID }
 				portrait = random
 				traits = {
@@ -1216,7 +1216,7 @@ tamers_home = {
 		modifier = { factor = 0 is_bottleneck_system = yes }
 	}
 	spawn_chance = 0
-	flags = { tob_system tob_tamers }
+	flags = { tob_system tob_tamers marauder_system }
 	planet = {
 		class = star
 		orbit_distance = 0
@@ -1226,7 +1226,7 @@ tamers_home = {
 		init_effect = {
 			create_species = {
 				name = random
-				class = random
+				class = random_non_machine
 				blocked_archetypes = { MACHINE ROBOT LITHOID }
 				portrait = random
 				traits = {

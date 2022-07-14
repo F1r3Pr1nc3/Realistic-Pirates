@@ -133,37 +133,40 @@ country_event = {
 	location = event_target:marauder_system
 	is_triggered_only = yes
 	immediate = {
-		from = { save_event_target_as = encountered_marauder }
-		if = {
-			limit = {
-				from = { has_country_flag = marauder_1 }
-			}
-			random_system = {
-				limit = { has_star_flag = marauder_capital_1 }
-				save_event_target_as = marauder_system
-			}
-		} else_if = {
-			limit = {
-				from = { has_country_flag = marauder_2 }
-			}
-			random_system = {
-				limit = { has_star_flag = marauder_capital_2 }
-				save_event_target_as = marauder_system
-			}
-		} else_if = {
-			limit = {
-				from = { has_country_flag = marauder_3 }
-			}
-			random_system = {
-				limit = { has_star_flag = marauder_capital_3 }
-				save_event_target_as = marauder_system
-			}
+		from = {
+			save_event_target_as = encountered_marauder
+			get_marauder_raid_source = yes
 		}
+		# if = {
+		# 	limit = {
+		# 		from = { has_country_flag = marauder_1 }
+		# 	}
+		# 	random_system = {
+		# 		limit = { has_star_flag = marauder_capital_1 }
+		# 		save_event_target_as = marauder_system
+		# 	}
+		# } else_if = {
+		# 	limit = {
+		# 		from = { has_country_flag = marauder_2 }
+		# 	}
+		# 	random_system = {
+		# 		limit = { has_star_flag = marauder_capital_2 }
+		# 		save_event_target_as = marauder_system
+		# 	}
+		# } else_if = {
+		# 	limit = {
+		# 		from = { has_country_flag = marauder_3 }
+		# 	}
+		# 	random_system = {
+		# 		limit = { has_star_flag = marauder_capital_3 }
+		# 		save_event_target_as = marauder_system
+		# 	}
+		# }
 	}
 	option = {
 		name = marauder.1.a
 		hidden_effect = {
-			country_event = { id = marauder.15 }
+			country_event = { id = marauder.15 scopes = { from = event_target:encountered_marauder } }
 		}
 	}
 }
@@ -2908,6 +2911,7 @@ country_event = {
 					}
 				}
 				set_country_flag = raid_ongoing
+				set_faction_hostility = { set_neutral = yes }
 				make_moderately_hostile = yes
 			}
 		}
@@ -7860,7 +7864,10 @@ country_event = {
 	hide_window = yes
 	# is_triggered_only = yes
 	trigger = {
-		num_marauder_empires_to_spawn > 0
+		OR = {
+			num_marauder_empires_to_spawn > 0
+			event_target:global_event_country = { has_country_flag = outer_bulwark_inactive }
+		}
 		# is_crises_allowed = yes
 		OR = {
 			AND = {
@@ -12172,36 +12179,7 @@ country_event = {
 			name = "NAME_Salvaged_Fleet"
 			effect = {
 				set_owner = root
-				while = {
-					count = 6
-					create_ship = {
-						name = "NAME_Outrider"
-						prefix = no
-						# design = "NAME_Outrider"
-						design = "NAME_Skull"
-						graphical_culture = "madd_01"
-					}
-				}
-				while = {
-					count = 3
-					create_ship = {
-						name = "NAME_Lancer"
-						prefix = no
-						# design = "NAME_Lancer"
-						design = "NAME_Corsair"
-						graphical_culture = "madd_01"
-					}
-				}
-				while = {
-					count = 2
-					create_ship = {
-						name = "NAME_Void_Champion"
-						prefix = no
-						# design = "NAME_Void_Champion"
-						design = "NAME_Black_Earl"
-						graphical_culture = "madd_01"
-					}
-				}
+				create_dyn_pirate_fleet = { Skull = 6 Corsair = 3 Black_Earl = 2 }
 				set_location = root.capital_scope
 			}
 		}

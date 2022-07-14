@@ -325,6 +325,20 @@ country_event = {
 			every_country = {
 				limit = { is_country_type = outer_bulwarks }
 				set_country_type = dormant_marauders
+				switch = { trigger = has_country_flag
+					bulwark_numbers = { set_country_flag = marauder_1 }
+					bulwark_techies = { set_country_flag = marauder_2 }
+					bulwark_monsters = { set_country_flag = marauder_3 }
+				}
+				random_system_within_border = {
+					limit = { has_star_flag = tob_system }
+					set_star_flag = marauder_system
+					switch = { trigger = has_star_flag
+						tob_supremacists = { set_star_flag = marauder_capital_1 }
+						tob_technologists = { set_star_flag = marauder_capital_2 }
+						tob_tamers = { set_star_flag = marauder_capital_3 }
+					}
+				}
 			}
 			country_event = { id = pirate_waves.0 }
 		}
@@ -436,6 +450,14 @@ country_event = {
 					}
 				}
 				set_country_type = outer_bulwarks
+				random_system_within_border = {
+					limit = { has_star_flag = tob_system }
+					switch = { trigger = has_star_flag
+						marauder_capital_1 = { remove_star_flag = marauder_capital_1 }
+						marauder_capital_2 = { remove_star_flag = marauder_capital_2 }
+						marauder_capital_3 = { remove_star_flag = marauder_capital_3 }
+					}
+				}
 			}
 			country_event = { id = pirate_waves.0 }
 		}
@@ -1717,7 +1739,14 @@ country_event = {
 	trigger = {
 		NOT = { has_global_flag = pirate_waves_notifications_disabled }
 	}
-	option = { name = pirate.50.a }
+	option = { name = "pirate.50.a" }
+	option = {
+		name = "CLOSE_DONT_SHOW_AGAIN"
+		trigger = { NOT = { has_global_flag = pirate_waves_notifications_disabled } }
+		hidden_effect = {
+			set_global_flag = pirate_waves_notifications_disabled
+		}
+	}
 }
 
 #########################################
@@ -2173,7 +2202,7 @@ event = {
 					set_country_flag = marauder_3
 					save_global_event_target_as = marauder_country_3
 					shift_ethic = ethic_fanatic_spiritualist
-					event_target:marauder_capital.solar_system = { set_star_flag = marauder_capital_3 }
+					event_target:marauder_capital.solar_system = { set_star_flag = marauder_capital_3 set_star_flag = marauder_system }
 				} else_if = {
 					limit = {
 						NOR = {
@@ -2186,7 +2215,7 @@ event = {
 					}
 					set_country_flag = marauder_2
 					save_global_event_target_as = marauder_country_2
-					event_target:marauder_capital.solar_system = { set_star_flag = marauder_capital_2 }
+					event_target:marauder_capital.solar_system = { set_star_flag = marauder_capital_2 set_star_flag = marauder_system }
 				} else_if = {
 					limit = {
 						NOR = {
@@ -2199,7 +2228,7 @@ event = {
 					}
 					set_country_flag = marauder_1
 					save_global_event_target_as = marauder_country_1
-					event_target:marauder_capital.solar_system = { set_star_flag = marauder_capital_1 }
+					event_target:marauder_capital.solar_system = { set_star_flag = marauder_capital_1 set_star_flag = marauder_system }
 				} else = {
 					destroy_country = yes
 					log = "Already all Marauder exists!?"
@@ -2252,30 +2281,7 @@ event = {
 							create_fleet = {
 								effect = {
 									set_owner = event_target:marauder_starbase_owner
-									while = {
-										count = 22
-										create_ship = {
-											name = random
-											design = "NAME_Outrider"
-											graphical_culture = "pirate_01"
-										}
-									}
-									while = {
-										count = 14
-										create_ship = {
-											name = random
-											design = "NAME_Lancer"
-											graphical_culture = "pirate_01"
-										}
-									}
-									while = {
-										count = 8
-										create_ship = {
-											name = random
-											design = "NAME_Void_Champion"
-											graphical_culture = "pirate_01"
-										}
-									}
+									create_dyn_marauder_fleet = { OUTRIDER = 22 LANCER = 14 CHAMPION = 8 }
 									set_formation_scale = 2
 									set_fleet_stance = aggressive
 									set_aggro_range_measure_from = self
@@ -2292,30 +2298,7 @@ event = {
 							create_fleet = {
 								effect = {
 									set_owner = event_target:marauder_starbase_owner
-									while = {
-										count = 22
-										create_ship = {
-											name = random
-											design = "NAME_Outrider"
-											graphical_culture = "pirate_01"
-										}
-									}
-									while = {
-										count = 14
-										create_ship = {
-											name = random
-											design = "NAME_Lancer"
-											graphical_culture = "pirate_01"
-										}
-									}
-									while = {
-										count = 8
-										create_ship = {
-											name = random
-											design = "NAME_Void_Champion"
-											graphical_culture = "pirate_01"
-										}
-									}
+									create_dyn_marauder_fleet = { OUTRIDER = 22 LANCER = 14 CHAMPION = 8 }
 									set_formation_scale = 2
 									set_fleet_stance = aggressive
 									set_aggro_range_measure_from = self
@@ -2443,30 +2426,7 @@ event = {
 								create_fleet = {
 									effect = {
 										set_owner = event_target:marauder_starbase_owner
-										while = {
-											count = 22
-											create_ship = {
-												name = random
-												design = "NAME_Outrider"
-												graphical_culture = "pirate_01"
-											}
-										}
-										while = {
-											count = 14
-											create_ship = {
-												name = random
-												design = "NAME_Lancer"
-												graphical_culture = "pirate_01"
-											}
-										}
-										while = {
-											count = 8
-											create_ship = {
-												name = random
-												design = "NAME_Void_Champion"
-												graphical_culture = "pirate_01"
-											}
-										}
+										create_dyn_marauder_fleet = { OUTRIDER = 22 LANCER = 14 CHAMPION = 8 }
 										set_formation_scale = 2
 										set_fleet_stance = aggressive
 										set_aggro_range_measure_from = self
