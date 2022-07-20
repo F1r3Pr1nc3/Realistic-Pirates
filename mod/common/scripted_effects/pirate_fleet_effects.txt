@@ -223,7 +223,7 @@ create_pirate_fleet = {
 	event_target:pirate_band = {
 		create_leader = {
 			class = admiral
-			species = owner_main_species
+			species = owner_species
 			name = random
 			skill = 1
 			traits = { trait = random_trait }
@@ -680,7 +680,7 @@ create_privateer_fleet = {
 
 		create_leader = {
 			class = admiral
-			species = owner_main_species
+			species = owner_species
 			name = random
 			skill = 1
 			traits = { trait = random_trait }
@@ -768,7 +768,7 @@ create_thalassocracy_fleet = {
 	event_target:thalassocracy_country = {
 		create_leader = {
 			class = admiral
-			species = owner_main_species
+			species = owner_species
 			name = random
 			skill = 4
 			traits = { trait = random_trait }

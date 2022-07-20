@@ -1400,7 +1400,7 @@ country_event = {
 	show_sound = event_ship_bridge
 	diplomatic = yes
 	picture_event_data = {
-		portrait = root.owner_main_species
+		portrait = root.owner_species
 		room = enclave_curator_room
 	}
 	custom_gui = sgm_ScrollbarEventWindow

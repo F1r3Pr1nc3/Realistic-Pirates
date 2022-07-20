@@ -441,7 +441,7 @@ country_event = {
 					limit = { has_country_flag = merc_fleet_1_hired }
 					create_leader = {
 						class = admiral
-						species = owner_main_species
+						species = owner_species
 						name = random
 						skill = 3
 						leader_age_min = 25
@@ -478,7 +478,7 @@ country_event = {
 					limit = { has_country_flag = merc_fleet_2_hired }
 					create_leader = {
 						class = admiral
-						species = owner_main_species
+						species = owner_species
 						name = random
 						skill = 3
 						leader_age_min = 25
@@ -516,7 +516,7 @@ country_event = {
 					limit = { has_country_flag = merc_fleet_3_hired }
 					create_leader = {
 						class = admiral
-						species = owner_main_species
+						species = owner_species
 						name = random
 						skill = 3
 						leader_age_min = 25
@@ -557,7 +557,7 @@ country_event = {
 					limit = { has_country_flag = merc_fleet_1_hired }
 					create_leader = {
 						class = admiral
-						species = owner_main_species
+						species = owner_species
 						name = random
 						skill = 3
 						leader_age_min = 25
@@ -594,7 +594,7 @@ country_event = {
 					limit = { has_country_flag = merc_fleet_2_hired }
 					create_leader = {
 						class = admiral
-						species = owner_main_species
+						species = owner_species
 						name = random
 						skill = 3
 						leader_age_min = 25
@@ -631,7 +631,7 @@ country_event = {
 					limit = { has_country_flag = merc_fleet_3_hired }
 					create_leader = {
 						class = admiral
-						species = owner_main_species
+						species = owner_species
 						name = random
 						skill = 3
 						leader_age_min = 25
@@ -672,7 +672,7 @@ country_event = {
 					limit = { has_country_flag = merc_fleet_1_hired }
 						create_leader = {
 							class = admiral
-							species = owner_main_species
+							species = owner_species
 							name = random
 							skill = 3
 							leader_age_min = 25
@@ -709,7 +709,7 @@ country_event = {
 					limit = { has_country_flag = merc_fleet_2_hired }
 					create_leader = {
 						class = admiral
-						species = owner_main_species
+						species = owner_species
 						name = random
 						skill = 3
 						leader_age_min = 25
@@ -746,7 +746,7 @@ country_event = {
 					limit = { has_country_flag = merc_fleet_3_hired }
 					create_leader = {
 						class = admiral
-						species = owner_main_species
+						species = owner_species
 						name = random
 						skill = 3
 						leader_age_min = 25

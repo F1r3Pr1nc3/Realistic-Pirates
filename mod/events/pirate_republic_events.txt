@@ -23,6 +23,7 @@ event = {
 				NOR = {
 					has_country_flag = pirates_spawned # <- timed flag from on_pirate_spawn 10 years
 					has_ethic = ethic_gestalt_consciousness
+					any_situation = { is_situation_type = situation_planetary_revolt }
 				}
 				any_system_within_border = {
 					is_pirate_system = yes
@@ -107,7 +108,7 @@ country_event = {
 									is_owned_by = root
 									is_controlled_by = root
 								}
-								planet_stability < 90
+								planet_stability < 80
 							}
 							NOT = {
 								any_fleet_in_system = {
@@ -124,7 +125,7 @@ country_event = {
 									is_owned_by = root
 									is_controlled_by = root
 								}
-								planet_stability < 90
+								planet_stability < 80
 							}
 							save_event_target_as = pirate_target
 						}
@@ -143,7 +144,7 @@ country_event = {
 											is_owned_by = root
 											is_controlled_by = root
 										}
-										planet_stability < 90
+										planet_stability < 80
 									}
 									NOT = {
 										any_fleet_in_system = {
@@ -169,7 +170,7 @@ country_event = {
 										is_owned_by = root
 										is_controlled_by = root
 									}
-									planet_stability < 90
+									planet_stability < 80
 									# owner = {
 									# 	is_primitive = no
 									# 	is_hostile = event_target:pirate_band
@@ -192,7 +193,7 @@ country_event = {
 										is_owned_by = root
 										is_controlled_by = root
 									}
-									planet_stability < 90
+									planet_stability < 80
 									# owner = {
 									# 	is_primitive = no
 									# 	is_hostile = event_target:pirate_band
@@ -282,7 +283,7 @@ country_event = {
 				event_target:pirate_target = {
 					planet_event = { id = pirate_republic.11 days = 16 random = 8 }
 				}
-			} else = { log="pirate_target not found for \\[This.GetName]" }
+			} # else = { log="pirate_target not found for \\[This.GetName]" }
 		}
 	}
 }
@@ -293,48 +294,121 @@ planet_event = {
 	id = pirate_republic.11
 	title = pirate_republic.11.name
 	desc = pirate_republic.11.desc
-	picture = GFX_evt_ground_combat
-	show_sound = event_planetary_riot
+	# desc = {
+	# 	trigger = {
+	# 		owner = { is_gestalt = no }
+	# 	}
+	# 	text = pirate_republic.11.desc # unrest.55.desc.standard
+	# }
+	desc = {
+		trigger = {
+			# owner = { is_gestalt = yes }
+			any_owned_pop = {
+				is_sapient = yes
+				NOT = { has_ethic = ethic_gestalt_consciousness }
+			}
+		}
+		text = pirate_republic.11.desc #unrest.55.desc.gestalt_standard
+	}
+	desc = {
+		trigger = {
+			owner = { is_gestalt = yes }
+			count_owned_pop = {
+				limit = {
+					is_sapient = yes
+					NOT = { has_ethic = ethic_gestalt_consciousness }
+				}
+				count = 0
+			}
+		}
+		text = unrest.55.desc.gestalt_breakaway_gestalt
+	}
+	picture = GFX_evt_night_raid # GFX_evt_ground_combat
+	show_sound = event_planetary_riot # event_air_raid_siren
 	location = root
 	is_triggered_only = yes
-	trigger = { exists = event_target:pirate_target }
+	situation = event_target:new_situation
+	trigger = {
+		# exists = event_target:pirate_target
+		planet_stability < 80
+		# NOR = {
+		# 	has_planet_flag = slave_stirring
+		# 	has_planet_flag = recent_unrest_event
+		# 	has_modifier = slave_hunger_strike
+		# 	has_modifier = slave_riots
+		# 	has_modifier = adding_unrest_slaves
+		# 	has_modifier = revolt_suppressed
+		# }
+	}
 	immediate = {
+		random_owned_pop = {
+			limit = { is_sapient = yes }
+			weights = {
+				base = 1
+				modifier = { add = 2 is_unemployed = yes }
+				modifier = { add = 10 is_enslaved = yes }
+			}
+			species = { save_event_target_as = rebellion_species }
+		}
+		if = {
+			limit = { NOT = { exists = event_target:rebellion_species } }
+			owner_species = { save_event_target_as = rebellion_species }
+		}
+		if = {
+			limit = { NOT = { exists = event_target:pirate_system } }
+			solar_system = { save_event_target_as = pirate_system }
+		}
 		if = {
 			limit = { host_has_dlc = "Megacorp" }
 			create_rebels = {
 				name = random
-				ethos = {
-					ethic = "ethic_fanatic_militarist"
-					ethic = "ethic_authoritarian"
-				}
+				ethos = random
+				# ethos = {
+				# 	ethic = "ethic_fanatic_militarist"
+				# 	ethic = "ethic_authoritarian"
+				# }
 				authority = auth_corporate
-				civics = {
-					civic = civic_criminal_heritage
-					civic = random
-				}
+				civics = random
+				# civics = {
+				# 	civic = civic_criminal_heritage
+				# 	civic = random
+				# }
 				origin = "origin_separatists" # "origin_void_dwellers"
-				species = root.owner_species
+				species = event_target:rebellion_species
 				flag = random
-				effect = { save_event_target_as = pirate_republic }
+				effect = {
+					shift_ethic = ethic_authoritarian
+					# country_add_ethic = ethic_authoritarian
+					force_add_civic = civic_criminal_heritage
+					save_event_target_as = pirate_republic
+				}
 			}
 		} else = {
 			create_rebels = {
 				name = random
-				ethos = {
-					ethic = "ethic_fanatic_militarist"
-					ethic = "ethic_authoritarian"
-				}
+				ethos = random
+				# ethos = {
+				# 	ethic = "ethic_fanatic_militarist"
+				# 	ethic = "ethic_authoritarian"
+				# }
 				authority = auth_oligarchic
-				civics = {
-					civic = civic_corporate_dominion
-					civic = random
-				}
+				civics = random
+				# civics = {
+				# 	civic = civic_corporate_dominion
+				# 	civic = random
+				# }
 				origin = "origin_separatists" # "origin_void_dwellers"
-				species = root.owner_species
+				species = event_target:rebellion_species
 				flag = random
-				effect = { save_event_target_as = pirate_republic }
+				effect = {
+					shift_ethic = ethic_authoritarian
+					# country_add_ethic = ethic_authoritarian
+					force_add_civic = civic_corporate_dominion
+					save_event_target_as = pirate_republic # rebel_empire
+				}
 			}
 		}
+
 		if = {
 			limit = { NOT = { exists = event_target:pirate_republic } }
 			break = yes
@@ -342,19 +416,66 @@ planet_event = {
 		event_target:pirate_republic = {
 			randomize_flag_symbol = pirate
 			set_graphical_culture = "pirate_01"
-			set_country_flag = pirate_republic
+			set_country_flag = pirate_republic # We don't need the rebel country type with this version, but create_rebels effect has useful functionalities
+			if = {
+				limit = { has_trait = trait_necrophage }
+				set_origin = origin_necrophage
+			} else_if = {
+				limit = { has_trait = trait_void_dweller_1 }
+				set_origin = origin_void_dwellers
+			} else_if = {
+				limit = { has_trait = trait_cave_dweller }
+				set_origin = origin_subterranean
+			} else_if = {
+				limit = {
+					root.owner = { has_origin = origin_tree_of_life }
+					has_trait = trait_hive_mind
+				}
+				set_origin = origin_tree_of_life
+			}
+			if = {
+				limit = {
+					OR = {
+						has_trait = trait_machine_unit
+						has_trait = trait_hive_mind
+					}
+					NOT = { has_ethic = ethic_gestalt_consciousness }
+				}
+				shift_ethic = ethic_gestalt_consciousness
+				change_government = random
+			}
+			else = { shift_ethic = ethic_fanatic_militarist }
+			# else = {
+			# 	root = {
+			# 		switch = { trigger = has_situation_flag
+			# 			pacifist = { prev = { shift_ethic = ethic_fanatic_pacifist } }
+			# 			militarist = { prev = { shift_ethic = ethic_fanatic_militarist } }
+			# 			authoritarian = { prev = { shift_ethic = ethic_fanatic_authoritarian } }
+			# 			egalitarian = { prev = { shift_ethic = ethic_fanatic_egalitarian } }
+			# 			xenophile = { prev = { shift_ethic = ethic_fanatic_xenophile } }
+			# 			xenophobe = { prev = { shift_ethic = ethic_fanatic_xenophobe } }
+			# 			spiritualist = { prev = { shift_ethic = ethic_fanatic_spiritualist } }
+			# 			materialist = { prev = { shift_ethic = ethic_fanatic_materialist } }
+			# 		}
+			# 	}
+			# 	change_government = { authority = random civics = random }
+			# }
+
 			establish_communications_no_message = root.owner
 			set_relation_flag = { flag = rebelling_pirates_former_owner who = root.owner }
-
 			create_leader = {
 				class = ruler
-				species = owner_main_species
+				species = event_target:rebellion_species
 				name = random
-				skill = 2
+				skill = 3
 				traits = { trait = random_trait }
+				effect = {
+					prev = { assign_leader = prev }
+					add_random_leader_trait = yes
+				}
 			}
-			assign_leader = last_created_leader
-			ruler = { add_random_leader_trait = yes }
+			# assign_leader = last_created_leader
+			# ruler = { add_random_leader_trait = yes }
 			set_pirates_difficulty = yes
 			# Create a fleet based on fleet power.
 			create_fleet = {
@@ -372,18 +493,42 @@ planet_event = {
 					set_aggro_range = 150
 				}
 			}
+			create_leader = {
+				class = admiral
+				species = event_target:rebellion_species
+				name = random
+				skill = 2
+				traits = { trait = random_trait }
+				effect = {
+					event_target:pirate_waves_fleet = { assign_leader = prev }
+					add_random_leader_trait = yes
+				}
+			}
+
 			root = {
 				# Dyn. amount
 				set_variable = { which = num_armies_var value = 1 }
 				change_variable = { which = num_armies_var value = owner.pirates_factor }
 				multiply_variable = { which = num_armies_var value = 10 }
+				round_variable = num_armies_var
 				while = {
 					count = num_armies_var # 25
 					create_army = {
 						name = "Pirate Invaders"
 						owner = event_target:pirate_republic
-						species = root.owner_species
+						species = event_target:rebellion_species
 						type = "pirate_army"
+					}
+				}
+				divide_variable = { which = num_armies_var value = 10 }
+				round_variable = num_armies_var
+				while = {
+					count = num_armies_var # 2
+					create_army = {
+						name = "NAME_Freedom_Fighters"
+						owner = event_target:pirate_republic
+						species = event_target:rebellion_species
+						type = "rebel_slave_defense_army"
 					}
 				}
 				owner = {
@@ -391,15 +536,32 @@ planet_event = {
 						limit = { has_communications = prev }
 						establish_communications_no_message = prevprevprev
 					}
-					create_leader = {
-						class = general
-						species = owner_main_species
-						name = random
-						skill = 2
-						traits = { trait = random_trait }
+				}
+			}
+			create_leader = {
+				class = general
+				species = event_target:rebellion_species
+				name = random
+				skill = 2
+				traits = { trait = random_trait }
+				effect = {
+					last_created_army = { assign_leader = prev }
+					add_random_leader_trait = yes
+				}
+			}
+			# random_owned_army = { assign_leader = last_created_leader }
+			# From unrest.4050
+			save_event_target_as = new_owner_empire
+			root = {
+				owner = {
+					start_situation = {
+						type = situation_planetary_revolt
+						target = root
+						effect = {
+							save_event_target_as = new_situation
+							event_target:new_owner_empire = { set_country_flag = revolt_joiner_empire_@event_target:new_situation }
+						}
 					}
-					# last_created_army = {
-					random_owned_army = { assign_leader = last_created_leader }
 				}
 			}
 		}
@@ -408,6 +570,16 @@ planet_event = {
 	after = {
 		if = { limit = { is_variable_set = num_armies_var }
 			clear_variable = num_armies_var
+		}
+		event_target:pirate_republic = {
+			declare_war = {
+				target = root.owner
+				attacker_war_goal = wg_independence
+				name = {
+					key = NAME_WAR_OF_REVOLT
+					variable_string = "Root.Target.GetName"
+				}
+			}
 		}
 	}
 	option = {
@@ -424,6 +596,14 @@ planet_event = {
 						set_country_flag = pirate_republic
 						establish_communications_no_message = root.owner
 						set_relation_flag = { flag = rebelling_pirates_former_owner who = root.owner }
+						create_leader = {
+							class = general
+							species = event_target:rebellion_species
+							name = random
+							skill = 2
+							traits = { trait = random_trait }
+							effect = { add_random_leader_trait = yes }
+						}
 						root = {
 							owner = {
 								every_relation = {
@@ -440,14 +620,27 @@ planet_event = {
 								create_army = {
 									name = "Pirate Invaders"
 									owner = event_target:pirate_republic
-									species = root.owner_species
+									species = event_target:rebellion_species
 									type = "pirate_army"
 								}
 							}
+							last_created_army = { assign_leader = last_created_leader }
+							divide_variable = { which = num_armies_var value = 10 }
+							round_variable = num_armies_var
+							while = {
+								count = num_armies_var # 2
+								create_army = {
+									name = "NAME_Freedom_Fighters"
+									owner = event_target:pirate_republic
+									species = event_target:rebellion_species
+									type = "rebel_slave_defense_army"
+								}
+							}
 						}
+						random_owned_army = { assign_leader = last_created_leader }
 						create_leader = {
 							class = ruler
-							species = owner_main_species
+							species = owner_species
 							name = random
 							skill = 2
 							traits = { trait = random_trait }
@@ -691,7 +884,7 @@ country_event = {
 	}
 }
 
-## The pirates institute a "Republick"
+## The pirates institute a "Republic"
 country_event = {
 	id = pirate_republic.14
 	title = pirate_republic.14.name

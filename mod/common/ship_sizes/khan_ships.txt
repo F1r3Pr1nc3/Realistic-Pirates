@@ -5,8 +5,8 @@
 @starbase_formation_priority = 1
 
 npc_galleon_01 = {
-	graphical_culture = { "npf_01_dirty" "npf_01" } # "pirate_01" "madd_01"
 	is_space_object = yes
+	graphical_culture = {  "pirate_01" "npf_01_dirty" "npf_01" "madd_01" }
 	graphical_culture = yes # Default no vanilla yes
 	# entity = npc_warship_01_entity
 	# entity = npf_01_dirty_npc_warship_01_entity
@@ -14,7 +14,7 @@ npc_galleon_01 = {
 	max_speed = @speed_slow
 	acceleration = 0.3
 	rotation_speed = 0.1
-	collision_radius = 9
+	collision_radius = 12 # 9
 	modifier = {
 		ship_evasion_add = 35
 		ship_armor_add = 20000
@@ -23,8 +23,8 @@ npc_galleon_01 = {
 		ship_shield_mult = 3
 	}
 	max_hitpoints = 40000
-	combat_size_multiplier = 20
-	size_multiplier = 8
+	combat_size_multiplier = 24 # 20
+	size_multiplier = 12 # 8
 	fleet_slot_size = 4
 	section_slots = { "mid" = { locator = "part1" } }
 	is_designable = no # TODO?
@@ -32,6 +32,7 @@ npc_galleon_01 = {
 	is_space_station = no
 	# icon_frame = 6
 	icon = ship_size_military_16
+	text_icon = military_size_16
 	combat_disengage_chance = 1.25
 	is_civilian = no
 	# auto_upgrade = yes
@@ -82,7 +83,7 @@ npc_galleon_01 = {
 }
 
 starbase_marauder = {
-	graphical_culture = { "pirate_01" "madd_01" }
+	# graphical_culture = { "pirate_01" "madd_01" }
 	# entity = starbase_marauder_entity
 	graphical_culture = no
 	max_speed = 0
@@ -127,6 +128,7 @@ starbase_marauder = {
 		}
 	}
 	icon_frame = -1
+	text_icon = military_size_station
 	icon = ship_size_military_station
 	potential_construction = {
 		is_scope_type = planet

@@ -523,6 +523,7 @@ ship_event = {
 						NOR = {
 							has_country_flag = pirates_spawned # <- timed flag from on_pirate_spawn
 							has_ethic = ethic_gestalt_consciousness
+							any_situation = { is_situation_type = situation_planetary_revolt }
 						}
 						any_system_within_border = {
 							is_pirate_system = yes
@@ -540,7 +541,7 @@ ship_event = {
 							any_system_planet = {
 								is_colony = yes
 								is_under_colonization = no
-								planet_stability < 90
+								planet_stability < 80
 								NOT = { has_planet_flag = pirate_invasion }
 								has_ground_combat = no
 								owner = {
@@ -563,7 +564,7 @@ ship_event = {
 								is_owned_by = from.owner
 								is_controlled_by = from.owner
 							}
-							planet_stability < 90
+							planet_stability < 80
 						}
 					}
 					closest_system = {
@@ -575,7 +576,7 @@ ship_event = {
 							any_system_planet = {
 								is_colony = yes
 								is_under_colonization = no
-								planet_stability < 90
+								planet_stability < 80
 							}
 						}
 					}
