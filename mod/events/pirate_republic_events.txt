@@ -350,16 +350,13 @@ planet_event = {
 			}
 			species = { save_event_target_as = rebellion_species }
 		}
-		if = {
-			limit = { NOT = { exists = event_target:rebellion_species } }
+		if = { limit = { NOT = { exists = event_target:rebellion_species } }
 			owner_species = { save_event_target_as = rebellion_species }
 		}
-		if = {
-			limit = { NOT = { exists = event_target:pirate_system } }
+		if = { limit = { NOT = { exists = event_target:pirate_system } }
 			solar_system = { save_event_target_as = pirate_system }
 		}
-		if = {
-			limit = { host_has_dlc = "Megacorp" }
+		if = { limit = { host_has_dlc = "Megacorp" }
 			create_rebels = {
 				name = random
 				ethos = random
@@ -409,8 +406,7 @@ planet_event = {
 			}
 		}
 
-		if = {
-			limit = { NOT = { exists = event_target:pirate_republic } }
+		if = { limit = { NOT = { exists = event_target:pirate_republic } }
 			break = yes
 		} # else = { log="Separatists: \\[pirate_republic.GetName] and \\[last_created_country.GetName]" }
 		event_target:pirate_republic = {
@@ -506,10 +502,11 @@ planet_event = {
 			}
 
 			root = {
-				# Dyn. amount
+				# Dyn. amount (needs to be after create_pirate_waves_fleet)
 				set_variable = { which = num_armies_var value = 1 }
-				change_variable = { which = num_armies_var value = owner.pirates_factor }
-				multiply_variable = { which = num_armies_var value = 10 }
+				change_variable = { which = num_armies_var value = prev.pirates_factor }
+				prev = { divide_variable = { which = pirates_f_tmp2 value = 2 }  }
+				multiply_variable = { which = num_armies_var value = prev.pirates_f_tmp2 }
 				round_variable = num_armies_var
 				while = {
 					count = num_armies_var # 25
@@ -520,7 +517,7 @@ planet_event = {
 						type = "pirate_army"
 					}
 				}
-				divide_variable = { which = num_armies_var value = 10 }
+				divide_variable = { which = num_armies_var value = prev.pirates_f_tmp2 }
 				round_variable = num_armies_var
 				while = {
 					count = num_armies_var # 2
@@ -580,6 +577,12 @@ planet_event = {
 					variable_string = "Root.Target.GetName"
 				}
 			}
+			if = { limit = { is_variable_set = pirates_f_tmp }
+				clear_variable = pirates_f_tmp
+			}
+			if = { limit = { is_variable_set = pirates_f_tmp2 }
+				clear_variable = pirates_f_tmp2
+			}
 		}
 	}
 	option = {
@@ -589,55 +592,12 @@ planet_event = {
 			if = {
 				limit = { exists = event_target:pirate_republic }
 				event_target:pirate_republic = {
-					if = {
-						limit = { NOT = { has_country_flag = pirate_republic } }
+					if = { limit = { NOT = { has_country_flag = pirate_republic } }
 						randomize_flag_symbol = pirate
 						set_graphical_culture = "pirate_01"
 						set_country_flag = pirate_republic
 						establish_communications_no_message = root.owner
 						set_relation_flag = { flag = rebelling_pirates_former_owner who = root.owner }
-						create_leader = {
-							class = general
-							species = event_target:rebellion_species
-							name = random
-							skill = 2
-							traits = { trait = random_trait }
-							effect = { add_random_leader_trait = yes }
-						}
-						root = {
-							owner = {
-								every_relation = {
-									limit = { has_communications = prev }
-									establish_communications_no_message = prevprevprev
-								}
-							}
-							# Dyn. amount
-							set_variable = { which = num_armies_var value = 1 }
-							change_variable = { which = num_armies_var value = owner.pirates_factor }
-							multiply_variable = { which = num_armies_var value = 10 }
-							while = {
-								count = num_armies_var # 25
-								create_army = {
-									name = "Pirate Invaders"
-									owner = event_target:pirate_republic
-									species = event_target:rebellion_species
-									type = "pirate_army"
-								}
-							}
-							last_created_army = { assign_leader = last_created_leader }
-							divide_variable = { which = num_armies_var value = 10 }
-							round_variable = num_armies_var
-							while = {
-								count = num_armies_var # 2
-								create_army = {
-									name = "NAME_Freedom_Fighters"
-									owner = event_target:pirate_republic
-									species = event_target:rebellion_species
-									type = "rebel_slave_defense_army"
-								}
-							}
-						}
-						random_owned_army = { assign_leader = last_created_leader }
 						create_leader = {
 							class = ruler
 							species = owner_species
@@ -664,11 +624,52 @@ planet_event = {
 								set_aggro_range = 150
 							}
 						}
+						create_leader = {
+							class = general
+							species = event_target:rebellion_species
+							name = random
+							skill = 2
+							traits = { trait = random_trait }
+							effect = { add_random_leader_trait = yes }
+						}
+						root = {
+							owner = {
+								every_relation = {
+									limit = { has_communications = prev }
+									establish_communications_no_message = prevprevprev
+								}
+							}
+							# Dyn. amount (needs to be after create_pirate_waves_fleet)
+							set_variable = { which = num_armies_var value = 1 }
+							change_variable = { which = num_armies_var value = prev.pirates_factor }
+							prev = { divide_variable = { which = pirates_f_tmp2 value = 2 }  }
+							multiply_variable = { which = num_armies_var value = prev.pirates_f_tmp2 }
+							while = {
+								count = num_armies_var # 25
+								create_army = {
+									name = "Pirate Invaders"
+									owner = event_target:pirate_republic
+									species = event_target:rebellion_species
+									type = "pirate_army"
+								}
+							}
+							last_created_army = { assign_leader = last_created_leader }
+							divide_variable = { which = num_armies_var value = prev.pirates_f_tmp2 }
+							round_variable = num_armies_var
+							while = {
+								count = num_armies_var # 2
+								create_army = {
+									name = "NAME_Freedom_Fighters"
+									owner = event_target:pirate_republic
+									species = event_target:rebellion_species
+									type = "rebel_slave_defense_army"
+								}
+							}
+						}
+						random_owned_army = { assign_leader = last_created_leader }
 					}
 				}
-				clear_variable = num_armies_var
 				set_planet_flag = pirate_invasion
-
 				if = {
 					limit = {
 						exists = event_target:pirate_system
