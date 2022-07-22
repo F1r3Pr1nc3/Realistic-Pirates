@@ -1,3 +1,9 @@
+on_single_player_save_game_load = {
+	events = {
+		pirate_republic.99 # temp fixes
+	}
+}
+
 # No scope, like on_game_start
 on_monthly_pulse = {
 	events = {

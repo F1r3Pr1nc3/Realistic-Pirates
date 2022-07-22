@@ -34,7 +34,6 @@ npc_galleon_01 = {
 	is_space_station = no
 	# icon_frame = 6
 	icon = ship_size_military_16
-	text_icon = military_size_16
 	combat_disengage_chance = 1.25
 	is_civilian = no
 	# auto_upgrade = yes
@@ -130,7 +129,6 @@ starbase_marauder = {
 		}
 	}
 	icon_frame = -1
-	text_icon = military_size_station
 	icon = ship_size_military_station
 	potential_construction = {
 		is_scope_type = planet
