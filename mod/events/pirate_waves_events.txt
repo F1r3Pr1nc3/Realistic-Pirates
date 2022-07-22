@@ -1859,11 +1859,11 @@ country_event = {
 		set_timed_global_flag = { flag = pirate_waves_666 days = 15 }
 		if = {
 			limit = { exists = event_target:pirate_waves_country }
-			event_target:pirate_waves_country = { destroy_country = yes }
+			event_target:pirate_waves_country = { set_country_flag = silence_destroy_event destroy_country = yes }
 		}
 		if = {
 			limit = { exists = event_target:pirate_waves_2_country }
-			event_target:pirate_waves_2_country = { destroy_country = yes }
+			event_target:pirate_waves_2_country = { set_country_flag = silence_destroy_event destroy_country = yes }
 		}
 	}
 }
@@ -1885,6 +1885,7 @@ country_event = {
 					is_country_type = pirate_waves_country
 				}
 			}
+			set_country_flag = silence_destroy_event
 			destroy_country = yes
 		}
 	}
@@ -2230,6 +2231,7 @@ event = {
 					save_global_event_target_as = marauder_country_1
 					event_target:marauder_capital.solar_system = { set_star_flag = marauder_capital_1 set_star_flag = marauder_system }
 				} else = {
+					set_country_flag = silence_destroy_event
 					destroy_country = yes
 					log = "Already all Marauder exists!?"
 					break = yes

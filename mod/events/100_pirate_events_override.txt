@@ -375,7 +375,12 @@ ship_event = {
 		if = {
 			limit = {
 				from.owner = { is_pirate_country = yes }
-				owner = { is_pirate_country = yes }
+				owner = {
+					OR = {
+						is_pirate_country = yes
+						is_country_type = rebel
+					}
+				}
 			}
 			solar_system = {
 				every_system_planet = {
@@ -387,7 +392,12 @@ ship_event = {
 		} else_if = {
 			limit = {
 				from.owner = { is_country_type_with_subjects = yes }
-				owner = { is_pirate_country = yes }
+				owner = {
+					OR = {
+						is_pirate_country = yes
+						is_country_type = rebel
+					}
+				}
 				starbase = { has_starbase_size > starbase_outpost }
 			}
 			# log="take pirate starbase"
@@ -401,7 +411,10 @@ ship_event = {
 							country_event = { id = pirate.26 }
 							modifier = {
 								factor = 0
-								NOT = { has_event_chain = l_cluster_chain }
+								OR = {
+									NOT = { has_event_chain = l_cluster_chain }
+									root.owner = { is_country_type = rebel }
+								}
 							}
 						}
 					}
@@ -423,7 +436,12 @@ ship_event = {
 	trigger = {
 		is_scope_valid = yes
 		exists = owner
-		owner = { is_pirate_country = yes }
+		owner = {
+			OR = {
+				is_pirate_country = yes
+				is_country_type = rebel
+			}
+		}
 		exists = solar_system
 		exists = fleet
 		is_ship_class = shipclass_starbase
