@@ -2091,7 +2091,10 @@ country_event = {
 	id = marauder.28
 	hide_window = yes
 	is_triggered_only = yes
-	trigger = { has_country_flag = raid_ongoing }
+	trigger = {
+		has_country_flag = raid_ongoing
+		exists = from
+	}
 	immediate = {
 		# Find marauder_raiding_country (child)
 		if = {
@@ -2724,6 +2727,7 @@ country_event = {
 		room = "ethic_spaceship_room"
 	}
 	is_triggered_only = yes
+	trigger = { exists = from }
 	immediate = {
 		set_country_flag = marauder_diplomacy_engaged
 		if = {
@@ -2869,16 +2873,22 @@ country_event = {
 
 # Raid commences
 # Vanilla fix omit Marauders getting stuck (by FirePrince)
-# root = marauder_target
+# Root = marauder_target
+# From = current_marauder_diplomacy
 country_event = {
 	id = marauder.33
 	hide_window = yes
 	is_triggered_only = yes
+	trigger = {
+		exists = from
+		exists = event_target:raiding_marauder
+	}
 	immediate = {
 		from = { set_country_flag = hired@event_target:raiding_marauder }
 		save_event_target_as = marauder_target
 		from = {
 			save_event_target_as = marauder_employer
+			# save_event_target_as = current_marauder_diplomacy
 			set_relation_flag = { who = event_target:raiding_marauder flag = hired_fleet }
 		}
 		set_relation_flag = { who = event_target:raiding_marauder flag = current_hired_target }
@@ -2984,11 +2994,7 @@ country_event = {
 				}
 			}
 		}
-		country_event = { id = marauder.120 }
-		if = {
-			limit = {
-				event_target:marauder_target = { has_communications = event_target:raiding_marauder }
-			}
+		if = { limit = { has_communications = event_target:raiding_marauder }
 			country_event = { id = marauder.120 }
 		} else = {
 			country_event = { id = marauder.123 }
@@ -3026,6 +3032,7 @@ country_event = {
 		room = "ethic_spaceship_room"
 	}
 	is_triggered_only = yes
+	trigger = { exists = from }
 	immediate = {
 		set_country_flag = marauder_diplomacy_engaged
 		if = {
@@ -3328,6 +3335,7 @@ country_event = {
 		room = "ethic_spaceship_room"
 	}
 	is_triggered_only = yes
+	trigger = { exists = from }
 	immediate = { set_country_flag = marauder_diplomacy_engaged }
 	after = {
 		hidden_effect = { remove_country_flag = marauder_diplomacy_engaged }
@@ -3384,6 +3392,7 @@ country_event = {
 		room = "ethic_spaceship_room"
 	}
 	is_triggered_only = yes
+	trigger = { exists = from }
 	immediate = {
 		set_country_flag = marauder_diplomacy_engaged
 		if = {
@@ -3648,6 +3657,7 @@ country_event = {
 		room = "ethic_spaceship_room"
 	}
 	is_triggered_only = yes
+	trigger = { exists = from }
 	immediate = { set_country_flag = marauder_diplomacy_engaged }
 	after = {
 		hidden_effect = { remove_country_flag = marauder_diplomacy_engaged }
@@ -4865,6 +4875,7 @@ event = {
 
 # Marauder Raid Announced
 # Vanilla fix omit Marauders getting stuck (by FirePrince)
+# Root = marauder_target
 country_event = {
 	id = marauder.101
 	title = "marauder_diplo_header_4"
@@ -4906,79 +4917,42 @@ country_event = {
 	immediate = {
 		# Determine tribute level
 		if = {
-			limit = {
-				has_monthly_income = {
-					resource = minerals
-					value <= 50
-				}
-			}
+			limit = { has_monthly_income = { resource = minerals value <= 50 } }
 			set_country_flag = marauder_tribute_1@event_target:raiding_marauder
 		}
 		if = {
 			limit = {
-				has_monthly_income = {
-					resource = minerals
-					value >= 50
-				}
-				has_monthly_income = {
-					resource = minerals
-					value <= 100
-				}
+				has_monthly_income = { resource = minerals value >= 50 }
+				has_monthly_income = { resource = minerals value <= 100 }
 			}
 			set_country_flag = marauder_tribute_2@event_target:raiding_marauder
 		}
 		if = {
 			limit = {
-				has_monthly_income = {
-					resource = minerals
-					value > 100
-				}
-				has_monthly_income = {
-					resource = minerals
-					value <= 150
-				}
+				has_monthly_income = { resource = minerals value > 100 }
+				has_monthly_income = { resource = minerals value <= 150 }
 			}
 			set_country_flag = marauder_tribute_3@event_target:raiding_marauder
 		}
 		if = {
 			limit = {
-				has_monthly_income = {
-					resource = minerals
-					value > 150
-				}
-				has_monthly_income = {
-					resource = minerals
-					value <= 200
-				}
+				has_monthly_income = { resource = minerals value > 150 }
+				has_monthly_income = { resource = minerals value <= 200 }
 			}
 			set_country_flag = marauder_tribute_4@event_target:raiding_marauder
 		}
 		if = {
 			limit = {
-				has_monthly_income = {
-					resource = minerals
-					value > 200
-				}
-				has_monthly_income = {
-					resource = minerals
-					value <= 250
-				}
+				has_monthly_income = { resource = minerals value > 200 }
+				has_monthly_income = { resource = minerals value <= 250 }
 			}
 			set_country_flag = marauder_tribute_5@event_target:raiding_marauder
 		}
 		if = {
-			limit = {
-				has_monthly_income = {
-					resource = minerals
-					value > 250
-				}
-			}
+			limit = { has_monthly_income = { resource = minerals value > 250 } }
 			set_country_flag = marauder_tribute_6@event_target:raiding_marauder
 		}
-		set_timed_country_flag = {
-			flag = recently_raided_or_threatened
-			days = 1800			# 5 years
-		}
+		set_timed_country_flag = { flag = recently_raided_or_threatened days = 1800 } # 5 years
 		set_country_flag = raid_target_of@event_target:raiding_marauder
 		set_country_flag = under_marauder_attack
 		set_relation_flag = { who = event_target:raiding_marauder flag = current_target }
@@ -5048,7 +5022,7 @@ country_event = {
 				}
 			}
 			set_faction_hostility = {
-				target = event_target:marauder_target
+				target = root
 				set_hostile = yes
 				set_neutral = no
 				set_friendly = no
@@ -5058,10 +5032,10 @@ country_event = {
 				closest_system = {
 					limit = {
 						has_owner = yes
-						is_owned_by = event_target:marauder_target
+						is_owned_by = root
 						any_system_planet = {
 							has_owner = yes
-							is_owned_by = event_target:marauder_target
+							is_owned_by = root
 							num_pops > 0
 						}
 						# prev = { can_access_system = prev }
@@ -5069,7 +5043,7 @@ country_event = {
 					random_system_planet = {
 						limit = {
 							has_owner = yes
-							is_owned_by = event_target:marauder_target
+							is_owned_by = root
 							num_pops > 0
 						}
 						save_event_target_as = raid_planet
@@ -6758,7 +6732,7 @@ event = {
 	hide_window = yes
 	is_triggered_only = yes
 	trigger = {
-		years_passed > 50
+		years_passed >= 50
 		any_playable_country = {
 			is_ai = yes
 			is_homicidal = no
@@ -11484,10 +11458,10 @@ country_event = {
 				if = {
 					limit = { is_ai = yes }
 					add_500_unity_per_year_passed = yes
-					# random_system_within_border = {
-					# 	limit = { CmtTriggerMarauderCapitalSystem = yes }
-					# 	system_event = { id = khan.301 } # Create Citadel
-					# }
+					random_system_within_border = {
+						limit = { CmtTriggerMarauderCapitalSystem = yes }
+						system_event = { id = khan.301 days = -1 } # Create Citadel
+					}
 				}
 			}
 		}
@@ -12459,7 +12433,7 @@ country_event = {
 	}
 }
 
-# Workaround for Irony compare
-# namespace = crisis
-# namespace = emperor
-# namespace = pirate
+## Workaround for Irony compare
+namespace = crisis
+namespace = emperor
+namespace = pirate

@@ -39,7 +39,7 @@ pirate_waves_country = {
 		needs_colony = no
 	}
 	modules = {
-		exclusive_diplomacy_module = { contact_rule = never }
+		exclusive_diplomacy_module = { contact_rule = on_action_only } # Nothing is allowed, but we need this for relationships.
 		basic_technology_module = {}
 		all_technology_module = {}
 		standard_event_module = {}

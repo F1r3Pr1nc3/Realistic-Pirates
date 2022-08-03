@@ -124,7 +124,7 @@ system_event = {
 			limit = {
 				NAND = {
 					exists = starbase
-					starbase = { has_starbase_size = starbase_citadel }
+					starbase = { has_starbase_size >= starbase_citadel }
 				}
 			}
 			# space_owner = {
@@ -135,7 +135,26 @@ system_event = {
 			# 		set_variable = { which = has_pirate_01 value = 1 }
 			# 	}
 			# }
-			# log="create starbase_citadel"
+			log="create starbase_citadel"
+			event_target:raider_khanate = {
+				if = {
+					limit = {
+						NOR = {
+							has_technology = tech_starbase_3
+							has_technology = tech_starbase_4
+							has_technology = tech_starbase_5
+						}
+					}
+					give_technology = { tech = tech_starbase_3 message = no }
+					give_technology = { tech = tech_starbase_4 message = no }
+					give_technology = { tech = tech_starbase_5 message = no }
+				}
+				if = {
+					limit = { NOT = { has_existing_ship_design = starbase_citadel } }
+					create_ship_design = { design = "NAME_Marauder_Citadel" }
+					add_ship_design = last_created_design
+				}
+			}
 			# TODO Trying to create a starbase with an invalid starbase design sik'El'Re for ship size starbase_citadel (note: starbases cannot have components that allow them to move or go FTL)
 			create_starbase = {
 				size = "starbase_citadel"

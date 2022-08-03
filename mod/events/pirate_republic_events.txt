@@ -1,7 +1,7 @@
 namespace = pirate_republic
 ## Pirates have been controlling a system for more than 10 years (monthly pulse)
 @stabilitylevel5 = 75
-
+# on_monthly_pulse
 event = {
 	id = pirate_republic.1
 	hide_window = yes
@@ -20,18 +20,19 @@ event = {
 		}
 	}
 	immediate = {
-		every_playable_country = {
+		random_playable_country = {
 			limit = {
 				NOR = {
+					has_country_flag = pirate_waves_disappear
 					has_country_flag = pirates_spawned # <- timed flag from on_pirate_spawn 10 years
 					has_ethic = ethic_gestalt_consciousness
 					any_situation = { is_situation_type = situation_planetary_revolt }
 				}
 				any_system_within_border = {
-					is_pirate_system = yes
-					NOT = {
-						any_fleet_in_system = {
-							is_ship_size = pirate_station
+					any_fleet_in_system = {
+						is_ship_size = pirate_station # is_pirate_system = yes
+						NOT = { is_owned_by = prevprev }
+						NAND = {
 							has_fleet_flag = pirate_waves_station_flag
 							has_fleet_flag = pirate_waves_station_life_flag # <- timed flag from on_pirate_spawn 10 years
 						}
@@ -55,7 +56,23 @@ event = {
 					}
 				}
 			}
-			country_event = { id = pirate_republic.10 }
+			random_system_within_border = {
+				limit = {
+					any_fleet_in_system = {
+						is_ship_size = pirate_station # is_pirate_system = yes
+						NOT = { is_owned_by = prevprev }
+						NAND = {
+							has_fleet_flag = pirate_waves_station_flag
+							has_fleet_flag = pirate_waves_station_life_flag # <- timed flag from on_pirate_spawn 10 years
+						}
+					}
+				}
+				save_event_target_as = pirate_system # To prevent msg without exist
+				prev = {
+					country_event = { id = pirate_republic.10 }
+					set_timed_country_flag = { flag = pirate_waves_disappear months = 4 }
+				}
+			}
 		}
 	}
 }
@@ -69,14 +86,15 @@ country_event = {
 	location = event_target:pirate_system
 	is_triggered_only = yes
 	trigger = {
+		has_country_flag = pirate_waves_disappear
+		exists = event_target:pirate_system
 		NOT = { any_situation = { is_situation_type = situation_planetary_revolt } }
 	}
 	immediate = {
 		random_country = {
 			limit = {
-				# is_pirate = yes only works for single country type
 				OR = {
-					is_country_type = pirate
+					is_pirate = yes # only works for single country type
 					is_country_type = pirate_waves_country
 				}
 				any_owned_fleet = {
@@ -88,10 +106,7 @@ country_event = {
 					}
 				}
 			}
-			weights = {
-				base = 1
-				modifier = { add = 20 is_country_type = pirate }
-			}
+			weights = { base = 1 modifier = { add = 20 is_country_type = pirate } }
 			save_event_target_as = pirate_band
 			save_event_target_as = current_pirate_country
 			random_owned_fleet = {
