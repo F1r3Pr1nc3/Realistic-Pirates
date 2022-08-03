@@ -159,6 +159,7 @@ create_pirate_waves_countries = {
 				ethic = ethic_fanatic_militarist
 				ethic = random
 			}
+			day_zero_contact = no
 			ignore_initial_colony_error = yes
 			effect = {
 				save_global_event_target_as = pirate_waves_country
@@ -169,7 +170,11 @@ create_pirate_waves_countries = {
 				# Add the pirate power
 				add_modifier = { modifier = pirate_power }
 				# # log = "Created the 1st Pirate country and added the pirate power..."
-				make_moderately_hostile = yes
+				make_moderately_hostile = yes # E.g neutral to enclaves
+				set_timed_country_flag = { flag = day_0 months = 1 }
+				# TODO Remove me >v3.4
+				set_country_flag = first_alien_life
+				set_country_flag = has_encountered_other_empire
 			}
 		}
 	}
@@ -206,6 +211,7 @@ create_pirate_waves_countries = {
 				colors = { "black" "red" "null" "null" }
 			}
 			ethos = { ethic = ethic_fanatic_militarist }
+			day_zero_contact = no
 			ignore_initial_colony_error = yes
 			effect = {
 				save_global_event_target_as = pirate_waves_2_country
@@ -216,23 +222,22 @@ create_pirate_waves_countries = {
 				# Add the pirate power
 				add_modifier = { modifier = pirate_power }
 				# # log = "Created the 2nd Pirate country and added the pirate power..."
-				make_moderately_hostile = yes
+				make_moderately_hostile = yes # E.g neutral to enclaves
+				set_timed_country_flag = { flag = day_0 months = 1 }
+				# TODO Remove me >v3.4
+				set_country_flag = first_alien_life
+				set_country_flag = has_encountered_other_empire
 			}
 		}
 	}
-	# Disable attacking enclave stations
+
+	# Stop all pirates attacking enclave stations
 	every_country = {
 		limit = {
 			OR = {
 				is_country_type = enclave
 				is_country_type = enclave_mercenary
 				is_country_type = ldragon_country
-				is_tiyanki_country_type = yes
-				is_amoeba_country_type = yes
-				is_crystal_country_type = yes
-				is_drone_country_type = yes
-				# is_country_type = vluur
-				# is_primitive = yes
 			}
 		}
 		every_country = {
@@ -246,7 +251,7 @@ create_pirate_waves_countries = {
 		}
 	}
 	# Establish communications between the pirates and other countries.
-	every_country = {
+	every_playable_country = {
 		event_target:pirate_waves_country = { establish_communications_no_message = prev }
 		event_target:pirate_waves_2_country = { establish_communications_no_message = prev }
 	}
@@ -497,7 +502,7 @@ create_pirate_waves_fleet = {
 			multiply_variable = { which = pirates_f_tmp value = 0.1585 }			# 1/sqrt(10,1.25)
 		}
 		set_variable = { which = pirates_f_tmp2 value = pirates_f_tmp }
-		change_variable = { which = pirates_f_tmp2 value = 99 }
+		change_variable = { which = pirates_f_tmp2 value = 49 }
 		divide_variable = { which = pirates_f_tmp2 value = 100 }
 		divide_variable = { which = pirates_f_tmp value = pirates_f_tmp2 }
 		round_variable_to_closest = { which = pirates_f_tmp value = 0.01 }
@@ -546,7 +551,7 @@ create_pirate_waves_fleet = {
 				multiply_variable = { which = pirates_f_tmp value = 0.1645 }				# 1/sqrt(15,1.5)
 			}
 			set_variable = { which = pirates_f_tmp2 value = pirates_f_tmp }
-			change_variable = { which = pirates_f_tmp2 value = 99 }
+			change_variable = { which = pirates_f_tmp2 value = 49 }
 			divide_variable = { which = pirates_f_tmp2 value = 100 }
 			divide_variable = { which = pirates_f_tmp value = pirates_f_tmp2 }
 			round_variable_to_closest = { which = pirates_f_tmp value = 0.01 }
@@ -586,7 +591,7 @@ create_pirate_waves_fleet = {
 					multiply_variable = { which = pirates_f_tmp value = 0.18 }				# 1/sqrt(20,1.75)
 				}
 				set_variable = { which = pirates_f_tmp3 value = pirates_f_tmp }
-				change_variable = { which = pirates_f_tmp3 value = 99 }
+				change_variable = { which = pirates_f_tmp3 value = 59 }
 				divide_variable = { which = pirates_f_tmp3 value = 100 }
 				divide_variable = { which = pirates_f_tmp value = pirates_f_tmp3 }
 				round_variable_to_closest = { which = pirates_f_tmp value = 0.01 }
@@ -616,7 +621,7 @@ create_pirate_waves_fleet = {
 						multiply_variable = { which = pirates_f_tmp value = 0.2 }				# 1/sqrt(25)
 					}
 					set_variable = { which = pirates_f_tmp3 value = pirates_f_tmp }
-					change_variable = { which = pirates_f_tmp3 value = 99 }
+					change_variable = { which = pirates_f_tmp3 value = 59 }
 					divide_variable = { which = pirates_f_tmp3 value = 100 }
 					divide_variable = { which = pirates_f_tmp value = pirates_f_tmp3 }
 					round_variable_to_closest = { which = pirates_f_tmp value = 0.01 }

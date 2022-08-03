@@ -1,5 +1,7 @@
 namespace = pirate_republic
 ## Pirates have been controlling a system for more than 10 years (monthly pulse)
+@stabilitylevel5 = 75
+
 event = {
 	id = pirate_republic.1
 	hide_window = yes
@@ -66,6 +68,9 @@ country_event = {
 	desc = pirate_republic.10.desc
 	location = event_target:pirate_system
 	is_triggered_only = yes
+	trigger = {
+		NOT = { any_situation = { is_situation_type = situation_planetary_revolt } }
+	}
 	immediate = {
 		random_country = {
 			limit = {
@@ -104,11 +109,23 @@ country_event = {
 							any_system_planet = {
 								is_colony = yes
 								is_under_colonization = no
-								OR = {
-									is_owned_by = root
-									is_controlled_by = root
+								is_owned_by = root
+								is_controlled_by = root
+								planet_stability < @stabilitylevel5
+								NOR = {
+									has_orbital_bombardment = yes
+									has_ground_combat = yes
+									is_under_colonization = yes
+									has_planet_flag = pirate_invasion
+									has_planet_flag = slave_revolt
+									has_planet_flag = recent_unrest_event
+									has_planet_flag = slave_stirring
+									has_ground_combat = yes
+									has_modifier = slave_hunger_strike
+									has_modifier = slave_riots
+									has_modifier = adding_unrest_slaves
+									has_modifier = revolt_suppressed
 								}
-								planet_stability < 80
 							}
 							NOT = {
 								any_fleet_in_system = {
@@ -121,11 +138,9 @@ country_event = {
 							limit = {
 								is_colony = yes
 								is_under_colonization = no
-								OR = {
-									is_owned_by = root
-									is_controlled_by = root
-								}
-								planet_stability < 80
+								is_owned_by = root
+								is_controlled_by = root
+								planet_stability < @stabilitylevel5
 							}
 							save_event_target_as = pirate_target
 						}
@@ -139,12 +154,23 @@ country_event = {
 									is_capital_system = no
 									any_system_planet = {
 										is_colony = yes
-										is_under_colonization = no
-										OR = {
-											is_owned_by = root
-											is_controlled_by = root
+										planet_stability < @stabilitylevel5
+										NOR = {
+											has_orbital_bombardment = yes
+											has_ground_combat = yes
+											is_under_colonization = yes
+											has_planet_flag = pirate_invasion
+											has_planet_flag = slave_revolt
+											has_planet_flag = recent_unrest_event
+											has_planet_flag = slave_stirring
+											has_ground_combat = yes
+											has_modifier = slave_hunger_strike
+											has_modifier = slave_riots
+											has_modifier = adding_unrest_slaves
+											has_modifier = revolt_suppressed
 										}
-										planet_stability < 80
+										is_owned_by = root
+										is_controlled_by = root
 									}
 									NOT = {
 										any_fleet_in_system = {
@@ -163,14 +189,16 @@ country_event = {
 								is_capital_system = no
 								any_system_planet = {
 									is_colony = yes
-									is_under_colonization = no
-									NOT = { has_planet_flag = pirate_invasion }
-									has_ground_combat = no
-									OR = {
-										is_owned_by = root
-										is_controlled_by = root
+									NOR = {
+										is_under_colonization = yes
+										has_planet_flag = pirate_invasion
+										has_planet_flag = slave_revolt
+										has_planet_flag = recent_unrest_event
+										has_ground_combat = yes
 									}
-									planet_stability < 80
+									is_owned_by = root
+									is_controlled_by = root
+									planet_stability < @stabilitylevel5
 									# owner = {
 									# 	is_primitive = no
 									# 	is_hostile = event_target:pirate_band
@@ -186,14 +214,16 @@ country_event = {
 							random_system_planet = {
 								limit = {
 									is_colony = yes
-									is_under_colonization = no
-									NOT = { has_planet_flag = pirate_invasion }
-									has_ground_combat = no
-									OR = {
-										is_owned_by = root
-										is_controlled_by = root
+									NOR = {
+										is_under_colonization = yes
+										has_planet_flag = pirate_invasion
+										has_planet_flag = slave_revolt
+										has_planet_flag = recent_unrest_event
+										has_ground_combat = yes
 									}
-									planet_stability < 80
+									is_owned_by = root
+									is_controlled_by = root
+									planet_stability < @stabilitylevel5
 									# owner = {
 									# 	is_primitive = no
 									# 	is_hostile = event_target:pirate_band
@@ -232,7 +262,7 @@ country_event = {
 								}
 								save_event_target_as = pirate_target
 								while = {
-									count = 5
+									count = 4
 									create_pop = {
 										species = event_target:pirate_species
 										ethos = { ethic = "ethic_militarist" }
@@ -330,17 +360,29 @@ planet_event = {
 	location = root
 	is_triggered_only = yes
 	situation = event_target:new_situation
+	pre_triggers = { has_owner = yes }
 	trigger = {
+		is_colony = yes
 		# exists = event_target:pirate_target
-		planet_stability < 80
-		# NOR = {
-		# 	has_planet_flag = slave_stirring
-		# 	has_planet_flag = recent_unrest_event
-		# 	has_modifier = slave_hunger_strike
-		# 	has_modifier = slave_riots
-		# 	has_modifier = adding_unrest_slaves
-		# 	has_modifier = revolt_suppressed
-		# }
+		exists = owner
+		owner = { merg_is_default_empire = yes }
+		is_owned_by = root
+		is_controlled_by = root
+		planet_stability < @stabilitylevel5
+		NOR = {
+			has_orbital_bombardment = yes
+			has_ground_combat = yes
+			is_under_colonization = yes
+			has_planet_flag = pirate_invasion
+			has_planet_flag = slave_revolt
+			has_planet_flag = recent_unrest_event
+			has_planet_flag = slave_stirring
+			has_ground_combat = yes
+			has_modifier = slave_hunger_strike
+			has_modifier = slave_riots
+			has_modifier = adding_unrest_slaves
+			has_modifier = revolt_suppressed
+		}
 	}
 	immediate = {
 		random_owned_pop = {
@@ -539,7 +581,7 @@ planet_event = {
 					set_owner = event_target:pirate_republic
 				}
 				# Dyn. amount (needs to be after create_pirate_waves_fleet)
-				set_variable = { which = num_armies_var value = 10 }
+				set_variable = { which = num_armies_var value = 5 }
 				change_variable = { which = num_armies_var value = prev.pirates_factor }
 				multiply_variable = { which = num_armies_var value = prev.pirates_f_tmp2 }
 				round_variable = num_armies_var
@@ -553,7 +595,7 @@ planet_event = {
 					}
 				}
 				# prev = { divide_variable = { which = pirates_f_tmp2 value = 2 } }
-				# divide_variable = { which = num_armies_var value = prev.pirates_f_tmp2 }
+				divide_variable = { which = num_armies_var value = 2 }
 				create_fleet = {
 					name = "NAME_Pirate_Fleet"
 					effect = {
@@ -561,7 +603,7 @@ planet_event = {
 						set_owner = event_target:pirate_republic
 						# Create ships
 						while = {
-							count = 10 # num_armies_var
+							count = prev.num_armies_var # 10
 							create_army_transport = {
 								ship_name = "NAME_Freedom_Fighters"
 								graphical_culture = "pirate_01"
@@ -631,7 +673,21 @@ planet_event = {
 					add_random_leader_trait = yes
 				}
 			}
-			random_owned_army = { limit = { NOT = { exists = leader } } assign_leader = last_created_leader }
+			random_owned_army = {
+				limit = {
+					NOT = { exists = leader }
+					NAND = {
+						exists = planet
+						planet = { has_ground_combat = yes }
+					}
+					NAND = {
+						exists = fleet
+						fleet = { is_in_combat = yes }
+					}
+				}
+				weights = { base = 1 modifier = { add = 3 exists = planet } }
+				assign_leader = last_created_leader
+			}
 			# From unrest.4050
 			save_event_target_as = new_owner_empire
 			root = {
@@ -673,71 +729,32 @@ planet_event = {
 					clear_variable = pirates_f_tmp2
 				}
 			}
-			# solar_system = {
-			# 	if = {
-			# 		limit = {
-			# 			starbase = { is_owned_by = from } # root.owner
-			# 			NOR = {
-			# 				any_fleet_in_system = {
-			# 					is_mobile = yes
-			# 					exists = owner
-			# 					is_owned_by = from	# space_owner
-			# 					is_civilian = no	# is_ship_class = shipclass_military
-			# 				}
-			# 				any_system_planet = {
-			# 					has_owner = yes
-			# 					OR = {
-			# 						has_planet_flag = pirate_invasion
-			# 						NOR = {
-			# 							is_owned_by = from
-			# 							is_controlled_by = from
-			# 						}
-			# 					}
-			# 				}
-			# 			}
-			# 		}
-			# 	if = {
-			# 		limit = { exists = starbase }
-			# 		starbase = {
-			# 			# fleet = { set_controller = event_target:pirate_republic }
-			# 			set_owner = event_target:pirate_republic
-			# 			if = {
-			# 				limit = { has_starbase_size = starbase_outpost }
-			# 				set_starbase_size = starbase_starport
-			# 				set_starbase_module = {
-			# 					slot = 1
-			# 					module = shipyard
-			# 				}
-			# 				set_starbase_module = {
-			# 					slot = 2
-			# 					module = shipyard
-			# 				}
-			# 			}
-			# 			else_if = {
-			# 				limit = {
-			# 					NOT = { has_starbase_module = shipyard }
-			# 				}
-			# 				set_starbase_module = {
-			# 					slot = 1
-			# 					module = shipyard
-			# 				}
-			# 				set_starbase_module = {
-			# 					slot = 2
-			# 					module = shipyard
-			# 				}
-			# 			}
-			# 		}
-			# 	}
-			# 	else = {
-			# 		create_starbase = {
-			# 			size = starbase_starport
-			# 			module = shipyard
-			# 			module = shipyard
-			# 			owner = event_target:pirate_republic
-			# 		}
-			# 	}
-			# 	add_claims = { who = root.owner show_notification = no }
-			# }
+			solar_system = {
+				if = {
+					limit = { exists = starbase }
+					starbase = {
+						set_owner = event_target:pirate_republic
+						if = { limit = { has_starbase_size = starbase_outpost }
+							set_starbase_size = starbase_starport
+							set_starbase_module = { slot = 1 module = shipyard }
+							set_starbase_module = { slot = 2 module = shipyard }
+						}
+						else_if = { limit = { NOT = { has_starbase_module = shipyard } }
+							set_starbase_module = { slot = 1 module = shipyard }
+							set_starbase_module = { slot = 2 module = shipyard }
+						}
+					}
+				}
+				else = {
+					create_starbase = {
+						size = starbase_starport
+						module = shipyard
+						module = shipyard
+						owner = event_target:pirate_republic
+					}
+				}
+				add_claims = { who = root.owner show_notification = no }
+			}
 		}
 	}
 	option = {
@@ -795,7 +812,7 @@ planet_event = {
 								}
 							}
 							# Dyn. amount (needs to be after create_pirate_waves_fleet)
-							set_variable = { which = num_armies_var value = 10 }
+							set_variable = { which = num_armies_var value = 5 }
 							change_variable = { which = num_armies_var value = prev.pirates_factor }
 							multiply_variable = { which = num_armies_var value = prev.pirates_f_tmp2 }
 							# log="Pirate invasion army amount \\[This.num_armies_var] and \\[Prev.pirates_f_tmp2]"
@@ -810,7 +827,7 @@ planet_event = {
 							}
 							last_created_army = { assign_leader = last_created_leader }
 							# prev = { divide_variable = { which = pirates_f_tmp2 value = 2 } }
-							# divide_variable = { which = num_armies_var value = prev.pirates_f_tmp2 }
+							divide_variable = { which = num_armies_var value = 2 }
 							create_fleet = {
 								name = "NAME_Pirate_Fleet"
 								effect = {
@@ -818,7 +835,7 @@ planet_event = {
 									set_owner = event_target:pirate_republic
 									# Create ships
 									while = {
-										count = 10 # num_armies_var
+										count = prev.num_armies_var # 10
 										create_army_transport = {
 											ship_name = "NAME_Freedom_Fighters"
 											graphical_culture = "pirate_01"
@@ -846,7 +863,21 @@ planet_event = {
 								}
 							}
 						}
-						random_owned_army = { assign_leader = last_created_leader }
+						random_owned_army = {
+							limit = {
+								NOT = { exists = leader }
+								NAND = {
+									exists = planet
+									planet = { has_ground_combat = yes }
+								}
+								NAND = {
+									exists = fleet
+									fleet = { is_in_combat = yes }
+								}
+							}
+							weights = { base = 1 modifier = { add = 3 exists = planet } }
+							assign_leader = last_created_leader
+						}
 					}
 					set_hostile = root.owner
 				}
@@ -974,7 +1005,7 @@ country_event = {
 					any_owned_planet = {
 						distance = {
 							source = FromFrom
-							max_distance <= 200 # 300
+							max_distance <= 250 # 300
 							min_distance >= 0
 						}
 					}
@@ -993,7 +1024,7 @@ country_event = {
 					any_owned_planet = {
 						distance = {
 							source = FromFrom
-							max_distance <= 200 # 300
+							max_distance <= 250 # 300
 							min_distance >= 0
 						}
 					}
@@ -1268,20 +1299,25 @@ country_event = {
 }
 
 # on_starbase_disabled
+# From = fleet that disabled the starbase
 starbase_event = {
 	id = pirate_republic.16
 	hide_window = yes
 	is_triggered_only = yes
 	trigger = {
 		exists = owner
-		owner = {
-			is_country_type = rebel
-			# OR = {
-			# 	is_pirate_country = yes
-			# }
-		}
 		exists = from
-		from = {
+		owner = {
+			OR = {
+				is_country_type = rebel
+				is_pirate_country = yes
+				AND = {
+					merg_is_standard_empire = yes
+					root.from.owner = { is_country_type = rebel }
+				}
+			}
+		}
+		from.owner = {
 			OR = {
 				merg_is_standard_empire = yes
 				is_pirate_country = yes
@@ -1327,7 +1363,6 @@ event = {
 		every_country = {
 			limit = {
 				is_country_type = rebel
-				# is_ai = yes
 				has_country_flag = pirate_republic
 			}
 			save_event_target_as = rebel_country
@@ -1399,7 +1434,7 @@ event = {
 								limit = { exists = controller controller = { is_same_empire = event_target:rebel_country } }
 								set_controller = event_target:old_owner
 							}
-							prev = { starbase = { set_owner = event_target:rebel_country } }
+							prev.starbase = { set_owner = event_target:rebel_country }
 							set_timed_planet_flag = { flag = pirate_invasion years = 2 }
 							create_fleet = {
 								name = "NAME_Pirate_Fleet"
@@ -1447,47 +1482,6 @@ event = {
 								}
 							}
 						}
-						# if = {
-						# 	limit = { exists = starbase }
-						# 	starbase = {
-						# 		fleet = { set_controller = event_target:rebel_country }
-						# 		# set_owner = event_target:rebel_country
-						# 		if = {
-						# 			limit = { has_starbase_size = starbase_outpost }
-						# 			set_starbase_size = starbase_starport
-						# 			set_starbase_module = {
-						# 				slot = 1
-						# 				module = shipyard
-						# 			}
-						# 			set_starbase_module = {
-						# 				slot = 2
-						# 				module = shipyard
-						# 			}
-						# 		}
-						# 		else_if = {
-						# 			limit = {
-						# 				NOT = { has_starbase_module = shipyard }
-						# 			}
-						# 			set_starbase_module = {
-						# 				slot = 1
-						# 				module = shipyard
-						# 			}
-						# 			set_starbase_module = {
-						# 				slot = 2
-						# 				module = shipyard
-						# 			}
-						# 		}
-						# 	}
-						# }
-						# else = {
-						# 	create_starbase = {
-						# 		size = starbase_starport
-						# 		module = shipyard
-						# 		module = shipyard
-						# 		owner = event_target:rebel_country
-						# 	}
-						# }
-						# add_claims = { who = event_target:old_owner show_notification = no }
 					}
 				}
 				if = {
@@ -1498,18 +1492,7 @@ event = {
 							any_controlled_fleet = { is_mobile = no exists = solar_system solar_system = { any_system_planet = { has_owner = yes is_colony = yes } } }
 						}
 					}
-					every_owned_starbase = {
-						solar_system = {
-							every_system_planet = {
-								limit = { has_planet_flag = pirate_invasion }
-								remove_planet_flag = pirate_invasion
-								prev = { starbase = { set_owner = event_target:old_owner } }
-							}
-						}
-					}
-					log="Destroy rebel country"
 					set_country_flag = silence_destroy_event
-					destroy_country = yes
 				} else = {
 					every_owned_fleet = {
 						limit = { is_mobile = yes is_civilian = no }
@@ -1546,8 +1529,27 @@ event = {
 				} else = {
 					# set_country_type = pirate_waves_country
 					set_country_flag = silence_destroy_event
-					destroy_country = yes
 				}
+			}
+			if = { limit = { has_country_flag = silence_destroy_event }
+				every_owned_starbase = {
+					solar_system = {
+						every_system_planet = {
+							limit = { has_planet_flag = pirate_invasion }
+							remove_planet_flag = pirate_invasion
+							if = {
+								limit = {
+									exists = owner
+									NOT = { is_owned_by = event_target:rebel_country }
+								}
+								owner = { save_event_target_as = old_owner }
+							}
+						}
+						starbase = { set_owner = event_target:old_owner }
+					}
+				}
+				log="Destroy rebel country"
+				destroy_country = yes
 			}
 		}
 	}
@@ -1704,10 +1706,12 @@ country_event = {
 	}
 	immediate = {
 		event_target:pirate_republic.capital_scope = {
+			set_update_modifiers_batch = begin
 			### Create Defense Armies (for some job reasons common armies get deleted)
 			set_variable = { which = num_armies_var value = trigger:num_pops }
 			divide_variable = { which = num_armies_var value = 7 }
 			round_variable = num_armies_var
+			# Replace few pops
 			while = {
 				count = num_armies_var
 				create_army = {
@@ -1736,11 +1740,15 @@ country_event = {
 				}
 
 			}
-			set_variable = { which = num_armies_var value = 2 }
-			divide_variable = { which = num_armies_var value = trigger:num_pops }
-			multiply_variable = { which = num_armies_var value = 13.4 }
-			round_variable = num_armies_var
+			# Establish few pops (dynamically)
 			subtract_variable = { which = num_armies_var value = 1 }
+			if = { limit = { check_variable = { which = num_armies_var value > 2 } }
+				if = { limit = { check_variable = { which = num_armies_var value > 8 } }
+					set_variable = { which = num_armies_var value = 8 } # max
+				}
+			} else = {
+				set_variable = { which = num_armies_var value = 2 } # min
+			}
 			while = {
 				count = num_armies_var
 				create_pop = {
@@ -1749,6 +1757,7 @@ country_event = {
 				}
 			}
 			clear_variable = num_armies_var
+			set_update_modifiers_batch = end
 		}
 	}
 	option = { name = pirate_republic.104.option }

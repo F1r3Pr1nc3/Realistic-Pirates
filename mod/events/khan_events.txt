@@ -156,6 +156,7 @@ system_event = {
 						create_ship = {
 							name = random
 							design = "NAME_Warrior_Freehold"
+							graphical_culture = "pirate_01"
 						}
 					}
 				}
@@ -1150,7 +1151,7 @@ country_event = {
 					}
 					assign_leader = leader
 				}
-				fleet_event = { id = khan.611 }
+				fleet_event = { id = khan.611 days = -1 }
 			}
 			prev = {
 				add_resource = {

@@ -1891,8 +1891,6 @@ country_event = {
 				from = { is_country_type = dormant_marauders }
 			}
 			from = { save_event_target_as = current_marauder_diplomacy }
-		} else = {
-			event_target:current_marauder_diplomacy = { save_event_target_as = current_marauder_diplomacy }
 		}
 		event_target:current_marauder_diplomacy = {
 			owner_species = { save_event_target_as = marauder_species }
@@ -2050,9 +2048,7 @@ fleet_event = {
 	id = marauder.27
 	hide_window = yes
 	is_triggered_only = yes
-	trigger = {
-		exists = from
-	}
+	trigger = { exists = from }
 	immediate = {
 		closest_system = {
 			min_steps = 2
@@ -2089,7 +2085,7 @@ fleet_event = {
 }
 
 ## raiding_marauder stuck check & fix
-# Root = dormant_marauder
+# Root = dormant_marauder = current_marauder_diplomacy
 # From = marauder_target
 country_event = {
 	id = marauder.28
@@ -2207,7 +2203,7 @@ country_event = {
 }
 
 # Seeks a viable target if the actual target is not accesible (fallback)
-# from = marauder_raid_target country
+# From = country marauder_raid_target
 fleet_event = {
 	id = marauder.29
 	hide_window = yes
@@ -2431,8 +2427,6 @@ country_event = {
 				from = { is_country_type = dormant_marauders }
 			}
 			from = { save_event_target_as = current_marauder_diplomacy }
-		} else = {
-			event_target:current_marauder_diplomacy = { save_event_target_as = current_marauder_diplomacy }
 		}
 		event_target:current_marauder_diplomacy = { owner_species = { save_event_target_as = marauder_species } }
 		random_rival_country = {
@@ -2738,8 +2732,6 @@ country_event = {
 				from = { is_country_type = dormant_marauders }
 			}
 			from = { save_event_target_as = current_marauder_diplomacy }
-		} else = {
-			event_target:current_marauder_diplomacy = { save_event_target_as = current_marauder_diplomacy }
 		}
 		## Dynamic raid costs TODO needs update each effect.
 		event_target:current_marauder_diplomacy = {
@@ -2950,38 +2942,7 @@ country_event = {
 					set_aggro_range = 150
 					set_fleet_flag = hired_raiding_fleet
 					set_fleet_flag = raiding_fleet
-					set_owner = event_target:marauder_raiding_country					# Real owner
 					assign_leader = last_created_leader
-					closest_system = {
-						limit = {
-							any_system_planet = {
-								has_owner = yes
-								is_owned_by = event_target:marauder_target
-								num_pops > 0
-							}
-							# prev = { can_access_system = prev }
-						}
-						random_system_planet = {
-							limit = {
-								has_owner = yes
-								is_owned_by = event_target:marauder_target
-								num_pops > 0
-							}
-							save_event_target_as = raid_planet
-						}
-					}
-					if = {
-						limit = {
-							exists = event_target:raid_planet
-							can_access_system = event_target:raid_planet.solar_system
-						}
-						auto_move_to_planet = {
-							target = event_target:raid_planet
-							clear_auto_move_on_arrival = no
-						}
-					} else = {
-						fleet_event = { id = marauder.29 scopes = { from = event_target:marauder_target } }
-					}
 				}
 			}
 			set_faction_hostility = {
@@ -2989,6 +2950,38 @@ country_event = {
 				set_hostile = yes
 				set_neutral = no
 				set_friendly = no
+			}
+			last_created_fleet = {
+				set_owner = prev	# Real owner
+				closest_system = {
+					limit = {
+						has_owner = yes
+						is_owned_by = event_target:marauder_target
+						any_system_planet = {
+							has_owner = yes
+							is_owned_by = event_target:marauder_target
+							num_pops > 0
+						}
+						# prev = { can_access_system = prev }
+					}
+					random_system_planet = {
+						limit = {
+							has_owner = yes
+							is_owned_by = event_target:marauder_target
+							num_pops > 0
+						}
+						save_event_target_as = raid_planet
+					}
+				}
+				if = {
+					limit = {
+						exists = event_target:raid_planet
+						can_access_system = event_target:raid_planet.solar_system
+					}
+					auto_move_to_planet = { target = event_target:raid_planet clear_auto_move_on_arrival = no }
+				} else = {
+					fleet_event = { id = marauder.29 scopes = { from = event_target:marauder_target } }
+				}
 			}
 		}
 		country_event = { id = marauder.120 }
@@ -3041,8 +3034,6 @@ country_event = {
 				from = { is_country_type = dormant_marauders }
 			}
 			from = { save_event_target_as = current_marauder_diplomacy }
-		} else = {
-			event_target:current_marauder_diplomacy = { save_event_target_as = current_marauder_diplomacy }
 		}
 		event_target:current_marauder_diplomacy = { owner_species = { save_event_target_as = marauder_species } }
 		## Dynamic hiring costs TODO needs update each effect.
@@ -3401,8 +3392,6 @@ country_event = {
 				from = { is_country_type = dormant_marauders }
 			}
 			from = { save_event_target_as = current_marauder_diplomacy }
-		} else = {
-			event_target:current_marauder_diplomacy = { save_event_target_as = current_marauder_diplomacy }
 		}
 		random_relation = {
 			limit = { is_fallen_empire = yes }
@@ -3443,7 +3432,7 @@ country_event = {
 					event_target:current_marauder_diplomacy = { is_hostile = prev }
 				}
 			}
-			country_event = { id = marauder.38 days = 20 }
+			country_event = { id = marauder.38 days = 20 scopes = { from = event_target:current_marauder_diplomacy } }
 		} else = {
 			country_event = { id = marauder.38 scopes = { from = event_target:current_marauder_diplomacy } }			# Use mia
 		}
@@ -3467,12 +3456,20 @@ country_event = {
 }
 
 # Scope = Hiring country (by FirePrince)
+# From = current_marauder_diplomacy
 country_event = {
 	id = marauder.38
 	hide_window = yes
 	is_triggered_only = yes
-	trigger = {}
+	trigger = { exists = from }
 	immediate = {
+		if = {
+			limit = {
+				NOT = { exists = event_target:current_marauder_diplomacy }
+				from = { is_country_type = dormant_marauders }
+			}
+			from = { save_event_target_as = current_marauder_diplomacy }
+		}
 		if = {
 			limit = { exists = event_target:current_marauder_diplomacy }
 			# Create global Rally Point event_targets.
@@ -5047,38 +5044,7 @@ country_event = {
 					set_aggro_range_measure_from = self
 					set_aggro_range = 150
 					set_fleet_flag = raiding_fleet
-					set_owner = event_target:marauder_raiding_country					# Real owner
 					assign_leader = last_created_leader
-					closest_system = {
-						limit = {
-							any_system_planet = {
-								has_owner = yes
-								is_owned_by = root
-								num_pops > 0
-							}
-							# prev = { can_access_system = prev }
-						}
-						random_system_planet = {
-							limit = {
-								has_owner = yes
-								is_owned_by = root
-								num_pops > 0
-							}
-							save_event_target_as = raid_planet
-						}
-					}
-					if = {
-						limit = {
-							exists = event_target:raid_planet
-							can_access_system = event_target:raid_planet.solar_system
-						}
-						auto_move_to_planet = {
-							target = event_target:raid_planet
-							clear_auto_move_on_arrival = no
-						}
-					} else = {
-						fleet_event = { id = marauder.29 }
-					}
 				}
 			}
 			set_faction_hostility = {
@@ -5086,6 +5052,38 @@ country_event = {
 				set_hostile = yes
 				set_neutral = no
 				set_friendly = no
+			}
+			last_created_fleet = {
+				set_owner = prev	# Real owner
+				closest_system = {
+					limit = {
+						has_owner = yes
+						is_owned_by = event_target:marauder_target
+						any_system_planet = {
+							has_owner = yes
+							is_owned_by = event_target:marauder_target
+							num_pops > 0
+						}
+						# prev = { can_access_system = prev }
+					}
+					random_system_planet = {
+						limit = {
+							has_owner = yes
+							is_owned_by = event_target:marauder_target
+							num_pops > 0
+						}
+						save_event_target_as = raid_planet
+					}
+				}
+				if = {
+					limit = {
+						exists = event_target:raid_planet
+						can_access_system = event_target:raid_planet.solar_system
+					}
+					auto_move_to_planet = { target = event_target:raid_planet clear_auto_move_on_arrival = no }
+				} else = {
+					fleet_event = { id = marauder.29 }
+				}
 			}
 		}
 	}
@@ -6945,39 +6943,7 @@ event = {
 							set_aggro_range = 150
 							set_fleet_flag = hired_raiding_fleet
 							set_fleet_flag = raiding_fleet
-							set_owner = event_target:marauder_raiding_country							# Real owner
 							assign_leader = last_created_leader
-							closest_system = {
-								use_bypasses = yes
-								limit = {
-									any_system_planet = {
-										has_owner = yes
-										is_owned_by = event_target:marauder_target
-										num_pops > 0
-									}
-									# prev = { can_access_system = prev }
-								}
-								random_system_planet = {
-									limit = {
-										has_owner = yes
-										is_owned_by = event_target:marauder_target
-										num_pops > 0
-									}
-									save_event_target_as = raid_planet
-								}
-							}
-							if = {
-								limit = {
-									exists = event_target:raid_planet
-									can_access_system = event_target:raid_planet.solar_system
-								}
-								auto_move_to_planet = {
-									target = event_target:raid_planet
-									clear_auto_move_on_arrival = no
-								}
-							} else = {
-								fleet_event = { id = marauder.29 scopes = { from = event_target:marauder_target } }
-							}
 						}
 					}
 					set_faction_hostility = {
@@ -6986,11 +6952,41 @@ event = {
 						set_neutral = no
 						set_friendly = no
 					}
-					event_target:hired_marauder = {
-						add_resource = {
-							energy = @raidcost
-							mult = prev.raidcost
+					last_created_fleet = {
+						set_owner = prev	# Real owner
+						closest_system = {
+							use_bypasses = yes
+							limit = {
+								has_owner = yes
+								is_owned_by = event_target:marauder_target
+								any_system_planet = {
+									has_owner = yes
+									is_owned_by = event_target:marauder_target
+									num_pops > 0
+								}
+								# prev = { can_access_system = prev }
+							}
+							random_system_planet = {
+								limit = {
+									has_owner = yes
+									is_owned_by = event_target:marauder_target
+									num_pops > 0
+								}
+								save_event_target_as = raid_planet
+							}
 						}
+						if = {
+							limit = {
+								exists = event_target:raid_planet
+								can_access_system = event_target:raid_planet.solar_system
+							}
+							auto_move_to_planet = { target = event_target:raid_planet clear_auto_move_on_arrival = no }
+						} else = {
+							fleet_event = { id = marauder.29 scopes = { from = event_target:marauder_target } }
+						}
+					}
+					event_target:hired_marauder = {
+						add_resource = { energy = @raidcost mult = prev.raidcost }
 					}
 					log="raidcost \\[This.raidcost]"
 					clear_variable = raidcost
@@ -9208,13 +9204,7 @@ event = {
 		# }
 		event_target:CmtGlobalVar = {
 			random_list = {
-				2 = {
-					event_target:raider_khanate = { country_event = { id = marauder.512 } }
-					modifier = {
-						factor = 0
-						check_variable = { which = CmtVarKhanLifespan value = 6 }
-					}
-				}
+				2 = { event_target:raider_khanate = { country_event = { id = marauder.512 } } modifier = { factor = 0 check_variable = { which = CmtVarKhanLifespan value = 6 } } }
 				98 = {
 					modifier = {
 						factor = @CmtConstKhanLifespan_1b
@@ -10281,9 +10271,7 @@ country_event = {
 		save_event_target_as = satrapy_empire
 		if = {
 			limit = { exists = capital_scope }
-			capital_scope = {
-				save_event_target_as = capital_planet
-			}
+			capital_scope = { save_event_target_as = capital_planet }
 		} else = {
 			ordered_owned_planet = {
 				limit = { is_colony = yes }
@@ -10673,14 +10661,12 @@ country_event = {
 	id = marauder.559
 	is_triggered_only = yes
 	hide_window = yes
-	# trigger = {}
+	trigger = { is_subject_of_khan = no }
 	immediate = {
 		## If has_federation give Horde malus partial back.
 		if = {
 			limit = { exists = capital_scope }
-			capital_scope = {
-				save_event_target_as = capital_planet
-			}
+			capital_scope = { save_event_target_as = capital_planet }
 		} else = {
 			ordered_owned_planet = {
 				limit = { is_colony = yes }
@@ -12472,3 +12458,8 @@ country_event = {
 		}
 	}
 }
+
+# Workaround for Irony compare
+# namespace = crisis
+# namespace = emperor
+# namespace = pirate

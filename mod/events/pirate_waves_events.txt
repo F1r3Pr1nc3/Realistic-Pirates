@@ -343,6 +343,7 @@ country_event = {
 			country_event = { id = pirate_waves.0 }
 		}
 	}
+	 # only once
 	option = {
 		name = "outer_bulwark_MODE_enable"
 		custom_tooltip = "outer_bulwark_MODE_DESC"
@@ -369,49 +370,239 @@ country_event = {
 		hidden_effect = {
 			set_global_flag = outer_bulwark_initialized
 			event_target:global_event_country = { remove_country_flag = outer_bulwark_inactive }
-			# while = { count = trigger:num_marauder_empires_to_spawn
-			set_spawn_system_batch = begin
-			# batch-processes the spawn_system effects between "begin" and "end",
+			# Batch-processes the spawn_system effects between "begin" and "end",
 			# so caches are recalculated only once rather than for every system spawned
-			# can also be used when removing and adding hyperlanes
+			# Can also be used when removing and adding hyperlanes
+			set_spawn_system_batch = begin
 			no_scope = {
-			# makes system positions originate from galactic core
-				random_rim_system = {
-					limit = { CmtTriggerSpawnableSystem = yes }
-					weights = { base = 1 modifier = { add = 1 has_owner = no } }
-					spawn_system = {
-						min_distance >= 41
-						max_distance <= 64
-						min_orientation_angle = 300
-						max_orientation_angle = 330
-						initializer = supremacists_home
-						direction = corewards
-					}
-				}
-				if = { limit = { num_marauder_empires_to_spawn > 0 }
-					random_rim_system = {
-						limit = { CmtTriggerSpawnableSystem = yes }
-						weights = { base = 1 modifier = { add = 1 has_owner = no } }
-						spawn_system = {
-							min_distance >= 42
-							max_distance <= 65
-							min_orientation_angle = 320
-							max_orientation_angle = 350
-							initializer = technologists_home
-							direction = corewards
-						}
-					}
-					if = { limit = { num_marauder_empires_to_spawn > 1 }
+				# Make system positions originate from galactic core
+				# Make the spawn chance for each more equal (with all 9 possibilities)
+				locked_random_list = {
+					32 = {
+						modifier = { factor = 0.2 exists = event_target:marauder_country_1 }
 						random_rim_system = {
 							limit = { CmtTriggerSpawnableSystem = yes }
 							weights = { base = 1 modifier = { add = 1 has_owner = no } }
 							spawn_system = {
-								min_distance >= 43
-								max_distance <= 66
-								min_orientation_angle = 10
-								max_orientation_angle = 30
+								min_distance >= 41
+								max_distance <= 64
+								min_orientation_angle = 300
+								max_orientation_angle = 330
+								initializer = supremacists_home
+								direction = corewards
+							}
+						}
+						if = { limit = { num_marauder_empires_to_spawn > 1 }
+							locked_random_list = {
+								2 = {
+									random_rim_system = {
+										limit = { CmtTriggerSpawnableSystem = yes }
+										weights = { base = 1 modifier = { add = 1 has_owner = no } }
+										spawn_system = {
+											min_distance >= 42
+											max_distance <= 65
+											min_orientation_angle = 320
+											max_orientation_angle = 350
+											initializer = technologists_home
+											direction = corewards
+										}
+									}
+									if = { limit = { num_marauder_empires_to_spawn > 2 }
+										random_rim_system = {
+											limit = { CmtTriggerSpawnableSystem = yes }
+											weights = { base = 1 modifier = { add = 1 has_owner = no } }
+											spawn_system = {
+												min_distance >= 43
+												max_distance <= 66
+												min_orientation_angle = 10
+												max_orientation_angle = 30
+												initializer = tamers_home
+												direction = corewards
+											}
+										}
+									}
+								}
+								2 = {
+									modifier = { factor = 0 exists = event_target:marauder_country_3 }
+									random_rim_system = {
+										limit = { CmtTriggerSpawnableSystem = yes }
+										weights = { base = 1 modifier = { add = 1 has_owner = no } }
+										spawn_system = {
+											min_distance >= 42
+											max_distance <= 65
+											min_orientation_angle = 320
+											max_orientation_angle = 350
+											initializer = tamers_home
+											direction = corewards
+										}
+									}
+									if = { limit = { num_marauder_empires_to_spawn > 2 }
+										random_rim_system = {
+											limit = { CmtTriggerSpawnableSystem = yes }
+											weights = { base = 1 modifier = { add = 1 has_owner = no } }
+											spawn_system = {
+												min_distance >= 43
+												max_distance <= 66
+												min_orientation_angle = 10
+												max_orientation_angle = 30
+												initializer = technologists_home
+												direction = corewards
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+					32 = {
+						modifier = { factor = 0 exists = event_target:marauder_country_2 }
+						random_rim_system = {
+							limit = { CmtTriggerSpawnableSystem = yes }
+							weights = { base = 1 modifier = { add = 1 has_owner = no } }
+							spawn_system = {
+								min_distance >= 41
+								max_distance <= 64
+								min_orientation_angle = 300
+								max_orientation_angle = 330
+								initializer = technologists_home
+								direction = corewards
+							}
+						}
+						if = { limit = { num_marauder_empires_to_spawn > 1 }
+							locked_random_list = {
+								2 = {
+									random_rim_system = {
+										limit = { CmtTriggerSpawnableSystem = yes }
+										weights = { base = 1 modifier = { add = 1 has_owner = no } }
+										spawn_system = {
+											min_distance >= 42
+											max_distance <= 65
+											min_orientation_angle = 320
+											max_orientation_angle = 350
+											initializer = supremacists_home
+											direction = corewards
+										}
+									}
+									if = { limit = { num_marauder_empires_to_spawn > 2 }
+										random_rim_system = {
+											limit = { CmtTriggerSpawnableSystem = yes }
+											weights = { base = 1 modifier = { add = 1 has_owner = no } }
+											spawn_system = {
+												min_distance >= 43
+												max_distance <= 66
+												min_orientation_angle = 10
+												max_orientation_angle = 30
+												initializer = tamers_home
+												direction = corewards
+											}
+										}
+									}
+								}
+								2 = {
+									modifier = { factor = 0 exists = event_target:marauder_country_3 }
+									random_rim_system = {
+										limit = { CmtTriggerSpawnableSystem = yes }
+										weights = { base = 1 modifier = { add = 1 has_owner = no } }
+										spawn_system = {
+											min_distance >= 42
+											max_distance <= 65
+											min_orientation_angle = 320
+											max_orientation_angle = 350
+											initializer = tamers_home
+											direction = corewards
+										}
+									}
+									if = { limit = { num_marauder_empires_to_spawn > 2 }
+										random_rim_system = {
+											limit = { CmtTriggerSpawnableSystem = yes }
+											weights = { base = 1 modifier = { add = 1 has_owner = no } }
+											spawn_system = {
+												min_distance >= 43
+												max_distance <= 66
+												min_orientation_angle = 10
+												max_orientation_angle = 30
+												initializer = supremacists_home
+												direction = corewards
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+					32 = {
+						modifier = { factor = 0 exists = event_target:marauder_country_3 }
+						random_rim_system = {
+							limit = { CmtTriggerSpawnableSystem = yes }
+							weights = { base = 1 modifier = { add = 1 has_owner = no } }
+							spawn_system = {
+								min_distance >= 41
+								max_distance <= 64
+								min_orientation_angle = 300
+								max_orientation_angle = 330
 								initializer = tamers_home
 								direction = corewards
+							}
+						}
+						if = { limit = { num_marauder_empires_to_spawn > 1 }
+							locked_random_list = {
+								2 = {
+									random_rim_system = {
+										limit = { CmtTriggerSpawnableSystem = yes }
+										weights = { base = 1 modifier = { add = 1 has_owner = no } }
+										spawn_system = {
+											min_distance >= 42
+											max_distance <= 65
+											min_orientation_angle = 320
+											max_orientation_angle = 350
+											initializer = supremacists_home
+											direction = corewards
+										}
+									}
+									if = { limit = { num_marauder_empires_to_spawn > 2 }
+										random_rim_system = {
+											limit = { CmtTriggerSpawnableSystem = yes }
+											weights = { base = 1 modifier = { add = 1 has_owner = no } }
+											spawn_system = {
+												min_distance >= 43
+												max_distance <= 66
+												min_orientation_angle = 10
+												max_orientation_angle = 30
+												initializer = technologists_home
+												direction = corewards
+											}
+										}
+									}
+								}
+								2 = {
+									modifier = { factor = 0 exists = event_target:marauder_country_2 }
+									random_rim_system = {
+										limit = { CmtTriggerSpawnableSystem = yes }
+										weights = { base = 1 modifier = { add = 1 has_owner = no } }
+										spawn_system = {
+											min_distance >= 42
+											max_distance <= 65
+											min_orientation_angle = 320
+											max_orientation_angle = 350
+											initializer = technologists_home
+											direction = corewards
+										}
+									}
+									if = { limit = { num_marauder_empires_to_spawn > 2 }
+										random_rim_system = {
+											limit = { CmtTriggerSpawnableSystem = yes }
+											weights = { base = 1 modifier = { add = 1 has_owner = no } }
+											spawn_system = {
+												min_distance >= 43
+												max_distance <= 66
+												min_orientation_angle = 10
+												max_orientation_angle = 30
+												initializer = supremacists_home
+												direction = corewards
+											}
+										}
+									}
+								}
 							}
 						}
 					}
@@ -521,7 +712,7 @@ event = {
 		}
 
 		# Find a suitable player controlled country to base the spawn chance on.
-		random_country = {
+		random_playable_country = {
 			limit = { is_pirate_waves_player = yes }
 			random = {
 				chance = pirate_waves_chance
@@ -2143,7 +2334,7 @@ event = {
 				log = "No place for new Marauder system found!?"
 				break = yes
 			}
-
+			set_update_modifiers_batch = begin
 			create_country = {
 				name_list = random
 				species = event_target:pirate_species
@@ -2447,6 +2638,7 @@ event = {
 					log = "New Marauder capital at \\[This.GetName]"
 				}
 			}
+			set_update_modifiers_batch = end
 		}
 	}
 }

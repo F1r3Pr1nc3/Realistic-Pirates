@@ -39,7 +39,7 @@ pirate_waves_country = {
 		needs_colony = no
 	}
 	modules = {
-		exclusive_diplomacy_module = {}
+		exclusive_diplomacy_module = { contact_rule = never }
 		basic_technology_module = {}
 		all_technology_module = {}
 		standard_event_module = {}
