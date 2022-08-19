@@ -3658,7 +3658,16 @@ country_event = {
 	}
 	is_triggered_only = yes
 	trigger = { exists = from }
-	immediate = { set_country_flag = marauder_diplomacy_engaged }
+	immediate = {
+		set_country_flag = marauder_diplomacy_engaged
+		if = {
+			limit = {
+				NOT = { exists = event_target:current_marauder_diplomacy }
+				from = { is_country_type = dormant_marauders }
+			}
+			from = { save_event_target_as = current_marauder_diplomacy }
+		}
+	}
 	after = {
 		hidden_effect = { remove_country_flag = marauder_diplomacy_engaged }
 	}
@@ -4609,7 +4618,7 @@ country_event = {
 	}
 }
 
-# Mercenaries Available for Hire
+# Mercenaries Available for Hire (on_yearly_pulse)
 event = {
 	id = marauder.85
 	hide_window = yes
@@ -4660,7 +4669,9 @@ event = {
 						set_country_flag = mercenaries_available_1
 						save_event_target_as = marauder_mercenary_country
 					}
-					observer_event = { id = observer.24 }
+					random_playable_country = {
+						observer_event = { id = observer.24 }
+					}
 					every_playable_country = {
 						limit = {
 							is_ai = no
@@ -4690,7 +4701,9 @@ event = {
 						set_country_flag = mercenaries_available_2
 						save_event_target_as = marauder_mercenary_country
 					}
-					observer_event = { id = observer.25 }
+					random_playable_country = {
+						observer_event = { id = observer.25 }
+					}
 					every_playable_country = {
 						limit = {
 							is_ai = no
@@ -4720,7 +4733,9 @@ event = {
 						set_country_flag = mercenaries_available_3
 						save_event_target_as = marauder_mercenary_country
 					}
-					observer_event = { id = observer.26 }
+					random_playable_country = {
+						observer_event = { id = observer.26 }
+					}
 					every_playable_country = {
 						limit = {
 							is_ai = no
@@ -6959,7 +6974,7 @@ event = {
 							fleet_event = { id = marauder.29 scopes = { from = event_target:marauder_target } }
 						}
 					}
-					event_target:hired_marauder = {
+					event_target:hired_marauders = {
 						add_resource = { energy = @raidcost mult = prev.raidcost }
 					}
 					log="raidcost \\[This.raidcost]"
@@ -9515,6 +9530,103 @@ country_event = {
 		} else = {
 			create_marauder_fleet = yes
 			country_event = { id = marauder.520 days = 340 }
+		}
+		# Minor checks: no high frequent needed
+		## ReinforceKhan himself
+		if = {
+			limit = {
+				exists = event_target:great_khan
+				exists = event_target:great_khan.fleet
+				event_target:great_khan.fleet = {
+					fleet_power < 36000
+					exists = solar_system
+				}
+			}
+			event_target:great_khan.fleet = {
+				# Reinforce Khan himself
+				if = { limit = { fleet_power < 12000 }
+					create_dyn_marauder_fleet = { OUTRIDER = 20 LANCER = 10 CHAMPION = 6 GLORY = 1 }
+				} else_if = { limit = { fleet_power < 21000 }
+					create_dyn_marauder_fleet = { OUTRIDER = 18 LANCER = 8 CHAMPION = 3 }
+				} else = {
+					create_dyn_marauder_fleet = { OUTRIDER = 14 LANCER = 6 CHAMPION = 1 VARIANT = "_4" }
+				}
+			}
+		}
+		## Re-assing idle admirals
+		if = {
+			limit = {
+				any_owned_fleet = {
+					is_mobile = yes
+					is_civilian = no
+					NOT = { exists = leader }
+				}
+				any_owned_leader = {
+					leader_class = admiral
+					is_event_leader = no
+					NOT = { exists = fleet }
+				}
+			}
+			random_owned_fleet = {
+				limit = {
+					is_mobile = yes
+					is_civilian = no
+					NOT = { exists = leader }
+				}
+				root = {
+					random_owned_leader = {
+						limit = {
+							leader_class = admiral
+							is_event_leader = no
+							NOT = { exists = fleet }
+						}
+						prevprev = { assign_leader = prev }
+					}
+				}
+			}
+		}
+		## Re-assing idle generals
+		if = {
+			limit = {
+				any_controlled_planet = {
+					has_army = yes
+					NOR = {
+						has_ground_combat = yes
+						planet_garrison_strength < 510
+						any_planet_army = { exists = leader }
+					}
+				}
+				any_owned_leader = {
+					leader_class = general
+					is_event_leader = no
+					is_idle = yes
+					NOT = { exists = fleet }
+				}
+			}
+			random_controlled_planet = {
+				limit = {
+					has_army = yes
+					NOR = {
+						has_ground_combat = yes
+						planet_garrison_strength < 510
+						any_planet_army = { exists = leader }
+					}
+				}
+				root = {
+					random_owned_leader = {
+						limit = {
+							leader_class = general
+							is_idle = yes
+							NOT = { exists = fleet }
+						}
+						prevprev = {
+							random_planet_army = {
+								assign_leader = prevprev
+							}
+						}
+					}
+				}
+			}
 		}
 	}
 }
@@ -12434,6 +12546,6 @@ country_event = {
 }
 
 ## Workaround for Irony compare
-namespace = crisis
-namespace = emperor
-namespace = pirate
+# namespace = crisis
+# namespace = emperor
+# namespace = pirate

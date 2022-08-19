@@ -557,14 +557,32 @@ ship_event = {
 								root.fleet = { set_owner = prev }
 							}
 						}
-					} else = {
+					} else_if = {
+						limit = {
+							any_system_planet = {
+								has_owner = yes
+								is_colony = yes
+								NOT = { is_owned_by = root.owner }
+								NAND = {
+									exists = controller
+									controller = { is_same_empire = root.owner }
+								}
+							}
+						}
 						random_system_planet = {
 							limit = {
 								has_owner = yes
 								is_colony = yes
+								NOT = { is_owned_by = root.owner }
+								NAND = {
+									exists = controller
+									controller = { is_same_empire = root.owner }
+								}
 							}
 							root.fleet = { set_owner = prev.owner }
 						}
+					} else = {
+						root.fleet = { set_owner = from.owner }
 					}
 				} else = {
 					root.fleet = { set_owner = from.owner }

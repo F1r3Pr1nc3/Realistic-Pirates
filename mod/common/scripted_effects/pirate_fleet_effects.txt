@@ -29,6 +29,7 @@ create_normal_pirate_country = {
 
 # Needless Vanilla dummie
 create_drone_pirate_country = {
+	optimize_memory
 	event_target:pirate_system = {
 		random_system_planet = {
 			save_event_target_as = pirate_home
@@ -56,6 +57,7 @@ create_drone_pirate_country = {
 }
 # Needless Vanilla dummie
 create_drone_pirate_country_2 = {
+	optimize_memory
 	event_target:pirate_system = {
 		random_system_planet = {
 			save_event_target_as = pirate_home
@@ -83,6 +85,7 @@ create_drone_pirate_country_2 = {
 }
 # Needless Vanilla dummie
 create_machine_pirate_country = {
+	optimize_memory
 	event_target:pirate_system = {
 		random_system_planet = {
 			save_event_target_as = pirate_home
@@ -110,6 +113,7 @@ create_machine_pirate_country = {
 }
 # Needless Vanilla dummie
 create_machine_pirate_country_2 = {
+	optimize_memory
 	event_target:pirate_system = {
 		random_system_planet = {
 			save_event_target_as = pirate_home
@@ -300,6 +304,7 @@ create_pirate_fleet = {
 
 ## DEPRECATED Vanilla due create_dyn_pirate_fleet
 create_pirate_ships_0 = {
+	optimize_memory
 	create_ship_design = { design = "NAME_Reaver" }
 	while = {
 		count = 10
@@ -312,6 +317,7 @@ create_pirate_ships_0 = {
 }
 
 create_pirate_ships_1 = {
+	optimize_memory
 	create_ship_design = { design = "NAME_Reaver" }
 	while = {
 		count = 10
@@ -333,6 +339,7 @@ create_pirate_ships_1 = {
 }
 
 create_pirate_ships_2 = {
+	optimize_memory
 	create_ship_design = { design = "NAME_Reaver" }
 	while = {
 		count = 6
@@ -354,6 +361,7 @@ create_pirate_ships_2 = {
 }
 
 create_pirate_ships_3 = {
+	optimize_memory
 	create_ship_design = { design = "NAME_Skull" }
 	while = {
 		count = 6
@@ -375,6 +383,7 @@ create_pirate_ships_3 = {
 }
 
 create_pirate_ships_4 = {
+	optimize_memory
 	create_ship_design = { design = "NAME_Skull" }
 	while = {
 		count = 8
@@ -396,6 +405,7 @@ create_pirate_ships_4 = {
 }
 
 create_pirate_ships_5 = {
+	optimize_memory
 	create_ship_design = { design = "NAME_Skull" }
 	while = {
 		count = 6
@@ -435,6 +445,7 @@ create_pirate_ships_5 = {
 }
 
 create_pirate_ships_6 = {
+	optimize_memory
 	create_ship_design = { design = "NAME_Skull" }
 	while = {
 		count = 6
@@ -483,6 +494,7 @@ create_pirate_ships_6 = {
 }
 
 create_pirate_ships_7 = {
+	optimize_memory
 	create_ship_design = { design = "NAME_Skull" }
 	while = {
 		count = 6
@@ -531,6 +543,7 @@ create_pirate_ships_7 = {
 }
 
 create_pirate_ships_8 = {
+	optimize_memory
 	create_ship_design = { design = "NAME_Skull" }
 	while = {
 		count = 8
@@ -579,6 +592,7 @@ create_pirate_ships_8 = {
 }
 
 create_pirate_ships_9 = {
+	optimize_memory
 	create_ship_design = { design = "NAME_Pirate_Galleon" }
 	while = {
 		count = 1
@@ -600,6 +614,7 @@ create_pirate_ships_9 = {
 }
 
 create_pirate_ships_10 = {
+	optimize_memory
 	create_ship_design = { design = "NAME_Pirate_Galleon" }
 	while = {
 		count = 1
@@ -747,7 +762,7 @@ create_thalassocracy_country = {
 		create_country = {
 			name = "NAME_Thalassocracy"
 			type = pirate
-			contact_rule = on_action_only
+			contact_rule = on_action_only # FIXME/TEST not doucmented?
 			# ignore_initial_colony_error = yes
 			species = event_target:thalassocracy_species
 			name_list = "HUM2"

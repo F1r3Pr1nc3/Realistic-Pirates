@@ -56,6 +56,7 @@ event = {
 					}
 				}
 			}
+			weights = { base = 1 modifier = { add = 1 is_ai = no } }
 			random_system_within_border = {
 				limit = {
 					any_fleet_in_system = {
