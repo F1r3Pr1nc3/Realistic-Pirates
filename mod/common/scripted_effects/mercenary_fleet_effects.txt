@@ -28,7 +28,13 @@ create_marauder_merc_admiral = {
 # Prev = owner
 # Armada of the Voidborn
 create_armada_of_the_voidborn = {
-	if = { limit = { has_global_flag = pirate_waves_mercenary_inactive }
+	if = {
+		limit = {
+			OR = {
+				has_global_flag = pirate_waves_mercenary_inactive
+				NOT = { has_global_flag = pirate_waves_active }
+			}
+		}
 		create_dyn_marauder_fleet = { OUTRIDER = 16 LANCER = 8 CHAMPION = 6 }
 	} else = {
 		create_pirate_waves_fleet = yes
@@ -43,7 +49,13 @@ create_armada_of_the_voidborn = {
 
 # Star Rider Flotilla
 create_star_rider_flotilla = {
-	if = { limit = { has_global_flag = pirate_waves_mercenary_inactive }
+	if = {
+		limit = {
+			OR = {
+				has_global_flag = pirate_waves_mercenary_inactive
+				NOT = { has_global_flag = pirate_waves_active }
+			}
+		}
 		create_dyn_marauder_fleet = { OUTRIDER = 12 LANCER = 6 CHAMPION = 4 }
 	} else = {
 		create_pirate_waves_fleet = yes
@@ -66,7 +78,13 @@ create_star_rider_flotilla = {
 
 # First Storm Wing
 create_first_storm_wing = {
-	if = { limit = { has_global_flag = pirate_waves_mercenary_inactive }
+	if = {
+		limit = {
+			OR = {
+				has_global_flag = pirate_waves_mercenary_inactive
+				NOT = { has_global_flag = pirate_waves_active }
+			}
+		}
 		create_dyn_marauder_fleet = { OUTRIDER = 8 LANCER = 4 CHAMPION = 2 }
 	} else = {
 		create_pirate_waves_fleet = yes
@@ -89,7 +107,13 @@ create_first_storm_wing = {
 
 # Dwamak Bashers
 create_dwamak_bashers = {
-	if = { limit = { has_global_flag = pirate_waves_mercenary_inactive }
+	if = {
+		limit = {
+			OR = {
+				has_global_flag = pirate_waves_mercenary_inactive
+				NOT = { has_global_flag = pirate_waves_active }
+			}
+		}
 		create_dyn_marauder_fleet = { OUTRIDER = 16 LANCER = 8 CHAMPION = 6 }
 	} else = {
 		create_pirate_waves_fleet = yes
@@ -104,7 +128,13 @@ create_dwamak_bashers = {
 
 # Unhinged Screamer Flotilla
 create_unhinged_screamer_flotilla = {
-	if = { limit = { has_global_flag = pirate_waves_mercenary_inactive }
+	if = {
+		limit = {
+			OR = {
+				has_global_flag = pirate_waves_mercenary_inactive
+				NOT = { has_global_flag = pirate_waves_active }
+			}
+		}
 		create_dyn_marauder_fleet = { OUTRIDER = 12 LANCER = 6 CHAMPION = 4 }
 	} else = {
 		create_pirate_waves_fleet = yes
@@ -127,7 +157,13 @@ create_unhinged_screamer_flotilla = {
 
 # Frenzied Volunteer Squadron
 create_frenzied_volunteer_squadron = {
-	if = { limit = { has_global_flag = pirate_waves_mercenary_inactive }
+	if = {
+		limit = {
+			OR = {
+				has_global_flag = pirate_waves_mercenary_inactive
+				NOT = { has_global_flag = pirate_waves_active }
+			}
+		}
 		create_dyn_marauder_fleet = { OUTRIDER = 8 LANCER = 4 CHAMPION = 2 }
 	} else = {
 		create_pirate_waves_fleet = yes
@@ -150,7 +186,13 @@ create_frenzied_volunteer_squadron = {
 
 # Her Chosen Champions
 create_her_chosen_champions = {
-	if = { limit = { has_global_flag = pirate_waves_mercenary_inactive }
+	if = {
+		limit = {
+			OR = {
+				has_global_flag = pirate_waves_mercenary_inactive
+				NOT = { has_global_flag = pirate_waves_active }
+			}
+		}
 		create_dyn_marauder_fleet = { OUTRIDER = 16 LANCER = 8 CHAMPION = 6 }
 	} else = {
 		create_pirate_waves_fleet = yes
@@ -165,7 +207,13 @@ create_her_chosen_champions = {
 
 # Order of Eternal Night
 create_order_of_eternal_night = {
-	if = { limit = { has_global_flag = pirate_waves_mercenary_inactive }
+	if = {
+		limit = {
+			OR = {
+				has_global_flag = pirate_waves_mercenary_inactive
+				NOT = { has_global_flag = pirate_waves_active }
+			}
+		}
 		create_dyn_marauder_fleet = { OUTRIDER = 12 LANCER = 6 CHAMPION = 4 }
 	} else = {
 		create_pirate_waves_fleet = yes
@@ -187,7 +235,13 @@ create_order_of_eternal_night = {
 
 # Twilight Congregation
 create_twilight_congregation = {
-	if = { limit = { has_global_flag = pirate_waves_mercenary_inactive }
+	if = {
+		limit = {
+			OR = {
+				has_global_flag = pirate_waves_mercenary_inactive
+				NOT = { has_global_flag = pirate_waves_active }
+			}
+		}
 		create_dyn_marauder_fleet = { OUTRIDER = 8 LANCER = 4 CHAMPION = 2 }
 	} else = {
 		create_pirate_waves_fleet = yes
@@ -214,7 +268,13 @@ create_twilight_congregation = {
 # prev = owner country
 # scope = fleet
 create_marauder_raiders = {
-	if = { limit = { has_global_flag = pirate_waves_marauders_inactive }
+	if = {
+		limit = {
+			OR = {
+				has_global_flag = pirate_waves_marauders_inactive
+				NOT = { has_global_flag = pirate_waves_active }
+			}
+		}
 		if = {
 			limit = { years_passed > 80 }
 			set_fleet_flag = marauder_raider_fleet_4

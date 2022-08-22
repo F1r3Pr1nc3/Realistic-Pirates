@@ -524,8 +524,8 @@ ship_event = {
 					# 		set_location = prev
 					# 	}
 					# }
+					create_pirate_base_1 = yes
 				}
-				create_pirate_base_1 = yes
 			} else_if = { # Another Pirate Republic start
 				limit = {
 					NOT = { has_global_flag = pirate_republic_inactive }

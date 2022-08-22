@@ -2918,7 +2918,7 @@ country_event = {
 			}
 		}
 		event_target:marauder_raiding_country = {
-			every_country = { establish_communications_no_message = event_target:marauder_raiding_country }
+			every_country = { limit = { has_communications = event_target:raiding_marauder } establish_communications_no_message = prev }
 			event_target:raiding_marauder = {
 				set_country_flag = parent_of@event_target:marauder_raiding_country
 				set_faction_hostility = {
@@ -2926,6 +2926,9 @@ country_event = {
 					set_hostile = no
 					set_neutral = no
 					set_friendly = yes
+				}
+				if = { limit = { has_global_flag = pirate_waves_active }
+					set_pirates_difficulty = yes
 				}
 			}
 			create_leader = {
@@ -2952,24 +2955,24 @@ country_event = {
 					set_aggro_range = 150
 					set_fleet_flag = hired_raiding_fleet
 					set_fleet_flag = raiding_fleet
-					assign_leader = last_created_leader
 				}
 			}
 			set_faction_hostility = {
-				target = event_target:marauder_target
+				target = root
 				set_hostile = yes
 				set_neutral = no
 				set_friendly = no
 			}
 			last_created_fleet = {
 				set_owner = prev	# Real owner
+				assign_leader = last_created_leader
 				closest_system = {
 					limit = {
 						has_owner = yes
-						is_owned_by = event_target:marauder_target
+						is_owned_by = root
 						any_system_planet = {
 							has_owner = yes
-							is_owned_by = event_target:marauder_target
+							is_owned_by = root
 							num_pops > 0
 						}
 						# prev = { can_access_system = prev }
@@ -2977,7 +2980,7 @@ country_event = {
 					random_system_planet = {
 						limit = {
 							has_owner = yes
-							is_owned_by = event_target:marauder_target
+							is_owned_by = root
 							num_pops > 0
 						}
 						save_event_target_as = raid_planet
@@ -2990,7 +2993,7 @@ country_event = {
 					}
 					auto_move_to_planet = { target = event_target:raid_planet clear_auto_move_on_arrival = no }
 				} else = {
-					fleet_event = { id = marauder.29 scopes = { from = event_target:marauder_target } }
+					fleet_event = { id = marauder.29 scopes = { from = root } }
 				}
 			}
 		}
@@ -4997,7 +5000,7 @@ country_event = {
 			}
 		}
 		event_target:marauder_raiding_country = {
-			every_country = { establish_communications_no_message = event_target:marauder_raiding_country }
+			every_country = { limit = { has_communications = event_target:raiding_marauder } establish_communications_no_message = prev }
 			event_target:raiding_marauder = {
 				set_country_flag = parent_of@event_target:marauder_raiding_country
 				set_faction_hostility = {
@@ -5005,6 +5008,9 @@ country_event = {
 					set_hostile = no
 					set_neutral = no
 					set_friendly = yes
+				}
+				if = { limit = { has_global_flag = pirate_waves_active }
+					set_pirates_difficulty = yes
 				}
 			}
 			create_leader = {
@@ -5019,9 +5025,6 @@ country_event = {
 					trait = leader_trait_mercenary_warrior
 				}
 			}
-			if = { limit = { has_global_flag = pirate_waves_active }
-				set_pirates_difficulty = yes
-			}
 			create_fleet = {
 				name = "NAME_Raiding_Fleet"
 				effect = {
@@ -5033,7 +5036,6 @@ country_event = {
 					set_aggro_range_measure_from = self
 					set_aggro_range = 150
 					set_fleet_flag = raiding_fleet
-					assign_leader = last_created_leader
 				}
 			}
 			set_faction_hostility = {
@@ -5044,6 +5046,7 @@ country_event = {
 			}
 			last_created_fleet = {
 				set_owner = prev	# Real owner
+				assign_leader = last_created_leader
 				closest_system = {
 					limit = {
 						has_owner = yes
@@ -6870,7 +6873,7 @@ event = {
 					}
 				}
 				event_target:marauder_raiding_country = {
-					every_country = { establish_communications_no_message = event_target:marauder_raiding_country }
+					every_country = { limit = { has_communications = event_target:raiding_marauder } establish_communications_no_message = prev }
 					event_target:raiding_marauder = {
 						set_country_flag = parent_of@event_target:marauder_raiding_country
 						set_faction_hostility = {
@@ -6878,6 +6881,34 @@ event = {
 							set_hostile = no
 							set_neutral = no
 							set_friendly = yes
+						}
+						## Dynamic raid costs TODO needs update each effect.
+						if = {
+							limit = { has_global_flag = pirate_waves_active }
+							set_pirates_difficulty = yes
+							set_variable = { which = raidcost value = 1.5 }
+							change_variable = { which = raidcost value = pirates_factor }
+							divide_variable = { which = raidcost value = 2 } # Take only 50% weight
+							multiply_variable = { which = raidcost value = pirates_factor } # As it is only half for marauders.
+							switch = { # Price depending on difficulty?
+								trigger = has_country_flag
+								pirate_waves_very_easy = {
+									multiply_variable = { which = raidcost value = 0.5 }
+								}
+								pirate_waves_easy = {
+									multiply_variable = { which = raidcost value = 0.75 }
+								}
+								ships_count_hard = {
+									multiply_variable = { which = raidcost value = 1.25 }
+								}
+								pirate_waves_insane = {
+									multiply_variable = { which = raidcost value = 1.5 }
+								}
+							}
+							round_variable_to_closest = { which = raidcost value = 0.01 }
+							# round_variable = raidcost
+						} else = {
+							set_variable = { which = raidcost value = 1 }
 						}
 					}
 					create_leader = {
@@ -6892,34 +6923,6 @@ event = {
 							trait = leader_trait_mercenary_warrior
 						}
 					}
-					## Dynamic raid costs TODO needs update each effect.
-					if = {
-						limit = { has_global_flag = pirate_waves_active }
-						set_pirates_difficulty = yes
-						set_variable = { which = raidcost value = 1.5 }
-						change_variable = { which = raidcost value = pirates_factor }
-						divide_variable = { which = raidcost value = 2 } # Take only 50% weight
-						multiply_variable = { which = raidcost value = pirates_factor } # As it is only half for marauders.
-						switch = { # Price depending on difficulty?
-							trigger = has_country_flag
-							pirate_waves_very_easy = {
-								multiply_variable = { which = raidcost value = 0.5 }
-							}
-							pirate_waves_easy = {
-								multiply_variable = { which = raidcost value = 0.75 }
-							}
-							ships_count_hard = {
-								multiply_variable = { which = raidcost value = 1.25 }
-							}
-							pirate_waves_insane = {
-								multiply_variable = { which = raidcost value = 1.5 }
-							}
-						}
-						round_variable_to_closest = { which = raidcost value = 0.01 }
-						# round_variable = raidcost
-					} else = {
-						set_variable = { which = raidcost value = 1 }
-					}
 					create_fleet = {
 						name = "NAME_Raiding_Fleet"
 						effect = {
@@ -6932,7 +6935,6 @@ event = {
 							set_aggro_range = 150
 							set_fleet_flag = hired_raiding_fleet
 							set_fleet_flag = raiding_fleet
-							assign_leader = last_created_leader
 						}
 					}
 					set_faction_hostility = {
@@ -6943,6 +6945,7 @@ event = {
 					}
 					last_created_fleet = {
 						set_owner = prev	# Real owner
+						assign_leader = last_created_leader
 						closest_system = {
 							use_bypasses = yes
 							limit = {
@@ -6974,11 +6977,13 @@ event = {
 							fleet_event = { id = marauder.29 scopes = { from = event_target:marauder_target } }
 						}
 					}
-					event_target:hired_marauders = {
-						add_resource = { energy = @raidcost mult = prev.raidcost }
+					event_target:raiding_marauder = {
+						event_target:hired_marauders = {
+							add_resource = { energy = @raidcost mult = prev.raidcost }
+						}
+						log="raidcost \\[This.raidcost]"
+						clear_variable = raidcost
 					}
-					log="raidcost \\[This.raidcost]"
-					clear_variable = raidcost
 				}
 				event_target:marauder_target = {
 					set_country_flag = raid_target_of@event_target:raiding_marauder
@@ -11158,8 +11163,7 @@ country_event = {
 			# }
 			ethos = {
 				ethic = ethic_fanatic_militarist
-				ethic = ethic_xenophobe
-				ethic = ethic_authoritarian
+				ethic = ethic_authoritarian # ethic_xenophobe
 			}
 			ignore_initial_colony_error = yes
 			# exclude_day_zero_contact = root
