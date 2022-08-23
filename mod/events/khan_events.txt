@@ -221,83 +221,45 @@ starbase_event = {
 	hide_window = yes
 	is_triggered_only = yes
 	immediate = {
+		if = { limit = { NOT = { is_owned_by = event_target:raider_khanate } }
+			set_owner = event_target:raider_khanate
+		}
 		# TODO needs free slot check somehow: "Building slot is invalid."
 		if = {
-			limit = {
-				NOT = { has_starbase_module = "shipyard" }
-			}
-			set_starbase_module = {
-				slot = 1
-				module = "shipyard"
-			}
+			limit = { NOT = { has_starbase_module = "shipyard" } }
+			set_starbase_module = { slot = 1 module = "shipyard" }
 		}
 		if = {
 			limit = {
-				count_starbase_modules = {
-					type = "shipyard"
-					count < 2
-				}
+				count_starbase_modules = { type = "shipyard" count < 2 }
 				NOT = { is_starbase_building_module = "shipyard" }
 			}
-			set_starbase_module = {
-				slot = 2
-				module = "shipyard"
-			}
+			set_starbase_module = { slot = 2 module = "shipyard" }
+		}
+		if = {
+			limit = { NOT = { has_starbase_module = "gun_battery" } }
+			set_starbase_module = { slot = 3 module = "gun_battery" }
 		}
 		if = {
 			limit = {
-				NOT = { has_starbase_module = "gun_battery" }
-			}
-			set_starbase_module = {
-				slot = 3
-				module = "gun_battery"
-			}
-		}
-		if = {
-			limit = {
-				count_starbase_modules = {
-					type = "gun_battery"
-					count < 2
-				}
+				count_starbase_modules = { type = "gun_battery" count < 2 }
 				NOT = { is_starbase_building_module = "gun_battery" }
 			}
-			set_starbase_module = {
-				slot = 4
-				module = "gun_battery"
-			}
+			set_starbase_module = { slot = 4 module = "gun_battery" }
 		}
-		if = {
-			limit = {
-				NOT = { has_starbase_building = "resource_silo" }
-			}
-			set_starbase_building = {
-				slot = 1
-				building = "resource_silo"
-			}
+		if = { limit = { NOT = { has_starbase_building = "resource_silo" } }
+			set_starbase_building = { slot = 1 building = "resource_silo" }
 		}
-		if = {
-			limit = {
-				NOT = { has_starbase_building = "listening_post" }
-			}
-			set_starbase_building = {
-				slot = 2
-				building = "listening_post"
-			}
+		if = { limit = { NOT = { has_starbase_building = "listening_post" } }
+			set_starbase_building = { slot = 2 building = "listening_post" }
 		}
-		if = {
-			limit = { has_starbase_size > starbase_starfortress }
+		if = { limit = { has_starbase_size > starbase_starfortress }
 			if = {
 				limit = {
-					count_starbase_modules = {
-						type = "shipyard"
-						count < 3
-					}
+					count_starbase_modules = { type = "shipyard" count < 3 }
 					NOT = { is_starbase_building_module = "shipyard" }
 				}
-				set_starbase_module = {
-					slot = 6
-					module = "shipyard"
-				}
+				set_starbase_module = { slot = 6 module = "shipyard" }
 			}
 			if = {
 				limit = {
@@ -306,42 +268,23 @@ starbase_event = {
 						is_starbase_building_module = "missile_battery"
 					}
 				}
-				set_starbase_module = {
-					slot = 5
-					module = "missile_battery"
-				}
+				set_starbase_module = { slot = 5 module = "missile_battery" }
 			}
 			if = {
-				limit = {
-					NOT = { has_starbase_building = "crew_quarters" }
-				}
-				set_starbase_building = {
-					slot = 3
-					building = "crew_quarters"
-				}
+				limit = { NOT = { has_starbase_building = "crew_quarters" } }
+				set_starbase_building = { slot = 3 building = "crew_quarters" }
 			}
 			if = {
-				limit = {
-					NOT = { has_starbase_building = "target_uplink_computer" }
-				}
-				set_starbase_building = {
-					slot = 4
-					building = "target_uplink_computer"
-				}
+				limit = { NOT = { has_starbase_building = "target_uplink_computer" } }
+				set_starbase_building = { slot = 4 building = "target_uplink_computer" }
 			}
 		}
-		while = {
-			count = 4
-			create_ship = {
-				name = random
-				design = "NAME_Warrior_Freehold"
-			}
+		while = { count = 4
+			create_ship = { name = random design = "NAME_Warrior_Freehold" }
 		}
 		fleet = {
-			every_owned_ship = {
-				set_disabled = no
-				reduce_hp_percent = 98
-			}
+			set_event_locked = no
+			every_owned_ship = { set_disabled = no reduce_hp_percent = 98 }
 		}
 		# fleet = {
 		# 	every_owned_ship = { set_disable_at_health = -1 } # Needed as they get not conquered.
@@ -543,13 +486,13 @@ ship_event = {
 					} else_if = {
 						limit = {
 							any_system_planet = {
-								colonizable_planet = yes
+								# colonizable_planet = yes
 								any_playable_country = { prev = { is_planet = prev.home_planet } }
 							}
 						}
 						random_system_planet = {
 							limit = {
-								colonizable_planet = yes
+								# colonizable_planet = yes
 								any_playable_country = { prev = { is_planet = prev.home_planet } }
 							}
 							random_playable_country = {
@@ -648,7 +591,7 @@ ship_event = {
 					}
 				}
 			}
-			log = "destroy starbase_marauder"
+			log = "destroy starbase marauder"
 			fleet = {
 				every_owned_ship = { destroy_ship = this }
 			}
@@ -795,7 +738,7 @@ country_event = {
 	hide_window = yes
 	is_triggered_only = yes
 	immediate = {
-		log = "Fix ongoing hostility"		# \\[This.GetName]
+		# log = "Fix ongoing hostility"		# \\[This.GetName]
 		# Before we need to stop fleets attacking.
 		every_controlled_fleet = {
 			limit = {
@@ -924,7 +867,7 @@ country_event = {
 	trigger = {
 		has_global_flag = marauder_crisis_ongoing
 		exists = event_target:raider_khanate
-		# CmtTriggerIsKhanCountry = yes
+		is_same_empire = event_target:raider_khanate # CmtTriggerIsKhanCountry = yes
 	}
 	immediate = {
 		if = {
@@ -1036,14 +979,10 @@ system_event = {
 	immediate = {
 		# system_owner does not exists
 		# log="test khan.310 \\[former_starbase_owner.GetName] or \\[Fromfrom.Owner.GetName]"
-		if = {
-			limit = {
-				exists = starbase
-				has_owner = yes
-			}
+		if = { limit = { exists = starbase has_owner = yes }
 			delete_fleet = starbase.fleet
 			# if = { limit = { NOT = { has_star_flag = starbase_destroyed } }
-			# 	system_event = { id = khan.310 days = 1 scopes = { fromfrom = fromfrom } }
+			# 	system_event = { id = khan.310 days = 2 scopes = { fromfrom = fromfrom } }
 			# 	set_timed_star_flag = { flag = starbase_destroyed days = 5 }
 			# 	log="khan.310 exists = starbase \\[former_starbase_owner.GetName] or \\[Fromfrom.Owner.GetName]"
 			# }
@@ -1060,6 +999,7 @@ system_event = {
 				size = "starbase_starfortress"
 				owner = event_target:former_starbase_owner				# from.owner
 				effect = {
+					# set_disabled = yes only ship
 					# set_graphical_culture = event_target:former_starbase_owner
 					starbase_event = { id = khan.302 days = 20 }
 					# workaround
@@ -1070,14 +1010,17 @@ system_event = {
 				size = "starbase_citadel"
 				owner = event_target:former_starbase_owner
 				effect = {
+					# set_disabled = yes only ship
 					starbase_event = { id = khan.302 days = 20 }
 				}
 			}
 		}
 		last_created_fleet = {
+			set_event_locked = yes
 			set_owner = event_target:raider_khanate
 			every_owned_ship = {
-				reduce_hp_percent = 95				# set_disabled = yes
+				set_disabled = yes
+				reduce_hp_percent = 95
 			}
 			while = {
 				count = 3

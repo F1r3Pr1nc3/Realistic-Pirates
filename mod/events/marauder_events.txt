@@ -8482,8 +8482,11 @@ country_event = {
 			### Create Marauder Pops
 			save_event_target_as = conquered_planet
 			planet_event = { id = marauder.105 }			# (Slaves)
-			set_owner = event_target:raider_khanate			# Root not subjects
-			set_controller = event_target:raider_khanate			# Root not subjects
+			# Added due 3.4 bug
+			set_owner = from
+			# Removed due 3.4 bug
+			# set_owner = event_target:raider_khanate			# Root not subjects
+			set_controller = event_target:raider_khanate		# Root not subjects
 			set_variable = { which = CmtVarTemp value = 4 }
 			if = {
 				limit = { free_housing < 2 }
@@ -9051,8 +9054,12 @@ country_event = {
 			set_origin = "origin_khan_successor"
 			event_target:raider_khanate = {
 				every_subject = {
-					# limit = { has_modifier = "satrapy_of_horde" }
-					country_event = { id = marauder.671 }					# Do it immediately as raider_khanate should exists.
+					limit = {
+						# has_modifier = "satrapy_of_horde"
+						# any_agreement = { agreement_preset = preset_satrapy }
+						is_subject_of_khan = yes
+					}
+					country_event = { id = marauder.671 days = -1 } # Do it immediately as raider_khanate should exists.
 					set_subject_of = { who = none }
 					# remove_modifier = "satrapy_of_horde"
 				}
@@ -9558,7 +9565,8 @@ country_event = {
 				}
 			}
 		}
-		## Re-assing idle admirals
+
+		## Re-assing idle Admirals
 		if = {
 			limit = {
 				any_owned_fleet = {
@@ -9590,7 +9598,7 @@ country_event = {
 				}
 			}
 		}
-		## Re-assing idle generals
+		## Re-assing idle Generals
 		if = {
 			limit = {
 				any_controlled_planet = {
@@ -9608,6 +9616,32 @@ country_event = {
 					NOT = { exists = fleet }
 				}
 			}
+			# Fleet prior
+			random_owned_fleet = {
+				limit = {
+					exists = solar_system
+					is_mobile = yes
+					NOT = { exists = leader }
+					any_owned_ship = { is_ship_class = shipclass_transport }
+					fleet_power > 510
+				}
+				root = {
+					random_owned_leader = {
+						limit = {
+							leader_class = general
+							is_idle = yes
+							NOT = { exists = fleet }
+						}
+						prevprev = {
+							assign_leader = prev
+							if = { limit = { NOT = { has_fleet_order = aggressive_stance_fleet_order } }
+								random = { chance = 30 set_fleet_stance = aggressive }
+							}
+						}
+					}
+				}
+			}
+			# Planet
 			random_controlled_planet = {
 				limit = {
 					has_army = yes
@@ -9625,9 +9659,7 @@ country_event = {
 							NOT = { exists = fleet }
 						}
 						prevprev = {
-							random_planet_army = {
-								assign_leader = prevprev
-							}
+							random_planet_army = { assign_leader = prevprev }
 						}
 					}
 				}
@@ -9699,9 +9731,10 @@ country_event = {
 			if = {
 				limit = {
 					exists = event_target:great_khan
-					event_target:great_khan = { has_relic = r_khans_throne }
+					exists = event_target:raider_khanate
+					event_target:raider_khanate = { has_relic = r_khans_throne }
 				}
-				event_target:great_khan = { remove_relic = r_khans_throne }
+				event_target:raider_khanate = { remove_relic = r_khans_throne }
 			}
 		}
 	}
