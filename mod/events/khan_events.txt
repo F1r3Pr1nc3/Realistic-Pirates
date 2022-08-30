@@ -1166,11 +1166,26 @@ country_event = {
 					limit = {
 						any_owned_starbase = { has_starbase_size < starbase_starhold }
 					}
-					count = 2
-					random_owned_starbase = {
-						limit = { has_starbase_size < starbase_starhold }
-						set_starbase_size = starbase_starhold
-						starbase_event = { id = khan.302 days = 2 }
+					count = 3
+					random_system_within_border = {
+						limit = {
+							exists = starbase
+							starbase = { has_starbase_size < starbase_starhold }
+						}
+						weights = {
+							base = 1
+							modifier = { add = 1 is_inside_nebula = yes }
+							modifier = { add = 2 has_natural_wormhole = yes }
+							modifier = { factor = 3 is_bottleneck_system = yes }
+							modifier = {
+								factor = 5
+								any_system_planet = { is_colony = yes is_under_colonization = no }
+							}
+						}
+						starbase = {
+							set_starbase_size = starbase_starhold
+							starbase_event = { id = khan.302 days = 2 }
+						}
 					}
 				}
 			}
