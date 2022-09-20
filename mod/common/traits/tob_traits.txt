@@ -12,7 +12,6 @@ leader_trait_bulwark_numbers = {
 	randomized = no
 }
 
-
 leader_trait_bulwark_default = {
 	cost = 1
 	icon = "gfx/interface/icons/traits/leader_traits/leader_trait_ship.dds"

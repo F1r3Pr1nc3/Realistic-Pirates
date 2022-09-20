@@ -25,7 +25,7 @@ event = {
 				NOR = {
 					has_country_flag = pirate_waves_disappear
 					has_country_flag = pirates_spawned # <- timed flag from on_pirate_spawn 10 years
-					has_ethic = ethic_gestalt_consciousness
+					is_gestalt = yes
 					any_situation = { is_situation_type = situation_planetary_revolt }
 				}
 				any_system_within_border = {
@@ -94,10 +94,11 @@ country_event = {
 	immediate = {
 		random_country = {
 			limit = {
-				OR = {
-					is_pirate = yes # only works for single country type
-					is_country_type = pirate_waves_country
-				}
+				is_pirate = yes # only works for single country type < v3.4
+				# OR = {
+				# 	is_country_type = pirates
+				# 	is_country_type = pirate_waves_country
+				# }
 				any_owned_fleet = {
 					is_ship_size = pirate_station
 					solar_system = { is_owned_by = root }
@@ -353,10 +354,10 @@ planet_event = {
 			# owner = { is_gestalt = yes }
 			any_owned_pop = {
 				is_sapient = yes
-				NOT = { has_ethic = ethic_gestalt_consciousness }
+				is_gestalt = no
 			}
 		}
-		text = pirate_republic.11.desc #unrest.55.desc.gestalt_standard
+		text = pirate_republic.11.desc # unrest.55.desc.gestalt_standard
 	}
 	desc = {
 		trigger = {
@@ -364,7 +365,7 @@ planet_event = {
 			count_owned_pop = {
 				limit = {
 					is_sapient = yes
-					NOT = { has_ethic = ethic_gestalt_consciousness }
+					is_gestalt = no
 				}
 				count = 0
 			}
@@ -511,7 +512,7 @@ planet_event = {
 						has_trait = trait_machine_unit
 						has_trait = trait_hive_mind
 					}
-					NOT = { has_ethic = ethic_gestalt_consciousness }
+					is_gestalt = no
 				}
 				shift_ethic = ethic_gestalt_consciousness
 				change_government = random
@@ -754,14 +755,12 @@ planet_event = {
 							set_starbase_size = starbase_starport
 							set_starbase_module = { slot = 1 module = shipyard }
 							set_starbase_module = { slot = 2 module = shipyard }
-						}
-						else_if = { limit = { NOT = { has_starbase_module = shipyard } }
+						} else_if = { limit = { NOT = { has_starbase_module = shipyard } }
 							set_starbase_module = { slot = 1 module = shipyard }
 							set_starbase_module = { slot = 2 module = shipyard }
 						}
 					}
-				}
-				else = {
+				} else = {
 					create_starbase = {
 						size = starbase_starport
 						module = shipyard
@@ -906,7 +905,7 @@ planet_event = {
 ## Pirates lost (on_planet_defenders_win similar unrest.161)
 # Root = country, planet owner
 # From = country, attack leader
-# FromFrom = planet
+# fromfrom = planet
 country_event = {
 	id = pirate_republic.12
 	title = pirate_republic.12.name
@@ -979,7 +978,7 @@ country_event = {
 		from = {
 			OR = {
 				is_country_type = rebel
-				is_pirate_country = yes
+				is_pirate = yes
 			}
 			has_country_flag = pirate_republic
 		}
@@ -1016,17 +1015,17 @@ country_event = {
 			limit = {
 				# any_relation = {
 				any_playable_country = {
-					has_communications = ROOT
+					has_communications = root
 					has_country_flag = pirate_republic
 					any_owned_planet = {
 						distance = {
-							source = FromFrom
+							source = fromfrom
 							max_distance <= 250 # 300
 							min_distance >= 0
 						}
 					}
 					NOR = {
-						is_in_federation_with = ROOT
+						is_in_federation_with = root
 						is_same_empire = root
 						is_same_empire = from
 					}
@@ -1035,17 +1034,17 @@ country_event = {
 			# random_relation = {
 			random_playable_country = {
 				limit = {
-					has_communications = ROOT
+					has_communications = root
 					has_country_flag = pirate_republic
 					any_owned_planet = {
 						distance = {
-							source = FromFrom
+							source = fromfrom
 							max_distance <= 250 # 300
 							min_distance >= 0
 						}
 					}
 					NOR = {
-						is_in_federation_with = ROOT
+						is_in_federation_with = root
 						is_same_empire = root
 						is_same_empire = from
 					}
@@ -1326,7 +1325,7 @@ starbase_event = {
 		owner = {
 			OR = {
 				is_country_type = rebel
-				is_pirate_country = yes
+				is_pirate = yes
 				AND = {
 					merg_is_standard_empire = yes
 					root.from.owner = { is_country_type = rebel }
@@ -1336,7 +1335,7 @@ starbase_event = {
 		from.owner = {
 			OR = {
 				merg_is_standard_empire = yes
-				is_pirate_country = yes
+				is_pirate = yes
 				is_country_type = rebel
 			}
 		}
@@ -1357,7 +1356,7 @@ starbase_event = {
 		# 				}
 		# 				NOT = {
 		# 					has_active_event = {
-		# 						primitive.180 #event to decide fate of primitive civ
+		# 						primitive.180 # event to decide fate of primitive civ
 		# 					}
 		# 				}
 		# 			}
@@ -1489,8 +1488,7 @@ event = {
 										}
 									}
 									last_created_fleet = { assign_leader = last_created_leader }
-								}
-								else = {
+								} else = {
 									random_owned_leader = {
 										limit = { leader_class = general NOT = { exists = fleet } }
 										last_created_fleet = { assign_leader = prev }

@@ -1238,7 +1238,7 @@ country_event = {
 						has_star_flag = hostile_system
 						any_fleet_in_system = {
 							exists = owner
-							owner = { is_pirate_country = yes }
+							owner = { is_pirate = yes }
 						}
 					}
 					any_system_planet = { is_pirate_waves_base_planet = yes }
@@ -1254,7 +1254,7 @@ country_event = {
 						has_star_flag = hostile_system
 						any_fleet_in_system = {
 							exists = owner
-							owner = { is_pirate_country = yes }
+							owner = { is_pirate = yes }
 						}
 					}
 					any_system_planet = { is_pirate_waves_base_planet = yes }
@@ -1275,7 +1275,7 @@ country_event = {
 						has_star_flag = hostile_system
 						any_fleet_in_system = {
 							exists = owner
-							owner = { is_pirate_country = yes }
+							owner = { is_pirate = yes }
 						}
 					}
 					any_system_planet = { is_pirate_waves_base_planet = yes }
@@ -1393,7 +1393,7 @@ country_event = {
 	is_triggered_only = yes
 	trigger = {
 		OR = {
-			is_pirate_country = yes
+			is_pirate = yes
 			is_country_type = awakened_marauders
 			is_country_type = marauder_raiders
 		}
@@ -1485,7 +1485,7 @@ country_event = {
 			limit = {
 				from = {
 					OR = {
-						is_pirate_country = yes
+						is_pirate = yes
 						is_country_type = awakened_marauders
 						is_country_type = marauder_raiders
 					}
@@ -1525,7 +1525,7 @@ country_event = {
 	is_triggered_only = yes
 	trigger = {
 		OR = {
-			is_pirate_country = yes
+			is_pirate = yes
 			is_country_type = awakened_marauders
 			is_country_type = marauder_raiders
 		}
@@ -1552,7 +1552,7 @@ country_event = {
 				NOT = {
 					from = {
 						OR = {
-							is_pirate_country = yes
+							is_pirate = yes
 							is_country_type = awakened_marauders
 							is_country_type = marauder_raiders
 						}
@@ -2456,7 +2456,7 @@ event = {
 							limit = {
 								exists = owner
 								OR = {
-									owner = { is_pirate_country = yes }
+									owner = { is_pirate = yes }
 									AND = {
 										is_mobile = no
 										owner = { merg_is_default_empire = yes }
@@ -2550,7 +2550,7 @@ event = {
 								limit = {
 									exists = owner
 									OR = {
-										owner = { is_pirate_country = yes }
+										owner = { is_pirate = yes }
 										AND = {
 											is_mobile = no
 											owner = { merg_is_default_empire = yes }

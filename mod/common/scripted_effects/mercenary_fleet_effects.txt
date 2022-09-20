@@ -350,7 +350,7 @@ create_marauder_raiders = {
 
 # This = country
 remove_loaning_fleet_flag = {
-	#Failsafe to catch if fleets are no longer on loan
+	# Failsafe to catch if fleets are no longer on loan
 	if = {
 		limit = {
 			NOT = {
