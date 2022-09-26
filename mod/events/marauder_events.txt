@@ -438,6 +438,7 @@ country_event = {
 						leader_age_min = 25
 						leader_age_max = 45
 						traits = {
+							trait = random_trait
 							trait = leader_trait_mercenary_warrior
 							trait = random_trait
 						}
@@ -475,6 +476,7 @@ country_event = {
 						leader_age_min = 25
 						leader_age_max = 45
 						traits = {
+							trait = random_trait
 							trait = leader_trait_mercenary_warrior
 							trait = random_trait
 						}
@@ -513,6 +515,7 @@ country_event = {
 						leader_age_min = 25
 						leader_age_max = 45
 						traits = {
+							trait = random_trait
 							trait = leader_trait_mercenary_warrior
 							trait = random_trait
 						}
@@ -554,6 +557,7 @@ country_event = {
 						leader_age_min = 25
 						leader_age_max = 45
 						traits = {
+							trait = random_trait
 							trait = leader_trait_mercenary_warrior
 							trait = random_trait
 						}
@@ -591,6 +595,7 @@ country_event = {
 						leader_age_min = 25
 						leader_age_max = 45
 						traits = {
+							trait = random_trait
 							trait = leader_trait_mercenary_warrior
 							trait = random_trait
 						}
@@ -628,6 +633,7 @@ country_event = {
 						leader_age_min = 25
 						leader_age_max = 45
 						traits = {
+							trait = random_trait
 							trait = leader_trait_mercenary_warrior
 							trait = random_trait
 						}
@@ -669,6 +675,7 @@ country_event = {
 							leader_age_min = 25
 							leader_age_max = 45
 							traits = {
+								trait = random_trait
 								trait = leader_trait_mercenary_warrior
 								trait = random_trait
 							}
@@ -706,6 +713,7 @@ country_event = {
 						leader_age_min = 25
 						leader_age_max = 45
 						traits = {
+							trait = random_trait
 							trait = leader_trait_mercenary_warrior
 							trait = random_trait
 						}
@@ -743,6 +751,7 @@ country_event = {
 						leader_age_min = 25
 						leader_age_max = 45
 						traits = {
+							trait = random_trait
 							trait = leader_trait_mercenary_warrior
 							trait = random_trait
 						}
@@ -2930,6 +2939,7 @@ country_event = {
 				leader_age_min = 25
 				leader_age_max = 45
 				traits = {
+					trait = random_trait
 					trait = leader_trait_mercenary_warrior
 					trait = random_trait
 				}
@@ -3711,6 +3721,7 @@ country_event = {
 				leader_age_min = 25
 				leader_age_max = 45
 				traits = {
+					trait = random_trait
 					trait = leader_trait_mercenary_warrior
 					trait = random_trait
 				}
@@ -3740,6 +3751,7 @@ country_event = {
 				leader_age_min = 25
 				leader_age_max = 45
 				traits = {
+					trait = random_trait
 					trait = leader_trait_general_mercenary_warrior
 					trait = random_trait
 				}
@@ -3770,6 +3782,7 @@ country_event = {
 				leader_age_min = 25
 				leader_age_max = 45
 				traits = {
+					trait = random_trait
 					trait = leader_trait_mercenary_warrior
 					trait = random_trait
 				}
@@ -3799,6 +3812,7 @@ country_event = {
 				leader_age_min = 25
 				leader_age_max = 45
 				traits = {
+					trait = random_trait
 					trait = leader_trait_general_mercenary_warrior
 					trait = random_trait
 				}
@@ -3829,6 +3843,7 @@ country_event = {
 				leader_age_min = 25
 				leader_age_max = 45
 				traits = {
+					trait = random_trait
 					trait = leader_trait_mercenary_warrior
 					trait = random_trait
 				}
@@ -3858,6 +3873,7 @@ country_event = {
 				leader_age_min = 25
 				leader_age_max = 45
 				traits = {
+					trait = random_trait
 					trait = leader_trait_general_mercenary_warrior
 					trait = random_trait
 				}
@@ -4910,6 +4926,7 @@ country_event = {
 				traits = {
 					trait = random_trait
 					trait = leader_trait_mercenary_warrior
+					trait = random_trait
 				}
 			}
 			create_fleet = {
@@ -4965,31 +4982,33 @@ country_event = {
 		}
 	}
 	after = {
-		if = {
-			limit = {
-				event_target:raiding_marauder = {
-					has_country_flag = raid_cooldown
-					NOT = { has_country_flag = raid_ongoing }
-					exists = event_target:marauder_raiding_country
+		hidden_effect = {
+			if = {
+				limit = {
+					event_target:raiding_marauder = {
+						has_country_flag = raid_cooldown
+						NOT = { has_country_flag = raid_ongoing }
+						exists = event_target:marauder_raiding_country
+					}
 				}
-			}
-			remove_country_flag = raid_target_of@event_target:raiding_marauder
-			remove_country_flag = under_marauder_attack
-			remove_country_flag = marauder_tribute_1@event_target:raiding_marauder
-			remove_country_flag = marauder_tribute_2@event_target:raiding_marauder
-			remove_country_flag = marauder_tribute_3@event_target:raiding_marauder
-			remove_country_flag = marauder_tribute_4@event_target:raiding_marauder
-			remove_country_flag = marauder_tribute_5@event_target:raiding_marauder
-			remove_country_flag = marauder_tribute_6@event_target:raiding_marauder
-			remove_relation_flag = { who = event_target:raiding_marauder flag = current_target }
-			remove_relation_flag = { who = event_target:raiding_marauder flag = current_hired_target }
-			event_target:marauder_raiding_country = {
-				event_target:raiding_marauder = { remove_country_flag = parent_of@prev }
-				random_owned_fleet = {
-					limit = { has_fleet_flag = raiding_fleet }
-					delete_fleet = this
+				remove_country_flag = raid_target_of@event_target:raiding_marauder
+				remove_country_flag = under_marauder_attack
+				remove_country_flag = marauder_tribute_1@event_target:raiding_marauder
+				remove_country_flag = marauder_tribute_2@event_target:raiding_marauder
+				remove_country_flag = marauder_tribute_3@event_target:raiding_marauder
+				remove_country_flag = marauder_tribute_4@event_target:raiding_marauder
+				remove_country_flag = marauder_tribute_5@event_target:raiding_marauder
+				remove_country_flag = marauder_tribute_6@event_target:raiding_marauder
+				remove_relation_flag = { who = event_target:raiding_marauder flag = current_target }
+				remove_relation_flag = { who = event_target:raiding_marauder flag = current_hired_target }
+				event_target:marauder_raiding_country = {
+					event_target:raiding_marauder = { remove_country_flag = parent_of@prev }
+					random_owned_fleet = {
+						limit = { has_fleet_flag = raiding_fleet }
+						delete_fleet = this
+					}
+					destroy_country = yes
 				}
-				destroy_country = yes
 			}
 		}
 	}
@@ -6807,6 +6826,7 @@ event = {
 						traits = {
 							trait = random_trait
 							trait = leader_trait_mercenary_warrior
+							trait = random_trait
 						}
 					}
 					create_fleet = {
@@ -7946,8 +7966,14 @@ country_event = {
 			background = { category = "backgrounds" file = "00_solid.dds" }
 			colors = { "red" "red" "null" "null" }
 		}
+
 		if = {
-			limit = { is_pacifist = yes }
+			limit = {
+				OR = {
+					is_pacifist = yes
+					is_militarist = no
+				}
+			}
 			shift_ethic = "ethic_militarist"
 		}
 		if = {
@@ -7958,9 +7984,13 @@ country_event = {
 			limit = { is_spiritualist = no }
 			shift_ethic = "ethic_spiritualist"
 		}
-		if = {
-			limit = { is_militarist = no }
-			shift_ethic = "ethic_fanatic_militarist"
+		# if = {
+		# 	limit = { is_militarist = no }
+		# 	shift_ethic = "ethic_fanatic_militarist"
+		# }
+		if = { limit = { is_egalitarian = yes }
+			# shift_ethic = ethic_fanatic_spiritualist
+			shift_ethic = ethic_authoritarian
 		}
 
 		if = { ### NSC SUPPORT
@@ -7981,6 +8011,7 @@ country_event = {
 			set_origin = "origin_nsc_freebooter"
 			change_government = {
 				authority = auth_dictatorial
+				cooldown = no
 				remove_invalid_civics = yes
 			}
 			if = { limit = { has_authority = auth_corporate }
@@ -7994,20 +8025,23 @@ country_event = {
 				civics = {
 					civic = civic_great_khans_vision
 					civic = civic_shared_burden
-					# civic = civic_warrior_culture
 				}
+				cooldown = no
 				remove_invalid_civics = yes
 			}
+			# force_add_civic = civic_warrior_culture
 			# force_add_civic = civic_slaver_guilds
 			force_add_civic = civic_barbaric_despoilers
 			force_add_civic = civic_fanatic_purifiers
 		}
+
 		add_resource = {
-			energy = 20000
-			alloys = 12000
-			minerals = 8000
-			unity = 200000
+			energy	=	20000
+			alloys	=	12000
+			minerals =	8000
+			unity	=	200000
 		}
+
 		set_ai_personality = hegemonic_imperialists
 		create_ship_design = { design = "NAME_Pirate_Transport" }
 		add_ship_design = last_created_design
@@ -8799,8 +8833,11 @@ country_event = {
 			}
 		}
 		if = {
-				limit = { NOT = { exists = event_target:great_khan.fleet } }
-			last_created_fleet = { assign_leader = event_target:great_khan }
+			limit = { NOT = { exists = event_target:great_khan.fleet } }
+			last_created_fleet = {
+				assign_leader = event_target:great_khan
+				set_fleet_flag = khan_fleet
+			}
 		}
 		every_playable_country = {
 			limit = { is_ai = no }
@@ -9074,6 +9111,7 @@ event = {
 						position = 0
 						order_by = trigger:fleet_power
 						assign_leader = event_target:great_khan
+						set_fleet_flag = khan_fleet
 					}
 				}
 			} else = {
@@ -11044,6 +11082,7 @@ country_event = {
 	hide_window = yes
 	is_triggered_only = yes
 	immediate = {
+		set_update_modifiers_batch = begin
 		get_marauder_species = yes
 		# every_owned_fleet = { # Delete everything except starbase_marauder
 		# 	limit = {
@@ -11060,13 +11099,25 @@ country_event = {
 			# 	limit = { has_modifier = "satrapy_of_horde" }
 			# 	remove_modifier = "satrapy_of_horde"
 			# }
-			country_event = { id = marauder.670 days = 2 }			# Notify
+			country_event = { id = marauder.670 days = 2 } # Notify
 		}
 		# every_country = {
 		# 	limit = { has_modifier = "satrapy_of_horde" }
-		# 	country_event = { id = marauder.670 days = 4 }			# Notify
+		# 	country_event = { id = marauder.670 days = 4 } # Notify
 		# 	remove_modifier = "satrapy_of_horde"
 		# }
+
+		# Cleanup possilbe old flags (old version)
+		every_system_within_border = {
+			limit = { is_potential_diadochi_system = no }
+			switch = { trigger = has_star_flag
+				first_diadochi_system	= { remove_star_flag = first_diadochi_system }
+				second_diadochi_system	= { remove_star_flag = second_diadochi_system }
+				third_diadochi_system	= { remove_star_flag = third_diadochi_system }
+				fourth_diadochi_system	= { remove_star_flag = fourth_diadochi_system }
+			}
+		}
+
 		if = { # Four Diadochi
 			limit = {
 				OR = {
@@ -11075,7 +11126,7 @@ country_event = {
 						count > 4
 						limit = {
 							any_system_colony = {
-								is_owned_by = root
+																is_owned_by = root
 							}
 							is_potential_diadochi_system = yes
 						}
@@ -11101,7 +11152,7 @@ country_event = {
 						count > 3
 						limit = {
 							any_system_colony = {
-								is_owned_by = root
+																is_owned_by = root
 							}
 							is_potential_diadochi_system = yes
 						}
@@ -11138,15 +11189,22 @@ country_event = {
 			clear_variable = "successor_fleet_power"
 		}
 		clear_global_event_target = marauder_precursor
-		if = { limit = { is_ai = yes }
-			destroy_country = yes
-		}
 		set_update_modifiers_batch = end
 	}
 	after = {
 		if = { limit = { exists = event_target:raider_khanate }
+			if = {
+				limit = {
+					is_ai = no
+					exists = event_target:third_diadochi
+					is_same_empire = event_target:raider_khanate
+				}
+				# TODO: Player could chose!? # Reported mysteric bug, somehow player lost systems
+				event_target:third_diadochi = { set_player = event_target:raider_khanate }
+			}
 			clear_global_event_target = raider_khanate
 		}
+		destroy_country = yes
 	}
 }
 
@@ -12251,6 +12309,7 @@ country_event = {
 			leader_age_min = 25
 			leader_age_max = 45
 			traits = {
+				trait = random_trait
 				trait = leader_trait_mercenary_warrior
 				trait = random_trait
 			}
