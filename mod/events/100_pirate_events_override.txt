@@ -556,8 +556,7 @@ ship_event = {
 						}
 						any_system_within_border = {
 							is_capital_system = no
-							any_system_planet = {
-								is_colony = yes
+							any_system_colony = {
 								is_under_colonization = no
 								planet_stability < 80
 								NOT = { has_planet_flag = pirate_invasion }
@@ -576,8 +575,7 @@ ship_event = {
 							is_owned_by = space_owner
 							is_civilian = no							# is_ship_class = shipclass_military
 						}
-						any_system_planet = {
-							has_owner = yes
+						any_system_colony = {
 							NOR = {
 								is_owned_by = from.owner
 								is_controlled_by = from.owner
@@ -591,8 +589,7 @@ ship_event = {
 						limit = {
 							is_owned_by = root
 							is_capital_system = no
-							any_system_planet = {
-								is_colony = yes
+							any_system_colony = {
 								is_under_colonization = no
 								planet_stability < 80
 							}

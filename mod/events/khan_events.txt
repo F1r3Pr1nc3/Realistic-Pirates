@@ -437,8 +437,7 @@ ship_event = {
 				if = {
 					limit = {
 						NOT = {
-							any_system_planet = {
-								has_owner = yes
+							any_system_colony = {
 								is_owned_by = from.owner
 							}
 						}
@@ -502,8 +501,7 @@ ship_event = {
 						}
 					} else_if = {
 						limit = {
-							any_system_planet = {
-								has_owner = yes
+							any_system_colony = {
 								is_colony = yes
 								NOT = { is_owned_by = root.owner }
 								NAND = {
@@ -512,9 +510,8 @@ ship_event = {
 								}
 							}
 						}
-						random_system_planet = {
+						random_system_colony = {
 							limit = {
-								has_owner = yes
 								is_colony = yes
 								NOT = { is_owned_by = root.owner }
 								NAND = {
@@ -1179,7 +1176,7 @@ country_event = {
 							modifier = { factor = 3 is_bottleneck_system = yes }
 							modifier = {
 								factor = 5
-								any_system_planet = { is_colony = yes is_under_colonization = no }
+								any_system_colony = { is_under_colonization = no }
 							}
 						}
 						starbase = {

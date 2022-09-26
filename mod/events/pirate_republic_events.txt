@@ -40,9 +40,8 @@ event = {
 				}
 				any_system_within_border = {
 					is_capital_system = no
-					any_system_planet = {
+					any_system_colony = {
 						has_owner = yes
-						is_colony = yes
 						is_under_colonization = no
 						NOT = { has_planet_flag = pirate_invasion }
 						has_ground_combat = no
@@ -123,8 +122,7 @@ country_event = {
 					save_event_target_as = pirate_system
 					if = {
 						limit = {
-							any_system_planet = {
-								is_colony = yes
+							any_system_colony = {
 								is_under_colonization = no
 								is_owned_by = root
 								is_controlled_by = root
@@ -151,9 +149,8 @@ country_event = {
 								}
 							}
 						}
-						random_system_planet = {
+						random_system_colony = {
 							limit = {
-								is_colony = yes
 								is_under_colonization = no
 								is_owned_by = root
 								is_controlled_by = root
@@ -169,8 +166,7 @@ country_event = {
 								limit = {
 									is_owned_by = root
 									is_capital_system = no
-									any_system_planet = {
-										is_colony = yes
+									any_system_colony = {
 										planet_stability < @stabilitylevel5
 										NOR = {
 											has_orbital_bombardment = yes
@@ -204,8 +200,7 @@ country_event = {
 							limit = {
 								is_owned_by = root
 								is_capital_system = no
-								any_system_planet = {
-									is_colony = yes
+								any_system_colony = {
 									NOR = {
 										is_under_colonization = yes
 										has_planet_flag = pirate_invasion
@@ -228,9 +223,8 @@ country_event = {
 									}
 								}
 							}
-							random_system_planet = {
+							random_system_colony = {
 								limit = {
-									is_colony = yes
 									NOR = {
 										is_under_colonization = yes
 										has_planet_flag = pirate_invasion
@@ -1403,10 +1397,9 @@ event = {
 						exists = solar_system
 						solar_system = {
 							exists = starbase
-							any_system_planet = {
+							any_system_colony = {
 								has_owner = yes
 								is_colony = yes
-								exists = owner
 								OR = {
 									owner = { NOT = { is_same_empire = event_target:rebel_country } }
 									AND = {
@@ -1419,9 +1412,8 @@ event = {
 					}
 					solar_system = {
 						# log="Fix pirate_republic at system [This.GetName]"
-						random_system_planet = {
+						random_system_colony = {
 							limit = {
-								has_owner = yes
 								is_colony = yes
 								exists = owner
 								OR = {
@@ -1503,7 +1495,7 @@ event = {
 						NAND = {
 							any_controlled_fleet = { always = yes }
 							any_owned_army = { is_defensive_army = no }
-							any_controlled_fleet = { is_mobile = no exists = solar_system solar_system = { any_system_planet = { has_owner = yes is_colony = yes } } }
+							any_controlled_fleet = { is_mobile = no exists = solar_system solar_system = { any_system_colony = { has_owner = yes } } }
 						}
 					}
 					set_country_flag = silence_destroy_event
