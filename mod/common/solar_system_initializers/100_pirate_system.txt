@@ -131,6 +131,8 @@ hostile_init_117 = {
 		init_effect = {
 			create_pirate_country = yes
 			event_target:pirate_country = {
+				set_variable = { which = pirates_factor value = 0.5 }
+				set_pirates_difficulty = yes
 				create_fleet = {
 					name = "NAME_Pirate_Fleet"
 					effect = {

@@ -12654,5 +12654,5 @@ country_event = {
 }
 
 ## Workaround for Irony compare
-namespace = emperor
-namespace = pirate
+# namespace = emperor
+# namespace = pirate

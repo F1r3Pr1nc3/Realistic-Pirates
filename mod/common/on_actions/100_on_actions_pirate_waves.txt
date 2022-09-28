@@ -6,13 +6,25 @@
 on_game_start = {
 	events = {
 		khan.300
+		# pirate_waves.5
 	}
 }
 
+# No scope, like on_game_start
+# Does not run when loading MP saves due to OOS concerns
 on_single_player_save_game_load = {
 	events = {
 		khan.300
 		# marauder.99
+		pirate_waves.5
+	}
+}
+
+# Triggers when pressing begin in the intro window
+# This = country to press begin
+on_press_begin = {
+	events = {
+		pirate_waves.0
 	}
 }
 
