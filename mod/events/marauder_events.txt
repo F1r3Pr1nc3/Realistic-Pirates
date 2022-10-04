@@ -13,7 +13,6 @@ namespace = marauder
 ## Fleets getting stuck.
 # marauder.31 .33 .101 .103 .150 .21
 # Adding marauder.27 .28 .29
-
 # Check all events: has_country_flag = marauder_x (x = 1 - 3)
 #
 ###		On Actions Short Docu		###
@@ -29,6 +28,8 @@ namespace = marauder
 #	marauder.19		#  Diplomacy Denied
 #	marauder.102	#  Diplomacy while target of raid.
 #	marauder.112	#  Diplomacy while target of Hired raid.
+
+# on_ship_destroyed_victim = marauder.525 # Horde Triggered Through Destruction of Stations.
 
 ###		Khan Dead Events		###
 # on_ship_destroyed_victim	marauder.505 Defeated in Combat but NOT die.
@@ -7886,7 +7887,7 @@ country_event = {
 		if = { limit = { is_militarist = no }
 			# limit = { is_pacifist = yes }
 			shift_ethic = "ethic_militarist"
-			#shift_ethic = "ethic_fanatic_militarist"
+			# shift_ethic = "ethic_fanatic_militarist"
 		}
 		if = { limit = { has_ethic = "ethic_xenophobe" }
 			country_remove_ethic = "ethic_xenophobe"
@@ -7920,7 +7921,7 @@ country_event = {
 				cooldown = no
 				remove_invalid_civics = yes
 			}
-			if = { limit = { has_authority = auth_corporate }
+			if = { limit = { is_megacorp = yes }
 				force_add_civic = nsc_freebooter_civic_freebooter_trait_change_corp
 			} else = { force_add_civic = nsc_freebooter_civic_freebooter_trait_change }
 			# force_add_civic = nsc_freebooter_civic_great_khans_vision later
@@ -8123,6 +8124,24 @@ country_event = {
 			### Should not attack: the Khan is not that bad!
 			make_moderately_hostile = yes
 			set_country_flag = use_default_ships
+		} else = {
+			# Should not attack Enclaves
+			every_country = {
+				limit = {
+					OR = {
+						is_country_type = enclave
+						is_country_type = enclave_mercenary
+					}
+				}
+				event_target:raider_khanate = {
+					set_faction_hostility = {
+						target = prev
+						set_hostile = no
+						set_neutral = no
+						set_friendly = yes
+					}
+				}
+			}
 		}
 
 		### Notifications
@@ -8339,12 +8358,10 @@ country_event = {
 				### Create Marauder Pops
 				save_event_target_as = conquered_planet
 				planet_event = { id = marauder.105 }			# (Slaves)
-				set_controller = event_target:raider_khanate	# Root not subjects
 				if = { limit = { root = { is_country_type = awakened_marauders } }
-					set_owner = root.from # Added due 3.4 unknow bug Khan is regocnized as Satrapy
-					# Removed due 3.4 bug
-					# set_owner = event_target:raider_khanate		# Root not subjects
+					set_owner = root		# Root not subjects
 				}
+				set_controller = root
 
 				set_variable = { which = CmtVarTemp value = 4 }
 				if = { limit = { free_housing < 2 }
@@ -9536,7 +9553,7 @@ country_event = {
 #########################################################
 ### Awakening for Vengeance: on_ship_destroyed_victim ###
 #########################################################
-# Horde Triggered Through Destruction of Stations.
+# Horde Triggered Through Destruction of Stations (on_ship_destroyed_victim).
 country_event = {
 	id = marauder.525
 	hide_window = yes
@@ -9544,7 +9561,7 @@ country_event = {
 	trigger = {
 		NOT = { has_global_flag = marauder_crisis_ongoing }
 		is_country_type = dormant_marauders
-		end_game_years_passed < 0
+		end_game_years_passed < event_target:CmtGlobalVar.CmtVarKhanLatestEgpy
 		fromfrom = {
 			exists = solar_system
 			solar_system = { has_star_flag = marauder_system }
@@ -9553,34 +9570,45 @@ country_event = {
 				is_ship_size = starbase_marauder
 			}
 		}
-		from = { merg_is_default_empire = yes }		# There are some unpredictable possiblities.
-		count_owned_ship = {
-			limit = { is_ship_size = marauder_void_dwelling }
-			count > 1
+		OR = {
+			from = { merg_is_default_empire = yes } # There are some unpredictable possiblities.
+			count_country = { count = 1 limit = { is_country_type = dormant_marauders } }
 		}
-		any_country = { CmtTriggerHasPotentialKhanAwaking = yes }
+		event_target:CmtGlobalVar = { check_variable = { which = CmtVarKhanVengeance value != 1 } }
+		OR = {
+			count_owned_ship = { count > 1 limit = { is_ship_size = marauder_void_dwelling }  }
+			AND = {
+				event_target:CmtGlobalVar = { check_variable = { which = CmtVarKhanVengeance value = 5 } }
+				count_owned_ship = { count > 0 limit = { is_ship_size = marauder_void_dwelling } }
+			}
+		}
+		CmtTriggerKhanAwakingMultipleCheck = yes
 	}
 	immediate = {
 		from = { save_event_target_as = awakened_horde }
 		# Since 3.0: reduce possibility if too early
 		set_variable = { which = CmtVarKhanProbability value = trigger:years_passed }
-		if = {
-			limit = {
-				NOT = { is_variable_set = CmtVarHalfMidgame }
-			}
-			get_galaxy_setup_value = {
-				which = CmtVarHalfMidgame
-				setting = mid_game_year
-			}
-			change_variable = { which = CmtVarHalfMidgame value = 10 }
+
+		if = { limit = { NOT = { is_variable_set = CmtVarHalfMidgame } }
+			get_galaxy_setup_value = { which = CmtVarHalfMidgame setting = mid_game_year }
+			change_variable = { which = CmtVarHalfMidgame value = event_target:CmtGlobalVar.CmtVarKhanEarliestMgpy }
 			divide_variable = { which = CmtVarHalfMidgame value = 2 }
 		}
 		if = { limit = { check_variable = { which = CmtVarHalfMidgame value > 0 } }
 			divide_variable = { which = CmtVarKhanProbability value = CmtVarHalfMidgame }
 		}
 		subtract_variable = { which = CmtVarKhanProbability value = 1 }
+
 		random_list = {
 			2 = {
+				modifier = {		## 9.9%
+					factor = 5.5
+					event_target:CmtGlobalVar = { check_variable = { which = CmtVarKhanVengeance value = 3 } }
+				}
+				modifier = {		## 28.6%
+					factor = 20
+					event_target:CmtGlobalVar = { check_variable = { which = CmtVarKhanVengeance value = 4 } }
+				}
 				modifier = {
 					factor = CmtVarKhanProbability					# = 2*curY/mgY-1
 					check_variable = { which = CmtVarKhanProbability value < 1 }
@@ -9590,6 +9618,16 @@ country_event = {
 				country_event = { id = marauder.500 }
 			}
 			100 = {
+				modifier = {
+					factor = 0
+					OR = {
+						event_target:CmtGlobalVar = { check_variable = { which = CmtVarKhanVengeance value = 5 } }
+						AND = {
+							count_owned_ship = { count < 2 limit = { is_ship_size = marauder_void_dwelling } }
+							count_country = { count = 1 limit = { is_country_type = dormant_marauders } }
+						}
+					}
+				}
 				fromfromfrom.solar_system = {
 					system_event = { id = marauder.17 days = 360 } # Rebuild marauder starbase
 				}

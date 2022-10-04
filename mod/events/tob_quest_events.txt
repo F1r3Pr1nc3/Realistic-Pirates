@@ -1,5 +1,5 @@
 namespace = tob_quest
-#Set flag
+# Set flag
 country_event = {
 	id = tob_quest.1
 	hide_window = yes

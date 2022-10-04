@@ -12,7 +12,7 @@ bulwark_exploration_effect = {
 						exists = owner
 						owner = {
 							is_fallen_empire = yes
-							NOT = { has_authority = auth_machine_intelligence }
+							is_machine_empire = no
 						}
 					}
 					any_fleet_in_system = {
