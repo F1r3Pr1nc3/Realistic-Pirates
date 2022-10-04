@@ -267,11 +267,11 @@ ship_design = {
 
 		component = {
 			slot = "SMALL_GUN_01"
-			template = "MISSILE_1"
+			template = "SMALL_DISRUPTOR_1" # "SWARMER_MISSILE_1"
 		}
 		component = {
 			slot = "MEDIUM_GUN_01"
-			template = "MISSILE_1"
+			template = "MISSILE_2"
 		}
 		component = {
 			slot = "SMALL_UTILITY_1"
