@@ -491,6 +491,7 @@ ship_event = {
 		is_ship_class = shipclass_starbase
 		exists = from
 		from = {
+			exists = owner
 			owner = {
 				OR = {
 					is_country_type = pirate
@@ -501,10 +502,10 @@ ship_event = {
 		# solar_system = { is_pirate_system = no }
 	}
 	immediate = {
+		from.owner = { save_event_target_as = pirate_band }
 		solar_system = {
 			if = {
 				limit = { is_pirate_system = no }
-				from.owner = { save_event_target_as = pirate_band }
 				random_system_planet = {
 					limit = { is_star = no }
 					weights = {
