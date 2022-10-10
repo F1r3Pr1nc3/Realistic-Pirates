@@ -226,7 +226,7 @@ country_event = {
 		# Vengeance if Mercenaries hired
 		if = {
 			limit = {
-				from = { merg_is_default_empire = yes }
+				from = { is_regular_empire = yes }
 				OR = {
 					has_country_flag = merc_fleet_1_hired
 					has_country_flag = merc_fleet_2_hired
@@ -366,7 +366,7 @@ country_event = {
 			}
 		} else = {
 			every_owned_megastructure = { set_ruined_megastructure = yes }
-			destroy_country = yes
+			set_country_type = pirate # destroy_country = yes
 		}
 	}
 }
@@ -1257,7 +1257,9 @@ country_event = {
 		has_country_flag = marauder_vengeance_begun
 		count_owned_ship = { count = 0 }
 	}
-	immediate = { destroy_country = yes }
+	immediate = {
+		set_country_type = pirate # destroy_country = yes
+	}
 }
 
 # Marauder Introduction
@@ -6689,7 +6691,7 @@ event = {
 				event_target:raiding_marauder = {
 					get_marauder_raid_source = yes
 					set_country_flag = raid_ongoing
-					get_marauder_species = yes
+					owner_species = { save_event_target_as = marauder_species }
 				}
 				create_country = {
 					name = event_target:raiding_marauder
@@ -6997,7 +6999,7 @@ event = {
 					}
 				}
 				save_event_target_as = marauder_merc_country
-				get_marauder_species = yes
+				owner_species = { save_event_target_as = marauder_species }
 				if = { limit = { has_global_flag = pirate_waves_active }
 					set_pirates_difficulty = yes
 				}
@@ -8927,7 +8929,7 @@ country_event = {
 				}
 				country_event = { id = marauder.609 days = -1 }				# Fully handover?
 				# set_country_type = dormant_marauders
-				destroy_country = yes
+				country_event = { id = khan.606 days = 2 } # destroy_country
 			}
 			clear_global_event_target = raider_khanate
 			if = { limit = { NOT = { has_relic = r_khans_throne } } # (as we could decline?)
@@ -10998,7 +11000,7 @@ country_event = {
 			}
 			# clear_global_event_target = raider_khanate
 		}
-		country_event = { id = khan.606 days = 3 } # destroy_country = yes
+		country_event = { id = khan.606 days = 3 } # destroy_country
 	}
 }
 
@@ -11083,7 +11085,7 @@ country_event = {
 			}
 			# clear_global_event_target = raider_khanate
 		}
-		country_event = { id = khan.606 days = 1 } # destroy_country = yes
+		country_event = { id = khan.606 days = 1 } # destroy_country
 	}
 }
 
@@ -11182,7 +11184,7 @@ country_event = {
 			}
 			# clear_global_event_target = raider_khanate
 		}
-		country_event = { id = khan.606 days = 1 } # destroy_country = yes
+		country_event = { id = khan.606 days = 1 } # destroy_country
 	}
 }
 
@@ -11333,7 +11335,7 @@ country_event = {
 		}
 	}
 	after = {
-		country_event = { id = khan.606 days = 1 } # destroy_country = yes
+		country_event = { id = khan.606 days = 1 } # destroy_country
 	}
 }
 

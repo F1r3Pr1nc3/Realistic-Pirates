@@ -1594,6 +1594,7 @@ country_event = {
 	}
 }
 
+# Pirate Waves Chance
 country_event = {
 	id = pirate_waves.111
 	title = policy_pirate_waves
@@ -1805,6 +1806,7 @@ country_event = {
 	option = { name = BACK }
 }
 
+# Pirate Waves Difficulty
 country_event = {
 	id = pirate_waves.112
 	title = policy_pirate_waves_difficulty
