@@ -56,6 +56,9 @@ country_event = {
 				# Fallback: Take default settings from Crisis Manager.
 				event_target:global_event_country = {
 					if = {
+						limit = { check_variable = { which = CmtVarFleetPower_Khan value > 2.1 } }
+						prev = { set_variable = { which = pirate_waves_difficulty value = 5 } }
+					} else_if = {
 						limit = { check_variable = { which = CmtVarFleetPower_Khan value > 1.74 } }
 						prev = { set_variable = { which = pirate_waves_difficulty value = 4 } }
 					} else_if = {
@@ -152,11 +155,14 @@ country_event = {
 							default = {
 								prev = { set_variable = { which = CmtVarFleetPower_Khan value = 1 } }
 							}
-							ships_count_hard = {
+							pirate_waves_hard = {
 								prev = { set_variable = { which = CmtVarFleetPower_Khan value = 1.5 } }
 							}
-							pirate_waves_insane = {
+							pirate_waves_very_hard = {
 								prev = { set_variable = { which = CmtVarFleetPower_Khan value = 2 } }
+							}
+							pirate_waves_insane = {
+								prev = { set_variable = { which = CmtVarFleetPower_Khan value = 3 } }
 							}
 						}
 					}
@@ -1196,7 +1202,18 @@ planet_event = {
 					# Determine if to spawn a fleet.
 					if = {
 						# Check whether there's a friendly fleet nearby that's not a station.
-						limit = { has_pirate_waves_fleet_build_station = no }
+						limit = {
+							# has_pirate_waves_fleet_build_station = no
+							ROOT = {
+								solar_system = {
+									any_fleet_in_system = {
+										NOT = { is_ship_class = shipclass_military_station }
+										exists = owner
+										is_owned_by = event_target:current_pirate_country
+									}
+								}
+							}
+						}
 						# Spawn fleet immediately
 						fleet_event = { id = pirate_waves.2 }
 					}
@@ -1923,14 +1940,25 @@ country_event = {
 		}
 	}
 	option = {
-		name = "pirate_waves_insane"
-		custom_tooltip = "pirate_waves_insane_desc"
-		# set_country_flag = pirate_waves_insane
+		name = "pirate_waves_very_hard"
+		custom_tooltip = "pirate_waves_very_hard_desc"
+		# set_country_flag = pirate_waves_very_hard
 		allow = {
 			check_variable = { which = pirate_waves_difficulty value != 4 }
 		}
 		hidden_effect = {
 			set_variable = { which = pirate_waves_difficulty value = 4 }
+		}
+	}
+	option = {
+		name = "pirate_waves_insane"
+		custom_tooltip = "pirate_waves_insane_desc"
+		# set_country_flag = pirate_waves_insane
+		allow = {
+			check_variable = { which = pirate_waves_difficulty value != 5 }
+		}
+		hidden_effect = {
+			set_variable = { which = pirate_waves_difficulty value = 5 }
 		}
 	}
 	option = { name = BACK }

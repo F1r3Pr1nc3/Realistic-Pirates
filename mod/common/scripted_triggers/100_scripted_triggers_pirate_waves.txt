@@ -232,19 +232,22 @@ is_pirate_waves_player = {
 	# }
 }
 
+# DEPRECATED/LEGACY
 # Has a fleet build the station.
-has_pirate_waves_fleet_build_station = {
-	ROOT = {
-		solar_system = {
-			any_fleet_in_system = {
-				NOT = { is_ship_class = shipclass_military_station }
-				exists = owner
-				is_owned_by = event_target:current_pirate_country
-			}
-		}
-	}
-}
+# has_pirate_waves_fleet_build_station = {
+# 	ROOT = {
+# 		solar_system = {
+# 			any_fleet_in_system = {
+# 				NOT = { is_ship_class = shipclass_military_station }
+# 				exists = owner
+# 				is_owned_by = event_target:current_pirate_country
+# 			}
+# 		}
+# 	}
+# }
 
+# TODO: Remove with 3.6
+# DEPRECATED/LEGACY
 # Compares pirate country with closest country.
 is_pirate_waves_closest_country_pathetic = {
 	exists = event_target:current_pirate_country
@@ -262,6 +265,7 @@ is_pirate_waves_closest_country_pathetic = {
 	}
 }
 
+# DEPRECATED/LEGACY
 is_pirate_waves_closest_country_inferior = {
 	exists = event_target:current_pirate_country
 	ROOT = {
@@ -278,6 +282,7 @@ is_pirate_waves_closest_country_inferior = {
 	}
 }
 
+# DEPRECATED/LEGACY
 is_pirate_waves_closest_country_equivalent = {
 	exists = event_target:current_pirate_country
 	ROOT = {

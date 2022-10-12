@@ -109,9 +109,11 @@
  pirate_waves_hard: "$DIFFICULTY_COMMODORE$"
  # pirate_waves_hard_name: "$policy_pirate_waves$ Hard"
  pirate_waves_hard_desc: "$large$ $pirate_fleets$\n"
- pirate_waves_insane: "$DIFFICULTY_ADMIRAL$"
+ pirate_waves_very_hard: "$DIFFICULTY_ADMIRAL$"
+ pirate_waves_very_hard_desc: "$huge$ $pirate_fleets$\n"
+ pirate_waves_insane: "$DIFFICULTY_GRAND_ADMIRAL$"
  # pirate_waves_insane_name: "$policy_pirate_waves$ Insane"
- pirate_waves_insane_desc: "$huge$ $pirate_fleets$\n"
+ pirate_waves_insane_desc: "Insane $pirate_fleets$\n"
 
  ####################################
  # Renaming

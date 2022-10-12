@@ -1069,6 +1069,7 @@ country_event = {
 			remove_country_flag = pirate_waves_easy
 			remove_country_flag = pirate_waves_medium
 			remove_country_flag = pirate_waves_hard
+			remove_country_flag = pirate_waves_very_hard
 			remove_country_flag = pirate_waves_insane
 
 			if = { limit = { is_variable_set = pirate_waves_difficulty }
