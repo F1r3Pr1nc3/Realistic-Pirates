@@ -2275,7 +2275,7 @@ event = {
 	}
 
 	immediate = {
-		log="Looking for new Maraurder place."
+		# log="Looking for new Marauder place."
 		random_system = {
 			limit = {
 				is_pirate_system = yes

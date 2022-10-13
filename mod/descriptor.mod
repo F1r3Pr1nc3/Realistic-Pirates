@@ -1,4 +1,4 @@
-version="3.5.2.7"
+version="3.5.2.8"
 tags={
 	"Balance"
 	"Military"
