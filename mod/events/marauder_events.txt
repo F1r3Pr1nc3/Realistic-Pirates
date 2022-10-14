@@ -2735,7 +2735,7 @@ country_event = {
 				# 	pirate_waves_easy = {
 				# 		multiply_variable = { which = pirates_factor value = 0.75 }
 				# 	}
-				# 	ships_count_hard = {
+				# 	pirate_waves_hard = {
 				# 		multiply_variable = { which = pirates_factor value = 1.25 }
 				# 	}
 				# 	pirate_waves_insane = {
@@ -2899,18 +2899,6 @@ country_event = {
 		}
 		event_target:marauder_raiding_country = {
 			every_country = { limit = { has_communications = event_target:raiding_marauder } establish_communications_no_message = prev }
-			event_target:raiding_marauder = {
-				set_country_flag = parent_of@prev
-				set_faction_hostility = {
-					target = prev
-					set_hostile = no
-					set_neutral = no
-					set_friendly = yes
-				}
-				if = { limit = { has_global_flag = pirate_waves_active }
-					set_pirates_difficulty = yes
-				}
-			}
 			create_leader = {
 				class = admiral
 				species = event_target:marauder_species
@@ -2924,18 +2912,30 @@ country_event = {
 					trait = random_trait
 				}
 			}
-			create_fleet = {
-				name = "NAME_Raiding_Fleet"
-				effect = {
-					set_owner = event_target:raiding_marauder					# For ship names
-					create_marauder_raiders = yes
-					set_location = event_target:raid_source
-					set_fleet_stance = aggressive
-					set_fleet_bombardment_stance = indiscriminate
-					set_aggro_range_measure_from = self
-					set_aggro_range = 150
-					set_fleet_flag = hired_raiding_fleet
-					set_fleet_flag = raiding_fleet
+			event_target:raiding_marauder = {
+				set_country_flag = parent_of@prev
+				set_faction_hostility = {
+					target = prev
+					set_hostile = no
+					set_neutral = no
+					set_friendly = yes
+				}
+				if = { limit = { has_global_flag = pirate_waves_active }
+					set_pirates_difficulty = yes
+				}
+				create_fleet = {
+					name = "NAME_Raiding_Fleet"
+					effect = {
+						set_owner = prev					# For ship names
+						create_marauder_raiders = yes		# Needs prev for script vars
+						set_location = event_target:raid_source
+						set_fleet_stance = aggressive
+						set_fleet_bombardment_stance = indiscriminate
+						set_aggro_range_measure_from = self
+						set_aggro_range = 150
+						set_fleet_flag = hired_raiding_fleet
+						set_fleet_flag = raiding_fleet
+					}
 				}
 			}
 			set_faction_hostility = {
@@ -3589,7 +3589,8 @@ country_event = {
 		last_created_fleet = {
 			save_event_target_as = hired_merc_fleet # Vanilla nowhere used??
 			set_owner = root
-			if = { limit = {
+			if = {
+				limit = {
 					OR = {
 						root = { is_hostile = event_target:current_marauder_diplomacy }
 						event_target:current_marauder_diplomacy = { is_hostile = root }
@@ -3601,7 +3602,8 @@ country_event = {
 					angle = random
 				}
 			}
-			if = { limit = {
+			if = {
+				limit = {
 					exists = root.capital_star.starbase
 					root.capital_star.starbase = { is_owned_by = root }
 				}
@@ -4868,19 +4870,6 @@ country_event = {
 		}
 		event_target:marauder_raiding_country = {
 			every_country = { limit = { has_communications = event_target:raiding_marauder } establish_communications_no_message = prev }
-			event_target:raiding_marauder = {
-				set_country_flag = parent_of@event_target:marauder_raiding_country
-				set_faction_hostility = {
-					target = event_target:marauder_raiding_country
-					set_hostile = no
-					set_neutral = no
-					set_friendly = yes
-				}
-				## Compat. Realistic Pirates
-				if = { limit = { has_global_flag = pirate_waves_active }
-					set_pirates_difficulty = yes
-				}
-			}
 			create_leader = {
 				class = admiral
 				species = event_target:marauder_species
@@ -4894,17 +4883,30 @@ country_event = {
 					trait = random_trait
 				}
 			}
-			create_fleet = {
-				name = "NAME_Raiding_Fleet"
-				effect = {
-					set_owner = event_target:raiding_marauder					# For ship names
-					create_marauder_raiders = yes
-					set_location = event_target:raid_source
-					set_fleet_stance = aggressive
-					set_fleet_bombardment_stance = indiscriminate
-					set_aggro_range_measure_from = self
-					set_aggro_range = 150
-					set_fleet_flag = raiding_fleet
+			event_target:raiding_marauder = {
+				set_country_flag = parent_of@event_target:marauder_raiding_country
+				set_faction_hostility = {
+					target = event_target:marauder_raiding_country
+					set_hostile = no
+					set_neutral = no
+					set_friendly = yes
+				}
+				## Compat. Realistic Pirates
+				if = { limit = { has_global_flag = pirate_waves_active }
+					set_pirates_difficulty = yes
+				}
+				create_fleet = {
+					name = "NAME_Raiding_Fleet"
+					effect = {
+						set_owner = prev					# For ship names
+						create_marauder_raiders = yes		# Needs prev for script vars
+						set_location = event_target:raid_source
+						set_fleet_stance = aggressive
+						set_fleet_bombardment_stance = indiscriminate
+						set_aggro_range_measure_from = self
+						set_aggro_range = 150
+						set_fleet_flag = raiding_fleet
+					}
 				}
 			}
 			set_faction_hostility = {
@@ -6717,6 +6719,19 @@ event = {
 				}
 				event_target:marauder_raiding_country = {
 					every_country = { limit = { has_communications = event_target:raiding_marauder } establish_communications_no_message = prev }
+					create_leader = {
+						class = admiral
+						species = event_target:marauder_species
+						name = random
+						skill = 3
+						leader_age_min = 25
+						leader_age_max = 45
+						traits = {
+							trait = random_trait
+							trait = leader_trait_mercenary_warrior
+							trait = random_trait
+						}
+					}
 					event_target:raiding_marauder = {
 						set_country_flag = parent_of@event_target:marauder_raiding_country
 						set_faction_hostility = {
@@ -6755,32 +6770,19 @@ event = {
 						} else = {
 							set_variable = { which = raidcost value = 1 }
 						}
-					}
-					create_leader = {
-						class = admiral
-						species = event_target:marauder_species
-						name = random
-						skill = 3
-						leader_age_min = 25
-						leader_age_max = 45
-						traits = {
-							trait = random_trait
-							trait = leader_trait_mercenary_warrior
-							trait = random_trait
-						}
-					}
-					create_fleet = {
-						name = "NAME_Raiding_Fleet"
-						effect = {
-							set_owner = event_target:raiding_marauder							# For ship names
-							create_marauder_raiders = yes
-							set_location = event_target:raid_source
-							set_fleet_stance = aggressive
-							set_fleet_bombardment_stance = indiscriminate
-							set_aggro_range_measure_from = self
-							set_aggro_range = 150
-							set_fleet_flag = hired_raiding_fleet
-							set_fleet_flag = raiding_fleet
+						create_fleet = {
+							name = "NAME_Raiding_Fleet"
+							effect = {
+								set_owner = prev						# For ship names
+								create_marauder_raiders = yes			# Needs prev for script vars
+								set_location = event_target:raid_source
+								set_fleet_stance = aggressive
+								set_fleet_bombardment_stance = indiscriminate
+								set_aggro_range_measure_from = self
+								set_aggro_range = 150
+								set_fleet_flag = hired_raiding_fleet
+								set_fleet_flag = raiding_fleet
+							}
 						}
 					}
 					set_faction_hostility = {
@@ -7848,6 +7850,20 @@ country_event = {
 				save_global_event_target_as = marauder_rally_point
 				set_planet_flag = marauder_rally_point
 				log = "Backup Code for marauder_rally_point Processed on \\[This.GetName] at \\[This.System.GetName]"
+			}
+		}
+
+		# Take Pirates/Mercenaries too (especially stations)
+		every_system_within_border = {
+			every_fleet_in_system = {
+				limit = {
+					exists = owner
+					owner = {
+						NOT = { is_same_empire = root }
+						is_pirate = yes
+					}
+				}
+				set_owner = root
 			}
 		}
 
@@ -9028,7 +9044,6 @@ country_event = {
 				# set_country_type = dormant_marauders
 				country_event = { id = khan.606 days = 2 } # destroy_country
 			}
-			clear_global_event_target = raider_khanate
 			if = { limit = { NOT = { has_relic = r_khans_throne } } # (as we could decline?)
 				add_relic = r_khans_throne
 			}
@@ -11144,8 +11159,6 @@ country_event = {
 				}
 			}
 		}
-		# last_created_country = {}
-		clear_global_event_target = marauder_precursor
 		every_subject = {
 			set_subject_of = { who = none }
 			# if = {
@@ -11213,7 +11226,6 @@ country_event = {
 				}
 			}
 		}
-		clear_global_event_target = marauder_precursor
 
 		# Give khan_destroyer opportunity to join new federation.
 		if = { limit = { NOT = { exists = event_target:khan_destroyer } }
@@ -11307,7 +11319,6 @@ country_event = {
 				# }
 				save_event_target_as = restored_marauders
 			}
-			clear_global_event_target = marauder_precursor
 		} else = {
 			create_country = {
 				name_list = random

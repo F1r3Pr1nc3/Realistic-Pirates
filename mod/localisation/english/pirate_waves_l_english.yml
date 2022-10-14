@@ -41,7 +41,7 @@
  edict_pirate_waves_desc: "Here you can set the chance for $policy_pirate_waves$"
  dmm_mod_pirate_waves: "$policy_pirate_waves$"
  pirate_waves.0.title: "$policy_pirate_waves$ $SETTINGS$"
- pirate_waves.0.desc: "Here you can set the Chance $AND$ $policy_pirate_waves_difficulty$."
+ pirate_waves.0.desc: "Here you can set the $edict_pirate_waves$ $AND$ $policy_pirate_waves_difficulty$."
  pirate_waves_0: "§Y$DISABLE$§!"
  pirate_waves_0_name: "$policy_pirate_waves$ $free_migration_no$"
  pirate_waves_0_desc: "New pirate fleets will not appear.\n"

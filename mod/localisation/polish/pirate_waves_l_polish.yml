@@ -50,7 +50,7 @@
  pirate_starbase_plural: "$Asteroid$ $stations$ I"
  pirate_victims_others: "§YOther Vessels Destroyed by $pirate_waves_pirate_event_chain_title$§!"
  pirate_victims_us: "§ROur Vessels Destroyed by $pirate_waves_pirate_event_chain_title$§!"
- pirate_waves.0.desc: "Here you can set the Chance $AND$ $policy_pirate_waves_difficulty$."
+ pirate_waves.0.desc: "Here you can set the $edict_pirate_waves$ $AND$ $policy_pirate_waves_difficulty$."
  pirate_waves.0.title: "$policy_pirate_waves$ $SETTINGS$"
  pirate_waves.10.desc: "Creates a ten pirate fleets and stations immediately"
  pirate_waves.10.name: "10 Pirate Fleets"
