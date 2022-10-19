@@ -9489,143 +9489,242 @@ country_event = {
 	is_triggered_only = yes
 	trigger = {
 		has_global_flag = marauder_crisis_started
-		any_planet_within_border = {
-			has_planet_flag = marauder_rally_point			# Make sure home system still owned.
+		has_global_flag = marauder_crisis_ongoing
+		OR = {
+			is_country_type = awakened_marauders
+			is_same_empire = event_target:raider_khanate
 		}
+		# any_planet_within_border = {
+		# 	has_planet_flag = marauder_rally_point			# Make sure home system still owned.
+		# }
 	}
 	immediate = {
-		create_marauder_constructors = yes
-		if = { limit = { num_armies < 40 }
-			create_marauder_armies = yes
-		}
-		# If at fleet cap, check again later.
-		if = { limit = { fleet_power > 100000 }
-			country_event = { id = marauder.520 days = 340 }
-		} else = {
-			create_marauder_fleet = yes
-			country_event = { id = marauder.520 days = 340 }
-		}
-		# Minor checks: no high frequent needed
-		## ReinforceKhan himself
+		country_event = { id = khan.306 days = -1 } # Check/Create fallback rally_point
 		if = {
-			limit = {
-				exists = event_target:great_khan
-				exists = event_target:great_khan.fleet
-				event_target:great_khan.fleet = {
-					fleet_power < 36000
-					exists = solar_system
-				}
-			}
-			event_target:great_khan.fleet = {
-				# Reinforce Khan himself
-				if = { limit = { fleet_power < 12000 }
-					create_dyn_marauder_fleet = { OUTRIDER = 20 LANCER = 10 CHAMPION = 6 GLORY = 1 }
-				} else_if = { limit = { fleet_power < 21000 }
-					create_dyn_marauder_fleet = { OUTRIDER = 18 LANCER = 8 CHAMPION = 3 }
-				} else = {
-					create_dyn_marauder_fleet = { OUTRIDER = 14 LANCER = 6 CHAMPION = 1 VARIANT = "_4" }
-				}
-			}
-		}
+			limit = { exists = event_target:marauder_rally_point }
 
-		## Re-assing idle Admirals
-		if = {
-			limit = {
-				any_owned_fleet = {
-					is_mobile = yes
-					is_civilian = no
-					NOT = { exists = leader }
-				}
-				any_owned_leader = {
-					leader_class = admiral
-					is_event_leader = no
-					NOT = { exists = fleet }
-				}
-			}
-			random_owned_fleet = {
-				limit = {
-					is_mobile = yes
-					is_civilian = no
-					NOT = { exists = leader }
-				}
-				root = {
-					random_owned_leader = {
-						limit = {
-							leader_class = admiral
-							is_event_leader = no
-							NOT = { exists = fleet }
+			if = { limit = { NOT = { has_country_flag = KhanReinforcement_Cycle } }
+				set_country_flag = KhanReinforcement_Cycle
+				# Minor checks: no high frequent needed
+				## ReinforceKhan himself
+				if = {
+					limit = {
+						exists = event_target:great_khan
+						exists = event_target:great_khan.fleet
+					}
+					event_target:great_khan.fleet = { save_event_target_as = khan_fleet }
+				} else = {
+					event_target:raider_khanate = {
+						random_owned_fleet = {
+							limit = { has_fleet_flag = khan_fleet }
+							save_event_target_as = khan_fleet
 						}
-						prevprev = { assign_leader = prev }
 					}
 				}
-			}
-		}
-		## Re-assing idle Generals
-		if = {
-			limit = {
-				any_controlled_planet = {
-					has_army = yes
-					NOR = {
-						has_ground_combat = yes
-						planet_garrison_strength < 510
-						any_planet_army = { exists = leader }
+				if = { # Fallback 3.4 saves/mods
+					limit = { NOT = { exists = event_target:khan_fleet } }
+					event_target:raider_khanate = {
+						random_owned_fleet = {
+							limit = {
+								exists = leader
+								leader = { has_leader_flag = great_khan }
+							}
+							save_event_target_as = khan_fleet
+							leader = { save_global_event_target_as = great_khan }
+						}
 					}
 				}
-				any_owned_leader = {
-					leader_class = general
-					is_event_leader = no
-					is_idle = yes
-					NOT = { exists = fleet }
-				}
-			}
-			# Fleet prior
-			random_owned_fleet = {
-				limit = {
-					exists = solar_system
-					is_mobile = yes
-					NOT = { exists = leader }
-					any_owned_ship = { is_ship_class = shipclass_transport }
-					fleet_power > 510
-				}
-				root = {
-					random_owned_leader = {
-						limit = {
-							leader_class = general
-							is_idle = yes
-							NOT = { exists = fleet }
+				if = {
+					limit = {
+						exists = event_target:khan_fleet
+						event_target:khan_fleet = {
+							fleet_power < 38000
+							exists = solar_system
 						}
-						prevprev = {
-							assign_leader = prev
-							if = { limit = { NOT = { has_fleet_order = aggressive_stance_fleet_order } }
-								random = { chance = 30 set_fleet_stance = aggressive }
+					}
+					event_target:marauder_rally_point = {
+						# Reinforce Khan himself
+						if = { limit = {
+							event_target:khan_fleet = { OR = { fleet_power < 12000 count_owned_ship = { count = 1 } } } }
+							create_fleet = {
+								effect = {
+									create_dyn_marauder_fleet = { OUTRIDER = 20 LANCER = 10 CHAMPION = 6 GLORY = 1 }
+								}
+							}
+						} else_if = { limit = { event_target:khan_fleet = { fleet_power < 24000 } }
+							create_fleet = {
+								effect = {
+									create_dyn_marauder_fleet = { OUTRIDER = 18 LANCER = 8 CHAMPION = 3 }
+								}
+							}
+						} else = {
+							create_fleet = {
+								effect = {
+									create_dyn_marauder_fleet = { OUTRIDER = 14 LANCER = 6 CHAMPION = 1 VARIANT = "_4" }
+								}
+							}
+						}
+						last_created_fleet = {
+							set_name = "Chosen Reinforcement"
+							set_location = { target = prev distance = 20 angle = random }
+							set_aggro_range_measure_from = self
+							set_owner = root
+							if = {
+								limit = {
+									exists = event_target:khan_fleet.solar_system
+									NOT = { can_access_system = event_target:khan_fleet }
+								}
+								if = {
+									limit = {
+										exists = event_target:khan_fleet.solar_system.starbase
+									}
+									set_home_base = event_target:khan_fleet.solar_system.starbase
+									set_mia = yes
+								} else = {
+									event_target:khan_fleet.solar_system = {
+										random_neighbor_system = {
+											limit = {
+												event_target:khan_fleet = { can_access_system = prev }
+											}
+											weights = {
+												base = 1
+												modifier = { add = 20 has_owner = no }
+												modifier = { add = 10 NOT = { has_star_flag = guardian } }
+											}
+											prevprev = {
+												set_location = { target = prev.star distance = 20 angle = random }
+											}
+										}
+									}
+								}
+							}
+							queue_actions = {
+								wait = { duration = 1 }
+								move_to = event_target:khan_fleet
+								wait = { duration = 1 }
+								merge_fleet = {
+									target = event_target:khan_fleet
+									allow_ftl = yes
+								}
 							}
 						}
 					}
 				}
+			} else = { remove_country_flag = KhanReinforcement_Cycle }
+
+			create_marauder_constructors = yes
+			if = { limit = { num_armies < 40 }
+				create_marauder_armies = yes
 			}
-			# Planet
-			random_controlled_planet = {
+			# If at fleet cap, check again later.
+			if = { limit = { fleet_power < 200000 }
+				create_marauder_fleet = yes
+			}
+			country_event = { id = marauder.520 days = 340 }
+
+			## Re-assing idle Admirals
+			if = {
 				limit = {
-					has_army = yes
-					NOR = {
-						has_ground_combat = yes
-						planet_garrison_strength < 510
-						any_planet_army = { exists = leader }
+					any_owned_fleet = {
+						is_mobile = yes
+						is_civilian = no
+						NOT = { exists = leader }
+					}
+					any_owned_leader = {
+						leader_class = admiral
+						is_event_leader = no
+						NOT = { exists = fleet }
 					}
 				}
-				root = {
-					random_owned_leader = {
-						limit = {
-							leader_class = general
-							is_idle = yes
-							NOT = { exists = fleet }
-						}
-						prevprev = {
-							random_planet_army = { assign_leader = prevprev }
+				random_owned_fleet = {
+					limit = {
+						is_mobile = yes
+						is_civilian = no
+						NOT = { exists = leader }
+					}
+					root = {
+						random_owned_leader = {
+							limit = {
+								leader_class = admiral
+								is_event_leader = no
+								NOT = { exists = fleet }
+							}
+							prevprev = { assign_leader = prev }
 						}
 					}
 				}
 			}
+			## Re-assing idle Generals
+			if = {
+				limit = {
+					any_controlled_planet = {
+						has_army = yes
+						NOR = {
+							has_ground_combat = yes
+							planet_garrison_strength < 510
+							any_planet_army = { exists = leader }
+						}
+					}
+					any_owned_leader = {
+						leader_class = general
+						is_event_leader = no
+						is_idle = yes
+						NOT = { exists = fleet }
+					}
+				}
+				# Fleet prior
+				random_owned_fleet = {
+					limit = {
+						exists = solar_system
+						is_mobile = yes
+						NOT = { exists = leader }
+						any_owned_ship = { is_ship_class = shipclass_transport }
+						fleet_power > 510
+					}
+					root = {
+						random_owned_leader = {
+							limit = {
+								leader_class = general
+								is_idle = yes
+								NOT = { exists = fleet }
+							}
+							prevprev = {
+								assign_leader = prev
+								if = { limit = { NOT = { has_fleet_order = aggressive_stance_fleet_order } }
+									random = { chance = 30 set_fleet_stance = aggressive }
+								}
+							}
+						}
+					}
+				}
+				# Planet
+				random_controlled_planet = {
+					limit = {
+						has_army = yes
+						NOR = {
+							has_ground_combat = yes
+							planet_garrison_strength < 510
+							any_planet_army = { exists = leader }
+						}
+					}
+					root = {
+						random_owned_leader = {
+							limit = {
+								leader_class = general
+								is_idle = yes
+								NOT = { exists = fleet }
+							}
+							prevprev = {
+								random_planet_army = { assign_leader = prevprev }
+							}
+						}
+					}
+				}
+
+			}
+
+		} else = {
+			country_event = { id = marauder.520 days = 210 }
 		}
 	}
 }
@@ -10877,7 +10976,8 @@ fleet_event = {
 				# CmtEffectCreateAdmiralty_KhanSubReinforcement
 				event_target:raider_khanate = {
 					event_target:CmtGlobalVar = { set_variable = { which = CmtVarWhileControlFleet value = CmtVarCombatFleetNumber_Khan } }
-					while = { limit = { event_target:CmtGlobalVar = { check_variable = { which = CmtVarWhileControlFleet value > 0.875 } } }
+					while = {
+						limit = { event_target:CmtGlobalVar = { check_variable = { which = CmtVarWhileControlFleet value > 0.875 } } }
 						event_target:CmtGlobalVar = { change_variable = { which = CmtVarWhileControlFleet value = -1 } }
 						if = { limit = { event_target:satrapy_empire = { max_naval_capacity < 100 } }
 							CmtEffectCreateFleet_KhanSubReinforcement1 = yes
@@ -10893,7 +10993,8 @@ fleet_event = {
 							last_created_leader = { set_owner = event_target:marauders_garrison_1 }
 						}
 					}
-					while = { limit = { event_target:CmtGlobalVar = { check_variable = { which = CmtVarWhileControlFleet value > 0.125 } } }
+					while = {
+						limit = { event_target:CmtGlobalVar = { check_variable = { which = CmtVarWhileControlFleet value > 0.125 } } }
 						event_target:CmtGlobalVar = { change_variable = { which = CmtVarWhileControlFleet value = -0.25 } }
 						random_list = {
 							100 = {
@@ -10930,10 +11031,12 @@ fleet_event = {
 				}
 				fleet_event = { id = marauder.560 days = 600 random = 360 }
 			} else = {
-				fleet_event = { id = marauder.560 days = 160 random = 90 }
-				# Set var counter (CmtVarKhanReinforcementCounter) for next cycle
-				event_target:raider_khanate = { event_target:CmtGlobalVar = { CmtEffectKhanIncreasementReinforcementCycle = yes } }
+				fleet_event = { id = marauder.560 days = 540 random = 330 }
+				# fleet_event = { id = marauder.560 days = 160 random = 90 }
+				# # Set var counter (CmtVarKhanReinforcementCounter) for next cycle
+				# event_target:raider_khanate = { event_target:CmtGlobalVar = { CmtEffectKhanIncreasementReinforcementCycle = yes } }
 			}
+
 		} # else cycle ends
 	}
 	after = {
