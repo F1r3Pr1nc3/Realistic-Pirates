@@ -8956,6 +8956,7 @@ country_event = {
 	id = marauder.509
 	hide_window = yes
 	is_triggered_only = yes
+	is_test_event = yes
 	trigger = {
 		always = no
 		# has_global_flag = marauder_crisis_ongoing
@@ -11091,7 +11092,7 @@ country_event = {
 								solar_system = {
 									OR = {
 										NOT = { exists = owner }
-										owner = { is_same_empire = root }
+										is_owned_by = root
 									}
 									NOT = {
 										any_system_colony = {
@@ -11564,7 +11565,19 @@ country_event = {
 		if = { limit = { NOT = { exists = event_target:marauder_capital } }
 			log = "Last fallback for \\[This.GetName]"
 			# random_planet_within_border = { limit = { solar_system = { exists = starbase starbase = { is_owned_by = root } } }
-			every_owned_starbase = {
+			random_owned_starbase = {
+				limit = {
+					solar_system = {
+						any_system_planet = {
+							is_star = no
+							OR = {
+								is_asteroid = no
+								merg_is_gas_giant = no
+								colonizable_planet = yes
+							}
+						}
+					}
+				}
 				solar_system = {
 					random_system_planet = {
 						limit = { is_star = no }
@@ -11733,17 +11746,33 @@ country_event = {
 			clear_global_event_target = great_khan
 		}
 
+		every_owned_fleet = {
+			if = { limit = { NOT = { is_within_borders_of = root } }
+				delete_fleet = this
+			} else_if = { limit = { is_mobile = yes }
+				set_owner = event_target:restored_marauders
+				if = { limit = { exists = leader }
+					leader = { set_owner = event_target:restored_marauders }
+					if = { limit = { NOT = { is_ship_class = shipclass_transport } }
+						assign_leader = leader
+					}
+				}
+				fleet_event = { id = khan.611 days = -1 }
+			}
+		}
+
 		every_owned_starbase = {
 			set_owner = event_target:restored_marauders
 			solar_system = {
 				if = {
 					limit = {
 						any_fleet_in_system = {
+							exists = owner
 							owner = { is_country_type = enclave_mercenary }
 						}
 					}
 					random_fleet_in_system = {
-						limit = { is_ship_size = enclave_mercenary_station }
+						limit = { is_ship_size = enclave_mercenary_station exists = owner }
 						owner = {
 							every_owned_fleet = {
 								# if = { limit = { NOT = { is_within_borders_of = event_target:restored_marauders } }
@@ -11758,14 +11787,21 @@ country_event = {
 								# 		}
 								# 	}
 								# } else = {
+								set_event_locked = yes
+								# if = { limit = { is_leased = yes }
+								# 	end_fleet_contract = {
+								# 		initiator = prev
+								# 		reason = cancelled
+								# 	}
+								# }
 								set_owner = event_target:restored_marauders
 								if = { limit = { exists = leader }
 									leader = { set_owner = event_target:restored_marauders }
 									if = { limit = { NOT = { is_ship_class = shipclass_transport } }
 										assign_leader = leader
 									}
-									# fleet_event = { id = khan.611 days = -1 }
 								}
+								fleet_event = { id = khan.611 days = -1 }
 							}
 							# destroy_country
 							country_event = { id = enclave.23 scopes = { from = event_target:restored_marauders fromfrom = prev } }
@@ -11774,20 +11810,7 @@ country_event = {
 				}
 			}
 		}
-		every_owned_fleet = {
-			if = { limit = { NOT = { is_within_borders_of = root.owner } }
-				delete_fleet = this
-			} else = {
-				set_owner = event_target:restored_marauders
-				if = { limit = { exists = leader }
-					leader = { set_owner = event_target:restored_marauders }
-					if = { limit = { NOT = { is_ship_class = shipclass_transport } }
-						assign_leader = leader
-					}
-					# fleet_event = { id = khan.611 days = -1 }
-				}
-			}
-		}
+
 		event_target:restored_marauders = {
 			copy_techs_from = { target = root }
 			if = { limit = { root = { num_owned_relics > 0 } }
@@ -11889,6 +11912,11 @@ country_event = {
 	}
 	after = {
 		country_event = { id = khan.606 days = 1 } # destroy_country
+		event_target:restored_marauders = {
+			every_owned_fleet = {
+				set_event_locked = no
+			}
+		}
 	}
 }
 

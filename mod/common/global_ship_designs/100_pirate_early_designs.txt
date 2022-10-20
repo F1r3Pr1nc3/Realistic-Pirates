@@ -140,7 +140,7 @@ ship_design = {
 		}
 		component = {
 			slot = "MEDIUM_GUN_01"
-			template = "AUTOCANNON_1"
+			template = "MEDIUM_AUTOCANNON_1"
 		}
 		component = {
 			slot = "LARGE_GUN_01"

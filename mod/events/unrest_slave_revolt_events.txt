@@ -283,8 +283,7 @@ country_event = {
 		remove_country_flag = slave_revolt_chain_active
 		fromfrom = {
 			add_modifier = {
-				modifier = revolt_suppressed
-				days = 3600
+				modifier = revolt_suppressed years = 10 
 			}
 			save_event_target_as = revolt_planet
 			remove_planet_flag = slave_revolt_chain_active
@@ -307,8 +306,7 @@ country_event = {
 		name = unrest.161.a
 		tooltip = {
 			add_modifier = {
-				modifier = revolt_suppressed
-				days = 3600
+				modifier = revolt_suppressed years = 10 
 			}
 		}
 		custom_tooltip = unrest.161.a.tooltip
