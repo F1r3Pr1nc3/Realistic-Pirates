@@ -614,3 +614,155 @@ weapon_component_template = {
 		# }
 	}
 }
+
+# ####################
+# OLD Autocannons (< 3.6) Dummies
+# ####################
+# key			cost	power	min_damage	max_damage	hull_damage	shield_damage	shield_penetration	armor_damage	armor_penetration	min_windup	max_windup	cooldown	range	accuracy	tracking
+# AUTOCANNON_1	15		-10		8			16			1.25		1.50			0.00				0.25			0.00				2			14			15			30.00	0.85		0.75
+# AUTOCANNON_2	20		-13		10			21			1.25		1.50			0.00				0.25			0.00				2			14			15			30.00	0.85		0.75
+# AUTOCANNON_3	25		-17		14			27			1.25		1.50			0.00				0.25			0.00				2			14			15			30.00	0.85		0.75
+
+# ## Autocannons 1
+weapon_component_template = {
+	type = instant
+
+	key = "AUTOCANNON_1"
+	size = small
+
+	icon = "GFX_ship_part_autocannon_1"
+	icon_frame = 1
+
+	# cost = 15
+	power = -10
+	damage = { min = 8 max = 16 }
+	hull_damage = 1.25
+	shield_damage = 1.5
+	# shield_penetration = 0
+	armor_damage = 0.25
+	# armor_penetration = 0
+	windup = { min = 2 max = 14 }
+	total_fire_time = 15
+	range = 30
+	accuracy = 0.85
+	tracking = 0.75
+
+	prerequisites = { "tech_autocannons_1" }
+	component_set = "AUTOCANNON_1"
+	projectile_gfx = "auto_cannons_s"
+	tags = { weapon_type_kinetic }
+	ai_tags = { weapon_role_anti_shield }
+	ai_tag_weight = 0
+	should_ai_use = no
+	hidden = yes
+
+	upgrades_to = "AUTOCANNON_2"
+	resources = {
+		category = ship_components
+		cost = {
+			alloys = @s_t3_cost
+		}
+		upkeep = {
+			energy = @s_t3_upkeep_energy
+			alloys = @s_t3_upkeep_alloys
+		}
+	}
+	ai_weight = { weight = 0 }
+}
+
+# ## Autocannons 2
+weapon_component_template = {
+	type = instant
+
+	key = "AUTOCANNON_2"
+	size = small
+
+	icon = "GFX_ship_part_autocannon_2"
+	icon_frame = 1
+
+	# cost = 20
+	power = -13
+	damage = { min = 10 max = 21 }
+	hull_damage = 1.25
+	shield_damage = 1.5
+	# shield_penetration = 0
+	armor_damage = 0.25
+	# armor_penetration = 0
+	windup = { min = 2 max = 14 }
+	total_fire_time = 15
+	range = 30
+	accuracy = 0.85
+	tracking = 0.75
+
+	prerequisites = { "tech_autocannons_2" }
+	component_set = "AUTOCANNON_2"
+	projectile_gfx = "ripper_auto_cannons_s"
+	tags = { weapon_type_kinetic }
+	ai_tags = { weapon_role_anti_shield }
+	ai_tag_weight = 0
+	should_ai_use = no
+	hidden = yes
+
+	upgrades_to = "AUTOCANNON_3"
+	resources = {
+		category = ship_components
+		cost = {
+			alloys = @s_t4_cost
+			volatile_motes = @s_t4_rare
+		}
+		upkeep = {
+			energy = @s_t4_upkeep_energy
+			alloys = @s_t4_upkeep_alloys
+		}
+	}
+
+	ai_weight = { weight = 0 }
+}
+
+# ## Autocannons 3
+weapon_component_template = {
+	type = instant
+
+	key = "AUTOCANNON_3"
+	size = small
+
+	icon = "GFX_ship_part_autocannon_3"
+	icon_frame = 1
+
+	# cost = 25
+	power = -17
+	damage = { min = 14 max = 27 }
+	hull_damage = 1.25
+	shield_damage = 1.5
+	# shield_penetration = 0
+	armor_damage = 0.25
+	# armor_penetration = 0
+	windup = { min = 2 max = 14 }
+	total_fire_time = 15
+	range = 30
+	accuracy = 0.85
+	tracking = 0.75
+
+	prerequisites = { "tech_autocannons_3" }
+	component_set = "AUTOCANNON_3"
+	projectile_gfx = "stormfire_auto_cannons_s"
+	tags = { weapon_type_kinetic }
+	ai_tags = { weapon_role_anti_shield }
+	ai_tag_weight = 0
+	should_ai_use = no
+	hidden = yes
+
+	resources = {
+		category = ship_components
+		cost = {
+			alloys = @s_t5_cost
+			volatile_motes = @s_t5_rare
+		}
+		upkeep = {
+			energy = @s_t5_upkeep_energy
+			alloys = @s_t5_upkeep_alloys
+		}
+	}
+
+	ai_weight = { weight = 0 }
+}
