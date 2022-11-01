@@ -615,6 +615,7 @@ weapon_component_template = {
 	}
 }
 
+
 # ####################
 # OLD Autocannons (< 3.6) Dummies
 # ####################

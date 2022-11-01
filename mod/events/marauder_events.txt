@@ -173,7 +173,11 @@ country_event = {
 	}
 }
 
-### Marauders Destroyed (HIDDEN) on_ship_destroyed_victim
+##################################
+# MARAUDERS DESTROYED / VENGEANCE
+##################################
+
+## (Any) Marauders Destroyed (HIDDEN) on_ship_destroyed_victim
 # This = owner of ship 1 (destroyed)
 # From = owner of ship 2 (combatant)
 # fromfrom = ship 1
@@ -417,24 +421,13 @@ country_event = {
 		}
 
 		from = {
+			owner_species = { save_event_target_as = marauder_species }
+			create_marauder_merc_admiral = yes
 			# Marauder 1
 			if = {
 				limit = { has_country_flag = marauder_1 }
 				# Armada of the Voidborn
 				if = { limit = { has_country_flag = merc_fleet_1_hired }
-					create_leader = {
-						class = admiral
-						species = owner_species
-						name = random
-						skill = 3
-						leader_age_min = 25
-						leader_age_max = 45
-						traits = {
-							trait = random_trait
-							trait = leader_trait_mercenary_warrior
-							trait = random_trait
-						}
-					}
 					create_fleet = {
 						name = "NAME_Armada_of_the_Voidborn"
 						effect = {
@@ -459,19 +452,6 @@ country_event = {
 				}
 				# Star Rider Flotilla
 				if = { limit = { has_country_flag = merc_fleet_2_hired }
-					create_leader = {
-						class = admiral
-						species = owner_species
-						name = random
-						skill = 3
-						leader_age_min = 25
-						leader_age_max = 45
-						traits = {
-							trait = random_trait
-							trait = leader_trait_mercenary_warrior
-							trait = random_trait
-						}
-					}
 					last_created_leader = { set_age = 42 }
 					create_fleet = {
 						name = "NAME_Star_Rider_Flotilla"
@@ -497,19 +477,6 @@ country_event = {
 				}
 				# First Storm Wing
 				if = { limit = { has_country_flag = merc_fleet_3_hired }
-					create_leader = {
-						class = admiral
-						species = owner_species
-						name = random
-						skill = 3
-						leader_age_min = 25
-						leader_age_max = 45
-						traits = {
-							trait = random_trait
-							trait = leader_trait_mercenary_warrior
-							trait = random_trait
-						}
-					}
 					create_fleet = {
 						name = "NAME_First_Storm_Wing"
 						effect = {
@@ -538,19 +505,6 @@ country_event = {
 				limit = { has_country_flag = marauder_2 }
 				# 234th Dwamak-Bashers
 				if = { limit = { has_country_flag = merc_fleet_1_hired }
-					create_leader = {
-						class = admiral
-						species = owner_species
-						name = random
-						skill = 3
-						leader_age_min = 25
-						leader_age_max = 45
-						traits = {
-							trait = random_trait
-							trait = leader_trait_mercenary_warrior
-							trait = random_trait
-						}
-					}
 					create_fleet = {
 						name = "NAME_234th_Dwamak_Bashers"
 						effect = {
@@ -575,19 +529,6 @@ country_event = {
 				}
 				# Unhinged Screamer Flotilla
 				if = { limit = { has_country_flag = merc_fleet_2_hired }
-					create_leader = {
-						class = admiral
-						species = owner_species
-						name = random
-						skill = 3
-						leader_age_min = 25
-						leader_age_max = 45
-						traits = {
-							trait = random_trait
-							trait = leader_trait_mercenary_warrior
-							trait = random_trait
-						}
-					}
 					create_fleet = {
 						name = "NAME_Unhinged_Screamer_Flotilla"
 						effect = {
@@ -612,19 +553,6 @@ country_event = {
 				}
 				# Frenzied Volunteer Squadron
 				if = { limit = { has_country_flag = merc_fleet_3_hired }
-					create_leader = {
-						class = admiral
-						species = owner_species
-						name = random
-						skill = 3
-						leader_age_min = 25
-						leader_age_max = 45
-						traits = {
-							trait = random_trait
-							trait = leader_trait_mercenary_warrior
-							trait = random_trait
-						}
-					}
 					create_fleet = {
 						name = "NAME_Frenzied_Volunteer_Squadron"
 						effect = {
@@ -654,56 +582,30 @@ country_event = {
 				# Her Chosen Champions
 				if = {
 					limit = { has_country_flag = merc_fleet_1_hired }
-						create_leader = {
-							class = admiral
-							species = owner_species
-							name = random
-							skill = 3
-							leader_age_min = 25
-							leader_age_max = 45
-							traits = {
-								trait = random_trait
-								trait = leader_trait_mercenary_warrior
-								trait = random_trait
+					create_fleet = {
+						name = "NAME_Her_Chosen_Champions"
+						effect = {
+							set_owner = prev
+							create_her_chosen_champions = yes
+							assign_leader = last_created_leader
+							set_location = {
+								target = event_target:attacked_system_star
+								distance = 370
+								angle = 12
+							}
+							auto_move_to_planet = {
+								target = event_target:attacked_planet
+								clear_auto_move_on_arrival = no
 							}
 						}
-						create_fleet = {
-							name = "NAME_Her_Chosen_Champions"
-							effect = {
-								set_owner = prev
-								create_her_chosen_champions = yes
-								assign_leader = last_created_leader
-								set_location = {
-									target = event_target:attacked_system_star
-									distance = 370
-									angle = 12
-								}
-								auto_move_to_planet = {
-									target = event_target:attacked_planet
-									clear_auto_move_on_arrival = no
-								}
-							}
-							settings = {
-								can_upgrade = no
-								can_change_composition = no
-							}
+						settings = {
+							can_upgrade = no
+							can_change_composition = no
 						}
+					}
 				}
 				# Order of Eternal Night
 				if = { limit = { has_country_flag = merc_fleet_2_hired }
-					create_leader = {
-						class = admiral
-						species = owner_species
-						name = random
-						skill = 3
-						leader_age_min = 25
-						leader_age_max = 45
-						traits = {
-							trait = random_trait
-							trait = leader_trait_mercenary_warrior
-							trait = random_trait
-						}
-					}
 					create_fleet = {
 						name = "NAME_Order_of_Eternal_Night"
 						effect = {
@@ -728,19 +630,6 @@ country_event = {
 				}
 				# Twilight Congregation
 				if = { limit = { has_country_flag = merc_fleet_3_hired }
-					create_leader = {
-						class = admiral
-						species = owner_species
-						name = random
-						skill = 3
-						leader_age_min = 25
-						leader_age_max = 45
-						traits = {
-							trait = random_trait
-							trait = leader_trait_mercenary_warrior
-							trait = random_trait
-						}
-					}
 					create_fleet = {
 						name = "NAME_Twilight_Congregation"
 						effect = {
@@ -802,7 +691,9 @@ country_event = {
 		room = ethic_spaceship_room
 	}
 	is_triggered_only = yes
-	option = { name = marauder.7.a }
+	option = {
+		name = BATTLESTATIONS
+	}
 }
 
 # Marauder Vengeance
@@ -839,7 +730,7 @@ country_event = {
 			}
 			# free_housing > 0
 		}
-		NOT = { has_country_flag = recivied_marauder_refugees }
+		NOT = { has_country_flag = received_marauder_refugees }
 	}
 	immediate = {
 		random_list = {
@@ -870,7 +761,7 @@ country_event = {
 					}
 					planet_event = { id = marauder.10 }
 				}
-				set_timed_country_flag = { flag = recivied_marauder_refugees months = 2 }
+				set_timed_country_flag = { flag = received_marauder_refugees months = 2 }
 			}
 			50 = { }
 		}
@@ -1262,6 +1153,10 @@ country_event = {
 	}
 }
 
+#################
+# MARAUDER MENUS
+#################
+
 # Marauder Introduction
 country_event = {
 	id = marauder.15
@@ -1289,6 +1184,7 @@ country_event = {
 		portrait = event_target:encountered_marauder
 		room = ethic_spaceship_room
 	}
+	is_triggered_only = yes
 	immediate = {
 		if = {
 			limit = {
@@ -1298,7 +1194,6 @@ country_event = {
 			from.contact_country = { save_event_target_as = encountered_marauder }
 		}
 	}
-	is_triggered_only = yes
 	option = { name = marauder.15.a }
 }
 
@@ -2899,19 +2794,7 @@ country_event = {
 		}
 		event_target:marauder_raiding_country = {
 			every_country = { limit = { has_communications = event_target:raiding_marauder } establish_communications_no_message = prev }
-			create_leader = {
-				class = admiral
-				species = event_target:marauder_species
-				name = random
-				skill = 3
-				leader_age_min = 25
-				leader_age_max = 45
-				traits = {
-					trait = random_trait
-					trait = leader_trait_mercenary_warrior
-					trait = random_trait
-				}
-			}
+			create_marauder_merc_admiral = yes
 			event_target:raiding_marauder = {
 				set_country_flag = parent_of@prev
 				set_faction_hostility = {
@@ -3450,7 +3333,7 @@ country_event = {
 	}
 }
 
-# Scope = Hiring country (The Great Khan Expanded by FirePrince)
+# Scope = Hiring country (by FirePrince)
 # From = current_marauder_diplomacy
 country_event = {
 	id = marauder.38
@@ -3688,20 +3571,7 @@ country_event = {
 		add_resource = { energy = @leadercost }
 		custom_tooltip = hire_admiral_merc
 		hidden_effect = {
-			create_leader = {
-				class = admiral
-				species = event_target:marauder_species
-				name = random
-				event_leader = yes
-				skill = 3
-				leader_age_min = 25
-				leader_age_max = 45
-				traits = {
-					trait = random_trait
-					trait = leader_trait_mercenary_warrior
-					trait = random_trait
-				}
-			}
+			create_marauder_merc_admiral = yes
 		}
 		response_text = marauder.40.a.response
 		is_dialog_only = yes
@@ -3749,20 +3619,7 @@ country_event = {
 		add_resource = { energy = @leadercost }
 		custom_tooltip = hire_admiral_merc
 		hidden_effect = {
-			create_leader = {
-				class = admiral
-				species = event_target:marauder_species
-				name = random
-				event_leader = yes
-				skill = 3
-				leader_age_min = 25
-				leader_age_max = 45
-				traits = {
-					trait = random_trait
-					trait = leader_trait_mercenary_warrior
-					trait = random_trait
-				}
-			}
+			create_marauder_merc_admiral = yes
 		}
 		response_text = marauder.40.b.response
 		is_dialog_only = yes
@@ -3810,20 +3667,7 @@ country_event = {
 		add_resource = { energy = @leadercost }
 		custom_tooltip = hire_admiral_merc
 		hidden_effect = {
-			create_leader = {
-				class = admiral
-				species = event_target:marauder_species
-				name = random
-				event_leader = yes
-				skill = 3
-				leader_age_min = 25
-				leader_age_max = 45
-				traits = {
-					trait = random_trait
-					trait = leader_trait_mercenary_warrior
-					trait = random_trait
-				}
-			}
+			create_marauder_merc_admiral = yes
 		}
 		response_text = marauder.40.c.response
 		is_dialog_only = yes
@@ -4734,7 +4578,11 @@ country_event = {
 	option = { name = marauder.86.a }
 }
 
-# Marauder Raid
+########
+# RAIDS
+########
+
+# Spontaneous Marauder Raid
 event = {
 	id = marauder.100
 	hide_window = yes
@@ -4896,19 +4744,7 @@ country_event = {
 		}
 		event_target:marauder_raiding_country = {
 			every_country = { limit = { has_communications = event_target:raiding_marauder } establish_communications_no_message = prev }
-			create_leader = {
-				class = admiral
-				species = event_target:marauder_species
-				name = random
-				skill = 3
-				leader_age_min = 25
-				leader_age_max = 45
-				traits = {
-					trait = random_trait
-					trait = leader_trait_mercenary_warrior
-					trait = random_trait
-				}
-			}
+			create_marauder_merc_admiral = yes
 			event_target:raiding_marauder = {
 				set_country_flag = parent_of@event_target:marauder_raiding_country
 				set_faction_hostility = {
@@ -5772,8 +5608,13 @@ planet_event = {
 
 		if = { limit = { owner = { is_gestalt = no } }
 			random_list = {
-				50 = { planet_event = { id = marauder.104 } }
-				50 = { planet_event = { id = marauder.105 } }
+				50 = {
+					planet_event = { id = marauder.104 } # taking resources
+				}
+				50 = {
+					modifier = { factor = 0 num_pops = 1 }
+					planet_event = { id = marauder.105 } # taking Pops
+				}
 			}
 		} else_if = {
 			limit = {
@@ -5791,7 +5632,7 @@ planet_event = {
 	}
 }
 
-# Raiders Hit Planet
+# Raiders Hit Planet (taking resources)
 planet_event = {
 	id = marauder.104
 	title = "marauder.104.name"
@@ -5844,7 +5685,7 @@ planet_event = {
 	}
 }
 
-# Raiders Hit Planet (Slaves)
+# Raiders Hit Planet (enslaving Pops)
 planet_event = {
 	id = marauder.105
 	title = "marauder.104.name"
@@ -6102,6 +5943,7 @@ fleet_event = {
 		owner = {
 			save_event_target_as = raiding_marauder
 			get_marauder_raid_source = yes
+			remove_country_flag = raid_ongoing
 		}
 		solar_system = { save_event_target_as = fleet_system }
 		clear_fleet_actions = this
@@ -6121,7 +5963,6 @@ fleet_event = {
 			remove_country_flag = raid_ongoing
 			set_timed_country_flag = { flag = raid_cooldown days = @raidcooldown }
 		}
-		owner = { remove_country_flag = raid_ongoing }
 		if = { limit = { NOT = { exists = event_target:raid_victim } }
 			if = { limit = { exists = from from = { is_scope_type = country } }
 				from = { save_event_target_as = raid_victim }
@@ -6187,6 +6028,10 @@ country_event = {
 	is_triggered_only = yes
 	option = { name = marauder.111.a }
 }
+
+################
+# HIRED RAIDERS
+################
 
 # Marauder Diplomacy while target of Hired raid.
 country_event = {
@@ -6731,6 +6576,7 @@ event = {
 					flag = event_target:raiding_marauder
 					effect = {
 						save_event_target_as = marauder_raiding_country
+						make_moderately_hostile = yes
 						event_target:raiding_marauder = {
 							switch = {
 								trigger = has_country_flag
@@ -6738,30 +6584,24 @@ event = {
 								marauder_2 = { prev = { set_country_flag = marauder_2 } }
 								marauder_3 = { prev = { set_country_flag = marauder_3 } }
 							}
+							establish_communications_no_message = prev
 						}
 						set_country_flag = raid_ongoing
-						make_moderately_hostile = yes
+						set_faction_hostility = {
+							target = event_target:raiding_marauder
+							set_hostile = no
+							set_neutral = no
+							set_friendly = yes
+						}
 					}
 				}
 				event_target:marauder_raiding_country = {
 					every_country = { limit = { has_communications = event_target:raiding_marauder } establish_communications_no_message = prev }
-					create_leader = {
-						class = admiral
-						species = event_target:marauder_species
-						name = random
-						skill = 3
-						leader_age_min = 25
-						leader_age_max = 45
-						traits = {
-							trait = random_trait
-							trait = leader_trait_mercenary_warrior
-							trait = random_trait
-						}
-					}
+					create_marauder_merc_admiral = yes
 					event_target:raiding_marauder = {
-						set_country_flag = parent_of@event_target:marauder_raiding_country
+						set_country_flag = parent_of@prev
 						set_faction_hostility = {
-							target = event_target:marauder_raiding_country
+							target = prev
 							set_hostile = no
 							set_neutral = no
 							set_friendly = yes
@@ -6808,6 +6648,7 @@ event = {
 								set_aggro_range = 150
 								set_fleet_flag = hired_raiding_fleet
 								set_fleet_flag = raiding_fleet
+								set_event_locked = yes
 							}
 						}
 					}
@@ -6839,6 +6680,7 @@ event = {
 								save_event_target_as = raid_planet
 							}
 						}
+						set_event_locked = no
 						if = {
 							limit = {
 								exists = event_target:raid_planet
@@ -7047,17 +6889,15 @@ event = {
 							event_target:marauder_merc_country = { has_country_flag = marauder_1 }
 						}
 						event_target:mercenary_hirer = {
-							create_marauder_merc_admiral = yes
 							create_fleet = {
 								name = "NAME_Armada_of_the_Voidborn"
 								effect = {
-									set_owner = event_target:mercenary_hirer
+									set_owner = event_target:marauder_merc_country
 									save_event_target_as = hired_merc_fleet
 									create_armada_of_the_voidborn = yes
 									set_location = event_target:mercenary_hirer.capital_scope
-									assign_leader = last_created_leader
 									set_fleet_flag = armada_of_the_voidborn
-									fleet_event = { id = marauder.50 days = 1800 }
+									set_event_locked = yes
 								}
 								settings = {
 									can_upgrade = no
@@ -7067,9 +6907,6 @@ event = {
 									uses_naval_capacity = no
 								}
 							}
-						}
-						event_target:mercenary_hirer = {
-							set_timed_country_flag = { flag = ai_hired_mercs years = 5 }
 						}
 					}
 					if = {
@@ -7077,17 +6914,15 @@ event = {
 							event_target:marauder_merc_country = { has_country_flag = marauder_2 }
 						}
 						event_target:mercenary_hirer = {
-							create_marauder_merc_admiral = yes
 							create_fleet = {
 								name = "NAME_234th_Dwamak_Bashers"
 								effect = {
-									set_owner = event_target:mercenary_hirer
+									set_owner = event_target:marauder_merc_country
 									save_event_target_as = hired_merc_fleet
 									create_dwamak_bashers = yes
 									set_location = event_target:mercenary_hirer.capital_scope
-									assign_leader = last_created_leader
+									set_event_locked = yes
 									set_fleet_flag = dwamak_bashers
-									fleet_event = { id = marauder.50 days = 1800 }
 								}
 								settings = {
 									can_upgrade = no
@@ -7097,9 +6932,6 @@ event = {
 									uses_naval_capacity = no
 								}
 							}
-						}
-						event_target:mercenary_hirer = {
-							set_timed_country_flag = { flag = ai_hired_mercs years = 5 }
 						}
 					}
 					if = {
@@ -7107,17 +6939,15 @@ event = {
 							event_target:marauder_merc_country = { has_country_flag = marauder_3 }
 						}
 						event_target:mercenary_hirer = {
-							create_marauder_merc_admiral = yes
 							create_fleet = {
 								name = "NAME_Her_Chosen_Champions"
 								effect = {
-									set_owner = event_target:mercenary_hirer
+									set_owner = event_target:marauder_merc_country
 									save_event_target_as = hired_merc_fleet
 									create_her_chosen_champions = yes
 									set_location = event_target:mercenary_hirer.capital_scope
-									assign_leader = last_created_leader
+									set_event_locked = yes
 									set_fleet_flag = her_chosen_champions
-									fleet_event = { id = marauder.50 days = 1800 }
 								}
 								settings = {
 									can_upgrade = no
@@ -7127,9 +6957,6 @@ event = {
 									uses_naval_capacity = no
 								}
 							}
-						}
-						event_target:mercenary_hirer = {
-							set_timed_country_flag = { flag = ai_hired_mercs years = 5 }
 						}
 					}
 					modifier = {
@@ -7148,17 +6975,15 @@ event = {
 							event_target:marauder_merc_country = { has_country_flag = marauder_1 }
 						}
 						event_target:mercenary_hirer = {
-							create_marauder_merc_admiral = yes
 							create_fleet = {
 								name = "NAME_Star_Rider_Flotilla"
 								effect = {
-									set_owner = event_target:mercenary_hirer
+									set_owner = event_target:marauder_merc_country
 									save_event_target_as = hired_merc_fleet
 									create_star_rider_flotilla = yes
 									set_location = event_target:mercenary_hirer.capital_scope
-									assign_leader = last_created_leader
+									set_event_locked = yes
 									set_fleet_flag = star_rider_flotilla
-									fleet_event = { id = marauder.50 days = 1800 }
 								}
 								settings = {
 									can_upgrade = no
@@ -7168,9 +6993,6 @@ event = {
 									uses_naval_capacity = no
 								}
 							}
-						}
-						event_target:mercenary_hirer = {
-							set_timed_country_flag = { flag = ai_hired_mercs years = 5 }
 						}
 					}
 					if = {
@@ -7178,17 +7000,15 @@ event = {
 							event_target:marauder_merc_country = { has_country_flag = marauder_2 }
 						}
 						event_target:mercenary_hirer = {
-							create_marauder_merc_admiral = yes
 							create_fleet = {
 								name = "NAME_Unhinged_Screamer_Flotilla"
 								effect = {
-									set_owner = event_target:mercenary_hirer
+									set_owner = event_target:marauder_merc_country
 									save_event_target_as = hired_merc_fleet
 									create_unhinged_screamer_flotilla = yes
 									set_location = event_target:mercenary_hirer.capital_scope
-									assign_leader = last_created_leader
+									set_event_locked = yes
 									set_fleet_flag = unhinged_screamer_flotilla
-									fleet_event = { id = marauder.50 days = 1800 }
 								}
 								settings = {
 									can_upgrade = no
@@ -7198,9 +7018,6 @@ event = {
 									uses_naval_capacity = no
 								}
 							}
-						}
-						event_target:mercenary_hirer = {
-							set_timed_country_flag = { flag = ai_hired_mercs years = 5 }
 						}
 					}
 					if = {
@@ -7208,17 +7025,15 @@ event = {
 							event_target:marauder_merc_country = { has_country_flag = marauder_3 }
 						}
 						event_target:mercenary_hirer = {
-							create_marauder_merc_admiral = yes
 							create_fleet = {
 								name = "NAME_Order_of_Eternal_Night"
 								effect = {
-									set_owner = event_target:mercenary_hirer
+									set_owner = event_target:marauder_merc_country
 									save_event_target_as = hired_merc_fleet
 									create_order_of_eternal_night = yes
 									set_location = event_target:mercenary_hirer.capital_scope
-									assign_leader = last_created_leader
+									set_event_locked = yes
 									set_fleet_flag = order_of_eternal_night
-									fleet_event = { id = marauder.50 days = 1800 }
 								}
 								settings = {
 									can_upgrade = no
@@ -7228,9 +7043,6 @@ event = {
 									uses_naval_capacity = no
 								}
 							}
-						}
-						event_target:mercenary_hirer = {
-							set_timed_country_flag = { flag = ai_hired_mercs years = 5 }
 						}
 					}
 					modifier = {
@@ -7249,17 +7061,15 @@ event = {
 							event_target:marauder_merc_country = { has_country_flag = marauder_1 }
 						}
 						event_target:mercenary_hirer = {
-							create_marauder_merc_admiral = yes
 							create_fleet = {
 								name = "NAME_First_Storm_Wing"
 								effect = {
-									set_owner = event_target:mercenary_hirer
+									set_owner = event_target:marauder_merc_country
 									save_event_target_as = hired_merc_fleet
 									create_first_storm_wing = yes
-									assign_leader = last_created_leader
+									set_event_locked = yes
 									set_location = event_target:mercenary_hirer.capital_scope
 									set_fleet_flag = first_storm_wing
-									fleet_event = { id = marauder.50 days = 1800 }
 								}
 								settings = {
 									can_upgrade = no
@@ -7269,9 +7079,6 @@ event = {
 									uses_naval_capacity = no
 								}
 							}
-						}
-						event_target:mercenary_hirer = {
-							set_timed_country_flag = { flag = ai_hired_mercs years = 5 }
 						}
 					}
 					if = {
@@ -7279,17 +7086,15 @@ event = {
 							event_target:marauder_merc_country = { has_country_flag = marauder_2 }
 						}
 						event_target:mercenary_hirer = {
-							create_marauder_merc_admiral = yes
 							create_fleet = {
 								name = "NAME_Frenzied_Volunteer_Squadron"
 								effect = {
-									set_owner = event_target:mercenary_hirer
+									set_owner = event_target:marauder_merc_country
 									save_event_target_as = hired_merc_fleet
 									create_frenzied_volunteer_squadron = yes
-									assign_leader = last_created_leader
+									set_event_locked = yes
 									set_location = event_target:mercenary_hirer.capital_scope
 									set_fleet_flag = frenzied_volunteer_squadron
-									fleet_event = { id = marauder.50 days = 1800 }
 								}
 								settings = {
 									can_upgrade = no
@@ -7299,9 +7104,6 @@ event = {
 									uses_naval_capacity = no
 								}
 							}
-						}
-						event_target:mercenary_hirer = {
-							set_timed_country_flag = { flag = ai_hired_mercs years = 5 }
 						}
 					}
 					if = {
@@ -7309,17 +7111,15 @@ event = {
 							event_target:marauder_merc_country = { has_country_flag = marauder_3 }
 						}
 						event_target:mercenary_hirer = {
-							create_marauder_merc_admiral = yes
 							create_fleet = {
 								name = "NAME_Twilight_Congregation"
 								effect = {
-									set_owner = event_target:mercenary_hirer
+									set_owner = event_target:marauder_merc_country
 									save_event_target_as = hired_merc_fleet
 									create_twilight_congregation = yes
-									assign_leader = last_created_leader
+									set_event_locked = yes
 									set_location = event_target:mercenary_hirer.capital_scope
 									set_fleet_flag = twilight_congregation
-									fleet_event = { id = marauder.50 days = 1800 }
 								}
 								settings = {
 									can_upgrade = no
@@ -7329,9 +7129,6 @@ event = {
 									uses_naval_capacity = no
 								}
 							}
-						}
-						event_target:mercenary_hirer = {
-							set_timed_country_flag = { flag = ai_hired_mercs years = 5 }
 						}
 					}
 					modifier = {
@@ -7340,6 +7137,21 @@ event = {
 					}
 				}
 				100 = { }
+			}
+			if = {
+				limit = {
+					exists = event_target:hired_merc_fleet
+				}
+				event_target:mercenary_hirer = {
+					create_marauder_merc_admiral = yes
+					set_timed_country_flag = { flag = ai_hired_mercs years = 5 }
+				}
+				event_target:hired_merc_fleet = {
+					set_owner = event_target:mercenary_hirer
+					assign_leader = last_created_leader
+					set_event_locked = no
+					fleet_event = { id = marauder.50 days = 1800 }
+				}
 			}
 		}
 	}
@@ -7712,7 +7524,9 @@ country_event = {
 #####################################
 ### Main Effect of Khan Awakening ###
 #####################################
-### CRISIS BEGINS (MTTH 1 year)
+################
+# CRISIS BEGINS (MTTH 1 year)
+################
 country_event = {
 	id = marauder.500
 	hide_window = yes
@@ -8880,10 +8694,15 @@ country_event = {
 		if = { limit = { has_country_flag = khan_dead_event_fine }
 			remove_country_flag = khan_dead_event_fine
 		}
+		if = { limit = { exists = ruler }
+			ruler.species = { save_event_target_as = marauder_species }
+		} else = {
+			owner_species = { save_event_target_as = marauder_species }
+		}
 		country_event = { id = khan.306 }		# Check/Create fallback rally_point
 		event_target:marauder_rally_point = {
 			# CmtEffectCreateAdmiralty_Khan2ndFleetSet = yes
-			event_target:raider_khanate = {
+			prev = {
 				CmtEffectCreateFleet_Khan2ndFleet = yes
 				event_target:CmtGlobalVar = { set_variable = { which = CmtVarWhileControlFleet value = CmtVarCombatFleetNumber_Khan } }
 				while = {
@@ -8897,8 +8716,15 @@ country_event = {
 					limit = { event_target:CmtGlobalVar = { check_variable = { which = CmtVarWhileControlFleet value > 0.125 } } }
 					event_target:CmtGlobalVar = { change_variable = { which = CmtVarWhileControlFleet value = -0.25 } }
 					random_list = {
-						125 = { event_target:CmtGlobalVar = { set_variable = { which = CmtVarWhileControlFleet value = 0 } } CmtEffectCreateFleet_KhanStandard = yes CmtEffectCreateFleet_KhanArmy = yes }
-						75 = { event_target:CmtGlobalVar = { change_variable = { which = CmtVarWhileControlFleet value = -0.25 } } CmtEffectCreateFleet_KhanArmy = yes }
+						125 = {
+							event_target:CmtGlobalVar = { set_variable = { which = CmtVarWhileControlFleet value = 0 } }
+							CmtEffectCreateFleet_KhanStandard = yes
+							CmtEffectCreateFleet_KhanArmy = yes
+						}
+						75 = {
+							event_target:CmtGlobalVar = { change_variable = { which = CmtVarWhileControlFleet value = -0.25 } }
+							CmtEffectCreateFleet_KhanArmy = yes
+						}
 						200 = { }
 					}
 				}
@@ -9295,7 +9121,7 @@ country_event = {
 	option = { name = marauder.510.a }
 }
 
-### Great Khan Dies of Old Ages.
+### Great Khan Dies of Old Age.
 country_event = {
 	id = marauder.514
 	hide_window = yes
@@ -12557,7 +12383,9 @@ country_event = {
 	option = { name = marauder.671.a }
 }
 
-### Neighbor Events
+##################
+# NEIGHBOR EVENTS
+##################
 event = {
 	id = marauder.699
 	hide_window = yes

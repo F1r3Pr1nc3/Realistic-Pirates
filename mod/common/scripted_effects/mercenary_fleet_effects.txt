@@ -23,7 +23,6 @@ create_marauder_merc_admiral = {
 		}
 		effect = { set_leader_flag = marauder_merc_leader }
 	}
-	# last_created_leader = { set_leader_flag = marauder_merc_leader }
 }
 
 # Prev = owner
