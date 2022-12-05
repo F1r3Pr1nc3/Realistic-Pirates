@@ -664,13 +664,8 @@ country_event = {
 	option = {
 		name = DEBUG_MODE
 		custom_tooltip = DEBUG_MODE_DESC
-		trigger = {
-			host_has_dlc = "Apocalypse"
-			# has_global_flag = debug_mode
-		}
-		# allow = {
-		# 	always = no
-		# }
+		trigger = { host_has_dlc = "Apocalypse" }
+		allow = { has_global_flag = debug_mode }
 		hidden_effect = {
 			country_event = { id = pirate_waves.999 }
 		}
@@ -724,7 +719,9 @@ event = {
 			random = {
 				chance = pirate_waves_chance
 				country_event = { id = pirate_waves.4 days = 2 random = 29 }
-				log = "Attempt to spawn a new Pirate Station started (\\[This.pirate_waves_chance]% chance)..."
+				if = { limit = { has_global_flag = debug_mode }
+					log = "Attempt to spawn a new Pirate Station started (\\[This.pirate_waves_chance]% chance)..."
+				}
 			}
 		}
 		# Go through every pirate waves country.
@@ -744,25 +741,26 @@ fleet_event = {
 	is_triggered_only = yes
 	trigger = {
 		is_pirate_waves_active = yes
-		exists = event_target:pirate_waves_country
-		exists = event_target:pirate_waves_2_country
+		OR = {
+			exists = event_target:pirate_waves_country
+			exists = event_target:pirate_waves_2_country
+		}
 	}
 	immediate = {
 		# Save this military station as our place of origin. Used in triggers.
 		save_event_target_as = spawn_location
-		# log = "Spawn location: [This.GetName]..."
 		# Use the scope from the owner of the station to create the new fleet.
 		owner = {
-			save_event_target_as = current_pirate_country
 			if = {
 				limit = {
-					# is_pirate_waves_spawn_allowed = yes
-					has_country_flag = pirate_waves_spawn_allowed
+					has_country_flag = pirate_waves_spawn_allowed # is_pirate_waves_spawn_allowed = yes
 				}
+				save_event_target_as = current_pirate_country
 				# Create a fleet based on fleet power.
 				create_fleet = {
 					name = "NAME_Pirate_Fleet"
 					effect = {
+						if = { limit = { has_global_flag = debug_mode } log = "Spawn location: \\[spawn_location.GetName]..." }
 						save_event_target_as = pirate_waves_fleet
 						# Owner is set before the ships are created so that random naming works.
 						set_owner = prev
@@ -839,10 +837,11 @@ fleet_event = {
 											}
 											# Destroy fleet if leader has died.
 											event_target:pirate_waves_fleet = {
-												if = {
-													limit = { has_fleet_flag = pirate_waves_destroy_fleet }
-													# log = "Pirate Fleet '[This.GetName]' is destroyed because its leader died..."
+												if = { limit = { has_fleet_flag = pirate_waves_destroy_fleet }
 													destroy_fleet = this
+													if = { limit = { has_global_flag = debug_mode }
+														log = "Pirate Fleet '[This.GetName]' is destroyed because its leader died..."
+													}
 												}
 											}
 										}
@@ -954,7 +953,9 @@ fleet_event = {
 											event_target:pirate_waves_fleet = {
 												if = {
 													limit = { has_fleet_flag = pirate_waves_destroy_fleet }
-													# log = "Pirate Fleet '[This.GetName]' is destroyed because its leader died..."
+													if = { limit = { has_global_flag = debug_mode }
+														log = "Pirate Fleet '[This.GetName]' is destroyed because its leader died..."
+													}
 													destroy_fleet = this
 												}
 											}
@@ -995,18 +996,17 @@ fleet_event = {
 										}
 									}
 								}
-								wait = {
-									duration = 90
-									random = 30
-								}
+								wait = { duration = 90 random = 30 }
 								# Destroy fleet if leader has died.
 								effect = {
 									id = pirate_waves.2.effect.3
 									event_target:pirate_waves_fleet = {
 										if = {
 											limit = { has_fleet_flag = pirate_waves_destroy_fleet }
-											# log = "Pirate Fleet '[This.GetName]' is destroyed because its leader died..."
 											destroy_fleet = this
+											if = { limit = { has_global_flag = debug_mode }
+												log = "Pirate Fleet '[This.GetName]' is destroyed because its leader died..."
+											}
 										}
 									}
 								}
@@ -1047,7 +1047,9 @@ fleet_event = {
 						assign_leader = last_created_leader
 						# Randomize the name
 						set_name = random
-						# log = "Pirate Fleet '[This.GetName]' created..."
+						if = { limit = { has_global_flag = debug_mode }
+							log = "Pirate Fleet '[This.GetName]' created..."
+						}
 					}
 				}
 			}
@@ -1056,7 +1058,7 @@ fleet_event = {
 }
 
 # Create a new Pirate Station at this planet (HIDDEN)
-# Called by pirate_waves.2 and pirate_waves.4
+# Called by pirate_waves.2 (from = fleet) and pirate_waves.4 (from = country)
 planet_event = {
 	id = pirate_waves.3
 	hide_window = yes
@@ -1069,7 +1071,7 @@ planet_event = {
 	immediate = {
 		# Used in triggers as well.
 		save_event_target_as = spawn_location
-		# log = "Spawn location: [This.GetName]..."
+		if = { limit = { has_global_flag = debug_mode } log = "Spawn location: \\[This.GetName]..." }
 		# Set the owner of this station based on the owner of the pirate fleet nearby or random if no fleet was found.
 		solar_system = {
 			if = {
@@ -1081,7 +1083,7 @@ planet_event = {
 				}
 				event_target:pirate_waves_2_country = {
 					save_event_target_as = current_pirate_country
-					# log = "Pirate country: [This.GetName]..."
+					if = { limit = { has_global_flag = debug_mode } log = "Pirate country: \\[This.GetName]..." }
 				}
 			} else_if = {
 				limit = {
@@ -1092,7 +1094,7 @@ planet_event = {
 				}
 				event_target:pirate_waves_country = {
 					save_event_target_as = current_pirate_country
-					# log = "Pirate country: [This.GetName]..."
+					if = { limit = { has_global_flag = debug_mode } log = "Pirate country: \\[This.GetName]..." }
 				}
 			} else = {
 				random_list = {
@@ -1103,7 +1105,7 @@ planet_event = {
 						}
 						event_target:pirate_waves_country = {
 							save_event_target_as = current_pirate_country
-							# log = "Pirate country: [This.GetName]..."
+							if = { limit = { has_global_flag = debug_mode } log = "Pirate country: \\[This.GetName]..." }
 						}
 					}
 					50 = {
@@ -1113,7 +1115,7 @@ planet_event = {
 						}
 						event_target:pirate_waves_2_country = {
 							save_event_target_as = current_pirate_country
-							# log = "Pirate country: [This.GetName]..."
+							if = { limit = { has_global_flag = debug_mode } log = "Pirate country: \\[This.GetName]..." }
 						}
 					}
 				}
@@ -1124,6 +1126,8 @@ planet_event = {
 			# Randomize the flag (only if chance is not too high)
 			if = {
 				limit = {
+					exists = from
+					from = { is_scope_type = country }
 					any_playable_country = {
 						is_pirate_waves_player = yes
 						check_variable = { which = pirate_waves_difficulty value = prev.pirate_waves_difficulty }
@@ -1131,7 +1135,7 @@ planet_event = {
 					}
 				}
 				random = {
-					chance = 75
+					chance = 65
 					randomize_flag_symbol = "pirate"
 				}
 			}
@@ -1145,9 +1149,7 @@ planet_event = {
 					# Create the station
 					# create_pirate_waves_station = yes
 					random_list = {
-						80 = {
-							create_ship = { name = random design = "NAME_Pirate_Nest" prefix = no graphical_culture = "pirate_01" }
-						}
+						80 = { create_ship = { name = random design = "NAME_Pirate_Nest" prefix = no graphical_culture = "pirate_01" } }
 						20 = {
 							modifier = { factor = 0 exists = event_target:current_pirate_country mid_game_years_passed < 0 }
 							modifier = {
@@ -1169,7 +1171,7 @@ planet_event = {
 						limit = { years_passed > 30 }
 						random_list = {
 							5 = { modifier = { factor = 0 years_passed > 75 } add_modifier = { modifier = pirate_station_level_1 } }
-							5 = { modifier = { factor = 0 OR = { years_passed < 40	years_passed > 90  } } add_modifier = { modifier = pirate_station_level_2 } }
+							5 = { modifier = { factor = 0 OR = { years_passed < 40	years_passed > 90 } } add_modifier = { modifier = pirate_station_level_2 } }
 							5 = { modifier = { factor = 0 OR = { years_passed < 55	years_passed > 105 } } add_modifier = { modifier = pirate_station_level_3 } }
 							5 = { modifier = { factor = 0 OR = { years_passed < 70	years_passed > 120 } } add_modifier = { modifier = pirate_station_level_4 } }
 							5 = { modifier = { factor = 0 OR = { years_passed < 85	years_passed > 135 } } add_modifier = { modifier = pirate_station_level_5 } }
@@ -1192,33 +1194,34 @@ planet_event = {
 						}
 					}
 					set_location = root
-				# }
-				# Set a timed flag to disallow building new fleets.
-				# last_created_fleet = {
-					# Determines that this mod manages this station.
-					set_fleet_flag = pirate_waves_station_flag
-					# How long this station will life.
-					set_timed_fleet_flag = { flag = pirate_waves_station_life_flag days = @pirate_waves_station_life_days }
-					# Determine if to spawn a fleet.
-					if = {
-						# Check whether there's a friendly fleet nearby that's not a station.
-						limit = {
-							# has_pirate_waves_fleet_build_station = no
-							ROOT = {
-								solar_system = {
-									any_fleet_in_system = {
-										NOT = { is_ship_class = shipclass_military_station }
-										exists = owner
-										is_owned_by = event_target:current_pirate_country
-									}
+				}
+			}
+			# Set a timed flag to disallow building new fleets.
+			last_created_fleet = {
+				# Determines that this mod manages this station.
+				set_fleet_flag = pirate_waves_station_flag
+				# How long this station will life.
+				set_timed_fleet_flag = { flag = pirate_waves_station_life_flag days = @pirate_waves_station_life_days }
+				# Determine if to spawn a fleet immediately.
+				if = {
+					# Check whether there's a friendly fleet nearby that's not a station.
+					limit = {
+						# has_pirate_waves_fleet_build_station = no
+						ROOT = {
+							solar_system = {
+								any_fleet_in_system = {
+									NOT = { is_ship_class = shipclass_military_station }
+									exists = owner
+									is_owned_by = event_target:current_pirate_country
 								}
 							}
 						}
-						# Spawn fleet immediately
-						fleet_event = { id = pirate_waves.2 }
 					}
-					# log = "Pirate Station '[This.GetName]' created..."
+					fleet_event = { id = pirate_waves.2 } # Spawn fleet
+				} else = {
+					create_dyn_pirate_fleet = { Reaver = 8 }
 				}
+				if = { limit = { has_global_flag = debug_mode } log = "Pirate Station '[This.GetName]' created..." }
 			}
 		}
 		solar_system = {
@@ -1343,7 +1346,7 @@ event = {
 	}
 }
 
-# Manage Pirate Stations of this country (HIDDEN)
+# Manage Pirate Stations of this Country (HIDDEN)
 # Called by pirate_waves.1 (on_monthly_pulse)
 country_event = {
 	id = pirate_waves.6
@@ -1356,7 +1359,6 @@ country_event = {
 		# set_variable = { which = count_ship_medium value = 1000 }
 		# set_variable = { which = count_ship_hard value = 2000 }
 		# set_variable = { which = count_ship_insane value = 4000 }
-		# log = "Pirate country: [This.GetName]..."
 		set_pirates_difficulty = yes
 
 		# Go through every pirate station that needs to be managed.
@@ -1366,11 +1368,12 @@ country_event = {
 				NOT = { has_fleet_flag = pirate_waves_station_life_flag }
 			}
 			# Spawn a new fleet from this station immediately.
-			fleet_event = { id = pirate_waves.2 }
+			fleet_event = { id = pirate_waves.2 days = -1 }
+			if = { limit = { has_global_flag = debug_mode } log = "Pirate Country \\[This.GetName]..." }
 			# Destroy the station
 			random = {
 				chance = 50
-				# log = "Pirate Station '[This.GetName]' has build a Pirate Fleet and is destroyed..."
+				if = { limit = { has_global_flag = debug_mode } log = "Pirate Station '[This.GetName]' has build a Pirate Fleet and is destroyed..." }
 				destroy_fleet = this
 			}
 		}
@@ -1984,9 +1987,7 @@ country_event = {
 	option = {
 		name = "CLOSE_DONT_SHOW_AGAIN"
 		trigger = { NOT = { has_global_flag = pirate_waves_notifications_disabled } }
-		hidden_effect = {
-			set_global_flag = pirate_waves_notifications_disabled
-		}
+		hidden_effect = { set_global_flag = pirate_waves_notifications_disabled }
 	}
 }
 
@@ -2272,6 +2273,7 @@ event = {
 			count < 3
 			limit = { is_country_type = dormant_marauders }
 		}
+		mid_game_years_passed < 30
 	}
 
 	immediate = {
@@ -2377,11 +2379,8 @@ event = {
 					}
 				}
 			}
-			if = {
-				limit = {
-					NOT = { exists = event_target:marauder_capital }
-				}
-				log = "No place for new Marauder system found!?"
+			if = { limit = { NOT = { exists = event_target:marauder_capital } }
+				if = { limit = { has_global_flag = debug_mode } log = "No place for new Marauder system found!?" }
 				break = yes
 			}
 			set_update_modifiers_batch = begin
@@ -2474,7 +2473,7 @@ event = {
 				} else = {
 					set_country_flag = silence_destroy_event
 					destroy_country = yes
-					log = "Already all Marauder exists!?"
+					if = { limit = { has_global_flag = debug_mode } log = "Already all Marauder exists!?" }
 					break = yes
 				}
 
@@ -2685,7 +2684,7 @@ event = {
 							}
 						}
 					}
-					log = "New Marauder capital at \\[This.GetName]"
+					if = { limit = { has_global_flag = debug_mode } log = "New Marauder capital at \\[This.GetName]" }
 				}
 			}
 			set_update_modifiers_batch = end

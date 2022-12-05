@@ -352,7 +352,7 @@ starbase_event = {
 # 						prev = {
 # 							count_owned_pop = {
 # 								count > 5
-# 								limit = { is_same_species = prevprev }
+# 								limit = { is_same_species_class = prevprev }
 # 							}
 # 						}
 # 					}
@@ -361,7 +361,7 @@ starbase_event = {
 # 						prev = {
 # 							count_owned_pop = {
 # 								count > 10
-# 								limit = { is_same_species = prevprev }
+# 								limit = { is_same_species_class = prevprev }
 # 							}
 # 						}
 # 					}
@@ -370,11 +370,11 @@ starbase_event = {
 # 						prev = {
 # 							count_owned_pop = {
 # 								count > 17
-# 								limit = { is_same_species = prevprev }
+# 								limit = { is_same_species_class = prevprev }
 # 							}
 # 						}
 # 					}
-# 					# modifier = { add = 3 is_same_species = root.owner_species }
+# 					# modifier = { add = 3 is_same_species_class = root.owner_species }
 # 					modifier = {
 # 						add = 2
 # 						prev = {
@@ -1233,7 +1233,7 @@ country_event = {
 		set_country_flag = diadochi
 		set_country_flag = first_alien_life
 		set_country_flag = has_encountered_other_empire
-		log="Handover raider_khanate \\[From.GetName] to Diadochi."
+		# log="Handover raider_khanate \\[From.GetName] to Diadochi."
 		from = {
 			if = {
 				limit = { NOT = { has_global_flag = marauder_crisis_ongoing } }
@@ -1330,21 +1330,16 @@ country_event = {
 				}
 			}
 			# Survey Own Space
-			every_planet_within_border = {
-				set_surveyed = {
-					surveyed = yes
-					surveyor = root
-				}
-			}
-			# Survey Rest of Horde's Space
 			root = {
 				every_planet_within_border = {
-					set_surveyed = {
-						surveyed = yes
-						surveyor = root
-					}
+					set_surveyed = { surveyed = yes surveyor = root }
 				}
 			}
+			# # (do it later, because we don't know yet) Survey Rest of Horde's Space
+			# every_planet_within_border = {
+			# 	set_surveyed = { surveyed = yes surveyor = root }
+			# }
+
 			# Mining and Research Stations
 			every_planet_within_border = {
 				limit = {
@@ -1457,12 +1452,15 @@ country_event = {
 				exists = owner
 				exists = starbase
 				any_owned_species = {
-					prev = { is_majority_species = prev }
-					species_can_be_necrophaged = yes
 					NOR = {
 						is_archetype = LITHOID
 						is_species_class = PLANT
 						is_species_class = FUN
+					}
+					prev = { is_majority_species = prev }
+					OR = {
+						species_can_be_necrophaged = yes
+						is_same_species_class = root.owner_species
 					}
 				}
 			}
@@ -1483,7 +1481,7 @@ country_event = {
 								prev = { is_majority_species = prev }
 								OR = {
 									species_can_be_necrophaged = yes
-									is_same_species = prev.owner_species
+									is_same_species_class = prev.owner_species
 								}
 								NOR = {
 									is_archetype = LITHOID
@@ -1500,7 +1498,7 @@ country_event = {
 							prev = { is_majority_species = prev }
 							OR = {
 								species_can_be_necrophaged = yes
-								is_same_species = prev.owner_species
+								is_same_species_class = prev.owner_species
 							}
 							NOR = {
 								is_archetype = LITHOID
@@ -1519,12 +1517,12 @@ country_event = {
 					factor = 0.01
 					pop_percentage = {
 						percentage > 0.34
-						limit = { is_same_species = root.owner_species }
+						limit = { is_same_species_class = root.owner_species }
 					}
 				}
 				if = { limit = { exists = event_target:marauder_species }
-					no_scope = { save_global_event_target_as = marauder_species }
-					clear_global_event_target = marauder_species
+					no_scope = { save_event_target_as = marauder_species }
+					# clear_global_event_target = marauder_species
 				}
 				reroll_random = yes
 				# log = "RECHECK MARAUDER SPECIES"
@@ -1532,6 +1530,12 @@ country_event = {
 			}
 			1 = {
 				# log="OLD MARAUDER SPECIES"
+			}
+		}
+		event_target:marauder_species = {
+			modify_species = {
+				species = this
+				ideal_planet_class = capital_scope
 			}
 		}
 		# # event_target:second_diadochi_origin
@@ -1802,7 +1806,6 @@ system_event = {
 					is_colony = no
 					is_colonizable = yes
 				}
-
 				# log = "--- Habitat \\[This.GetName] is being populated..."
 				# space_owner = {
 				# 	save_event_target_as = colony_country
@@ -1814,8 +1817,9 @@ system_event = {
 				# 	2 = { set_planet_flag = research_habitat }
 				# 	3 = { set_planet_flag = energy_habitat }
 				# }
+				change_planet_size = 2
 				while = {
-					count = 7
+					count = 5
 					create_pop = {
 						species = from.owner_main_species
 						ethos = { ethic = "ethic_militarist" } # ethic = "ethic_egalitarian"
@@ -1856,7 +1860,7 @@ system_event = {
 					owner = from
 					species = from.owner_main_species
 					# ethos = random
-				} # "Unexpected token:  (everything after scope start_colony)
+				}
 			}
 		}
 		# Unknown "Unexpected token: country_event, near line: 3543

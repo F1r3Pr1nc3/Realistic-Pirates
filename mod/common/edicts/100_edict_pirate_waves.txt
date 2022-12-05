@@ -11,7 +11,6 @@ pirate_waves = {
 	}
 	potential = {
 		# is_ai = no
-		years_passed > 10
 		NOR = {
 			has_global_flag = dmm_installed
 			has_global_flag = modmenu_installed
@@ -19,6 +18,7 @@ pirate_waves = {
 		}
 	}
 	allow = {
+		years_passed > 9
 		NOT = { has_active_event = { pirate_waves.0 } }
 	}
 	effect = {
