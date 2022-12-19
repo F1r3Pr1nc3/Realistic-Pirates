@@ -948,13 +948,12 @@ get_marauder_species = {
 		limit = {
 			NAND = {
 				exists = event_target:marauder_species
-				exists = owner_species
 				pop_percentage = {
-					percentage > 0.1
+					percentage > 0.2
 					limit = { is_same_species = prev.owner_species }
 				}
 				pop_percentage = {
-					percentage > 0.1
+					percentage > 0.2
 					limit = { is_same_species = event_target:marauder_species }
 				}
 			}
@@ -1106,4 +1105,9 @@ get_marauder_raid_source = {
 	event_target:raid_source = {
 		solar_system = { save_event_target_as = marauder_system }
 	}
+}
+
+# Override needless wasting vanilla effect
+set_diadochi_claims = {
+	optimize_memory
 }

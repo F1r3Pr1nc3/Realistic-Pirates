@@ -25,9 +25,9 @@ namespace = marauder
 # 	marauder.160	# Raiding End Failsafe
 # 	marauder.699	# Neighbor Events - .707
 
-#	marauder.19		#  Diplomacy Denied
-#	marauder.102	#  Diplomacy while target of raid.
-#	marauder.112	#  Diplomacy while target of Hired raid.
+#	marauder.19		# Diplomacy Denied
+#	marauder.102	# Diplomacy while target of raid.
+#	marauder.112	# Diplomacy while target of Hired raid.
 
 # on_ship_destroyed_victim = marauder.525 # Horde Triggered Through Destruction of Stations.
 
@@ -10327,7 +10327,7 @@ country_event = {
 				hidden_trigger = {
 					OR = {
 						is_variable_set = "planets_lost_to_marauder"
-						from = { NOT = {  has_country_flag = raid_cooldown } }
+						from = { NOT = { has_country_flag = raid_cooldown } }
 						from = { is_overlord = yes }
 					}
 				}
@@ -11187,6 +11187,11 @@ country_event = {
 				fourth_diadochi_system	= { remove_star_flag = fourth_diadochi_system }
 			}
 		}
+		# Cleanup temp vars
+		every_playable_country = {
+			limit = { is_variable_set = "successor_fleet_power" }
+			clear_variable = "successor_fleet_power"
+		}
 
 		if = { # Four Diadochi
 			limit = {
@@ -11261,18 +11266,14 @@ country_event = {
 			create_third_diadochi = yes
 			create_fourth_diadochi = yes
 		}
-		set_diadochi_claims = yes
+		# set_diadochi_claims = yes needless wasting vanilla effect
+		set_update_modifiers_batch = end
+
 		observer_event = { id = observer.20 }
 		every_playable_country = {
 			limit = { is_ai = no }
 			country_event = { id = marauder.620 }
 		}
-		# Cleanup temp vars
-		every_playable_country = {
-			limit = { is_variable_set = "successor_fleet_power" }
-			clear_variable = "successor_fleet_power"
-		}
-		set_update_modifiers_batch = end
 	}
 	after = {
 		if = { limit = { exists = event_target:raider_khanate }
@@ -11287,7 +11288,6 @@ country_event = {
 			}
 			# clear_global_event_target = raider_khanate
 		}
-
 		# Vanilla fix system survey + fix race condition establish communications!?
 		every_playable_country = {
 			limit = {
@@ -11306,8 +11306,12 @@ country_event = {
 				add_trust = { amount = -100 who = prev }
 				add_intel = { amount = 100 who = prev }
 				add_opinion_modifier = { modifier = opinion_traitor_to_empire who = prev }
-				every_planet_within_border = {
+				# every_planet_within_border = {
+				# 	set_surveyed = { surveyed = yes surveyor = prev }
+				# }
+				every_system_within_border = {
 					set_surveyed = { surveyed = yes surveyor = prev }
+					add_claims = { who = prev num_of_claims = 1 show_notification = no }
 				}
 			}
 			# Survey Rest of Horde's Space
@@ -11317,7 +11321,6 @@ country_event = {
 				}
 			}
 		}
-
 		if = {
 			limit = {
 				OR = {

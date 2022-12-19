@@ -20,7 +20,7 @@
 # Checks if the mod should spawn pirates.
 is_pirate_waves_active = {
 	has_global_flag = pirate_waves_active
-	years_passed > 10
+	# years_passed > 9
 	NOR = {
 		has_global_flag = gray_goo_crisis_active
 		has_global_flag = marauder_crisis_ongoing

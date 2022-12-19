@@ -232,42 +232,61 @@ starbase_event = {
 		}
 		# TODO needs free slot check somehow: "Building slot is invalid."
 		if = {
-			limit = { NOT = { has_starbase_module = "shipyard" } }
+			limit = {
+				count_starbase_modules = { count < 2 include_being_constructed = yes }
+				NOR = { has_starbase_building = "shipyard" is_starbase_building_module = "shipyard" }
+			}
+			remove_starbase_module = { slot = 1 }
 			set_starbase_module = { slot = 1 module = "shipyard" }
 		}
 		if = {
 			limit = {
-				count_starbase_modules = { type = "shipyard" count < 2 }
+				count_starbase_modules = { type = "shipyard" count < 2 include_being_constructed = yes }
 				NOT = { is_starbase_building_module = "shipyard" }
 			}
+			remove_starbase_module = { slot = 2 }
 			set_starbase_module = { slot = 2 module = "shipyard" }
 		}
-		if = {
-			limit = { NOT = { has_starbase_module = "gun_battery" } }
+		if = { limit = {
+				count_starbase_modules = { count < 3 include_being_constructed = yes }
+				NOR = { has_starbase_building = "gun_battery" is_starbase_building_module = "gun_battery" }
+			}
+			remove_starbase_module = { slot = 3 }
 			set_starbase_module = { slot = 3 module = "gun_battery" }
 		}
 		if = {
 			limit = {
-				count_starbase_modules = { type = "gun_battery" count < 2 }
+				count_starbase_modules = { count < 4 include_being_constructed = yes }
+				count_starbase_modules = { type = "gun_battery" count < 2 include_being_constructed = yes }
 				NOT = { is_starbase_building_module = "gun_battery" }
 			}
+			remove_starbase_module = { slot = 4 }
 			set_starbase_module = { slot = 4 module = "gun_battery" }
 		}
 		if = {
-			limit = { NOT = { has_starbase_building = "fleet_academy" } }
+			limit = {
+				count_starbase_building = { count < 2 include_being_constructed = yes }
+				NOR = { has_starbase_building = "fleet_academy" is_starbase_building_building = "fleet_academy" }
+			}
+			remove_starbase_building = { slot = 1 }
 			set_starbase_building = { slot = 1 building = "fleet_academy" }
 		}
 		if = {
-			limit = { NOT = { has_starbase_building = "resource_silo" } }
+			limit = {
+				count_starbase_building = { count < 3 include_being_constructed = yes }
+				NOR = { has_starbase_building = "resource_silo" is_starbase_building_building = "resource_silo" }
+			}
+			remove_starbase_building = { slot = 2 }
 			set_starbase_building = { slot = 2 building = "resource_silo" }
 		}
-		if = {
-			limit = { has_starbase_size > starbase_starfortress }
+		if = { limit = { has_starbase_size > starbase_starfortress }
 			if = {
 				limit = {
-					count_starbase_modules = { type = "shipyard" count < 3 }
+					count_starbase_modules = { count < 4 include_being_constructed = yes }
+					count_starbase_modules = { type = "shipyard" count < 3 include_being_constructed = yes }
 					NOT = { is_starbase_building_module = "shipyard" }
 				}
+				remove_starbase_module = { slot = 6 }
 				set_starbase_module = { slot = 6 module = "shipyard" }
 			}
 			if = {
@@ -277,18 +296,19 @@ starbase_event = {
 						is_starbase_building_module = "missile_battery"
 					}
 				}
+				remove_starbase_module = { slot = 5 }
 				set_starbase_module = { slot = 5 module = "missile_battery" }
 			}
-			if = {
-				limit = { NOT = { has_starbase_building = "crew_quarters" } }
+			if = { limit = { NOR = { has_starbase_building = "crew_quarters" is_starbase_building_building = "crew_quarters" } }
+				remove_starbase_module = { slot = 3 }
 				set_starbase_building = { slot = 3 building = "crew_quarters" }
 			}
-			if = {
-				limit = { NOT = { has_starbase_building = "target_uplink_computer" } }
+			if = { limit = { NOR = { has_starbase_building = "target_uplink_computer" is_starbase_building_building = "target_uplink_computer" } }
+				remove_starbase_module = { slot = 4 }
 				set_starbase_building = { slot = 4 building = "target_uplink_computer" }
 			}
 			# if = {
-			# 	limit = { NOT = { has_starbase_building = "listening_post" } }
+			# 	limit = { NOR = { has_starbase_building = "listening_post" is_starbase_building_building = "listening_post" } }
 			# 	set_starbase_building = { slot = 5 building = "listening_post" }
 			# }
 		}
@@ -1189,6 +1209,12 @@ country_event = {
 	hide_window = yes
 	is_triggered_only = yes
 	immediate = {
+		if = { limit = { exists = event_target:great_khan }
+			if = { limit = { exists = event_target:great_khan.fleet }
+				destroy_fleet = event_target:great_khan.fleet
+			}
+			clear_global_event_target = great_khan
+		}
 		if = { limit = { exists = event_target:raider_khanate }
 			clear_global_event_target = raider_khanate
 		}
@@ -1199,7 +1225,42 @@ country_event = {
 			clear_global_event_target = marauder_rally_point
 		}
 		set_global_flag = horde_triggered
-		destroy_country = yes
+
+		if = {
+			limit = {
+				OR = {
+					num_owned_planets = 0
+					NOT = {
+						any_system_within_border = {
+							any_system_colony = {
+								has_owner = yes
+								is_owned_by = root
+								is_under_colonization = no
+								uses_habitat_capitals = no
+							}
+						}
+					}
+				}
+			}
+			destroy_country = yes
+		} else = {
+			every_controlled_fleet = {
+				limit = {
+					OR = {
+						has_fleet_flag = satrapy_garrison
+						has_fleet_flag = satrapy_garrison_fleet
+						has_fleet_flag = horde_auxuliaries
+						NOT = { is_within_borders_of = root }
+						is_alliance_fleet = yes
+						has_ship_owner_type = galactic_community
+						has_ship_owner_type = federation
+					}
+				}
+				destroy_fleet = this
+			}
+			country_event = { id = marauder.602 days = 1 }
+		}
+
 		if = { limit = { exists = event_target:marauders_garrison_1 }
 			event_target:marauders_garrison_1 = {
 				every_controlled_fleet = {
@@ -1233,7 +1294,7 @@ country_event = {
 		set_country_flag = diadochi
 		set_country_flag = first_alien_life
 		set_country_flag = has_encountered_other_empire
-		# log="Handover raider_khanate \\[From.GetName] to Diadochi."
+		log="Handover raider_khanate \\[From.GetName] to Diadochi."
 		from = {
 			if = {
 				limit = { NOT = { has_global_flag = marauder_crisis_ongoing } }
@@ -1508,7 +1569,7 @@ country_event = {
 						}
 						root = { change_dominant_species = { species = prev } }
 						save_event_target_as = marauder_species
-						# log="TAKE CAPITAL SPECIES"
+						log="DIADOCHI TAKE CAPITAL SPECIES"
 					}
 				}
 			}
@@ -1525,11 +1586,11 @@ country_event = {
 					# clear_global_event_target = marauder_species
 				}
 				reroll_random = yes
-				# log = "RECHECK MARAUDER SPECIES"
+				log = "DIADOCHI RECHECK MARAUDER SPECIES"
 				get_marauder_species = yes
 			}
 			1 = {
-				# log="OLD MARAUDER SPECIES"
+				log="DIADOCHI OLD MARAUDER SPECIES"
 			}
 		}
 		event_target:marauder_species = {
@@ -1783,7 +1844,7 @@ system_event = {
 					has_planet_flag = megastructure
 					has_planet_flag = has_megastructure
 				}
-				is_ringworld = no
+				has_ringworld_output_boost = no
 
 			}
 			weights = { base = 1 modifier = { add = 2 is_a_planet = yes } }

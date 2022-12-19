@@ -740,11 +740,10 @@ fleet_event = {
 	hide_window = yes
 	is_triggered_only = yes
 	trigger = {
+		exists = owner
 		is_pirate_waves_active = yes
-		OR = {
-			exists = event_target:pirate_waves_country
-			exists = event_target:pirate_waves_2_country
-		}
+		exists = event_target:pirate_waves_country
+		exists = event_target:pirate_waves_2_country
 	}
 	immediate = {
 		# Save this military station as our place of origin. Used in triggers.
@@ -830,18 +829,14 @@ fleet_event = {
 										effect = {
 											id = pirate_waves.2.effect.1
 											# Check if there's not already a station here because of multiple fleets.
-											if = {
-												limit = { has_military_station = no }
-												# Create a new pirate station.
-												planet_event = { id = pirate_waves.3 }
+											if = { limit = { has_military_station = no }
+												planet_event = { id = pirate_waves.3 } # Create a new pirate station.
 											}
 											# Destroy fleet if leader has died.
 											event_target:pirate_waves_fleet = {
 												if = { limit = { has_fleet_flag = pirate_waves_destroy_fleet }
 													destroy_fleet = this
-													if = { limit = { has_global_flag = debug_mode }
-														log = "Pirate Fleet '[This.GetName]' is destroyed because its leader died..."
-													}
+													if = { limit = { has_global_flag = debug_mode } log = "Pirate Fleet '[This.GetName]' is destroyed because its leader died..." }
 												}
 											}
 										}
@@ -1367,12 +1362,11 @@ country_event = {
 				has_fleet_flag = pirate_waves_station_flag
 				NOT = { has_fleet_flag = pirate_waves_station_life_flag }
 			}
-			# Spawn a new fleet from this station immediately.
-			fleet_event = { id = pirate_waves.2 days = -1 }
 			if = { limit = { has_global_flag = debug_mode } log = "Pirate Country \\[This.GetName]..." }
 			# Destroy the station
 			random = {
 				chance = 50
+				fleet_event = { id = pirate_waves.2 days = -1 } # Spawn a new fleet from this station immediately.
 				if = { limit = { has_global_flag = debug_mode } log = "Pirate Station '[This.GetName]' has build a Pirate Fleet and is destroyed..." }
 				destroy_fleet = this
 			}
