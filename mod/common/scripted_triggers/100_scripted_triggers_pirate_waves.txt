@@ -17,13 +17,35 @@
 #############################################
 # 	Triggers								#
 #############################################
+
+# Complex check to support automated testing.
+# When using human_ai, multiple countries have is_ai = no.
+# When using observe, no country has is_ai = no
+is_pirate_waves_player = {
+	is_variable_set = pirate_waves_chance
+	check_variable = { which = pirate_waves_chance value != 0 }
+	# NOT = { has_policy_flag = pirate_waves_0 }
+	# OR = {
+	# 	AND = {
+	# 		is_ai = no
+	# 		NOT = { has_policy_flag = pirate_waves_0 }
+	# 	}
+	# 	AND = {
+	# 		has_policy_flag = tutorial_level_picked
+	# 		NOT = {
+	# 			any_playable_country = { is_ai = no }
+	# 		}
+	# 	}
+	# }
+}
+
 # Checks if the mod should spawn pirates.
 is_pirate_waves_active = {
 	has_global_flag = pirate_waves_active
 	# years_passed > 9
 	NOR = {
 		has_global_flag = gray_goo_crisis_active
-		has_global_flag = marauder_crisis_ongoing
+		# has_global_flag = marauder_crisis_ongoing
 		has_global_flag = galactic_community_crisis_fighting
 	}
 	any_playable_country = { is_pirate_waves_player = yes }
@@ -214,27 +236,6 @@ is_pirate_waves_base_planet = {
 		# is_planet_class = pc_alpine
 		# is_planet_class = pc_savannah
 	}
-}
-
-# Complex check to support automated testing.
-# When using human_ai, multiple countries have is_ai = no.
-# When using observe, no country has is_ai = no
-is_pirate_waves_player = {
-	is_variable_set = pirate_waves_chance
-	check_variable = { which = pirate_waves_chance value != 0 }
-	# NOT = { has_policy_flag = pirate_waves_0 }
-	# OR = {
-	# 	AND = {
-	# 		is_ai = no
-	# 		NOT = { has_policy_flag = pirate_waves_0 }
-	# 	}
-	# 	AND = {
-	# 		has_policy_flag = tutorial_level_picked
-	# 		NOT = {
-	# 			any_playable_country = { is_ai = no }
-	# 		}
-	# 	}
-	# }
 }
 
 # DEPRECATED/LEGACY

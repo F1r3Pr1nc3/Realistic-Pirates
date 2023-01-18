@@ -26,6 +26,8 @@
  dmm_mod_pirate_waves: "$policy_pirate_waves$"
  edict_pirate_waves: "Pirate Waves Chance"
  edict_pirate_waves_desc: "Hier kann die Chance für 'Piraten-Wellen' eingestellt werden"
+ edict_pirate_waves_disabled: "$edict_pirate_waves$: §R$OFF$§"
+ edict_pirate_waves_enabled: "$edict_pirate_waves$: §G$ON$§"
  great_khan_wins_response: "Lang lebe der $RT_GREAT_KHAN$..."
  khan.710.a.tooltip: "Beherrsche jetzt die $gov_marauder_clans$ als der neue $RT_GREAT_KHAN$, um eine neue glorreiche galaktische Geschichte zu schreiben.\n$food_policy_rationing_desc$"
  marauder.31.g: "§Y[raid_target_6.GetName].§!"

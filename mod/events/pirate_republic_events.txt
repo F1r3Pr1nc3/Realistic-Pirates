@@ -93,7 +93,7 @@ country_event = {
 	immediate = {
 		random_country = {
 			limit = {
-				is_pirate = yes # only works for single country type < v3.4
+				is_pirate = yes # < v3.4 only works for single country type
 				# OR = {
 				# 	is_country_type = pirates
 				# 	is_country_type = pirate_waves_country
@@ -333,6 +333,7 @@ country_event = {
 
 ## Pirate invasion! (similar unrest.4200 and unrest.160)
 # From = probably root.owner
+# Requires not neccessarly the event targets attacked_system_star, mercenary_hirer, raid_source, because of create_pirate_waves_fleet
 planet_event = {
 	id = pirate_republic.11
 	title = pirate_republic.11.name

@@ -1,4 +1,5 @@
-namespace = unrest
+# REMOVED IN 3.6.0
+# namespace = unrest
 # ALL DEPRECATED
 # Prior 3.5 events (removed in 3.6)
 # SLAVE REVOLT CHAIN #
@@ -263,333 +264,327 @@ namespace = unrest
 # 		custom_tooltip = unrest.160.a.tooltip
 # 	}
 # }
-# Revolt Suppressed # on_planet_defenders_win
-country_event = {
-	id = unrest.161
-	title = unrest.161.name
-	desc = unrest.161.desc
-	picture = GFX_evt_announcement
-	show_sound = event_announcement
-	location = event_target:revolt_planet
-	trigger = {
-		merg_is_default_empire = yes
-		fromfrom = {
-			has_planet_flag = slave_revolt
-			controller = { is_same_empire = root }
-		}
-	}
-	is_triggered_only = yes
-	immediate = {
-		remove_country_flag = slave_revolt_chain_active
-		fromfrom = {
-			add_modifier = {
-				modifier = revolt_suppressed years = 10 
-			}
-			save_event_target_as = revolt_planet
-			remove_planet_flag = slave_revolt_chain_active
-			remove_planet_flag = slave_riots
-			remove_planet_flag = slave_resistance
-			remove_planet_flag = slave_stirring
-			remove_planet_flag = slave_revolt
-			if = { limit = { has_modifier = slave_hunger_strike }
-				remove_modifier = slave_hunger_strike
-			}
-			if = { limit = { has_modifier = adding_unrest_slaves }
-				remove_modifier = adding_unrest_slaves
-			}
-			if = { limit = { has_modifier = slave_riots }
-				remove_modifier = slave_riots
-			}
-		}
-	}
-	option = {
-		name = unrest.161.a
-		tooltip = {
-			add_modifier = {
-				modifier = revolt_suppressed years = 10 
-			}
-		}
-		custom_tooltip = unrest.161.a.tooltip
-	}
-}
+# # Revolt Suppressed # on_planet_defenders_win
+# country_event = {
+# 	id = unrest.161
+# 	title = unrest.161.name
+# 	desc = unrest.161.desc
+# 	picture = GFX_evt_announcement
+# 	show_sound = event_announcement
+# 	location = event_target:revolt_planet
+# 	trigger = {
+# 		merg_is_default_empire = yes
+# 		fromfrom = {
+# 			has_planet_flag = slave_revolt
+# 			controller = { is_same_empire = root }
+# 		}
+# 	}
+# 	is_triggered_only = yes
+# 	immediate = {
+# 		remove_country_flag = slave_revolt_chain_active
+# 		fromfrom = {
+# 			add_modifier = { modifier = revolt_suppressed years = 10 }
+# 			save_event_target_as = revolt_planet
+# 			remove_planet_flag = slave_revolt_chain_active
+# 			remove_planet_flag = slave_riots
+# 			remove_planet_flag = slave_resistance
+# 			remove_planet_flag = slave_stirring
+# 			remove_planet_flag = slave_revolt
+# 			if = { limit = { has_modifier = slave_hunger_strike }
+# 				remove_modifier = slave_hunger_strike
+# 			}
+# 			if = { limit = { has_modifier = adding_unrest_slaves }
+# 				remove_modifier = adding_unrest_slaves
+# 			}
+# 			if = { limit = { has_modifier = slave_riots }
+# 				remove_modifier = slave_riots
+# 			}
+# 		}
+# 	}
+# 	option = {
+# 		name = unrest.161.a
+# 		tooltip = {
+# 			add_modifier = { modifier = revolt_suppressed years = 10 }
+# 		}
+# 		custom_tooltip = unrest.161.a.tooltip
+# 	}
+# }
 
-# Triggers country_event for the defender upon defeat (on_planet_defenders_lose)
-# This = country, planet owner
-# From = country, attack leader
-# fromfrom = planet
-# Revolt Lost #
-country_event = {
-	id = unrest.167
-	title = unrest.167.name
-	desc = unrest.167.desc
-	picture = GFX_evt_surrender
-	show_sound = event_air_raid_siren
-	location = event_target:revolt_planet
-	is_triggered_only = yes
-	trigger = {
-		From = { is_country_type = rebel }
-		fromfrom = { has_planet_flag = slave_revolt }
-	}
-	immediate = {
-		fromfrom = {
-			save_event_target_as = revolt_planet
-			remove_planet_flag = slave_revolt_chain_active
-			remove_planet_flag = slave_riots
-			remove_planet_flag = slave_resistance
-			remove_planet_flag = slave_stirring
-			remove_planet_flag = slave_revolt
-			if = { limit = { has_modifier = slave_hunger_strike }
-				remove_modifier = slave_hunger_strike
-			}
-			if = { limit = { has_modifier = adding_unrest_slaves }
-				remove_modifier = adding_unrest_slaves
-			}
-			if = { limit = { has_modifier = slave_riots }
-				remove_modifier = slave_riots
-			}
-			kill_leader = { type = governor }
-		}
-		From = { save_event_target_as = rebel_country }
-		remove_country_flag = slave_revolt_chain_active
-		save_event_target_as = old_owner
-		fromfrom.solar_system = {
-			if = { limit = { exists = starbase }
-				starbase = { set_owner = event_target:rebel_country }
-			}
-			add_claims = {
-				who = event_target:old_owner
-				num_of_claims = 1
-				show_notification = no
-			}
-		}
-		if = {
-			limit = {
-				any_playable_country = {
-					is_egalitarian = yes
-					has_policy_flag = slavery_not_allowed
-					has_communications = root
-					any_owned_planet = {
-						distance = {
-							source = fromfrom
-							max_distance <= 300
-							min_distance >= 0
-						}
-					}
-					NOR = {
-						is_in_federation_with = root
-						is_same_empire = root
-					}
-				}
-			}
-			random_playable_country = {
-				limit = {
-					is_egalitarian = yes
-					has_policy_flag = slavery_not_allowed
-					has_communications = root
-					any_owned_planet = {
-						distance = {
-							source = fromfrom
-							max_distance <= 300
-							min_distance >= 0
-						}
-					}
-					NOR = {
-						is_in_federation_with = root
-						is_same_empire = root
-					}
-				}
-				country_event = { id = unrest.168 days = 4 }
-			}
-		}
-	}
-	option = { name = unrest.167.a }
-	option = { name = unrest.167.b }
-}
+# # Triggers country_event for the defender upon defeat (on_planet_defenders_lose)
+# # This = country, planet owner
+# # From = country, attack leader
+# # fromfrom = planet
+# # Revolt Lost #
+# country_event = {
+# 	id = unrest.167
+# 	title = unrest.167.name
+# 	desc = unrest.167.desc
+# 	picture = GFX_evt_surrender
+# 	show_sound = event_air_raid_siren
+# 	location = event_target:revolt_planet
+# 	is_triggered_only = yes
+# 	trigger = {
+# 		From = { is_country_type = rebel }
+# 		fromfrom = { has_planet_flag = slave_revolt }
+# 	}
+# 	immediate = {
+# 		fromfrom = {
+# 			save_event_target_as = revolt_planet
+# 			remove_planet_flag = slave_revolt_chain_active
+# 			remove_planet_flag = slave_riots
+# 			remove_planet_flag = slave_resistance
+# 			remove_planet_flag = slave_stirring
+# 			remove_planet_flag = slave_revolt
+# 			if = { limit = { has_modifier = slave_hunger_strike }
+# 				remove_modifier = slave_hunger_strike
+# 			}
+# 			if = { limit = { has_modifier = adding_unrest_slaves }
+# 				remove_modifier = adding_unrest_slaves
+# 			}
+# 			if = { limit = { has_modifier = slave_riots }
+# 				remove_modifier = slave_riots
+# 			}
+# 			kill_leader = { type = governor }
+# 		}
+# 		From = { save_event_target_as = rebel_country }
+# 		remove_country_flag = slave_revolt_chain_active
+# 		save_event_target_as = old_owner
+# 		fromfrom.solar_system = {
+# 			if = { limit = { exists = starbase }
+# 				starbase = { set_owner = event_target:rebel_country }
+# 			}
+# 			add_claims = {
+# 				who = event_target:old_owner
+# 				num_of_claims = 1
+# 				show_notification = no
+# 			}
+# 		}
+# 		if = {
+# 			limit = {
+# 				any_playable_country = {
+# 					is_egalitarian = yes
+# 					has_policy_flag = slavery_not_allowed
+# 					has_communications = root
+# 					any_owned_planet = {
+# 						distance = {
+# 							source = fromfrom
+# 							max_distance <= 300
+# 							min_distance >= 0
+# 						}
+# 					}
+# 					NOR = {
+# 						is_in_federation_with = root
+# 						is_same_empire = root
+# 					}
+# 				}
+# 			}
+# 			random_playable_country = {
+# 				limit = {
+# 					is_egalitarian = yes
+# 					has_policy_flag = slavery_not_allowed
+# 					has_communications = root
+# 					any_owned_planet = {
+# 						distance = {
+# 							source = fromfrom
+# 							max_distance <= 300
+# 							min_distance >= 0
+# 						}
+# 					}
+# 					NOR = {
+# 						is_in_federation_with = root
+# 						is_same_empire = root
+# 					}
+# 				}
+# 				country_event = { id = unrest.168 days = 4 }
+# 			}
+# 		}
+# 	}
+# 	option = { name = unrest.167.a }
+# 	option = { name = unrest.167.b }
+# }
 
-# Defect request #
-country_event = {
-	id = unrest.168
-	desc = unrest.168.desc
-	location = event_target:revolt_planet
-	title = TRANSMISSION
-	diplomatic = yes
-	picture_event_data = {
-		portrait = event_target:rebel_country
-		planet_background = event_target:rebel_country.capital_scope
-		city_level = event_target:rebel_country.capital_scope
-		room = event_target:rebel_country.ruler
-	}
-	trigger = { exists = event_target:old_owner }
-	# immediate = { save_event_target_as = new_owner }
-	is_triggered_only = yes
-	# YES!
-	option = {
-		name = unrest.168.a
-		ai_chance = { factor = 100 }
-		event_target:revolt_planet = {
-			set_owner = root
-			solar_system = {
-				if = { limit = { exists = starbase }
-					starbase = { set_owner = root }
-				}
-			}
-		}
-		hidden_effect = {
-			event_target:old_owner = {
-				country_event = { id = unrest.169 }
-			}
-			event_target:rebel_country = { set_country_flag = silence_destroy_event }
-			event_target:rebel_country = { destroy_country = yes }
-		}
-		custom_tooltip = unrest.168.a.tooltip
-		event_target:revolt_planet = {
-			add_modifier = { modifier = slaves_defected years = 20 }
-		}
-	}
-	# NO!
-	option = {
-		name = unrest.168.b
-		ai_chance = { factor = 0 }
-	}
-}
+# # Defect request #
+# country_event = {
+# 	id = unrest.168
+# 	desc = unrest.168.desc
+# 	location = event_target:revolt_planet
+# 	title = TRANSMISSION
+# 	diplomatic = yes
+# 	picture_event_data = {
+# 		portrait = event_target:rebel_country
+# 		planet_background = event_target:rebel_country.capital_scope
+# 		city_level = event_target:rebel_country.capital_scope
+# 		room = event_target:rebel_country.ruler
+# 	}
+# 	trigger = { exists = event_target:old_owner }
+# 	# immediate = { save_event_target_as = new_owner }
+# 	is_triggered_only = yes
+# 	# YES!
+# 	option = {
+# 		name = unrest.168.a
+# 		ai_chance = { factor = 100 }
+# 		event_target:revolt_planet = {
+# 			set_owner = root
+# 			solar_system = {
+# 				if = { limit = { exists = starbase }
+# 					starbase = { set_owner = root }
+# 				}
+# 			}
+# 		}
+# 		hidden_effect = {
+# 			event_target:old_owner = { country_event = { id = unrest.169 } }
+# 			event_target:rebel_country = { set_country_flag = silence_destroy_event }
+# 			event_target:rebel_country = { destroy_country = yes }
+# 		}
+# 		custom_tooltip = unrest.168.a.tooltip
+# 		event_target:revolt_planet = {
+# 			add_modifier = { modifier = slaves_defected years = 20 }
+# 		}
+# 	}
+# 	# NO!
+# 	option = {
+# 		name = unrest.168.b
+# 		ai_chance = { factor = 0 }
+# 	}
+# }
 
-# Slaves Defect Diplomatic Message #
-country_event = {
-	id = unrest.169
-	desc = unrest.169.desc
-	location = event_target:revolt_planet
-	title = TRANSMISSION
-	diplomatic = yes
-	picture_event_data = {
-		portrait = from
-		planet_background = from.capital_scope
-		# graphical_culture = event_target:book_writer
-		city_level = from.capital_scope
-		room = from.ruler
-	}
-	is_triggered_only = yes
-	option = {
-		name = unrest.169.a
-		add_opinion_modifier = {
-			modifier = opinion_took_in_rebels
-			who = from
-		}
-	}
-	option = {
-		name = unrest.169.b
-		add_opinion_modifier = {
-			modifier = opinion_took_in_rebels
-			who = from
-		}
-	}
-	option = {
-		name = unrest.169.c
-		add_opinion_modifier = {
-			modifier = opinion_took_in_rebels
-			who = from
-		}
-	}
-}
+# # Slaves Defect Diplomatic Message #
+# country_event = {
+# 	id = unrest.169
+# 	desc = unrest.169.desc
+# 	location = event_target:revolt_planet
+# 	title = TRANSMISSION
+# 	diplomatic = yes
+# 	picture_event_data = {
+# 		portrait = from
+# 		planet_background = from.capital_scope
+# 		# graphical_culture = event_target:book_writer
+# 		city_level = from.capital_scope
+# 		room = from.ruler
+# 	}
+# 	is_triggered_only = yes
+# 	option = {
+# 		name = unrest.169.a
+# 		add_opinion_modifier = {
+# 			modifier = opinion_took_in_rebels
+# 			who = from
+# 		}
+# 	}
+# 	option = {
+# 		name = unrest.169.b
+# 		add_opinion_modifier = {
+# 			modifier = opinion_took_in_rebels
+# 			who = from
+# 		}
+# 	}
+# 	option = {
+# 		name = unrest.169.c
+# 		add_opinion_modifier = {
+# 			modifier = opinion_took_in_rebels
+# 			who = from
+# 		}
+# 	}
+# }
 
-# End chain if no more slaves # on_monthly_pulse
-event = {
-	id = unrest.162
-	hide_window = yes
-	is_triggered_only = yes
-	trigger = {
-		any_playable_country = {
-			has_country_flag = slave_revolt_chain_active
-			any_owned_planet = {
-				has_planet_flag = slave_revolt_chain_active
-				controller = { is_same_empire = owner }
-			}
-		}
-	}
-	immediate = {
-		every_playable_country = {
-			limit = {
-				has_country_flag = slave_revolt_chain_active
-				any_owned_planet = { has_planet_flag = slave_revolt_chain_active }
-			}
-			every_owned_planet = {
-				limit = {
-					has_planet_flag = slave_revolt_chain_active
-					NOT = {
-						any_owned_pop = { is_enslaved = yes }
-					}
-				}
-				planet_event = { id = unrest.163 }
-			}
-		}
-	}
-}
+# # End chain if no more slaves # on_monthly_pulse
+# event = {
+# 	id = unrest.162
+# 	hide_window = yes
+# 	is_triggered_only = yes
+# 	trigger = {
+# 		any_playable_country = {
+# 			has_country_flag = slave_revolt_chain_active
+# 			any_owned_planet = {
+# 				has_planet_flag = slave_revolt_chain_active
+# 				controller = { is_same_empire = owner }
+# 			}
+# 		}
+# 	}
+# 	immediate = {
+# 		every_playable_country = {
+# 			limit = {
+# 				has_country_flag = slave_revolt_chain_active
+# 				any_owned_planet = { has_planet_flag = slave_revolt_chain_active }
+# 			}
+# 			every_owned_planet = {
+# 				limit = {
+# 					has_planet_flag = slave_revolt_chain_active
+# 					NOT = {
+# 						any_owned_pop = { is_enslaved = yes }
+# 					}
+# 				}
+# 				planet_event = { id = unrest.163 }
+# 			}
+# 		}
+# 	}
+# }
 
-# Planet Pacified # on_monthly_pulse
-event = {
-	id = unrest.164
-	hide_window = yes
-	is_triggered_only = yes
-	trigger = {
-		any_playable_country = {
-			has_country_flag = slave_revolt_chain_active
-			any_owned_planet = {
-				has_planet_flag = slave_revolt_chain_active
-				planet_stability >= @stabilitylevel3
-				NOR = {
-					has_modifier = slave_hunger_strike
-					has_modifier = adding_unrest_slaves
-					has_modifier = slave_riots
-				}
-			}
-		}
-	}
-	immediate = {
-		random_playable_country = {
-			limit = {
-				has_country_flag = slave_revolt_chain_active
-				any_owned_planet = {
-					has_planet_flag = slave_revolt_chain_active
-					planet_stability >= @stabilitylevel3
-					NOR = {
-						has_modifier = slave_hunger_strike
-						has_modifier = adding_unrest_slaves
-						has_modifier = slave_riots
-					}
-				}
-			}
-			random_owned_planet = {
-				limit = {
-					has_planet_flag = slave_revolt_chain_active
-					planet_stability >= @stabilitylevel3
-					NOR = {
-						has_modifier = slave_hunger_strike
-						has_modifier = adding_unrest_slaves
-						has_modifier = slave_riots
-					}
-				}
-				planet_event = { id = unrest.165 }
-			}
-		}
-	}
-}
+# # Planet Pacified # on_monthly_pulse
+# event = {
+# 	id = unrest.164
+# 	hide_window = yes
+# 	is_triggered_only = yes
+# 	trigger = {
+# 		any_playable_country = {
+# 			has_country_flag = slave_revolt_chain_active
+# 			any_owned_planet = {
+# 				has_planet_flag = slave_revolt_chain_active
+# 				planet_stability >= @stabilitylevel3
+# 				NOR = {
+# 					has_modifier = slave_hunger_strike
+# 					has_modifier = adding_unrest_slaves
+# 					has_modifier = slave_riots
+# 				}
+# 			}
+# 		}
+# 	}
+# 	immediate = {
+# 		random_playable_country = {
+# 			limit = {
+# 				has_country_flag = slave_revolt_chain_active
+# 				any_owned_planet = {
+# 					has_planet_flag = slave_revolt_chain_active
+# 					planet_stability >= @stabilitylevel3
+# 					NOR = {
+# 						has_modifier = slave_hunger_strike
+# 						has_modifier = adding_unrest_slaves
+# 						has_modifier = slave_riots
+# 					}
+# 				}
+# 			}
+# 			random_owned_planet = {
+# 				limit = {
+# 					has_planet_flag = slave_revolt_chain_active
+# 					planet_stability >= @stabilitylevel3
+# 					NOR = {
+# 						has_modifier = slave_hunger_strike
+# 						has_modifier = adding_unrest_slaves
+# 						has_modifier = slave_riots
+# 					}
+# 				}
+# 				planet_event = { id = unrest.165 }
+# 			}
+# 		}
+# 	}
+# }
 
-# From unrest.164
-planet_event = {
-	id = unrest.165
-	title = unrest.165.name
-	desc = unrest.165.desc
-	picture = GFX_evt_surrender
-	show_sound = event_administrative_work
-	location = root
-	is_triggered_only = yes
-	immediate = {
-		save_event_target_as = revolt_planet
-		remove_planet_flag = slave_revolt_chain_active
-		remove_planet_flag = slave_riots
-		remove_planet_flag = slave_resistance
-		remove_planet_flag = slave_stirring
-		remove_planet_flag = slave_revolt
-		root.owner = { remove_country_flag = slave_revolt_chain_active }
-	}
-	option = { name = OK }
-}
+# # From unrest.164
+# planet_event = {
+# 	id = unrest.165
+# 	title = unrest.165.name
+# 	desc = unrest.165.desc
+# 	picture = GFX_evt_surrender
+# 	show_sound = event_administrative_work
+# 	location = root
+# 	is_triggered_only = yes
+# 	immediate = {
+# 		save_event_target_as = revolt_planet
+# 		remove_planet_flag = slave_revolt_chain_active
+# 		remove_planet_flag = slave_riots
+# 		remove_planet_flag = slave_resistance
+# 		remove_planet_flag = slave_stirring
+# 		remove_planet_flag = slave_revolt
+# 		root.owner = { remove_country_flag = slave_revolt_chain_active }
+# 	}
+# 	option = { name = OK }
+# }

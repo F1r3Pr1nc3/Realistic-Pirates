@@ -7,11 +7,11 @@
 # Pirate Waves Event Chain.
 pirate_waves_pirate_event_chain = {
 	icon = "gfx/interface/icons/situation_log/situation_log_ship.dds"
-	picture = GFX_evt_fleet_evil
+	picture = GFX_evt_pirates_attacking_cargo # GFX_evt_pirate_armada
 	counter = {
-		pirate_kills_us = { }	
-		pirate_kills_others = { }	
-		pirate_kills_pirates = { }	
+		pirate_kills_us = { }
+		pirate_kills_others = { }
+		pirate_kills_pirates = { }
 		pirate_victims_us = { }
 		pirate_victims_others = { }
 	}

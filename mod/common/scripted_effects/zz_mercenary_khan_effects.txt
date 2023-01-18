@@ -791,6 +791,23 @@ create_fourth_diadochi = {
 	}
 }
 
+# This = System
+# Prev = old owner
+# PrevPrev = new owner = $EMPIRE$
+commit_system_to = {
+	set_timed_star_flag = { flag = switched_system days = 3 }
+	starbase = { set_owner = $EMPIRE|PREVPREVPREV$ }
+	every_system_colony = {
+		limit = {
+			has_ground_combat = no
+			is_occupied_flag = no
+			is_owned_by = prevprev
+		}
+		set_owner = $EMPIRE|PREVPREVPREV$
+	}
+	log="Balcanization preventation: Diadochi system \\[This.GetName] switched to \\[PrevPrev.GetName]!"
+}
+
 # This = root = Marauder
 get_marauder_species = {
 	# log = "GET MARAUDER SPECIES"
@@ -873,7 +890,7 @@ get_marauder_species = {
 				}
 			}
 			weights = {
-				base = 100
+				base = 2
 				# complex_trigger_modifier = { # add 10 for each unhappy pop of this species
 				# 	trigger = count_owned_pop
 				# 	trigger_scope = root
@@ -919,11 +936,11 @@ get_marauder_species = {
 				# 	}
 				# }
 				modifier = {
-					factor = 1.5
+					add = 2
 					prev = { exists = capital_scope capital_scope = { habitability = { who = prevprev value > 0.6 } } }
 				}
 				modifier = {
-					factor = 2
+					add = 6
 					prev = { any_owned_planet = { is_homeworld = yes is_same_value = prevprev.home_planet } }
 				}
 				complex_trigger_modifier = { # multiply it by the percentage of pops of the country

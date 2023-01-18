@@ -26,6 +26,8 @@
  dmm_mod_pirate_waves: "$policy_pirate_waves$"
  edict_pirate_waves: "$policy_pirate_waves$ $SETTINGS$"
  edict_pirate_waves_desc: "Здесь вы можете установить параметры для $policy_pirate_waves$"
+ edict_pirate_waves_disabled: "$edict_pirate_waves$: §R$OFF$§"
+ edict_pirate_waves_enabled: "$edict_pirate_waves$: §G$ON$§"
  great_khan_wins_response: "Да здравствует $RT_GREAT_KHAN$..."
  khan.710.a.tooltip: "Теперь управляйте $gov_marauder_clans$ как новым $RT_GREAT_KHAN$, чтобы создать новую славную галактическую историю.\n$food_policy_rationing_desc$"
  marauder.31.g: "§YThe [raid_target_6.GetName].§!"

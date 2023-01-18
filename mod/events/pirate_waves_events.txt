@@ -175,8 +175,18 @@ country_event = {
 		}
 	}
 	option = {
-		name = "edict_pirate_waves"
+		name = "edict_pirate_waves_enabled"
 		custom_tooltip = "edict_pirate_waves_desc"
+		trigger = { is_pirate_waves_active = yes }
+		allow = {
+			NOT = { has_active_event = { pirate_waves.111 pirate_waves.112 } }
+		}
+		country_event = { id = pirate_waves.111 }
+	}
+	option = {
+		name = "edict_pirate_waves_disabled"
+		custom_tooltip = "edict_pirate_waves_desc"
+		trigger = { is_pirate_waves_active = no }
 		allow = {
 			NOT = { has_active_event = { pirate_waves.111 pirate_waves.112 } }
 		}
@@ -1355,14 +1365,22 @@ country_event = {
 		# set_variable = { which = count_ship_hard value = 2000 }
 		# set_variable = { which = count_ship_insane value = 4000 }
 		set_pirates_difficulty = yes
-
+		set_variable = { which = fleet_spawn_count value = pirate_waves_difficulty }
+		change_variable = { which = fleet_spawn_count value = 3 }
+		if = { limit = { has_global_flag = debug_mode } log = "Pirate Country \\[This.GetName]..." }
 		# Go through every pirate station that needs to be managed.
 		every_owned_fleet = {
 			limit = {
+				is_ship_class = shipclass_military_station
 				has_fleet_flag = pirate_waves_station_flag
 				NOT = { has_fleet_flag = pirate_waves_station_life_flag }
+				solar_system = {
+					count_fleet_in_system = {
+						count < root.fleet_spawn_count
+						limit = { is_mobile = yes is_owned_by = root }
+					}
+				}
 			}
-			if = { limit = { has_global_flag = debug_mode } log = "Pirate Country \\[This.GetName]..." }
 			# Destroy the station
 			random = {
 				chance = 50
@@ -1372,6 +1390,7 @@ country_event = {
 			}
 		}
 	}
+	# after = { clear_variable = fleet_spawn_count }
 }
 
 # LEGACY: merged in pirate_waves.1

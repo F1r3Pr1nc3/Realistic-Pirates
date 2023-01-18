@@ -1,4 +1,4 @@
-﻿l_english:
+﻿l_spanish:
  # Slave Rebellion (was vanilla until 3.5)
  unrest.155.name:0 "$unrest_title$ Slaves Rally on [revolt_planet.GetName]"
  unrest.155.desc:0 "Clandestine slave meetings at night, raised levels of defiance towards superiors and missing goods can mean only one thing. The slaves on [revolt_planet.GetName] are radicalizing, spreading dissent and discord among their peers - and fear to the rest of the population. Whatever they are up to, it can't be good. "
