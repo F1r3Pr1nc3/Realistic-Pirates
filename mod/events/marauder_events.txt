@@ -12496,6 +12496,7 @@ country_event = {
 		every_owned_starbase = {
 			set_owner = event_target:new_khanate
 		}
+		log="Handover \\[This.GetName] to \\[event_target:new_khanate.GetName]"
 		# Full handover
 		every_owned_fleet = {
 			limit = {
@@ -12610,10 +12611,10 @@ country_event = {
 				set_owner = event_target:new_khanate
 			}
 			if = { limit = { CmtTriggerIsMarauder = no }
+				owner_species = { save_event_target_as = marauder_species }
 				add_500_unity_per_year_passed = yes
 				country_event = { id = game_start.6 days = 6 random = 4 }	# advanced_empire
 				country_event = { id = game_start.9 days = 12 random = 8 }	# empire_init_create_ships civil
-				create_fleet_from_naval_cap = 0.2 # base
 				### Units
 				create_ship_design = { design = "NAME_Pirate_Transport" }
 				add_ship_design = last_created_design
@@ -12713,6 +12714,13 @@ country_event = {
 		every_country = {
 			limit = { has_communications = root }
 			establish_communications_no_message = event_target:new_khanate
+		}
+	}
+	after = {
+		event_target:new_khanate = {
+			if = { limit = { CmtTriggerIsMarauder = no used_naval_capacity_percent < 0.75 }
+				create_fleet_from_naval_cap = 0.2
+			}
 		}
 	}
 }
