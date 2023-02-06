@@ -65,6 +65,8 @@
  outer_bulwark_MODE_DESC: "§T$tob_merc.3.name$§! is a group of mercenaries with same services with a unique spin."
  outer_bulwark_MODE_disable: "§Y$tob_merc.3.name$§! $MODIFIERS_LABEL$ §G$ON$§!"
  outer_bulwark_MODE_enable: "§Y$tob_merc.3.name$§! $MODIFIERS_LABEL$ §R$OFF$§!"
+ outer_bulwark_admiral: "$awakened_marauders_admiral$"
+ outer_bulwark_general: "$awakened_marauders_general$"
  tob_action.6.a: "$ancrel.4068.a$"
  tob_action.6.desc: "Upon the destruction of an Outer Bulwark Faction, bright §BBlue§! flashes of light were seen in what was their space, and now no trace of them is left in the galaxy. As a result, all non-mercenary members of the Outer Bulwarks have fled back into their space, leaving their contracts unfulfilled for the time being."
  tob_action.6.name: "Death of a Bulwark"

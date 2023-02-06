@@ -143,6 +143,8 @@
  NAME_BULWARK_HIGHESTDESTROYER: "Distrain"
  NAME_BULWARK_HIGHESTCRUISER: "Appropriate"
  NAME_BULWARK_HIGHESTBATTLESHIP: "Garrison"
+ outer_bulwark_admiral: "$awakened_marauders_admiral$"
+ outer_bulwark_general: "$awakened_marauders_general$"
  outer_bulwark_MODE_enable: "§Y$tob_merc.3.name$§! $MODIFIERS_LABEL$ §R$OFF$§!"
  outer_bulwark_MODE_disable: "§Y$tob_merc.3.name$§! $MODIFIERS_LABEL$ §G$ON$§!"
  outer_bulwark_MODE_DESC: "§T$tob_merc.3.name$§! is a group of mercenaries with same services with a unique spin."
