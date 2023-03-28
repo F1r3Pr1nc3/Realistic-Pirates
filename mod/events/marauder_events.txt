@@ -3628,7 +3628,7 @@ country_event = {
 					root.capital_star.starbase = { is_owned_by = root }
 				}
 				set_home_base = root.capital_star.starbase
-				set_mia = yes
+				set_mia = mia_return_home
 			} else = { set_location = root.capital_scope }
 			fleet_event = { id = marauder.50 days = 1800 }
 		}
@@ -9581,7 +9581,7 @@ country_event = {
 								}
 								if = { limit = { exists = event_target:khan_fleet.solar_system.starbase }
 									set_home_base = event_target:khan_fleet.solar_system.starbase
-									set_mia = yes
+									set_mia = mia_return_home
 								} else = {
 									event_target:khan_fleet.solar_system = {
 										random_neighbor_system = {

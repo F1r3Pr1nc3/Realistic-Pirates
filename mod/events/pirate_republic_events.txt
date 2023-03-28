@@ -731,7 +731,7 @@ planet_event = {
 					attacker_war_goal = wg_independence
 					name = {
 						key = NAME_WAR_OF_REVOLT
-						variable_string = "Root.Target.GetName"
+						variable_string = "[Root.Target.GetName]"
 					}
 				}
 				if = { limit = { is_variable_set = pirates_f_tmp }
