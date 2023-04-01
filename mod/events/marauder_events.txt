@@ -4406,9 +4406,7 @@ country_event = {
 			}
 		}
 		if = { limit = { NOT = { exists = event_target:marauder_species } }
-			owner_main_species = {
-				save_event_target_as = marauder_species
-			}
+			owner_main_species = { save_event_target_as = marauder_species }
 		}
 
 		switch = {
@@ -7018,19 +7016,16 @@ event = {
 					set_pirates_difficulty = yes
 				}
 			}
-			random_list = {
-				# Large Fleet
-				10 = {
-					event_target:marauder_merc_country = { set_country_flag = merc_fleet_1_hired }
-					if = {
-						limit = {
-							event_target:marauder_merc_country = { has_country_flag = marauder_1 }
-						}
-						event_target:mercenary_hirer = {
+			event_target:marauder_merc_country = {
+				random_list = {
+					# Large Fleet
+					10 = {
+						set_country_flag = merc_fleet_1_hired
+						if = { limit = { has_country_flag = marauder_1 }
 							create_fleet = {
 								name = "NAME_Armada_of_the_Voidborn"
 								effect = {
-									set_owner = event_target:marauder_merc_country
+									set_owner = prev
 									save_event_target_as = hired_merc_fleet
 									create_armada_of_the_voidborn = yes
 									set_location = event_target:mercenary_hirer.capital_scope
@@ -7046,16 +7041,11 @@ event = {
 								}
 							}
 						}
-					}
-					if = {
-						limit = {
-							event_target:marauder_merc_country = { has_country_flag = marauder_2 }
-						}
-						event_target:mercenary_hirer = {
+						if = { limit = { has_country_flag = marauder_2 }
 							create_fleet = {
 								name = "NAME_234th_Dwamak_Bashers"
 								effect = {
-									set_owner = event_target:marauder_merc_country
+									set_owner = prev
 									save_event_target_as = hired_merc_fleet
 									create_dwamak_bashers = yes
 									set_location = event_target:mercenary_hirer.capital_scope
@@ -7071,16 +7061,11 @@ event = {
 								}
 							}
 						}
-					}
-					if = {
-						limit = {
-							event_target:marauder_merc_country = { has_country_flag = marauder_3 }
-						}
-						event_target:mercenary_hirer = {
+						if = { limit = { has_country_flag = marauder_3 }
 							create_fleet = {
 								name = "NAME_Her_Chosen_Champions"
 								effect = {
-									set_owner = event_target:marauder_merc_country
+									set_owner = prev
 									save_event_target_as = hired_merc_fleet
 									create_her_chosen_champions = yes
 									set_location = event_target:mercenary_hirer.capital_scope
@@ -7096,27 +7081,22 @@ event = {
 								}
 							}
 						}
-					}
-					modifier = {
-						factor = 0
-						event_target:marauder_merc_country = { has_country_flag = merc_fleet_1_hired }
-						event_target:mercenary_hirer = {
-							resource_stockpile_compare = { resource = energy value < 12000 }
+						modifier = {
+							factor = 0
+							has_country_flag = merc_fleet_1_hired
+							event_target:mercenary_hirer = {
+								resource_stockpile_compare = { resource = energy value < 12000 }
+							}
 						}
 					}
-				}
-				# Medium Fleet
-				10 = {
-					event_target:marauder_merc_country = { set_country_flag = merc_fleet_2_hired }
-					if = {
-						limit = {
-							event_target:marauder_merc_country = { has_country_flag = marauder_1 }
-						}
-						event_target:mercenary_hirer = {
+					# Medium Fleet
+					10 = {
+						set_country_flag = merc_fleet_2_hired
+						if = { limit = { has_country_flag = marauder_1 }
 							create_fleet = {
 								name = "NAME_Star_Rider_Flotilla"
 								effect = {
-									set_owner = event_target:marauder_merc_country
+									set_owner = prev
 									save_event_target_as = hired_merc_fleet
 									create_star_rider_flotilla = yes
 									set_location = event_target:mercenary_hirer.capital_scope
@@ -7132,16 +7112,11 @@ event = {
 								}
 							}
 						}
-					}
-					if = {
-						limit = {
-							event_target:marauder_merc_country = { has_country_flag = marauder_2 }
-						}
-						event_target:mercenary_hirer = {
+						if = { limit = { has_country_flag = marauder_2 }
 							create_fleet = {
 								name = "NAME_Unhinged_Screamer_Flotilla"
 								effect = {
-									set_owner = event_target:marauder_merc_country
+									set_owner = prev
 									save_event_target_as = hired_merc_fleet
 									create_unhinged_screamer_flotilla = yes
 									set_location = event_target:mercenary_hirer.capital_scope
@@ -7157,16 +7132,11 @@ event = {
 								}
 							}
 						}
-					}
-					if = {
-						limit = {
-							event_target:marauder_merc_country = { has_country_flag = marauder_3 }
-						}
-						event_target:mercenary_hirer = {
+						if = { limit = { has_country_flag = marauder_3 }
 							create_fleet = {
 								name = "NAME_Order_of_Eternal_Night"
 								effect = {
-									set_owner = event_target:marauder_merc_country
+									set_owner = prev
 									save_event_target_as = hired_merc_fleet
 									create_order_of_eternal_night = yes
 									set_location = event_target:mercenary_hirer.capital_scope
@@ -7182,27 +7152,22 @@ event = {
 								}
 							}
 						}
-					}
-					modifier = {
-						factor = 0
-						event_target:marauder_merc_country = { has_country_flag = merc_fleet_2_hired }
-						event_target:mercenary_hirer = {
-							resource_stockpile_compare = { resource = energy value < 9000 }
+						modifier = {
+							factor = 0
+							has_country_flag = merc_fleet_2_hired
+							event_target:mercenary_hirer = {
+								resource_stockpile_compare = { resource = energy value < 9000 }
+							}
 						}
 					}
-				}
-				# Small Fleet
-				10 = {
-					event_target:marauder_merc_country = { set_country_flag = merc_fleet_3_hired }
-					if = {
-						limit = {
-							event_target:marauder_merc_country = { has_country_flag = marauder_1 }
-						}
-						event_target:mercenary_hirer = {
+					# Small Fleet
+					10 = {
+						set_country_flag = merc_fleet_3_hired
+						if = { limit = { has_country_flag = marauder_1 }
 							create_fleet = {
 								name = "NAME_First_Storm_Wing"
 								effect = {
-									set_owner = event_target:marauder_merc_country
+									set_owner = prev
 									save_event_target_as = hired_merc_fleet
 									create_first_storm_wing = yes
 									set_event_locked = yes
@@ -7218,16 +7183,11 @@ event = {
 								}
 							}
 						}
-					}
-					if = {
-						limit = {
-							event_target:marauder_merc_country = { has_country_flag = marauder_2 }
-						}
-						event_target:mercenary_hirer = {
+						if = { limit = { has_country_flag = marauder_2 }
 							create_fleet = {
 								name = "NAME_Frenzied_Volunteer_Squadron"
 								effect = {
-									set_owner = event_target:marauder_merc_country
+									set_owner = prev
 									save_event_target_as = hired_merc_fleet
 									create_frenzied_volunteer_squadron = yes
 									set_event_locked = yes
@@ -7243,16 +7203,11 @@ event = {
 								}
 							}
 						}
-					}
-					if = {
-						limit = {
-							event_target:marauder_merc_country = { has_country_flag = marauder_3 }
-						}
-						event_target:mercenary_hirer = {
+						if = { limit = { has_country_flag = marauder_3 }
 							create_fleet = {
 								name = "NAME_Twilight_Congregation"
 								effect = {
-									set_owner = event_target:marauder_merc_country
+									set_owner = prev
 									save_event_target_as = hired_merc_fleet
 									create_twilight_congregation = yes
 									set_event_locked = yes
@@ -7268,13 +7223,10 @@ event = {
 								}
 							}
 						}
+						modifier = { factor = 0 has_country_flag = merc_fleet_3_hired }
 					}
-					modifier = {
-						factor = 0
-						event_target:marauder_merc_country = { has_country_flag = merc_fleet_3_hired }
-					}
+					100 = { }
 				}
-				100 = { }
 			}
 			if = { limit = { exists = event_target:hired_merc_fleet }
 				event_target:mercenary_hirer = {
@@ -10394,10 +10346,7 @@ country_event = {
 				}
 			}
 			NOT = { has_active_event = { marauder.551 } }
-			custom_tooltip = {
-				text = "ACTION_ACTOR_MUST_BE_INDEPENDENT"
-				is_subject = no
-			}
+			custom_tooltip = { text = "ACTION_ACTOR_MUST_BE_INDEPENDENT" is_subject = no }
 		}
 		hidden_effect = {
 			country_event = { id = marauder.551 }
@@ -10474,10 +10423,7 @@ country_event = {
 		response_text = marauder.551.a.response
 		allow = {
 			OR = {
-				custom_tooltip = {
-					text = "ACTION_ACTOR_MUST_BE_INDEPENDENT"
-					is_subject = no
-				}
+				custom_tooltip = { text = "ACTION_ACTOR_MUST_BE_INDEPENDENT" is_subject = no }
 				is_subject_of_khan = yes
 			}
 		}
@@ -12493,9 +12439,7 @@ country_event = {
 				}
 			}
 		}
-		every_owned_starbase = {
-			set_owner = event_target:new_khanate
-		}
+		every_owned_starbase = { set_owner = event_target:new_khanate }
 		log="Handover \\[This.GetName] to \\[event_target:new_khanate.GetName]"
 		# Full handover
 		every_owned_fleet = {
