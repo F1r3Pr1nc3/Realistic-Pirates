@@ -1372,76 +1372,87 @@ country_event = {
 	id = marauder.19
 	title = "marauder_diplo_header_3"
 	desc = {
-		text = marauder.19.desc_01
-		trigger = {
+		text = "marauder.19.desc_01"
+		exclusive_trigger = {
 			from = { has_country_flag = marauder_1 }
-			has_valid_civic = civic_hive_devouring_swarm
+			has_civic = civic_hive_devouring_swarm
 		}
 	}
 	desc = {
-		text = marauder.19.desc_02
-		trigger = {
+		text = "marauder.19.desc_02"
+		exclusive_trigger = {
 			from = { has_country_flag = marauder_1 }
-			has_valid_civic = civic_fanatic_purifiers
+			has_civic = civic_fanatic_purifiers
 		}
 	}
 	desc = {
-		text = marauder.19.desc_03
-		trigger = {
+		text = "marauder.19.desc_03"
+		exclusive_trigger = {
 			from = { has_country_flag = marauder_1 }
-			has_valid_civic = civic_machine_terminator
+			has_civic = civic_machine_terminator
 		}
 	}
 	desc = {
-		text = marauder.19.2.desc_01
-		trigger = {
+		text = "marauder.19.2.desc_01"
+		exclusive_trigger = {
 			from = { has_country_flag = marauder_2 }
-			has_valid_civic = civic_hive_devouring_swarm
+			has_civic = civic_hive_devouring_swarm
 		}
 	}
 	desc = {
-		text = marauder.19.2.desc_02
-		trigger = {
+		text = "marauder.19.2.desc_02"
+		exclusive_trigger = {
 			from = { has_country_flag = marauder_2 }
-			has_valid_civic = civic_fanatic_purifiers
+			has_civic = civic_fanatic_purifiers
 		}
 	}
 	desc = {
-		text = marauder.19.2.desc_03
-		trigger = {
+		text = "marauder.19.2.desc_03"
+		exclusive_trigger = {
 			from = { has_country_flag = marauder_2 }
-			has_valid_civic = civic_machine_terminator
+			has_civic = civic_machine_terminator
 		}
 	}
 	desc = {
-		text = marauder.19.3.desc_01
-		trigger = {
+		text = "marauder.19.3.desc_01"
+		exclusive_trigger = {
 			from = { has_country_flag = marauder_3 }
-			has_valid_civic = civic_hive_devouring_swarm
+			has_civic = civic_hive_devouring_swarm
 		}
 	}
 	desc = {
-		text = marauder.19.3.desc_02
-		trigger = {
+		text = "marauder.19.3.desc_02"
+		exclusive_trigger = {
 			from = { has_country_flag = marauder_3 }
-			has_valid_civic = civic_fanatic_purifiers
+			has_civic = civic_fanatic_purifiers
 		}
 	}
 	desc = {
-		text = marauder.19.3.desc_03
-		trigger = {
+		text = "marauder.19.3.desc_03"
+		exclusive_trigger = {
 			from = { has_country_flag = marauder_3 }
-			has_valid_civic = civic_machine_terminator
+			has_civic = civic_machine_terminator
+		}
+	}
+	desc = { # FALLBACK
+		text = "04_INSULT_HOSTILE"
+		trigger = {
+			NOR = { # omit opt
+				has_valid_civic = civic_fanatic_purifiers
+				has_valid_civic = civic_machine_terminator
+				has_valid_civic = civic_hive_devouring_swarm
+			}
 		}
 	}
 	diplomatic = yes
 	picture_event_data = {
 		portrait = from
-		room = ethic_spaceship_room
+		room = "ethic_spaceship_room"
 	}
 	is_triggered_only = yes
 	force_open = yes
 	trigger = {
+		exists = from
 		from = {
 			OR = {
 				is_country_type = dormant_marauders
@@ -1458,29 +1469,27 @@ country_event = {
 					has_relation_flag = { who = prev flag = current_target }
 				}
 			}
-			# has_country_flag = marauder_diplomacy_engaged
+			has_active_event = { marauder.19 }
 		}
 	}
 	immediate = {
-		from = {
-			owner_species = { save_event_target_as = marauder_species }
-		}
-		set_timed_country_flag = { flag = bulwark_diplomacy_engaged months = 1 }
-	}
-	# after = {
-	# 	hidden_effect = { remove_country_flag = marauder_diplomacy_engaged }
-	# }
-	option = {
-		name = marauder.19.a
-		trigger = { has_valid_civic = civic_hive_devouring_swarm }
+		from.owner_species = { save_event_target_as = marauder_species }
 	}
 	option = {
-		name = marauder.19.b
-		trigger = { has_valid_civic = civic_fanatic_purifiers }
+		name = "marauder.19.a"
+		exclusive_trigger  = { has_civic = civic_hive_devouring_swarm }
 	}
 	option = {
-		name = marauder.19.c
-		trigger = { has_valid_civic = civic_machine_terminator }
+		name = "marauder.19.b"
+		exclusive_trigger  = { has_civic = civic_fanatic_purifiers }
+	}
+	option = {
+		name = "marauder.19.c"
+		exclusive_trigger  = { has_civic = civic_machine_terminator }
+	}
+	option = { # FALLBACK
+		name = "END_TRANSMISSION"
+		default_hide_option = yes
 	}
 }
 

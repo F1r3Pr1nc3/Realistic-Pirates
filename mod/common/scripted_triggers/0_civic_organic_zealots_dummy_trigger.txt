@@ -1,0 +1,5 @@
+# Supports features for "Civic: Organic Zealots"
+is_organic_zealots = {
+	optimize_memory
+	always = no
+}
