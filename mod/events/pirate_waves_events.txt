@@ -1034,27 +1034,21 @@ fleet_event = {
 								space_owner = { is_gestalt = no }
 							}
 							space_owner = {
-								owner_species = {
-									# save_event_target_as = closest_country_species
-									# Create an admiral for the pirate fleet.
-									create_leader = {
-										class = admiral
-										species = this # event_target:closest_country_species
-										name = random
-										skill = 1
-										traits = { trait = random_trait trait = random_trait }
-										effect = {
-											set_leader_flag = pirate_waves_leader
-										}
-									}
-									# Do things that need an existing fleet.
-									event_target:pirate_waves_fleet = {
-										# Assign leader
-										assign_leader = last_created_leader
-										# Randomize the name
-										set_name = random
-										if = { limit = { has_global_flag = debug_mode }
-											log = "Pirate Fleet '[This.GetName]' created..."
+								# owner_species = { save_event_target_as = closest_country_species }
+								# Create an admiral for the pirate fleet.
+								create_leader = {
+									class = admiral
+									species = owner_species # event_target:closest_country_species
+									name = random
+									skill = 3
+									traits = { trait = random_trait trait = random_trait }
+									effect = {
+										set_leader_flag = pirate_waves_leader
+										# Do things that need an existing fleet.
+										event_target:pirate_waves_fleet = {
+											assign_leader = prev # last_created_leader
+											set_name = random
+											if = { limit = { has_global_flag = debug_mode } log = "Pirate Fleet '[This.GetName]' created..." }
 										}
 									}
 								}
