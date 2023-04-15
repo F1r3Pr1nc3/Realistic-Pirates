@@ -460,7 +460,10 @@ create_marauder_successor_fleet = {
 # 				has_owner = yes
 # 				is_owned_by = root
 # 				merg_is_habitat = no
-# 				num_pops > 5
+# 				OR = {
+# 					is_sector_capital = yes
+# 					num_pops > 5
+# 				}
 # 			}
 # 		}
 # 		set_star_flag = $NUM$_diadochi_system
@@ -492,7 +495,10 @@ assign_first_diadochi_planets = {
 				has_owner = yes
 				is_owned_by = root
 				merg_is_habitat = no
-				num_pops > 5
+				OR = {
+					is_sector_capital = yes
+					num_pops > 5
+				}
 			}
 		}
 		set_star_flag = first_diadochi_system
@@ -575,7 +581,10 @@ assign_second_diadochi_planets = {
 				has_owner = yes
 				is_owned_by = root
 				merg_is_habitat = no
-				num_pops > 5
+				OR = {
+					is_sector_capital = yes
+					num_pops > 5
+				}
 			}
 		}
 		set_star_flag = second_diadochi_system
@@ -658,7 +667,10 @@ assign_third_diadochi_planets = {
 				has_owner = yes
 				is_owned_by = root
 				merg_is_habitat = no
-				num_pops > 5
+				OR = {
+					is_sector_capital = yes
+					num_pops > 5
+				}
 			}
 		}
 		set_star_flag = third_diadochi_system
@@ -740,7 +752,10 @@ assign_fourth_diadochi_planets = {
 				has_owner = yes
 				is_owned_by = root
 				merg_is_habitat = no
-				num_pops > 5
+				OR = {
+					is_sector_capital = yes
+					num_pops > 5
+				}
 			}
 		}
 		set_star_flag = fourth_diadochi_system
@@ -1025,11 +1040,11 @@ get_marauder_species = {
 			NAND = {
 				exists = event_target:marauder_species
 				pop_percentage = {
-					percentage > 0.2
+					percentage > 0.3
 					limit = { is_same_species = prev.owner_species }
 				}
 				pop_percentage = {
-					percentage > 0.2
+					percentage > 0.3
 					limit = { is_same_species = event_target:marauder_species }
 				}
 			}
@@ -1054,8 +1069,6 @@ get_marauder_species = {
 		}
 		random_owned_species = {
 			limit = {
-				# is_scope_valid = yes
-				# is_scope_type = species
 				OR = {
 					species_can_be_necrophaged = yes
 					AND = {
