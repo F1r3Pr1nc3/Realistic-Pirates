@@ -1223,7 +1223,14 @@ planet_event = {
 					}
 					fleet_event = { id = pirate_waves.2 } # Spawn fleet
 				} else = {
-					create_dyn_pirate_fleet = { Reaver = 8 }
+					create_fleet = {
+						name = "NAME_Pirate_Fleet"
+						effect = {
+							set_owner = prevprev
+							create_dyn_pirate_fleet = { Reaver = 8 }
+							set_location = prev
+						}
+					}
 				}
 				if = { limit = { has_global_flag = debug_mode } log = "Pirate Station '[This.GetName]' created..." }
 			}

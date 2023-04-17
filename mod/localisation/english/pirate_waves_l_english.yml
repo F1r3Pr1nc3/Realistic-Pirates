@@ -168,3 +168,6 @@
  marauder.31.h:0 "§YThe [raid_target_7.GetName].§!"
  marauder.31.i:0 "§YThe [raid_target_8.GetName].§!"
  marauder.31.j:0 "§YThe [raid_target_9.GetName].§!"
+ # In 3.5 Removed Vanilla Names
+ NAME_Lookouts:0 "Lookouts"
+ NAME_Pirate_Hideout:0 "Pirate Hideout"

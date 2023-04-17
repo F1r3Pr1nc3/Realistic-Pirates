@@ -19,6 +19,8 @@
  MERCENARY_MODE_disabled: "Inklusive Söldner: §R$OFF$§!"
  MERCENARY_MODE_enable_desc: "§G$ENABLE$§! $SETTINGS$ auch für Söldner."
  MERCENARY_MODE_enabled: "Inklusive Söldner: §G$ON$§!"
+ NAME_Lookouts: "Lookouts"
+ NAME_Pirate_Hideout: "Pirate Hideout"
  PRIVATEER_MODE_disable_desc: "§R$DISABLE$§! $SETTINGS$ for Privateers."
  PRIVATEER_MODE_disabled: "Inclusive Privateers: §R$OFF$§!"
  PRIVATEER_MODE_enable_desc: "§G$ENABLE$§! $SETTINGS$ also for Privateers."
