@@ -173,7 +173,8 @@ create_pirate_waves_countries = {
 				# # log = "Created the 1st Pirate country and added the pirate power..."
 				make_moderately_hostile = yes # E.g neutral to enclaves
 				set_timed_country_flag = { flag = day_0 months = 1 }
-				# TODO Remove me >v3.4
+				set_country_flag = encountered_first_primitive
+				set_country_flag = first_contact_event
 				set_country_flag = first_alien_life
 				set_country_flag = has_encountered_other_empire
 			}
@@ -225,7 +226,8 @@ create_pirate_waves_countries = {
 				# # log = "Created the 2nd Pirate country and added the pirate power..."
 				make_moderately_hostile = yes # E.g neutral to enclaves
 				set_timed_country_flag = { flag = day_0 months = 1 }
-				# TODO Remove me >v3.4
+				set_country_flag = encountered_first_primitive
+				set_country_flag = first_contact_event
 				set_country_flag = first_alien_life
 				set_country_flag = has_encountered_other_empire
 			}
@@ -410,12 +412,12 @@ set_pirates_difficulty = {
 				}
 			}
 			if = { limit = { check_variable = { which = pirates_factor value > 1 } }
-				divide_variable = { which = pirates_factor value = 1.5 }
+				multiply_variable = { which = pirates_factor value = 0.666 }
 			} else = {
 				multiply_variable = { which = pirates_factor value = 2 }
 			}
 		}
-		divide_variable = { which = pirates_factor value = 2 }		# Only half
+		multiply_variable = { which = pirates_factor value = 0.5 }		# Only half
 		# switch = { # full
 		# 	trigger = has_country_flag
 		# 	pirate_waves_very_easy = {
@@ -621,7 +623,7 @@ create_pirate_waves_fleet = {
 	set_variable		= { which = pirates_fleet_factor value = prev.pirates_factor }
 	multiply_variable	= { which = pirates_fleet_factor value = 108 } # 75
 	change_variable		= { which = pirates_fleet_factor value = 72 }
-	divide_variable		= { which = pirates_fleet_factor value = 2 }
+	multiply_variable	= { which = pirates_fleet_factor value = 0.5 }
 	round_variable = pirates_fleet_factor
 	# log = "pirates_fleet_factor [This.pirates_fleet_factor]"
 

@@ -27,7 +27,7 @@
 # # Replaced by merg_is_standard_empire
 # CmtTriggerIsEmpire = {		## Written in also Cmt50
 # 	OR = {
-# 		merg_is_standard_empire = yes
+# 		is_default_or_fallen = yes
 # 		# merg_is_default_empire = yes
 # 		# CmtTriggerIsFallenEmpire = yes
 # 		# is_country_type = default

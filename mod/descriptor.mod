@@ -1,4 +1,4 @@
-version="3.7.4.3"
+version="3.8.2.0"
 tags={
 	"Balance"
 	"Military"
@@ -9,9 +9,8 @@ tags={
 }
 dependencies={
 	"[Salvaged+]Marauders & Menacing Remodeled"
-	"The Great Khan Expanded [3.7.☠]"
 	"The Zenith of Fallen Empires 3.0"
 }
-name="Realistic Pirates [3.7.☠]"
-supported_version="3.7.*"
+name="Realistic Pirates [3.8.☠]"
+supported_version="3.8.*"
 remote_file_id="2752952962"

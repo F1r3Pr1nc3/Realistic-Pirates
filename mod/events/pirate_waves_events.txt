@@ -1041,7 +1041,6 @@ fleet_event = {
 									species = owner_species # event_target:closest_country_species
 									name = random
 									skill = 3
-									traits = { trait = random_trait trait = random_trait }
 									effect = {
 										set_leader_flag = pirate_waves_leader
 										# Do things that need an existing fleet.

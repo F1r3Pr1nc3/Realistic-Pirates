@@ -87,8 +87,8 @@ country_event = {
 					event_leader = yes							# Prevents this leader from leading factions and winning elections.
 					immortal = yes							# can't be killed (not even in battle, unless fleet is destroyed)
 					traits = {
-						trait = leader_trait_bulwark_numbers
-						trait = leader_trait_bulwark_default
+						0 = leader_trait_bulwark_numbers
+						0 = leader_trait_bulwark_default
 					}
 					effect = {
 						set_leader_flag = bulwark_numbers_commander
@@ -114,8 +114,8 @@ country_event = {
 					event_leader = yes							# Prevents this leader from leading factions and winning elections.
 					immortal = yes							# can't be killed (not even in battle, unless fleet is destroyed)
 					traits = {
-						trait = leader_trait_bulwark_techies
-						trait = leader_trait_bulwark_default
+						0 = leader_trait_bulwark_techies
+						0 = leader_trait_bulwark_default
 					}
 					effect = {
 						set_leader_flag = bulwark_techies_commander
@@ -142,8 +142,8 @@ country_event = {
 					event_leader = yes							# Prevents this leader from leading factions and winning elections.
 					immortal = yes							# can't be killed (not even in battle, unless fleet is destroyed)
 					traits = {
-						trait = leader_trait_bulwark_monsters
-						trait = leader_trait_bulwark_default
+						0 = leader_trait_bulwark_monsters
+						0 = leader_trait_bulwark_default
 					}
 					effect = {
 						set_leader_flag = bulwark_monsters_commander
@@ -281,7 +281,6 @@ country_event = {
 			skill = 1
 			event_leader = yes				# Prevents this leader from leading factions and winning elections.
 			immortal = yes				# can't be killed (not even in battle, unless fleet is destroyed)
-			traits = { trait = random_trait }
 		}
 		create_fleet = {
 			settings = {

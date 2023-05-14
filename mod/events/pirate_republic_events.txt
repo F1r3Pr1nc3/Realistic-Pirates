@@ -531,18 +531,17 @@ planet_event = {
 			establish_communications_no_message = root.owner
 			set_relation_flag = { flag = rebelling_pirates_former_owner who = root.owner }
 			create_leader = {
-				class = ruler
+				class = random_ruler
 				species = event_target:leader_species
 				name = random
 				skill = 3
-				traits = { trait = random_trait }
 				effect = {
 					# prev = { assign_leader = prev } not working
-					add_random_leader_trait = yes
+					add_trait = random_common
 				}
 			}
 			assign_leader = last_created_leader
-			# ruler = { add_random_leader_trait = yes }
+			# ruler = { add_trait = random_common }
 			set_pirates_difficulty = yes
 			# Create a fleet based on fleet power.
 			create_fleet = {
@@ -565,9 +564,8 @@ planet_event = {
 				species = event_target:leader_species
 				name = random
 				skill = 2
-				traits = { trait = random_trait }
 				effect = {
-					add_random_leader_trait = yes
+					add_trait = random_common
 				}
 			}
 			event_target:pirate_waves_fleet = { assign_leader = last_created_leader }
@@ -679,10 +677,9 @@ planet_event = {
 				species = event_target:leader_species
 				name = random
 				skill = 2
-				traits = { trait = random_trait }
 				effect = {
 					# last_created_army = { assign_leader = prev } not working
-					add_random_leader_trait = yes
+					add_trait = random_common
 				}
 			}
 			random_owned_army = {
@@ -781,14 +778,13 @@ planet_event = {
 						establish_communications_no_message = root.owner
 						set_relation_flag = { flag = rebelling_pirates_former_owner who = root.owner }
 						create_leader = {
-							class = ruler
+							class = random_ruler
 							species = owner_species
 							name = random
 							skill = 2
-							traits = { trait = random_trait }
 						}
 						assign_leader = last_created_leader
-						ruler = { add_random_leader_trait = yes }
+						ruler = { add_trait = random_common }
 						set_pirates_difficulty = yes
 						# Create a fleet based on fleet power.
 						create_fleet = {
@@ -811,8 +807,7 @@ planet_event = {
 							species = event_target:rebellion_species
 							name = random
 							skill = 2
-							traits = { trait = random_trait }
-							effect = { add_random_leader_trait = yes }
+							effect = { add_trait = random_common }
 						}
 						root = {
 							owner = {
@@ -1323,14 +1318,14 @@ starbase_event = {
 				is_country_type = rebel
 				is_pirate = yes
 				AND = {
-					merg_is_standard_empire = yes
+					is_default_or_fallen = yes
 					root.from.owner = { is_country_type = rebel }
 				}
 			}
 		}
 		from.owner = {
 			OR = {
-				merg_is_standard_empire = yes
+				is_default_or_fallen = yes
 				is_pirate = yes
 				is_country_type = rebel
 			}
@@ -1341,11 +1336,11 @@ starbase_event = {
 		# 	limit = {
 		# 		exists = owner
 		# 		owner = {
-		# 			merg_is_standard_empire = yes
+		# 			is_default_or_fallen = yes
 		# 		}
 		# 		starbase = {
 		# 			owner = {
-		# 				merg_is_standard_empire = yes
+		# 				is_default_or_fallen = yes
 		# 				NOR = {
 		# 					is_same_empire = from
 		# 					is_at_war_with = prevprev.owner
@@ -1476,9 +1471,8 @@ event = {
 										species = event_target:rebel_country.owner_species
 										name = random
 										skill = 1
-										traits = { trait = random_trait }
 										effect = {
-											add_random_leader_trait = yes
+											add_trait = random_common
 										}
 									}
 									last_created_fleet = { assign_leader = last_created_leader }
