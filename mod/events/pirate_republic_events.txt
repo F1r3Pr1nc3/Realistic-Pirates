@@ -535,13 +535,9 @@ planet_event = {
 				species = event_target:leader_species
 				name = random
 				skill = 3
-				effect = {
-					# prev = { assign_leader = prev } not working
-					add_trait = random_common
-				}
+				effect = { add_trait = random_common }
 			}
 			assign_leader = last_created_leader
-			# ruler = { add_trait = random_common }
 			set_pirates_difficulty = yes
 			# Create a fleet based on fleet power.
 			create_fleet = {
@@ -564,9 +560,7 @@ planet_event = {
 				species = event_target:leader_species
 				name = random
 				skill = 2
-				effect = {
-					add_trait = random_common
-				}
+				effect = { add_trait = random_common }
 			}
 			event_target:pirate_waves_fleet = { assign_leader = last_created_leader }
 
@@ -677,10 +671,7 @@ planet_event = {
 				species = event_target:leader_species
 				name = random
 				skill = 2
-				effect = {
-					# last_created_army = { assign_leader = prev } not working
-					add_trait = random_common
-				}
+				effect = { add_trait = random_common }
 			}
 			random_owned_army = {
 				limit = {
@@ -782,9 +773,9 @@ planet_event = {
 							species = owner_species
 							name = random
 							skill = 2
+							effect = { add_trait = random_common }
 						}
 						assign_leader = last_created_leader
-						ruler = { add_trait = random_common }
 						set_pirates_difficulty = yes
 						# Create a fleet based on fleet power.
 						create_fleet = {
@@ -1250,7 +1241,7 @@ country_event = {
 			}
 		}
 		hidden_effect = {
-			event_target:old_owner = { country_event = { id = unrest.169 } }
+			event_target:old_owner = { country_event = { id = pirate_republic.169 } }
 			event_target:pirate_republic = {
 				# Full handover
 				every_owned_fleet = {
@@ -1468,12 +1459,10 @@ event = {
 									limit = { NOT = { any_owned_leader = { leader_class = general } } }
 									create_leader = {
 										class = general
-										species = event_target:rebel_country.owner_species
+										species = owner_species
 										name = random
-										skill = 1
-										effect = {
-											add_trait = random_common
-										}
+										skill = 2
+										effect = { add_trait = random_common }
 									}
 									last_created_fleet = { assign_leader = last_created_leader }
 								} else = {
@@ -1552,6 +1541,68 @@ event = {
 				}
 				log="Destroy rebel country"
 				destroy_country = yes
+			}
+		}
+		# FIX pirate_waves leaders
+		if = {
+			limit = {
+				is_pirate_waves_active = yes
+				OR = {
+					exists = event_target:pirate_waves_country
+					exists = event_target:pirate_waves_2_country
+				}
+			}
+			every_country = {
+				limit = {
+					OR = {
+						is_pirate = yes
+						is_country_type = rebel
+					}
+				}
+				every_controlled_fleet = {
+					limit = {
+						is_mobile = yes
+						is_civilian = no
+						exists = leader
+						leader = { NOT = { is_owned_by = prevprev } }
+					}
+					leader = { set_owner = prevprev }
+				}
+				random_owned_planet = {
+					limit = {
+						exists = leader
+						leader = { NOT = { is_owned_by = prevprev } }
+					}
+					leader = { set_owner = prevprev }
+				}
+			}
+			every_playable_country = {
+				limit = {
+					any_owned_leader = {
+						leader_class = admiral
+						has_leader_flag = pirate_waves_leader
+					}
+				}
+				random_owned_leader = {
+					limit = {
+						leader_class = admiral
+						has_leader_flag = pirate_waves_leader
+					}
+					weights = { base = 1 modifier = { add = 5 exists = fleet } }
+					if = {
+						limit = {
+							exists = fleet
+							NOT = { fleet = { is_controlled_by = prevprev } }
+						}
+						set_owner = fleet.owner
+					} else = {
+						random_list = {
+							1 = { random_country = { limit = { OR = { is_pirate = yes is_country_type = rebel } } prev = { set_owner = prev } } }
+							2 = { modifier = { factor = 0 NOT = { exists = event_target:pirate_waves_country	} } set_owner = event_target:pirate_waves_country }
+							3 = { modifier = { factor = 0 NOT = { exists = event_target:pirate_waves_2_country	} } set_owner = event_target:pirate_waves_2_country }
+						}
+					}
+				}
 			}
 		}
 	}
@@ -1763,4 +1814,43 @@ country_event = {
 		}
 	}
 	option = { name = pirate_republic.104.option }
+}
+
+# Former Vanilla unrest.169
+# Slaves Defect Diplomatic Message # From unrest.168 on_planet_defenders_lose
+country_event = {
+	id = pirate_republic.169 # unrest.169
+	desc = unrest.169.desc
+	location = event_target:revolt_planet
+	title = TRANSMISSION
+	diplomatic = yes
+	picture_event_data = {
+		portrait = from
+		planet_background = from.capital_scope
+		#graphical_culture = event_target:book_writer
+		city_level = from.capital_scope
+		room = from.ruler
+	}
+	is_triggered_only = yes
+	option = {
+		name = unrest.169.a
+		add_opinion_modifier = {
+			modifier = opinion_took_in_rebels
+			who = from
+		}
+	}
+	option = {
+		name = unrest.169.b
+		add_opinion_modifier = {
+			modifier = opinion_took_in_rebels
+			who = from
+		}
+	}
+	option = {
+		name = unrest.169.c
+		add_opinion_modifier = {
+			modifier = opinion_took_in_rebels
+			who = from
+		}
+	}
 }

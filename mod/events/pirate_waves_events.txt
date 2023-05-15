@@ -29,56 +29,54 @@ country_event = {
 		## Auto activate Pirate Waves.
 		## Try to prefill settings
 		# For pirate_waves.112
-		if = {
-			limit = { is_variable_set = pirate_waves_difficulty }
+		if = { limit = { is_variable_set = pirate_waves_difficulty }
 			set_variable = { which = pirate_waves_difficulty_prev value = pirate_waves_difficulty }
-		} else = {
-			if = {
-				limit = { exists = event_target:pirate_waves_country }
-				save_event_target_as = current_pirate_country
-			} else_if = {
-				limit = { exists = event_target:pirate_waves_2_country }
+		}
+		else = {
+			if = { limit = { exists = event_target:pirate_waves_country }
 				save_event_target_as = current_pirate_country
 			}
-			if = {
-				limit = { exists = event_target:current_pirate_country }
+			else_if = { limit = { exists = event_target:pirate_waves_2_country }
+				save_event_target_as = current_pirate_country
+			}
+			if = { limit = { exists = event_target:current_pirate_country }
 				event_target:current_pirate_country = {
 					set_pirates_difficulty = yes
 					prev = {
 						set_variable = { which = pirate_waves_difficulty value = prev.pirate_waves_difficulty }
 					}
 				}
-			} else_if = {
+			}
+			else_if = {
 				limit = {
 					exists = event_target:global_event_country
 					event_target:global_event_country = { is_variable_set = CmtVarFleetPower_Khan }
 				}
 				# Fallback: Take default settings from Crisis Manager.
 				event_target:global_event_country = {
-					if = {
-						limit = { check_variable = { which = CmtVarFleetPower_Khan value > 2.1 } }
+					if = { limit = { check_variable = { which = CmtVarFleetPower_Khan value > 2.1 } }
 						prev = { set_variable = { which = pirate_waves_difficulty value = 5 } }
-					} else_if = {
-						limit = { check_variable = { which = CmtVarFleetPower_Khan value > 1.74 } }
+					}
+					else_if = { limit = { check_variable = { which = CmtVarFleetPower_Khan value > 1.74 } }
 						prev = { set_variable = { which = pirate_waves_difficulty value = 4 } }
-					} else_if = {
-						limit = { check_variable = { which = CmtVarFleetPower_Khan value > 1.44 } }
+					}
+					else_if = { limit = { check_variable = { which = CmtVarFleetPower_Khan value > 1.44 } }
 						prev = { set_variable = { which = pirate_waves_difficulty value = 3 } }
-					} else_if = {
-						limit = { check_variable = { which = CmtVarFleetPower_Khan value < 0.55 } }
+					}
+					else_if = { limit = { check_variable = { which = CmtVarFleetPower_Khan value < 0.55 } }
 						prev = { set_variable = { which = pirate_waves_difficulty value = 0 } }
-					} else_if = {
-						limit = { check_variable = { which = CmtVarFleetPower_Khan value < 0.95 } }
+					}
+					else_if = { limit = { check_variable = { which = CmtVarFleetPower_Khan value < 0.95 } }
 						prev = { set_variable = { which = pirate_waves_difficulty value = 1 } }
-					} else = {
+					}
+					else = {
 						prev = { set_variable = { which = pirate_waves_difficulty value = 2 } }
 					}
 				}
 			}
 		}
 		# For pirate_waves.111
-		if = {
-			limit = { NOT = { is_variable_set = pirate_waves_chance } }
+		if = { limit = { NOT = { is_variable_set = pirate_waves_chance } }
 			if = {
 				limit = {
 					is_multiplayer = yes
@@ -99,7 +97,8 @@ country_event = {
 						}
 					}
 				}
-			} else_if = {
+			}
+			else_if = {
 				limit = {
 					any_playable_country = { is_pirate_waves_player = yes }
 				}
@@ -109,10 +108,12 @@ country_event = {
 						set_variable = { which = pirate_waves_chance value = prev.pirate_waves_chance }
 					}
 				}
-			} else = {
+			}
+			else = {
 				set_variable = { which = pirate_waves_chance value = 5 }
 			}
-		} else_if = {
+		}
+		else_if = {
 			limit = {
 				is_variable_set = pirate_waves_chance
 				check_variable = { which = pirate_waves_chance value != 0 }
@@ -124,8 +125,7 @@ country_event = {
 	after = {
 		hidden_effect = {
 			# Compatiblity for CrisisManager-MidGame
-			if = {
-				limit = { is_variable_set = pirate_waves_difficulty_prev }
+			if = { limit = { is_variable_set = pirate_waves_difficulty_prev }
 				clear_variable = pirate_waves_difficulty_prev
 			}
 			event_target:global_event_country = {
@@ -144,8 +144,7 @@ country_event = {
 						set_variable = { which = CmtVarFleetPower_Khan_prev value = CmtVarFleetPower_Khan }
 					}
 					event_target:current_pirate_country = {
-						switch = {
-							trigger = has_country_flag
+						switch = { trigger = has_country_flag
 							pirate_waves_very_easy = {
 								prev = { set_variable = { which = CmtVarFleetPower_Khan value = 0.5 } }
 							}
@@ -166,8 +165,8 @@ country_event = {
 							}
 						}
 					}
-				} else_if = {
-					limit = { is_variable_set = CmtVarFleetPower_Khan_prev }
+				}
+				else_if = { limit = { is_variable_set = CmtVarFleetPower_Khan_prev }
 					set_variable = { which = CmtVarFleetPower_Khan value = CmtVarFleetPower_Khan_prev }
 					clear_variable = CmtVarFleetPower_Khan_prev
 				}
@@ -956,8 +955,7 @@ fleet_event = {
 											}
 											# Destroy fleet if leader has died.
 											event_target:pirate_waves_fleet = {
-												if = {
-													limit = { has_fleet_flag = pirate_waves_destroy_fleet }
+												if = { limit = { has_fleet_flag = pirate_waves_destroy_fleet }
 													if = { limit = { has_global_flag = debug_mode }
 														log = "Pirate Fleet '[This.GetName]' is destroyed because its leader died..."
 													}
@@ -1006,8 +1004,7 @@ fleet_event = {
 								effect = {
 									id = pirate_waves.2.effect.3
 									event_target:pirate_waves_fleet = {
-										if = {
-											limit = { has_fleet_flag = pirate_waves_destroy_fleet }
+										if = { limit = { has_fleet_flag = pirate_waves_destroy_fleet }
 											destroy_fleet = this
 											if = { limit = { has_global_flag = debug_mode }
 												log = "Pirate Fleet '[This.GetName]' is destroyed because its leader died..."
@@ -1037,12 +1034,13 @@ fleet_event = {
 								# owner_species = { save_event_target_as = closest_country_species }
 								# Create an admiral for the pirate fleet.
 								create_leader = {
+									name = random
 									class = admiral
 									species = owner_species # event_target:closest_country_species
-									name = random
 									skill = 3
 									effect = {
 										set_leader_flag = pirate_waves_leader
+										set_owner = event_target:current_pirate_country
 										# Do things that need an existing fleet.
 										event_target:pirate_waves_fleet = {
 											assign_leader = prev # last_created_leader
@@ -1052,6 +1050,15 @@ fleet_event = {
 									}
 								}
 							}
+						}
+					}
+					event_target:pirate_waves_fleet = {
+						if = {
+							limit = {
+								exists = leader
+								leader = { NOT = { is_owned_by = prev.owner } }
+							}
+							leader = { set_owner = prev.owner }
 						}
 					}
 				}
@@ -1088,7 +1095,8 @@ planet_event = {
 					save_event_target_as = current_pirate_country
 					if = { limit = { has_global_flag = debug_mode } log = "Pirate country: \\[This.GetName]..." }
 				}
-			} else_if = {
+			}
+			else_if = {
 				limit = {
 					any_fleet_in_system = {
 						exists = owner
@@ -1099,7 +1107,8 @@ planet_event = {
 					save_event_target_as = current_pirate_country
 					if = { limit = { has_global_flag = debug_mode } log = "Pirate country: \\[This.GetName]..." }
 				}
-			} else = {
+			}
+			else = {
 				random_list = {
 					50 = {
 						modifier = {
@@ -1170,8 +1179,7 @@ planet_event = {
 					# Add some shields
 					add_modifier = { modifier = pirate_waves_station }
 					# Add modifiers 10 years after started.
-					if = {
-						limit = { years_passed > 30 }
+					if = { limit = { years_passed > 30 }
 						random_list = {
 							5 = { modifier = { factor = 0 years_passed > 75 } add_modifier = { modifier = pirate_station_level_1 } }
 							5 = { modifier = { factor = 0 OR = { years_passed < 40	years_passed > 90 } } add_modifier = { modifier = pirate_station_level_2 } }
@@ -1221,7 +1229,8 @@ planet_event = {
 						}
 					}
 					fleet_event = { id = pirate_waves.2 } # Spawn fleet
-				} else = {
+				}
+				else = {
 					create_fleet = {
 						name = "NAME_Pirate_Fleet"
 						effect = {
@@ -1472,7 +1481,8 @@ country_event = {
 			from = {
 				add_resource = { minerals = 250 energy = 250 engineering_research = 100 unity = 50 }
 			}
-		} else_if = {
+		}
+		else_if = {
 			limit = {
 				fromfrom = {
 					OR = {
@@ -1486,7 +1496,8 @@ country_event = {
 			from = {
 				add_resource = { minerals = 200 energy = 200 engineering_research = 80 unity = 40 }
 			}
-		} else_if = {
+		}
+		else_if = {
 			limit = {
 				fromfrom = {
 					OR = {
@@ -1498,7 +1509,8 @@ country_event = {
 			from = {
 				add_resource = { minerals = 20 energy = 20 engineering_research = 8 unity = 4 }
 			}
-		} else_if = {
+		}
+		else_if = {
 			limit = {
 				fromfrom = {
 					OR = {
@@ -1510,7 +1522,8 @@ country_event = {
 			from = {
 				add_resource = { minerals = 10 energy = 10 engineering_research = 4 unity = 2 }
 			}
-		} else_if = {
+		}
+		else_if = {
 			limit = {
 				fromfrom = {
 					OR = {
@@ -1662,8 +1675,7 @@ country_event = {
 	# immediate = {}
 	after = {
 		hidden_effect = {
-			if = {
-				limit = { NOT = { has_active_event = { pirate_waves.0 pirate_waves.112 } } }
+			if = { limit = { NOT = { has_active_event = { pirate_waves.0 pirate_waves.112 } } }
 				country_event = { id = pirate_waves.0 }
 			}
 		}
@@ -1860,8 +1872,7 @@ country_event = {
 	# immediate = {}
 	after = {
 		hidden_effect = {
-			if = {
-				limit = { NOT = { has_active_event = { pirate_waves.0 pirate_waves.111 } } }
+			if = { limit = { NOT = { has_active_event = { pirate_waves.0 pirate_waves.111 } } }
 				country_event = { id = pirate_waves.0 }
 			}
 
@@ -1871,8 +1882,7 @@ country_event = {
 					check_variable = { which = pirate_waves_difficulty_prev value != pirate_waves_difficulty }
 				}
 				clear_variable = pirate_waves_difficulty_prev
-				if = {
-					limit = { exists = event_target:pirate_waves_2_country }
+				if = { limit = { exists = event_target:pirate_waves_2_country }
 					event_target:pirate_waves_2_country = {
 						remove_country_flag = pirate_waves_spawn_allowed
 						remove_country_flag = pirate_waves_very_easy
@@ -1895,20 +1905,19 @@ country_event = {
 					set_pirates_difficulty = yes
 					event_target:pirate_waves_2_country = {
 						set_variable = { which = pirate_waves_difficulty value = prev.pirate_waves_difficulty }
-						if = {
-							limit = { check_variable = { which = pirate_waves_difficulty value = 0 } }
+						if = { limit = { check_variable = { which = pirate_waves_difficulty value = 0 } }
 							set_country_flag = pirate_waves_very_easy
-						} else_if = {
-							limit = { check_variable = { which = pirate_waves_difficulty value = 1 } }
+						}
+						else_if = { limit = { check_variable = { which = pirate_waves_difficulty value = 1 } }
 							set_country_flag = pirate_waves_easy
-						} else_if = {
-							limit = { check_variable = { which = pirate_waves_difficulty value = 2 } }
+						}
+						else_if = { limit = { check_variable = { which = pirate_waves_difficulty value = 2 } }
 							set_country_flag = pirate_waves_medium
-						} else_if = {
-							limit = { check_variable = { which = pirate_waves_difficulty value = 3 } }
+						}
+						else_if = { limit = { check_variable = { which = pirate_waves_difficulty value = 3 } }
 							set_country_flag = pirate_waves_hard
-						} else_if = {
-							limit = { check_variable = { which = pirate_waves_difficulty value = 4 } }
+						}
+						else_if = { limit = { check_variable = { which = pirate_waves_difficulty value = 4 } }
 							set_country_flag = pirate_waves_insane
 						}
 					}
@@ -2021,10 +2030,10 @@ country_event = {
 	is_triggered_only = yes
 	# trigger = { always = no }
 	immediate = {
-		if = {
-			limit = { has_global_flag = pirate_waves_notifications_disabled }
+		if = { limit = { has_global_flag = pirate_waves_notifications_disabled }
 			remove_global_flag = pirate_waves_notifications_disabled
-		} else = { set_global_flag = pirate_waves_notifications_disabled }
+		}
+		else = { set_global_flag = pirate_waves_notifications_disabled }
 	}
 }
 
@@ -2117,12 +2126,10 @@ country_event = {
 	# trigger = { always = no }
 	immediate = {
 		set_timed_global_flag = { flag = pirate_waves_666 days = 15 }
-		if = {
-			limit = { exists = event_target:pirate_waves_country }
+		if = { limit = { exists = event_target:pirate_waves_country }
 			event_target:pirate_waves_country = { set_country_flag = silence_destroy_event destroy_country = yes }
 		}
-		if = {
-			limit = { exists = event_target:pirate_waves_2_country }
+		if = { limit = { exists = event_target:pirate_waves_2_country }
 			event_target:pirate_waves_2_country = { set_country_flag = silence_destroy_event destroy_country = yes }
 		}
 	}
@@ -2343,7 +2350,8 @@ event = {
 					}
 					save_event_target_as = marauder_capital
 				}
-			} else = {
+			}
+			else = {
 				random_neighbor_system = {
 					limit = {
 						is_pirate_system = yes
@@ -2462,7 +2470,8 @@ event = {
 					save_global_event_target_as = marauder_country_3
 					shift_ethic = ethic_fanatic_spiritualist
 					event_target:marauder_capital.solar_system = { set_star_flag = marauder_capital_3 set_star_flag = marauder_system }
-				} else_if = {
+				}
+				else_if = {
 					limit = {
 						NOR = {
 							exists = event_target:marauder_country_2
@@ -2475,7 +2484,8 @@ event = {
 					set_country_flag = marauder_2
 					save_global_event_target_as = marauder_country_2
 					event_target:marauder_capital.solar_system = { set_star_flag = marauder_capital_2 set_star_flag = marauder_system }
-				} else_if = {
+				}
+				else_if = {
 					limit = {
 						NOR = {
 							exists = event_target:marauder_country_1
@@ -2488,7 +2498,8 @@ event = {
 					set_country_flag = marauder_1
 					save_global_event_target_as = marauder_country_1
 					event_target:marauder_capital.solar_system = { set_star_flag = marauder_capital_1 set_star_flag = marauder_system }
-				} else = {
+				}
+				else = {
 					set_country_flag = silence_destroy_event
 					destroy_country = yes
 					if = { limit = { has_global_flag = debug_mode } log = "Already all Marauder exists!?" }
@@ -2531,8 +2542,7 @@ event = {
 								}
 							}
 							set_owner = event_target:marauder_starbase_owner
-							if = {
-								limit = { exists = leader }
+							if = { limit = { exists = leader }
 								leader = { set_owner = event_target:marauder_starbase_owner }
 							}
 						}
@@ -2625,8 +2635,7 @@ event = {
 									}
 								}
 								set_owner = event_target:marauder_starbase_owner
-								if = {
-									limit = { exists = leader }
+								if = { limit = { exists = leader }
 									leader = { set_owner = event_target:marauder_starbase_owner }
 								}
 							}

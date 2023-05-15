@@ -819,8 +819,7 @@ country_event = {
 	desc = {
 		trigger = {
 			hidden:fromfrom = {
-				switch = {
-					trigger = has_country_flag
+				switch = { trigger = has_country_flag
 					marauder_1 = { text = marauder.7.1.desc }
 					marauder_2 = { text = marauder.7.2.desc }
 					marauder_3 = { text = marauder.7.3.desc }
@@ -1313,8 +1312,7 @@ country_event = {
 	desc = {
 		trigger = {
 			hidden:event_target:encountered_marauder = {
-				switch = {
-					trigger = has_country_flag
+				switch = { trigger = has_country_flag
 					marauder_1 = { text = marauder.15.1.desc }
 					marauder_2 = { text = marauder.15.2.desc }
 					marauder_3 = { text = marauder.15.3.desc }
@@ -2928,8 +2926,7 @@ country_event = {
 			effect = {
 				save_event_target_as = marauder_raiding_country
 				event_target:raiding_marauder = {
-					switch = {
-						trigger = has_country_flag
+					switch = { trigger = has_country_flag
 						marauder_1 = { prev = { set_country_flag = marauder_1 } }
 						marauder_2 = { prev = { set_country_flag = marauder_2 } }
 						marauder_3 = { prev = { set_country_flag = marauder_3 } }
@@ -3399,8 +3396,7 @@ country_event = {
 		# Create global Rally Point event_targets.
 		event_target:current_marauder_diplomacy = {
 			get_marauder_species = yes
-			switch = {
-				trigger = has_country_flag
+			switch = { trigger = has_country_flag
 				marauder_1 = {
 					save_global_event_target_as = marauder_country_1
 					if = { limit = { NOT = { exists = event_target:CmtTargetMarauderRallyPoint1 } }
@@ -3472,8 +3468,7 @@ country_event = {
 			# Create global Rally Point event_targets.
 			event_target:current_marauder_diplomacy = {
 				get_marauder_species = yes
-				switch = {
-					trigger = has_country_flag
+				switch = { trigger = has_country_flag
 					marauder_1 = {
 						save_global_event_target_as = marauder_country_1
 						if = { limit = { NOT = { exists = event_target:CmtTargetMarauderRallyPoint1 } }
@@ -3496,8 +3491,7 @@ country_event = {
 			}
 		}
 		else = { log_error = "Missing current_marauder_diplomacy" }
-		switch = {
-			trigger = has_country_flag
+		switch = { trigger = has_country_flag
 			# Hire Armada of the Voidborn.
 			merc_fleet_1_1_hired = {
 				remove_country_flag = merc_fleet_1_1_hired
@@ -4276,8 +4270,7 @@ country_event = {
 			owner_main_species = { save_event_target_as = marauder_species }
 		}
 
-		switch = {
-			trigger = has_country_flag
+		switch = { trigger = has_country_flag
 			marauder_1 = {
 				event_target:marauder_rally_point = {
 					# CmtEffectCreateAdmiralty_KhanMercenaries1 = yes
@@ -4731,8 +4724,7 @@ country_event = {
 			effect = {
 				save_event_target_as = marauder_raiding_country
 				event_target:raiding_marauder = {
-					switch = {
-						trigger = has_country_flag
+					switch = { trigger = has_country_flag
 						marauder_1 = { prev = { set_country_flag = marauder_1 } }
 						marauder_2 = { prev = { set_country_flag = marauder_2 } }
 						marauder_3 = { prev = { set_country_flag = marauder_3 } }
@@ -5652,8 +5644,7 @@ planet_event = {
 	option = {
 		name = marauder.104.a
 		owner = {
-			switch = {
-				trigger = has_country_flag
+			switch = { trigger = has_country_flag
 				marauder_tribute_1@event_target:marauder_country = { add_resource = { energy = -200 minerals = -200 food = -50 } }
 				marauder_tribute_2@event_target:marauder_country = { add_resource = { energy = -300 minerals = -300 food = -100 } }
 				marauder_tribute_3@event_target:marauder_country = { add_resource = { energy = -500 minerals = -500 food = -150 } }
@@ -5706,8 +5697,7 @@ planet_event = {
 		owner = {
 			set_variable = { which = destruction_amount value = 3 }
 			if = { limit = { exists = event_target:marauder_country }
-				switch = {
-					trigger = has_country_flag
+				switch = { trigger = has_country_flag
 					marauder_tribute_1@event_target:marauder_country = { set_variable = { which = destruction_amount value = 1 } }
 					marauder_tribute_2@event_target:marauder_country = { set_variable = { which = destruction_amount value = 2 } }
 					marauder_tribute_3@event_target:marauder_country = { set_variable = { which = destruction_amount value = 3 } }
@@ -5760,8 +5750,7 @@ planet_event = {
 	option = {
 		name = marauder.106.a
 		owner = {
-			switch = {
-				trigger = has_country_flag
+			switch = { trigger = has_country_flag
 				marauder_tribute_1@event_target:marauder_country = { add_resource = { energy = -200 minerals = -200 food = -50 } }
 				marauder_tribute_2@event_target:marauder_country = { add_resource = { energy = -300 minerals = -300 food = -100 } }
 				marauder_tribute_3@event_target:marauder_country = { add_resource = { energy = -500 minerals = -500 food = -150 } }
@@ -5795,8 +5784,7 @@ planet_event = {
 		owner = {
 			set_variable = { which = destruction_amount value = 5 }
 			if = { limit = { exists = event_target:marauder_country }
-				switch = {
-					trigger = has_country_flag
+				switch = { trigger = has_country_flag
 					marauder_tribute_1@event_target:marauder_country = { set_variable = { which = destruction_amount value = 3 } }
 					marauder_tribute_2@event_target:marauder_country = { set_variable = { which = destruction_amount value = 4 } }
 					marauder_tribute_3@event_target:marauder_country = { set_variable = { which = destruction_amount value = 5 } }
@@ -5844,8 +5832,7 @@ planet_event = {
 	option = {
 		name = marauder.108.a
 		owner = {
-			switch = {
-				trigger = has_country_flag
+			switch = { trigger = has_country_flag
 				marauder_tribute_1@event_target:marauder_country = { add_resource = { energy = -200 minerals = -200 food = -50 } }
 				marauder_tribute_2@event_target:marauder_country = { add_resource = { energy = -300 minerals = -300 food = -100 } }
 				marauder_tribute_3@event_target:marauder_country = { add_resource = { energy = -500 minerals = -500 food = -150 } }
@@ -6479,8 +6466,7 @@ event = {
 						save_event_target_as = marauder_raiding_country
 						make_moderately_hostile = yes
 						event_target:raiding_marauder = {
-							switch = {
-								trigger = has_country_flag
+							switch = { trigger = has_country_flag
 								marauder_1 = { prev = { set_country_flag = marauder_1 } }
 								marauder_2 = { prev = { set_country_flag = marauder_2 } }
 								marauder_3 = { prev = { set_country_flag = marauder_3 } }
@@ -6514,23 +6500,13 @@ event = {
 							change_variable = { which = raidcost value = pirates_factor }
 							multiply_variable = { which = raidcost value = 0.5 } # Take only 50% weight
 							multiply_variable = { which = raidcost value = pirates_factor } # As it is only half for marauders.
-							switch = { # Price depending on difficulty?
-								trigger = has_country_flag
-								pirate_waves_very_easy = {
-									multiply_variable = { which = raidcost value = 0.5 }
-								}
-								pirate_waves_easy = {
-									multiply_variable = { which = raidcost value = 0.75 }
-								}
-								pirate_waves_hard = {
-									multiply_variable = { which = raidcost value = 1.25 }
-								}
-								pirate_waves_very_hard = {
-									multiply_variable = { which = raidcost value = 1.5 }
-								}
-								pirate_waves_insane = {
-									multiply_variable = { which = raidcost value = 2 }
-								}
+							# Price depending on difficulty?
+							switch = { trigger = has_country_flag
+								pirate_waves_very_easy	= { multiply_variable = { which = raidcost value = 0.5 } }
+								pirate_waves_easy		= { multiply_variable = { which = raidcost value = 0.75 } }
+								pirate_waves_hard		= { multiply_variable = { which = raidcost value = 1.25 } }
+								pirate_waves_very_hard	= { multiply_variable = { which = raidcost value = 1.5 } }
+								pirate_waves_insane		= { multiply_variable = { which = raidcost value = 2 } }
 							}
 							round_variable_to_closest = { which = raidcost value = 0.01 }
 							# round_variable = raidcost
@@ -7795,53 +7771,69 @@ country_event = {
 				class = admiral
 				skill = 10
 				event_leader = yes
+				can_manually_change_location = no
+				can_see_in_list = no
+				randomize_traits = no
+				# FIXME: Vanilla bug: traits does not work
 				traits = {
-					0 = leader_trait_great_khan
+					# 0 = leader_trait_great_khan
 					0 = leader_trait_chosen
 					# 0 = leader_trait_eager
 				}
-				# effect = {
-				# 	set_leader_flag = great_khan
-				# 	save_global_event_target_as = great_khan
-				# 	recruitable = no
-				# }
 			}
 		}
-		else_if = { ### NSC SUPPORT
-			limit = { has_global_flag = has_nsc_active }
-			clone_leader = {
-				target = ruler
-				class = admiral
-				traits = { trait = nsc_freebooter_admiral_trait_great_khan }
-				skill = 7
-			}
-		}
+		# else_if = { ### NSC SUPPORT
+		# 	limit = { has_global_flag = has_nsc_active }
+		# 	clone_leader = {
+		# 		target = ruler
+		# 		class = admiral
+		# 		traits = { trait = nsc_freebooter_admiral_trait_great_khan }
+		# 		skill = 7
+		# 	}
+		# }
 		else = {
 			clone_leader = {
 				target = event_target:great_khan_ruler
 				class = admiral
 				skill = 6
 				event_leader = yes
+				can_manually_change_location = no
+				can_see_in_list = no
+				randomize_traits = no
+				# FIXME: Vanilla bug: traits does not work
 				traits = {
 					0 = leader_trait_great_khan
 					# 0 = leader_trait_chosen
 					0 = leader_trait_fleet_organizer
 					# 0 = leader_trait_eager
 				}
-				# effect = {
-				# 	set_leader_flag = great_khan
-				# 	save_global_event_target_as = great_khan
-				# 	recruitable = no
-				# }
 			}
 		}
 		last_created_leader = {
-			if = { limit = { NOT = { has_trait = leader_trait_fleet_logistician } }
-				add_trait = leader_trait_fleet_logistician
-			}
 			set_leader_flag = great_khan
 			save_global_event_target_as = great_khan
 			recruitable = no
+			add_trait = leader_trait_great_khan
+			add_trait = leader_trait_chosen
+			add_trait = subclass_admiral_aggressor
+			if = { limit = { owner = { has_country_flag = marauder_1 } }
+				add_trait = leader_trait_master_gunner
+			}
+			if = { limit = { owner = { has_country_flag = marauder_2 } }
+				add_trait = leader_trait_demolisher_destiny
+			}
+			if = { limit = { owner = { has_country_flag = marauder_3 } }
+				add_trait = leader_trait_destiny_engineer
+			}
+			random_list = {
+				1 = { add_trait = leader_trait_annihilator_3 add_trait = leader_trait_artillerist_3 add_trait = leader_trait_demolisher_3 }
+				1 = { add_trait = leader_trait_wrecker_3 add_trait = leader_trait_artillerist_3 add_trait = leader_trait_demolisher_3 }
+				1 = { add_trait = leader_trait_wrecker_3 add_trait = leader_trait_annihilator_3 add_trait = leader_trait_demolisher_3 }
+				1 = { add_trait = leader_trait_wrecker_3 add_trait = leader_trait_annihilator_3 add_trait = leader_trait_artillerist_3 }
+			}
+			if = { limit = { NOT = { has_trait = leader_trait_fleet_logistician } }
+				add_trait = leader_trait_fleet_logistician
+			}
 		}
 		owner_species = { save_event_target_as = marauder_species }
 
@@ -9018,8 +9010,7 @@ country_event = {
 	desc = {
 		trigger = {
 			hidden:from = {
-				switch = {
-					trigger = has_country_flag
+				switch = { trigger = has_country_flag
 					khan_dead_poison	= { text = marauder.513.a.desc }
 					khan_dead_disease	= { text = marauder.513.b.desc }
 					khan_dead_assassin	= { text = marauder.513.c.desc }
@@ -10472,8 +10463,7 @@ country_event = {
 								while = { count = 2 CmtEffectCreateShip_VoidChampion = yes }		## 8
 								prev = {
 									CmtEffectProgressLoop2 = yes
-									switch = {
-										trigger = has_country_flag
+									switch = { trigger = has_country_flag
 										CmtFlagLoopA = { prev = { CmtEffectCreateShip_Lancer = yes } }
 										CmtFlagLoopZ = { prev = { CmtEffectCreateShip_Outrider = yes } }
 									}
@@ -12010,8 +12000,7 @@ country_event = {
 				}
 			}
 
-			switch = {
-				trigger = has_country_flag
+			switch = { trigger = has_country_flag
 				marauder_1 = { random_system_within_border = { limit = { has_star_flag = marauder_capital_1 } save_event_target_as = marauder_capital } }
 				marauder_2 = { random_system_within_border = { limit = { has_star_flag = marauder_capital_2 } save_event_target_as = marauder_capital } }
 				marauder_3 = { random_system_within_border = { limit = { has_star_flag = marauder_capital_3 } save_event_target_as = marauder_capital } }
@@ -12442,8 +12431,7 @@ country_event = {
 			create_ship_design = { design = "NAME_Marauder_Starbase" }
 			add_ship_design = last_created_design
 			root = {
-				switch = {
-					trigger = has_country_flag
+				switch = { trigger = has_country_flag
 					marauder_1 = { prev = { set_country_flag = marauder_1 save_global_event_target_as = marauder_country_1 } }
 					marauder_2 = { prev = { set_country_flag = marauder_2 save_global_event_target_as = marauder_country_2 } }
 					marauder_3 = { prev = { set_country_flag = marauder_3 save_global_event_target_as = marauder_country_3 shift_ethic = ethic_fanatic_spiritualist } }
@@ -12504,8 +12492,7 @@ country_event = {
 				}
 			}
 			if = { limit = { exists = event_target:marauder_capital }
-				switch = {
-					trigger = has_country_flag
+				switch = { trigger = has_country_flag
 					marauder_1 = { event_target:marauder_capital.solar_system = { set_star_flag = marauder_capital_1 } }
 					marauder_2 = { event_target:marauder_capital.solar_system = { set_star_flag = marauder_capital_2 } }
 					marauder_3 = { event_target:marauder_capital.solar_system = { set_star_flag = marauder_capital_3 } }
@@ -13858,7 +13845,6 @@ country_event = {
 				# 	}
 				# }
 			} # else = {
-
 			if = { # Only Ruler dead?
 				limit = { exists = event_target:great_khan }
 				event_target:great_khan = {
@@ -13924,41 +13910,39 @@ country_event = {
 			# 		# }
 					# }
 			# } else = {
-				clone_leader = {
-					target = event_target:great_khan_ruler
-					class = admiral
-					skill = 7
-					event_leader = yes
-					can_manually_change_location = no
-					can_see_in_list = no
+			clone_leader = {
+				target = event_target:great_khan_ruler
+				class = admiral
+				skill = 7
+				event_leader = yes
+				can_manually_change_location = no
+				can_see_in_list = no
 				randomize_traits = no
 				# FIXME: Vanilla bug: traits does not work
-					traits = {
-						0 = leader_trait_great_khan
-						0 = leader_trait_chosen
-						# 0 = leader_trait_fleet_logistician
-						# 0 = leader_trait_eager
-					}
+				traits = {
+					0 = leader_trait_great_khan
+					0 = leader_trait_chosen
+					# 0 = leader_trait_fleet_logistician
+					# 0 = leader_trait_eager
+				}
 			}
 
 			last_created_leader = {
 				add_trait = leader_trait_great_khan
 				add_trait = leader_trait_chosen
 				add_trait = subclass_admiral_aggressor
-				if = { limit = { owner = { has_country_flag = marauder_1 } }
-					add_trait = leader_trait_master_gunner
-				}
-				else_if = { limit = { owner = { has_country_flag = marauder_2 } }
-					add_trait = leader_trait_demolisher_destiny
-				}
-				else_if = { limit = { owner = { has_country_flag = marauder_3 } }
-					add_trait = leader_trait_destiny_engineer
+				owner = {
+					switch = { trigger = has_country_flag
+						marauder_1 = { prev = { add_trait = leader_trait_master_gunner } }
+						marauder_2 = { prev = { add_trait = leader_trait_demolisher_destiny } }
+						marauder_3 = { prev = { add_trait = leader_trait_destiny_engineer } }
+					}
 				}
 				random_list = {
-					1 = { add_trait = leader_trait_annihilator_3 add_trait = leader_trait_artillerist_3 add_trait = leader_trait_demolisher_3 }
-					1 = { add_trait = leader_trait_wrecker_3 add_trait = leader_trait_artillerist_3 add_trait = leader_trait_demolisher_3 }
-					1 = { add_trait = leader_trait_wrecker_3 add_trait = leader_trait_annihilator_3 add_trait = leader_trait_demolisher_3 }
-					1 = { add_trait = leader_trait_wrecker_3 add_trait = leader_trait_annihilator_3 add_trait = leader_trait_artillerist_3 }
+					1 = { add_trait = leader_trait_annihilator_3 add_trait = leader_trait_demolisher_3	add_trait = leader_trait_artillerist_3 }
+					1 = { add_trait = leader_trait_artillerist_3 add_trait = leader_trait_demolisher_3	add_trait = leader_trait_wrecker_3 }
+					1 = { add_trait = leader_trait_annihilator_3 add_trait = leader_trait_demolisher_3	add_trait = leader_trait_wrecker_3 }
+					1 = { add_trait = leader_trait_annihilator_3 add_trait = leader_trait_artillerist_3	add_trait = leader_trait_wrecker_3 }
 				}
 
 				if = { limit = { NOT = { has_trait = leader_trait_fleet_logistician } }
