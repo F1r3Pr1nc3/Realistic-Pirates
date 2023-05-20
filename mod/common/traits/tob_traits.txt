@@ -1,12 +1,19 @@
 leader_trait_bulwark_numbers = {
 	cost = 1
-	icon = "gfx/interface/icons/traits/leader_traits/leader_trait_ship.dds"
+	# icon = "gfx/interface/icons/traits/leader_traits/leader_trait_ship.dds"
+	inline_script = {
+		script = trait/icon
+		CLASS = admiral
+		ICON = "GFX_leader_trait_ship"
+		RARITY = common
+		COUNCIL = no
+		TIER = none
+	}
 	modifier = {
 		ship_speed_mult = 0.2
 		ship_fire_rate_mult = 0.25
 		ship_evasion_mult = 0.1
 	}
-	leader_trait = { admiral }
 	leader_class = { admiral }
 	initial = no
 	randomized = no
@@ -14,7 +21,15 @@ leader_trait_bulwark_numbers = {
 
 leader_trait_bulwark_default = {
 	cost = 1
-	icon = "gfx/interface/icons/traits/leader_traits/leader_trait_ship.dds"
+	# icon = "gfx/interface/icons/traits/leader_traits/leader_trait_ship.dds"
+	inline_script = {
+		script = trait/icon
+		CLASS = admiral
+		ICON = "GFX_leader_trait_ship"
+		RARITY = veteran
+		COUNCIL = no
+		TIER = none
+	}
 	modifier = {
 		ship_armor_regen_add_perc = 1	# 5 v3.4
 		ship_hull_regen_add_perc = 1	# 5 v3.4
@@ -24,7 +39,6 @@ leader_trait_bulwark_default = {
 		ship_winddown_mult = -0.5
 		ship_windup_mult = -0.5
 	}
-	leader_trait = { admiral }
 	leader_class = { admiral }
 	initial = no
 	randomized = no
@@ -32,7 +46,15 @@ leader_trait_bulwark_default = {
 
 leader_trait_bulwark_techies = {
 	cost = 1
-	icon = "gfx/interface/icons/traits/leader_traits/leader_trait_ship.dds"
+	# icon = "gfx/interface/icons/traits/leader_traits/leader_trait_ship.dds"
+	inline_script = {
+		script = trait/icon
+		CLASS = admiral
+		ICON = "GFX_leader_trait_ship"
+		RARITY = veteran
+		COUNCIL = no
+		TIER = none
+	}
 	modifier = {
 		ship_armor_damage_mult = 0.2
 		ship_hull_damage_mult = 0.2
@@ -42,7 +64,6 @@ leader_trait_bulwark_techies = {
 		ship_disengage_chance_reduction = 0.5
 		ship_evasion_mult = -1
 	}
-	leader_trait = { admiral }
 	leader_class = { admiral }
 	initial = no
 	randomized = no
@@ -50,7 +71,15 @@ leader_trait_bulwark_techies = {
 
 leader_trait_bulwark_monsters = {
 	cost = 1
-	icon = "gfx/interface/icons/traits/leader_traits/leader_trait_ship.dds"
+	# icon = "gfx/interface/icons/traits/leader_traits/leader_trait_ship.dds"
+	inline_script = {
+		script = trait/icon
+		CLASS = admiral
+		ICON = "GFX_leader_trait_ship"
+		RARITY = veteran
+		COUNCIL = no
+		TIER = none
+	}
 	modifier = {
 		damage_vs_country_type_amoeba_mult = 1
 		damage_vs_country_type_cloud_mult = 1
@@ -91,7 +120,6 @@ leader_trait_bulwark_monsters = {
 		ship_shield_penetration_mult = 0.3
 		ship_orbital_bombardment_mult = -0.33
 	}
-	leader_trait = { admiral }
 	leader_class = { admiral }
 	initial = no
 	randomized = no

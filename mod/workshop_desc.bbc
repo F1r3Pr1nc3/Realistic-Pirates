@@ -29,7 +29,7 @@ If you decide to disable this mod in the game loader or unsubscribe the mod, som
 Compatible with savegames.
 ✔️ Should be compatible with most mods (as [url=///steamcommunity.com/workshop/filedetails/2604437397]merger_trigger[/url] are used), some mods might influence the gameplay if they modify the pirate ships.
 ✔️ [b]NSC2[/b] must be below
-✔️ [b][url=//steamcommunity.com/workshop/filedetails/2508704523]The Great Khan Expanded[/url][/b] should not matter
+✔️ [url=//steamcommunity.com/workshop/filedetails/2508704523]The Great Khan Expanded[/url] should not matter
 • There is a full patched [b]marauder_events.txt[/b] included as an aside (depends on load order, e.g. should be below ZoFE and Marauders Remodeled).
 • Khorgis Khan (should be above)
 • The difficult settings for Marauders are overridden by the [url=//steamcommunity.com/workshop/filedetails/?id=2491573516]Crisis Manager Mid-Game Edition[/url].
@@ -87,3 +87,4 @@ Which will immediately remove all pirate stations and fleets from the galaxy and
 Donations are always welcomed: [url=//paypal.me/supportfireprince]If you wanna support me.[/url]
 [URL=//discordapp.com/invite/CMjnnET][IMG]//i.imgur.com/4Und3QN.png[/IMG][/URL]
 [img]//i.imgur.com/fVVaDCS.gif[/img]
+[url=//github.com/F1r3Pr1nc3/Realistic-Pirates]● GitHub repository[/url]
