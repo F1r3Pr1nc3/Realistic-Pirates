@@ -68,10 +68,12 @@ CmtTriggerIsKhanCountry = {
 	NOT = { has_country_flag = khan_dead_event_fine } # CmtFlagKhanDeadCountry replaced with vanilla
 }
 
-# CmtTriggerExistKhanCountry = {
-# 	any_country = { CmtTriggerIsKhanCountry = yes }
-# }
-
-# CmtTriggerNowInKhanCrisis = {
-# 	any_country = { is_country_type = awakened_marauders }
-# }
+# Replaced CmtTriggerExistKhanCountry
+CmtTriggerNowInKhanCrisis = {
+	any_country = { CmtTriggerIsKhanCountry = yes }
+	# exists = event_target:raider_khanate
+	# any_country = {
+	# 	is_country_type = awakened_marauders
+	# 	is_same_empire = event_target:raider_khanate
+	# }
+}

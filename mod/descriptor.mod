@@ -1,4 +1,4 @@
-version="3.8.2.2"
+version="3.8.4.0"
 tags={
 	"Balance"
 	"Military"
@@ -9,7 +9,7 @@ tags={
 }
 dependencies={
 	"[Salvaged+]Marauders & Menacing Remodeled"
-	"The Zenith of Fallen Empires 3.0"
+	"The Zenith of Fallen Empires 4.0"
 }
 name="Realistic Pirates [3.8.☠]"
 supported_version="3.8.*"
