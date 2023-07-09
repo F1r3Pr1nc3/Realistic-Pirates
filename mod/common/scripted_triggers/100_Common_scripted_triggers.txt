@@ -13,39 +13,6 @@
 ###- Check Country Type -###
 ############################
 
-### Replaced merg_is_default_empire
-### DEPRECATED
-# CmtTriggerIsPlayableEmpire = {
-# 	OR = {		## Written in also Cmt40 and Cmt50.
-# 		# is_country_type = default
-# 		# is_zofe_country = yes # is_zofe_compatible
-# 		merg_is_default_empire = yes
-# 		is_ai = no
-# 	}
-# }
-
-# # Replaced by merg_is_standard_empire
-# CmtTriggerIsEmpire = {		## Written in also Cmt50
-# 	OR = {
-# 		is_default_or_fallen = yes
-# 		# merg_is_default_empire = yes
-# 		# CmtTriggerIsFallenEmpire = yes
-# 		# is_country_type = default
-# 		is_ai = no
-# 		# is_zofe_country = yes # is_zofe_compatible
-# 		# is_country_type = fallen_empire
-# 		# is_country_type = awakened_fallen_empire
-# 	}
-# }
-
-# is_zofe_country = {
-# 	always = no
-# 	# OR = {
-# 	# 	is_country_type = ascended_empire
-# 	# 	is_country_type = lost_empire
-# 	# }
-# }
-
 ### Mid-Game Crises ###
 CmtTriggerIsMarauder = {
 	OR = {

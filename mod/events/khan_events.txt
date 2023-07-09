@@ -17,6 +17,7 @@ event = {
 		# Config only for minimal compatibility Crisis Manager.
 		if = {
 			limit = {
+				exists = event_target:global_event_country
 				NOT = { has_global_flag = CmtFlagActivated }
 				NAND = {
 					exists = event_target:CmtGlobalVar
@@ -24,11 +25,11 @@ event = {
 					event_target:CmtGlobalVar = { is_variable_set = CmtVarFleetPower_Khan }
 				}
 			}
-			if = { limit = { NOT = { exists = event_target:global_event_country } }
-				random_country = { limit = { is_country_type = global_event }
-					save_global_event_target_as = global_event_country
-				}
-			}
+			# if = { limit = { NOT = { exists = event_target:global_event_country } }
+			# 	random_country = { limit = { is_country_type = global_event }
+			# 		save_global_event_target_as = global_event_country
+			# 	}
+			# }
 			event_target:global_event_country = {
 				set_variable = { which = CmtVarKhanMultiple value = 2 }
 				set_variable = { which = CmtVarKhanInterval value = 0 }
@@ -99,7 +100,7 @@ system_event = {
 				}
 			}
 			set_timed_star_flag = { flag = marauder_starbase_destroyed months = 2 }
-			set_timed_star_flag = { flag = marauder_starbase_destroyed days = 10 }
+			set_timed_star_flag = { flag = starbase_destroyed days = 10 }
 			# space_owner = {
 			# 	if = {
 			# 		limit = { graphical_culture = pirate_01 }
@@ -1372,7 +1373,7 @@ country_event = {
 				}
 			}
 			leave_alliance = { override_requirements = yes }
-		} else_if = { limit = { is_subject = yes exists = overlord }
+		} else_if = { limit = { is_subject = yes }
 			overlord = { # Much less likely
 				change_variable = { which = "planets_lost_to_marauder" value = 2 }
 			}
@@ -1404,11 +1405,18 @@ country_event = {
 			# Khan wins immediately
 			if = {
 				limit = {
-					count_playable_country = {
-						limit = { is_subject = no }
-						count < 3
-					}
 					has_global_flag = gf_great_khan_active
+					OR = {
+						galaxy_percentage > 0.5
+						count_playable_country = {
+							limit = {
+								is_subject = no
+								has_been_declared_crisis = no
+								fleet_power > 40000
+							}
+							count < 3
+						}
+					}
 				}
 				country_event = { id = khan.298 days = 7 } # Notify global
 				set_global_flag = great_khan_wins
@@ -1739,7 +1747,7 @@ country_event = {
 							modifier = { factor = 3 is_bottleneck_system = yes }
 							modifier = {
 								factor = 5
-								any_system_colony = { exists = owner is_under_colonization = no }
+								any_system_colony = { is_under_colonization = no }
 							}
 						}
 						starbase = {
@@ -2135,12 +2143,22 @@ country_event = {
 			random_system_within_border = {
 				limit = {
 					exists = starbase
-					any_system_planet = {
-						is_star = no
-						NOR = {
-							has_planet_flag = megastructure
-							has_planet_flag = has_megastructure
+					NOT = {
+						any_system_planet = {
+							OR = {
+								has_planet_flag = habitat
+								has_planet_flag = megastructure
+								has_planet_flag = has_megastructure
+							}
 						}
+					}
+					any_system_planet = {
+						# is_star = no
+						is_a_planet = yes # possible inconsisent due other mods
+						# NOR = {
+						# 	has_planet_flag = megastructure
+						# 	has_planet_flag = has_megastructure
+						# }
 					}
 				}
 				weights = {
@@ -2149,11 +2167,6 @@ country_event = {
 					modifier = { add = 1 starbase = { has_starbase_size >= starbase_starhold } }
 					modifier = { add = 3
 						any_system_planet = {
-							is_a_planet = yes # possible inconsisent due other mods
-							NOR = {
-								has_planet_flag = megastructure
-								has_planet_flag = has_megastructure
-							}
 							OR = {
 								is_colony = yes
 								has_planet_flag = marauder_rally_point
@@ -2195,13 +2208,19 @@ fleet_event = {
 					is_idle = yes
 					has_leader_flag = restored_admiral@root
 				}
+				is_councilor = no
+				is_ruler = no
 			}
 		}
 	}
 	immediate = {
 		owner = {
 			random_owned_leader = {
-				limit = { leader_class = admiral }
+				limit = {
+					leader_class = admiral
+					is_councilor = no
+					is_ruler = no
+				}
 				weights = {
 					base = 1
 					modifier = { add = 9 has_leader_flag = restored_admiral@root }
@@ -2339,7 +2358,7 @@ system_event = {
 						add = 3
 						OR = {
 							uses_district_set = habitat
-							is_ringworld = yes
+							has_ringworld_output_boost = yes
 						}
 					}
 				}

@@ -644,6 +644,7 @@ planet_event = {
 								owner = event_target:pirate_republic
 								species = prev.species
 								type = "rebel_slave_defense_army"
+								land_army = yes
 							}
 						}
 					}
@@ -656,6 +657,7 @@ planet_event = {
 							owner = event_target:pirate_republic
 							species = prev.species
 							type = "rebel_slave_defense_army"
+							land_army = yes
 						}
 					}
 				}
@@ -856,6 +858,7 @@ planet_event = {
 									owner = event_target:pirate_republic
 									species = event_target:rebellion_species
 									type = "rebel_slave_defense_army"
+									land_army = yes
 								}
 							}
 						}
@@ -1772,6 +1775,7 @@ country_event = {
 					owner = root
 					species = owner_species
 					type = "marauder_defense_army"
+					land_army = yes
 				}
 				random_owned_pop = {
 					limit = {

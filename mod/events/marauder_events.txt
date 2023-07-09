@@ -8528,6 +8528,7 @@ country_event = {
 							owner = root
 							species = event_target:marauder_country_1.owner_species
 							type = "marauder_defense_army"
+							land_army = yes
 						}
 						change_variable = { which = CmtVarTemp value = -1 }
 					}
@@ -8541,6 +8542,7 @@ country_event = {
 							owner = root
 							species = event_target:marauder_country_2.owner_species
 							type = "marauder_defense_army"
+							land_army = yes
 						}
 						change_variable = { which = CmtVarTemp value = -1 }
 					}
@@ -8554,6 +8556,7 @@ country_event = {
 							owner = root
 							species = event_target:marauder_country_3.owner_species
 							type = "marauder_defense_army"
+							land_army = yes
 						}
 						change_variable = { which = CmtVarTemp value = -1 }
 					}
@@ -8565,6 +8568,7 @@ country_event = {
 						owner = root
 						species = root.species
 						type = "marauder_defense_army"
+						land_army = yes
 					}
 					change_variable = { which = CmtVarTemp value = -1 }
 				}
@@ -8615,6 +8619,7 @@ country_event = {
 						owner = from
 						species = prev
 						type = "marauder_defense_army"
+						land_army = yes
 					}
 				}
 			}
@@ -9637,7 +9642,8 @@ country_event = {
 								move_to = prev
 								wait = { duration = 1 }
 								merge_fleet = {
-									target = prev # Error?
+									# target = prev # Error?
+									target = event_target:khan_fleet # Error?
 									allow_ftl = yes
 								}
 							}
@@ -14026,7 +14032,7 @@ country_event = {
 			skill = 4
 			leader_age_min = 25
 			leader_age_max = 45
-			traits = { 0 = leader_trait_mercenary_warrior }
+			traits = { trait = leader_trait_mercenary_warrior }
 		}
 		custom_tooltip = gain_marauder_admiral
 	}

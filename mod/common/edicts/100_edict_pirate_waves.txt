@@ -10,8 +10,8 @@ pirate_waves = {
 		cost = { influence = 0 }
 	}
 	potential = {
-		is_ai = no
 		NOR = {
+			is_ai = yes
 			has_global_flag = dmm_installed
 			has_global_flag = modmenu_installed
 			# has_global_flag = z_modmenu_installed
