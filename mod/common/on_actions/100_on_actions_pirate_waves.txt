@@ -29,7 +29,8 @@ on_press_begin = {
 }
 
 # No scope, like on_game_start
-on_monthly_pulse = {
+# on_monthly_pulse = {
+on_yearly_pulse = {
 	events = {
 		# pirate_waves.5 # Create pirate countries
 		pirate_waves.1 # Create pirate stations

@@ -748,7 +748,7 @@ event = {
 			limit = { is_pirate_waves_player = yes }
 			random = {
 				chance = pirate_waves_chance
-				country_event = { id = pirate_waves.4 days = 2 random = 29 }
+				country_event = { id = pirate_waves.4 days = 2 random = 28 }
 				if = {
 					limit = { has_global_flag = debug_mode }
 					log = "Attempt to spawn a new Pirate Station started (\\[This.pirate_waves_chance]% chance)..."
@@ -775,6 +775,15 @@ fleet_event = {
 		is_pirate_waves_active = yes
 		exists = event_target:pirate_waves_country
 		exists = event_target:pirate_waves_2_country
+		solar_system = {
+			count_fleet_in_system = {
+				count < 10
+				limit = {
+					exists = owner
+					is_owned_by = root.owner
+				}
+			}
+		}
 	}
 	immediate = {
 		# Save this military station as our place of origin. Used in triggers.
@@ -1197,9 +1206,7 @@ planet_event = {
 					# Create the station
 					# create_pirate_waves_station = yes
 					random_list = {
-						80 = {
-							create_ship = { design = "NAME_Pirate_Nest" graphical_culture = "pirate_01" }
-						}
+						80 = { create_ship = { design = "NAME_Pirate_Nest" graphical_culture = "pirate_01" } }
 						20 = {
 							modifier = { factor = 0 exists = event_target:current_pirate_country mid_game_years_passed < 0 }
 							modifier = { factor = 12 NOT = { exists = event_target:current_pirate_country } }
@@ -1453,7 +1460,12 @@ country_event = {
 				is_ship_class = shipclass_military_station
 				has_fleet_flag = pirate_waves_station_flag
 				NOT = { has_fleet_flag = pirate_waves_station_life_flag }
+				exists = solar_system
 				solar_system = {
+					count_fleet_in_system = {
+						count < 10
+						limit = { is_owned_by = root }
+					}
 					count_fleet_in_system = {
 						count < root.fleet_spawn_count
 						limit = { is_mobile = yes is_owned_by = root }
@@ -2816,7 +2828,7 @@ event = {
 			limit = {
 				is_country_type = dormant_marauders
 				# any_owned_ship = { is_ship_size = marauder_void_dwelling }
-				any_system_within_border = {  }
+				any_system_within_border = { }
 				any_neighbor_system = {
 					NOR = {
 						has_owner = yes
