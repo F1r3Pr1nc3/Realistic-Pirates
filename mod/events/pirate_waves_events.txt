@@ -2819,7 +2819,12 @@ event = {
 		years_passed > 60
 		any_country = {
 			is_country_type = dormant_marauders
-			any_neighbor_system = { is_pirate_system = yes }
+			any_system_within_border = {
+				any_neighbor_system = {
+					has_owner = no
+					is_pirate_system = yes
+				}
+			}
 		}
 	}
 	immediate = {
@@ -2828,113 +2833,137 @@ event = {
 			limit = {
 				is_country_type = dormant_marauders
 				# any_owned_ship = { is_ship_size = marauder_void_dwelling }
-				any_system_within_border = { }
-				any_neighbor_system = {
-					NOR = {
-						has_owner = yes
-						exists = starbase
-						any_system_colony = { owner = { is_primitive = no } }
-					}
-					# is_pirate_system = yes
-					any_fleet_in_system = {
-						is_mobile = no
-						exists = owner
-						owner = { is_pirate = yes }
-						is_ship_class = shipclass_military_station
-						has_fleet_flag = pirate_waves_station_flag
+				any_system_within_border = {
+					any_neighbor_system = {
 						NOR = {
-							has_fleet_flag = pirate_waves_station_life_flag
-							is_in_combat = yes
+							has_owner = yes
+							exists = starbase
+							any_system_colony = { owner = { is_primitive = no } }
+						}
+						# is_pirate_system = yes
+						any_fleet_in_system = {
+							is_mobile = no
+							exists = owner
+							owner = { is_pirate = yes }
+							is_ship_class = shipclass_military_station
+							has_fleet_flag = pirate_waves_station_flag
+							NOR = {
+								has_fleet_flag = pirate_waves_station_life_flag
+								is_in_combat = yes
+							}
 						}
 					}
 				}
 			}
 			save_event_target_as = marauder_starbase_owner
-			random_neighbor_system = {
+			random_system_within_border = {
 				limit = {
-					NOR = {
-						has_owner = yes
-						exists = starbase
-						any_system_colony = { owner = { is_primitive = no } }
-					}
-					# is_pirate_system = yes
-					any_fleet_in_system = {
-						is_mobile = no
-						exists = owner
-						owner = { is_pirate = yes }
-						is_ship_class = shipclass_military_station
-						has_fleet_flag = pirate_waves_station_flag
+					any_neighbor_system = {
 						NOR = {
-							has_fleet_flag = pirate_waves_station_life_flag
-							is_in_combat = yes
+							has_owner = yes
+							exists = starbase
+							any_system_colony = { owner = { is_primitive = no } }
 						}
-					}
-				}
-				weights = {
-					base = 1
-					modifier = {
-						add = 5
-						OR = {
-							has_star_flag = marauder_system
-							has_star_flag = marauder_cluster
-						}
-					}
-					modifier = {
-						add = 20
-						OR = {
-							CmtTriggerMarauderCapitalSystem = yes
-							count_neighbor_system = {
-								count > 2
-								limit = { is_pirate_system = yes }
-							}
-						}
-					}
-				}
-				every_fleet_in_system = {
-					limit = {
-						exists = owner
-						OR = {
+						# is_pirate_system = yes
+						any_fleet_in_system = {
+							is_mobile = no
+							exists = owner
 							owner = { is_pirate = yes }
-							AND = {
-								is_mobile = no
-								owner = { merg_is_default_empire = yes }
+							is_ship_class = shipclass_military_station
+							has_fleet_flag = pirate_waves_station_flag
+							NOR = {
+								has_fleet_flag = pirate_waves_station_life_flag
+								is_in_combat = yes
 							}
 						}
-					}
-					set_owner = event_target:marauder_starbase_owner
-					if = {
-						limit = { exists = leader }
-						leader = { set_owner = event_target:marauder_starbase_owner }
 					}
 				}
-				create_marauder_starbase = yes
-
-				if = {
+				random_neighbor_system = {
 					limit = {
-						count_fleet_in_system = {
-							count < 10
-							limit = {
-								exists = owner
-								is_owned_by = event_target:marauder_starbase_owner
+						NOR = {
+							has_owner = yes
+							exists = starbase
+							any_system_colony = { owner = { is_primitive = no } }
+						}
+						# is_pirate_system = yes
+						any_fleet_in_system = {
+							is_mobile = no
+							exists = owner
+							owner = { is_pirate = yes }
+							is_ship_class = shipclass_military_station
+							has_fleet_flag = pirate_waves_station_flag
+							NOR = {
+								has_fleet_flag = pirate_waves_station_life_flag
+								is_in_combat = yes
 							}
 						}
 					}
-					starbase = {
-						create_fleet = {
-							effect = {
-								set_owner = event_target:marauder_starbase_owner
-								create_dyn_marauder_fleet = { OUTRIDER = 22 LANCER = 14 CHAMPION = 8 }
-								set_formation_scale = 2
-								set_fleet_stance = aggressive
-								set_aggro_range_measure_from = self
-								set_aggro_range = 250
-								set_location = {
-									target = prev
-									distance = 70
-									angle = 120
+					weights = {
+						base = 1
+						modifier = {
+							add = 5
+							OR = {
+								has_star_flag = marauder_system
+								has_star_flag = marauder_cluster
+							}
+						}
+						modifier = {
+							add = 20
+							OR = {
+								CmtTriggerMarauderCapitalSystem = yes
+								count_neighbor_system = {
+									count > 2
+									limit = { is_pirate_system = yes }
 								}
 							}
-							settings = { garrison = yes }
+						}
+					}
+					every_fleet_in_system = {
+						limit = {
+							exists = owner
+							OR = {
+								owner = { is_pirate = yes }
+								AND = {
+									is_mobile = no
+									owner = { merg_is_default_empire = yes }
+								}
+							}
+						}
+						set_owner = event_target:marauder_starbase_owner
+						if = {
+							limit = { exists = leader }
+							leader = { set_owner = event_target:marauder_starbase_owner }
+						}
+					}
+					create_marauder_starbase = yes
+
+					if = {
+						limit = {
+							count_fleet_in_system = {
+								count < 10
+								limit = {
+									exists = owner
+									is_owned_by = event_target:marauder_starbase_owner
+								}
+							}
+						}
+						starbase = {
+							create_fleet = {
+								effect = {
+									set_owner = event_target:marauder_starbase_owner
+									create_dyn_marauder_fleet = { OUTRIDER = 22 LANCER = 14 CHAMPION = 8 }
+									set_formation_scale = 2
+									set_fleet_stance = aggressive
+									set_aggro_range_measure_from = self
+									set_aggro_range = 250
+									set_location = {
+										target = prev
+										distance = 70
+										angle = 120
+									}
+								}
+								settings = { garrison = yes }
+							}
 						}
 					}
 				}
