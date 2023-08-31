@@ -41,7 +41,6 @@ event = {
 				any_system_within_border = {
 					is_capital_system = no
 					any_system_colony = {
-						has_owner = yes
 						is_under_colonization = no
 						NOT = { has_planet_flag = pirate_invasion }
 						has_ground_combat = no
@@ -644,7 +643,6 @@ planet_event = {
 								owner = event_target:pirate_republic
 								species = prev.species
 								type = "rebel_slave_defense_army"
-								land_army = yes
 							}
 						}
 					}
@@ -657,7 +655,6 @@ planet_event = {
 							owner = event_target:pirate_republic
 							species = prev.species
 							type = "rebel_slave_defense_army"
-							land_army = yes
 						}
 					}
 				}
@@ -858,7 +855,6 @@ planet_event = {
 									owner = event_target:pirate_republic
 									species = event_target:rebellion_species
 									type = "rebel_slave_defense_army"
-									land_army = yes
 								}
 							}
 						}
@@ -1389,8 +1385,6 @@ event = {
 						solar_system = {
 							exists = starbase
 							any_system_colony = {
-								has_owner = yes
-								is_colony = yes
 								OR = {
 									owner = { NOT = { is_same_empire = event_target:rebel_country } }
 									AND = {
@@ -1483,7 +1477,7 @@ event = {
 						NAND = {
 							any_controlled_fleet = { always = yes }
 							any_owned_army = { is_defensive_army = no }
-							any_controlled_fleet = { is_mobile = no exists = solar_system solar_system = { any_system_colony = { has_owner = yes } } }
+							any_controlled_fleet = { is_mobile = no exists = solar_system solar_system = { any_system_colony = { } } }
 						}
 					}
 					set_country_flag = silence_destroy_event
@@ -1775,7 +1769,6 @@ country_event = {
 					owner = root
 					species = owner_species
 					type = "marauder_defense_army"
-					land_army = yes
 				}
 				random_owned_pop = {
 					limit = {
@@ -1831,7 +1824,7 @@ country_event = {
 	picture_event_data = {
 		portrait = from
 		planet_background = from.capital_scope
-		#graphical_culture = event_target:book_writer
+		# graphical_culture = event_target:book_writer
 		city_level = from.capital_scope
 		room = from.ruler
 	}

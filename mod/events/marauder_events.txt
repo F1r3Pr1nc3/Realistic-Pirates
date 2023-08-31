@@ -361,7 +361,9 @@ country_event = {
 	immediate = {
 		from = { save_event_target_as = marauder_killer }
 		owner_species = { save_event_target_as = marauder_species }
-		fromfromfrom.solar_system = { save_event_target_as = marauder_system }
+		if = { limit = { NOT = { exists = event_target:marauder_system } } # vfix - for marauder.5 location, use system of ship that destroyed marauders
+			fromfromfrom.solar_system = { save_event_target_as = marauder_system }
+		}
 		every_playable_country = {
 			limit = {
 				is_ai = no
@@ -1639,7 +1641,7 @@ country_event = {
 		}
 	}
 	picture_event_data = {
-		portrait = event_target:current_marauder_diplomacy
+		portrait = from # event_target:current_marauder_diplomacy
 		room = ethic_spaceship_room
 	}
 	is_triggered_only = yes
@@ -1932,7 +1934,7 @@ country_event = {
 		}
 	}
 	picture_event_data = {
-		portrait = event_target:current_marauder_diplomacy
+		portrait = from # event_target:current_marauder_diplomacy
 		room = ethic_spaceship_room
 	}
 	is_triggered_only = yes
@@ -2467,7 +2469,7 @@ country_event = {
 	}
 	diplomatic = yes
 	picture_event_data = {
-		portrait = event_target:current_marauder_diplomacy
+		portrait = from # event_target:current_marauder_diplomacy
 		room = ethic_spaceship_room
 	}
 	is_triggered_only = yes
@@ -2479,11 +2481,17 @@ country_event = {
 	immediate = {
 		set_country_flag = marauder_diplomacy_engaged
 		if = {
-			limit = {
-				NOT = { exists = event_target:current_marauder_diplomacy }
-				from = { is_country_type = dormant_marauders }
+			limit = { NOT = { exists = event_target:current_marauder_diplomacy } }
+			from = {
+				if = {
+					limit = { is_country_type = dormant_marauders }
+					save_event_target_as = current_marauder_diplomacy
+				}
+				else_if = {
+					limit = { from = { is_country_type = dormant_marauders } }
+					from = { save_event_target_as = current_marauder_diplomacy }
+				}
 			}
-			from = { save_event_target_as = current_marauder_diplomacy }
 		}
 		event_target:current_marauder_diplomacy = { owner_species = { save_event_target_as = marauder_species } }
 		random_rival_country = {
@@ -2776,7 +2784,7 @@ country_event = {
 	}
 	diplomatic = yes
 	picture_event_data = {
-		portrait = event_target:current_marauder_diplomacy
+		portrait = from # event_target:current_marauder_diplomacy
 		room = ethic_spaceship_room
 	}
 	is_triggered_only = yes
@@ -2784,11 +2792,17 @@ country_event = {
 	immediate = {
 		set_country_flag = marauder_diplomacy_engaged
 		if = {
-			limit = {
-				NOT = { exists = event_target:current_marauder_diplomacy }
-				from = { is_country_type = dormant_marauders }
+			limit = { NOT = { exists = event_target:current_marauder_diplomacy } }
+			from = {
+				if = {
+					limit = { is_country_type = dormant_marauders }
+					save_event_target_as = current_marauder_diplomacy
+				}
+				else_if = {
+					limit = { from = { is_country_type = dormant_marauders } }
+					from = { save_event_target_as = current_marauder_diplomacy }
+				}
 			}
-			from = { save_event_target_as = current_marauder_diplomacy }
 		}
 		## Dynamic raid costs TODO needs update each effect.
 		event_target:current_marauder_diplomacy = {
@@ -3067,7 +3081,7 @@ country_event = {
 	}
 	diplomatic = yes
 	picture_event_data = {
-		portrait = event_target:current_marauder_diplomacy
+		portrait = from # event_target:current_marauder_diplomacy
 		room = ethic_spaceship_room
 	}
 	is_triggered_only = yes
@@ -3075,11 +3089,17 @@ country_event = {
 	immediate = {
 		set_country_flag = marauder_diplomacy_engaged
 		if = {
-			limit = {
-				NOT = { exists = event_target:current_marauder_diplomacy }
-				from = { is_country_type = dormant_marauders }
+			limit = { NOT = { exists = event_target:current_marauder_diplomacy } }
+			from = {
+				if = {
+					limit = { is_country_type = dormant_marauders }
+					save_event_target_as = current_marauder_diplomacy
+				}
+				else_if = {
+					limit = { from = { is_country_type = dormant_marauders } }
+					from = { save_event_target_as = current_marauder_diplomacy }
+				}
 			}
-			from = { save_event_target_as = current_marauder_diplomacy }
 		}
 		event_target:current_marauder_diplomacy = { owner_species = { save_event_target_as = marauder_species } }
 		## Dynamic hiring costs TODO needs update each effect.
@@ -3362,7 +3382,7 @@ country_event = {
 	}
 	diplomatic = yes
 	picture_event_data = {
-		portrait = event_target:current_marauder_diplomacy
+		portrait = from # event_target:current_marauder_diplomacy
 		room = ethic_spaceship_room
 	}
 	is_triggered_only = yes
@@ -3370,11 +3390,17 @@ country_event = {
 	immediate = {
 		set_country_flag = marauder_diplomacy_engaged
 		if = {
-			limit = {
-				NOT = { exists = event_target:current_marauder_diplomacy }
-				from = { is_country_type = dormant_marauders }
+			limit = { NOT = { exists = event_target:current_marauder_diplomacy } }
+			from = {
+				if = {
+					limit = { is_country_type = dormant_marauders }
+					save_event_target_as = current_marauder_diplomacy
+				}
+				else_if = {
+					limit = { from = { is_country_type = dormant_marauders } }
+					from = { save_event_target_as = current_marauder_diplomacy }
+				}
 			}
-			from = { save_event_target_as = current_marauder_diplomacy }
 		}
 		event_target:current_marauder_diplomacy = { owner_species = { save_event_target_as = marauder_species } }
 	}
@@ -3411,7 +3437,7 @@ country_event = {
 	}
 	diplomatic = yes
 	picture_event_data = {
-		portrait = event_target:current_marauder_diplomacy
+		portrait = from # event_target:current_marauder_diplomacy
 		room = ethic_spaceship_room
 	}
 	is_triggered_only = yes
@@ -3419,11 +3445,17 @@ country_event = {
 	immediate = {
 		set_country_flag = marauder_diplomacy_engaged
 		if = {
-			limit = {
-				NOT = { exists = event_target:current_marauder_diplomacy }
-				from = { is_country_type = dormant_marauders }
+			limit = { NOT = { exists = event_target:current_marauder_diplomacy } }
+			from = {
+				if = {
+					limit = { is_country_type = dormant_marauders }
+					save_event_target_as = current_marauder_diplomacy
+				}
+				else_if = {
+					limit = { from = { is_country_type = dormant_marauders } }
+					from = { save_event_target_as = current_marauder_diplomacy }
+				}
 			}
-			from = { save_event_target_as = current_marauder_diplomacy }
 		}
 		random_relation = {
 			limit = { is_fallen_empire = yes }
@@ -3467,7 +3499,7 @@ country_event = {
 			country_event = { id = marauder.38 days = 20 scopes = { from = event_target:current_marauder_diplomacy } }
 		}
 		else = {
-			country_event = { id = marauder.38 scopes = { from = event_target:current_marauder_diplomacy } }			# Use mia
+			country_event = { id = marauder.38 scopes = { from = event_target:current_marauder_diplomacy } }
 		}
 	}
 	after = {
@@ -3497,11 +3529,17 @@ country_event = {
 	trigger = { exists = from }
 	immediate = {
 		if = {
-			limit = {
-				NOT = { exists = event_target:current_marauder_diplomacy }
-				from = { is_country_type = dormant_marauders }
+			limit = { NOT = { exists = event_target:current_marauder_diplomacy } }
+			from = {
+				if = {
+					limit = { is_country_type = dormant_marauders }
+					save_event_target_as = current_marauder_diplomacy
+				}
+				else_if = {
+					limit = { from = { is_country_type = dormant_marauders } }
+					from = { save_event_target_as = current_marauder_diplomacy }
+				}
 			}
-			from = { save_event_target_as = current_marauder_diplomacy }
 		}
 		if = {
 			limit = { exists = event_target:current_marauder_diplomacy }
@@ -3675,7 +3713,7 @@ country_event = {
 	}
 	diplomatic = yes
 	picture_event_data = {
-		portrait = event_target:current_marauder_diplomacy
+		portrait = from # event_target:current_marauder_diplomacy
 		room = ethic_spaceship_room
 	}
 	is_triggered_only = yes
@@ -3946,9 +3984,12 @@ fleet_event = {
 				order_of_eternal_night		= { if = { limit = { exists = event_target:marauder_country_3 } event_target:marauder_country_3 = { remove_country_flag = merc_fleet_2_hired } } }
 				twilight_congregation		= { if = { limit = { exists = event_target:marauder_country_3 } event_target:marauder_country_3 = { remove_country_flag = merc_fleet_3_hired } } }
 			}
-			leader = {
-				remove_leader_flag = marauder_merc_leader
-				kill_leader = { show_notification = no }
+			if = {
+				limit = { exists = leader }
+				leader = {
+					remove_leader_flag = marauder_merc_leader
+					kill_leader = { show_notification = no }
+				}
 			}
 			delete_fleet = this
 		}
@@ -4193,10 +4234,13 @@ country_event = {
 			limit = { has_country_flag = CmtFlagHiringMarauder1 }
 			every_controlled_fleet = {
 				limit = { CmtTriggerHiredMarauderFleet1 = yes }
-				leader = {
-					remove_leader_flag = marauder_merc_leader
-					# kill_leader = { show_notification = no }
-					set_owner = event_target:raider_khanate
+				if = {
+					limit = { exists = leader }
+					leader = {
+						remove_leader_flag = marauder_merc_leader
+						# kill_leader = { show_notification = no }
+						set_owner = event_target:raider_khanate
+					}
 				}
 				switch = { # Refund of Mercenary
 					trigger = has_fleet_flag
@@ -4228,10 +4272,13 @@ country_event = {
 			limit = { has_country_flag = CmtFlagHiringMarauder2 }
 			every_controlled_fleet = {
 				limit = { CmtTriggerHiredMarauderFleet2 = yes }
-				leader = {
-					remove_leader_flag = marauder_merc_leader
-					# kill_leader = { show_notification = no }
-					set_owner = event_target:raider_khanate
+				if = {
+					limit = { exists = leader }
+					leader = {
+						remove_leader_flag = marauder_merc_leader
+						# kill_leader = { show_notification = no }
+						set_owner = event_target:raider_khanate
+					}
 				}
 				switch = { # Refund of Mercenary
 					trigger = has_fleet_flag
@@ -4263,10 +4310,13 @@ country_event = {
 			limit = { has_country_flag = CmtFlagHiringMarauder3 }
 			every_controlled_fleet = {
 				limit = { CmtTriggerHiredMarauderFleet3 = yes }
-				leader = {
-					remove_leader_flag = marauder_merc_leader
-					# kill_leader = { show_notification = no }
-					set_owner = event_target:raider_khanate
+				if = {
+					limit = { exists = leader }
+					leader = {
+						remove_leader_flag = marauder_merc_leader
+						# kill_leader = { show_notification = no }
+						set_owner = event_target:raider_khanate
+					}
 				}
 				switch = { # Refund of Mercenary
 					trigger = has_fleet_flag
@@ -4518,8 +4568,6 @@ event = {
 						}
 						set_country_flag = mercenaries_available_2
 						save_event_target_as = marauder_mercenary_country
-					}
-					random_playable_country = {
 						observer_event = { id = observer.25 }
 					}
 					every_playable_country = {
@@ -4550,8 +4598,6 @@ event = {
 						}
 						set_country_flag = mercenaries_available_3
 						save_event_target_as = marauder_mercenary_country
-					}
-					random_playable_country = {
 						observer_event = { id = observer.26 }
 					}
 					every_playable_country = {
@@ -8528,7 +8574,6 @@ country_event = {
 							owner = root
 							species = event_target:marauder_country_1.owner_species
 							type = "marauder_defense_army"
-							land_army = yes
 						}
 						change_variable = { which = CmtVarTemp value = -1 }
 					}
@@ -8542,7 +8587,6 @@ country_event = {
 							owner = root
 							species = event_target:marauder_country_2.owner_species
 							type = "marauder_defense_army"
-							land_army = yes
 						}
 						change_variable = { which = CmtVarTemp value = -1 }
 					}
@@ -8556,7 +8600,6 @@ country_event = {
 							owner = root
 							species = event_target:marauder_country_3.owner_species
 							type = "marauder_defense_army"
-							land_army = yes
 						}
 						change_variable = { which = CmtVarTemp value = -1 }
 					}
@@ -8568,7 +8611,6 @@ country_event = {
 						owner = root
 						species = root.species
 						type = "marauder_defense_army"
-						land_army = yes
 					}
 					change_variable = { which = CmtVarTemp value = -1 }
 				}
@@ -8619,7 +8661,6 @@ country_event = {
 						owner = from
 						species = prev
 						type = "marauder_defense_army"
-						land_army = yes
 					}
 				}
 			}
@@ -11565,7 +11606,7 @@ country_event = {
 				set_sector_flag = counted_sector
 				root = {
 					while = {
-				count = EX_sectors_per_diadochi
+						count = EX_sectors_per_diadochi
 						limit = {
 							any_owned_sector = {
 								NOT = { has_sector_flag = counted_sector }
@@ -11581,68 +11622,68 @@ country_event = {
 								}
 							}
 						}
-				ordered_owned_sector = {
-					limit = {
-						NOT = { has_sector_flag = counted_sector }
-						any_system_within_border = {
-							closest_system = {
-								limit = {
-									exists = sector
-											sector = { has_sector_flag = diadochi_sector_@event_target:diadochi_leader_sector }
-								}
-								use_bypasses = yes
-										max_steps = 3
-							}
-						}
-					}
-							position = 1
-							inverse = yes
-					order_by = trigger:num_pops
-					set_sector_flag = counted_sector
-							set_sector_flag = diadochi_sector_@event_target:diadochi_leader_sector
-							set_sector_flag = rebel_sector_follower_@event_target:diadochi_leader_sector
-						}
-					}
-				}
-			}
-				}
-		# }
-		# Neighboring Sectors for First Diadochi (give the lowest)
-				while = {
-					count = EX_sectors_per_diadochi
-						limit = {
-							any_owned_sector = {
-								NOT = { has_sector_flag = counted_sector }
-								any_system_within_border = {
-									closest_system = {
-										limit = {
-											exists = sector
-								sector = { has_sector_flag = counted_sector }
-										}
-										use_bypasses = yes
-							max_steps = 1
-									}
-								}
-							}
-						}
-			ordered_owned_sector = {
+						ordered_owned_sector = {
 							limit = {
 								NOT = { has_sector_flag = counted_sector }
 								any_system_within_border = {
 									closest_system = {
 										limit = {
 											exists = sector
-								sector = { has_sector_flag = counted_sector }
+											sector = { has_sector_flag = diadochi_sector_@event_target:diadochi_leader_sector }
 										}
 										use_bypasses = yes
-							max_steps = 1
+										max_steps = 3
 									}
 								}
 							}
+							position = 1
+							inverse = yes
+							order_by = trigger:num_pops
+							set_sector_flag = counted_sector
+							set_sector_flag = diadochi_sector_@event_target:diadochi_leader_sector
+							set_sector_flag = rebel_sector_follower_@event_target:diadochi_leader_sector
+						}
+					}
+				}
+			}
+		}
+		# }
+		# Neighboring Sectors for First Diadochi (give the lowest)
+		while = {
+			count = EX_sectors_per_diadochi
+			limit = {
+				any_owned_sector = {
+					NOT = { has_sector_flag = counted_sector }
+					any_system_within_border = {
+						closest_system = {
+							limit = {
+								exists = sector
+								sector = { has_sector_flag = counted_sector }
+							}
+							use_bypasses = yes
+							max_steps = 1
+						}
+					}
+				}
+			}
+			ordered_owned_sector = {
+				limit = {
+					NOT = { has_sector_flag = counted_sector }
+					any_system_within_border = {
+						closest_system = {
+							limit = {
+								exists = sector
+								sector = { has_sector_flag = counted_sector }
+							}
+							use_bypasses = yes
+							max_steps = 1
+						}
+					}
+				}
 				position = 0
 				inverse = yes
 				order_by = trigger:num_pops
-							set_sector_flag = counted_sector
+				set_sector_flag = counted_sector
 			}
 		}
 
@@ -11881,43 +11922,43 @@ country_event = {
 					}
 					while = { # clean up borders by giving rebels frontier territory they wouldnt otherwise get
 						count = 50 # TODO make dyn!?
-							limit = {
-								any_system_within_border = {
-									closest_system = {
-										limit = {
-											exists = space_owner
-										space_owner = { is_same_empire = event_target:first_diadochi }
-											NOT = { exists = sector }
-										}
-										use_bypasses = yes
-									max_steps = 3
-									}
-								}
-							}
-							every_system_within_border = {
-								limit = {
-									closest_system = {
-										limit = {
-											exists = space_owner
-										space_owner = { is_same_empire = event_target:first_diadochi }
-											NOT = { exists = sector }
-										}
-										use_bypasses = yes
-									max_steps = 3
-									}
-								}
+						limit = {
+							any_system_within_border = {
 								closest_system = {
 									limit = {
 										exists = space_owner
-									space_owner = { is_same_empire = event_target:first_diadochi }
+										space_owner = { is_same_empire = event_target:first_diadochi }
 										NOT = { exists = sector }
 									}
 									use_bypasses = yes
-								max_steps = 3
-									starbase = { set_owner = event_target:diadochi_country }
+									max_steps = 3
 								}
 							}
 						}
+						every_system_within_border = {
+							limit = {
+								closest_system = {
+									limit = {
+										exists = space_owner
+										space_owner = { is_same_empire = event_target:first_diadochi }
+										NOT = { exists = sector }
+									}
+									use_bypasses = yes
+									max_steps = 3
+								}
+							}
+							closest_system = {
+								limit = {
+									exists = space_owner
+									space_owner = { is_same_empire = event_target:first_diadochi }
+									NOT = { exists = sector }
+								}
+								use_bypasses = yes
+								max_steps = 3
+								starbase = { set_owner = event_target:diadochi_country }
+							}
+						}
+					}
 
 					## GET_DIADOCHI_IMMEDIATE_SETUP
 					# setting graphical culture
@@ -11938,15 +11979,9 @@ country_event = {
 					# clear new contact opinion modifier
 					if = {
 						limit = {
-							has_opinion_modifier = {
-								who = event_target:first_diadochi
-								modifier = opinion_new_contact
-							}
+							has_opinion_modifier = { who = event_target:first_diadochi modifier = opinion_new_contact }
 						}
-						remove_opinion_modifier = {
-							who = event_target:first_diadochi
-							modifier = opinion_new_contact
-						}
+						remove_opinion_modifier = { who = event_target:first_diadochi modifier = opinion_new_contact }
 					}
 					country_event = { id = khan.610 days = -1 } # Handover some old stuff
 				}
@@ -12975,7 +13010,6 @@ country_event = {
 						limit = {
 							solar_system = {
 								any_system_colony = {
-									exists = owner
 									NOR = {
 										is_planet = prevprev
 										is_owned_by = prevprevprevprev
@@ -13291,7 +13325,6 @@ country_event = {
 				if = {
 					limit = {
 						any_system_colony = {
-							exists = owner
 							NOR = {
 								is_owned_by = root
 								is_controlled_by = root
@@ -13302,7 +13335,6 @@ country_event = {
 						}
 						NOT = {
 							any_system_colony = {
-								exists = owner
 								is_controlled_by = root
 								OR = {
 									merg_is_habitat = no

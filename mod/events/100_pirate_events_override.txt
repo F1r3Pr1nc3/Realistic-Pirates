@@ -1,6 +1,6 @@
 ###############################################
 # Pirate Events
-# Written by Henrik Thyrwall
+# Written by Henrik Thyrwall (& Gemma Thomson)
 # Modded by ScepraX/FirePrince
 ###############################################
 # Added pirate.65/.66 for pirate stations.
@@ -170,6 +170,7 @@ country_event = {
 				has_government = gov_megacorporation
 				has_government = gov_plutocratic_oligarchy
 				has_government = gov_trade_league
+				has_government = gov_worker_coop
 			}
 		}
 	}
@@ -187,6 +188,7 @@ country_event = {
 		trigger = {
 			OR = {
 				has_government = gov_criminal_syndicate
+				has_government = gov_pirate_haven
 				has_government = gov_subversive_cult
 			}
 		}
@@ -195,9 +197,9 @@ country_event = {
 		name = pirate.2.i # None of the above
 		exclusive_trigger = {
 			NOR = {
+				has_spiritualist_government = yes
 				has_militarist_government = yes
 				has_government = gov_bandit_commune
-				has_spiritualist_government = yes
 				has_materialist_government = yes
 				has_pacifist_government = yes
 				has_government = gov_despotic_empire
@@ -206,13 +208,15 @@ country_event = {
 				has_government = gov_enlightened_monarchy
 				has_government = gov_elective_monarchy
 				has_government = gov_bandit_kingdom
+				has_purifier_government = yes
 				has_government = gov_megacorporation
+				has_government = gov_worker_coop
 				has_government = gov_plutocratic_oligarchy
+				has_government = gov_trade_league
 				has_government = gov_representative_democracy
 				has_government = gov_communal_parity
-				has_purifier_government = yes
-				has_government = gov_trade_league
 				has_government = gov_criminal_syndicate
+				has_government = gov_pirate_haven
 				has_government = gov_subversive_cult
 				has_government = gov_successor_khanate
 				has_government = gov_diadochi
