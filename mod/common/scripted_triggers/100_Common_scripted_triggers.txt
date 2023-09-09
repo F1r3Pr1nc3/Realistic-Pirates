@@ -9,6 +9,38 @@
 #############################################
 #############################################
 
+#######################
+###- Basic Trigger -###
+#######################
+
+### For Spawning Each Countries, Scope: this = Stellar System
+CmtTriggerSpawnableSystem = {
+	optimize_memory
+	NOR = {
+		is_star_class = sc_pulsar
+		is_star_class = sc_binary_1
+		is_capital_system = yes
+		has_star_flag = swarm_invasion_target_1
+		has_star_flag = swarm_invasion_target_2
+		has_star_flag = swarm_invasion_target_3
+		has_star_flag = swarm_invasion_target_4
+		has_star_flag = sentinel_system
+		has_star_flag = extradimensional_origin_system
+		has_star_flag = extradimensional_second_portal_system
+		has_star_flag = extradimensional_third_portal_system
+		has_star_flag = AI_hub		## Machiene World 1-4, cf. planet_flag = machine_world_1
+		has_star_flag = AI_lair		## Final MAchiene World, cf. planet flag = machine_lair
+		has_star_flag = cybrex_beta
+		has_star_flag = marauder_capital_1
+		has_star_flag = marauder_capital_2
+		has_star_flag = marauder_capital_3
+		has_star_flag = lgate
+		has_star_flag = lcluster
+		has_star_flag = sealed_system		## The system with no hyperlanes.
+		has_star_flag = crisis_spawn_exclude # v.3.8
+	}
+}
+
 ############################
 ###- Check Country Type -###
 ############################
@@ -25,13 +57,9 @@ CmtTriggerIsMarauder = {
 
 # Only use if exists = event_target:raider_khanate
 CmtTriggerIsKhanCountry = {
-	OR = {
-		is_country_type = awakened_marauders
-		AND = {
-			exists = event_target:raider_khanate
-			is_same_empire = event_target:raider_khanate
-		}
-	}
+	# OR = { is_country_type = awakened_marauders AND = {
+	exists = event_target:raider_khanate
+	is_same_empire = event_target:raider_khanate
 	NOT = { has_country_flag = khan_dead_event_fine } # CmtFlagKhanDeadCountry replaced with vanilla
 }
 

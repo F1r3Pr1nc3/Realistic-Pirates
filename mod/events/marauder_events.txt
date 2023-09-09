@@ -1374,7 +1374,10 @@ system_event = {
 	hide_window = yes
 	is_triggered_only = yes
 	trigger = {
-		NOT = { exists = starbase }
+		NOR = {
+			exists = starbase
+			has_star_flag = marauder_starbase_destroyed
+		}
 		has_star_flag = marauder_system
 	}
 	immediate = {
@@ -1397,6 +1400,7 @@ system_event = {
 					}
 				}
 			}
+			set_timed_star_flag = { flag = marauder_starbase_destroyed months = 3 }
 		}
 	}
 }
@@ -2130,7 +2134,7 @@ fleet_event = {
 				save_event_target_as = raid_planet
 			}
 		}
-
+		set_event_locked = no
 		if = {
 			limit = { exists = event_target:raid_planet }
 			set_location = {
@@ -2664,10 +2668,10 @@ country_event = {
 				limit = { exists = event_target:preliminary_target }
 				if = {
 					limit = { event_target:preliminary_target = { is_fallen_empire = yes } }
-					country_event = { id = marauder.35 scopes = { from = event_target:current_marauder_diplomacy } }
+					country_event = { id = marauder.35 } # scopes = { from = event_target:current_marauder_diplomacy }
 				}
 				else = {
-					country_event = { id = marauder.32 scopes = { from = event_target:current_marauder_diplomacy } }
+					country_event = { id = marauder.32 } # scopes = { from = event_target:current_marauder_diplomacy }
 				}
 			}
 			remove_country_flag = marauder_diplomacy_engaged
@@ -2933,7 +2937,7 @@ country_event = {
 }
 
 # Raid commences
-# Vanilla fix omit Marauders getting stuck (Refactored by FirePrince)
+# Vanilla (partial) fix omit Marauders getting stuck (Refactored by FirePrince)
 # Root = marauder_target
 # From = Hired marauder_employer
 # fromfrom = current_marauder_diplomacy = raiding_marauder
@@ -3571,7 +3575,7 @@ country_event = {
 				}
 			}
 		}
-		else = { log_error = "Missing current_marauder_diplomacy" }
+		else = { log = "ERROR: Missing current_marauder_diplomacy" }
 		switch = { trigger = has_country_flag
 			# Hire Armada of the Voidborn.
 			merc_fleet_1_1_hired = {
@@ -3689,6 +3693,7 @@ country_event = {
 				set_mia = mia_return_home
 			}
 			else = { set_location = root.capital_scope }
+			set_event_locked = no
 			fleet_event = { id = marauder.50 days = 1800 }
 		}
 	}
@@ -3787,7 +3792,7 @@ country_event = {
 		custom_tooltip = hire_general_merc
 		hidden_effect = {
 			event_target:current_marauder_diplomacy = {
-				create_marauder_general = yes
+				create_marauder_merc_general = yes
 				last_created_leader = { set_owner = root }
 			}
 		}
@@ -3828,7 +3833,7 @@ country_event = {
 		custom_tooltip = hire_general_merc
 		hidden_effect = {
 			event_target:current_marauder_diplomacy = {
-				create_marauder_general = yes
+				create_marauder_merc_general = yes
 				last_created_leader = { set_owner = root }
 			}
 		}
@@ -3869,7 +3874,7 @@ country_event = {
 		custom_tooltip = hire_general_merc
 		hidden_effect = {
 			event_target:current_marauder_diplomacy = {
-				create_marauder_general = yes
+				create_marauder_merc_general = yes
 				last_created_leader = { set_owner = root }
 			}
 		}
@@ -4907,6 +4912,7 @@ country_event = {
 						save_event_target_as = raid_planet
 					}
 				}
+				set_event_locked = no
 				if = {
 					limit = {
 						exists = event_target:raid_planet
@@ -5455,7 +5461,7 @@ country_event = {
 	}
 }
 
-# Raiders Hit Planet (HIDDEN)
+# Raiders Hit Planet (HIDDEN - on_planet_bombarded)
 # Vanilla Fixes: Fleets getting stuck (due FTL Inhibitors and planet owner change)
 # From = Bombarder
 planet_event = {
@@ -5489,14 +5495,25 @@ planet_event = {
 				# log="Save Marauder Raid Fleet on \\[Root.GetName]"
 			}
 		}
-
-		random_country = {
+		if = {
 			limit = {
-				is_country_type = dormant_marauders
-				has_country_flag = parent_of@from
+				any_country = {
+					is_country_type = dormant_marauders
+					has_country_flag = parent_of@from
+				}
 			}
-			save_event_target_as = marauder_country
-			# log="Save Marauder Country on \\[Root.GetName]"
+			random_country = {
+				limit = {
+					is_country_type = dormant_marauders
+					has_country_flag = parent_of@from
+				}
+				save_event_target_as = marauder_country
+				# log="Save Marauder Country on \\[Root.GetName]"
+			}
+		}
+		else = {
+			# log="Marauder Raiders on \\[Root.GetName] lost they origin system."
+			from = { save_event_target_as = marauder_country }
 		}
 
 		### Check Target valid (Vanilla Fix)
@@ -7762,7 +7779,8 @@ country_event = {
 		### Only for 2nd awakening.
 		if = {
 			limit = { has_origin = "origin_khan_successor" }
-			if = { limit = { has_federation = yes }
+			if = {
+				limit = { has_federation = yes }
 				leave_alliance = {
 					override_requirements = yes
 					apply_opinion_penalty = yes
@@ -7965,7 +7983,7 @@ country_event = {
 				1 = { set_council_position = councilor_defense }
 				1 = { set_council_position = councilor_crusader_spirit }
 				1 = { set_council_position = councilor_distinguished_admiralty }
-				1 = { set_council_position = councilor_heroic_tales }
+				# 1 = { set_council_position = councilor_heroic_tales } does not exists
 			}
 
 			# if = { ### NSC SUPPORT
@@ -8700,7 +8718,10 @@ country_event = {
 					exists = event_target:great_khan
 					prev = {
 						# has_country_flag = khan_dead_event_fine
-						any_owned_leader = { leader_class = admiral has_leader_flag = great_khan }
+						any_owned_leader = {
+							leader_class = admiral
+							has_leader_flag = great_khan
+						}
 					}
 				}
 			}
@@ -9099,6 +9120,7 @@ country_event = {
 			country_event = { id = marauder.500 days = 7 }
 			every_war = { # End Wars
 				limit = { is_war_participant = { who = root } }
+				prev = { set_truce = { target = prev type = war } }
 				remove_war_participant = root
 			}
 			if = { # End Subjugation
@@ -9683,8 +9705,7 @@ country_event = {
 								move_to = prev
 								wait = { duration = 1 }
 								merge_fleet = {
-									# target = prev # Error?
-									target = event_target:khan_fleet # Error?
+									target = event_target:khan_fleet # prev # False error claim?
 									allow_ftl = yes
 								}
 							}
@@ -9718,8 +9739,10 @@ country_event = {
 					}
 					any_owned_leader = {
 						leader_class = admiral
-						is_event_leader = no
 						is_idle = yes # NOT = { exists = fleet }
+						is_event_leader = no
+						is_councilor = no
+						is_ruler = no
 					}
 				}
 				random_owned_fleet = {
@@ -9734,8 +9757,10 @@ country_event = {
 						random_owned_leader = {
 							limit = {
 								leader_class = admiral
+								is_idle = yes
 								is_event_leader = no
-								is_idle = yes # NOT = { exists = fleet }
+								is_councilor = no
+								is_ruler = no
 							}
 							weights = {
 								base = 1
@@ -9753,14 +9778,16 @@ country_event = {
 						has_army = yes
 						NOR = {
 							has_ground_combat = yes
-								planet_garrison_strength < 610
+							planet_garrison_strength < 620
 							any_planet_army = { exists = leader }
 						}
 					}
 					any_owned_leader = {
 						leader_class = general
+						is_idle = yes
 						is_event_leader = no
-						is_idle = yes # NOT = { exists = fleet }
+						is_councilor = no
+						is_ruler = no
 					}
 				}
 				if = {
@@ -9770,7 +9797,7 @@ country_event = {
 							is_mobile = yes
 							NOT = { exists = leader }
 							any_owned_ship = { is_ship_class = shipclass_transport }
-							fleet_power > 610
+							fleet_power > 620
 						}
 					}
 					# Fleet prior
@@ -9780,13 +9807,16 @@ country_event = {
 							is_mobile = yes
 							NOT = { exists = leader }
 							any_owned_ship = { is_ship_class = shipclass_transport }
-							fleet_power > 610
+							fleet_power > 620
 						}
 						root = {
 							random_owned_leader = {
 								limit = {
 									leader_class = general
-									is_idle = yes # NOT = { exists = fleet }
+									is_idle = yes
+									is_event_leader = no
+									is_councilor = no
+									is_ruler = no
 								}
 								weights = {
 									base = 1
@@ -9810,7 +9840,7 @@ country_event = {
 							has_army = yes
 							NOR = {
 								has_ground_combat = yes
-								planet_garrison_strength < 610
+								planet_garrison_strength < 620
 								any_planet_army = { exists = leader }
 							}
 						}
@@ -9818,7 +9848,10 @@ country_event = {
 							random_owned_leader = {
 								limit = {
 									leader_class = general
-											is_idle = yes
+									is_idle = yes
+									is_event_leader = no
+									is_councilor = no
+									is_ruler = no
 								}
 								weights = {
 									base = 1
@@ -10345,14 +10378,14 @@ country_event = {
 	}
 	desc = {
 		trigger = {
-			is_subject = yes
+			is_subject = yes # exists = overlord
 			any_agreement = { agreement_preset = preset_satrapy }
 		}
 		text = "marauder.550.j.desc"
 	}
 	desc = {
 		trigger = {
-			is_subject = yes
+			is_subject = yes # exists = overlord
 			any_agreement = { agreement_preset = preset_satrapy }
 		}
 		text = "marauder.550.k.desc"
@@ -12244,7 +12277,7 @@ country_event = {
 			limit = {
 				count_country = {
 					limit = {
-						is_subject = yes
+						is_subject = yes # exists = overlord
 						any_agreement = { agreement_preset = preset_satrapy }
 					}
 					count > 0
@@ -12252,7 +12285,7 @@ country_event = {
 			}
 			every_country = {
 				limit = {
-					is_subject = yes
+					is_subject = yes # exists = overlord
 					any_agreement = { agreement_preset = preset_satrapy }
 				}
 				country_event = { id = marauder.660 }
@@ -14312,7 +14345,7 @@ country_event = {
 					1 = { set_council_position = councilor_defense }
 					1 = { set_council_position = councilor_crusader_spirit }
 					1 = { set_council_position = councilor_distinguished_admiralty }
-					1 = { set_council_position = councilor_heroic_tales }
+					# 1 = { set_council_position = councilor_heroic_tales } does not exists
 				}
 			}
 

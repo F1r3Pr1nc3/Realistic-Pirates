@@ -7,21 +7,21 @@
 # Marauder Mercenary Fleets #
 #############################
 # Marauder Mercenary Admiral
-create_marauder_merc_admiral = {
-	create_leader = {
-		class = admiral
-		species = event_target:marauder_species
-		name = random
-		event_leader = yes
-		skill = 3
-		leader_age_min = 25
-		leader_age_max = 45
-		traits = {
-			0 = leader_trait_mercenary_warrior
-		}
-		effect = { set_leader_flag = marauder_merc_leader }
-	}
-}
+# create_marauder_merc_admiral = {
+# 	create_leader = {
+# 		class = admiral
+# 		species = event_target:marauder_species
+# 		name = random
+# 		event_leader = yes
+# 		skill = 3
+# 		leader_age_min = 25
+# 		leader_age_max = 45
+# 		traits = {
+# 			0 = leader_trait_mercenary_warrior
+# 		}
+# 		effect = { set_leader_flag = marauder_merc_leader }
+# 	}
+# }
 
 # Prev = owner
 # Armada of the Voidborn
