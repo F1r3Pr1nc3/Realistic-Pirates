@@ -8,6 +8,10 @@
 #########################################
 namespace = khan
 
+# Placeholder since 3.9.1 (parser crashes if missing)
+country_event = { id = khan.296 hide_window = yes is_triggered_only = yes immediate = { } }
+country_event = { id = khan.298 hide_window = yes is_triggered_only = yes immediate = { } }
+
 # (on_game_start) Gets overwritten by The Greath Khan Expanded
 event = {
 	id = khan.300

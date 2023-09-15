@@ -1,4 +1,4 @@
-version="3.9.0.1"
+version="3.9.1.0"
 tags={
 	"Balance"
 	"Military"
@@ -14,5 +14,5 @@ dependencies={
 	"The Zenith of Fallen Empires 4.0"
 }
 name="Realistic Pirates [3.9.☠]"
-supported_version="3.9.0"
+supported_version="3.9.*"
 remote_file_id="2752952962"
