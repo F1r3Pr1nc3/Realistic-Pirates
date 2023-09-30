@@ -24,7 +24,7 @@ on_single_player_save_game_load = {
 # This = country to press begin
 on_press_begin = {
 	events = {
-		pirate_waves.0
+		pirate_waves.101
 	}
 }
 
