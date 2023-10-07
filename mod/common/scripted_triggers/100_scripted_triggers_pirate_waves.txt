@@ -241,7 +241,7 @@ is_pirate_waves_base_planet = {
 # DEPRECATED/LEGACY
 # Has a fleet build the station.
 # has_pirate_waves_fleet_build_station = {
-# 	ROOT = {
+# 	root = {
 # 		solar_system = {
 # 			any_fleet_in_system = {
 # 				NOT = { is_ship_class = shipclass_military_station }
@@ -257,7 +257,7 @@ is_pirate_waves_base_planet = {
 # Compares pirate country with closest country.
 is_pirate_waves_closest_country_pathetic = {
 	exists = event_target:current_pirate_country
-	ROOT = {
+	root = {
 		closest_system = {
 			limit = { exists = space_owner }
 			space_owner = {
@@ -274,7 +274,7 @@ is_pirate_waves_closest_country_pathetic = {
 # DEPRECATED/LEGACY
 is_pirate_waves_closest_country_inferior = {
 	exists = event_target:current_pirate_country
-	ROOT = {
+	root = {
 		closest_system = {
 			limit = { exists = space_owner }
 			space_owner = {
@@ -291,7 +291,7 @@ is_pirate_waves_closest_country_inferior = {
 # DEPRECATED/LEGACY
 is_pirate_waves_closest_country_equivalent = {
 	exists = event_target:current_pirate_country
-	ROOT = {
+	root = {
 		closest_system = {
 			limit = { exists = space_owner }
 			space_owner = {

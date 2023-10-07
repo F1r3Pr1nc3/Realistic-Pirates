@@ -1,4 +1,4 @@
-version="3.9.1.2"
+version="3.9.2.0"
 tags={
 	"Balance"
 	"Military"
@@ -6,12 +6,6 @@ tags={
 	"Overhaul"
 	"Utilities"
 	"Pirates"
-}
-dependencies={
-	"Vanilla Fixes"
-	"~~Ariphaos Unofficial Patch (3.9)"
-	"[Salvaged+]Marauders & Menacing Remodeled"
-	"The Zenith of Fallen Empires 4.0"
 }
 name="Realistic Pirates [3.9.☠]"
 supported_version="3.9.*"

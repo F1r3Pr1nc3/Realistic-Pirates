@@ -128,7 +128,7 @@ country_event = {
 	immediate = {
 		from = {
 			owner_species = { save_event_target_as = bulwark_species }
-			# save_event_target_as = current_bulwark_diplomacy # somehow not working
+			# save_event_target_as = current_bulwark_diplomacy # Somehow not working
 		}
 		set_timed_country_flag = { flag = bulwark_diplomacy_engaged months = 1 }
 	}

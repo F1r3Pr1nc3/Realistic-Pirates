@@ -110,7 +110,7 @@ country_event = {
 			# 		has_country_flag = marauder_3
 			# 	}
 			# }
-			NOR = { # omit opt
+			NOR = { # Omit opt
 				has_civic = civic_fanatic_purifiers
 				has_civic = civic_machine_terminator
 				has_civic = civic_hive_devouring_swarm
@@ -169,7 +169,7 @@ country_event = {
 		name = "END_TRANSMISSION"
 		# trigger = {
 		# 	hidden_trigger = {
-		# 		NOR = { # omit opt
+		# 		NOR = { # Omit opt
 		# 			has_civic = civic_fanatic_purifiers
 		# 			has_civic = civic_machine_terminator
 		# 			has_civic = civic_hive_devouring_swarm

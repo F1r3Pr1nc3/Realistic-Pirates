@@ -583,7 +583,7 @@ planet_event = {
 					}
 					set_owner = event_target:pirate_republic
 				}
-				# Dyn. amount (needs to be after create_pirate_waves_fleet)
+				# Dyn. Amount (needs to be after create_pirate_waves_fleet)
 				set_variable = { which = num_armies_var value = 5 }
 				change_variable = { which = num_armies_var value = prev.pirates_factor }
 				multiply_variable = { which = num_armies_var value = prev.pirates_f_tmp2 }
@@ -782,7 +782,7 @@ planet_event = {
 							effect = {
 								save_event_target_as = pirate_waves_fleet
 								# Owner is set before the ships are created so that random naming works.
-								set_owner = event_target:pirate_republic # prev not sure
+								set_owner = event_target:pirate_republic # Prev not sure
 								# Create ships
 								create_pirate_waves_fleet = yes
 								# Fleet settings
@@ -806,7 +806,7 @@ planet_event = {
 									establish_communications_no_message = prevprevprev
 								}
 							}
-							# Dyn. amount (needs to be after create_pirate_waves_fleet)
+							# Dyn. Amount (needs to be after create_pirate_waves_fleet)
 							set_variable = { which = num_armies_var value = 5 }
 							change_variable = { which = num_armies_var value = prev.pirates_factor }
 							multiply_variable = { which = num_armies_var value = prev.pirates_f_tmp2 }
@@ -1190,7 +1190,7 @@ country_event = {
 	}
 }
 
-# Defect request # similar unrest.168
+# Defect request # Similar unrest.168
 country_event = {
 	id = pirate_republic.15
 	desc = unrest.168.desc
@@ -1337,13 +1337,13 @@ starbase_event = {
 		# 				}
 		# 				NOT = {
 		# 					has_active_event = {
-		# 						primitive.180 # event to decide fate of primitive civ
+		# 						primitive.180 # Event to decide fate of primitive civ
 		# 					}
 		# 				}
 		# 			}
 		# 		}
 		# 	}
-		# 	planet_event = { id = action.86 } # planet flips to starbase owner
+		# 	planet_event = { id = action.86 } # Planet flips to starbase owner
 		# }
 		set_owner = from
 	}
@@ -1374,7 +1374,7 @@ event = {
 						}
 					}
 				}
-				# log="Fix pirate_republic on save load" # for  [event_target:rebel_country.GetName].
+				# log="Fix pirate_republic on save load" # For  [event_target:rebel_country.GetName].
 				random_controlled_fleet = {
 					limit = {
 						OR = {

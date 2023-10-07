@@ -1,6 +1,6 @@
 on_single_player_save_game_load = {
 	events = {
-		pirate_republic.99 # temp fixes
+		pirate_republic.99 # Temp fixes
 	}
 }
 

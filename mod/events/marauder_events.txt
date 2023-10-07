@@ -99,7 +99,7 @@ namespace = marauder
 @CmtConstKhanLifespan_6f =	360		### Time-Lag of Post-Death Process (random = 1f)
 
 # Marauder & Horde gatekeeper event
-# via on_custom_diplomacy
+# Via on_custom_diplomacy
 country_event = {
 	id = marauder.1
 	hide_window = yes
@@ -110,38 +110,38 @@ country_event = {
 			has_active_event = {
 				# Introductions & menus (all 3 clans)
 				marauder.15		# introduction
-				marauder.19		# refusing comms.
-				marauder.20		# initial menu
-				marauder.21		# main menu
-				marauder.102	# while being spontaneously raided
-				marauder.112	# while being raided under contract
+				marauder.19		# Refusing comms.
+				marauder.20		# Initial menu
+				marauder.21		# Main menu
+				marauder.102	# While being spontaneously raided
+				marauder.112	# While being raided under contract
 				# Raid another Empire
-				marauder.31		# raid a Rival
-				marauder.32		# confirm purchase
-				marauder.35		# attempting to raid a Fallen Empire
-				marauder.101	# announcing a raid
+				marauder.31		# Raid a Rival
+				marauder.32		# Confirm purchase
+				marauder.35		# Attempting to raid a Fallen Empire
+				marauder.101	# Announcing a raid
 				# Hire a Leader
 				marauder.40
 				# Hire mercenary Fleet
-				marauder.34		# hire a Fleet
-				marauder.37		# confirm purchase
+				marauder.34		# Hire a Fleet
+				marauder.37		# Confirm purchase
 				marauder.86		# Marauders 1 fleet available
 				marauder.87		# Marauders 2 fleet available
 				marauder.88		# Marauders 3 fleet available
 				# Other
 				marauder.111	# Raiders withdrawing from your space
-				marauder.121	# transmission from raiders on approach
+				marauder.121	# Transmission from raiders on approach
 				marauder.7		# Marauder clan declares vengeance
 			}
 		}
 		# has_khan_event = no
 		NOT = {
 			has_active_event = {
-				marauder.502	# announcement following "Drums of War"
-				marauder.508	# return of the Great Khan
-				marauder.550	# main menu
-				marauder.551	# submit to the Khan
-				marauder.554	# defy the Khan
+				marauder.502	# Announcement following "Drums of War"
+				marauder.508	# Return of the Great Khan
+				marauder.550	# Main menu
+				marauder.551	# Submit to the Khan
+				marauder.554	# Defy the Khan
 				marauder.665	# Khan menu (deceased)
 			}
 		}
@@ -361,7 +361,7 @@ country_event = {
 	immediate = {
 		from = { save_event_target_as = marauder_killer }
 		owner_species = { save_event_target_as = marauder_species }
-		if = { limit = { NOT = { exists = event_target:marauder_system } } # vfix - for marauder.5 location, use system of ship that destroyed marauders
+		if = { limit = { NOT = { exists = event_target:marauder_system } } # Vfix - for marauder.5 location, use system of ship that destroyed marauders
 			fromfromfrom.solar_system = { save_event_target_as = marauder_system }
 		}
 		every_playable_country = {
@@ -403,7 +403,7 @@ country_event = {
 							limit = { is_star = no }
 							weights = {
 								base = 1
-								# modifier = { add = 1 is_a_planet = yes } # possible inconsisent due other mods
+								# modifier = { add = 1 is_a_planet = yes } # Possible inconsisent due other mods
 								modifier = { add = 3 has_planet_flag = raid_source }
 								modifier = { add = 2 is_colony = yes }
 								modifier = { add = 1 is_colonizable = yes }
@@ -439,7 +439,7 @@ country_event = {
 							limit = { is_star = no }
 							weights = {
 								base = 1
-								# modifier = { add = 1 is_a_planet = yes } # possible inconsisent due other mods
+								# modifier = { add = 1 is_a_planet = yes } # Possible inconsisent due other mods
 								modifier = { add = 3 has_planet_flag = raid_source }
 								modifier = { add = 2 is_colony = yes }
 								modifier = { add = 1 is_colonizable = yes }
@@ -474,7 +474,7 @@ country_event = {
 							limit = { is_star = no }
 							weights = {
 								base = 1
-								# modifier = { add = 1 is_a_planet = yes } # possible inconsisent due other mods
+								# modifier = { add = 1 is_a_planet = yes } # Possible inconsisent due other mods
 								modifier = { add = 3 has_planet_flag = raid_source }
 								modifier = { add = 2 is_colony = yes }
 								modifier = { add = 1 is_colonizable = yes }
@@ -509,7 +509,7 @@ country_event = {
 							limit = { is_star = no }
 							weights = {
 								base = 1
-								# modifier = { add = 1 is_a_planet = yes } # possible inconsisent due other mods
+								# modifier = { add = 1 is_a_planet = yes } # Possible inconsisent due other mods
 								modifier = { add = 3 has_planet_flag = raid_source }
 								modifier = { add = 2 is_colony = yes }
 								modifier = { add = 1 is_colonizable = yes }
@@ -1438,7 +1438,7 @@ country_event = {
 	desc = { # FALLBACK
 		text = "04_INSULT_HOSTILE"
 		trigger = {
-			NOR = { # omit opt
+			NOR = { # Omit opt
 				has_valid_civic = civic_fanatic_purifiers
 				has_valid_civic = civic_machine_terminator
 				has_valid_civic = civic_hive_devouring_swarm
@@ -2148,7 +2148,7 @@ country_event = {
 			}
 		}
 		# Concept from Spaceborne Civs Expanded by Tovius
-		# can target player crisis once they reach level 2
+		# Can target player crisis once they reach level 2
 		random_playable_country = {
 			limit = {
 				has_ascension_perk = ap_become_the_crisis
@@ -2190,7 +2190,7 @@ country_event = {
 						galactic_community_rank >= 4
 					}
 				}
-				# custodian or galactic emperor
+				# Custodian or galactic emperor
 				if = {
 					limit = {
 						OR = {
@@ -2216,7 +2216,7 @@ country_event = {
 						save_event_target_as = raid_target_6
 					}
 				}
-				# ranking member of galactic community
+				# Ranking member of galactic community
 				random_playable_country = {
 					limit = {
 						is_galactic_community_member = yes
@@ -2250,7 +2250,7 @@ country_event = {
 				}
 			}
 		}
-		# random target, for the lulz
+		# Random target, for the lulz
 		random_playable_country = {
 			limit = {
 				OR = {
@@ -2469,7 +2469,7 @@ country_event = {
 			event_target:current_marauder_diplomacy = {
 				if = {
 					limit = { is_variable_set = raidcost }
-					log="Dyn. raidcost \\[This.raidcost] and difficulty \\[This.pirate_waves_difficulty]"
+					log="Dyn. Raidcost \\[This.raidcost] and difficulty \\[This.pirate_waves_difficulty]"
 					clear_variable = raidcost
 				}
 			}
@@ -3318,7 +3318,7 @@ country_event = {
 
 # Hire Leader
 # From = current_marauder_diplomacy
-# only for scope fallback
+# Only for scope fallback
 country_event = {
 	id = marauder.40
 	title = "marauder_diplo_header"
@@ -5365,11 +5365,11 @@ planet_event = {
 			limit = { owner = { is_gestalt = no } }
 			random_list = {
 				50 = {
-					planet_event = { id = marauder.104 } # taking resources
+					planet_event = { id = marauder.104 } # Taking resources
 				}
 				50 = {
 					modifier = { factor = 0 num_pops = 1 }
-					planet_event = { id = marauder.105 } # taking Pops
+					planet_event = { id = marauder.105 } # Taking Pops
 				}
 			}
 		}
@@ -6995,7 +6995,7 @@ country_event = {
 								limit = { is_star = no }
 								weights = {
 									base = 1
-									modifier = { add = 1 is_a_planet = yes } # possible inconsisent due other mods
+									modifier = { add = 1 is_a_planet = yes } # Possible inconsisent due other mods
 									modifier = { add = 2 is_colony = yes }
 									modifier = { add = 1 is_colonizable = yes }
 								}
@@ -7010,7 +7010,7 @@ country_event = {
 						limit = { is_star = no }
 						weights = {
 							base = 1
-							# modifier = { add = 1 is_a_planet = yes } # possible inconsisent due other mods
+							# modifier = { add = 1 is_a_planet = yes } # Possible inconsisent due other mods
 							modifier = { add = 3 has_planet_flag = raid_source }
 							modifier = { add = 2 is_colony = yes }
 							modifier = { add = 1 is_colonizable = yes }
@@ -7062,7 +7062,7 @@ country_event = {
 								limit = { is_star = no }
 								weights = {
 									base = 1
-									modifier = { add = 1 is_a_planet = yes } # possible inconsisent due other mods
+									modifier = { add = 1 is_a_planet = yes } # Possible inconsisent due other mods
 									modifier = { add = 2 is_colony = yes }
 									modifier = { add = 1 is_colonizable = yes }
 								}
@@ -7078,7 +7078,7 @@ country_event = {
 						limit = { is_star = no }
 						weights = {
 							base = 1
-							# modifier = { add = 1 is_a_planet = yes } # possible inconsisent due other mods
+							# modifier = { add = 1 is_a_planet = yes } # Possible inconsisent due other mods
 							modifier = { add = 3 has_planet_flag = raid_source }
 							modifier = { add = 2 is_colony = yes }
 							modifier = { add = 1 is_colonizable = yes }
@@ -7130,7 +7130,7 @@ country_event = {
 								limit = { is_star = no }
 								weights = {
 									base = 1
-									modifier = { add = 1 is_a_planet = yes } # possible inconsisent due other mods
+									modifier = { add = 1 is_a_planet = yes } # Possible inconsisent due other mods
 									modifier = { add = 2 is_colony = yes }
 									modifier = { add = 1 is_colonizable = yes }
 								}
@@ -7145,7 +7145,7 @@ country_event = {
 						limit = { is_star = no }
 						weights = {
 							base = 1
-							# modifier = { add = 1 is_a_planet = yes } # possible inconsisent due other mods
+							# modifier = { add = 1 is_a_planet = yes } # Possible inconsisent due other mods
 							modifier = { add = 3 has_planet_flag = raid_source }
 							modifier = { add = 2 is_colony = yes }
 							modifier = { add = 1 is_colonizable = yes }
@@ -7372,7 +7372,7 @@ country_event = {
 			limit = { NOT = { exists = event_target:marauder_rally_point } }
 			random_planet_within_border = {
 				limit = { is_star = no }
-				weights = { base = 1 modifier = { add = 2 is_a_planet = yes } } # possible inconsisent due other mods
+				weights = { base = 1 modifier = { add = 2 is_a_planet = yes } } # Possible inconsisent due other mods
 				save_global_event_target_as = marauder_rally_point
 				set_planet_flag = marauder_rally_point
 				log = "Backup Code for marauder_rally_point Processed on \\[This.GetName] at \\[This.System.GetName]"
@@ -7586,12 +7586,12 @@ country_event = {
 		if = { ## Compat. Khorgis Khan: Scourge of the Stars
 			limit = { is_species_class = GC_CORGI }
 			set_name = "NAME_KHORGI_KHAN"
-			room_name_override = "khorgis_khan_1_room" # should work with 3.8
+			room_name_override = "khorgis_khan_1_room" # Should work with 3.8
 			last_created_leader = { set_name = "NAME_Khorgis_Khan" }
 		}
 		# else = {
 		# 	set_name = random
-		# 	room_name_override = "ethic_spaceship_room" # should work with 3.8
+		# 	room_name_override = "ethic_spaceship_room" # Should work with 3.8
 		# }
 
 		last_created_leader = {
@@ -7609,7 +7609,7 @@ country_event = {
 			# } else = {
 			# add_trait_no_notify = leader_trait_ruler_great_khan
 			# add_trait_no_notify = leader_trait_chosen
-			# add_trait_no_notify = subclass_admiral_strategist # councilor yes
+			# add_trait_no_notify = subclass_admiral_strategist # Councilor yes
 			# Only really applicable destiny unfortunately
 			add_trait_no_notify = leader_trait_armorer
 			add_trait_no_notify = leader_trait_gale_speed_3
@@ -7638,7 +7638,7 @@ country_event = {
 				can_manually_change_location = no
 				hide_leader = yes
 				randomize_traits = no
-				# traits are cleared only (vanilla bug?)
+				# Traits are cleared only (vanilla bug?)
 				# traits = {
 				# 	0 = leader_trait_great_khan
 				# 	0 = leader_trait_chosen
@@ -7661,9 +7661,9 @@ country_event = {
 				skill = 6
 				event_leader = yes
 				can_manually_change_location = no
-				# can_see_in_list = no
+				# hide_leader = yes
 				randomize_traits = no
-				# traits are cleared only (vanilla bug?)
+				# Traits are cleared only (vanilla bug?)
 				# traits = {
 				# 	0 = leader_trait_great_khan
 				# 	0 = leader_trait_chosen
@@ -7678,7 +7678,7 @@ country_event = {
 			recruitable = no
 			add_trait_no_notify = leader_trait_great_khan
 			add_trait_no_notify = leader_trait_chosen
-			add_trait_no_notify = subclass_admiral_aggressor # councilor no
+			add_trait_no_notify = subclass_admiral_aggressor # Councilor no
 			add_trait_no_notify = subclass_admiral_strategist
 			add_trait_no_notify = leader_trait_armada_logistician_3
 			if = {
@@ -7742,7 +7742,7 @@ country_event = {
 			}
 		}
 
-		### Compat. replace hack for CM.
+		### Compat. Replace hack for CM.
 		event_target:great_khan.fleet = {
 			create_ship = {
 				design = "NAME_JuukTidir"
@@ -7767,25 +7767,25 @@ country_event = {
 			country_event = { id = marauder.78 days = 20 }
 			### Should not attack: the Khan is not that bad!
 			make_moderately_hostile = yes
-			# Addition to make_moderately_hostile
-			every_country = {
-				limit = {
-					merg_is_fallen_empire = yes
-					OR = {
-						is_hostile = prev
-						prev = { is_hostile = prev }
-					}
-				}
-				establish_communications_no_message = prev
-				root = {
-					set_faction_hostility = {
-						target = prev
-						set_hostile = no
-						set_neutral = yes
-						set_friendly = no
-					}
-				}
-			}
+			# FE Addition to make_moderately_hostile - should now handled in game rules
+			# every_country = {
+			# 	limit = {
+			# 		merg_is_fallen_empire = yes
+			# 		OR = {
+			# 			is_hostile = prev
+			# 			prev = { is_hostile = prev }
+			# 		}
+			# 	}
+			# 	establish_communications_no_message = prev
+			# 	root = {
+			# 		set_faction_hostility = {
+			# 			target = prev
+			# 			set_hostile = no
+			# 			set_neutral = yes
+			# 			set_friendly = no
+			# 		}
+			# 	}
+			# }
 		}
 		else = {
 			# Should not attack Enclaves
@@ -8580,7 +8580,7 @@ country_event = {
 			}
 			observer_event = { id = observer.15 }
 
-			### Compat. hack for CM
+			### Compat. Hack for CM
 			event_target:great_khan.fleet = {
 				create_ship = {
 					# name = "NAME_Glorious_Might"
@@ -9530,7 +9530,7 @@ country_event = {
 	hide_window = yes
 	is_triggered_only = yes
 	immediate = {
-		# needs event_target:khan_destroyer
+		# Needs event_target:khan_destroyer
 		if = {
 			limit = { exists = from }
 			from = {
@@ -9856,7 +9856,7 @@ planet_event = {
 				}
 			}
 			owner = { change_variable = { which = "planets_lost_to_marauder" value = 1 } }
-			every_owned_pop = { kill_pop = yes } # ghost pop bug
+			every_owned_pop = { kill_pop = yes } # Ghost pop bug
 			destroy_colony = yes
 		}
 		else_if = {
@@ -11010,7 +11010,7 @@ fleet_event = {
 				# # Set var counter (CmtVarKhanReinforcementCounter) for next cycle
 				# event_target:raider_khanate = { event_target:CmtGlobalVar = { CmtEffectKhanIncreasementReinforcementCycle = yes } }
 			}
-		} # else cycle ends
+		} # Else cycle ends
 	}
 }
 
@@ -11034,7 +11034,7 @@ country_event = {
 		remove_country_flag = CmtFlagKhanNoDieCountry
 		remove_global_flag = great_khan_wins
 		clear_variable = CmtVarKhanRemainingLive
-		remove_global_flag = marauder_crisis_ongoing	# must be removed before
+		remove_global_flag = marauder_crisis_ongoing	# Must be removed before
 		room_name_override = ""
 		if = { # If Horde owns no planet.
 			limit = {
@@ -11570,7 +11570,7 @@ country_event = {
 							}
 						}
 					}
-					while = { # clean up borders by giving rebels frontier territory they wouldnt otherwise get
+					while = { # Clean up borders by giving rebels frontier territory they wouldnt otherwise get
 						count = 50 # TODO make dyn!?
 						limit = {
 							any_system_within_border = {
@@ -11611,9 +11611,9 @@ country_event = {
 					}
 
 					## GET_DIADOCHI_IMMEDIATE_SETUP
-					# setting graphical culture
+					# Setting graphical culture
 					set_graphical_culture = event_target:first_diadochi
-					# establish comms
+					# Establish comms
 					every_country = {
 						limit = {
 							OR = {
@@ -11626,7 +11626,7 @@ country_event = {
 						}
 						establish_communications_no_message = event_target:diadochi_country
 					}
-					# clear new contact opinion modifier
+					# Clear new contact opinion modifier
 					if = {
 						limit = {
 							has_opinion_modifier = { who = event_target:first_diadochi modifier = opinion_new_contact }
@@ -11922,7 +11922,7 @@ country_event = {
 				event_target:new_khanate = { set_player = event_target:raider_khanate }
 			}
 		}
-		set_name = random # only after marauder.660
+		set_name = random # Only after marauder.660
 	}
 }
 
@@ -12741,7 +12741,7 @@ country_event = {
 								species = { save_event_target_as = primitive_world_species }
 							}
 						}
-						else = { # last fallback
+						else = { # Last fallback
 							random_owned_pop = {
 								weights = {
 									base = 1
@@ -13551,7 +13551,7 @@ country_event = {
 				can_manually_change_location = no
 				hide_leader = yes
 				randomize_traits = no
-				# traits are cleared only (vanilla bug?)
+				# Traits are cleared only (vanilla bug?)
 				traits = {
 					0 = leader_trait_great_khan
 					0 = leader_trait_chosen
@@ -13562,7 +13562,7 @@ country_event = {
 			last_created_leader = {
 				add_trait_no_notify = leader_trait_great_khan
 				add_trait_no_notify = leader_trait_chosen
-				add_trait_no_notify = subclass_admiral_aggressor # councilor no
+				add_trait_no_notify = subclass_admiral_aggressor # Councilor no
 				owner = {
 					switch = { trigger = has_country_flag
 						marauder_1 = { prev = { add_trait_no_notify = leader_trait_master_gunner } }

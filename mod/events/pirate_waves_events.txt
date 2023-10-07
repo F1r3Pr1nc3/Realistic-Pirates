@@ -369,7 +369,7 @@ country_event = {
 			country_event = { id = pirate_waves.102 days = 1 }
 		}
 	}
-	 # only once
+	 # Only once
 	option = {
 		name = "outer_bulwark_MODE_enable"
 		custom_tooltip = "outer_bulwark_MODE_DESC"
@@ -394,7 +394,7 @@ country_event = {
 			set_global_flag = outer_bulwark_initialized
 			event_target:global_event_country = { remove_country_flag = outer_bulwark_inactive }
 			# Batch-processes the spawn_system effects between "begin" and "end",
-			# so caches are recalculated only once rather than for every system spawned
+			# So caches are recalculated only once rather than for every system spawned
 			# Can also be used when removing and adding hyperlanes
 			set_spawn_system_batch = begin
 			no_scope = {
@@ -1197,7 +1197,7 @@ planet_event = {
 					# Check whether there's a friendly fleet nearby that's not a station.
 					limit = {
 						# has_pirate_waves_fleet_build_station = no
-						ROOT = {
+						root = {
 							solar_system = {
 								any_fleet_in_system = {
 									NOT = { is_ship_class = shipclass_military_station }
@@ -1648,7 +1648,7 @@ country_event = {
 	immediate = {
 		if = {
 			limit = { NOT = { is_variable_set = pirate_waves_chance } }
-			set_variable = { which =  value = 0 }
+			set_variable = { which = pirate_waves_chance value = 0 }
 		}
 	}
 	after = {
