@@ -21,20 +21,20 @@ country_event = {
 	trigger = { is_ai = no }
 	fire_only_once = yes
 	immediate = {
-		country_event = { id = pirate_waves.102 days = 3 }
+		country_event = { id = pirate_waves.0 days = 3 }
 	}
 }
 
 country_event = {
-	id = pirate_waves.102
-	title = pirate_waves.102.title
-	desc = pirate_waves.102.desc
+	id = pirate_waves.0
+	title = pirate_waves.0.title
+	desc = pirate_waves.0.desc
 	picture = GFX_evt_pirate_armada
 	show_sound = event_ship_bridge
-	fire_only_once = yes
+	is_triggered_only = yes
 	trigger = {
 		is_ai = no
-		# NOT = { has_active_event = { pirate_waves.102 } } not working on selfcall
+		# NOT = { has_active_event = { pirate_waves.0 } } # not working on selfcall
 	}
 	immediate = {
 		## Auto activate Pirate Waves.
@@ -225,7 +225,7 @@ country_event = {
 		trigger = { has_global_flag = pirate_waves_notifications_disabled }
 		hidden_effect = {
 			remove_global_flag = pirate_waves_notifications_disabled
-			country_event = { id = pirate_waves.102 days = 1 }
+			country_event = { id = pirate_waves.0 }
 		}
 	}
 	option = {
@@ -234,7 +234,7 @@ country_event = {
 		trigger = { NOT = { has_global_flag = pirate_waves_notifications_disabled } }
 		hidden_effect = {
 			set_global_flag = pirate_waves_notifications_disabled
-			country_event = { id = pirate_waves.102 days = 1 }
+			country_event = { id = pirate_waves.0 }
 		}
 	}
 	## MARAUDER_MODE
@@ -251,7 +251,7 @@ country_event = {
 		}
 		hidden_effect = {
 			set_global_flag = pirate_waves_marauders_inactive
-			country_event = { id = pirate_waves.102 days = 1 }
+			country_event = { id = pirate_waves.0 }
 		}
 	}
 	option = {
@@ -264,7 +264,7 @@ country_event = {
 		}
 		hidden_effect = {
 			remove_global_flag = pirate_waves_marauders_inactive
-			country_event = { id = pirate_waves.102 days = 1 }
+			country_event = { id = pirate_waves.0 }
 		}
 	}
 	## MERCENARY_MODE
@@ -278,7 +278,7 @@ country_event = {
 		allow = { has_global_flag = pirate_waves_active }
 		hidden_effect = {
 			set_global_flag = pirate_waves_mercenary_inactive
-			country_event = { id = pirate_waves.102 days = 1 }
+			country_event = { id = pirate_waves.0 }
 		}
 	}
 	option = {
@@ -288,7 +288,7 @@ country_event = {
 		allow = { has_global_flag = pirate_waves_active }
 		hidden_effect = {
 			remove_global_flag = pirate_waves_mercenary_inactive
-			country_event = { id = pirate_waves.102 days = 1 }
+			country_event = { id = pirate_waves.0 }
 		}
 	}
 	## PRIVATEER_MODE
@@ -302,7 +302,7 @@ country_event = {
 		allow = { has_global_flag = pirate_waves_active }
 		hidden_effect = {
 			set_global_flag = pirate_waves_PRIVATEER_inactive
-			country_event = { id = pirate_waves.102 days = 1 }
+			country_event = { id = pirate_waves.0 }
 		}
 	}
 	option = {
@@ -312,7 +312,7 @@ country_event = {
 		allow = { has_global_flag = pirate_waves_active }
 		hidden_effect = {
 			remove_global_flag = pirate_waves_PRIVATEER_inactive
-			country_event = { id = pirate_waves.102 days = 1 }
+			country_event = { id = pirate_waves.0 }
 		}
 	}
 	## Pirate Republic
@@ -325,7 +325,7 @@ country_event = {
 		}
 		hidden_effect = {
 			set_global_flag = pirate_republic_inactive
-			country_event = { id = pirate_waves.102 days = 1 }
+			country_event = { id = pirate_waves.0 }
 		}
 	}
 	option = {
@@ -334,7 +334,7 @@ country_event = {
 		trigger = { has_global_flag = pirate_republic_inactive }
 		hidden_effect = {
 			remove_global_flag = pirate_republic_inactive
-			country_event = { id = pirate_waves.102 days = 1 }
+			country_event = { id = pirate_waves.0 }
 		}
 	}
 	## Outer Bulwark
@@ -366,7 +366,7 @@ country_event = {
 					}
 				}
 			}
-			country_event = { id = pirate_waves.102 days = 1 }
+			country_event = { id = pirate_waves.0 }
 		}
 	}
 	 # Only once
@@ -641,7 +641,7 @@ country_event = {
 				}
 			}
 			set_spawn_system_batch = end
-			country_event = { id = pirate_waves.102 days = 1 }
+			country_event = { id = pirate_waves.0 }
 		}
 	}
 
@@ -682,7 +682,7 @@ country_event = {
 					}
 				}
 			}
-			country_event = { id = pirate_waves.102 days = 1 }
+			country_event = { id = pirate_waves.0 }
 		}
 	}
 	## DEBUGGING OPTIONS ##
@@ -715,7 +715,7 @@ country_event = {
 	# 	trigger = { has_global_flag = debug_mode }
 	# 	hidden_effect = {
 	# 		remove_global_flag = debug_mode
-	# 		country_event = { id = pirate_waves.102 }
+	# 		country_event = { id = pirate_waves.0 }
 	# 	}
 	# }
 	option = { name = CLOSE }
@@ -1338,7 +1338,7 @@ event = {
 			limit = { NOR = { has_global_flag = pirate_waves_active exists = event_target:pirate_waves_country } }
 			random_playable_country = {
 				limit = { is_ai = no is_pirate_waves_player = no }
-				country_event = { id = pirate_waves.102 }
+				country_event = { id = pirate_waves.0 }
 			}
 		}
 		else = {
@@ -1654,8 +1654,8 @@ country_event = {
 	after = {
 		hidden_effect = {
 			if = {
-				limit = { NOT = { has_active_event = { pirate_waves.102 pirate_waves.112 } } }
-				country_event = { id = pirate_waves.102 }
+				limit = { NOT = { has_active_event = { pirate_waves.0 pirate_waves.112 } } }
+				country_event = { id = pirate_waves.0 }
 			}
 		}
 	}
@@ -1852,8 +1852,8 @@ country_event = {
 	after = {
 		hidden_effect = {
 			if = {
-				limit = { NOT = { has_active_event = { pirate_waves.102 pirate_waves.111 } } }
-				country_event = { id = pirate_waves.102 }
+				limit = { NOT = { has_active_event = { pirate_waves.0 pirate_waves.111 } } }
+				country_event = { id = pirate_waves.0 }
 			}
 
 			if = {
@@ -2252,7 +2252,7 @@ country_event = {
 	option = {
 		name = CLOSE
 		hidden_effect = {
-			country_event = { id = pirate_waves.102 days = 1 }
+			country_event = { id = pirate_waves.0 }
 		}
 	}
 }
@@ -2387,7 +2387,7 @@ event = {
 				flag = {
 					# icon = { category = pirates file = random }
 					background= { category = "backgrounds" file = "00_solid.dds" }
-					colors={ "black" "black" "null" "null" }
+					colors = { "black" "black" "null" "null" }
 				}
 				ethos = { ethic = ethic_fanatic_militarist ethic = ethic_xenophobe }
 				ignore_initial_colony_error = yes

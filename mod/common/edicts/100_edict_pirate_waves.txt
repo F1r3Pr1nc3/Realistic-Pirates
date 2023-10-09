@@ -19,10 +19,10 @@ pirate_waves = {
 	}
 	allow = {
 		# years_passed > 9
-		NOT = { has_active_event = { pirate_waves.102 } }
+		NOT = { has_active_event = { pirate_waves.0 } }
 	}
 	effect = {
-		country_event = { id = pirate_waves.102 }
+		country_event = { id = pirate_waves.0 }
 	}
 	ai_weight = { weight = 0 }
 }

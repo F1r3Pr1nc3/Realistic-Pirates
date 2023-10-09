@@ -19,6 +19,11 @@ event = {
 	is_triggered_only = yes
 	immediate = {
 		# Config only for minimal compatibility Crisis Manager.
+		# if = { limit = { NOT = { exists = event_target:global_event_country } }
+		# 	random_country = { limit = { is_country_type = global_event }
+		# 		save_global_event_target_as = global_event_country
+		# 	}
+		# }
 		if = {
 			limit = {
 				exists = event_target:global_event_country
@@ -27,11 +32,6 @@ event = {
 					exists = event_target:CmtGlobalVar
 					# event_target:CmtGlobalVar = { is_variable_set = CmtVarVersion }
 					event_target:CmtGlobalVar = { is_variable_set = CmtVarFleetPower_Khan }
-				}
-			}
-			if = { limit = { NOT = { exists = event_target:global_event_country } }
-				event_target:global_event_country = {
-					save_global_event_target_as = global_event_country
 				}
 			}
 			event_target:global_event_country = {
