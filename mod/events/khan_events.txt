@@ -545,11 +545,13 @@ ship_event = {
 				solar_system = {
 					any_fleet_in_system = {
 						exists = owner
-						is_civilian = no
 						is_mobile = yes
-						NOT = { is_owned_by = root.owner }
+						NOR = {
+							is_civilian = yes
+							is_owned_by = root.owner
+							is_disabled = yes
+						}
 						owner = { is_hostile = root.owner }
-						is_disabled = no
 					}
 				}
 			}
@@ -593,6 +595,7 @@ country_event = {
 			limit = {
 				exists = event_target:marauder_rally_point
 				event_target:marauder_rally_point = {
+					is_scope_valid = yes
 					OR = {
 						has_owner = no
 						is_owned_by = root
@@ -604,6 +607,7 @@ country_event = {
 							has_owner = no
 							is_owned_by = root
 						}
+						count_neighbor_system = { count > 1 limit = { has_access_fleet = root } }
 						NAND = {
 							exists = starbase
 							starbase = { has_starbase_size = starbase_citadel }
@@ -632,19 +636,19 @@ country_event = {
 					exists = event_target:marauder_rally_point
 					exists = event_target:marauder_rally_point.space_owner
 					event_target:marauder_rally_point.space_owner = { is_same_empire = root }
+					event_target:marauder_rally_point.solar_system = { any_fleet_in_system = { is_owned_by = root is_mobile = yes } }
 				}
 			}
 			random_system_within_border = {
 				limit = {
 					exists = starbase
 					any_system_planet = { is_star = no }
+					any_fleet_in_system = { is_owned_by = root is_mobile = yes }
+					count_neighbor_system = { count > 1 limit = { has_access_fleet = root } }
 				}
 				weights = {
 					base = 1
-					modifier = {
-						add = 1
-						starbase = { has_starbase_size >= starbase_starhold }
-					}
+					modifier = { add = 2 starbase = { has_starbase_size >= starbase_starhold } }
 					modifier = {
 						add = 1
 						any_system_planet = {
@@ -2464,22 +2468,34 @@ system_event = {
 				# add_district = district_hab_cultural		# 3
 				if = { # 6 jobs
 					limit = { has_planet_flag = mining_habitat }
-					add_district = district_hab_mining
-					add_district = district_hab_mining
+					if = {
+						limit = { check_modifier_value = { modifier = district_hab_mining_max value > 0 } }
+						add_district = district_hab_mining
+						add_district = district_hab_mining
+					}
 				}
 				else_if = {
 					limit = { has_planet_flag = energy_habitat }
-					add_district = district_hab_energy
-					add_district = district_hab_energy
+					if = {
+						limit = { check_modifier_value = { modifier = district_hab_energy_max value > 0 } }
+						add_district = district_hab_energy
+						add_district = district_hab_energy
+					}
 				}
 				else_if = {
 					limit = { has_planet_flag = research_habitat }
-					add_district = district_hab_science
-					add_district = district_hab_science
+					if = {
+						limit = { check_modifier_value = { modifier = district_hab_science_max value > 0 } }
+						add_district = district_hab_science
+						add_district = district_hab_science
+					}
 				}
 				else = {
 					add_district = district_hab_industrial
-					add_district = district_hab_energy
+					if = {
+						limit = { check_modifier_value = { modifier = district_hab_energy_max value > 0 } }
+						add_district = { district_type = district_hab_energy ignore_cap = yes }
+					}
 				}
 				from = {
 					change_variable = { which = marauder_habitat_count value = -1 }

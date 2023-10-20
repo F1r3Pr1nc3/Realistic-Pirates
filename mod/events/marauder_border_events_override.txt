@@ -794,12 +794,12 @@ country_event = {
 				}
 			}
 			random_list = {
-				66 = { # Fractures into Diadochi
+				66 = { # Fractures into Diadochi.
 					modifier = {
-						factor = 0  # Should not happen if Marauder is too small
+						factor = 0	# Should not happen if Marauders are too small
 						OR = {
-							num_sectors < 3
-							num_owned_planets < 8
+							AND = { num_sectors < 3 num_owned_planets < 10 }
+							num_owned_planets < 6
 							event_target:CmtGlobalVar = { check_variable = { which = CmtVarKhanPostDeathSplinter value = 1 } }
 						}
 					}
@@ -812,14 +812,14 @@ country_event = {
 						event_target:CmtGlobalVar = { check_variable = { which = CmtVarKhanPostDeathSplinter value = 3 } }
 					}
 					modifier = { factor = 2 OR = { num_sectors > 4 num_owned_planets > 18 } }
-					# log="TGKE Fractures into Diadochi"
+					log="TGKE Fractures into Diadochi"
 					country_event = { id = marauder.601 }
 				}
 				18 = { # Stays united in New Khanate.
 					modifier = {
 						factor = 0
 						OR = {
-							num_sectors > 5
+							num_sectors > 4
 							event_target:CmtGlobalVar = { check_variable = { which = CmtVarKhanPostDeathKhanate value = 1 } }
 						}
 					}
@@ -835,10 +835,10 @@ country_event = {
 						event_target:CmtGlobalVar = { check_variable = { which = CmtVarKhanPostDeathKhanate value = 4 } }
 					}
 					modifier = { factor = 0.2 OR = { num_sectors > 4 num_owned_planets > 15 } }
-					# log="TGKE Fractures into Diadochi"
+					log="TGKE Stays united in New Khanate"
 					country_event = { id = marauder.602 }
 				}
-				16 = { # Turns into Democratic Federation
+				16 = { # Turns into Democratic Federation.
 					modifier = {
 						factor = 0 # Can only happen if there are enough Satrapies.
 						OR = {
@@ -855,7 +855,7 @@ country_event = {
 						event_target:CmtGlobalVar = { check_variable = { which = CmtVarKhanPostDeathDemocratic value = 4 } }
 					}
 					modifier = { factor = 0.2 OR = { num_sectors > 4 num_owned_planets > 15 } }
-					# log="TGKE Turns into Democratic Federation"
+					log="TGKE Turns into Democratic Federation"
 					country_event = { id = marauder.603 }
 				}
 			}
@@ -863,7 +863,7 @@ country_event = {
 		else = {
 			random_list = {
 				66 = { # Fractures into Diadochi.
-					modifier = { factor = 0 num_sectors < 3 } # Should not happen if Marauder is too small
+					modifier = { factor = 0 num_sectors < 3 num_owned_planets < 10 }	# Should not happen if Marauders are too small
 					modifier = { factor = 2 OR = { num_sectors > 4 num_owned_planets > 18 } }
 					country_event = { id = marauder.601 }
 				}

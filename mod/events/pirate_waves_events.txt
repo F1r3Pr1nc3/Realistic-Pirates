@@ -812,6 +812,7 @@ fleet_event = {
 											exists = space_owner
 											has_star_flag = sanctuary_system
 											has_star_flag = hostile_system
+											is_pirate_system = yes
 										}
 										any_system_planet = { is_pirate_waves_base_planet = yes }
 									}
@@ -894,7 +895,11 @@ fleet_event = {
 								find_closest_system = {
 									trigger = {
 										id = pirate_waves.2.trigger.8
-										NOR = { has_star_flag = sanctuary_system has_star_flag = hostile_system }
+										NOR = {
+											has_star_flag = sanctuary_system
+											has_star_flag = hostile_system
+											is_pirate_system = yes
+										}
 										any_system_planet = { is_pirate_waves_base_planet = yes }
 									}
 									found_system = {
@@ -1109,7 +1114,7 @@ planet_event = {
 			if = {
 				limit = {
 					exists = from
-					from = { is_scope_type = country }
+					from = { is_scope_valid = yes is_scope_type = country }
 					any_playable_country = {
 						is_pirate_waves_player = yes
 						check_variable = { which = pirate_waves_difficulty value = prev.pirate_waves_difficulty }
@@ -1118,7 +1123,20 @@ planet_event = {
 				}
 				random = { chance = 65 randomize_flag_symbol = "pirate" }
 			}
-
+			if = {
+				limit = {
+					root.solar_system = {
+						count_fleet_in_system = {
+							count > 9
+							limit = {
+								is_owned_by = prevprev
+								is_mobile = no
+							}
+						}
+					}
+				}
+				break = yes
+			}
 			# Create a pirate station
 			create_fleet = {
 				# name = "NAME_Pirate_Nest"
@@ -1252,10 +1270,8 @@ country_event = {
 						exists = space_owner
 						has_star_flag = sanctuary_system
 						has_star_flag = hostile_system
-						any_fleet_in_system = {
-							exists = owner
-							owner = { is_pirate = yes }
-						}
+						# any_fleet_in_system = { exists = owner owner = { is_pirate_country = yes } }
+						is_pirate_system = yes
 					}
 					any_system_planet = { is_pirate_waves_base_planet = yes }
 				}
@@ -1268,10 +1284,8 @@ country_event = {
 						exists = space_owner
 						has_star_flag = sanctuary_system
 						has_star_flag = hostile_system
-						any_fleet_in_system = {
-							exists = owner
-							owner = { is_pirate = yes }
-						}
+						# any_fleet_in_system = { exists = owner owner = { is_pirate_country = yes } }
+						is_pirate_system = yes
 					}
 					any_system_planet = { is_pirate_waves_base_planet = yes }
 				}
@@ -1291,7 +1305,7 @@ country_event = {
 						has_star_flag = hostile_system
 						any_fleet_in_system = {
 							exists = owner
-							owner = { is_pirate = yes }
+							owner = { is_pirate_country = yes }
 						}
 					}
 					any_system_planet = { is_pirate_waves_base_planet = yes }
@@ -1450,7 +1464,7 @@ country_event = {
 	is_triggered_only = yes
 	trigger = {
 		OR = {
-			is_pirate = yes
+			is_pirate_country = yes
 			is_country_type = awakened_marauders
 			is_country_type = marauder_raiders
 		}
@@ -1532,7 +1546,7 @@ country_event = {
 			limit = {
 				from = {
 					OR = {
-						is_pirate = yes
+						is_pirate_country = yes
 						is_country_type = awakened_marauders
 						is_country_type = marauder_raiders
 					}
@@ -1572,7 +1586,7 @@ country_event = {
 	is_triggered_only = yes
 	trigger = {
 		OR = {
-			is_pirate = yes
+			is_pirate_country = yes
 			is_country_type = awakened_marauders
 			is_country_type = marauder_raiders
 		}
@@ -1597,7 +1611,7 @@ country_event = {
 				NOT = {
 					from = {
 						OR = {
-							is_pirate = yes
+							is_pirate_country = yes
 							is_country_type = awakened_marauders
 							is_country_type = marauder_raiders
 						}
@@ -2127,7 +2141,7 @@ country_event = {
 		set_timed_global_flag = { flag = pirate_waves_667 days = 15 }
 		every_country = {
 			limit = {
-				# is_pirate = yes
+				# is_pirate_country = yes
 				OR = { is_country_type = pirate is_country_type = pirate_waves_country }
 			}
 			set_country_flag = silence_destroy_event
@@ -2489,7 +2503,7 @@ event = {
 							limit = {
 								exists = owner
 								OR = {
-									owner = { is_pirate = yes }
+									owner = { is_pirate_country = yes }
 									AND = {
 										is_mobile = no
 										owner = { merg_is_default_empire = yes }
@@ -2583,7 +2597,7 @@ event = {
 								limit = {
 									exists = owner
 									OR = {
-										owner = { is_pirate = yes }
+										owner = { is_pirate_country = yes }
 										AND = {
 											is_mobile = no
 											owner = { merg_is_default_empire = yes }
@@ -2707,7 +2721,7 @@ event = {
 						any_fleet_in_system = {
 							is_mobile = no
 							exists = owner
-							owner = { is_pirate = yes }
+							owner = { is_pirate_country = yes }
 							is_ship_class = shipclass_military_station
 							has_fleet_flag = pirate_waves_station_flag
 							NOR = { has_fleet_flag = pirate_waves_station_life_flag is_in_combat = yes }
@@ -2728,7 +2742,7 @@ event = {
 						any_fleet_in_system = {
 							is_mobile = no
 							exists = owner
-							owner = { is_pirate = yes }
+							owner = { is_pirate_country = yes }
 							is_ship_class = shipclass_military_station
 							has_fleet_flag = pirate_waves_station_flag
 							NOR = { has_fleet_flag = pirate_waves_station_life_flag is_in_combat = yes }
@@ -2746,7 +2760,7 @@ event = {
 						any_fleet_in_system = {
 							is_mobile = no
 							exists = owner
-							owner = { is_pirate = yes }
+							owner = { is_pirate_country = yes }
 							is_ship_class = shipclass_military_station
 							has_fleet_flag = pirate_waves_station_flag
 							NOR = { has_fleet_flag = pirate_waves_station_life_flag is_in_combat = yes }
@@ -2773,7 +2787,7 @@ event = {
 						limit = {
 							exists = owner
 							OR = {
-								owner = { is_pirate = yes }
+								owner = { is_pirate_country = yes }
 								AND = {
 									is_mobile = no
 									owner = { merg_is_default_empire = yes }

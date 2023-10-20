@@ -378,10 +378,10 @@ ship_event = {
 	immediate = {
 		if = {
 			limit = {
-				from.owner = { is_pirate = yes }
+				from.owner = { is_pirate_country = yes }
 				owner = {
 					OR = {
-						is_pirate = yes
+						is_pirate_country = yes
 						is_country_type = rebel
 					}
 				}
@@ -398,7 +398,7 @@ ship_event = {
 				from.owner = { is_country_type_with_subjects = yes }
 				owner = {
 					OR = {
-						is_pirate = yes
+						is_pirate_country = yes
 						is_country_type = rebel
 					}
 				}
@@ -425,7 +425,7 @@ ship_event = {
 				}
 			}
 		} else_if = {
-			limit = { owner = { is_pirate = yes } }
+			limit = { owner = { is_pirate_country = yes } }
 			starbase = { destroy_fleet = fleet }
 			# log="destroy pirate station"
 		}
@@ -442,7 +442,7 @@ ship_event = {
 		exists = owner
 		owner = {
 			OR = {
-				is_pirate = yes
+				is_pirate_country = yes
 				is_country_type = rebel
 			}
 		}
@@ -639,7 +639,7 @@ ship_event = {
 # 			any_fleet_in_system = { is_ship_size = pirate_station }
 # 			any_fleet_in_system = {
 # 				is_ship_class = shipclass_military
-# 				owner = { is_pirate = yes }
+# 				owner = { is_pirate_country = yes }
 # 			}
 # 		}
 # 		owner = {

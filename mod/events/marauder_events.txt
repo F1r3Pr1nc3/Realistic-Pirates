@@ -7386,7 +7386,7 @@ country_event = {
 					exists = owner
 					owner = {
 						NOT = { is_same_empire = root }
-						is_pirate = yes
+						is_pirate_country = yes
 					}
 				}
 				set_owner = root
@@ -12440,7 +12440,8 @@ country_event = {
 		}
 		else = {
 			if = {
-				limit = { event_target:marauder_capital = { is_scope_type = galactic_object }
+				limit = {
+					event_target:marauder_capital = { is_scope_valid = yes is_scope_type = galactic_object }
 				}
 				event_target:marauder_capital = {
 					random_system_planet = {
@@ -12574,7 +12575,7 @@ country_event = {
 									limit = { NOT = { is_within_borders_of = event_target:restored_marauders } }
 									# delete_fleet = this
 									random_country = {
-										limit = { is_pirate = yes }
+										limit = { is_pirate_country = yes }
 										prev = {
 											set_owner = prev
 											if = {
@@ -12787,6 +12788,7 @@ country_event = {
 							limit = {
 								exists = event_target:marauder_capital
 								event_target:marauder_capital = {
+									is_scope_valid = yes
 									OR = {
 										AND = {
 											is_scope_type = planet

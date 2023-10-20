@@ -92,11 +92,7 @@ country_event = {
 	immediate = {
 		random_country = {
 			limit = {
-				is_pirate = yes # < v3.4 only works for single country type
-				# OR = {
-				# 	is_country_type = pirates
-				# 	is_country_type = pirate_waves_country
-				# }
+				is_pirate_country = yes
 				any_owned_fleet = {
 					is_ship_size = pirate_station
 					solar_system = { is_owned_by = root }
@@ -958,7 +954,7 @@ country_event = {
 		from = {
 			OR = {
 				is_country_type = rebel
-				is_pirate = yes
+				is_pirate_country = yes
 			}
 			has_country_flag = pirate_republic
 		}
@@ -1306,7 +1302,7 @@ starbase_event = {
 		owner = {
 			OR = {
 				is_country_type = rebel
-				is_pirate = yes
+				is_pirate_country = yes
 				AND = {
 					is_default_or_fallen = yes
 					root.from.owner = { is_country_type = rebel }
@@ -1316,7 +1312,7 @@ starbase_event = {
 		from.owner = {
 			OR = {
 				is_default_or_fallen = yes
-				is_pirate = yes
+				is_pirate_country = yes
 				is_country_type = rebel
 			}
 		}
@@ -1552,7 +1548,7 @@ event = {
 			every_country = {
 				limit = {
 					OR = {
-						is_pirate = yes
+						is_pirate_country = yes
 						is_country_type = rebel
 					}
 				}
@@ -1594,7 +1590,7 @@ event = {
 						set_owner = fleet.owner
 					} else = {
 						random_list = {
-							1 = { random_country = { limit = { OR = { is_pirate = yes is_country_type = rebel } } prev = { set_owner = prev } } }
+							1 = { random_country = { limit = { OR = { is_pirate_country = yes is_country_type = rebel } } prev = { set_owner = prev } } }
 							2 = { modifier = { factor = 0 NOT = { exists = event_target:pirate_waves_country	} } set_owner = event_target:pirate_waves_country }
 							3 = { modifier = { factor = 0 NOT = { exists = event_target:pirate_waves_2_country	} } set_owner = event_target:pirate_waves_2_country }
 						}

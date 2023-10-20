@@ -73,24 +73,6 @@ planet_is_hostile_or_crisis = {
 	}
 }
 
-# Workaround: as is_overlord_to is not working for Khan.
-# This = Satrapy
-is_subject_of_khan = {
-	is_subject = yes # exists = overlord
-	exists = event_target:raider_khanate
-	# overlord = { is_same_empire = prevprev }
-	overlord = { is_same_empire = event_target:raider_khanate }
-	merg_is_default_empire = yes
-	# has_modifier = "satrapy_of_horde"
-	# OR = { # Only to be sure
-	# 	any_agreement = { agreement_preset = preset_machinesmith_satrapy }
-	# 	any_agreement = { agreement_preset = preset_satrapy }
-	# 	any_agreement = { agreement_preset = preset_fabricator_satrapy }
-	# 	any_agreement = { agreement_preset = preset_war_satrapy }
-	# 	# any_agreement = { agreement_preset = preset_nsc_freebooter_satrapy } ### NSC SUPPORT has_global_flag = has_nsc_active
-	# }
-}
-
 is_fallen_empire = {
 	OR = {
 		merg_is_fallen_empire = yes # Hopefully not included is_fallen_empire itself
@@ -133,6 +115,6 @@ is_pirate_system = {
 			is_ship_size = marauder_station
 		}
 		exists = owner
-		owner = { is_pirate = yes }
+		owner = { is_pirate_country = yes }
 	}
 }
