@@ -3,16 +3,16 @@
 #
 # Written by ScepraX
 ##########################################################################
-# TODO FIXME
-# empire_name_format = {
-# 	random_weight = {
-# 		factor = 0
-# 		modifier = {
-# 			add = 100
-# 			is_country_type = pirate_waves_country
-# 		}
-# 	}
-# 	lookups = "<pirate_names>"
-# 	format = "{<format.pirate.1>}"
-# 	noun = "<pirate_names>"
-# }
+# TODO
+empire_name_format = {
+	random_weight = {
+		factor = 0
+		modifier = {
+			add = 100
+			is_country_type = pirate_waves_country
+		}
+	}
+	lookups = "{<pirate_names>}"
+	format = "{<pirate_names>}"
+	noun = "{<pirate_names>}"
+}

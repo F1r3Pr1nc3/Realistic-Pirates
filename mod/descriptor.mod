@@ -1,10 +1,6 @@
-version="3.9.3.0"
+version="3.9.3.1"
 tags={
 	"Balance"
-	"Military"
-	"Gameplay"
-	"Overhaul"
-	"Utilities"
 	"Pirates"
 }
 name="Realistic Pirates [3.9.☠]"

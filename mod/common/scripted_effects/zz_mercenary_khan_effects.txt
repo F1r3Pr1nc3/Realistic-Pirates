@@ -91,6 +91,7 @@ create_1st_khan_fleet = {
 			can_change_composition = no
 			can_change_leader = no
 			uses_naval_capacity = no
+			spawn_debris = yes
 		}
 	}
 }
@@ -133,6 +134,7 @@ create_2nd_khan_fleet = {
 			can_change_composition = no
 			can_change_leader = no
 			uses_naval_capacity = no
+			spawn_debris = yes
 		}
 	}
 }
