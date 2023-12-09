@@ -80,7 +80,7 @@ country_event = {
 			limit = { has_country_flag = bulwark_numbers }
 			if = { limit = { NOT = { any_owned_leader = { has_leader_flag = bulwark_numbers_commander } } }
 				create_leader = {
-					class = admiral
+					class = commander
 					species = owner_species
 					name = random
 					skill = 1
@@ -107,7 +107,7 @@ country_event = {
 			limit = { has_country_flag = bulwark_techies }
 			if = { limit = { NOT = { any_owned_leader = { has_leader_flag = bulwark_techies_commander } } }
 				create_leader = {
-					class = admiral
+					class = commander
 					species = owner_species
 					name = random
 					skill = 1
@@ -135,7 +135,7 @@ country_event = {
 			if = {
 				limit = { NOT = { any_owned_leader = { has_leader_flag = bulwark_monsters_commander } } }
 				create_leader = {
-					class = admiral
+					class = commander
 					species = owner_species
 					name = random
 					skill = 1
@@ -275,7 +275,7 @@ country_event = {
 			save_event_target_as = bulwark_vanguard_respawns_here
 		}
 		create_leader = {
-			class = admiral
+			class = commander
 			species = owner_species
 			name = random
 			skill = 1

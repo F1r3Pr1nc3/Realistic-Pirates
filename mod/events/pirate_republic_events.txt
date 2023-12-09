@@ -422,7 +422,7 @@ planet_event = {
 		if = { limit = { NOT = { exists = event_target:pirate_system } }
 			solar_system = { save_event_target_as = pirate_system }
 		}
-		if = { limit = { host_has_dlc = "Megacorp" }
+		if = { limit = { has_megacorp = yes }
 			create_rebels = {
 				name = random
 				ethos = random
@@ -551,7 +551,7 @@ planet_event = {
 				}
 			}
 			create_leader = {
-				class = admiral
+				class = commander
 				species = event_target:leader_species
 				name = random
 				skill = 2
@@ -662,7 +662,7 @@ planet_event = {
 				}
 			}
 			create_leader = {
-				class = general
+				class = commander
 				species = event_target:leader_species
 				name = random
 				skill = 2
@@ -789,7 +789,7 @@ planet_event = {
 							}
 						}
 						create_leader = {
-							class = general
+							class = commander
 							species = event_target:rebellion_species
 							name = random
 							skill = 2
@@ -975,7 +975,7 @@ country_event = {
 			remove_planet_flag = slave_resistance
 			remove_planet_flag = slave_stirring
 			remove_planet_flag = slave_revolt
-			kill_leader = { type = governor }
+			kill_leader = { show_notification = no }
 		}
 		from = {
 			save_event_target_as = pirate_republic
@@ -1273,7 +1273,7 @@ country_event = {
 					}
 				}
 				every_owned_leader = {
-					limit = { NOT = { leader_class = admiral } }
+					limit = { NOT = { leader_class = commander } }
 					set_owner = event_target:new_owner
 				}
 				set_country_flag = silence_destroy_event
@@ -1449,9 +1449,9 @@ event = {
 							}
 							event_target:rebel_country = {
 								if = {
-									limit = { NOT = { any_owned_leader = { leader_class = general } } }
+									limit = { NOT = { any_owned_leader = { leader_class = commander } } }
 									create_leader = {
-										class = general
+										class = commander
 										species = owner_species
 										name = random
 										skill = 2
@@ -1460,7 +1460,7 @@ event = {
 									last_created_fleet = { assign_leader = last_created_leader }
 								} else = {
 									random_owned_leader = {
-										limit = { leader_class = general NOT = { exists = fleet } }
+										limit = { leader_class = commander NOT = { exists = fleet } }
 										last_created_fleet = { assign_leader = prev }
 									}
 								}
@@ -1572,13 +1572,13 @@ event = {
 			every_playable_country = {
 				limit = {
 					any_owned_leader = {
-						leader_class = admiral
+						leader_class = commander
 						has_leader_flag = pirate_waves_leader
 					}
 				}
 				random_owned_leader = {
 					limit = {
-						leader_class = admiral
+						leader_class = commander
 						has_leader_flag = pirate_waves_leader
 					}
 					weights = { base = 1 modifier = { add = 5 exists = fleet } }

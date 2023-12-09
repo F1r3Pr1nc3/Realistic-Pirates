@@ -29,7 +29,7 @@ If you decide to disable this mod in the game loader or unsubscribe the mod, som
 [h2]Compatibility[/h2]
 Compatible with savegames.
 ✔️ Should be compatible with most mods (as [url=///steamcommunity.com/workshop/filedetails/2604437397]merger_trigger[/url] are used), some mods might influence the gameplay if they modify the pirate ships.
-✔️ [b]NSC2[/b] must be below
+✔️ [b]NSC3[/b] must be below
 ✔️ [url=//steamcommunity.com/workshop/filedetails/2508704523]The Great Khan Expanded[/url] should not matter
 • There is a full patched [b]marauder_events.txt[/b] included as an aside (depends on load order, e.g. should be below ZoFE and Marauders Remodeled).
 • Khorgis Khan (should be above)

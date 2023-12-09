@@ -14,7 +14,7 @@ leader_trait_bulwark_numbers = {
 		ship_fire_rate_mult = 0.25
 		ship_evasion_mult = 0.1
 	}
-	leader_class = { admiral }
+ leader_class = { commander }
 	initial = no
 	randomized = no
 }
@@ -39,7 +39,7 @@ leader_trait_bulwark_default = {
 		ship_winddown_mult = -0.5
 		ship_windup_mult = -0.5
 	}
-	leader_class = { admiral }
+ leader_class = { commander }
 	initial = no
 	randomized = no
 }
@@ -64,7 +64,7 @@ leader_trait_bulwark_techies = {
 		ship_disengage_chance_reduction = 0.5
 		ship_evasion_mult = -1
 	}
-	leader_class = { admiral }
+ leader_class = { commander }
 	initial = no
 	randomized = no
 }
@@ -120,7 +120,7 @@ leader_trait_bulwark_monsters = {
 		ship_shield_penetration_mult = 0.3
 		ship_orbital_bombardment_mult = -0.33
 	}
-	leader_class = { admiral }
+ leader_class = { commander }
 	initial = no
 	randomized = no
 }

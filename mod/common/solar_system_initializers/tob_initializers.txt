@@ -190,7 +190,7 @@ supremacists_home = {
 				random_country = {
 					limit = { has_country_flag = bulwark_numbers }
 					create_leader = {
-						class = admiral
+						class = commander
 						species = last_created_species
 						name = random
 						skill = 1
@@ -291,7 +291,7 @@ supremacists_home = {
 			random_country = {
 				limit = { has_country_flag = bulwark_numbers }
 				create_leader = {
-					class = admiral
+					class = commander
 					species = last_created_species
 					name = random
 					skill = 1
@@ -376,7 +376,7 @@ supremacists_home = {
 				random_country = {
 					limit = { has_country_flag = bulwark_numbers }
 					create_leader = {
-						class = admiral
+						class = commander
 						species = last_created_species
 						name = random
 						skill = 1
@@ -770,7 +770,7 @@ technologists_home = {
 				random_country = {
 					limit = { has_country_flag = bulwark_techies }
 					create_leader = {
-						class = admiral
+						class = commander
 						species = last_created_species
 						name = random
 						skill = 1
@@ -883,7 +883,7 @@ technologists_home = {
 			random_country = {
 				limit = { has_country_flag = bulwark_techies }
 				create_leader = {
-					class = admiral
+					class = commander
 					species = last_created_species
 					name = random
 					skill = 1
@@ -980,7 +980,7 @@ technologists_home = {
 				random_country = {
 					limit = { has_country_flag = bulwark_techies }
 					create_leader = {
-						class = admiral
+						class = commander
 						species = last_created_species
 						name = random
 						skill = 1
@@ -1382,7 +1382,7 @@ tamers_home = {
 				# random_country = { limit = { has_country_flag = bulwark_monsters }
 				event_target:tob_tamer_faction = {
 					create_leader = {
-						class = admiral
+						class = commander
 						species = last_created_species
 						name = random
 						skill = 1
@@ -1483,7 +1483,7 @@ tamers_home = {
 			# random_country = { limit = { has_country_flag = bulwark_monsters }
 			event_target:tob_tamer_faction = {
 				create_leader = {
-					class = admiral
+					class = commander
 					species = last_created_species
 					name = random
 					skill = 1
@@ -1568,7 +1568,7 @@ tamers_home = {
 				# random_country = { limit = { has_country_flag = bulwark_monsters }
 				event_target:tob_tamer_faction = {
 					create_leader = {
-						class = admiral
+						class = commander
 						species = last_created_species
 						name = random
 						skill = 1

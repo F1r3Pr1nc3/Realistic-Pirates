@@ -3097,6 +3097,7 @@ country_event = {
 				limit = {
 					exists = root.capital_star.starbase
 					root.capital_star.starbase = { is_owned_by = root }
+					can_go_mia = yes
 				}
 				set_home_base = root.capital_star.starbase
 				set_mia = mia_return_home
@@ -3475,7 +3476,7 @@ country_event = {
 	trigger = {
 		from = {
 			has_leader_flag = marauder_merc_leader
-			leader_class = admiral
+			leader_class = commander
 			exists = fleet
 		}
 	}
@@ -7088,7 +7089,7 @@ country_event = {
 		### Ruler Khan
 		create_leader = {
 			name = random
-			class = admiral
+			class = commander
 			gender = male
 			species = owner_main_species
 			skill = 10
@@ -7098,7 +7099,7 @@ country_event = {
 			leader_age_min = 21
 			leader_age_max = 34 			# Traits can add to age so start it low
 			# traits = {
-			# 	# trait = subclass_admiral_strategist
+			# 	# trait = subclass_commander_admiral
 			# 	# trait = leader_trait_fleet_organizer
 			# 	# trait = leader_trait_eager
 			# }
@@ -7107,7 +7108,7 @@ country_event = {
 				trait = leader_trait_ruler_great_khan
 				trait = leader_trait_chosen
 				trait = leader_trait_master_gunner
-				trait = subclass_admiral_tactician
+				trait = subclass_commander_admiral
 				trait = leader_trait_gunship_specialization_3
 				trait = leader_trait_wrecker_3
 				trait = leader_trait_reckless_2
@@ -7142,7 +7143,7 @@ country_event = {
 			# } else = {
 			# add_trait_no_notify = leader_trait_ruler_great_khan
 			# add_trait_no_notify = leader_trait_chosen
-			# add_trait_no_notify = subclass_admiral_strategist # Councilor yes
+			# add_trait_no_notify = subclass_commander_admiral # Councilor yes
 			# Only really applicable destiny unfortunately
 			add_trait_no_notify = leader_trait_armorer
 			add_trait_no_notify = leader_trait_gale_speed_3
@@ -7165,7 +7166,7 @@ country_event = {
 			limit = { is_ai = yes }
 			clone_leader = {
 				target = event_target:great_khan_ruler
-				class = admiral
+				class = commander
 				skill = 10
 				event_leader = yes
 				can_manually_change_location = no
@@ -7182,7 +7183,7 @@ country_event = {
 		# 	limit = { has_global_flag = has_nsc_active }
 		# 	clone_leader = {
 		# 		target = ruler
-		# 		class = admiral
+		# 		class = commander
 		# 		traits = { trait = nsc_freebooter_admiral_trait_great_khan }
 		# 		skill = 7
 		# 	}
@@ -7190,7 +7191,7 @@ country_event = {
 		else = {
 			clone_leader = {
 				target = event_target:great_khan_ruler
-				class = admiral
+				class = commander
 				skill = 6
 				event_leader = yes
 				can_manually_change_location = no
@@ -7211,8 +7212,8 @@ country_event = {
 			recruitable = no
 			add_trait_no_notify = leader_trait_great_khan
 			add_trait_no_notify = leader_trait_chosen
-			add_trait_no_notify = subclass_admiral_aggressor # Councilor no
-			add_trait_no_notify = subclass_admiral_strategist
+			add_trait_no_notify = subclass_commander_admiral # Councilor no
+			add_trait_no_notify = subclass_commander_admiral
 			add_trait_no_notify = leader_trait_armada_logistician_3
 			if = {
 				limit = { owner = { has_country_flag = marauder_1 } }
@@ -7220,7 +7221,7 @@ country_event = {
 			}
 			if = {
 				limit = { owner = { has_country_flag = marauder_2 } }
-				add_trait_no_notify = leader_trait_demolisher_destiny
+				add_trait_no_notify = leader_trait_demolisher
 			}
 			if = {
 				limit = { owner = { has_country_flag = marauder_3 } }
@@ -7851,7 +7852,7 @@ country_event = {
 					exists = event_target:great_khan
 					prev = {
 						# has_country_flag = khan_dead_event_fine
-						any_owned_leader = { leader_class = admiral has_leader_flag = great_khan }
+						any_owned_leader = { leader_class = commander has_leader_flag = great_khan }
 					}
 				}
 			}
@@ -8775,6 +8776,7 @@ country_event = {
 										exists = prev.solar_system.starbase
 										exists = prev.solar_system.starbase.owner
 										prev.solar_system.starbase = { is_owned_by = root }
+										can_go_mia = yes
 									}
 									set_home_base = prev.solar_system.starbase
 									set_mia = mia_return_home
@@ -8833,7 +8835,7 @@ country_event = {
 							num_ships > 2
 					}
 					any_owned_leader = {
-						leader_class = admiral
+						leader_class = commander
 						is_idle = yes # NOT = { exists = fleet }
 						is_event_leader = no
 						is_councilor = no
@@ -8851,7 +8853,7 @@ country_event = {
 					root = {
 						random_owned_leader = {
 							limit = {
-								leader_class = admiral
+								leader_class = commander
 								is_idle = yes
 								is_event_leader = no
 								is_councilor = no
@@ -8870,7 +8872,7 @@ country_event = {
 			if = {
 				limit = {
 					any_owned_leader = {
-						leader_class = general
+						leader_class = commander
 						is_idle = yes
 						is_event_leader = no
 						is_councilor = no
@@ -8899,7 +8901,7 @@ country_event = {
 						root = {
 							random_owned_leader = {
 								limit = {
-									leader_class = general
+									leader_class = commander
 									is_idle = yes
 									is_event_leader = no
 									is_councilor = no
@@ -8943,7 +8945,7 @@ country_event = {
 						root = {
 							random_owned_leader = {
 								limit = {
-									leader_class = general
+									leader_class = commander
 									is_idle = yes
 									is_event_leader = no
 									is_councilor = no
@@ -12560,7 +12562,7 @@ country_event = {
 		name = marauder.703.a
 		trigger = { is_homicidal = no }
 		create_leader = {
-			class = admiral
+			class = commander
 			species = event_target:marauder_neighbor_species
 			name = random
 			skill = 4
@@ -12773,7 +12775,7 @@ country_event = {
 			### New Ruler Khan
 			create_leader = {
 				name = random
-				class = admiral
+				class = commander
 				species = owner_main_species
 				skill = 4
 				event_leader = yes
@@ -12785,7 +12787,7 @@ country_event = {
 				traits = {
 					trait = leader_trait_ruler_great_khan
 					trait = leader_trait_chosen
-					trait = subclass_admiral_strategist
+					trait = subclass_commander_admiral
 					# trait = leader_trait_fleet_organizer
 					# trait = leader_trait_eager
 				}
@@ -12824,7 +12826,7 @@ country_event = {
 			# 	}
 			# 	clone_leader = {
 			# 		target = event_target:great_khan_ruler
-			# 		class = admiral
+			# 		class = commander
 			# 		skill = 7
 			# 		# event_leader = yes
 			# 		traits = {
@@ -12841,7 +12843,7 @@ country_event = {
 			# } else = {
 			clone_leader = {
 				target = event_target:great_khan_ruler
-				class = admiral
+				class = commander
 				skill = 7
 				event_leader = yes
 				can_manually_change_location = no
@@ -12858,11 +12860,11 @@ country_event = {
 			last_created_leader = {
 				add_trait_no_notify = leader_trait_great_khan
 				add_trait_no_notify = leader_trait_chosen
-				add_trait_no_notify = subclass_admiral_aggressor # Councilor no
+				add_trait_no_notify = subclass_commander_admiral # Councilor no
 				owner = {
 					switch = { trigger = has_country_flag
 						marauder_1 = { prev = { add_trait_no_notify = leader_trait_master_gunner } }
-						marauder_2 = { prev = { add_trait_no_notify = leader_trait_demolisher_destiny } }
+						marauder_2 = { prev = { add_trait_no_notify = leader_trait_demolisher } }
 						marauder_3 = { prev = { add_trait_no_notify = leader_trait_destiny_engineer } }
 					}
 				}

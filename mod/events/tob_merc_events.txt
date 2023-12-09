@@ -1205,8 +1205,7 @@ country_event = {
 			every_owned_leader = {
 				limit = {
 					OR = {
-						leader_class = general
-						leader_class = admiral
+						leader_class = commander
 					}
 				}
 				add_experience = 100
@@ -1274,7 +1273,7 @@ country_event = {
 				add_modifier = { modifier = bulwark_good_populace_training years = 10 }
 			}
 			every_owned_leader = {
-				limit = { leader_class = governor }
+				limit = { leader_class = official }
 				add_experience = 200
 			}
 			from = {

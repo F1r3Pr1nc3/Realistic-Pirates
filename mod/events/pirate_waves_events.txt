@@ -34,7 +34,7 @@ country_event = {
 	is_triggered_only = yes
 	trigger = {
 		is_ai = no
-		# NOT = { has_active_event = { pirate_waves.0 } } # not working on selfcall
+		# NOT = { has_active_event = { pirate_waves.0 } } # Not working on selfcall
 	}
 	immediate = {
 		## Auto activate Pirate Waves.
@@ -1011,7 +1011,7 @@ fleet_event = {
 								# Create an admiral for the pirate fleet.
 								create_leader = {
 									name = random
-									class = admiral
+									class = commander
 									species = owner_species # event_target:closest_country_species
 									skill = 3
 									effect = {
@@ -1130,7 +1130,7 @@ planet_event = {
 							count > 9
 							limit = {
 								is_owned_by = prevprev
-								is_mobile = no
+								# is_mobile = no
 							}
 						}
 					}
@@ -1443,7 +1443,7 @@ country_event = {
 		is_country_type = pirate_waves_country
 		from = {
 			exists = fleet
-			leader_class = admiral
+			leader_class = commander
 			has_leader_flag = pirate_waves_leader
 		}
 	}
