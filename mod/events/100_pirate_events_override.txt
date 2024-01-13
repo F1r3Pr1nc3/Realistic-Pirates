@@ -72,34 +72,22 @@ country_event = {
 	desc = { # Generic Oligarchy
 		text = pirate.1.desc_06
 		trigger = {
-			OR = {
-				has_government = gov_megacorporation
-				has_government = gov_plutocratic_oligarchy
-			}
+			OR = { has_government = gov_megacorporation has_government = gov_plutocratic_oligarchy }
 		}
 	}
 
 	desc = { # Generic Democracy
 		text = pirate.1.desc_07
 		trigger = {
-			OR = {
-				has_government = gov_representative_democracy
-				has_government = gov_communal_parity
-			}
+			OR = { has_government = gov_representative_democracy has_government = gov_communal_parity }
 		}
 	}
 
 	trigger = {
 		merg_is_default_empire = yes # merg_is_default_empire = yes
-		NOR = {
-			has_country_flag = birth_of_piracy
-			is_gestalt = yes
-		}
+		NOR = { has_country_flag = birth_of_piracy is_gestalt = yes }
 		exists = capital_scope
-		any_system_within_border = {
-			has_trade_route = yes
-			trade_intercepted_value > 0
-		}
+		any_system_within_border = { has_trade_route = yes trade_intercepted_value > 0 }
 	}
 
 	is_triggered_only = yes
@@ -115,10 +103,7 @@ country_event = {
 		save_event_target_as = pirate_target
 		owner_species = { save_event_target_as = owner_species }
 		random_system_within_border = {
-			limit = {
-				has_trade_route = yes
-				trade_intercepted_value > 0
-			}
+			limit = { has_trade_route = yes trade_intercepted_value > 0 }
 			save_event_target_as = pirate_system
 			create_normal_pirate_country = yes
 			create_pirate_base_1 = yes
@@ -177,10 +162,7 @@ country_event = {
 	option = {
 		name = pirate.2.g
 		trigger = {
-			OR = {
-				has_government = gov_representative_democracy
-				has_government = gov_communal_parity
-			}
+			OR = { has_government = gov_representative_democracy has_government = gov_communal_parity }
 		}
 	}
 	option = {
@@ -240,10 +222,7 @@ event = {
 				trade_intercepted_value > 1
 				is_capital_system = no
 				any_system_planet = {
-					OR = {
-						has_mining_station = yes
-						has_research_station = yes
-					}
+					OR = { has_mining_station = yes has_research_station = yes }
 				}
 			}
 		}
@@ -255,10 +234,7 @@ event = {
 			limit = {
 				any_country = {
 					is_country_type = pirate
-					OR = {
-						num_fleets < 2
-						num_ships < 3
-					}
+					OR = { num_fleets < 2 num_ships < 3 }
 					any_owned_fleet = { is_ship_size = pirate_station }
 				}
 			}
@@ -271,20 +247,14 @@ event = {
 						trade_intercepted_value > 0
 						is_capital_system = no
 						any_system_planet = {
-							OR = {
-								has_mining_station = yes
-								has_research_station = yes
-							}
+							OR = { has_mining_station = yes has_research_station = yes }
 						}
 					}
 					save_event_target_as = pirate_system
 					random_country = {
 						limit = {
 							is_country_type = pirate
-							OR = {
-								num_fleets < 2
-								num_ships < 3
-							}
+							OR = { num_fleets < 2 num_ships < 3 }
 							any_owned_fleet = { is_ship_size = pirate_station }
 						}
 						save_event_target_as = pirate_band
@@ -299,6 +269,58 @@ event = {
 				}
 			}
 		}
+	}
+}
+
+# Destroyed Pirate Station (HIDDEN)
+# on_fleet_destroyed_perp
+# This = owner of fleet 1 (combatant)
+# From = owner of fleet 2 (destroyed)
+# fromfrom = fleet 1
+# fromfromfrom = fleet 2
+country_event = {
+	id = pirate.24
+	hide_window = yes
+	is_triggered_only = yes
+	trigger = {
+		from = {
+			is_pirate_country = yes
+			has_communications = root
+			fromfrom = {
+				is_ship_size = pirate_station
+				NOT = { has_fleet_flag = pirate_home_system_fleet }
+			}
+		}
+	}
+	immediate = {
+		fromfrom = {
+			save_event_target_as = pirate_slayers
+			if = {
+				limit = {
+					exists = solar_system
+					exists = solar_system.starbase
+					solar_system.starbase.fleet = { is_disabled = yes }
+				}
+				solar_system.starbase.fleet = { set_event_locked = no }
+			}
+		}
+		if = {
+			limit = { merg_is_default_empire = yes }
+			random_list = {
+				85 = { country_event = { id = pirate.25 } }
+				15 = {
+					country_event = { id = pirate.26 }
+					modifier = {
+						factor = 0
+						NAND = {
+							has_event_chain = l_cluster_chain
+							from = { is_pirate = yes }
+						}
+					}
+				}
+			}
+		}
+
 	}
 }
 
@@ -320,15 +342,11 @@ country_event = {
 		owner_species = { save_event_target_as = owner_species }
 		# create_drone_pirate_country = yes
 		create_normal_pirate_country = yes
-		last_created_country = {
-			set_country_flag = drone_pirate
-		}
+		last_created_country = { set_country_flag = drone_pirate }
 		create_pirate_fleet = yes
 	}
 
-	option = {
-		name = pirate.50.a
-	}
+	option = { name = pirate.50.a }
 }
 
 # Pirates Sighted (Machines)
@@ -349,15 +367,11 @@ country_event = {
 		owner_species = { save_event_target_as = owner_species }
 		# create_machine_pirate_country = yes
 		create_normal_pirate_country = yes
-		last_created_country = {
-			set_country_flag = machine_pirate
-		}
+		last_created_country = { set_country_flag = machine_pirate }
 		create_pirate_fleet = yes
 	}
 
-	option = {
-		name = pirate.50.a
-	}
+	option = { name = pirate.50.a }
 }
 
 # Take pirate starbase (on_ship_disabled - otherwise cannot be conquered).
@@ -376,14 +390,11 @@ ship_event = {
 		is_ship_class = shipclass_starbase
 	}
 	immediate = {
-		if = {
+		if = { # Pirate to Pirate
 			limit = {
 				from.owner = { is_pirate_country = yes }
 				owner = {
-					OR = {
-						is_pirate_country = yes
-						is_country_type = rebel
-					}
+					OR = { is_pirate_country = yes is_country_type = rebel }
 				}
 			}
 			solar_system = {
@@ -393,14 +404,12 @@ ship_event = {
 				}
 			}
 			starbase = { set_owner = from.owner }
-		} else_if = {
+		}
+		else_if = { # Pirate to Conquerer
 			limit = {
 				from.owner = { is_country_type_with_subjects = yes }
 				owner = {
-					OR = {
-						is_pirate_country = yes
-						is_country_type = rebel
-					}
+					OR = { is_pirate_country = yes is_country_type = rebel }
 				}
 				starbase = { has_starbase_size > starbase_outpost }
 			}
@@ -424,10 +433,16 @@ ship_event = {
 					}
 				}
 			}
-		} else_if = {
+		}
+		else_if = {
 			limit = { owner = { is_pirate_country = yes } }
 			starbase = { destroy_fleet = fleet }
 			# log="destroy pirate station"
+			break = yes
+		}
+		if = {
+			limit = { fleet = { is_disabled = yes } }
+			fleet = { set_event_locked = no }
 		}
 	}
 }
@@ -441,10 +456,7 @@ ship_event = {
 		is_scope_valid = yes
 		exists = owner
 		owner = {
-			OR = {
-				is_pirate_country = yes
-				is_country_type = rebel
-			}
+			OR = { is_pirate_country = yes is_country_type = rebel }
 		}
 		exists = solar_system
 		exists = fleet
@@ -496,12 +508,7 @@ ship_event = {
 		exists = from
 		from = {
 			exists = owner
-			owner = {
-				OR = {
-					is_country_type = pirate
-					is_country_type = pirate_waves_country
-				}
-			}
+			owner = { is_pirate_country = yes }
 		}
 		# solar_system = { is_pirate_system = no }
 	}
@@ -512,8 +519,7 @@ ship_event = {
 				limit = { is_pirate_system = no }
 				random_system_planet = {
 					limit = { is_star = no }
-					weights = {
-						base = 1
+					weights = { base = 1
 						modifier = { add = 1 is_asteroid = yes }
 					}
 					save_event_target_as = pirate_home
@@ -531,7 +537,8 @@ ship_event = {
 					# }
 					create_pirate_base_1 = yes
 				}
-			} else_if = { # Another Pirate Republic start
+			}
+			else_if = { # Another Pirate Republic start
 				limit = {
 					NOT = { has_global_flag = pirate_republic_inactive }
 					is_pirate_system = yes
@@ -566,10 +573,7 @@ ship_event = {
 								planet_stability < 80
 								NOT = { has_planet_flag = pirate_invasion }
 								has_ground_combat = no
-								owner = {
-									is_primitive = no
-									is_hostile = event_target:pirate_band
-								}
+								owner = { is_primitive = no is_hostile = event_target:pirate_band }
 							}
 						}
 					}
@@ -581,10 +585,7 @@ ship_event = {
 							is_civilian = no							# is_ship_class = shipclass_military
 						}
 						any_system_colony = {
-							NOR = {
-								is_owned_by = from.owner
-								is_controlled_by = from.owner
-							}
+							NOR = { is_owned_by = from.owner is_controlled_by = from.owner }
 							planet_stability < 80
 						}
 					}
@@ -594,10 +595,7 @@ ship_event = {
 						limit = {
 							is_owned_by = root
 							is_capital_system = no
-							any_system_colony = {
-								is_under_colonization = no
-								planet_stability < 80
-							}
+							any_system_colony = { is_under_colonization = no planet_stability < 80 }
 						}
 					}
 				}
@@ -619,6 +617,15 @@ ship_event = {
 					country_event = { id = pirate_republic.10 days = 6 random = 6 }
 				}
 			}
+		}
+		if = {
+			limit = {
+				owner = {
+					is_ai = no
+					# is_country_type_with_subjects = yes
+				}
+			}
+			fleet = { set_event_locked = yes }
 		}
 	}
 }
@@ -700,32 +707,20 @@ country_event = {
 	immediate = {
 		create_thalassocracy_country = yes
 		if = { # Prioritise unoccupied systems
-			limit = {
-				any_system = {
-					is_valid_crystal_splitter_system = yes
-					num_planets_in_system > 1
-				}
-			}
+			limit = { any_system = { is_valid_crystal_splitter_system = yes num_planets_in_system > 1 } }
 			random_system = {
-				limit = {
-					is_valid_crystal_splitter_system = yes
-					num_planets_in_system > 1
-				}
+				limit = { is_valid_crystal_splitter_system = yes num_planets_in_system > 1 }
 				save_global_event_target_as = thalassocracy_target_system
+				random_system_planet = { save_global_event_target_as = thalassocracy_spawn_planet set_planet_flag = thalassocracy_visited }
 				random_system_planet = {
-					save_global_event_target_as = thalassocracy_spawn_planet
-					set_planet_flag = thalassocracy_visited
-				}
-				random_system_planet = {
-					limit = {
-						NOT = { has_planet_flag = thalassocracy_visited }
-					}
+					limit = { NOT = { has_planet_flag = thalassocracy_visited } }
 					save_global_event_target_as = thalassocracy_target_planet
 				}
 				event_target:thalassocracy_country = { set_country_flag = spawned_fleet }
 				create_thalassocracy_fleet = yes
 			}
-		} else_if = {
+		}
+		else_if = {
 			# Pop up in a semi-convenient, empire-owned system, if possible
 			limit = {
 				# Must be duplicated below, in the random_system effect.
@@ -770,14 +765,9 @@ country_event = {
 					}
 				}
 				save_global_event_target_as = thalassocracy_target_system
-				random_system_planet = {
-					save_global_event_target_as = thalassocracy_spawn_planet
-					set_planet_flag = thalassocracy_visited
-				}
+				random_system_planet = { save_global_event_target_as = thalassocracy_spawn_planet set_planet_flag = thalassocracy_visited }
 				random_galaxy_planet = {
-					limit = {
-						NOT = { has_planet_flag = thalassocracy_visited }
-					}
+					limit = { NOT = { has_planet_flag = thalassocracy_visited } }
 					save_global_event_target_as = thalassocracy_target_planet
 				}
 				event_target:thalassocracy_country = { set_country_flag = spawned_fleet }
