@@ -596,6 +596,10 @@ fleet_event = {
 			give_fleet = { controller = controller days = 1805 }
 			fleet_event = { id = tob_merc.5 days = 1800 }
 			set_event_locked = no
+			every_owned_ship = {
+				limit = { is_disabled = yes }
+				set_disabled = no
+			}
 		}
 	}
 	option = {
@@ -643,6 +647,10 @@ fleet_event = {
 			give_fleet = { controller = controller days = 3605 }
 			fleet_event = { id = tob_merc.5 days = 3600 }
 			set_event_locked = no
+			every_owned_ship = {
+				limit = { is_disabled = yes }
+				set_disabled = no
+			}
 		}
 	}
 	option = {
@@ -690,6 +698,10 @@ fleet_event = {
 			give_fleet = { controller = controller days = 7205 }
 			fleet_event = { id = tob_merc.5 days = 7200 }
 			set_event_locked = no
+			every_owned_ship = {
+				limit = { is_disabled = yes }
+				set_disabled = no
+			}
 		}
 	}
 	option = {
@@ -698,6 +710,10 @@ fleet_event = {
 		ai_chance = { factor = 100 }
 		hidden_effect = {
 			set_event_locked = no
+			every_owned_ship = {
+				limit = { is_disabled = yes }
+				set_disabled = no
+			}
 			if = {
 				limit = { has_fleet_flag = bulwark_numbers_mercfleet }
 				event_target:tob_supremacist_faction = { remove_country_flag = bulwark_merc_fleet_hired }

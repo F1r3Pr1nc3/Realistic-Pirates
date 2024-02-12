@@ -31,9 +31,9 @@ leader_trait_bulwark_default = {
 		TIER = none
 	}
 	modifier = {
-		ship_armor_regen_add_perc = 1	# 5 v3.4
-		ship_hull_regen_add_perc = 1	# 5 v3.4
-		ship_shield_regen_add_perc = 1	# 5 v3.4
+		ship_armor_regen_add_perc = 1	# 5 v.3.4
+		ship_hull_regen_add_perc = 1	# 5 v.3.4
+		ship_shield_regen_add_perc = 1	# 5 v.3.4
 		ship_ftl_jumpdrive_range_mult = 0.2
 		ship_interstellar_speed_mult = 0.5
 		ship_winddown_mult = -0.5

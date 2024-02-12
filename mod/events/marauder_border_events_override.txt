@@ -1,7 +1,7 @@
 namespace = marauder
 namespace = marauder_borders
 
-# Placeholder since 3.9.1 (parser crashes if missing)
+# Placeholder since v.3.9.1 (parser crashes if missing, but again ok with v.3.10)
 # Rebuild marauder starbase
 system_event = {
 	id = marauder.17
@@ -132,6 +132,7 @@ country_event = {
 			}
 		}
 		# Normalize Starbases
+		# Note: system_within_border caching is quite funky at a time like this when many borders are changing hands. The starbase ownership is checked to be extra sure, since it is not cached (unlike system ownership - though that probably would have worked too)
 		if = {
 			limit = {
 				OR = {
@@ -141,7 +142,7 @@ country_event = {
 			}
 			# Return colonies that have only the starbase conquered.
 			every_system_within_border = {
-				limit = { exists = starbase }
+				limit = { exists = starbase starbase = { is_owned_by = prev } }
 				if = {
 					limit = {
 						any_system_colony = {
@@ -921,7 +922,7 @@ country_event = {
 				while = { count = 4
 					limit = {
 						any_system_within_border = {
-							# is_owned_by = prev
+							is_owned_by = prev
 							# exists = space_owner
 							# NOT = { space_owner = { is_same_empire = prevprevprev } }
 							# exists = starbase
@@ -935,7 +936,7 @@ country_event = {
 							any_country_neighbor_to_system = {
 								has_government = gov_diadochi has_origin = "origin_khan_successor"
 								any_system_within_border = {
-									# is_owned_by = prev
+									is_owned_by = prev
 									# exists = space_owner
 									# NOT = { space_owner = { is_same_empire = prevprevprev } }
 									# exists = starbase
@@ -956,7 +957,7 @@ country_event = {
 					# log="Diadochi system switch"
 					random_system_within_border = {
 						limit = {
-							# is_owned_by = prev
+							is_owned_by = prev
 							# exists = space_owner
 							# NOT = { space_owner = { is_same_empire = prevprevprev } }
 							# exists = starbase
@@ -970,7 +971,7 @@ country_event = {
 							any_country_neighbor_to_system = {
 								has_government = gov_diadochi has_origin = "origin_khan_successor"
 								any_system_within_border = {
-									# is_owned_by = prev
+									is_owned_by = prev
 									# exists = space_owner
 									# NOT = { space_owner = { is_same_empire = prevprevprev } }
 									# exists = starbase
@@ -991,7 +992,7 @@ country_event = {
 							limit = {
 								has_government = gov_diadochi has_origin = "origin_khan_successor"
 								any_system_within_border = {
-									# is_owned_by = prev
+									is_owned_by = prev
 									# exists = space_owner
 									# NOT = { space_owner = { is_same_empire = prevprevprev } }
 									# exists = starbase
@@ -1009,7 +1010,7 @@ country_event = {
 							}
 							random_system_within_border = {
 								limit = {
-									# is_owned_by = prev
+									is_owned_by = prev
 									# exists = space_owner
 									# NOT = { space_owner = { is_same_empire = prevprevprev } }
 									# exists = starbase

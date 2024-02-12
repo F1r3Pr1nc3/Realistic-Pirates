@@ -4,9 +4,9 @@ bulwark_ships_unlimited = {
 }
 
 bulwark_budget_repairs = {
-	ship_armor_regen_add_perc = 2	# 5 v3.4
-	ship_shield_regen_add_perc = 2	# 5 v3.4
-	ship_hull_regen_add_perc = 2	# 5 v3.4
+	ship_armor_regen_add_perc = 2	# 5 v.3.4
+	ship_shield_regen_add_perc = 2	# 5 v.3.4
+	ship_hull_regen_add_perc = 2	# 5 v.3.4
 }
 
 bulwark_core_station = {
@@ -17,7 +17,7 @@ bulwark_core_station = {
 	ship_armor_mult = 1
 	ship_shield_mult = 1
 	ship_armor_regen_add_perc = 1
-	ship_hull_regen_add_perc = 0.5	# 2 v3.4
+	ship_hull_regen_add_perc = 0.5	# 2 v.3.4
 	ship_shield_regen_add_perc = 1
 }
 

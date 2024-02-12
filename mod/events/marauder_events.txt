@@ -3090,6 +3090,10 @@ country_event = {
 			}
 			else = { set_location = root.capital_scope }
 			set_event_locked = no
+			every_owned_ship = {
+				limit = { is_disabled = yes }
+				set_disabled = no
+			}
 			fleet_event = { id = marauder.50 days = 1800 }
 		}
 	}
@@ -4998,6 +5002,10 @@ planet_event = {
 						event_target:raiding_fleet = {
 							# log="Found New Marauder Raid Target: \\[raid_planet.GetName]"
 							set_event_locked = no
+							every_owned_ship = {
+								limit = { is_disabled = yes }
+								set_disabled = no
+							}
 							# queue_actions = { wait = 2 }
 							if = {
 								limit = { exists = event_target:raid_planet can_access_system = event_target:raid_planet.solar_system }
@@ -5018,6 +5026,10 @@ planet_event = {
 					# log="No new Marauder Raid Target found, return home"
 					event_target:raiding_fleet = {
 						set_event_locked = no
+						every_owned_ship = {
+							limit = { is_disabled = yes }
+							set_disabled = no
+						}
 						fleet_event = { id = marauder.110 days = 7 scopes = { from = event_target:raid_victim } }
 					}
 				}
@@ -5029,6 +5041,10 @@ planet_event = {
 		set_timed_planet_flag = { flag = planet_raided months = 20 }
 		event_target:raiding_fleet = { # Return home
 			set_event_locked = no
+			every_owned_ship = {
+				limit = { is_disabled = yes }
+				set_disabled = no
+			}
 			fleet_event = { id = marauder.110 days = 20 scopes = { from = event_target:raid_victim } }
 		}
 
@@ -5938,6 +5954,10 @@ event = {
 							}
 						}
 						set_event_locked = no
+						every_owned_ship = {
+							limit = { is_disabled = yes }
+							set_disabled = no
+						}
 						if = {
 							limit = { exists = event_target:raid_planet can_access_system = event_target:raid_planet.solar_system }
 							auto_move_to_planet = { target = event_target:raid_planet clear_auto_move_on_arrival = no }
@@ -6351,6 +6371,10 @@ event = {
 					set_owner = event_target:mercenary_hirer
 					assign_leader = last_created_leader
 					set_event_locked = no
+					every_owned_ship = {
+						limit = { is_disabled = yes }
+						set_disabled = no
+					}
 					fleet_event = { id = marauder.50 days = 1800 }
 				}
 			}
@@ -12153,6 +12177,10 @@ country_event = {
 			every_owned_fleet = {
 				limit = { is_mobile = yes }
 				set_event_locked = no
+				every_owned_ship = {
+					limit = { is_disabled = yes }
+					set_disabled = no
+				}
 				if = {
 					limit = {
 						NOR = {

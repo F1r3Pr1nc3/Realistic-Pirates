@@ -301,7 +301,13 @@ country_event = {
 					exists = solar_system.starbase
 					solar_system.starbase.fleet = { is_disabled = yes }
 				}
-				solar_system.starbase.fleet = { set_event_locked = no }
+				solar_system.starbase.fleet = {
+					set_event_locked = no
+					every_owned_ship = {
+						limit = { is_disabled = yes }
+						set_disabled = no
+					}
+				}
 			}
 		}
 		if = {
@@ -442,7 +448,13 @@ ship_event = {
 		}
 		if = {
 			limit = { fleet = { is_disabled = yes } }
-			fleet = { set_event_locked = no }
+			fleet = {
+				set_event_locked = no
+				every_owned_ship = {
+					limit = { is_disabled = yes }
+					set_disabled = no
+				}
+			}
 		}
 	}
 }
