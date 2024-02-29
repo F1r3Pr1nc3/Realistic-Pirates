@@ -514,6 +514,11 @@ country_event = {
 	show_sound = event_radio_chatter
 	location = event_target:marauder_system
 	is_triggered_only = yes
+	immediate = {
+		fromfromfromfrom.solar_system = {
+			save_event_target_as = marauder_system
+		}
+	}
 	option = { name = marauder.5.a }
 }
 
@@ -9183,6 +9188,7 @@ country_event = {
 	desc = "marauder.526.desc"
 	picture = GFX_evt_khan_throne_room
 	show_sound = event_radio_chatter
+	location = event_target:awakened_horde
 	is_triggered_only = yes
 	option = {
 		name = marauder.501.a
