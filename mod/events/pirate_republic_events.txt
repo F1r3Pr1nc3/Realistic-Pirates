@@ -1007,7 +1007,7 @@ country_event = {
 					}
 				}
 				weights = { base = 1 modifier = { add = 3 is_at_war_with = root } }
-				country_event = { id = pirate_republic.15 days = 5 scopes = { fromfrom = event_target:pirate_republic } }
+				country_event = { id = pirate_republic.15 days = 5 scopes = { from = root fromfrom = event_target:pirate_republic } }
 			}
 		}
 	}
