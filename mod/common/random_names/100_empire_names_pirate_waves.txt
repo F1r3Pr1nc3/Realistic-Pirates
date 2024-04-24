@@ -15,4 +15,6 @@ empire_name_format = {
 	lookups = "{<pirate_names>}"
 	format = "{<pirate_names>}"
 	noun = "{<pirate_names>}"
+	adjective = "{[This.GetSpeciesAdj]}"
+	prefix_format = "{<pirate_names>}"
 }

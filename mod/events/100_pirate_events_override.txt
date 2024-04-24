@@ -168,11 +168,7 @@ country_event = {
 	option = {
 		name = pirate.2.h
 		trigger = {
-			OR = {
-				has_government = gov_criminal_syndicate
-				has_government = gov_pirate_haven
-				has_government = gov_subversive_cult
-			}
+			OR = { has_government = gov_criminal_syndicate has_government = gov_pirate_haven has_government = gov_subversive_cult }
 		}
 	}
 	option = {
@@ -313,9 +309,9 @@ country_event = {
 		if = {
 			limit = { merg_is_default_empire = yes }
 			random_list = {
-				85 = { country_event = { id = pirate.25 } }
+				85 = { country_event = { id = pirate.25 } } # Get Loot
 				15 = {
-					country_event = { id = pirate.26 }
+					country_event = { id = pirate.26 } # Get L-Cluster Insight
 					modifier = {
 						factor = 0
 						NAND = {
@@ -326,7 +322,6 @@ country_event = {
 				}
 			}
 		}
-
 	}
 }
 
@@ -425,9 +420,9 @@ ship_event = {
 				save_event_target_as = pirate_slayers
 				owner = {
 					random_list = {
-						85 = { country_event = { id = pirate.25 } }
+						85 = { country_event = { id = pirate.25 } } # Get Loot
 						15 = {
-							country_event = { id = pirate.26 }
+							country_event = { id = pirate.26 } # Get L-Cluster Insight
 							modifier = {
 								factor = 0
 								OR = {
@@ -450,10 +445,10 @@ ship_event = {
 			limit = { fleet = { is_disabled = yes } }
 			fleet = {
 				set_event_locked = no
-				every_owned_ship = {
-					limit = { is_disabled = yes }
-					set_disabled = no
-				}
+				# every_owned_ship = { Can lead to endless fight?
+				# 	limit = { is_disabled = yes }
+				# 	set_disabled = no
+				# }
 			}
 		}
 	}
