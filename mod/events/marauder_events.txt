@@ -2004,7 +2004,7 @@ country_event = {
 					# has_crisis_level = crisis_level_2
 					has_crisis_level = crisis_level_3
 					has_crisis_level = crisis_level_4
-					has_crisis_level = crisis_level_5
+					has_been_declared_crisis = yes
 				}
 				NOR = {
 					is_same_empire = root
@@ -9830,7 +9830,7 @@ country_event = {
 			ordered_owned_planet = {
 				limit = { is_colony = yes }
 				position = 0
-				order_by = trigger:num_sapient_pops
+				order_by = trigger:num_pops
 				save_event_target_as = capital_planet
 				solar_system = { save_event_target_as = capital_system }
 			}
@@ -10703,7 +10703,7 @@ country_event = {
 			ordered_owned_sector = {
 				limit = { NOT = { has_sector_flag = counted_sector } }
 				position = 0
-				order_by = trigger:num_sapient_pops
+				order_by = trigger:num_pops
 				save_event_target_as = diadochi_leader_sector
 				set_sector_flag = diadochi_sector_@this
 				set_sector_flag = leader_sector
@@ -10741,7 +10741,7 @@ country_event = {
 							}
 							position = 1
 							inverse = yes
-							order_by = trigger:num_sapient_pops
+							order_by = trigger:num_pops
 							set_sector_flag = counted_sector
 							set_sector_flag = diadochi_sector_@event_target:diadochi_leader_sector
 							set_sector_flag = rebel_sector_follower_@event_target:diadochi_leader_sector
@@ -10784,7 +10784,7 @@ country_event = {
 				}
 				position = 0
 				inverse = yes
-				order_by = trigger:num_sapient_pops
+				order_by = trigger:num_pops
 				set_sector_flag = counted_sector
 			}
 		}
@@ -10797,7 +10797,7 @@ country_event = {
 				}
 				position = 0
 				inverse = yes
-				order_by = trigger:num_sapient_pops
+				order_by = trigger:num_pops
 				set_sector_flag = finished_sector
 				save_event_target_as = diadochi_leader_sector
 				## CREATE_DIADOCHI_COUNTRY
