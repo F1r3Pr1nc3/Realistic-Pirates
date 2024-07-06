@@ -1,4 +1,4 @@
-version="3.12.1.0"
+version="3.12.5.0"
 tags={
 	"Balance"
 	"Pirates"

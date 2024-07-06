@@ -78,7 +78,7 @@ country_event = {
 		}
 		if = {
 			limit = { has_country_flag = bulwark_numbers }
-			if = { limit = { NOT = { any_owned_leader = { has_leader_flag = bulwark_numbers_commander } } }
+			if = { limit = { count_owned_leader = { limit = { has_leader_flag = bulwark_numbers_commander } count = 0 } }
 				create_leader = {
 					class = commander
 					species = owner_species
@@ -105,7 +105,7 @@ country_event = {
 			# event_target:tob_supremacist_faction
 		} else_if = {
 			limit = { has_country_flag = bulwark_techies }
-			if = { limit = { NOT = { any_owned_leader = { has_leader_flag = bulwark_techies_commander } } }
+			if = { limit = { count_owned_leader = { limit = { has_leader_flag = bulwark_techies_commander } count = 0 } }
 				create_leader = {
 					class = commander
 					species = owner_species
@@ -133,7 +133,7 @@ country_event = {
 		} else_if = {
 			limit = { has_country_flag = bulwark_monsters }
 			if = {
-				limit = { NOT = { any_owned_leader = { has_leader_flag = bulwark_monsters_commander } } }
+				limit = { count_owned_leader = { limit = { has_leader_flag = bulwark_monsters_commander } count = 0 } }
 				create_leader = {
 					class = commander
 					species = owner_species
@@ -358,7 +358,7 @@ country_event = {
 					bulwark_country_techfour =	{ prev = { every_owned_ship = { set_ship_flag = bulwark_ship_techfour } } }
 					bulwark_country_techfive =	{ prev = { every_owned_ship = { set_ship_flag = bulwark_ship_techfive } } }
 				}
-				if = { limit = { NOT = { any_owned_fleet = { has_fleet_flag = bulwark_vanguard_two } } }
+				if = { limit = { count_owned_fleet = { limit = { has_fleet_flag = bulwark_vanguard_two } count = 0 } }
 					prev = { set_fleet_flag = bulwark_vanguard_two }
 				} else = { prev = { set_fleet_flag = bulwark_vanguard_one } }
 			}
@@ -396,17 +396,17 @@ country_event = {
 				random_system_within_border = {
 					limit = {
 						any_system_planet = {
-							is_star = no
-							NOT = { any_fleet_in_orbit = { any_owned_ship = { is_ship_size = bulwark_station } } }
+							NOR = {
+								is_star = yes
+								any_fleet_in_orbit = {  any_owned_ship = { is_ship_size = bulwark_station } }
+							}
 						}
 					}
 					random_system_planet = {
 						limit = {
-							is_star = no
-							NOT = {
-								any_fleet_in_orbit = {
-									any_owned_ship = { is_ship_size = bulwark_station }
-								}
+							NOR = {
+								is_star = yes
+								any_fleet_in_orbit = {  any_owned_ship = { is_ship_size = bulwark_station } }
 							}
 						}
 						# save_event_target_as = bulwark_station_respawn_here

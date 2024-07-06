@@ -629,33 +629,42 @@ create_pirate_waves_fleet = {
 	# log = "pirates_fleet_factor [This.pirates_fleet_factor]"
 
 	# Corvettes: AVG 100 FP
-	while = {
-		count = pirates_fleet_factor
-		random = {
-			chance = prev.pirates_f_tmp
-			random_list = {
-				80 = { create_ship = { name = random design = "NAME_Reaver" prefix = no graphical_culture = "pirate_01" } }
-				20 = { modifier = { factor = 0 exists = event_target:current_pirate_country mid_game_years_passed < 0 } modifier = { factor = 12 NOT = { exists = event_target:current_pirate_country } } }
+	if = {
+		limit = { exists = event_target:current_pirate_country mid_game_years_passed < 0 }
+		while = {
+			count = pirates_fleet_factor
+			random = {
+				chance = prev.pirates_f_tmp
+				create_ship = { name = random design = "NAME_Reaver" prefix = no graphical_culture = "pirate_01" }
+			}
+			random = {
+				chance = prev.pirates_f_tmp
+				create_ship = { name = random design = "NAME_Brigand" prefix = no graphical_culture = "pirate_01" }
+			}
+			random = {
+				chance = prev.pirates_f_tmp
+				create_ship = { name = random design = "NAME_Skull" prefix = no graphical_culture = "pirate_01" }
 			}
 		}
 	}
-	while = {
-		count = pirates_fleet_factor
-		random = {
-			chance = prev.pirates_f_tmp
-			random_list = {
-				80 = { create_ship = { name = random design = "NAME_Brigand" prefix = no graphical_culture = "pirate_01" } }
-				20 = { modifier = { factor = 0 exists = event_target:current_pirate_country mid_game_years_passed < 0 } modifier = { factor = 12 NOT = { exists = event_target:current_pirate_country } } }
+	else_if = {
+		limit = { NOT = { exists = event_target:current_pirate_country } }
+		set_variable = { which = pirates_fleet_late_factor value = pirates_fleet_factor }
+		multiply_variable	= { which = pirates_fleet_late_factor value = 0.25 }
+		round_variable = pirates_fleet_late_factor
+		while = {
+			count = pirates_fleet_late_factor
+			random = {
+				chance = prev.pirates_f_tmp
+				create_ship = { name = random design = "NAME_Reaver" prefix = no graphical_culture = "pirate_01" }
 			}
-		}
-	}
-	while = {
-		count = pirates_fleet_factor
-		random = {
-			chance = prev.pirates_f_tmp
-			random_list = {
-				80 = { create_ship = { name = random design = "NAME_Skull" prefix = no graphical_culture = "pirate_01" } }
-				20 = { modifier = { factor = 0 exists = event_target:current_pirate_country mid_game_years_passed < 0 } modifier = { factor = 12 NOT = { exists = event_target:current_pirate_country } } }
+			random = {
+				chance = prev.pirates_f_tmp
+				create_ship = { name = random design = "NAME_Brigand" prefix = no graphical_culture = "pirate_01" }
+			}
+			random = {
+				chance = prev.pirates_f_tmp
+				create_ship = { name = random design = "NAME_Skull" prefix = no graphical_culture = "pirate_01" }
 			}
 		}
 	}
@@ -677,23 +686,31 @@ create_pirate_waves_fleet = {
 			divide_variable = { which = pirates_f_tmp value = pirates_f_tmp2 }
 			round_variable_to_closest = { which = pirates_f_tmp value = 0.01 }
 		}
-		while = {
-			count = pirates_fleet_factor
-			random = {
-				chance = prev.pirates_f_tmp
-				random_list = {
-					80 = { create_ship = { name = random design = "NAME_Marauder" prefix = no graphical_culture = "pirate_01" } }
-					20 = { modifier = { factor = 0 exists = event_target:current_pirate_country mid_game_years_passed < 0 } modifier = { factor = 12 NOT = { exists = event_target:current_pirate_country } } }
+		if = {
+			limit = { exists = event_target:current_pirate_country mid_game_years_passed < 0 }
+			while = {
+				count = pirates_fleet_factor
+				random = {
+					chance = prev.pirates_f_tmp
+					create_ship = { name = random design = "NAME_Marauder" prefix = no graphical_culture = "pirate_01" } }
+				}
+				random = {
+					chance = prev.pirates_f_tmp
+					create_ship = { name = random design = "NAME_Corsair" prefix = no graphical_culture = "pirate_01" }
 				}
 			}
 		}
-		while = {
-			count = pirates_fleet_factor
-			random = {
-				chance = prev.pirates_f_tmp
-				random_list = {
-					80 = { create_ship = { name = random design = "NAME_Corsair" prefix = no graphical_culture = "pirate_01" } }
-					20 = { modifier = { factor = 0 exists = event_target:current_pirate_country mid_game_years_passed < 0 } modifier = { factor = 12 NOT = { exists = event_target:current_pirate_country } } }
+		else_if = {
+			limit = { NOT = { exists = event_target:current_pirate_country } }
+			while = {
+				count = pirates_fleet_late_factor
+				random = {
+					chance = prev.pirates_f_tmp
+					create_ship = { name = random design = "NAME_Marauder" prefix = no graphical_culture = "pirate_01" } }
+				}
+				random = {
+					chance = prev.pirates_f_tmp
+					create_ship = { name = random design = "NAME_Corsair" prefix = no graphical_culture = "pirate_01" }
 				}
 			}
 		}

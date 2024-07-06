@@ -388,7 +388,7 @@ country_event = {
 			}
 		}
 		allow = {
-			NOT = { any_system = { has_star_flag = tob_system } }
+			count_system = { limit = { has_star_flag = tob_system } count = 0 }
 		}
 		hidden_effect = {
 			set_global_flag = outer_bulwark_initialized
@@ -2573,7 +2573,7 @@ event = {
 						random_system_planet = {
 							limit = {
 								is_moon = yes
-								NOT = { any_fleet_in_orbit = { } }
+								count_fleet_in_orbit = { limit = { } count = 0 }
 							}
 							create_fleet = {
 								effect = {

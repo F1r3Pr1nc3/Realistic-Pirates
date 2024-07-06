@@ -160,7 +160,7 @@ PRW2 = {
 		}
 
 		transport = {
-			"Carry Me Home"
+			PRT1_SHIP_CarryMeHome
 		}
 
 		pirate_station = {

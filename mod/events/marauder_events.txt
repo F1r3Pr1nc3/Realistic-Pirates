@@ -2850,7 +2850,7 @@ country_event = {
 	desc = {
 		trigger = {
 			success_text = { text = marauder.37.1.a.desc event_target:current_marauder_diplomacy = { has_country_flag = marauder_1 } any_relation = { is_fallen_empire = yes } }
-			success_text = { text = marauder.37.1.b.desc event_target:current_marauder_diplomacy = { has_country_flag = marauder_1 } NOT = { any_relation = { is_fallen_empire = yes } } }
+			success_text = { text = marauder.37.1.b.desc event_target:current_marauder_diplomacy = { has_country_flag = marauder_1 } count_relation = { limit = { is_fallen_empire = yes } count = 0 } }
 			success_text = { text = marauder.37.2.a.desc event_target:current_marauder_diplomacy = { has_country_flag = marauder_2 } }
 			success_text = { text = marauder.37.3.a.desc event_target:current_marauder_diplomacy = { has_country_flag = marauder_3 } }
 		}
@@ -4146,7 +4146,7 @@ country_event = {
 		event_target:raiding_marauder = {
 			is_country_type = dormant_marauders
 			any_relation = { is_same_value = root }
-			NOT = { any_owned_fleet = { has_fleet_flag = raiding_fleet } }
+			count_owned_fleet = { limit = { has_fleet_flag = raiding_fleet } count = 0 }
 		}
 		NOT = { has_country_flag = recently_raided_or_threatened }
 	}
@@ -6411,11 +6411,12 @@ event = {
 		any_country = {
 			is_country_type = dormant_marauders
 			has_country_flag = raid_ongoing
-			NOT = {
-				any_country = {
+			count_country = {
+				limit = {
 					is_country_type = marauder_raiders
 					prev = { has_country_flag = parent_of@prev }
 				}
+				count = 0
 			}
 		}
 	}
@@ -6424,11 +6425,12 @@ event = {
 			limit = {
 				is_country_type = dormant_marauders
 				has_country_flag = raid_ongoing
-				NOT = {
-					any_country = {
+				count_country = {
+					limit = {
 						is_country_type = marauder_raiders
 						prev = { has_country_flag = parent_of@prev }
 					}
+					count = 0
 				}
 			}
 			save_event_target_as = raiding_marauder
@@ -6769,7 +6771,7 @@ country_event = {
 		is_country_type = dormant_marauders
 		NOT = { has_global_flag = war_in_heaven_started }
 		crisis_happened_and_defeated = no
-		NOT = { any_country = { is_country_type = awakened_marauders } }
+		count_country = { limit = { is_country_type = awakened_marauders } count = 0 }
 		CmtTriggerHasPotentialKhanAwaking = yes
 	}
 	mean_time_to_happen = {
@@ -9331,7 +9333,7 @@ planet_event = {
 		exists = owner
 		# owner = { is_default_or_fallen = yes }
 		# count_planet_army = { count = 0 }
-		NOT = { any_planet_army = { always = yes } }
+		count_planet_army = { limit = { always = yes } count = 0 }
 		OR = { planet_devastation > 90 num_sapient_pops < 2 }
 		from = {
 			OR = {
@@ -9807,13 +9809,14 @@ country_event = {
 		exists = event_target:raider_khanate
 		is_subject_of_khan = yes
 		event_target:raider_khanate = {
-			NOT = {
-				any_owned_fleet = {
+			count_owned_fleet = {
+				limit = {
 					is_mobile = no
 					has_fleet_flag = satrapy_garrison
 					any_owned_ship = { is_ship_size = marauder_void_dwelling }
 					is_within_borders_of = prevprev
 				}
+				count = 0
 			}
 		}
 	}
@@ -10152,10 +10155,11 @@ country_event = {
 				}
 				if = {
 					limit = {
-						NOT = {
-							any_war = {
+						count_war = {
+							limit = {
 								using_war_goal = { type = "wg_independence" owner = attacker }
 							}
+							count = 0
 						}
 					}
 					declare_war = {
@@ -10190,7 +10194,7 @@ country_event = {
 	# }
 	# option = {
 	# 	name = marauder.554.b
-	# 	trigger = { NOT = { any_agreement = { agreement_preset = preset_fabricator_satrapy } } }
+	# 	trigger = { count_agreement = { limit = { agreement_preset = preset_fabricator_satrapy } count = 0 } }
 	# 	# sound = no_tut_advior_07
 	# 	response_text = marauder.554.b.response
 	# 	ai_chance = { factor = 0.1 }
@@ -10504,14 +10508,15 @@ country_event = {
 										NOT = { exists = owner }
 										is_owned_by = root
 									}
-									NOT = {
-										any_system_colony = {
+									count_system_colony = {
+										limit = {
 											NOR = {
 												is_planet = prevprev
 												is_colonizable = yes
 												is_owned_by = root
 											}
 										}
+										count = 0
 									}
 								}
 							}
@@ -10961,26 +10966,26 @@ country_event = {
 					}
 
 					if = {
-						limit = { NOT = { any_playable_country = { has_country_flag = diadochi_2 } } }
+						limit = { count_playable_country = { limit = { has_country_flag = diadochi_2 } count = 0 } }
 						set_country_flag = diadochi_2
 						save_event_target_as = second_diadochi
 					}
 					else_if = {
-						limit = { NOT = { any_playable_country = { has_country_flag = diadochi_3 } } }
+						limit = { count_playable_country = { limit = { has_country_flag = diadochi_3 } count = 0 } }
 						set_country_flag = diadochi_3
 						save_event_target_as = third_diadochi
 					}
 					else_if = {
-						limit = { NOT = { any_playable_country = { has_country_flag = diadochi_4 } } }
+						limit = { count_playable_country = { limit = { has_country_flag = diadochi_4 } count = 0 } }
 						set_country_flag = diadochi_4
 						save_event_target_as = fourth_diadochi
 					}
 					else_if = {
-						limit = { NOT = { any_playable_country = { has_country_flag = diadochi_5 } } }
+						limit = { count_playable_country = { limit = { has_country_flag = diadochi_5 } count = 0 } }
 						set_country_flag = diadochi_5
 					}
 					else_if = {
-						limit = { NOT = { any_playable_country = { has_country_flag = diadochi_6 } } }
+						limit = { count_playable_country = { limit = { has_country_flag = diadochi_6 } count = 0 } }
 						set_country_flag = diadochi_6
 					}
 					event_target:first_diadochi = {
@@ -11367,7 +11372,7 @@ country_event = {
 					NOT = { is_within_borders_of = root }
 				}
 				NOT = { is_ship_size = starbase_marauder }
-				NOT = { any_owned_ship = { is_ship_size = starbase_marauder } }
+				count_owned_ship = { limit = { is_ship_size = starbase_marauder } count = 0 }
 			}
 			destroy_fleet = this
 		}

@@ -351,8 +351,8 @@ remove_loaning_fleet_flag = {
 	# Failsafe to catch if fleets are no longer on loan
 	if = {
 		limit = {
-			NOT = {
-				any_controlled_fleet = {
+			count_controlled_fleet = {
+				limit = {
 					OR = {
 						is_leased = yes
 						AND = {
@@ -361,6 +361,7 @@ remove_loaning_fleet_flag = {
 						}
 					}
 				}
+				count = 0
 			}
 		}
 		remove_country_flag = loaning_fleet

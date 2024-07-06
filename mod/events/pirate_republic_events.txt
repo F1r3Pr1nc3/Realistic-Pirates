@@ -43,11 +43,12 @@ event = {
 						has_ground_combat = no
 						owner = { is_primitive = no }
 					}
-					NOT = {
-						any_fleet_in_system = {
+					count_fleet_in_system = {
+						limit = {
 							exists = owner
 							owner = { is_country_type = rebel }
 						}
+						count = 0
 					}
 				}
 			}
@@ -84,7 +85,7 @@ country_event = {
 	trigger = {
 		has_country_flag = pirate_waves_disappear
 		exists = event_target:pirate_system
-		NOT = { any_situation = { is_situation_type = situation_planetary_revolt } }
+		count_situation = { limit = { is_situation_type = situation_planetary_revolt } count = 0 }
 	}
 	immediate = {
 		random_country = {
@@ -128,11 +129,12 @@ country_event = {
 									has_modifier = revolt_suppressed
 								}
 							}
-							NOT = {
-								any_fleet_in_system = {
+							count_fleet_in_system = {
+								limit = {
 									exists = owner
 									owner = { is_country_type = rebel }
 								}
+								count = 0
 							}
 						}
 						random_system_colony = {
@@ -172,11 +174,12 @@ country_event = {
 										is_owned_by = root
 										is_controlled_by = root
 									}
-									NOT = {
-										any_fleet_in_system = {
+									count_fleet_in_system = {
+										limit = {
 											exists = owner
 											owner = { is_country_type = rebel }
 										}
+										count = 0
 									}
 								}
 							}
@@ -203,11 +206,12 @@ country_event = {
 									# 	is_hostile = event_target:pirate_band
 									# }
 								}
-								NOT = {
-									any_fleet_in_system = {
+								count_fleet_in_system = {
+									limit = {
 										exists = owner
 										owner = { is_country_type = rebel }
 									}
+									count = 0
 								}
 							}
 							random_system_colony = {
@@ -243,11 +247,12 @@ country_event = {
 									is_colonizable = yes
 									habitability = { who = event_target:pirate_species value > 0.6 }
 								}
-								NOT = {
-									any_fleet_in_system = {
+								count_fleet_in_system = {
+									limit = {
 										exists = owner
 										owner = { is_country_type = rebel }
 									}
+									count = 0
 								}
 							}
 							random_system_planet = {
@@ -903,12 +908,13 @@ country_event = {
 			if = {
 				limit = {
 					count_owned_planet = { count = 0 }
-					NOT = {
-						any_owned_army = {
+					count_owned_army = {
+						limit = {
 							is_defensive_army = no
 							exists = planet
 							planet = { has_ground_combat = yes }
 						}
+						count = 0
 					}
 				}
 				# set_country_type = pirate_waves_country
@@ -1142,7 +1148,7 @@ country_event = {
 		hidden_effect = {
 			if = {
 				limit = {
-					NOT = { any_subject = { has_country_flag = pirate_republic } }
+					count_subject = { limit = { has_country_flag = pirate_republic } count = 0 }
 				}
 				country_event = { id = pirate_republic.14 }
 			}
@@ -1419,7 +1425,7 @@ event = {
 							}
 							event_target:rebel_country = {
 								if = {
-									limit = { NOT = { any_owned_leader = { leader_class = commander } } }
+									limit = { count_owned_leader = { limit = { leader_class = commander } count = 0 } }
 									create_leader = {
 										class = commander
 										species = owner_species

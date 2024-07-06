@@ -1194,7 +1194,7 @@ utility_component_template = {
 		}
 	}
 	class_restriction = { shipclass_military shipclass_starbase shipclass_military_special }
-	size_restriction = { cruiser battleship juggernaut titan star_eater offspring_cruiser offspring_battleship }
+	size_restriction = { cruiser battleship juggernaut titan cosmo_crisis_titan star_eater offspring_cruiser offspring_battleship cosmo_crisis_battlecruiser nanite_swarmer nanite_interdictor }
 	component_set = "combat_computers"
 	ship_behavior = "carrier"
 	prerequisites = { "tech_precognition_interface" }
@@ -1487,7 +1487,7 @@ utility_component_template = {
 	ship_behavior = "colossus"
 
 	class_restriction = { shipclass_military_special }
-	size_restriction = { colossus }
+	size_restriction = { colossus synth_queen_titan }
 	component_set = "combat_computers"
 
 	ai_weight = {

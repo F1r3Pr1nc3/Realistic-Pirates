@@ -47,14 +47,15 @@ event = {
 				20 = {
 					if = {
 						limit = {
-							NOT = {
-								any_playable_country = {
+							count_playable_country = {
+								limit = {
 									has_country_flag = bulwark_numbers_encountered
 									NOR = {
 										has_country_flag = bulwark_complete_traitors
 										has_country_flag = doing_quest_for_bulwark
 									}
 								}
+								count = 0
 							}
 						}
 						event_target:bulwark_looking_for_quest_country = {
