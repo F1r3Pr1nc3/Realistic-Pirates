@@ -692,7 +692,7 @@ create_pirate_waves_fleet = {
 				count = pirates_fleet_factor
 				random = {
 					chance = prev.pirates_f_tmp
-					create_ship = { name = random design = "NAME_Marauder" prefix = no graphical_culture = "pirate_01" } }
+					create_ship = { name = random design = "NAME_Marauder" prefix = no graphical_culture = "pirate_01" }
 				}
 				random = {
 					chance = prev.pirates_f_tmp
@@ -706,7 +706,7 @@ create_pirate_waves_fleet = {
 				count = pirates_fleet_late_factor
 				random = {
 					chance = prev.pirates_f_tmp
-					create_ship = { name = random design = "NAME_Marauder" prefix = no graphical_culture = "pirate_01" } }
+					create_ship = { name = random design = "NAME_Marauder" prefix = no graphical_culture = "pirate_01" }
 				}
 				random = {
 					chance = prev.pirates_f_tmp

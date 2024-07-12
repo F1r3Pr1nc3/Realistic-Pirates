@@ -43,7 +43,7 @@ country_event = {
 		}
 	}
 	option = {
-		name = tob_merc.1.a
+		name = "marauder.1.a"
 		hidden_effect = {
 			country_event = { id = tob_merc.2 scopes = { from = from } }
 		}
@@ -307,7 +307,7 @@ country_event = {
 	}
 	# Terminate communications
 	option = {
-		name = tob_merc.3.e
+		name = "graygoo.115.d"
 		default_hide_option = yes
 	}
 }
@@ -512,7 +512,7 @@ country_event = {
 		}
 	}
 	option = {
-		name = tob_merc.4.d
+		name = "graygoo.115.d"
 		default_hide_option = yes
 	}
 }
@@ -1159,7 +1159,7 @@ country_event = {
 		}
 	}
 	option = {
-		name = tob_merc.6.d
+		name = "graygoo.115.d"
 		default_hide_option = yes
 	}
 }
@@ -1300,7 +1300,7 @@ country_event = {
 		}
 	}
 	option = {
-		name = tob_merc.7.d
+		name = "graygoo.115.d"
 		default_hide_option = yes
 	}
 }
@@ -1326,7 +1326,7 @@ country_event = {
 		}
 	}
 	option = {
-		name = tob_merc.8.a
+		name = "story.210.a"
 		default_hide_option = yes
 	}
 }
@@ -2467,7 +2467,7 @@ country_event = {
 		}
 	}
 	option = {
-		name = tob_merc.9.d
+		name = "graygoo.115.d"
 		default_hide_option = yes
 	}
 }

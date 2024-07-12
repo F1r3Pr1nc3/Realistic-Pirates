@@ -887,7 +887,7 @@ country_event = {
 			}
 		}
 	}
-	option = { name = tob_quest.14.a }
+	option = { name = graygoo.504.d }
 }
 
 # War ends, did we win?
@@ -1169,7 +1169,7 @@ country_event = {
 	is_triggered_only = yes
 	force_open = yes
 	diplomatic = yes
-	option = { name = tob_quest.14.a }
+	option = { name = graygoo.504.d }
 }
 
 # Event to make explorers explore right.

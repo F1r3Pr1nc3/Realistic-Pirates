@@ -352,24 +352,69 @@ country_event = {
 				limit = { is_country_type = outer_bulwarks }
 				set_country_type = dormant_marauders
 				switch = { trigger = has_country_flag
-					bulwark_numbers = { set_country_flag = marauder_1 }
-					bulwark_techies = { set_country_flag = marauder_2 }
-					bulwark_monsters = { set_country_flag = marauder_3 }
+					bulwark_numbers		= { set_country_flag = marauder_1 }
+					bulwark_techies		= { set_country_flag = marauder_2 }
+					bulwark_monsters	= { set_country_flag = marauder_3 }
 				}
 				random_system_within_border = {
 					limit = { has_star_flag = tob_system }
 					set_star_flag = marauder_system
 					switch = { trigger = has_star_flag
-						tob_supremacists = { set_star_flag = marauder_capital_1 }
-						tob_technologists = { set_star_flag = marauder_capital_2 }
-						tob_tamers = { set_star_flag = marauder_capital_3 }
+						tob_supremacists	= { set_star_flag = marauder_capital_1 }
+						tob_technologists	= { set_star_flag = marauder_capital_2 }
+						tob_tamers			= { set_star_flag = marauder_capital_3 }
 					}
 				}
 			}
 			country_event = { id = pirate_waves.0 }
 		}
 	}
-	 # Only once
+	# Only once (destroy)
+	option = {
+		name = {
+			trigger = { event_target:global_event_country = { NOT = { has_country_flag = outer_bulwark_inactive } } }
+			text = "outer_bulwark_MODE_destroy"
+		}
+		name = {
+			trigger = { event_target:global_event_country = { has_country_flag = outer_bulwark_inactive } }
+			text = "outer_bulwark_MODE_destroy_inactive"
+		}
+		custom_tooltip = "outer_bulwark_MODE_DESC"
+		trigger = {
+			any_country = { is_country_type = outer_bulwarks }
+		}
+		allow = {
+			is_multiplayer = no
+		}
+		hidden_effect = {
+			remove_global_flag = outer_bulwark_initialized
+			event_target:global_event_country = { remove_country_flag = outer_bulwark_inactive }
+			every_country = {
+				limit = { is_country_type = outer_bulwarks }
+				every_system_within_border = {
+					limit = { has_star_flag = tob_system }
+					remove_star_flag = marauder_system
+					remove_star_flag = tob_system
+					switch = { trigger = has_star_flag
+						tob_supremacists	= { remove_star_flag = marauder_capital_1 remove_star_flag = tob_supremacists }
+						tob_technologists	= { remove_star_flag = marauder_capital_2 remove_star_flag = tob_technologists }
+						tob_tamers			= { remove_star_flag = marauder_capital_3 remove_star_flag = tob_tamers }
+					}
+					if = {
+						limit = { exists = starbase }
+						starbase = { destroy_fleet = fleet }
+					}
+				}
+				switch = { trigger = has_country_flag
+					bulwark_numbers = { set_country_type = enclave_mercenary set_country_flag = mercenary_enclave_country force_add_civic = civic_mercenary_enclave }
+					bulwark_techies		= { destroy_country = yes }
+					bulwark_monsters	= { destroy_country = yes }
+				}
+			}
+			country_event = { id = pirate_waves.0 }
+		}
+	}
+	# Only once (Init)
 	option = {
 		name = "outer_bulwark_MODE_enable"
 		custom_tooltip = "outer_bulwark_MODE_DESC"
@@ -379,11 +424,7 @@ country_event = {
 				event_target:global_event_country = { has_country_flag = outer_bulwark_inactive }
 				any_country = {
 					OR = { is_country_type = dormant_marauders is_country_type = outer_bulwarks }
-					OR = {
-						has_country_flag = bulwark_numbers
-						has_country_flag = bulwark_techies
-						has_country_flag = bulwark_monsters
-					}
+					OR = { has_country_flag = bulwark_numbers has_country_flag = bulwark_techies has_country_flag = bulwark_monsters }
 				}
 			}
 		}
@@ -654,11 +695,7 @@ country_event = {
 		allow = {
 			any_country = {
 				is_country_type = dormant_marauders
-				OR = {
-					has_country_flag = bulwark_numbers
-					has_country_flag = bulwark_techies
-					has_country_flag = bulwark_monsters
-				}
+				OR = { has_country_flag = bulwark_numbers has_country_flag = bulwark_techies has_country_flag = bulwark_monsters }
 			}
 		}
 		hidden_effect = {
@@ -666,11 +703,7 @@ country_event = {
 			every_country = {
 				limit = {
 					is_country_type = dormant_marauders
-					OR = {
-						has_country_flag = bulwark_numbers
-						has_country_flag = bulwark_techies
-						has_country_flag = bulwark_monsters
-					}
+					OR = { has_country_flag = bulwark_numbers has_country_flag = bulwark_techies has_country_flag = bulwark_monsters }
 				}
 				set_country_type = outer_bulwarks
 				random_system_within_border = {
@@ -777,9 +810,7 @@ fleet_event = {
 		# Use the scope from the owner of the station to create the new fleet.
 		owner = {
 			if = {
-				limit = {
-					has_country_flag = pirate_waves_spawn_allowed # is_pirate_waves_spawn_allowed = yes
-				}
+				limit = { has_country_flag = pirate_waves_spawn_allowed }
 				save_event_target_as = current_pirate_country
 				# Create a fleet based on fleet power.
 				create_fleet = {
@@ -803,11 +834,7 @@ fleet_event = {
 								find_random_system = {
 									trigger = {
 										id = pirate_waves.2.trigger.1
-										distance = {
-											source = prev
-											max_distance <= 200
-											min_distance >= 1
-										}
+										distance = { source = prev max_distance <= 200 min_distance >= 1 }
 										NOR = {
 											exists = space_owner
 											has_star_flag = sanctuary_system
@@ -864,11 +891,7 @@ fleet_event = {
 								find_random_system = {
 									trigger = {
 										id = pirate_waves.2.trigger.5
-										distance = {
-											source = prev
-											max_distance < 200
-											min_distance > 1
-										}
+										distance = { source = prev max_distance < 200 min_distance > 1 }
 										NOR = { has_star_flag = sanctuary_system has_star_flag = hostile_system }
 										any_system_planet = { is_pirate_waves_raiding_planet = yes }
 									}
@@ -895,11 +918,7 @@ fleet_event = {
 								find_closest_system = {
 									trigger = {
 										id = pirate_waves.2.trigger.8
-										NOR = {
-											has_star_flag = sanctuary_system
-											has_star_flag = hostile_system
-											is_pirate_system = yes
-										}
+										NOR = { has_star_flag = sanctuary_system has_star_flag = hostile_system is_pirate_system = yes }
 										any_system_planet = { is_pirate_waves_base_planet = yes }
 									}
 									found_system = {
@@ -1049,11 +1068,7 @@ planet_event = {
 	id = pirate_waves.3
 	hide_window = yes
 	is_triggered_only = yes
-	trigger = {
-		is_pirate_waves_active = yes
-		exists = event_target:pirate_waves_country
-		exists = event_target:pirate_waves_2_country
-	}
+	trigger = { is_pirate_waves_active = yes exists = event_target:pirate_waves_country exists = event_target:pirate_waves_2_country }
 	immediate = {
 		# Used in triggers as well.
 		save_event_target_as = spawn_location
@@ -1078,12 +1093,10 @@ planet_event = {
 				reroll_random = yes
 				random_list = {
 					50 = {
-						modifier = {
-							factor = 10
+						modifier = { factor = 10
 							event_target:pirate_waves_country = { num_fleets < 10 }
 						}
-						modifier = {
-							factor = 5
+						modifier = { factor = 5
 							event_target:pirate_waves_2_country = { fleet_power > event_target:pirate_waves_country.trigger:fleet_power }
 						}
 						event_target:pirate_waves_country = {
@@ -1092,12 +1105,10 @@ planet_event = {
 						}
 					}
 					50 = {
-						modifier = {
-							factor = 10
+						modifier = { factor = 10
 							event_target:pirate_waves_2_country = { num_fleets < 10 }
 						}
-						modifier = {
-							factor = 5
+						modifier = { factor = 5
 							event_target:pirate_waves_2_country = { fleet_power < event_target:pirate_waves_country.trigger:fleet_power }
 						}
 						event_target:pirate_waves_2_country = {
@@ -1161,11 +1172,7 @@ planet_event = {
 											# prefix = no
 											graphical_culture = "pirate_01"
 										}
-										set_location = {
-											target = root
-											distance = 230
-											angle = 40
-										}
+										set_location = { target = root distance = 230 angle = 40 }
 									}
 								}
 							}
@@ -1441,11 +1448,7 @@ country_event = {
 	is_triggered_only = yes
 	trigger = {
 		is_country_type = pirate_waves_country
-		from = {
-			exists = fleet
-			leader_class = commander
-			has_leader_flag = pirate_waves_leader
-		}
+		from = { exists = fleet leader_class = commander has_leader_flag = pirate_waves_leader }
 	}
 	immediate = {
 		from = {
@@ -1463,11 +1466,7 @@ country_event = {
 	hide_window = yes
 	is_triggered_only = yes
 	trigger = {
-		OR = {
-			is_pirate_country = yes
-			is_country_type = awakened_marauders
-			is_country_type = marauder_raiders
-		}
+		OR = { is_pirate_country = yes is_country_type = awakened_marauders is_country_type = marauder_raiders }
 		exists = from
 	}
 	immediate = {
@@ -1534,32 +1533,20 @@ country_event = {
 		if = {
 			limit = { from = { has_event_chain = "pirate_waves_pirate_event_chain" } }
 			from = {
-				add_event_chain_counter = {
-					event_chain = "pirate_waves_pirate_event_chain"
-					counter = "pirate_kills_us"
-					amount = 1
-				}
+				add_event_chain_counter = { event_chain = "pirate_waves_pirate_event_chain" counter = "pirate_kills_us" amount = 1 }
 			}
 		}
 		# Let other countries know we killed one.
 		if = {
 			limit = {
 				from = {
-					OR = {
-						is_pirate_country = yes
-						is_country_type = awakened_marauders
-						is_country_type = marauder_raiders
-					}
+					OR = { is_pirate_country = yes is_country_type = awakened_marauders is_country_type = marauder_raiders }
 				}
 			}
 			# Pirate on pirate kill
 			every_playable_country = {
 				limit = { has_event_chain = "pirate_waves_pirate_event_chain" }
-				add_event_chain_counter = {
-					event_chain = "pirate_waves_pirate_event_chain"
-					counter = "pirate_kills_pirates"
-					amount = 1
-				}
+				add_event_chain_counter = { event_chain = "pirate_waves_pirate_event_chain" counter = "pirate_kills_pirates" amount = 1 }
 			}
 		}
 		# Some hero killed the pirate.
@@ -1569,11 +1556,7 @@ country_event = {
 					has_event_chain = "pirate_waves_pirate_event_chain"
 					NOT = { is_same_value = from }
 				}
-				add_event_chain_counter = {
-					event_chain = "pirate_waves_pirate_event_chain"
-					counter = "pirate_kills_others"
-					amount = 1
-				}
+				add_event_chain_counter = { event_chain = "pirate_waves_pirate_event_chain" counter = "pirate_kills_others" amount = 1 }
 			}
 		}
 	}
@@ -1585,11 +1568,7 @@ country_event = {
 	hide_window = yes
 	is_triggered_only = yes
 	trigger = {
-		OR = {
-			is_pirate_country = yes
-			is_country_type = awakened_marauders
-			is_country_type = marauder_raiders
-		}
+		OR = { is_pirate_country = yes is_country_type = awakened_marauders is_country_type = marauder_raiders }
 		exists = from
 	}
 	immediate = {
@@ -1598,11 +1577,7 @@ country_event = {
 		if = {
 			limit = { from = { has_event_chain = "pirate_waves_pirate_event_chain" } }
 			from = {
-				add_event_chain_counter = {
-					event_chain = "pirate_waves_pirate_event_chain"
-					counter = "pirate_victims_us"
-					amount = 1
-				}
+				add_event_chain_counter = { event_chain = "pirate_waves_pirate_event_chain" counter = "pirate_victims_us" amount = 1 }
 			}
 		}
 		# It only counts as being a victim if you're not a pirate (for other countries, at least)
@@ -1610,11 +1585,7 @@ country_event = {
 			limit = {
 				NOT = {
 					from = {
-						OR = {
-							is_pirate_country = yes
-							is_country_type = awakened_marauders
-							is_country_type = marauder_raiders
-						}
+						OR = { is_pirate_country = yes is_country_type = awakened_marauders is_country_type = marauder_raiders }
 					}
 				}
 			}
@@ -1623,11 +1594,7 @@ country_event = {
 					has_event_chain = "pirate_waves_pirate_event_chain"
 					NOT = { is_same_value = from }
 				}
-				add_event_chain_counter = {
-					event_chain = "pirate_waves_pirate_event_chain"
-					counter = "pirate_victims_others"
-					amount = 1
-				}
+				add_event_chain_counter = { event_chain = "pirate_waves_pirate_event_chain" counter = "pirate_victims_others" amount = 1 }
 			}
 		}
 	}
@@ -1921,7 +1888,7 @@ country_event = {
 		}
 	}
 	option = {
-		name = "pirate_waves_very_easy"
+		name = "DIFFICULTY_CADET"
 		custom_tooltip = "pirate_waves_very_easy_desc"
 		# set_country_flag = pirate_waves_very_easy
 		allow = {
@@ -1932,7 +1899,7 @@ country_event = {
 		}
 	}
 	option = {
-		name = "pirate_waves_easy"
+		name = "DIFFICULTY_ENSIGN"
 		custom_tooltip = "pirate_waves_easy_desc"
 		# set_country_flag = pirate_waves_easy
 		allow = {
@@ -1943,7 +1910,7 @@ country_event = {
 		}
 	}
 	option = {
-		name = "pirate_waves_medium"
+		name = "DIFFICULTY_CAPTAIN"
 		custom_tooltip = "pirate_waves_medium_desc"
 		# set_country_flag = pirate_waves_medium
 		allow = {
@@ -1954,7 +1921,7 @@ country_event = {
 		}
 	}
 	option = {
-		name = "pirate_waves_hard"
+		name = "DIFFICULTY_COMMODORE"
 		custom_tooltip = "pirate_waves_hard_desc"
 		# set_country_flag = pirate_waves_hard
 		allow = {
@@ -1965,7 +1932,7 @@ country_event = {
 		}
 	}
 	option = {
-		name = "pirate_waves_very_hard"
+		name = "DIFFICULTY_ADMIRAL"
 		custom_tooltip = "pirate_waves_very_hard_desc"
 		# set_country_flag = pirate_waves_very_hard
 		allow = {
@@ -1976,7 +1943,7 @@ country_event = {
 		}
 	}
 	option = {
-		name = "pirate_waves_insane"
+		name = "DIFFICULTY_GRAND_ADMIRAL"
 		custom_tooltip = "pirate_waves_insane_desc"
 		# set_country_flag = pirate_waves_insane
 		allow = {
@@ -2301,11 +2268,9 @@ event = {
 					limit = { is_pirate_system = yes }
 				}
 			}
-			weights = {
-				base = 1
+			weights = { base = 1
 				modifier = { add = 1 has_star_flag = marauder_system }
-				modifier = {
-					add = 5
+				modifier = { add = 5
 					OR = {
 						CmtTriggerMarauderCapitalSystem = yes
 						count_neighbor_system = {
@@ -2324,8 +2289,7 @@ event = {
 				limit = { any_system_planet = { is_star = no is_asteroid = no } }
 				random_system_planet = {
 					limit = { is_star = no is_asteroid = no }
-					weights = {
-						base = 1
+					weights = { base = 1
 						modifier = { add = 2 colonizable_planet = yes }
 					}
 					save_event_target_as = marauder_capital
@@ -2351,21 +2315,17 @@ event = {
 						}
 						any_system_planet = { is_star = no is_asteroid = no }
 					}
-					weights = {
-						base = 1
-						modifier = {
-							add = 1
+					weights = { base = 1
+						modifier = { add = 1
 							any_system_planet = { colonizable_planet = yes }
 						}
-						modifier = {
-							add = 2
+						modifier = { add = 2
 							count_neighbor_system = {
 								count > 1
 								limit = { is_pirate_system = yes }
 							}
 						}
-						modifier = {
-							add = 4
+						modifier = { add = 4
 							OR = {
 								CmtTriggerMarauderCapitalSystem = yes
 								count_neighbor_system = {
@@ -2377,8 +2337,7 @@ event = {
 					}
 					random_system_planet = {
 						limit = { is_star = no is_asteroid = no }
-						weights = {
-							base = 1
+						weights = { base = 1
 							modifier = { add = 3 colonizable_planet = yes }
 						}
 						save_event_target_as = marauder_capital
@@ -2480,20 +2439,12 @@ event = {
 					create_fleet = {
 						effect = {
 							set_owner = event_target:marauder_starbase_owner
-							create_ship = {
-								name = random
-								design = "NAME_Ancestral_Glory"
-								graphical_culture = "pirate_01"
-							}
+							create_ship = { name = random design = "NAME_Ancestral_Glory" graphical_culture = "pirate_01" }
 							set_formation_scale = 2
 							set_fleet_stance = aggressive
 							set_aggro_range_measure_from = self
 							set_aggro_range = 250
-							set_location = {
-								target = prev
-								distance = 20
-								angle = random
-							}
+							set_location = { target = prev distance = 20 angle = random }
 						}
 						settings = { garrison = yes }
 					}
@@ -2526,11 +2477,7 @@ event = {
 									set_fleet_stance = aggressive
 									set_aggro_range_measure_from = self
 									set_aggro_range = 250
-									set_location = {
-										target = prev
-										distance = 70
-										angle = 120
-									}
+									set_location = { target = prev distance = 70 angle = 120 }
 								}
 								settings = { garrison = yes }
 							}
@@ -2543,11 +2490,7 @@ event = {
 									set_fleet_stance = aggressive
 									set_aggro_range_measure_from = self
 									set_aggro_range = 250
-									set_location = {
-										target = prev
-										distance = 70
-										angle = 240
-									}
+									set_location = { target = prev distance = 70 angle = 240 }
 								}
 								settings = { garrison = yes }
 							}
@@ -2557,16 +2500,8 @@ event = {
 							create_fleet = {
 								effect = {
 									set_owner = event_target:marauder_starbase_owner
-									create_ship = {
-										name = random
-										design = "NAME_Void_Dwelling"
-										graphical_culture = "pirate_01"
-									}
-									set_location = {
-										target = prev
-										distance = 10
-										angle = random
-									}
+									create_ship = { name = random design = "NAME_Void_Dwelling" graphical_culture = "pirate_01" }
+									set_location = { target = prev distance = 10 angle = random }
 								}
 							}
 						}
@@ -2578,16 +2513,8 @@ event = {
 							create_fleet = {
 								effect = {
 									set_owner = event_target:marauder_starbase_owner
-									create_ship = {
-										name = random
-										design = "NAME_Void_Dwelling"
-										graphical_culture = "pirate_01"
-									}
-									set_location = {
-										target = prev
-										distance = 10
-										angle = random
-									}
+									create_ship = { name = random design = "NAME_Void_Dwelling" graphical_culture = "pirate_01" }
+									set_location = { target = prev distance = 10 angle = random }
 								}
 							}
 						}
@@ -2616,50 +2543,26 @@ event = {
 								create_fleet = {
 									effect = {
 										set_owner = event_target:marauder_starbase_owner
-										create_ship = {
-											name = random
-											design = "NAME_Void_Dwelling"
-											graphical_culture = "pirate_01"
-										}
-										set_location = {
-											target = prev
-											distance = 65
-											angle = 0
-										}
+										create_ship = { name = random design = "NAME_Void_Dwelling" graphical_culture = "pirate_01" }
+										set_location = { target = prev distance = 65 angle = 0 }
 									}
 								}
 								create_fleet = {
 									effect = {
 										set_owner = event_target:marauder_starbase_owner
-										create_ship = {
-											name = random
-											design = "NAME_Void_Dwelling"
-											graphical_culture = "pirate_01"
-										}
-										set_location = {
-											target = prev
-											distance = 115
-											angle = 145
-										}
+										create_ship = { name = random design = "NAME_Void_Dwelling" graphical_culture = "pirate_01" }
+										set_location = { target = prev distance = 115 angle = 145 }
 									}
 								}
 								create_fleet = {
 									effect = {
 										set_owner = event_target:marauder_starbase_owner
-										create_ship = {
-											name = random
-											design = "NAME_Ancestral_Glory"
-											graphical_culture = "pirate_01"
-										}
+										create_ship = { name = random design = "NAME_Ancestral_Glory" graphical_culture = "pirate_01" }
 										set_formation_scale = 2
 										set_fleet_stance = aggressive
 										set_aggro_range_measure_from = self
 										set_aggro_range = 250
-										set_location = {
-											target = prev
-											distance = 90
-											angle = 220
-										}
+										set_location = { target = prev distance = 90 angle = 220 }
 									}
 									settings = { garrison = yes }
 								}
@@ -2671,11 +2574,7 @@ event = {
 										set_fleet_stance = aggressive
 										set_aggro_range_measure_from = self
 										set_aggro_range = 250
-										set_location = {
-											target = prev
-											distance = 100
-											angle = 310
-										}
+										set_location = { target = prev distance = 100 angle = 310 }
 									}
 									settings = { garrison = yes }
 								}
@@ -2766,14 +2665,11 @@ event = {
 							NOR = { has_fleet_flag = pirate_waves_station_life_flag is_in_combat = yes }
 						}
 					}
-					weights = {
-						base = 1
-						modifier = {
-							add = 5
+					weights = { base = 1
+						modifier = { add = 5
 							OR = { has_star_flag = marauder_system has_star_flag = marauder_cluster }
 						}
-						modifier = {
-							add = 20
+						modifier = { add = 20
 							OR = {
 								CmtTriggerMarauderCapitalSystem = yes
 								count_neighbor_system = {
@@ -2818,11 +2714,7 @@ event = {
 									set_fleet_stance = aggressive
 									set_aggro_range_measure_from = self
 									set_aggro_range = 250
-									set_location = {
-										target = prev
-										distance = 70
-										angle = 120
-									}
+									set_location = { target = prev distance = 70 angle = 120 }
 								}
 								settings = { garrison = yes }
 							}
