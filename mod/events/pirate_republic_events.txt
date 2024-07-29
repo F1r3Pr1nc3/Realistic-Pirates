@@ -363,8 +363,7 @@ planet_event = {
 	trigger = {
 		is_colony = yes
 		# exists = event_target:pirate_target
-		exists = owner
-		owner = { merg_is_default_empire = yes }
+		can_generate_trade_value = yes
 		is_owned_by = root
 		is_controlled_by = root
 		planet_stability < @stabilitylevel5

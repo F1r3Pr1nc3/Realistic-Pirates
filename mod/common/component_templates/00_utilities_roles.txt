@@ -48,7 +48,8 @@ utility_component_template = {
 	}
 	ship_behavior = "swarm"
 
-	class_restriction = { shipclass_military shipclass_science_ship shipclass_transport shipclass_constructor shipclass_colonizer }
+	class_restriction = { shipclass_military }
+	size_restriction = { corvette crisis_corvette offspring_corvette marauder_corvette pirate_corvette }
 	component_set = "combat_computers"
 	upgrades_to = "COMBAT_COMPUTER_SWARM_BASIC"
 	ai_tags = { gunship }
@@ -126,6 +127,7 @@ utility_component_template = {
 	ship_behavior = "artillery"
 
 	class_restriction = { shipclass_military shipclass_starbase shipclass_military_special }
+	size_restriction = { titan galleon marauder_galleon cosmo_crisis_titan juggernaut star_eater }
 	component_set = "combat_computers"
 	upgrades_to = "COMBAT_COMPUTER_ARTILLERY_BASIC"
 	ai_tags = { artillery artillery_stealth energy_torpedoes energy_torpedoes_stealth }
@@ -176,7 +178,8 @@ utility_component_template = {
 	}
 	ship_behavior = "torpedo"
 
-	class_restriction = { shipclass_military shipclass_science_ship shipclass_transport shipclass_constructor shipclass_colonizer }
+	class_restriction = { shipclass_military }
+	size_restriction = { frigate nanite_swarmer nanite_interdictor }
 	component_set = "combat_computers"
 	upgrades_to = "COMBAT_COMPUTER_TORPEDO_BASIC"
 	ai_tags = { explosive explosive_stealth }
@@ -203,8 +206,8 @@ utility_component_template = {
 			alloys = @cost1
 		}
 	}
-
-	class_restriction = { shipclass_military shipclass_science_ship shipclass_transport shipclass_constructor shipclass_colonizer }
+	class_restriction = { shipclass_military }
+	size_restriction = { corvette crisis_corvette offspring_corvette marauder_corvette pirate_corvette nanite_swarmer }
 	component_set = "combat_computers"
 	ship_behavior = "swarm"
 	prerequisites = { "tech_combat_computers_1" }
@@ -236,8 +239,8 @@ utility_component_template = {
 			alloys = @cost2
 		}
 	}
-
-	class_restriction = { shipclass_military shipclass_science_ship shipclass_transport shipclass_constructor shipclass_colonizer }
+	class_restriction = { shipclass_military }
+	size_restriction = { corvette crisis_corvette offspring_corvette marauder_corvette pirate_corvette nanite_swarmer }
 	component_set = "combat_computers"
 	ship_behavior = "swarm"
 	prerequisites = { "tech_combat_computers_2" }
@@ -269,8 +272,8 @@ utility_component_template = {
 			alloys = @cost3
 		}
 	}
-
-	class_restriction = { shipclass_military shipclass_science_ship shipclass_transport shipclass_constructor shipclass_colonizer }
+	class_restriction = { shipclass_military }
+	size_restriction = { corvette crisis_corvette offspring_corvette marauder_corvette pirate_corvette nanite_swarmer }
 	component_set = "combat_computers"
 	ship_behavior = "swarm"
 	prerequisites = { "tech_combat_computers_3" }
@@ -312,8 +315,8 @@ utility_component_template = {
 			alloys = @cost3
 		}
 	}
-
-	class_restriction = { shipclass_military shipclass_science_ship shipclass_transport shipclass_constructor shipclass_colonizer }
+	class_restriction = { shipclass_military }
+	size_restriction = { corvette crisis_corvette offspring_corvette marauder_corvette pirate_corvette nanite_swarmer }
 	component_set = "combat_computers"
 	ship_behavior = "swarm"
 	prerequisites = { "tech_combat_computers_autonomous" }
@@ -344,8 +347,8 @@ utility_component_template = {
 			alloys = @cost3
 		}
 	}
-
-	class_restriction = { shipclass_military shipclass_science_ship shipclass_transport shipclass_constructor shipclass_colonizer }
+	class_restriction = { shipclass_military }
+	size_restriction = { corvette crisis_corvette offspring_corvette marauder_corvette pirate_corvette nanite_swarmer }
 	component_set = "combat_computers"
 	ship_behavior = "swarm"
 	prerequisites = { "tech_precognition_interface" }
@@ -382,7 +385,8 @@ utility_component_template = {
 		}
 	}
 
-	class_restriction = { shipclass_military shipclass_science_ship shipclass_transport shipclass_constructor shipclass_colonizer }
+	class_restriction = { shipclass_military }
+	size_restriction = { frigate crisis_destroyer cosmo_crisis_destroyer cruiser offspring_cruiser marauder_cruiser pirate_cruiser nanite_swarmer nanite_interdictor }
 	component_set = "combat_computers"
 	ship_behavior = "torpedo"
 	prerequisites = { "tech_combat_computers_1" "tech_torpedoes_1" }
@@ -411,8 +415,8 @@ utility_component_template = {
 			alloys = @cost2
 		}
 	}
-
-	class_restriction = { shipclass_military shipclass_science_ship shipclass_transport shipclass_constructor shipclass_colonizer }
+	class_restriction = { shipclass_military }
+	size_restriction = { frigate crisis_destroyer cosmo_crisis_destroyer cruiser offspring_cruiser marauder_cruiser pirate_cruiser nanite_swarmer nanite_interdictor }
 	component_set = "combat_computers"
 	ship_behavior = "torpedo"
 	prerequisites = { "tech_combat_computers_2" "tech_torpedoes_1" }
@@ -441,8 +445,8 @@ utility_component_template = {
 			alloys = @cost3
 		}
 	}
-
-	class_restriction = { shipclass_military shipclass_science_ship shipclass_transport shipclass_constructor shipclass_colonizer }
+	class_restriction = { shipclass_military }
+	size_restriction = { frigate crisis_destroyer cosmo_crisis_destroyer cruiser offspring_cruiser marauder_cruiser pirate_cruiser nanite_swarmer nanite_interdictor }
 	component_set = "combat_computers"
 	ship_behavior = "torpedo"
 	prerequisites = { "tech_combat_computers_3" "tech_torpedoes_1" }
@@ -450,6 +454,7 @@ utility_component_template = {
 	ai_tag_weight = 0
 
 	modifier = {
+		ship_evasion_mult = 0.10
 		weapon_type_explosive_weapon_damage_mult = 0.15
 	}
 
@@ -481,8 +486,8 @@ utility_component_template = {
 			alloys = @cost3
 		}
 	}
-
-	class_restriction = { shipclass_military shipclass_science_ship shipclass_transport shipclass_constructor shipclass_colonizer }
+	class_restriction = { shipclass_military }
+	size_restriction = { frigate crisis_destroyer cosmo_crisis_destroyer cruiser offspring_cruiser marauder_cruiser pirate_cruiser nanite_swarmer nanite_interdictor }
 	component_set = "combat_computers"
 	ship_behavior = "torpedo"
 	prerequisites = { "tech_combat_computers_autonomous" "tech_torpedoes_1" }
@@ -511,8 +516,8 @@ utility_component_template = {
 			alloys = @cost3
 		}
 	}
-
-	class_restriction = { shipclass_military shipclass_science_ship shipclass_transport shipclass_constructor shipclass_colonizer }
+	class_restriction = { shipclass_military }
+	size_restriction = { frigate crisis_destroyer cosmo_crisis_destroyer cruiser offspring_cruiser marauder_cruiser pirate_cruiser nanite_swarmer nanite_interdictor }
 	component_set = "combat_computers"
 	ship_behavior = "torpedo"
 	prerequisites = { "tech_precognition_interface" "tech_torpedoes_1" }
@@ -747,8 +752,8 @@ utility_component_template = {
 			alloys = @cost2
 		}
 	}
-
-	class_restriction = { shipclass_military shipclass_science_ship shipclass_transport shipclass_constructor shipclass_colonizer }
+	class_restriction = { shipclass_military }
+	size_restriction = { destroyer cruiser battleship crisis_destroyer cosmo_crisis_destroyer crisis_cruiser offspring_destroyer marauder_destroyer pirate_destroyer offspring_cruiser marauder_cruiser pirate_cruiser offspring_battleship marauder_galleon cosmo_crisis_battlecruiser}
 	component_set = "combat_computers"
 	ship_behavior = "line"
 	prerequisites = { "tech_combat_computers_2" }
@@ -914,7 +919,7 @@ utility_component_template = {
 		}
 	}
 	class_restriction = { shipclass_military shipclass_starbase shipclass_military_special }
-	# size_restriction = { frigate destroyer cruiser battleship titan juggernaut crisis_destroyer crisis_cruiser star_eater offspring_destroyer offspring_cruiser offspring_battleship }
+	# size_restriction = { frigate destroyer cruiser battleship titan juggernaut crisis_destroyer crisis_cruiser star_eater offspring_destroyer marauder_destroyer pirate_destroyer offspring_cruiser marauder_cruiser pirate_cruiser offspring_battleship marauder_galleon }
 	component_set = "combat_computers"
 	ship_behavior = "artillery"
 	prerequisites = { "tech_combat_computers_2" }
@@ -945,7 +950,7 @@ utility_component_template = {
 		}
 	}
 	class_restriction = { shipclass_military shipclass_starbase shipclass_military_special shipclass_science_ship shipclass_transport shipclass_constructor shipclass_colonizer }
-	# size_restriction = { frigate destroyer cruiser battleship titan juggernaut crisis_destroyer crisis_cruiser star_eater offspring_destroyer offspring_cruiser offspring_battleship }
+	# size_restriction = { frigate destroyer cruiser battleship titan juggernaut crisis_destroyer crisis_cruiser star_eater offspring_destroyer marauder_destroyer pirate_destroyer offspring_cruiser marauder_cruiser pirate_cruiser offspring_battleship marauder_galleon }
 	component_set = "combat_computers"
 	ship_behavior = "artillery"
 	prerequisites = { "tech_combat_computers_3" }
@@ -1015,7 +1020,7 @@ utility_component_template = {
 		}
 	}
 
-	class_restriction = { shipclass_military shipclass_starbase shipclass_science_ship shipclass_transport shipclass_constructor shipclass_colonizer }
+	class_restriction = { shipclass_military shipclass_starbase shipclass_military_special shipclass_science_ship shipclass_transport shipclass_constructor shipclass_colonizer }
 	component_set = "combat_computers"
 	ship_behavior = "artillery"
 	prerequisites = { "tech_precognition_interface" }
@@ -1049,7 +1054,7 @@ utility_component_template = {
 		}
 	}
 	class_restriction = { shipclass_military shipclass_starbase shipclass_military_special }
-	# size_restriction = { cruiser battleship juggernaut titan star_eater offspring_cruiser offspring_battleship }
+	# size_restriction = { cruiser battleship juggernaut titan star_eater offspring_cruiser marauder_cruiser pirate_cruiser offspring_battleship marauder_galleon }
 	component_set = "combat_computers"
 	ship_behavior = "carrier"
 	prerequisites = { "tech_combat_computers_1" }
@@ -1083,7 +1088,7 @@ utility_component_template = {
 		}
 	}
 	class_restriction = { shipclass_military shipclass_starbase shipclass_military_special }
-	# size_restriction = { cruiser battleship juggernaut titan star_eater offspring_cruiser offspring_battleship }
+	# size_restriction = { cruiser battleship juggernaut titan star_eater offspring_cruiser marauder_cruiser pirate_cruiser offspring_battleship marauder_galleon }
 	component_set = "combat_computers"
 	ship_behavior = "carrier"
 	prerequisites = { "tech_combat_computers_2" }
@@ -1117,7 +1122,7 @@ utility_component_template = {
 		}
 	}
 	class_restriction = { shipclass_military shipclass_starbase shipclass_military_special }
-	# size_restriction = { cruiser battleship juggernaut titan star_eater offspring_cruiser offspring_battleship }
+	# size_restriction = { cruiser battleship juggernaut titan star_eater offspring_cruiser marauder_cruiser pirate_cruiser offspring_battleship marauder_galleon }
 	component_set = "combat_computers"
 	ship_behavior = "carrier"
 	prerequisites = { "tech_combat_computers_3" }
@@ -1161,7 +1166,7 @@ utility_component_template = {
 		}
 	}
 	class_restriction = { shipclass_military shipclass_starbase shipclass_military_special }
-	# size_restriction = { cruiser battleship juggernaut titan star_eater offspring_cruiser offspring_battleship }
+	# size_restriction = { cruiser battleship juggernaut titan star_eater offspring_cruiser marauder_cruiser pirate_cruiser offspring_battleship marauder_galleon }
 	component_set = "combat_computers"
 	ship_behavior = "carrier"
 	prerequisites = { "tech_combat_computers_autonomous" }
@@ -1194,7 +1199,25 @@ utility_component_template = {
 		}
 	}
 	class_restriction = { shipclass_military shipclass_starbase shipclass_military_special }
-	size_restriction = { cruiser battleship juggernaut titan cosmo_crisis_titan star_eater offspring_cruiser offspring_battleship cosmo_crisis_battlecruiser nanite_swarmer nanite_interdictor }
+	size_restriction = {
+		cruiser
+		battleship
+		juggernaut
+		titan
+		cosmo_crisis_titan
+		star_eater
+		offspring_cruiser
+		offspring_battleship
+		cosmo_crisis_battlecruiser
+		nanite_swarmer
+		nanite_interdictor
+		dreadnought
+		scavenger_bot
+		pirate_cruiser
+		marauder_cruiser
+		galleon
+		marauder_galleon
+	}
 	component_set = "combat_computers"
 	ship_behavior = "carrier"
 	prerequisites = { "tech_precognition_interface" }
@@ -1516,6 +1539,35 @@ utility_component_template = {
 		ship_fire_rate_mult = 0.10
 	}
 
+	ai_weight = {
+		weight = 0
+	}
+}
+
+#######################
+### NSC AI COMPUTER ###
+#######################
+
+utility_component_template = {
+	key = "NSC_AI_COMBAT_COMPUTER"
+	size = small
+	icon = "GFX_ship_part_nsc_ai_computer"
+	icon_frame = 1
+	power = -40
+	resources = {
+		category = ship_components
+		cost = { alloys = @cost4 }
+	}
+
+	ship_behavior = "nsc_ai"
+	prerequisites = { "tech_nsc_ai_computer_1" }
+	component_set = "combat_computers"
+
+	# size_restriction = { juggernaut Carrier Flagship explorationship }
+
+	valid_for_country = {
+		is_ai = no
+	}
 	ai_weight = {
 		weight = 0
 	}

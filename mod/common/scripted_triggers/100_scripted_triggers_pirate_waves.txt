@@ -259,7 +259,7 @@ is_pirate_waves_closest_country_pathetic = {
 	exists = event_target:current_pirate_country
 	root = {
 		closest_system = {
-			limit = { exists = space_owner }
+			limit = { has_owner = yes }
 			space_owner = {
 				relative_power = {
 					who = event_target:current_pirate_country
@@ -276,7 +276,7 @@ is_pirate_waves_closest_country_inferior = {
 	exists = event_target:current_pirate_country
 	root = {
 		closest_system = {
-			limit = { exists = space_owner }
+			limit = { has_owner = yes }
 			space_owner = {
 				relative_power = {
 					who = event_target:current_pirate_country
@@ -293,7 +293,7 @@ is_pirate_waves_closest_country_equivalent = {
 	exists = event_target:current_pirate_country
 	root = {
 		closest_system = {
-			limit = { exists = space_owner }
+			limit = { has_owner = yes }
 			space_owner = {
 				relative_power = {
 					who = event_target:current_pirate_country

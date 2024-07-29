@@ -1021,7 +1021,7 @@ fleet_event = {
 					root = {
 						closest_system = {
 							limit = {
-								exists = space_owner
+								has_owner = yes
 								exists = space_owner.owner_species
 								space_owner = { is_gestalt = no }
 							}
@@ -2457,7 +2457,7 @@ event = {
 									owner = { is_pirate_country = yes }
 									AND = {
 										is_mobile = no
-										owner = { merg_is_default_empire = yes }
+										can_generate_trade_value = yes
 									}
 								}
 							}
@@ -2527,7 +2527,7 @@ event = {
 										owner = { is_pirate_country = yes }
 										AND = {
 											is_mobile = no
-											owner = { merg_is_default_empire = yes }
+											can_generate_trade_value = yes
 										}
 									}
 								}
@@ -2686,7 +2686,7 @@ event = {
 								owner = { is_pirate_country = yes }
 								AND = {
 									is_mobile = no
-									owner = { merg_is_default_empire = yes }
+									can_generate_trade_value = yes
 								}
 							}
 						}

@@ -41,7 +41,7 @@ country_event = {
 			}
 		} else = {
 			random_planet_within_border = {
-				limit = { exists = space_owner colonizable_planet = yes }
+				limit = { has_owner = yes colonizable_planet = yes }
 				weights = { base = 1 modifier = { add = 3 is_colony = yes } }
 				save_event_target_as = pc_home
 			}
