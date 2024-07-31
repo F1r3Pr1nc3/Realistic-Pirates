@@ -28,13 +28,14 @@ If you decide to disable this mod in the game loader or unsubscribe the mod, som
 
 [h2]Compatibility[/h2]
 Compatible with savegames.
-✔️ Should be compatible with most mods (as [url=///steamcommunity.com/workshop/filedetails/2604437397]merger_trigger[/url] are used), some mods might influence the gameplay if they modify the pirate ships.
+✔️ Should be compat with most mods (as [url=///steamcommunity.com/workshop/filedetails/2604437397]merger_trigger[/url] are used), some mods might influence the gameplay if they modify the pirate ships.
 ✔️ [b]NSC3[/b] must be below
 ✔️ [url=//steamcommunity.com/workshop/filedetails/2508704523]The Great Khan Expanded[/url] should not matter
 • There is a full patched [b]marauder_events.txt[/b] included as an aside (depends on load order, e.g. should be below ZoFE and Marauders Remodeled).
 • Khorgis Khan (should be above)
 • The difficult settings for Marauders are overridden by the [url=//steamcommunity.com/workshop/filedetails/?id=2491573516]Crisis Manager Mid-Game Edition[/url].
-• Not compatible with the actual Pirate Republic mod (as a version is already included).
+• Not compat with the actual Pirate Republic mod (as a version is already included).
+• [url=//steamcommunity.com/workshop/filedetails/3253479588]Freebooters Origin[/url] (reborn)
 
 [B]Vanilla Fixes[/B]
 • Includes all (3.7) vanilla marauders (marauder_events.txt) and pirates fixes known to me (same as listed on The Great Khan Expanded).
