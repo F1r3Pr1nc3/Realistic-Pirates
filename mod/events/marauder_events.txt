@@ -539,8 +539,7 @@ country_event = {
 		}
 		every_playable_country = {
 			limit = {
-				is_ai = no
-				NOT = { is_same_empire = root }
+				NOR = { is_ai = yes is_same_empire = root }
 			}
 			country_event = { id = marauder.8 days = 10 }
 		}
@@ -1094,7 +1093,7 @@ country_event = {
 					wait = 5
 					find_closest_planet = {
 						trigger = {
-							id = "marauder_infighting.t1[infighting_marauders.GetName]"
+							id = marauder_infighting.t1@prev
 							solar_system = {
 								prevprev = { can_access_system = prev }
 								has_owner = yes
@@ -1107,10 +1106,10 @@ country_event = {
 					move_to = event_target:return_point
 					wait = 5
 					find_closest_planet = {
-						trigger = { id = "marauder_infighting.t2[infighting_marauders.GetName]" is_same_value = event_target:return_point }
+						trigger = { id = marauder_infighting.t2@prev is_same_value = event_target:return_point }
 						found_planet = { move_to = this orbit_planet = this }
 					}
-					effect = { id = "marauder_infighting.e2[infighting_marauders.GetName]" destroy_fleet = this }
+					effect = { id = marauder_infighting.e2@prev destroy_fleet = this }
 				}
 				auto_move_to_planet = { target = event_target:return_point clear_auto_move_on_arrival = yes destroy_on_arrival = yes }
 			}
@@ -6683,6 +6682,7 @@ country_event = {
 				weights = { base = 1 modifier = { add = 2 is_a_planet = yes } } # Possible inconsisent due other mods
 				save_global_event_target_as = marauder_rally_point
 				set_planet_flag = marauder_rally_point
+				# set_planet_flag = CmtFlagMarauderExpRallyPoint
 				log = "Backup Code for marauder_rally_point Processed on \\[This.GetName] at \\[This.System.GetName]"
 			}
 		}
@@ -6858,24 +6858,19 @@ country_event = {
 			event_leader = yes
 			can_manually_change_location = no
 			hide_leader = yes
-			leader_age_min = 21
+			leader_age_min = 22
 			leader_age_max = 34 			# Traits can add to age so start it low
-			# traits = {
-			# 	# trait = subclass_commander_admiral
-			# 	# trait = leader_trait_fleet_organizer
-			# 	# trait = leader_trait_eager
-			# }
 			randomize_traits = no
 			traits = {
-				trait = leader_trait_ruler_great_khan
 				trait = leader_trait_chosen
-				# trait = leader_trait_master_gunner
-				# trait = leader_trait_demolisher_3
-				# trait = leader_trait_wrecker_3
-				# trait = leader_trait_artillerist_3
+				trait = leader_trait_ruler_great_khan
+				trait = leader_trait_master_gunner
 				trait = subclass_commander_admiral
 				trait = leader_trait_gunship_specialization_3
+				trait = leader_trait_wrecker_3
 				trait = leader_trait_reckless_2
+				trait = leader_trait_artillerist_3
+				trait = leader_trait_demolisher_3
 			}
 		}
 		# Bug: There is a possibility the spcies has no class and the trigger gets true somehow
@@ -6904,7 +6899,7 @@ country_event = {
 			add_trait_no_notify = leader_trait_border_guard_3
 			add_trait_no_notify = leader_trait_crew_trainer_3
 			if = {
-				limit = { is_ai = yes }
+				limit = { root = { is_ai = yes } }
 				add_skill_without_trait_selection = 4
 			}
 			if = {
@@ -6943,7 +6938,6 @@ country_event = {
 		}
 
 		### Admiral Khan
-
 		clone_leader = {
 			target = event_target:great_khan_ruler
 			class = commander
@@ -6953,25 +6947,21 @@ country_event = {
 			hide_leader = yes
 			randomize_traits = no # Traits are cleared if yes
 			can_assign_to_council = no
-			# traits = {
-			# 	0 = leader_trait_great_khan
-			# 	0 = leader_trait_chosen
-			# }
+			effect = {
+				recruitable = no
+				# remove_trait = leader_trait_ruler_great_khan
+				# add_trait = leader_trait_great_khan
+				set_leader_flag = great_khan
+				set_leader_flag = legendary_leader
+				save_global_event_target_as = great_khan
+			}
 		}
 
-
-		last_created_leader = {
+		event_target:great_khan = {
 			if = {
-				limit = { is_ai = yes }
-				# set_skill = 10
+				limit = { root = { is_ai = yes } }
 				add_skill_without_trait_selection = 2
 			}
-			# else = { set_skill = 6 }
-
-			set_leader_flag = great_khan
-			set_leader_flag = legendary_leader
-			save_global_event_target_as = great_khan
-			recruitable = no
 			if = {
 				limit = { NOT = { has_trait = subclass_commander_admiral } }
 				add_trait_no_notify = subclass_commander_admiral
@@ -6980,6 +6970,10 @@ country_event = {
 				limit = { has_global_flag = has_nsc_freebooters_mod }
 				remove_trait = nsc_freebooter_leader_trait_ruler_great_khan
 				add_trait_no_notify = nsc_freebooter_admiral_trait_great_khan
+				if = {
+					limit = { has_trait = nsc_freebooter_admiral_trait_great_khan }
+					remove_trait = leader_trait_great_khan
+				}
 			}
 			else = { remove_trait = leader_trait_ruler_great_khan add_trait_no_notify = leader_trait_great_khan }
 		}
@@ -7050,10 +7044,10 @@ country_event = {
 			#	root = { set_faction_hostility = { target = prev set_neutral = yes } }
 			# }
 		}
-			# Should not attack Enclaves
-			every_country = {
-				limit = { OR = { is_country_type = enclave is_country_type = enclave_mercenary } }
-				root = {
+		# Should not attack Enclaves
+		every_country = {
+			limit = { OR = { is_country_type = enclave is_country_type = enclave_mercenary } }
+			root = {
 				set_faction_hostility = { target = prev set_friendly = yes }
 			}
 		}
@@ -7172,6 +7166,31 @@ country_event = {
 			}
 		}
 		set_timed_country_flag = { flag = raid_cooldown days = @raidcooldown }
+
+		# Set Military Councilor
+		random_owned_leader = {
+			limit = {
+				leader_class = commander
+				NOR = {
+					is_event_leader = yes
+					is_councilor = yes
+					is_ruler = yes
+					# has_trait = subclass_commander_admiral
+				}
+			}
+			if = {
+				limit = { NOT = { has_trait = subclass_commander_councilor } }
+				add_trait_no_notify = subclass_commander_councilor
+			}
+			random_list = {
+				1 = {}
+				2 = { set_council_position = councilor_defense }
+				# 1 = { modifier = { factor = 0 prev = { NOT = { has_valid_civic = civic_crusader_spirit } } } set_council_position = councilor_crusader_spirit }
+				# 1 = { modifier = { factor = 0 prev = { NOT = { has_valid_civic = civic_barbaric_despoilers } } } set_council_position = councilor_barbaric_despoilers }
+				# 1 = { modifier = { factor = 0 prev = { NOT = { has_valid_civic = civic_inwards_perfection } } } set_council_position = councilor_inwards_perfection }
+				# 1 = { modifier = { factor = 0 prev = { NOT = { has_valid_civic = civic_warrior_culture } } } set_council_position = councilor_warrior_culture }
+			}
+		}
 	}
 }
 
@@ -7199,6 +7218,7 @@ country_event = {
 	desc = "marauder.502.desc"
 	diplomatic = yes
 	picture_event_data = { portrait = event_target:great_khan room = khorgis_khan_1_room }
+	location = event_target:marauder_rally_point
 	is_triggered_only = yes
 	immediate = { set_global_flag = great_khan_announcement }
 	option = {
@@ -9368,7 +9388,7 @@ country_event = {
 	is_triggered_only = yes
 	force_open = yes
 	diplomatic = yes
-
+	location = event_target:marauder_rally_point
 	trigger = {
 		from = { is_country_type = awakened_marauders CmtTriggerIsKhanCountry = yes }
 		NOT = { has_country_flag = marauder_diplomacy_engaged }
@@ -9514,6 +9534,7 @@ country_event = {
 	is_triggered_only = yes
 	force_open = yes
 	diplomatic = yes
+	location = event_target:marauder_rally_point
 	trigger = { has_been_declared_crisis = no }
 	immediate = { set_country_flag = marauder_diplomacy_engaged }
 	after = {
@@ -9778,6 +9799,7 @@ country_event = {
 	force_open = yes
 	auto_opens = yes
 	diplomatic = yes
+	location = event_target:marauder_rally_point
 	trigger = {
 		NOT = { has_country_flag = marauder_diplomacy_engaged }
 		exists = event_target:raider_khanate
@@ -12045,6 +12067,7 @@ country_event = {
 	is_triggered_only = yes
 	force_open = yes
 	diplomatic = yes
+	location = event_target:marauder_rally_point
 	trigger = {
 		has_global_flag = great_khan_dead
 		NOR = { is_ai = yes has_country_flag = marauder_diplomacy_engaged }
@@ -12529,12 +12552,6 @@ country_event = {
 			}
 			last_created_leader = {
 				root = { assign_leader = prev }
-				random_list = {
-					1 = { set_council_position = councilor_defense }
-					1 = { set_council_position = councilor_crusader_spirit }
-					1 = { set_council_position = councilor_distinguished_admiralty }
-					# 1 = { set_council_position = councilor_heroic_tales } does not exists
-				}
 			}
 
 			### New Admiral Khan
@@ -12587,7 +12604,7 @@ country_event = {
 				recruitable = no
 
 				if = { ### NSC FREEBOOTERS SUPPORT
-					limit = { is_ai = no has_global_flag = has_nsc_freebooters_mod }
+					limit = { has_global_flag = has_nsc_freebooters_mod root = { is_ai = no } }
 					event_target:great_khan_ruler = { remove_trait = leader_trait_ruler_great_khan add_trait_no_notify = nsc_freebooter_leader_trait_ruler_child_of_great_khan }
 					remove_trait = leader_trait_great_khan
 					add_trait_no_notify = nsc_freebooter_admiral_trait_child_of_great_khan

@@ -2,10 +2,11 @@ ship_design = {
 	name = "NAME_BULWARK_HABITAT"
 	ship_size = bulwark_station
 	country_type = outer_bulwarks
+	use_design_name = yes
 	section = {
 		template = "bulwark_habitat_key"
 		slot = "mid"
-		
+
 		component = {
 			slot = "EXTRA_LARGE_01"
 			template = "ARC_EMITTER_2"
@@ -218,7 +219,7 @@ ship_design = {
 	section = {
 		template = "CORVETTE_MID_M1S1"
 		slot = "mid"
-		
+
 		component = {
 			slot = "SMALL_GUN_01"
 			template = "SMALL_MASS_DRIVER_2"
@@ -261,7 +262,7 @@ ship_design = {
 	section = {
 		template = "DESTROYER_BOW_L1"
 		slot = "bow"
-		
+
 		component = {
 			slot = "LARGE_GUN_01"
 			template = "LARGE_BLUE_LASER"
@@ -294,7 +295,7 @@ ship_design = {
 	section = {
 		template = "DESTROYER_STERN_PD2"
 		slot = "stern"
-		
+
 		component = {
 			slot = "SMALL_GUN_01"
 			template = "POINT_DEFENCE_2"
@@ -324,11 +325,11 @@ ship_design = {
 	ship_size = space_whale_2
 	country_type = outer_bulwarks
 	hide_size = yes
-	
+
 	section = {
 		template = "space_whale_2_section"
 		slot = "mid"
-		
+
 		component = {
 			slot = "SMALL_GUN_01"
 			template = "SPACE_WHALE_WEAPON"
@@ -348,7 +349,7 @@ ship_design = {
 		component = {
 			slot = "SMALL_GUN_05"
 			template = "SPACE_WHALE_WEAPON"
-		}			
+		}
 		component = {
 			slot = "AUX_UTILITY_1"
 			template = "AUTO_REPAIR"
@@ -369,11 +370,11 @@ ship_design = {
 	ship_size = space_whale_3
 	country_type = outer_bulwarks
 	hide_size = yes
-	
+
 	section = {
 		template = "space_whale_3_section"
 		slot = "mid"
-		
+
 		component = {
 			slot = "SMALL_GUN_01"
 			template = "SPACE_WHALE_WEAPON"
@@ -407,7 +408,7 @@ ship_design = {
 	section = {
 		template = "PIRATE_STATION_SECTION"
 		slot = "west"
-		
+
 		component = {
 			slot = "SMALL_GUN_01"
 			template = "SMALL_PLASMA_1"
@@ -451,21 +452,21 @@ ship_design = {
 	section = {
 		template = "DEFAULT_CONSTRUCTION_SECTION"
 		slot = "mid"
-	
+
 		component = {
 			slot = "SMALL_UTILITY_1"
 			template = "SMALL_DARK_MATTER_DEFLECTOR"
-		}	
+		}
 		component = {
 			slot = "SMALL_UTILITY_2"
 			template = "SMALL_DARK_MATTER_DEFLECTOR"
-		}		
+		}
 	}
 	required_component="JUMP_DRIVE_1"
 	required_component="SHIP_THRUSTER_5"
 	required_component="SENSOR_4"
 	required_component="CORVETTE_DARK_MATTER_REACTOR"
-	
+
 	# For special buildable
 	is_special_buildable = yes
 	allow_buildable_trigger = is_bulwark_empire

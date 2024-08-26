@@ -19,4 +19,5 @@ bulwark_station = {
 	is_designable = no
 	potential_construction = { always = no }
 	possible_construction = { always = no }
+	use_shipnames_from = marauder_station
 }

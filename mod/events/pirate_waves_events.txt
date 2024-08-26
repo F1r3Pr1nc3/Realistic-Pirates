@@ -199,7 +199,7 @@ country_event = {
 		allow = {
 			NOT = { has_active_event = { pirate_waves.111 pirate_waves.112 } }
 		}
-		hidden_effect = { country_event = { id = pirate_waves.111 days = 1 } }
+		hidden_effect = { country_event = { id = pirate_waves.111 days = 0 } }
 	}
 	option = {
 		name = "edict_pirate_waves_disabled"
@@ -208,7 +208,7 @@ country_event = {
 		allow = {
 			NOT = { has_active_event = { pirate_waves.111 pirate_waves.112 } }
 		}
-		hidden_effect = { country_event = { id = pirate_waves.111 days = 1 } }
+		hidden_effect = { country_event = { id = pirate_waves.111 days = 0 } }
 	}
 	option = {
 		name = "policy_pirate_waves_difficulty"
@@ -217,7 +217,7 @@ country_event = {
 			# check_variable = { which = pirate_waves_chance value != 0 }
 			NOT = { has_active_event = { pirate_waves.111 pirate_waves.112 } }
 		}
-		country_event = { id = pirate_waves.112 days = 1 }
+		country_event = { id = pirate_waves.112 days = 0 }
 	}
 	option = {
 		name = "pirate_waves.51.a"
@@ -725,7 +725,7 @@ country_event = {
 		trigger = { host_has_dlc = "Apocalypse" }
 		allow = { has_global_flag = debug_mode }
 		hidden_effect = {
-			country_event = { id = pirate_waves.999 days = 1 }
+			country_event = { id = pirate_waves.999 days = 0 }
 		}
 	}
 	# # Enable
@@ -824,9 +824,9 @@ fleet_event = {
 						create_pirate_waves_fleet = yes
 						# Fleet settings
 						set_location = root
-						set_fleet_stance = aggressive
 						set_aggro_range_measure_from = self
 						set_aggro_range = 150
+						set_fleet_stance = aggressive
 						# Set the fleet orders
 						queue_actions = {
 							repeat = {
@@ -2009,7 +2009,7 @@ country_event = {
 	# trigger = { always = no }
 	immediate = {
 		create_pirate_waves_countries = yes
-		set_timed_country_flag = { flag = pirate_waves_10 days = 1 }
+		set_timed_country_flag = { flag = pirate_waves_10 days = 0 }
 		# Choose a random player country to hook the events to.
 		random_country = {
 			limit = { is_pirate_waves_player = yes }
@@ -2047,7 +2047,7 @@ country_event = {
 	immediate = {
 		create_pirate_waves_countries = yes
 		# Choose a random player country to hook the events to.
-		set_timed_global_flag = { flag = pirate_waves_100 days = 10 }
+		set_timed_global_flag = { flag = pirate_waves_100 days = 00 }
 		random_country = {
 			limit = { is_pirate_waves_player = yes }
 			while = { count = 100
@@ -2085,7 +2085,7 @@ country_event = {
 	is_triggered_only = yes
 	# trigger = { always = no }
 	immediate = {
-		set_timed_global_flag = { flag = pirate_waves_666 days = 15 }
+		set_timed_global_flag = { flag = pirate_waves_666 days = 05 }
 		if = {
 			limit = { exists = event_target:pirate_waves_country }
 			event_target:pirate_waves_country = { set_country_flag = silence_destroy_event destroy_country = yes }
@@ -2105,7 +2105,7 @@ country_event = {
 	is_triggered_only = yes
 	# trigger = { always = no }
 	immediate = {
-		set_timed_global_flag = { flag = pirate_waves_667 days = 15 }
+		set_timed_global_flag = { flag = pirate_waves_667 days = 05 }
 		every_country = {
 			limit = {
 				# is_pirate_country = yes

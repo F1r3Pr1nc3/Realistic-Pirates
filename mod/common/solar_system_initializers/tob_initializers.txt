@@ -619,7 +619,7 @@ technologists_home = {
 			}
 			create_country = {
 				name = random
-				name_list = random
+				name_list = PRW2 # random
 				species = last_created_species
 				type = outer_bulwarks
 				civics = {
