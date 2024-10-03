@@ -38,9 +38,7 @@ event = {
 				any_system_within_border = {
 					is_capital_system = no
 					any_system_colony = {
-						is_under_colonization = no
-						NOT = { has_planet_flag = pirate_invasion }
-						has_ground_combat = no
+						NOR = { is_under_colonization = yes has_planet_flag = pirate_invasion has_ground_combat = yes }
 						owner = { is_primitive = no }
 					}
 					count_fleet_in_system = {
@@ -612,8 +610,7 @@ planet_event = {
 				round_variable = num_armies_var
 				random_owned_pop = {
 					limit = {
-						NOT = { is_same_species = prev.owner_species }
-						is_robot_pop = no
+						NOR = { is_same_species = prev.owner_species is_robot_pop = yes }
 						is_sapient = yes
 						is_enslaved = no
 					}
@@ -1449,7 +1446,7 @@ event = {
 						NAND = {
 							any_controlled_fleet = { always = yes }
 							any_owned_army = { is_defensive_army = no }
-							any_controlled_fleet = { is_mobile = no exists = solar_system solar_system = { any_system_colony = { } } }
+							any_controlled_fleet = { is_mobile = no exists = solar_system solar_system = { count_system_colony = { count > 0 } } }
 						}
 					}
 					set_country_flag = silence_destroy_event

@@ -868,7 +868,7 @@ country_event = {
 								exists = owner
 								exists = root
 								is_owned_by = root # event_target:bulwark_war_target
-								any_system_colony = { }
+								count_system_colony = { count > 0 }
 							}
 							found_system = { move_to = this }
 						}

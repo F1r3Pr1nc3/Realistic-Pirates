@@ -442,8 +442,7 @@ country_event = {
 		check_variable = { which = bulwarkbudget value >= 500 }
 		any_owned_ship = {
 			is_damaged = yes
-			is_in_combat = no
-			NOT = { has_modifier = bulwark_budget_repairs }
+			NOR = { is_in_combat = yes has_modifier = bulwark_budget_repairs }
 		}
 	}
 	immediate = {
@@ -451,8 +450,7 @@ country_event = {
 		every_owned_ship = {
 			limit = {
 				is_damaged = yes
-				is_in_combat = no
-				NOT = { has_modifier = bulwark_budget_repairs }
+				NOR = { is_in_combat = yes has_modifier = bulwark_budget_repairs }
 			}
 			add_modifier = { modifier = bulwark_budget_repairs days = 10 }
 		}

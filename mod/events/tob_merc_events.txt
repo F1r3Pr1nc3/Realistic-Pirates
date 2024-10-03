@@ -360,7 +360,7 @@ country_event = {
 			NOT = { from = { has_country_flag = bulwark_merc_fleet_hired } }
 		}
 		allow = {
-			resource_stockpile_compare = { resource = energy value > 5000 }
+			has_country_resource = { type = energy amount > 5000 }
 			hidden_trigger = {
 				NOT = { from = { has_country_flag = bulwark_merc_fleet_hired } }
 			}
@@ -416,7 +416,7 @@ country_event = {
 			NOT = { from = { has_country_flag = bulwark_merc_fleet_hired } }
 		}
 		allow = {
-			resource_stockpile_compare = { resource = energy value > 10000 }
+			has_country_resource = { type = energy amount > 10000 }
 			hidden_trigger = {
 				NOT = { from = { has_country_flag = bulwark_merc_fleet_hired } }
 			}
@@ -467,7 +467,7 @@ country_event = {
 			NOT = { from = { has_country_flag = bulwark_merc_fleet_hired } }
 		}
 		allow = {
-			resource_stockpile_compare = { resource = energy value > 20000 }
+			has_country_resource = { type = energy amount > 20000 }
 			hidden_trigger = {
 				NOT = { from = { has_country_flag = bulwark_merc_fleet_hired } }
 			}
@@ -556,7 +556,7 @@ fleet_event = {
 		name = tob_merc.5.a
 		allow = {
 			controller = {
-				resource_stockpile_compare = { resource = energy value > 5000 }
+				has_country_resource = { type = energy amount > 5000 }
 				NOT = { has_country_flag = bulwark_has_been_betrayed_by_us }
 			}
 		}
@@ -607,7 +607,7 @@ fleet_event = {
 		name = tob_merc.5.b
 		allow = {
 			controller = {
-				resource_stockpile_compare = { resource = energy value > 5000 }
+				has_country_resource = { type = energy amount > 5000 }
 				NOT = { has_country_flag = bulwark_has_been_betrayed_by_us }
 			}
 		}
@@ -658,7 +658,7 @@ fleet_event = {
 		name = tob_merc.5.c
 		allow = {
 			controller = {
-				resource_stockpile_compare = { resource = energy value > 5000 }
+				has_country_resource = { type = energy amount > 5000 }
 				NOT = { has_country_flag = bulwark_has_been_betrayed_by_us }
 			}
 		}
@@ -810,7 +810,7 @@ country_event = {
 			}
 		}
 		allow = {
-			resource_stockpile_compare = { resource = energy value > 7500 }
+			has_country_resource = { type = energy amount > 7500 }
 			hidden_trigger = {
 				NOT = {
 					from = { has_country_flag = bulwark_commissioned_fleet_recently }
@@ -929,7 +929,7 @@ country_event = {
 			}
 		}
 		allow = {
-			resource_stockpile_compare = { resource = energy value > 12500 }
+			has_country_resource = { type = energy amount > 12500 }
 			hidden_trigger = {
 				NOT = {
 					from = { has_country_flag = bulwark_commissioned_fleet_recently }
@@ -1048,7 +1048,7 @@ country_event = {
 			}
 		}
 		allow = {
-			resource_stockpile_compare = { resource = energy value > 17500 }
+			has_country_resource = { type = energy amount > 17500 }
 			hidden_trigger = {
 				NOT = {
 					from = { has_country_flag = bulwark_commissioned_fleet_recently }
@@ -1203,7 +1203,7 @@ country_event = {
 			NOT = { has_country_flag = bulwark_trainers_hired }
 		}
 		allow = {
-			resource_stockpile_compare = { resource = energy value > 2500 }
+			has_country_resource = { type = energy amount > 2500 }
 			NOT = { has_country_flag = bulwark_trainers_hired }
 		}
 		set_timed_country_flag = { flag = bulwark_trainers_hired years = 10 }
@@ -1240,7 +1240,7 @@ country_event = {
 			NOT = { has_country_flag = bulwark_trainers_hired }
 		}
 		allow = {
-			resource_stockpile_compare = { resource = energy value > 2500 }
+			has_country_resource = { type = energy amount > 2500 }
 			NOT = { has_country_flag = bulwark_trainers_hired }
 		}
 		set_timed_country_flag = { flag = bulwark_trainers_hired years = 10 }
@@ -1273,7 +1273,7 @@ country_event = {
 			NOT = { has_country_flag = bulwark_trainers_hired }
 		}
 		allow = {
-			resource_stockpile_compare = { resource = energy value > 2500 }
+			has_country_resource = { type = energy amount > 2500 }
 			NOT = { has_country_flag = bulwark_trainers_hired }
 		}
 		set_timed_country_flag = { flag = bulwark_trainers_hired years = 10 }
@@ -1356,7 +1356,7 @@ country_event = {
 			}
 		}
 		allow = {
-			resource_stockpile_compare = { resource = energy value > 1000 }
+			has_country_resource = { type = energy amount > 1000 }
 			hidden_trigger = {
 				NOT = {
 					from = { has_country_flag = bulwark_commission_stations_root }
@@ -1729,7 +1729,7 @@ country_event = {
 			}
 		}
 		allow = {
-			resource_stockpile_compare = { resource = energy value > 2000 }
+			has_country_resource = { type = energy amount > 2000 }
 			hidden_trigger = {
 				NOT = {
 					from = { has_country_flag = bulwark_commission_stations_root }
@@ -2102,7 +2102,7 @@ country_event = {
 			}
 		}
 		allow = {
-			resource_stockpile_compare = { resource = energy value > 3000 }
+			has_country_resource = { type = energy amount > 3000 }
 			hidden_trigger = {
 				NOT = {
 					from = { has_country_flag = bulwark_commission_stations_root }

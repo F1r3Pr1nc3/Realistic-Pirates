@@ -576,10 +576,12 @@ ship_event = {
 						any_system_within_border = {
 							is_capital_system = no
 							any_system_colony = {
-								is_under_colonization = no
-								planet_stability < 80
-								NOT = { has_planet_flag = pirate_invasion }
-								has_ground_combat = no
+								NOR = {
+									is_under_colonization = yes
+									planet_stability > 80
+									has_planet_flag = pirate_invasion
+									has_ground_combat = yes
+								}
 								owner = { is_primitive = no is_hostile = event_target:pirate_band }
 							}
 						}

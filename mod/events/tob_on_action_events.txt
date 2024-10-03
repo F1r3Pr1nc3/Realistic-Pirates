@@ -736,7 +736,7 @@ event = {
 			limit = {
 				has_modifier = bulwark_extensive_raids
 				NAND = {
-					any_fleet_in_orbit = { }
+					count_fleet_in_orbit = { count > 0 }
 					any_fleet_in_orbit = {
 						owner = { is_country_type = outer_bulwarks }
 					}
