@@ -4079,6 +4079,7 @@ country_event = {
 						set_aggro_range_measure_from = self
 						set_aggro_range = 150
 						set_fleet_flag = raiding_fleet
+						set_event_locked = yes
 					}
 				}
 			}
@@ -4095,11 +4096,25 @@ country_event = {
 					limit = {
 						has_owner = yes
 						is_owned_by = root
-						any_system_colony = { is_owned_by = root num_sapient_pops > 0 }
-						# prev = { can_access_system = prev }
+						any_system_colony = {
+							has_owner = yes
+							is_owned_by = root
+							is_occupied_flag = no
+							num_sapient_pops > 2
+							has_orbital_bombardment = no
+							has_ground_combat = no
+						}
+						# prev = { can_access_system = prev } # performance-intensive trigger!
 					}
 					random_system_colony = {
-						limit = { is_owned_by = root num_sapient_pops > 0 }
+						limit = {
+							has_owner = yes
+							is_owned_by = root
+							is_occupied_flag = no
+							num_sapient_pops > 2
+							has_orbital_bombardment = no
+							has_ground_combat = no
+						}
 						save_event_target_as = raid_planet
 					}
 				}
@@ -5762,11 +5777,25 @@ event = {
 							limit = {
 								has_owner = yes
 								is_owned_by = event_target:marauder_target
-								any_system_colony = { is_owned_by = event_target:marauder_target num_sapient_pops > 0 }
-								# prev = { can_access_system = prev }
+								any_system_colony = {
+									has_owner = yes
+									is_owned_by = event_target:marauder_target
+									is_occupied_flag = no
+									num_sapient_pops > 2
+									has_orbital_bombardment = no
+									has_ground_combat = no
+								}
+								# prev = { can_access_system = prev } # performance-intensive trigger!
 							}
 							random_system_colony = {
-								limit = { is_owned_by = event_target:marauder_target num_sapient_pops > 0 }
+								limit = {
+									has_owner = yes
+									is_owned_by = event_target:marauder_target
+									is_occupied_flag = no
+									num_sapient_pops > 2
+									has_orbital_bombardment = no
+									has_ground_combat = no
+								}
 								save_event_target_as = raid_planet
 							}
 						}
@@ -9510,11 +9539,10 @@ country_event = {
 				}
 			}
 
-			last_created_fleet = {
+			event_target:garrison_base = {
 				if = {
 					limit = { exists = event_target:marauders_garrison_1 }
 					set_owner = event_target:marauders_garrison_1
-					last_created_leader = { set_owner = event_target:marauders_garrison_1 }
 				}
 				# CmtEffectCreateAdmiralty_KhanEncourager
 				event_target:raider_khanate = {
@@ -9548,6 +9576,8 @@ country_event = {
 						}
 						settings = { garrison = yes uses_naval_capacity = no }
 					}
+					CmtEffectCreateAdmiral_OwnerStandard = yes
+					last_created_fleet = { assign_leader = last_created_leader }
 				}
 				if = {
 					limit = { exists = event_target:marauders_garrison_1 }
@@ -10141,11 +10171,11 @@ country_event = {
 	is_triggered_only = yes
 	immediate = {
 		owner_species = { save_event_target_as = marauder_species } # get_marauder_species = yes # (do it also later for each)
-		save_event_target_as = first_diadochi	# For backward compat
+		# save_event_target_as = first_diadochi	# For backward compat
 		set_update_modifiers_batch = begin
 
 		set_country_flag = diadochi
-		set_country_flag = diadochi_1
+		# set_country_flag = diadochi_1
 		force_remove_civic = civic_great_khans_legacy
 		force_add_civic = civic_diadochi
 
@@ -10156,7 +10186,7 @@ country_event = {
 			# country_event = { id = marauder.671 days = 8 }		# Notify Garrison End
 		}
 
-		## Cleanup possible old flags (previous reign)
+		## Cleanup possible old flags (possible previous reign)
 		every_system_within_border = {
 			limit = { is_potential_diadochi_system = no }
 			switch = { trigger = has_star_flag
@@ -10174,12 +10204,12 @@ country_event = {
 
 		export_trigger_value_to_variable = { trigger = num_sectors variable = actual_sector_count }
 
-		if = {
+		if = { #  (Somehow Vanilla way)
 			limit = {
 				NAND = {
 					exists = capital_scope
 					exists = capital_scope.sector
-					check_variable = { which = actual_sector_count value > 0 }
+					check_variable = { which = actual_sector_count value > 1 }
 				}
 			}
 			if = { # Four Diadochi (max)
