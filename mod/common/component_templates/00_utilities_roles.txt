@@ -47,7 +47,7 @@ utility_component_template = {
 		}
 	}
 	ship_behavior = "swarm"
-
+	is_default_component = yes
 	class_restriction = { shipclass_military }
 	size_restriction = { corvette crisis_corvette offspring_corvette marauder_corvette pirate_corvette }
 	component_set = "combat_computers"
@@ -73,7 +73,7 @@ utility_component_template = {
 		}
 	}
 	ship_behavior = "picket"
-
+	is_default_component = yes
 	class_restriction = { shipclass_military shipclass_science_ship shipclass_transport shipclass_constructor shipclass_colonizer }
 	component_set = "combat_computers"
 	ai_tags = { screen }
@@ -100,7 +100,7 @@ utility_component_template = {
 		}
 	}
 	ship_behavior = "line"
-
+	is_default_component = yes
 	class_restriction = { shipclass_military shipclass_science_ship shipclass_transport shipclass_constructor shipclass_colonizer }
 	component_set = "combat_computers"
 	upgrades_to = "COMBAT_COMPUTER_LINE_BASIC"
@@ -125,7 +125,7 @@ utility_component_template = {
 		}
 	}
 	ship_behavior = "artillery"
-
+	is_default_component = yes
 	class_restriction = { shipclass_military shipclass_starbase shipclass_military_special }
 	size_restriction = { titan galleon marauder_galleon cosmo_crisis_titan juggernaut star_eater }
 	component_set = "combat_computers"
@@ -150,6 +150,7 @@ utility_component_template = {
 			alloys = @cost0
 		}
 	}
+	is_default_component = yes
 
 	class_restriction = { shipclass_military_station }
 	component_set = "combat_computers"
@@ -177,9 +178,9 @@ utility_component_template = {
 		}
 	}
 	ship_behavior = "torpedo"
-
+	is_default_component = yes
 	class_restriction = { shipclass_military }
-	size_restriction = { frigate nanite_swarmer nanite_interdictor }
+	size_restriction = { frigate nanite_swarmer gravity_snare nanite_interdictor }
 	component_set = "combat_computers"
 	upgrades_to = "COMBAT_COMPUTER_TORPEDO_BASIC"
 	ai_tags = { explosive explosive_stealth }
@@ -207,7 +208,7 @@ utility_component_template = {
 		}
 	}
 	class_restriction = { shipclass_military }
-	size_restriction = { corvette crisis_corvette offspring_corvette marauder_corvette pirate_corvette nanite_swarmer }
+	size_restriction = { corvette crisis_corvette offspring_corvette marauder_corvette pirate_corvette nanite_swarmer gravity_snare }
 	component_set = "combat_computers"
 	ship_behavior = "swarm"
 	prerequisites = { "tech_combat_computers_1" }
@@ -240,7 +241,7 @@ utility_component_template = {
 		}
 	}
 	class_restriction = { shipclass_military }
-	size_restriction = { corvette crisis_corvette offspring_corvette marauder_corvette pirate_corvette nanite_swarmer }
+	size_restriction = { corvette crisis_corvette offspring_corvette marauder_corvette pirate_corvette nanite_swarmer gravity_snare }
 	component_set = "combat_computers"
 	ship_behavior = "swarm"
 	prerequisites = { "tech_combat_computers_2" }
@@ -273,7 +274,7 @@ utility_component_template = {
 		}
 	}
 	class_restriction = { shipclass_military }
-	size_restriction = { corvette crisis_corvette offspring_corvette marauder_corvette pirate_corvette nanite_swarmer }
+	size_restriction = { corvette crisis_corvette offspring_corvette marauder_corvette pirate_corvette nanite_swarmer gravity_snare }
 	component_set = "combat_computers"
 	ship_behavior = "swarm"
 	prerequisites = { "tech_combat_computers_3" }
@@ -316,7 +317,7 @@ utility_component_template = {
 		}
 	}
 	class_restriction = { shipclass_military }
-	size_restriction = { corvette crisis_corvette offspring_corvette marauder_corvette pirate_corvette nanite_swarmer }
+	size_restriction = { corvette crisis_corvette offspring_corvette marauder_corvette pirate_corvette nanite_swarmer gravity_snare }
 	component_set = "combat_computers"
 	ship_behavior = "swarm"
 	prerequisites = { "tech_combat_computers_autonomous" }
@@ -348,7 +349,7 @@ utility_component_template = {
 		}
 	}
 	class_restriction = { shipclass_military }
-	size_restriction = { corvette crisis_corvette offspring_corvette marauder_corvette pirate_corvette nanite_swarmer }
+	size_restriction = { corvette crisis_corvette offspring_corvette marauder_corvette pirate_corvette nanite_swarmer gravity_snare }
 	component_set = "combat_computers"
 	ship_behavior = "swarm"
 	prerequisites = { "tech_precognition_interface" }
@@ -386,7 +387,7 @@ utility_component_template = {
 	}
 
 	class_restriction = { shipclass_military }
-	size_restriction = { frigate crisis_destroyer cosmo_crisis_destroyer cruiser offspring_cruiser marauder_cruiser pirate_cruiser nanite_swarmer nanite_interdictor }
+	size_restriction = { frigate crisis_destroyer cosmo_crisis_destroyer cruiser offspring_cruiser marauder_cruiser pirate_cruiser nanite_swarmer gravity_snare nanite_interdictor }
 	component_set = "combat_computers"
 	ship_behavior = "torpedo"
 	prerequisites = { "tech_combat_computers_1" "tech_torpedoes_1" }
@@ -416,7 +417,7 @@ utility_component_template = {
 		}
 	}
 	class_restriction = { shipclass_military }
-	size_restriction = { frigate crisis_destroyer cosmo_crisis_destroyer cruiser offspring_cruiser marauder_cruiser pirate_cruiser nanite_swarmer nanite_interdictor }
+	size_restriction = { frigate crisis_destroyer cosmo_crisis_destroyer cruiser offspring_cruiser marauder_cruiser pirate_cruiser nanite_swarmer gravity_snare nanite_interdictor }
 	component_set = "combat_computers"
 	ship_behavior = "torpedo"
 	prerequisites = { "tech_combat_computers_2" "tech_torpedoes_1" }
@@ -446,7 +447,7 @@ utility_component_template = {
 		}
 	}
 	class_restriction = { shipclass_military }
-	size_restriction = { frigate crisis_destroyer cosmo_crisis_destroyer cruiser offspring_cruiser marauder_cruiser pirate_cruiser nanite_swarmer nanite_interdictor }
+	size_restriction = { frigate crisis_destroyer cosmo_crisis_destroyer cruiser offspring_cruiser marauder_cruiser pirate_cruiser nanite_swarmer gravity_snare nanite_interdictor }
 	component_set = "combat_computers"
 	ship_behavior = "torpedo"
 	prerequisites = { "tech_combat_computers_3" "tech_torpedoes_1" }
@@ -487,7 +488,7 @@ utility_component_template = {
 		}
 	}
 	class_restriction = { shipclass_military }
-	size_restriction = { frigate crisis_destroyer cosmo_crisis_destroyer cruiser offspring_cruiser marauder_cruiser pirate_cruiser nanite_swarmer nanite_interdictor }
+	size_restriction = { frigate crisis_destroyer cosmo_crisis_destroyer cruiser offspring_cruiser marauder_cruiser pirate_cruiser nanite_swarmer gravity_snare nanite_interdictor }
 	component_set = "combat_computers"
 	ship_behavior = "torpedo"
 	prerequisites = { "tech_combat_computers_autonomous" "tech_torpedoes_1" }
@@ -517,7 +518,7 @@ utility_component_template = {
 		}
 	}
 	class_restriction = { shipclass_military }
-	size_restriction = { frigate crisis_destroyer cosmo_crisis_destroyer cruiser offspring_cruiser marauder_cruiser pirate_cruiser nanite_swarmer nanite_interdictor }
+	size_restriction = { frigate crisis_destroyer cosmo_crisis_destroyer cruiser offspring_cruiser marauder_cruiser pirate_cruiser nanite_swarmer gravity_snare nanite_interdictor }
 	component_set = "combat_computers"
 	ship_behavior = "torpedo"
 	prerequisites = { "tech_precognition_interface" "tech_torpedoes_1" }
@@ -1209,7 +1210,7 @@ utility_component_template = {
 		offspring_cruiser
 		offspring_battleship
 		cosmo_crisis_battlecruiser
-		nanite_swarmer
+		nanite_swarmer gravity_snare
 		nanite_interdictor
 		dreadnought
 		scavenger_bot
