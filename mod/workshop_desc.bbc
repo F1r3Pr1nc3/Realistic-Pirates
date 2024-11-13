@@ -3,13 +3,13 @@
 [/h3]
 
 [h1][b]Pirate Waves[/b][/h1]
-This mod spawns pirate fleets dynamically (continuously and endlessly). Every once in a while a pirate station and fleet will appear at an asteroid, barren or habitable planet, usually in some part of the galaxy that's not owned by any country. The pirate fleet will venture out into the galaxy, raiding solar systems belonging to countries and setting up new pirate stations. Each pirate station will produce a new pirate fleet and disappear 10 years after being build.
+This mod spawns pirate fleets dynamically (continuously and endlessly). Every once in a while a pirate station and fleet will appear at an asteroid, barren or habitable planet, usually in some part of the galaxy that’s not owned by any country. The pirate fleet will venture out into the galaxy, raiding solar systems belonging to countries and setting up new pirate stations. Each pirate station will produce a new pirate fleet and disappear 10 years after being build.
 
-How strong the fleets are depends on the difficulty level chosen and the time that has passed in the game. The pirates will start to appear 10 years into the game. If the fleet power of the country closest to where the pirates appear is inadequate compared to the pirates the power of the fleets spawned will drop.
+How strong the fleets are depends on the difficulty level chosen and the time that has passed in the game. The pirates will start to appear 10 years into the game. If the fleet power of the country closest to where the pirates appear is inadequate compared to the pirates, the power of the fleets spawned will drop.
 
-You can set the difficulty of this mod as well as the interval at which a new pirate station and fleet appear using the settings. With it you can also disable the creation of new pirate stations and fleets.
+You can set the difficulty of this mod as well as the interval at which a new pirate station and fleet appear using the settings. With it, you can also disable the creation of new pirate stations and fleets.
 
-Includes a pirate kill counter event in your situation log containing an overview of the interaction with the pirates. This will appear after encountering them for the first time.
+Includes a pirate kill counter event in your situation log, containing an overview of the interaction with the pirates. This will appear after encountering them for the first time.
 
 [h3]Settings[/h3]
 To set the probability of appearance, you can use the "Pirate Waves" settings via [url=//steamcommunity.com/workshop/filedetails/2458024521]Dynamic Mod Menu[/url] or Edict (if not present). The minimum chance is 1% (averaging 1 pirate fleet every 100 months) but you can increase this to up to 100% (averaging 1 pirate fleet every month). Default chance is 5% (averaging 1 pirate fleet every 20 months).
@@ -19,7 +19,7 @@ You can use the "Pirate Waves Difficulty" settings to set the power level of the
 The difficult settings are also applied to [b]Marauders[/b], [b]Privateers[/b] and the Pirate Republic (only after the game runs 10 years).
 
 [b]Multiplayer[/b]
-In a multiplayer game the spawn settings of a random player who has not disabled spawning will be used. If all players except one disable the mod only the settings of that player will be used. From the difficulty settings the lowest will be used.
+In a multiplayer game, the spawn settings of a random player who has not disabled spawning will be used. If all players except one disable the mod, only the settings of that player will be used. From the difficulty settings, the lowest will be used.
 
 [b]Disabling[/b]
 The Pirates Waves can be deactivated via menu settings, there are options for several factions available.
@@ -33,7 +33,7 @@ Compatible with savegames.
 ✔️ [url=//steamcommunity.com/workshop/filedetails/2508704523]The Great Khan Expanded[/url] should not matter
 • There is a full patched [b]marauder_events.txt[/b] included as an aside (depends on load order, e.g. should be below ZoFE and Marauders Remodeled).
 • Khorgis Khan (should be above)
-• The difficult settings for Marauders are overridden by the [url=//steamcommunity.com/workshop/filedetails/?id=2491573516]Crisis Manager Mid-Game Edition[/url].
+• The difficult settings for Marauders are overridden by the [url=//steamcommunity.com/workshop/filedetails/2491573516]Crisis Manager Mid-Game Edition[/url].
 • Not compat with the actual Pirate Republic mod (as a version is already included).
 • [url=//steamcommunity.com/workshop/filedetails/3253479588]Freebooters Origin[/url] (reborn)
 
@@ -45,7 +45,7 @@ Compatible with savegames.
 • Pirate fleets can board ships
 • Randomize Pirate Graphical Culture
 • Pirate Artifact
-• Pirate Crisis  
+• Pirate Crisis 
 • [strike]Maybe include [url=//steamcommunity.com/workshop/filedetails/1376086969]Pirate Ships Extended[/url]?[/strike]
 • The Outer Bulwark - needs some rework and options
 
@@ -60,14 +60,14 @@ All other officially supported languages are only machine-translated.
 [h3]Notes[/h3]
 [list]
 [*]You will be notified if a pirate station has been build in a system of which you have a high intel level.
-[*]There are two pirate countries and they are not on good terms with each other. There's an individual statistic about pirates killing pirates in the situation log.
-[*]If you own and activated the Apocalypse DLC raiders will be mixed in with the pirates. Ratio is 80% pirate and 20% marauder ships.
-[*]Pirates will often take breaks to split their loot and fix up their ships and need a year to build a new pirate station.
+[*]There are two pirate countries, and they are not on good terms with each other. There’s an individual statistic about pirates killing pirates in the situation log.
+[*]If you own and activated the Apocalypse DLC, raiders will be mixed in with the pirates. Ratio is 80% pirate and 20% marauder ships.
+[*]Pirates will often take breaks to split their loot and fix up their ships, and need a year to build a new pirate station.
 [*]Pirate stations, ships and fleets have random names from extended pirate name lists.
-[*]Killing pirates and marauders will provide a small amount of minerals and energy depending on the type of pirate ship. Defeating pirates will also provide a very small amount of unity and engineering research.
-[*]If you ignore the pirate stations for too long you'll regret it as they will send endless waves of pirate fleets. They really like the part of the galaxy that no one looks at and they will grow and expand until they have enough fleets to destroy your outposts. Some AI countries may become infested with pirates if there's a lot of unowned space around them. You can help them by destroying the pirate stations in unowned space or exploit this by declaring war on them. Changing the settings of the mod will also help them or destroy them depending on how it's used.
+[*]Killing pirates and marauders will provide a small amount of minerals and energy, depending on the type of pirate ship. Defeating pirates will also provide a very small amount of unity and engineering research.
+[*]If you ignore the pirate stations for too long you’ll regret it as they will send endless waves of pirate fleets. They really like the part of the galaxy that no one looks at, and they will grow and expand until they have enough fleets to destroy your outposts. Some AI countries may become infested with pirates if there’s a lot of unowned space around them. You can help them by destroying the pirate stations in unowned space, or exploit this by declaring war on them. Changing the settings of the mod will also help them or destroy them, depending on how it’s used.
 [*]FTL inhibitors work really well against pirates.
-[*][b]Mercenary & Privateer[/b] (espionage pirates) fleets are also affected by this mod. This results in smaller fleets in the beginning but massive fleets during the endgame. The AI uses them so be prepared.
+[*][b]Mercenary & Privateer[/b] (espionage pirates) fleets are also affected by this mod. This results in smaller fleets in the beginning but massive fleets during the endgame. The AI uses them, so be prepared.
 [*] Low probability of spawning new Marauder Enclaves[spoiler](if 3 pirate systems fit together and not already 3 exists)[/spoiler]
 [/list]
 
@@ -75,16 +75,16 @@ All other officially supported languages are only machine-translated.
 • ScepraX – initiating this mod (Maltheal for continuing)
 • lpslucasps – The Pirate Republic
 • [url=//steamcommunity.com/workshop/filedetails/912539543]Twinks Pirate City[/url]
-• Obscuris – The Outer Bulwark (OtherPlayers for updating first contact) optin since 3.4
+• Obscuris – The Outer Bulwark (OtherPlayers for updating first contact) opt-in since 3.4
 • [url=//steamcommunity.com/workshop/filedetails/2855533605]Jon Dunham – the Khan room[/url]
 • [url=//steamcommunity.com/workshop/filedetails/2958996640]MrFunEGUY – Improved Diadochi[/url]
 
 [b]Testing[/b]
-If you wish to create pirates manually you can access the debug mode in the menu.
+If you wish to create pirates manually, you can access the debug mode in the menu.
 
 [b]Bug?[/b]
 You can use the menu option "Recreate Pirate Countries" or the console command: [code]event pirate_waves.666[/code]
-Which will immediately remove all pirate stations and fleets from the galaxy and recycle the pirate countries after which the mod should work.
+Which will immediately remove all pirate stations and fleets from the galaxy and recycle the pirate countries, after which the mod should work.
 
 [URL=//discordapp.com/invite/CMjnnET][IMG]//i.imgur.com/4Und3QN.png[/IMG][/URL]
 [img]//i.imgur.com/fVVaDCS.gif[/img]

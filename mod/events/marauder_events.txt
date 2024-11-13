@@ -9964,11 +9964,11 @@ fleet_event = {
 				set_variable = { which = "satrapy_fleet_power" value = trigger:fleet_power }
 				# Get normal possible capacity (divide by 0 cause crash)
 				if = {
-					limit = { check_variable_arithmetic = { which = trigger:used_naval_capacity_percent value > 0 } }
+					limit = { used_naval_capacity_percent > 0.1 }
 					divide_variable = { which = "satrapy_fleet_power" value = trigger:used_naval_capacity_percent }
 				}
-				else = { multiply_variable = { which = "satrapy_fleet_power" value = 10 } }
-				divide_variable = { which = "satrapy_fleet_power" value = 28000 }
+				else = { multiply_variable = { which = "satrapy_fleet_power" value = 12 } }
+				divide_variable = { which = "satrapy_fleet_power" value = 30000 }
 				round_variable = "satrapy_fleet_power"
 				if = {
 					limit = { check_variable = { which = "satrapy_fleet_power" value < 2 } }
@@ -10005,23 +10005,23 @@ fleet_event = {
 				# CmtEffectCreateAdmiralty_KhanSubReinforcement
 				event_target:raider_khanate = {
 					event_target:CmtGlobalVar = { set_variable = { which = CmtVarWhileControlFleet value = CmtVarCombatFleetNumber_Khan } }
-					while = {
+					while = { count = 1
 						limit = { event_target:CmtGlobalVar = { check_variable = { which = CmtVarWhileControlFleet value > 0.875 } } }
 						event_target:CmtGlobalVar = { change_variable = { which = CmtVarWhileControlFleet value = -1 } }
 						if = {
-							limit = { event_target:satrapy_empire = { max_naval_capacity < 100 } }
+							limit = { event_target:satrapy_empire = { max_naval_capacity < 150 } }
 							CmtEffectCreateFleet_KhanSubReinforcement1 = yes
 						}
 						else_if = {
-							limit = { event_target:satrapy_empire = { max_naval_capacity < 200 } }
+							limit = { event_target:satrapy_empire = { max_naval_capacity < 280 } }
 							CmtEffectCreateFleet_KhanSubReinforcement2 = yes
 						}
 						else_if = {
-							limit = { event_target:satrapy_empire = { max_naval_capacity < 300 } }
+							limit = { event_target:satrapy_empire = { max_naval_capacity < 420 } }
 							CmtEffectCreateFleet_KhanSubReinforcement3 = yes
 						}
 						else_if = {
-							limit = { event_target:satrapy_empire = { max_naval_capacity < 500 } }
+							limit = { event_target:satrapy_empire = { max_naval_capacity < 700 } }
 							CmtEffectCreateFleet_KhanSubReinforcement4 = yes
 						}
 						else = { CmtEffectCreateFleet_KhanSubReinforcement5 = yes }
@@ -10031,26 +10031,25 @@ fleet_event = {
 							last_created_leader = { set_owner = event_target:marauders_garrison_1 }
 						}
 					}
-					while = {
+					while = { count = 1
 						limit = { event_target:CmtGlobalVar = { check_variable = { which = CmtVarWhileControlFleet value > 0.125 } } }
 						event_target:CmtGlobalVar = { change_variable = { which = CmtVarWhileControlFleet value = -0.25 } }
-						random_list = {
-							100 = {
+						random = { chance = 20
 								event_target:CmtGlobalVar = { set_variable = { which = CmtVarWhileControlFleet value = 0 } }
 								if = {
-									limit = { event_target:satrapy_empire = { max_naval_capacity < 100 } }
+								limit = { event_target:satrapy_empire = { max_naval_capacity < 150 } }
 									CmtEffectCreateFleet_KhanSubReinforcement1 = yes
 								}
 								else_if = {
-									limit = { event_target:satrapy_empire = { max_naval_capacity < 200 } }
+								limit = { event_target:satrapy_empire = { max_naval_capacity < 280 } }
 									CmtEffectCreateFleet_KhanSubReinforcement2 = yes
 								}
 								else_if = {
-									limit = { event_target:satrapy_empire = { max_naval_capacity < 300 } }
+								limit = { event_target:satrapy_empire = { max_naval_capacity < 420 } }
 									CmtEffectCreateFleet_KhanSubReinforcement3 = yes
 								}
 								else_if = {
-									limit = { event_target:satrapy_empire = { max_naval_capacity < 500 } }
+								limit = { event_target:satrapy_empire = { max_naval_capacity < 700 } }
 									CmtEffectCreateFleet_KhanSubReinforcement4 = yes
 								}
 								else = { CmtEffectCreateFleet_KhanSubReinforcement5 = yes }
@@ -10060,8 +10059,6 @@ fleet_event = {
 									last_created_leader = { set_owner = event_target:marauders_garrison_1 }
 								}
 							}
-							300 = { }
-						}
 					}
 				}
 				change_variable = { which = CmtVarKhanReinforcementCounter value = -10 }
@@ -10087,11 +10084,10 @@ fleet_event = {
 						}
 					}
 				}
-				fleet_event = { id = marauder.560 days = 600 random = 360 }
+				fleet_event = { id = marauder.560 days = 680 random = 360 }
 			}
 			else = {
 				fleet_event = { id = marauder.560 days = 540 random = 330 }
-				# fleet_event = { id = marauder.560 days = 160 random = 90 }
 				# # Set var counter (CmtVarKhanReinforcementCounter) for next cycle
 				# event_target:raider_khanate = { event_target:CmtGlobalVar = { CmtEffectKhanIncreasementReinforcementCycle = yes } }
 			}
@@ -10144,7 +10140,7 @@ country_event = {
 					}
 				}
 			}
-			country_event = { id = marauder.604 } # Reverts to old ways.
+			country_event = { id = marauder.604 } # Reverts to the Old Ways.
 		}
 		else = { # Can only happen if Horde owns planets.
 			country_event = { id = marauder_borders.1000 }
@@ -10758,7 +10754,7 @@ country_event = {
 	is_triggered_only = yes
 	immediate = {
 		get_marauder_species = yes
-		# restore_country_backup_data = yes
+		# restore_country_backup_data = yes ?
 		create_country = {
 			name_list = random
 			species = event_target:marauder_species
@@ -11127,8 +11123,11 @@ country_event = {
 			limit = { is_mobile = yes is_leased = yes }
 			end_fleet_contract = { initiator = prev reason = cancelled }
 		}
+		# if = {
+		# 	limit = { is_country_type = awakened_marauders }
+		# 	restore_country_backup_data = yes # FIXME Cannot restore country data because no such data has been stored?!?
+		# }
 		set_update_modifiers_batch = begin
-		restore_country_backup_data = yes # FIXME Cannot restore country data because no such data has been stored!?
 		create_country = {
 			name_list = random
 			# name = random
@@ -11481,7 +11480,7 @@ country_event = {
 
 				if = {
 					limit = { NOT = { exists = event_target:marauder_capital } }
-					log = "Last fallback for [This.GetName]"
+					log = "Last fallback for [This.GetName] to the Old Ways"
 					# random_planet_within_border = { limit = { solar_system = { exists = starbase starbase = { is_owned_by = root } } }
 					if = {
 						limit = {
@@ -11518,7 +11517,6 @@ country_event = {
 
 		if = {
 			limit = { NOT = { exists = event_target:marauder_capital } }
-			log = "No place for new Marauder system found for [This.GetName]!?"
 			if = {
 				limit = {
 					any_owned_starbase = {
@@ -11553,9 +11551,11 @@ country_event = {
 				}
 			}
 		}
-		else = {
-			if = {
-				limit = { event_target:marauder_capital = { is_scope_valid = yes is_scope_type = galactic_object } }
+		if = {
+			limit = {
+				exists = event_target:marauder_capital
+				event_target:marauder_capital = { is_scope_type = galactic_object }
+			}
 				event_target:marauder_capital = {
 					random_system_planet = {
 						limit = { is_star = no }
@@ -11568,6 +11568,18 @@ country_event = {
 					}
 				}
 			}
+		if = {
+			limit = {
+				NAND = {
+					exists = event_target:marauder_capital
+					event_target:marauder_capital = { is_scope_valid = yes is_scope_type = planet }
+				}
+			}
+			log = "No place for new Marauder system found for \\[This.GetName]!?"
+			# destroy_country
+			break = yes
+		}
+		else = {
 			event_target:marauder_capital.solar_system = { set_star_flag = marauder_system }
 		}
 
@@ -12207,13 +12219,11 @@ country_event = {
 						has_policy_flag = refugees_allowed
 						any_owned_planet = {
 							habitability = { who = event_target:marauder_neighbor_species value > 0.4 }
-							# free_housing > 0
 						}
 					}
 					random_owned_planet = {
 						limit = {
 							habitability = { who = event_target:marauder_neighbor_species value > 0.4 }
-							# free_housing > 0
 						}
 						weights = { base = 1
 							modifier = { add = 5 free_housing > 0 }
@@ -12291,6 +12301,7 @@ country_event = {
 	desc = "marauder.703.desc"
 	picture = GFX_evt_hangar_bay
 	show_sound = event_radio_chatter
+	location = event_target:border_system
 	is_triggered_only = yes
 	trigger = {
 		NOT = { has_country_flag = marauder_neighbor_event_3 }
@@ -12334,13 +12345,14 @@ country_event = {
 	}
 }
 
-# New Fleet (Fix missing ship_piracy_suppression_add)
+# New Fleet (Fixed missing ship_piracy_suppression_add)
 country_event = {
 	id = marauder.704
 	title = "marauder.704.name"
 	desc = "marauder.704.desc"
 	picture = GFX_evt_pirate_armada
 	show_sound = event_radio_chatter
+	location = event_target:border_system
 	is_triggered_only = yes
 	trigger = {
 		NOT = { has_country_flag = marauder_neighbor_event_4 }
@@ -12354,29 +12366,11 @@ country_event = {
 			effect = {
 				set_owner = root
 				create_dyn_pirate_fleet = { Skull = 6 Corsair = 3 Black_Earl = 2 }
+				# create_dyn_pirate_fleet = { Skull = 10 Corsair = 4 }
 				set_location = root.capital_scope
 			}
 		}
 		custom_tooltip = gain_marauder_fleet
-		# hidden_effect = {
-		# 	create_fleet = {
-		# 		name = "NAME_Salvaged_Fleet"
-		# 		effect = {
-		# 			set_owner = root
-		# 			while = {
-		# 				count = 1
-		# 				create_ship = {
-		# 					name = random
-		# 					prefix = no
-		# 					design = "NAME_Black_Earl"
-		# 					graphical_culture = "pirate_01"
-		# 				}
-		# 			}
-		# 			create_dyn_pirate_fleet = { Skull = 10 Corsair = 4 }
-		# 			set_location = root.capital_scope
-		# 		}
-		# 	}
-		# }
 	}
 	option = {
 		name = marauder.704.b
@@ -12391,6 +12385,7 @@ country_event = {
 	desc = "marauder.705.desc"
 	picture = GFX_evt_space_debris
 	show_sound = event_scanner
+	location = event_target:border_system
 	is_triggered_only = yes
 	trigger = {
 		NOT = { has_country_flag = marauder_neighbor_event_5 }
@@ -12409,6 +12404,7 @@ country_event = {
 	desc = "marauder.706.desc"
 	picture = GFX_evt_space_debris
 	show_sound = event_scanner
+	location = event_target:border_planet
 	is_triggered_only = yes
 	trigger = {
 		NOT = { has_country_flag = marauder_neighbor_event_6 }
@@ -12427,6 +12423,7 @@ country_event = {
 	desc = "marauder.707.desc"
 	picture = GFX_evt_machine_space_battle
 	show_sound = event_ship_thrusters
+	location = event_target:border_system
 	is_triggered_only = yes
 	trigger = {
 		NOT = { has_country_flag = marauder_neighbor_event_7 }
