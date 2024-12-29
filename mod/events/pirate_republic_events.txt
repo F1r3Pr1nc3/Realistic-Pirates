@@ -555,7 +555,7 @@ planet_event = {
 
 			root = {
 				if = {
-					limit = { any_owned_pop = { is_enslaved = yes } }
+					limit = { count_enslaved_species = { count > 0 } }
 					set_timed_planet_flag = { flag = slave_revolt years = 2 }
 					prev = {
 						set_timed_country_flag = { flag = slave_rebels years = 2 }

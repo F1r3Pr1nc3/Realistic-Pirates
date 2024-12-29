@@ -1423,11 +1423,13 @@ country_event = {
 		from = {
 			owner_species = { save_event_target_as = marauder_species }
 			save_event_target_as = current_marauder_diplomacy
-			country_event = { id = marauder.28 days = 8 }
 		}
 	}
 	after = {
-		hidden_effect = { remove_country_flag = marauder_diplomacy_engaged }
+		hidden_effect = {
+			remove_country_flag = marauder_diplomacy_engaged
+			from = { country_event = { id = marauder.28 days = 8 } }
+		}
 	}
 	# Ask them to raid someone.
 	option = {
@@ -1680,11 +1682,13 @@ country_event = {
 		}
 		event_target:current_marauder_diplomacy = {
 			get_marauder_species = yes
-			country_event = { id = marauder.28 days = 8 }
 		}
 	}
 	after = {
-		hidden_effect = { remove_country_flag = marauder_diplomacy_engaged }
+		hidden_effect = {
+			remove_country_flag = marauder_diplomacy_engaged
+			event_target:current_marauder_diplomacy = { country_event = { id = marauder.28 days = 8 } }
+		}
 	}
 	# Ask them to raid someone.
 	option = {
@@ -1980,10 +1984,10 @@ country_event = {
 				limit = { exists = event_target:preliminary_target exists = event_target:current_marauder_diplomacy }
 				if = {
 					limit = { event_target:preliminary_target = { is_fallen_empire = yes } }
-					country_event = { id = marauder.35 } # scopes = { from = event_target:current_marauder_diplomacy }
+					country_event = { id = marauder.35 }
 				}
 				else = {
-					country_event = { id = marauder.32 } # scopes = { from = event_target:current_marauder_diplomacy }
+					country_event = { id = marauder.32 }
 				}
 			}
 			remove_country_flag = marauder_diplomacy_engaged
@@ -2273,7 +2277,7 @@ country_event = {
 			flag = event_target:raiding_marauder
 			effect = {
 				save_event_target_as = marauder_raiding_country
-				set_faction_hostility = { target = event_target:raiding_marauder set_neutral = yes }
+				set_faction_hostility = { target = event_target:raiding_marauder set_friendly = yes }
 				make_moderately_hostile = yes
 				set_country_flag = raid_ongoing
 			}
@@ -2307,7 +2311,7 @@ country_event = {
 						set_fleet_bombardment_stance = indiscriminate
 						set_aggro_range_measure_from = self
 						set_aggro_range = 150
-						set_fleet_flag = hired_raiding_fleet
+						set_fleet_flag = hired_raiding_fleet # Not used by vanilla
 						set_fleet_flag = raiding_fleet
 						set_event_locked = yes
 					}
@@ -3918,41 +3922,38 @@ event = {
 	hide_window = yes
 	is_triggered_only = yes
 	trigger = {
-		years_passed >= 25
+		years_passed > 25
 		any_playable_country = {
-			NOT = { has_country_flag = under_marauder_attack }
 			any_relation = {
 				is_country_type = dormant_marauders
 				has_communications = prev
 				NOR = { has_country_flag = raid_ongoing has_country_flag = raid_cooldown }
 			}
+			NOT = { has_country_flag = under_marauder_attack }
 		}
 	}
 	immediate = {
-		random_list = {
-			30 = {
-				random_playable_country = {
-					limit = {
-						NOT = { has_country_flag = under_marauder_attack }
-						any_relation = {
-							is_country_type = dormant_marauders
-							has_communications = prev
-							NOR = { has_country_flag = raid_ongoing has_country_flag = raid_cooldown }
-						}
+		random = { chance = 34
+			random_playable_country = {
+				limit = {
+					any_relation = {
+						is_country_type = dormant_marauders
+						has_communications = prev
+						NOR = { has_country_flag = raid_ongoing has_country_flag = raid_cooldown }
 					}
-					random_relation = {
-						limit = {
-							is_country_type = dormant_marauders
-							has_communications = prev
-							NOR = { has_country_flag = raid_ongoing has_country_flag = raid_cooldown }
-						}
-						save_event_target_as = raiding_marauder
-						species = { save_event_target_as = marauder_species }
-					}
-					country_event = { id = marauder.101 days = 1 random = 10 }
+					NOT = { has_country_flag = under_marauder_attack }
 				}
+				random_relation = {
+					limit = {
+						is_country_type = dormant_marauders
+						has_communications = prev
+						NOR = { has_country_flag = raid_ongoing has_country_flag = raid_cooldown }
+					}
+					save_event_target_as = raiding_marauder
+					species = { save_event_target_as = marauder_species }
+				}
+				country_event = { id = marauder.101 days = 1 random = 10 }
 			}
-			60 = { }
 		}
 	}
 }
@@ -3992,36 +3993,31 @@ country_event = {
 			limit = { has_monthly_income = { resource = minerals value <= 50 } }
 			set_country_flag = marauder_tribute_1@event_target:raiding_marauder
 		}
-		if = {
+		else_if = {
 			limit = {
-				has_monthly_income = { resource = minerals value >= 50 }
 				has_monthly_income = { resource = minerals value <= 100 }
 			}
 			set_country_flag = marauder_tribute_2@event_target:raiding_marauder
 		}
-		if = {
+		else_if = {
 			limit = {
-				has_monthly_income = { resource = minerals value > 100 }
 				has_monthly_income = { resource = minerals value <= 150 }
 			}
 			set_country_flag = marauder_tribute_3@event_target:raiding_marauder
 		}
-		if = {
+		else_if = {
 			limit = {
-				has_monthly_income = { resource = minerals value > 150 }
 				has_monthly_income = { resource = minerals value <= 200 }
 			}
 			set_country_flag = marauder_tribute_4@event_target:raiding_marauder
 		}
-		if = {
+		else_if = {
 			limit = {
-				has_monthly_income = { resource = minerals value > 200 }
 				has_monthly_income = { resource = minerals value <= 250 }
 			}
 			set_country_flag = marauder_tribute_5@event_target:raiding_marauder
 		}
-		if = {
-			limit = { has_monthly_income = { resource = minerals value > 250 } }
+		else = {
 			set_country_flag = marauder_tribute_6@event_target:raiding_marauder
 		}
 		set_timed_country_flag = { flag = recently_raided_or_threatened years = 5 }
@@ -4149,7 +4145,14 @@ country_event = {
 				remove_relation_flag = { who = event_target:raiding_marauder flag = current_target }
 				remove_relation_flag = { who = event_target:raiding_marauder flag = current_hired_target }
 				event_target:marauder_raiding_country = {
-					event_target:raiding_marauder = { remove_country_flag = parent_of@prev }
+					event_target:raiding_marauder = {
+						remove_country_flag = parent_of@prev
+						# random_playable_country = {
+						# 	limit = { has_relation_flag = { who = prev flag = hired_fleet } }
+						# 	remove_relation_flag = { who = prev flag = hired_fleet }
+						# 	remove_country_flag = hired@prev
+						# }
+					}
 					random_owned_fleet = {
 						limit = { has_fleet_flag = raiding_fleet }
 						delete_fleet = this
@@ -4397,7 +4400,25 @@ country_event = {
 		}
 	}
 	after = {
-		hidden_effect = { remove_country_flag = marauder_diplomacy_engaged }
+		hidden_effect = {
+			remove_country_flag = marauder_diplomacy_engaged
+			if = {
+				limit = { NOT = { has_country_flag = under_marauder_attack } }
+				remove_country_flag = raid_target_of@event_target:marauder_country
+				remove_relation_flag = { who = event_target:marauder_country flag = current_target }
+				event_target:marauder_country = {
+					remove_country_flag = raid_ongoing
+					set_timed_country_flag = { flag = raid_cooldown days = @raidcooldown }
+				}
+				event_target:marauder_raiding_country = {
+					random_owned_fleet = {
+						limit = { has_fleet_flag = raiding_fleet }
+						delete_fleet = this
+					}
+					destroy_country = yes
+				}
+			}
+		}
 	}
 	# Marauder 1
 	option = {
@@ -4410,20 +4431,7 @@ country_event = {
 		allow = { determine_energy_tribute_raided = yes }
 		tribute_cost_energy_raided = yes
 		hidden_effect = {
-			remove_country_flag = raid_target_of@event_target:marauder_country
 			remove_country_flag = under_marauder_attack
-			remove_relation_flag = { who = event_target:marauder_country flag = current_target }
-			event_target:marauder_country = {
-				remove_country_flag = raid_ongoing
-				set_timed_country_flag = { flag = raid_cooldown days = @raidcooldown }
-			}
-			event_target:marauder_raiding_country = {
-				random_owned_fleet = {
-					limit = { has_fleet_flag = raiding_fleet }
-					delete_fleet = this
-				}
-				destroy_country = yes
-			}
 		}
 	}
 	option = {
@@ -4436,20 +4444,7 @@ country_event = {
 		allow = { determine_mineral_tribute_raided = yes }
 		tribute_cost_minerals_raided = yes
 		hidden_effect = {
-			remove_country_flag = raid_target_of@event_target:marauder_country
 			remove_country_flag = under_marauder_attack
-			remove_relation_flag = { who = event_target:marauder_country flag = current_target }
-			event_target:marauder_country = {
-				remove_country_flag = raid_ongoing
-				set_timed_country_flag = { flag = raid_cooldown days = @raidcooldown }
-			}
-			event_target:marauder_raiding_country = {
-				random_owned_fleet = {
-					limit = { has_fleet_flag = raiding_fleet }
-					delete_fleet = this
-				}
-				destroy_country = yes
-			}
 		}
 	}
 	option = {
@@ -4462,20 +4457,7 @@ country_event = {
 		allow = { determine_food_tribute_raided = yes }
 		tribute_cost_food_raided = yes
 		hidden_effect = {
-			remove_country_flag = raid_target_of@event_target:marauder_country
 			remove_country_flag = under_marauder_attack
-			remove_relation_flag = { who = event_target:marauder_country flag = current_target }
-			event_target:marauder_country = {
-				remove_country_flag = raid_ongoing
-				set_timed_country_flag = { flag = raid_cooldown days = @raidcooldown }
-			}
-			event_target:marauder_raiding_country = {
-				random_owned_fleet = {
-					limit = { has_fleet_flag = raiding_fleet }
-					delete_fleet = this
-				}
-				destroy_country = yes
-			}
 		}
 	}
 	option = {
@@ -4500,20 +4482,7 @@ country_event = {
 		allow = { determine_energy_tribute_raided = yes }
 		tribute_cost_energy_raided = yes
 		hidden_effect = {
-			remove_country_flag = raid_target_of@event_target:marauder_country
 			remove_country_flag = under_marauder_attack
-			remove_relation_flag = { who = event_target:marauder_country flag = current_target }
-			event_target:marauder_country = {
-				remove_country_flag = raid_ongoing
-				set_timed_country_flag = { flag = raid_cooldown days = @raidcooldown }
-			}
-			event_target:marauder_raiding_country = {
-				random_owned_fleet = {
-					limit = { has_fleet_flag = raiding_fleet }
-					delete_fleet = this
-				}
-				destroy_country = yes
-			}
 		}
 	}
 	option = {
@@ -4526,20 +4495,7 @@ country_event = {
 		allow = { determine_mineral_tribute_raided = yes }
 		tribute_cost_minerals_raided = yes
 		hidden_effect = {
-			remove_country_flag = raid_target_of@event_target:marauder_country
 			remove_country_flag = under_marauder_attack
-			remove_relation_flag = { who = event_target:marauder_country flag = current_target }
-			event_target:marauder_country = {
-				remove_country_flag = raid_ongoing
-				set_timed_country_flag = { flag = raid_cooldown days = @raidcooldown }
-			}
-			event_target:marauder_raiding_country = {
-				random_owned_fleet = {
-					limit = { has_fleet_flag = raiding_fleet }
-					delete_fleet = this
-				}
-				destroy_country = yes
-			}
 		}
 	}
 	option = {
@@ -4552,20 +4508,7 @@ country_event = {
 		allow = { determine_food_tribute_raided = yes }
 		tribute_cost_food_raided = yes
 		hidden_effect = {
-			remove_country_flag = raid_target_of@event_target:marauder_country
 			remove_country_flag = under_marauder_attack
-			remove_relation_flag = { who = event_target:marauder_country flag = current_target }
-			event_target:marauder_country = {
-				remove_country_flag = raid_ongoing
-				set_timed_country_flag = { flag = raid_cooldown days = @raidcooldown }
-			}
-			event_target:marauder_raiding_country = {
-				random_owned_fleet = {
-					limit = { has_fleet_flag = raiding_fleet }
-					delete_fleet = this
-				}
-				destroy_country = yes
-			}
 		}
 	}
 	# Marauder 3
@@ -4579,20 +4522,7 @@ country_event = {
 		allow = { determine_energy_tribute_raided = yes }
 		tribute_cost_energy_raided = yes
 		hidden_effect = {
-			remove_country_flag = raid_target_of@event_target:marauder_country
 			remove_country_flag = under_marauder_attack
-			remove_relation_flag = { who = event_target:marauder_country flag = current_target }
-			event_target:marauder_country = {
-				remove_country_flag = raid_ongoing
-				set_timed_country_flag = { flag = raid_cooldown days = @raidcooldown }
-			}
-			event_target:marauder_raiding_country = {
-				random_owned_fleet = {
-					limit = { has_fleet_flag = raiding_fleet }
-					delete_fleet = this
-				}
-				destroy_country = yes
-			}
 		}
 	}
 	option = {
@@ -4605,20 +4535,7 @@ country_event = {
 		allow = { determine_mineral_tribute_raided = yes }
 		tribute_cost_minerals_raided = yes
 		hidden_effect = {
-			remove_country_flag = raid_target_of@event_target:marauder_country
 			remove_country_flag = under_marauder_attack
-			remove_relation_flag = { who = event_target:marauder_country flag = current_target }
-			event_target:marauder_country = {
-				remove_country_flag = raid_ongoing
-				set_timed_country_flag = { flag = raid_cooldown days = @raidcooldown }
-			}
-			event_target:marauder_raiding_country = {
-				random_owned_fleet = {
-					limit = { has_fleet_flag = raiding_fleet }
-					delete_fleet = this
-				}
-				destroy_country = yes
-			}
 		}
 	}
 	option = {
@@ -4631,20 +4548,7 @@ country_event = {
 		allow = { determine_food_tribute_raided = yes }
 		tribute_cost_food_raided = yes
 		hidden_effect = {
-			remove_country_flag = raid_target_of@event_target:marauder_country
 			remove_country_flag = under_marauder_attack
-			remove_relation_flag = { who = event_target:marauder_country flag = current_target }
-			event_target:marauder_country = {
-				remove_country_flag = raid_ongoing
-				set_timed_country_flag = { flag = raid_cooldown days = @raidcooldown }
-			}
-			event_target:marauder_raiding_country = {
-				random_owned_fleet = {
-					limit = { has_fleet_flag = raiding_fleet }
-					delete_fleet = this
-				}
-				destroy_country = yes
-			}
 		}
 	}
 	option = {
@@ -5758,7 +5662,7 @@ event = {
 								set_fleet_bombardment_stance = indiscriminate
 								set_aggro_range_measure_from = self
 								set_aggro_range = 150
-								set_fleet_flag = hired_raiding_fleet
+								set_fleet_flag = hired_raiding_fleet # Not used by vanilla
 								set_fleet_flag = raiding_fleet
 								set_event_locked = yes
 							}
@@ -6142,7 +6046,7 @@ event = {
 	}
 }
 
-# Raiding End Failsafe
+# Raiding End Failsafe (on_yearly_pulse)
 event = {
 	id = marauder.160
 	hide_window = yes
@@ -9259,6 +9163,7 @@ country_event = {
 				has_country_flag = rebelling_satrapy
 				is_homicidal = yes
 				is_fallen_empire = yes
+				is_at_war = yes # Added v3.14
 			}
 		}
 		allow = {
@@ -10182,6 +10087,11 @@ country_event = {
 		# set_country_flag = diadochi_1
 		force_remove_civic = civic_great_khans_legacy
 		force_add_civic = civic_diadochi
+		if = {
+			limit = { is_pacifist = yes }
+			country_remove_ethic = ethic_pacifist
+			shift_ethic = ethic_militarist
+		}
 
 		every_subject = { # "The End of the Satrapy"
 			limit = { is_default_or_fallen = yes }
@@ -10782,8 +10692,6 @@ country_event = {
 				force_add_civic = civic_slaver_guilds
 			}
 		}
-		# set_name = random
-		# save_event_target_as = new_khanate
 		every_subject = {
 			limit = { is_default_or_fallen = yes }
 			set_subject_of = { who = none }
@@ -10929,7 +10837,7 @@ country_event = {
 		get_marauder_species = yes
 		create_country = {
 			name_list = random
-			name = random
+			# name = random
 			species = event_target:marauder_species
 			type = default
 			authority = auth_democratic
@@ -10939,7 +10847,7 @@ country_event = {
 			ignore_initial_colony_error = yes
 			exclude_day_zero_contact = root
 			effect = {
-				# set_name = random later
+				set_name = random # later?
 				set_country_flag = democratic_khanate_flag
 				save_event_target_as = new_khanate
 				root = {
@@ -10958,14 +10866,14 @@ country_event = {
 				limit = { has_global_flag = cultural_overhaul_active }
 				random_list = {
 					1 = { country_add_ethic = ethic_pacifist }
-					1 = { country_add_ethic = ethic_socialism }
-					1 = { country_add_ethic = ethic_fanatic_socialism }
-					1 = { country_add_ethic = ethic_capitalism }
+					3 = { country_add_ethic = ethic_socialism }
+					2 = { country_add_ethic = ethic_fanatic_socialism }
+					2 = { country_add_ethic = ethic_capitalism }
 					1 = { country_add_ethic = ethic_fanatic_capitalism }
-					1 = { country_add_ethic = ethic_spiritualist }
-					1 = { country_add_ethic = ethic_fanatic_spiritualist }
-					1 = { country_add_ethic = ethic_materialist }
-					1 = { country_add_ethic = ethic_fanatic_materialist }
+					3 = { country_add_ethic = ethic_spiritualist }
+					2 = { country_add_ethic = ethic_fanatic_spiritualist }
+					3 = { country_add_ethic = ethic_materialist }
+					2 = { country_add_ethic = ethic_fanatic_materialist }
 				}
 				if = {
 					limit = {
@@ -10979,41 +10887,41 @@ country_event = {
 					if = {
 						limit = { is_pacifist = yes }
 						random_list = {
-							1 = { country_add_ethic = ethic_socialism }
-							1 = { country_add_ethic = ethic_capitalism }
-							1 = { country_add_ethic = ethic_spiritualist }
-							1 = { country_add_ethic = ethic_materialist }
+							2 = { country_add_ethic = ethic_socialism }
+							2 = { country_add_ethic = ethic_capitalism }
+							2 = { country_add_ethic = ethic_spiritualist }
+							2 = { country_add_ethic = ethic_materialist }
 						}
 					}
 					else_if = {
 						limit = { is_socialist = yes }
 						random_list = {
 							1 = { country_add_ethic = ethic_pacifist }
-							1 = { country_add_ethic = ethic_spiritualist }
-							1 = { country_add_ethic = ethic_materialist }
+							2 = { country_add_ethic = ethic_spiritualist }
+							3 = { country_add_ethic = ethic_materialist }
 						}
 					}
 					else_if = {
 						limit = { is_capitalism = yes }
 						random_list = {
 							1 = { country_add_ethic = ethic_pacifist }
-							1 = { country_add_ethic = ethic_spiritualist }
-							1 = { country_add_ethic = ethic_materialist }
+							2 = { country_add_ethic = ethic_spiritualist }
+							3 = { country_add_ethic = ethic_materialist }
 						}
 					}
 					else_if = {
 						limit = { is_spiritualist = yes }
 						random_list = {
-							1 = { country_add_ethic = ethic_socialism }
-							1 = { country_add_ethic = ethic_capitalism }
+							3 = { country_add_ethic = ethic_socialism }
+							2 = { country_add_ethic = ethic_capitalism }
 							1 = { country_add_ethic = ethic_pacifist }
 						}
 					}
 					else_if = {
 						limit = { is_materialist = yes }
 						random_list = {
-							1 = { country_add_ethic = ethic_socialism }
-							1 = { country_add_ethic = ethic_capitalism }
+							3 = { country_add_ethic = ethic_socialism }
+							2 = { country_add_ethic = ethic_capitalism }
 							1 = { country_add_ethic = ethic_pacifist }
 						}
 					}
