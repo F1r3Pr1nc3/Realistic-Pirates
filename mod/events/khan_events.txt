@@ -787,7 +787,7 @@ country_event = {
 				country_event = { id = khan.307 days = 3 scopes = { from = root } } # Just reenable
 			}
 		}
-		set_faction_hostility = { target = from set_hostile = no set_neutral = no set_friendly = yes }
+		set_faction_hostility = { target = from set_friendly = yes }
 		add_trust = { amount = 90 who = from }
 		random_agreement = {
 			limit = {
@@ -811,7 +811,7 @@ country_event = {
 			event_target:marauders_garrison_1 = {
 				if = {
 					limit = { is_hostile = root }
-					set_faction_hostility = { target = root set_hostile = no set_neutral = no set_friendly = yes }
+					set_faction_hostility = { target = root set_friendly = yes }
 					add_trust = { amount = 90 who = root }
 					root = {
 						add_trust = { amount = 90 who = prev }
@@ -819,7 +819,7 @@ country_event = {
 				}
 				if = {
 					limit = { is_hostile = root.from }
-					set_faction_hostility = { target = from set_hostile = no set_neutral = no set_friendly = yes }
+					set_faction_hostility = { target = from set_friendly = yes }
 					add_trust = { amount = 90 who = root.from }
 					root.from = {
 						add_trust = { amount = 90 who = prev }
@@ -837,7 +837,7 @@ country_event = {
 		}
 		from = { # Superfluous?
 			add_trust = { amount = 90 who = root }
-			set_faction_hostility = { target = root set_hostile = no set_neutral = no set_friendly = yes }
+			set_faction_hostility = { target = root set_friendly = yes }
 		}
 		if = {
 			limit = { has_country_flag = attacking_fleets_stopped }
@@ -978,7 +978,7 @@ country_event = {
 									is_subject_of_khan = yes
 								}
 							}
-							prevprev = { set_faction_hostility = { target = prev set_hostile = yes set_neutral = no set_friendly = no } }
+							prevprev = { set_faction_hostility = { target = prev set_hostile = yes } }
 						}
 						## Set_friendly
 						every_subject = {
@@ -1006,7 +1006,7 @@ country_event = {
 							}
 							log = "Fix Garrison hostility for [This.GetName]"
 							prevprev = {
-								set_faction_hostility = { target = prev set_hostile = no set_neutral = no set_friendly = yes }
+								set_faction_hostility = { target = prev set_friendly = yes }
 								country_event = { id = khan.308 scopes = { from = prev } days = 1 } # Set friendly again
 							}
 						}
@@ -1014,7 +1014,7 @@ country_event = {
 					## Always set Garrison friendly to Khan
 					if = {
 						limit = { is_hostile = root }
-						set_faction_hostility = { target = root set_hostile = no set_neutral = no set_friendly = yes }
+						set_faction_hostility = { target = root set_friendly = yes }
 						country_event = { id = khan.308 scopes = { from = root } days = 1 } # Set friendly again
 					}
 				}
@@ -1328,7 +1328,7 @@ country_event = {
 		}
 		else = {
 			ordered_owned_planet = {
-				limit = { is_colony = yes }
+				limit = { is_planet_eligible_for_treasure_planet = yes }
 				position = 0
 				order_by = trigger:num_sapient_pops
 				save_event_target_as = capital_planet

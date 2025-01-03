@@ -847,12 +847,7 @@ country_event = {
 		save_event_target_as = bulwark_war_target
 		event_target:bulwark_committing_to_war = {
 			country_event = { id = tob_quest.11 days = 5400 }
-			set_faction_hostility = {
-				target = root
-				set_hostile = yes
-				set_neutral = no
-				set_friendly = no
-			}
+			set_faction_hostility = { target = root set_hostile = yes }
 			every_owned_fleet = {
 				limit = {
 					OR = {
@@ -940,12 +935,7 @@ country_event = {
 			remove_country_flag = bulwark_on_techies_quest
 			remove_country_flag = bulwark_on_monsters_quest
 			root = {
-				set_faction_hostility = {
-					target = prev
-					set_hostile = no
-					set_neutral = yes
-					set_friendly = no
-				}
+				set_faction_hostility = { target = prev set_neutral = yes }
 			}
 		}
 		set_variable = { which = bulwarkquestbudget value = 0 }
