@@ -238,6 +238,7 @@ country_event = {
 	hide_window = yes
 	trigger = {
 		is_country_type = dormant_marauders
+		num_fleets > 0
 		any_relation = {
 			merg_is_default_empire = yes
 			has_communications = root
@@ -281,31 +282,6 @@ country_event = {
 	is_triggered_only = yes
 	immediate = {
 		from = { save_event_target_as = encountered_marauder get_marauder_raid_source = yes }
-		# if = {
-		# 	limit = {
-		# 		from = { has_country_flag = marauder_1 }
-		# 	}
-		# 	random_system = {
-		# 		limit = { has_star_flag = marauder_capital_1 }
-		# 		save_event_target_as = marauder_system
-		# 	}
-		# } else_if = {
-		# 	limit = {
-		# 		from = { has_country_flag = marauder_2 }
-		# 	}
-		# 	random_system = {
-		# 		limit = { has_star_flag = marauder_capital_2 }
-		# 		save_event_target_as = marauder_system
-		# 	}
-		# } else_if = {
-		# 	limit = {
-		# 		from = { has_country_flag = marauder_3 }
-		# 	}
-		# 	random_system = {
-		# 		limit = { has_star_flag = marauder_capital_3 }
-		# 		save_event_target_as = marauder_system
-		# 	}
-		# }
 	}
 	option = {
 		name = marauder.1.a
@@ -761,9 +737,7 @@ country_event = {
 	immediate = {
 		random = { chance = 50
 			random_owned_planet = {
-				limit = {
-					habitability = { who = event_target:marauder_species value > 0.4 }
-				}
+				limit = { habitability = { who = event_target:marauder_species value > 0.4 } }
 				weights = { base = 1
 					modifier = { add = 5 free_housing > 0 }
 					modifier = { add = 10 free_housing > 1 }
@@ -1684,9 +1658,7 @@ country_event = {
 				}
 			}
 		}
-		event_target:current_marauder_diplomacy = {
-			get_marauder_species = yes
-		}
+		event_target:current_marauder_diplomacy = { get_marauder_species = yes }
 	}
 	after = {
 		hidden_effect = {
@@ -2287,10 +2259,7 @@ country_event = {
 			every_country = { limit = { has_communications = event_target:raiding_marauder } establish_communications_no_message = prev }
 			event_target:raiding_marauder = {
 				set_country_flag = parent_of@prev
-				set_faction_hostility = {
-					target = prev
-					set_friendly = yes
-				}
+				set_faction_hostility = { target = prev set_friendly = yes }
 				switch = { trigger = has_country_flag
 					marauder_1 = { prev = { set_country_flag = marauder_1 } }
 					marauder_2 = { prev = { set_country_flag = marauder_2 } }
@@ -3062,9 +3031,7 @@ country_event = {
 		add_resource = { energy = @leadercost }
 		custom_tooltip = hire_general_merc
 		hidden_effect = {
-			event_target:current_marauder_diplomacy = {
-				create_marauder_merc_general = yes
-			}
+			event_target:current_marauder_diplomacy = { create_marauder_merc_general = yes }
 		}
 		response_text = marauder.40.a.response
 		is_dialog_only = yes
@@ -3102,9 +3069,7 @@ country_event = {
 		add_resource = { energy = @leadercost }
 		custom_tooltip = hire_general_merc
 		hidden_effect = {
-			event_target:current_marauder_diplomacy = {
-				create_marauder_merc_general = yes
-			}
+			event_target:current_marauder_diplomacy = { create_marauder_merc_general = yes }
 		}
 		response_text = marauder.40.b.response
 		is_dialog_only = yes
@@ -3142,9 +3107,7 @@ country_event = {
 		add_resource = { energy = @leadercost }
 		custom_tooltip = hire_general_merc
 		hidden_effect = {
-			event_target:current_marauder_diplomacy = {
-				create_marauder_merc_general = yes
-			}
+			event_target:current_marauder_diplomacy = { create_marauder_merc_general = yes }
 		}
 		response_text = marauder.40.c.response
 		is_dialog_only = yes
@@ -3985,32 +3948,22 @@ country_event = {
 			set_country_flag = marauder_tribute_1@event_target:raiding_marauder
 		}
 		else_if = {
-			limit = {
-				has_monthly_income = { resource = minerals value <= 100 }
-			}
+			limit = { has_monthly_income = { resource = minerals value <= 100 } }
 			set_country_flag = marauder_tribute_2@event_target:raiding_marauder
 		}
 		else_if = {
-			limit = {
-				has_monthly_income = { resource = minerals value <= 150 }
-			}
+			limit = { has_monthly_income = { resource = minerals value <= 150 } }
 			set_country_flag = marauder_tribute_3@event_target:raiding_marauder
 		}
 		else_if = {
-			limit = {
-				has_monthly_income = { resource = minerals value <= 200 }
-			}
+			limit = { has_monthly_income = { resource = minerals value <= 200 } }
 			set_country_flag = marauder_tribute_4@event_target:raiding_marauder
 		}
 		else_if = {
-			limit = {
-				has_monthly_income = { resource = minerals value <= 250 }
-			}
+			limit = { has_monthly_income = { resource = minerals value <= 250 } }
 			set_country_flag = marauder_tribute_5@event_target:raiding_marauder
 		}
-		else = {
-			set_country_flag = marauder_tribute_6@event_target:raiding_marauder
-		}
+		else = { set_country_flag = marauder_tribute_6@event_target:raiding_marauder }
 		set_timed_country_flag = { flag = recently_raided_or_threatened years = 5 }
 		set_country_flag = raid_target_of@event_target:raiding_marauder
 		set_country_flag = under_marauder_attack
@@ -4044,10 +3997,7 @@ country_event = {
 			create_marauder_merc_admiral = yes
 			event_target:raiding_marauder = {
 				set_country_flag = parent_of@event_target:marauder_raiding_country
-				set_faction_hostility = {
-					target = event_target:marauder_raiding_country
-					set_friendly = yes
-				}
+				set_faction_hostility = { target = event_target:marauder_raiding_country set_friendly = yes }
 				## Compat. Realistic Pirates
 				if = {
 					limit = { has_global_flag = pirate_waves_active }
@@ -4411,9 +4361,7 @@ country_event = {
 		}
 		allow = { determine_energy_tribute_raided = yes }
 		tribute_cost_energy_raided = yes
-		hidden_effect = {
-			remove_country_flag = under_marauder_attack
-		}
+		hidden_effect = { remove_country_flag = under_marauder_attack }
 	}
 	option = {
 		# Offer Mineral tribute
@@ -4424,9 +4372,7 @@ country_event = {
 		}
 		allow = { determine_mineral_tribute_raided = yes }
 		tribute_cost_minerals_raided = yes
-		hidden_effect = {
-			remove_country_flag = under_marauder_attack
-		}
+		hidden_effect = { remove_country_flag = under_marauder_attack }
 	}
 	option = {
 		# Offer Food tribute
@@ -4437,9 +4383,7 @@ country_event = {
 		}
 		allow = { determine_food_tribute_raided = yes }
 		tribute_cost_food_raided = yes
-		hidden_effect = {
-			remove_country_flag = under_marauder_attack
-		}
+		hidden_effect = { remove_country_flag = under_marauder_attack }
 	}
 	option = {
 		# Ugly
@@ -4462,9 +4406,7 @@ country_event = {
 		}
 		allow = { determine_energy_tribute_raided = yes }
 		tribute_cost_energy_raided = yes
-		hidden_effect = {
-			remove_country_flag = under_marauder_attack
-		}
+		hidden_effect = { remove_country_flag = under_marauder_attack }
 	}
 	option = {
 		# Offer Mineral tribute
@@ -4475,9 +4417,7 @@ country_event = {
 		}
 		allow = { determine_mineral_tribute_raided = yes }
 		tribute_cost_minerals_raided = yes
-		hidden_effect = {
-			remove_country_flag = under_marauder_attack
-		}
+		hidden_effect = { remove_country_flag = under_marauder_attack }
 	}
 	option = {
 		# Offer Food tribute
@@ -4488,9 +4428,7 @@ country_event = {
 		}
 		allow = { determine_food_tribute_raided = yes }
 		tribute_cost_food_raided = yes
-		hidden_effect = {
-			remove_country_flag = under_marauder_attack
-		}
+		hidden_effect = { remove_country_flag = under_marauder_attack }
 	}
 	# Marauder 3
 	option = {
@@ -4502,9 +4440,7 @@ country_event = {
 		}
 		allow = { determine_energy_tribute_raided = yes }
 		tribute_cost_energy_raided = yes
-		hidden_effect = {
-			remove_country_flag = under_marauder_attack
-		}
+		hidden_effect = { remove_country_flag = under_marauder_attack }
 	}
 	option = {
 		# Offer Mineral tribute
@@ -4515,9 +4451,7 @@ country_event = {
 		}
 		allow = { determine_mineral_tribute_raided = yes }
 		tribute_cost_minerals_raided = yes
-		hidden_effect = {
-			remove_country_flag = under_marauder_attack
-		}
+		hidden_effect = { remove_country_flag = under_marauder_attack }
 	}
 	option = {
 		# Offer Food tribute
@@ -4528,9 +4462,7 @@ country_event = {
 		}
 		allow = { determine_food_tribute_raided = yes }
 		tribute_cost_food_raided = yes
-		hidden_effect = {
-			remove_country_flag = under_marauder_attack
-		}
+		hidden_effect = { remove_country_flag = under_marauder_attack }
 	}
 	option = {
 		# Refuse
@@ -5593,10 +5525,7 @@ event = {
 							establish_communications_no_message = prev
 						}
 						set_country_flag = raid_ongoing
-						set_faction_hostility = {
-							target = event_target:raiding_marauder
-							set_friendly = yes
-						}
+						set_faction_hostility = { target = event_target:raiding_marauder set_friendly = yes }
 					}
 				}
 				event_target:marauder_raiding_country = {
@@ -5604,10 +5533,7 @@ event = {
 					create_marauder_merc_admiral = yes
 					event_target:raiding_marauder = {
 						set_country_flag = parent_of@prev
-						set_faction_hostility = {
-							target = prev
-							set_friendly = yes
-						}
+						set_faction_hostility = { target = prev set_friendly = yes }
 						## Dynamic raid costs TODO needs update each effect.
 						if = {
 							limit = { has_global_flag = pirate_waves_active }
@@ -7045,9 +6971,7 @@ country_event = {
 				set_variable = { which = CmtVarTemp4 value = CmtVarTemp }
 				multiply_variable = { which = CmtVarTemp4 value = 0.25 }
 				every_owned_pop = {
-					limit = {
-						NOR = { is_robot_pop = yes is_same_species = root.species is_enslaved = yes }
-					}
+					limit = { NOR = { is_robot_pop = yes is_same_species = root.species is_enslaved = yes } }
 					unemploy_pop = yes
 				}
 
@@ -9902,19 +9826,19 @@ fleet_event = {
 						random = { chance = 20
 								event_target:CmtGlobalVar = { set_variable = { which = CmtVarWhileControlFleet value = 0 } }
 								if = {
-								limit = { event_target:satrapy_empire = { max_naval_capacity < 150 } }
+									limit = { event_target:satrapy_empire = { max_naval_capacity < 150 } }
 									CmtEffectCreateFleet_KhanSubReinforcement1 = yes
 								}
 								else_if = {
-								limit = { event_target:satrapy_empire = { max_naval_capacity < 280 } }
+									limit = { event_target:satrapy_empire = { max_naval_capacity < 280 } }
 									CmtEffectCreateFleet_KhanSubReinforcement2 = yes
 								}
 								else_if = {
-								limit = { event_target:satrapy_empire = { max_naval_capacity < 420 } }
+									limit = { event_target:satrapy_empire = { max_naval_capacity < 420 } }
 									CmtEffectCreateFleet_KhanSubReinforcement3 = yes
 								}
 								else_if = {
-								limit = { event_target:satrapy_empire = { max_naval_capacity < 700 } }
+									limit = { event_target:satrapy_empire = { max_naval_capacity < 700 } }
 									CmtEffectCreateFleet_KhanSubReinforcement4 = yes
 								}
 								else = { CmtEffectCreateFleet_KhanSubReinforcement5 = yes }
@@ -10114,9 +10038,9 @@ country_event = {
 				create_second_diadochi = yes
 				create_third_diadochi = yes
 				create_fourth_diadochi = yes
-				# create_diadochi = { NUM = "first"	}
+				# create_diadochi = { NUM = "first" }
 				# create_diadochi = { NUM = "second"	}
-				# create_diadochi = { NUM = "third"	}
+				# create_diadochi = { NUM = "third" }
 				# create_diadochi = { NUM = "fourth"	}
 			}
 			else_if = { # Three Diadochi
@@ -10146,9 +10070,9 @@ country_event = {
 				# create_second_diadochi = yes already exists
 				create_third_diadochi = yes
 				create_fourth_diadochi = yes
-				# create_diadochi = { NUM = "second"	}
+				# create_diadochi = { NUM = "second" }
 				# create_diadochi = { NUM = "third"	}
-				# create_diadochi = { NUM = "fourth"	}
+				# create_diadochi = { NUM = "fourth" }
 			}
 			else = { # Two Diadochi (Marauder small)
 				save_event_target_as = third_diadochi
@@ -10161,7 +10085,7 @@ country_event = {
 				assign_diadochi_systems = { NUM = 2 }
 				# create_third_diadochi = yes already exists
 				create_fourth_diadochi = yes
-				# create_diadochi = { NUM = "third"	}
+				# create_diadochi = { NUM = "third" }
 				# create_diadochi = { NUM = "fourth"	}
 			}
 			# set_diadochi_claims = yes (must be later)
@@ -12090,9 +12014,7 @@ country_event = {
 						}
 					}
 					random_owned_planet = {
-						limit = {
-							habitability = { who = event_target:marauder_neighbor_species value > 0.4 }
-						}
+						limit = { habitability = { who = event_target:marauder_neighbor_species value > 0.4 } }
 						weights = { base = 1
 							modifier = { add = 5 free_housing > 0 }
 							modifier = { add = 10 free_housing > 1 }
@@ -12185,9 +12107,7 @@ country_event = {
 			skill = 4
 			leader_age_min = 25
 			leader_age_max = 45
-			traits = {
-				trait = leader_trait_mercenary_warrior
-			}
+			traits = { trait = leader_trait_mercenary_warrior }
 			effect = { add_trait = random_common }
 		}
 		custom_tooltip = gain_marauder_admiral
