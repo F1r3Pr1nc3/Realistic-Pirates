@@ -1,5 +1,5 @@
 spriteTypes = {
-	# map
+	# Map
 	spriteType = {
 		name = "GFX_hfe_map_mode_pirate"
 		texturefile = "gfx/interface/icons/map_mode/map_mode_pirate.dds"

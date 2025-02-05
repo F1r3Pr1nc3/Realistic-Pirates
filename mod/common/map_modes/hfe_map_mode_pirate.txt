@@ -43,6 +43,7 @@ hfe_map_mode_pirate = {
 	}
 	# pirate raid target
 	color = {
+		enable_terra_incognita = yes
 		value = hsv { 0.0 1.0 0.6 1.0 }
 		custom_tooltip = hfe_map_mode_pirate_prior
 		condition = {
@@ -62,6 +63,7 @@ hfe_map_mode_pirate = {
 	}
 	# pirate protect
 	color = {
+		enable_terra_incognita = yes
 		value = hsv { 0.4 0.5 1.0 1.0 }
 		custom_tooltip = hfe_map_mode_pirate_protect
 		condition = {
@@ -76,6 +78,7 @@ hfe_map_mode_pirate = {
 	}
 	# pirate investment pact
 	color = {
+		enable_terra_incognita = yes
 		value = hsv { 0.37 0.8 1.0 1.0 }
 		custom_tooltip = hfe_map_mode_pirate_investment_pact
 		condition = {
@@ -90,6 +93,7 @@ hfe_map_mode_pirate = {
 	}
 	# hostile
 	color = {
+		enable_terra_incognita = yes
 		value = hsv { 0.05 0.6 0.8 1.0 }
 		custom_tooltip = hfe_map_mode_pirate_attack
 		condition = {
