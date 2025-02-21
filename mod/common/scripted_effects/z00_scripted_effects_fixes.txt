@@ -4,10 +4,10 @@ ask_empire_if_they_want_this_revolt = {
 		if = { # Vanilla Bug Fix (v.3.11) for syncretic species by FirePrince https://forum.paradoxplaza.com/forum/threads/stellaris-massive-overlooked-issue-with-syncretic-evolution-origin.1622715/
 			limit = { has_trait = trait_syncretic_proles }
 			event_target:revolt_situation.target = { modify_species = { species = prev remove_trait = trait_syncretic_proles } }
-			log="Changed rebelling syncretic species \\[Root.owner_main_species.GetName] from \\[Prev.GetName]!"
+			log = "FIX: Changed rebelling syncretic species \\[Root.owner_species.GetName] from \\[Prev.GetName]!"
 		}
 	}
-	ordered_country = {
+	ordered_playable_country = {
 		position = 0
 		order_by = trigger:num_owned_planets
 		limit = {

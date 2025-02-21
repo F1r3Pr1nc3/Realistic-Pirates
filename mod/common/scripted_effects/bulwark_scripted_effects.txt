@@ -38,7 +38,7 @@ create_dyn_bulwark_fleet = {
 		set_variable = { which = pirates_f_tmp value = 0.5 }
 	}
 	prev = {
-		# log="create_dyn_pirate_fleet \\[prev.pirates_f_tmp]"
+		# log = "create_dyn_pirate_fleet \\[prev.pirates_f_tmp]"
 		[[LOWCORVETTE]
 		create_ship_design = { design = "NAME_BULWARK_LOWCORVETTE" }
 		set_variable = { which = fleet_f_tmp value = prev.pirates_f_tmp }

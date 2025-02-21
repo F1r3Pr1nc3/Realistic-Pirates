@@ -828,7 +828,7 @@ country_event = {
 				limit = { NOT = { exists = event_target:marauder_infighting } }
 				# Make opponent species more diverse and random.
 				random_country = {
-					limit = { CmtTriggerIsMarauder = yes exists = species }
+					limit = { is_marauder = yes exists = species }
 					species = { save_event_target_as = marauder_species }
 				}
 				create_country = {
@@ -2108,7 +2108,7 @@ country_event = {
 				# set_variable = { which = raidallow value = @raidallow }
 				# multiply_variable = { which = raidallow value = pirates_factor }
 				# multiply_variable = { which = raidallow value = 1.5 } # As it is only half for marauders.
-				# log="raidallow [This.raidallow]"
+				# log = "raidallow [This.raidallow]"
 				# switch = { # Price depending on difficulty?
 				# 	trigger = has_country_flag
 				# 	pirate_waves_very_easy = {
@@ -2138,7 +2138,7 @@ country_event = {
 			event_target:current_marauder_diplomacy = {
 				if = {
 					limit = { is_variable_set = raidcost }
-					# log="Dyn. Raidcost \\[This.raidcost] and difficulty \\[This.pirate_waves_difficulty]"
+					# log = "Dyn. Raidcost \\[This.raidcost] and difficulty \\[This.pirate_waves_difficulty]"
 					clear_variable = raidcost
 				}
 			}
@@ -3593,7 +3593,7 @@ country_event = {
 		}
 		if = {
 			limit = { NOT = { exists = event_target:marauder_species } }
-			owner_main_species = { save_event_target_as = marauder_species }
+			owner_species = { save_event_target_as = marauder_species }
 		}
 
 		switch = { trigger = has_country_flag
@@ -4522,7 +4522,7 @@ planet_event = {
 					root = { any_fleet_in_orbit = { is_same_value = prevprev } }
 				}
 				save_event_target_as = raiding_fleet
-				# log="Save Marauder Raid Fleet on [Root.GetName]"
+				# log = "Save Marauder Raid Fleet on [Root.GetName]"
 			}
 		}
 		if = {
@@ -4530,11 +4530,11 @@ planet_event = {
 			random_country = {
 				limit = { is_country_type = dormant_marauders has_country_flag = parent_of@from }
 				save_event_target_as = marauder_country
-				# log="Save Marauder Country on [Root.GetName]"
+				# log = "Save Marauder Country on [Root.GetName]"
 			}
 		}
 		else = {
-			# log="Marauder Raiders on [Root.GetName] lost they origin system."
+			# log = "Marauder Raiders on [Root.GetName] lost they origin system."
 			from = { save_event_target_as = marauder_country }
 		}
 
@@ -4560,7 +4560,7 @@ planet_event = {
 					}
 				}
 			}
-			# log="Invalid Marauder Raid Target [This.GetName]"
+			# log = "Invalid Marauder Raid Target [This.GetName]"
 			## Break Attack immediately
 			event_target:raiding_fleet = {
 				remove_auto_move_target = yes
@@ -4630,7 +4630,7 @@ planet_event = {
 						}
 					}
 				}
-				# log="Save New Marauder Raid Target Victim"
+				# log = "Save New Marauder Raid Target Victim"
 				random_country = {
 					limit = {
 						is_default_or_fallen = yes
@@ -4652,7 +4652,7 @@ planet_event = {
 						}
 					}
 				}
-				# log="Save fallback Marauder1 Raid Target Victim"
+				# log = "Save fallback Marauder1 Raid Target Victim"
 				owner = { save_event_target_as = raid_victim }
 			}
 			if = { # Raid anyway
@@ -4671,7 +4671,7 @@ planet_event = {
 						}
 					}
 				}
-				# log="Save fallback Marauder2 Raid Target Victim"
+				# log = "Save fallback Marauder2 Raid Target Victim"
 				controller = { save_event_target_as = raid_victim }
 				# Free planet
 				if = {
@@ -4689,7 +4689,7 @@ planet_event = {
 
 			if = {
 				limit = { exists = event_target:raid_victim exists = event_target:raiding_fleet }
-				# log="Search New Marauder Raid Target Planet"
+				# log = "Search New Marauder Raid Target Planet"
 				solar_system = {
 					closest_system = {
 						use_bypasses = yes
@@ -4710,7 +4710,7 @@ planet_event = {
 							save_event_target_as = raid_planet
 						}
 						event_target:raiding_fleet = {
-							# log="Found New Marauder Raid Target: [raid_planet.GetName]"
+							# log = "Found New Marauder Raid Target: [raid_planet.GetName]"
 							set_event_locked = no
 							every_owned_ship = {
 								limit = { is_disabled = yes }
@@ -4733,7 +4733,7 @@ planet_event = {
 						exists = event_target:raiding_fleet
 						NOT = { exists = event_target:raid_planet }
 					}
-					# log="No new Marauder Raid Target found, return home"
+					# log = "No new Marauder Raid Target found, return home"
 					event_target:raiding_fleet = {
 						set_event_locked = no
 						every_owned_ship = {
@@ -4866,8 +4866,8 @@ planet_event = {
 				limit = { exists = fromfrom exists = fromfrom.species }
 				fromfrom.species = { save_event_target_as = marauder_species }
 			}
-			# log="Marauder From.species exists [marauder_species.GetName]"
-		} # else = { log="No Marauder Species fromfrom [fromfrom.GetName]" }
+			# log = "Marauder From.species exists [marauder_species.GetName]"
+		} # else = { log = "No Marauder Species fromfrom [fromfrom.GetName]" }
 
 		owner = {
 			set_variable = { which = destruction_amount value = 3 }
@@ -5654,7 +5654,7 @@ event = {
 						event_target:hired_marauders = {
 							add_resource = { energy = @raidcost mult = prev.raidcost }
 						}
-						log="raidcost [This.raidcost]"
+						log = "raidcost [This.raidcost]"
 						clear_variable = raidcost
 					}
 				}
@@ -6333,7 +6333,7 @@ country_event = {
 
 		### Only for 2nd awakening.
 		if = {
-			limit = { has_origin = "origin_khan_successor" }
+			limit = { has_origin = origin_khan_successor }
 			if = {
 				limit = { has_federation = yes }
 				leave_alliance = { override_requirements = yes apply_opinion_penalty = yes }
@@ -6416,21 +6416,29 @@ country_event = {
 
 		if = {
 			limit = { is_ai = no host_has_dlc = Apocalypse }
-			if = { ### NSC FREEBOOTERS SUPPORT
-				limit = { has_global_flag = has_nsc_freebooters_mod }
-				if = {
-					limit = { count_playable_country = { limit = { is_same_empire = root } count = 0 } }
-					set_country_type = default
-				}
-				set_origin = "origin_nsc_freebooter"
+			### NSC FREEBOOTERS SUPPORT has_global_flag = has_nsc_freebooters_mod
 				# if = { TODO !?
 				# 	limit = { is_megacorp = yes }
 				# 	force_add_civic = nsc_freebooter_civic_freebooter_trait_change_corp
 				# }
 				# else = { force_add_civic = nsc_freebooter_civic_freebooter_trait_change }
-				force_add_civic = nsc_freebooter_civic_great_khans_vision # later?
+			inline_script = {
+				script = merger_of_rules/toggled_code
+				code = "
+			if = {
+				limit = { count_playable_country = { limit = { is_same_empire = root } count = 0 } }
+				set_country_type = default
 			}
-			else = { force_add_civic = civic_slaver_guilds force_add_civic = civic_barbaric_despoilers }
+			set_origin = origin_nsc_freebooter
+			force_add_civic = nsc_freebooter_civic_great_khans_vision
+				"
+				toggle = @has_nsc_freebooter_mod
+			}
+			if = {
+				limit = { NOT = { has_global_flag = has_nsc_freebooters_mod } }
+				force_add_civic = civic_slaver_guilds
+				force_add_civic = civic_barbaric_despoilers
+			}
 		}
 		else = {
 			set_country_type = awakened_marauders
@@ -6483,7 +6491,7 @@ country_event = {
 			name = random
 			class = commander
 			gender = male
-			species = owner_main_species
+			species = owner_species
 			skill = 6
 			event_leader = yes
 			can_manually_change_location = no
@@ -6516,13 +6524,16 @@ country_event = {
 		# }
 
 		last_created_leader = {
-			if = { ### NSC FREEBOOTERS SUPPORT
-				limit = { has_global_flag = has_nsc_freebooters_mod }
+			inline_script = { ### NSC FREEBOOTERS SUPPORT has_global_flag = has_nsc_freebooters_mod
+				script = merger_of_rules/toggled_code
+				code = "
 				add_trait_no_notify = nsc_freebooter_leader_trait_ruler_great_khan
 				if = {
 					limit = { has_trait = nsc_freebooter_leader_trait_ruler_great_khan has_trait = leader_trait_ruler_great_khan }
 					remove_trait = leader_trait_ruler_great_khan
 				}
+				"
+				toggle = @has_nsc_freebooter_mod
 			}
 
 			# Only really applicable destiny unfortunately
@@ -6601,8 +6612,11 @@ country_event = {
 				limit = { NOT = { has_trait = subclass_commander_admiral } }
 				add_trait_no_notify = subclass_commander_admiral
 			}
-			if = { ### NSC FREEBOOTERS SUPPORT
-				limit = { has_global_flag = has_nsc_freebooters_mod has_trait = nsc_freebooter_leader_trait_ruler_great_khan }
+			inline_script = { ### NSC FREEBOOTERS SUPPORT has_global_flag = has_nsc_freebooters_mod
+				script = merger_of_rules/toggled_code
+				code = "
+			if = {
+				limit = { has_trait = nsc_freebooter_leader_trait_ruler_great_khan }
 				remove_trait = nsc_freebooter_leader_trait_ruler_great_khan
 				add_trait_no_notify = nsc_freebooter_admiral_trait_great_khan
 				if = {
@@ -6610,7 +6624,13 @@ country_event = {
 					remove_trait = leader_trait_great_khan
 				}
 			}
-			else = { remove_trait = leader_trait_ruler_great_khan add_trait_no_notify = leader_trait_great_khan }
+				"
+				toggle = @has_nsc_freebooter_mod
+			}
+			if = {
+				limit = { NOT = { has_global_flag = has_nsc_freebooters_mod } }
+				remove_trait = leader_trait_ruler_great_khan add_trait_no_notify = leader_trait_great_khan
+			}
 			if = {
 				limit = { NOT = { has_trait = leader_trait_gunship_specialization_3 } }
 				add_trait_no_notify = leader_trait_gunship_specialization_3
@@ -6834,6 +6854,59 @@ country_event = {
 					# 1 = { modifier = { factor = 0 prev = { NOT = { has_civic = civic_inwards_perfection } } } set_council_position = councilor_inwards_perfection }
 					# 1 = { modifier = { factor = 0 prev = { NOT = { has_civic = civic_warrior_culture } } } set_council_position = councilor_warrior_culture }
 				}
+			}
+		}
+	}
+	after = {
+		### Khan Fleet Attacks Closest Hostile System
+		# Give Khan a kick, prevent strange AI idle bug.
+		event_target:great_khan.fleet = {
+			if = {
+				limit = {
+					is_fleet_idle = yes
+				}
+				closest_system = {
+					limit = {
+						can_generate_trade_value = yes
+						exists = starbase
+						owner = {
+							NOT = { is_same_empire = root }
+							OR = {
+								is_hostile_to = root
+								is_hostile = root
+							}
+						}
+						prev = { can_access_system = prev }
+					}
+					max_steps = 12
+					prev = {
+						auto_move_to_planet = {
+							target = prev.star
+							clear_auto_move_on_arrival = yes
+						}
+						# auto_follow_fleet = { target = prev.starbase.fleet attack_fleet = yes }
+					}
+				}
+			}
+
+		}
+		random_owned_leader = {
+			limit = {
+				is_idle = yes
+				leader_class = commander
+				exists = fleet
+				fleet = {
+					is_fleet_idle = yes
+					NOR = {
+						has_fleet_flag = khan_fleet
+						has_fleet_flag = satrapy_garrison
+						has_fleet_flag = satrapy_garrison_fleet
+					}
+				}
+			}
+			weights = { base = 1 modifier = { add = 99 has_trait = subclass_commander_admiral } }
+			fleet = {
+				auto_follow_fleet = { target = event_target:great_khan.fleet }
 			}
 		}
 	}
@@ -7311,19 +7384,6 @@ country_event = {
 					country_event = { id = marauder.523 days = 210 random = 160 }
 				}
 			}
-			# Back to the fold
-			every_controlled_fleet = {
-				limit = {
-					exists = solar_system
-					# NOR = { is_ship_class = shipclass_starbase is_ship_class = shipclass_military_station is_ship_class = shipclass_transport is_civilian = yes }
-					is_mobile = yes
-					any_owned_ship = {
-						OR = { is_ship_class = shipclass_military is_ship_class = shipclass_transport }
-					}
-					NOT = { is_within_borders_of = root.owner }
-				}
-				fleet_event = { id = khan.611 days = -1 }
-			}
 		}
 		else = { # Khan dies (former .509)
 			set_global_flag = great_khan_dead
@@ -7385,6 +7445,46 @@ country_event = {
 				country_event = { id = marauder.600 days = @CmtConstKhanLifespan_6e random = @CmtConstKhanLifespan_6f }
 			}
 			else = { country_event = { id = marauder.600 days = @CmtConstKhanLifespan_3e random = @CmtConstKhanLifespan_3f } }
+		}
+	}
+	after = {
+		# Back to the fold
+		hidden_effect = {
+			every_controlled_fleet = {
+				limit = {
+					is_mobile = yes
+					exists = solar_system
+					# any_owned_ship = {
+					# 	OR = { is_ship_class = shipclass_military is_ship_class = shipclass_transport }
+					# }
+					NOR = {
+						has_fleet_flag = satrapy_garrison
+						has_fleet_flag = satrapy_garrison_fleet
+						has_fleet_flag = horde_auxuliaries
+						is_alliance_fleet = yes
+						has_ship_owner_type = galactic_community
+						has_ship_owner_type = federation
+						solar_system = {
+							OR = {
+								has_star_flag = marauder_system
+								has_star_flag = marauder_cluster
+								AND = {
+									exists = root.capital_star
+									exists = star
+									star = { is_planet = root.capital_star }
+								}
+							}
+						}
+					}
+				}
+				if = {
+					limit = { is_within_borders_of = root.owner }
+					random = { chance = 33 fleet_event = { id = khan.611 days = 7 } }
+				}
+				else = {
+					fleet_event = { id = khan.611 }
+				}
+			}
 		}
 	}
 }
@@ -7701,7 +7801,7 @@ country_event = {
 			country_event = { id = crisis.4099 days = 29 } # Declare Crisis
 			# set_country_type = dormant_marauders # Hack for trigger?
 			set_country_flag = new_khanate_flag
-			set_origin = "origin_khan_successor"
+			set_origin = origin_khan_successor
 			event_target:raider_khanate = {
 				every_subject = {
 					limit = { is_subject_of_khan = yes }
@@ -7714,9 +7814,16 @@ country_event = {
 					marauder_2 = { prev = { set_country_flag = marauder_2 save_global_event_target_as = marauder_country_2 } }
 					marauder_3 = { prev = { set_country_flag = marauder_3 save_global_event_target_as = marauder_country_3 } }
 				}
-				if = { ### NSC FREEBOOTERS SUPPORT
-					limit = { has_global_flag = has_nsc_freebooters_mod exists = capital_scope }
+
+				inline_script = { ### NSC FREEBOOTERS SUPPORT has_global_flag = has_nsc_freebooters_mod
+					script = merger_of_rules/toggled_code
+					code = "
+					if = {
+						limit = { exists = capital_scope }
 					capital_scope = { planet_event = { id = nsc_freebooter.1 } }
+				}
+					"
+					toggle = @has_nsc_freebooter_mod
 				}
 				country_event = { id = marauder.600 } # The Future of the Horde
 			}
@@ -9234,7 +9341,7 @@ country_event = {
 	# 				category = all
 	# 				value > pathetic
 	# 			}
-	# 			has_origin = "origin_khan_successor"
+	# 			has_origin = origin_khan_successor
 	# 		}
 	# 		tech_unlocked_ratio = { who = from ratio < 0.7 }
 	# 	}
@@ -9601,10 +9708,10 @@ country_event = {
 							limit = {
 								NOT = {
 									# is_same_empire = prevprev
-									has_origin = "origin_khan_successor"
+									has_origin = origin_khan_successor
 									# any_agreement = { agreement_preset = preset_war_satrapy }
 								}
-								CmtTriggerIsMarauder = no
+								is_marauder = no
 							}
 							prev = {
 								prev = { set_truce = { target = prev type = war } }
@@ -9721,7 +9828,7 @@ country_event = {
 				is_part_of_galactic_council = yes
 			}
 		}
-		modifier = { factor = 0.6 OR = { has_ai_personality = peaceful_traders has_origin = "origin_khan_successor" } }
+		modifier = { factor = 0.6 OR = { has_ai_personality = peaceful_traders has_origin = origin_khan_successor } }
 		modifier = { factor = 0.4
 			OR = {
 				has_ai_personality = fanatic_befrienders
@@ -9737,14 +9844,9 @@ country_event = {
 		event_target:raider_khanate = {
 			if = {
 				limit = { is_hostile = prev }
-				set_faction_hostility = {
-					target = prev
-					set_hostile = no
-					# set_neutral = yes
-					set_friendly = yes
-				}
+				set_faction_hostility = { target = prev set_friendly = yes }
 			}
-			country_event = { id = khan.309 days = 1 } # To be sure
+			country_event = { id = khan.309 days = 1 } # Friendly to be sure
 		}
 	}
 	after = {
@@ -10188,7 +10290,7 @@ country_event = {
 				divide_variable = { which = EX_sectors_per_diadochi value = num_diadochi }
 			}
 			ceiling_variable = EX_sectors_per_diadochi
-			log="Extra sectors per Diadochi: [This.EX_sectors_per_diadochi]"
+			log = "Extra sectors per Diadochi: [This.EX_sectors_per_diadochi]"
 			while = { count = num_diadochi
 				ordered_owned_sector = {
 					limit = { NOT = { has_sector_flag = counted_sector } }
@@ -10289,10 +10391,6 @@ country_event = {
 					set_sector_flag = finished_sector
 					save_event_target_as = diadochi_leader_sector
 					## CREATE_DIADOCHI_COUNTRY
-					if = {
-						limit = { has_global_flag = cultural_overhaul_active }
-						if = {
-							limit = { has_global_flag = cultural_overhaul_funefork_active }
 							random_list = {
 								90 = {
 									create_country = {
@@ -10301,7 +10399,7 @@ country_event = {
 										type = default
 										authority = auth_imperial
 										civics = { civic = random civic = random }
-										origin = "origin_khan_successor"
+										origin = origin_khan_successor
 										ethos = { ethic = ethic_militarist ethic = ethic_authoritarian }
 										ignore_initial_colony_error = yes
 										exclude_day_zero_contact = root
@@ -10316,7 +10414,7 @@ country_event = {
 										type = default
 										authority = auth_dictatorial
 										civics = { civic = random civic = random }
-										origin = "origin_khan_successor"
+										origin = origin_khan_successor
 										ethos = { ethic = ethic_militarist ethic = ethic_xenophobe }
 										ignore_initial_colony_error = yes
 										exclude_day_zero_contact = root
@@ -10324,6 +10422,9 @@ country_event = {
 										released_from_country = root
 									}
 								}
+						inline_script = { # if = { limit = { has_global_flag = cultural_overhaul_active has_global_flag = cultural_overhaul_funefork_active }
+							script = merger_of_rules/toggled_code
+							code = "
 								1 = {
 									create_country = {
 										name_list = random
@@ -10331,7 +10432,7 @@ country_event = {
 										type = default
 										authority = auth_dict_democratic
 										civics = { civic = random civic = random }
-										origin = "origin_khan_successor"
+										origin = origin_khan_successor
 										ethos = { ethic = ethic_militarist ethic = ethic_authoritarian }
 										ignore_initial_colony_error = yes
 										exclude_day_zero_contact = root
@@ -10339,57 +10440,8 @@ country_event = {
 										released_from_country = root
 									}
 								}
-							}
-						}
-						else = {
-							random_list = {
-								90 = {
-									create_country = {
-										name_list = random
-										species = event_target:marauder_species
-										type = default
-										authority = auth_imperial
-										civics = { civic = random civic = random }
-										origin = "origin_khan_successor"
-										ethos = { ethic = ethic_militarist ethic = ethic_authoritarian }
-										ignore_initial_colony_error = yes
-										exclude_day_zero_contact = root
-										released_by_country = root
-										released_from_country = root
-									}
-								}
-								10 = {
-									create_country = {
-										name_list = random
-										species = event_target:marauder_species
-										type = default
-										authority = auth_dictatorial
-										civics = { civic = random civic = random }
-										origin = "origin_khan_successor"
-										ethos = { ethic = ethic_militarist ethic = ethic_xenophobe }
-										ignore_initial_colony_error = yes
-										exclude_day_zero_contact = root
-										released_by_country = root
-										released_from_country = root
-									}
-								}
-							}
-						}
-					}
-					else = {
-						create_country = {
-							name = random
-							name_list = random
-							species = event_target:marauder_species
-							type = default
-							authority = auth_imperial
-							civics = { civic = random civic = random }
-							origin = "origin_khan_successor"
-							ethos = { ethic = ethic_militarist ethic = ethic_authoritarian }
-							ignore_initial_colony_error = yes
-							exclude_day_zero_contact = root
-							released_by_country = root
-							released_from_country = root
+							"
+							toggle = @[ has_eca_funefork + has_bug_branch + has_ecc_cog + post_revolutionary_re_revolution_years ]
 						}
 					}
 					### DIADOCHI_COUNTRY_SETUP
@@ -10408,8 +10460,6 @@ country_event = {
 						inline_script = {
 							script = merger_of_rules/toggled_code
 							code = "
-						if = {
-							limit = { has_global_flag = cultural_overhaul_active }
 							random_list = {
 								1 = { country_add_ethic = ethic_xenophobe }
 								1 = { country_add_ethic = ethic_fanatic_xenophobe }
@@ -10469,11 +10519,9 @@ country_event = {
 									}
 								}
 							}
-						}
 							"
 							toggle = @[ has_eca_funefork + has_bug_branch + has_ecc_cog + post_revolutionary_re_revolution_years ]
 						}
-
 
 						if = {
 							limit = { count_playable_country = { limit = { has_country_flag = diadochi_2 } count = 0 } }
@@ -10621,7 +10669,7 @@ country_event = {
 			type = default
 			authority = auth_imperial
 			civics = { civic = civic_great_khans_legacy civic = random }
-			origin = "origin_khan_successor"
+			origin = origin_khan_successor
 			# flag = {
 			# 	icon = { category = "pirate" file = }
 			# 	background = { category = "backgrounds" file = "triangle_split.dds" }
@@ -10795,7 +10843,7 @@ country_event = {
 			type = default
 			authority = auth_democratic
 			civics = random
-			origin = "origin_khan_successor"
+			origin = origin_khan_successor
 			ethos = { ethic = ethic_fanatic_egalitarian ethic = ethic_xenophile }
 			ignore_initial_colony_error = yes
 			exclude_day_zero_contact = root
@@ -10814,8 +10862,9 @@ country_event = {
 		# save_event_target_as = new_khanate
 		event_target:new_khanate = {
 		## SET_CULTURAL_OVERHAUL_ETHICS (By MrFunEGUY)
-			if = {
-				limit = { has_global_flag = cultural_overhaul_active }
+			inline_script = { # if = { limit = { has_global_flag = cultural_overhaul_active has_global_flag = cultural_overhaul_funefork_active }
+				script = merger_of_rules/toggled_code
+				code = "
 				random_list = {
 					1 = { country_add_ethic = ethic_pacifist }
 					3 = { country_add_ethic = ethic_socialism }
@@ -10882,10 +10931,10 @@ country_event = {
 					50 = { change_government = { authority = auth_democratic civics = random } }
 					50 = { change_government = { authority = auth_strict_democratic civics = random } }
 				}
+				"
+				toggle = @[ has_eca_funefork + has_bug_branch + has_ecc_cog + post_revolutionary_re_revolution_years ]
 			}
-			else = {
-				change_government = { authority = auth_democratic civics = random }
-			}
+
 			root = {
 				switch = { trigger = has_country_flag
 					marauder_1 = { if = { limit = { exists = event_target:marauder_country_1 } event_target:marauder_country_1 = { destroy_country = yes } } }
@@ -11021,7 +11070,7 @@ country_event = {
 			species = event_target:restored_marauders
 			type = dormant_marauders
 			civics = { civic = civic_anarcho_tribalism civic = civic_slaver_guilds civic = random }
-			origin = "origin_khan_successor"
+			origin = origin_khan_successor
 			flag = event_target:restored_marauders
 			ethos = { ethic = ethic_fanatic_militarist ethic = ethic_xenophobe }
 			ignore_initial_colony_error = yes
@@ -11121,7 +11170,7 @@ country_event = {
 				multiply_variable = { which = marauder_distance_1 value = 0.5 }
 				floor_variable = marauder_distance_1
 			}
-			log="Distance second [second_marauder_system.marauder_distance_1]"
+			log = "Distance second [second_marauder_system.marauder_distance_1]"
 			every_owned_starbase = {
 				limit = {
 					solar_system = { is_capital_system = no }
@@ -11254,7 +11303,7 @@ country_event = {
 					multiply_variable = { which = marauder_distance_2 value = 0.5 }
 					floor_variable = marauder_distance_2
 
-					log="Distance third to \\[This.marauder_distance_1] to \\[This.marauder_distance_2]"
+					log = "Distance third to \\[This.marauder_distance_1] to \\[This.marauder_distance_2]"
 				}
 				# Near same as second
 				every_owned_starbase = {
@@ -12397,7 +12446,7 @@ country_event = {
 			create_leader = {
 				name = random
 				class = commander
-				species = owner_main_species
+				species = owner_species
 				skill = 3
 				event_leader = yes
 				can_manually_change_location = no
@@ -12478,11 +12527,17 @@ country_event = {
 				save_global_event_target_as = great_khan
 				recruitable = no
 
-				if = { ### NSC FREEBOOTERS SUPPORT
-					limit = { has_global_flag = has_nsc_freebooters_mod root = { is_ai = no } }
+				inline_script = { ### NSC FREEBOOTERS SUPPORT has_global_flag = has_nsc_freebooters_mod
+					script = merger_of_rules/toggled_code
+					code = "
+				if = {
+					limit = { root = { is_ai = no } }
 					event_target:great_khan_ruler = { remove_trait = leader_trait_ruler_great_khan add_trait_no_notify = nsc_freebooter_leader_trait_ruler_child_of_great_khan }
 					remove_trait = leader_trait_great_khan
 					add_trait_no_notify = nsc_freebooter_admiral_trait_child_of_great_khan
+				}
+					"
+					toggle = @has_nsc_freebooter_mod
 				}
 
 				if = {

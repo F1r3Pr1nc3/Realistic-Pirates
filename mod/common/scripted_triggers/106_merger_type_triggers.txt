@@ -256,7 +256,8 @@ is_crisis_faction = {
 		is_country_type = voidworms_crisis
 		# is_country_type = formless removed in v3.12.3
 		# is_cruel_abomination_country_type = yes # Cruel Conquerers
-		# is_country_type = darkness_country # Destiny: The Darkness Crisis
+		# Destiny: The Darkness Crisis
+		# is_country_type = darkness_country TODO
 		inline_script = { # Shroud Rising
 			script = merger_of_rules/toggled_code
 			code = "

@@ -317,7 +317,7 @@ country_event = {
 				event_target:pirate_target = {
 					planet_event = { id = pirate_republic.11 days = 16 random = 8 }
 				}
-			} # else = { log="pirate_target not found for \\[This.GetName]" }
+			} # else = { log = "pirate_target not found for \\[This.GetName]" }
 		}
 	}
 }
@@ -467,7 +467,7 @@ planet_event = {
 		if = {
 			limit = { NOT = { exists = event_target:pirate_republic } }
 			break = yes
-		} # else = { log="Separatists: \\[pirate_republic.GetName] and \\[last_created_country.GetName]" }
+		} # else = { log = "Separatists: \\[pirate_republic.GetName] and \\[last_created_country.GetName]" }
 		event_target:pirate_republic = {
 			randomize_flag_symbol = pirate
 			set_graphical_culture = "pirate_01"
@@ -573,7 +573,7 @@ planet_event = {
 				change_variable = { which = num_armies_var value = prev.pirates_factor }
 				multiply_variable = { which = num_armies_var value = prev.pirates_f_tmp2 }
 				round_variable = num_armies_var
-				# log="Pirate invasion army amount \\[This.num_armies_var] and \\[Prev.pirates_f_tmp2]"
+				# log = "Pirate invasion army amount \\[This.num_armies_var] and \\[Prev.pirates_f_tmp2]"
 				while = { count = num_armies_var # 25
 					create_army = {
 						name = "Pirate Invaders"
@@ -798,7 +798,7 @@ planet_event = {
 							set_variable = { which = num_armies_var value = 5 }
 							change_variable = { which = num_armies_var value = prev.pirates_factor }
 							multiply_variable = { which = num_armies_var value = prev.pirates_f_tmp2 }
-							# log="Pirate invasion army amount \\[This.num_armies_var] and \\[Prev.pirates_f_tmp2]"
+							# log = "Pirate invasion army amount \\[This.num_armies_var] and \\[Prev.pirates_f_tmp2]"
 							while = { count = num_armies_var # 25
 								create_army = {
 									name = "Pirate Invaders"
@@ -1349,7 +1349,7 @@ event = {
 						}
 					}
 				}
-				# log="Fix pirate_republic on save load" # For  [event_target:rebel_country.GetName].
+				# log = "Fix pirate_republic on save load" # For  [event_target:rebel_country.GetName].
 				random_controlled_fleet = {
 					limit = {
 						OR = { is_mobile = no is_civilian = no }
@@ -1368,7 +1368,7 @@ event = {
 						}
 					}
 					solar_system = {
-						# log="Fix pirate_republic at system [This.GetName]"
+						# log = "Fix pirate_republic at system [This.GetName]"
 						random_system_colony = {
 							limit = {
 								is_colony = yes
@@ -1507,7 +1507,7 @@ event = {
 						starbase = { set_owner = event_target:old_owner }
 					}
 				}
-				log="Destroy rebel country"
+				log = "Destroy rebel country"
 				destroy_country = yes
 			}
 		}
@@ -1573,7 +1573,7 @@ event = {
 						every_owned_ship = {
 							set_disabled = no
 						}
-						log="Fixed starbase [Prev.solar_system.GetName]"
+						log = "Fixed starbase [Prev.solar_system.GetName]"
 					}
 				}
 			}
@@ -1582,13 +1582,13 @@ event = {
 				limit = {
 					has_origin = origin_separatists
 					any_owned_species = {
-						is_same_species = prev.owner_main_species
+						is_same_species = prev.owner_species
 						has_trait = trait_syncretic_proles
 					}
 				}
 				every_owned_species = {
 					limit = {
-						is_same_species = prev.owner_main_species
+						is_same_species = prev.owner_species
 						has_trait = trait_syncretic_proles
 					}
 					prev = {
@@ -1598,7 +1598,7 @@ event = {
 							remove_trait = trait_syncretic_proles
 							change_scoped_species = yes
 							effect = {
-								log="Fixed syncretic owner_main_species from [Prev.GetName]"
+								log = "Fixed syncretic owner_species from [Prev.GetName]"
 							}
 						}
 						if = {

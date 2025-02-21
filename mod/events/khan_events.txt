@@ -99,16 +99,16 @@ system_event = {
 			# 	if = {
 			# 		limit = { graphical_culture = pirate_01 }
 			# 		set_graphical_culture = "reptilian_01"
-			# 		# log="set_graphical_culture reptilian_01"
+			# 		# log = "set_graphical_culture reptilian_01"
 			# 		set_variable = { which = has_pirate_01 value = 1 }
 			# 	}
 			# }
 			# TODO Trying to create a starbase with an invalid starbase design sik'El'Re for ship size starbase_citadel (note: starbases cannot have components that allow them to move or go FTL)
-			log="Try create starbase_citadel on [This.GetName]"
+			log = "Try create starbase_citadel on [This.GetName]"
 			event_target:raider_khanate = {
 				if = {
 					limit = {
-						NOR = {
+						NAND = {
 							has_existing_ship_design = starbase_citadel
 							has_technology = tech_starbase_2
 							has_technology = tech_starbase_3
@@ -116,10 +116,15 @@ system_event = {
 							has_technology = tech_starbase_5
 						}
 					}
-					give_tech_no_error_effect = { MESSAGE = no TECH = tech_starbase_2 }
-					give_tech_no_error_effect = { MESSAGE = no TECH = tech_starbase_3 }
-					give_tech_no_error_effect = { MESSAGE = no TECH = tech_starbase_4 }
-					give_tech_no_error_effect = { MESSAGE = no TECH = tech_starbase_5 }
+					inverted_switch = { trigger = has_technology
+						tech_starbase_2		= { give_technology = { tech = tech_starbase_2 } }
+						tech_starbase_3		= { give_technology = { tech = tech_starbase_3 } }
+						tech_starbase_4		= { give_technology = { tech = tech_starbase_4 } }
+						tech_starbase_5		= { give_technology = { tech = tech_starbase_5 } }
+						tech_power_plant_4	= { give_technology = { tech = tech_power_plant_4 } }
+						tech_mining_3		= { give_technology = { tech = tech_mining_3 } }
+						tech_power_hub_1	= { give_technology = { tech = tech_power_hub_1 } }
+					}
 				}
 				# FIXME Trying to create a starbase with an invalid starbase design
 				create_ship_design = { design = "NAME_Marauder_Citadel" }
@@ -346,7 +351,7 @@ ship_event = {
 					}
 				}
 			}
-			# log="Give marauder starbase former owner"
+			# log = "Give marauder starbase former owner"
 			solar_system = {
 				if = {
 					limit = {
@@ -515,7 +520,7 @@ ship_event = {
 						}
 					}
 				}
-				log="destroy starbase marauder"
+				log = "destroy starbase marauder"
 				fleet = {
 					every_owned_ship = { destroy_ship = this }
 				}
@@ -899,7 +904,7 @@ country_event = {
 		}
 		## Fix ongoing hostility
 		if = { limit = { is_overlord = yes }
-			# log="The Great Khan is_overlord"
+			# log = "The Great Khan is_overlord"
 			every_subject = {
 				limit = {
 					# is_subject_of_khan = yes
@@ -1039,7 +1044,7 @@ system_event = {
 	}
 	immediate = {
 		# system_owner does not exists
-		# log="test khan.310 [former_starbase_owner.GetName] or [Fromfrom.Owner.GetName]"
+		# log = "test khan.310 [former_starbase_owner.GetName] or [Fromfrom.Owner.GetName]"
 		if = {
 			limit = {
 				exists = starbase
@@ -1061,7 +1066,7 @@ system_event = {
 				limit = { NOT = { has_star_flag = starbase_destroyed } }
 				system_event = { id = khan.310 days = 2 scopes = { from = root fromfrom = fromfrom } }
 				set_timed_star_flag = { flag = starbase_destroyed days = 5 }
-				log="khan.310 starbase owned by [former_starbase_owner.GetName] or [Fromfrom.Owner.GetName]"
+				log = "khan.310 starbase owned by [former_starbase_owner.GetName] or [Fromfrom.Owner.GetName]"
 			}
 			break = yes
 		}
@@ -1281,7 +1286,7 @@ planet_event = {
 		NOT = { exists = leader }
 		exists = owner
 		owner = {
-			CmtTriggerIsMarauder = yes
+			is_marauder = yes
 			any_owned_leader = {
 				leader_class = official
 				NOT = { exists = planet }
@@ -1574,7 +1579,7 @@ country_event = {
 			}
 			owner_species = { save_event_target_as = marauder_species }
 		}
-		log="Handover raider_khanate [From.GetName] to Diadochi [This.GetName]."
+		log = "Handover raider_khanate [From.GetName] to Diadochi [This.GetName]."
 		if = {
 			limit = {
 				OR = {
@@ -1630,7 +1635,7 @@ country_event = {
 				}
 				position = 0
 				order_by = trigger:num_sapient_pops
-				log="Give system [Prev.GetName] back to [This.Owner.GetName]"
+				log = "Give system [Prev.GetName] back to [This.Owner.GetName]"
 				owner = { save_event_target_as = planet_owner }
 				prev = {
 					# commit_system_to = { EMPIRE = prevprev.planet_owner } # The target scope is solved there (so add 1 more prev)
@@ -1811,7 +1816,7 @@ country_event = {
 			# Store each fleet_power to var.
 			every_playable_country = {
 				limit = {
-					NOR = { is_variable_set = "successor_fleet_power" has_origin = "origin_khan_successor" }
+					NOR = { is_variable_set = "successor_fleet_power" has_origin = origin_khan_successor }
 					fleet_power > 40000
 				}
 				if = {
@@ -1923,7 +1928,7 @@ country_event = {
 						}
 						root = { change_dominant_species = { species = prev } }
 						save_event_target_as = marauder_species
-						log="DIADOCHI TAKE CAPITAL SPECIES"
+						log = "DIADOCHI TAKE CAPITAL SPECIES"
 					}
 				}
 			}
@@ -1941,7 +1946,7 @@ country_event = {
 				log = "DIADOCHI RECHECK MARAUDER SPECIES"
 				get_marauder_species = yes
 			}
-			1 = { log="DIADOCHI OLD MARAUDER SPECIES" }
+			1 = { log = "DIADOCHI OLD MARAUDER SPECIES" }
 		}
 		if = {
 			limit = {
@@ -2038,7 +2043,7 @@ fleet_event = {
 				limit = {
 					NAND = {
 						has_owner = yes
-						# exists = space_owner
+						exists = space_owner
 						exists = starbase
 						is_owned_by = root.owner
 					}
@@ -2047,27 +2052,49 @@ fleet_event = {
 					if = {
 						limit = { exists = event_target:marauder_rally_point }
 						if = {
-							limit = { OR = { is_in_combat = yes has_fleet_order = merge_fleet_order has_fleet_order = land_armies_order } }
-							# log="auto_move_to_planet [This.GetName]"
+							limit = {
+								OR = {
+									is_in_combat = yes
+									has_fleet_order = merge_fleet_order
+									has_fleet_order = land_armies_order
+								}
+							}
 							auto_move_to_planet = { target = event_target:marauder_rally_point clear_auto_move_on_arrival = yes }
+							# log = "auto_move_to_planet [This.GetName]"
 						}
-						else = {
+						else_if = {
+							limit = { can_go_mia = yes }
 							remove_auto_move_target = yes
 							clear_fleet_actions = this
-							# log="set_mia [This.GetName]"
 							set_mia = mia_return_home
+							# log = "set_mia [This.GetName]"
 						}
 					}
 					else = {
-						# log="order_forced_return [This.GetName]"
 						order_forced_return = yes
+						# log = "order_forced_return [This.GetName]"
 					}
 				}
 			}
 		}
 	}
 	after = {
-		fleet_event = { id = khan.613 days = 5 }
+		# Assign leader to fleet
+		if = {
+			limit = {
+				NOR = { exists = leader is_ship_class = shipclass_transport }
+				exists = owner
+				owner = {
+					any_owned_leader = {
+						leader_class = commander
+						OR = { is_idle = yes has_leader_flag = restored_admiral@root }
+						is_councilor = no
+						is_ruler = no
+					}
+				}
+			}
+			fleet_event = { id = khan.613 days = 7 }
+		}
 	}
 }
 
@@ -2078,7 +2105,7 @@ country_event = {
 	is_triggered_only = yes
 	trigger = {
 		is_ai = yes
-		OR = { has_origin = "origin_khan_successor" is_country_type = awakened_marauders }
+		OR = { has_origin = origin_khan_successor is_country_type = awakened_marauders }
 	}
 	immediate = {
 		# TODO: Capital habitat? Special deposits? Flavor difference between khan, diadochi and fed?
@@ -2150,6 +2177,7 @@ country_event = {
 }
 
 # Try workaround for strange fleet behavior (on country transfer)
+# Assign leader to fleet
 fleet_event = {
 	id = khan.613
 	hide_window = yes
@@ -2183,7 +2211,11 @@ fleet_event = {
 					modifier = { add = 4 NOT = { exists = fleet } }
 					modifier = { add = 1 is_idle = yes }
 				}
-				root = { set_leader = prev assign_leader = prev log = "Assign leader [Prev.GetName] to [This.GetName]" }
+				root = {
+					set_leader = prev
+					assign_leader = prev
+					log = "Assign leader \\[Prev.GetName] to fleet \\[This.GetName]"
+				}
 			}
 		}
 	}
@@ -2312,16 +2344,16 @@ system_event = {
 						# TODO: Add negative modifier that needs to be removed with expensive decision?
 						start_colony = { # Needed to generate colony_age
 							owner = from
-							species = from.owner_main_species
+							species = from.owner_species
 							ethos = { ethic = "ethic_militarist" ethic = "ethic_egalitarian" }
 						}
 						# create_colony = {
 						# 	owner = from
-						# 	species = from.owner_main_species
+						# 	species = from.owner_species
 						# 	ethos = { ethic = "ethic_militarist" ethic = "ethic_egalitarian" }
 						# }
 						create_pop = {
-							species = from.owner_main_species
+							species = from.owner_species
 							ethos = { ethic = "ethic_militarist" ethic = "ethic_egalitarian" }
 							count = 5
 						}
@@ -2380,7 +2412,7 @@ system_event = {
 			random_planet_within_border = {
 				limit = {
 					is_colonizable = yes
-					habitability = { who = prev.owner_main_species value > 0.65 }
+					habitability = { who = prev.owner_species value > 0.65 }
 				}
 				weights = { base = 1
 					modifier = { add = 3
@@ -2389,7 +2421,7 @@ system_event = {
 				}
 				start_colony = {
 					owner = prev
-					species = prev.owner_main_species
+					species = prev.owner_species
 					# ethos = owner
 				}
 			}
@@ -2426,7 +2458,7 @@ country_event = {
 							OR = {
 								NOT = { exists = space_owner }
 								space_owner = { is_gestalt = yes }
-								space_owner = { merg_is_default_empire = no }
+								can_generate_trade_value = no
 							}
 						}
 						set_owner = space_owner

@@ -143,3 +143,10 @@
  policy_pirate_waves_desc: "Этой политикой Вы можете установить как часто будет прилетать новый флот.\n"
  policy_pirate_waves_difficulty: "$policy_pirate_waves$ $FE_DIFFICULTY$"
  policy_pirate_waves_difficulty_desc: "С помощью этой политики вы можете установить сложность пиратов.\n"
+ # map mod
+ hfe_map_mode_pirate:0 "Пиратская карта"
+ hfe_map_mode_pirate_desc:0 "Эта карта показывает известные действия, отношения и цели пиратских наций. Также отображает тех, кого грабят, наиболее приоритетные цели для грабежа, а также тех, кто находится под защитой рэкета."
+ hfe_map_mode_pirate_prior:0 "Приоритетная цель"
+ hfe_map_mode_pirate_protect:0 "Защитный рэкет"
+ hfe_map_mode_pirate_investment_pact:0 "Инвестиционный пакт"
+ hfe_map_mode_pirate_attack:0 "Статус грабежа"

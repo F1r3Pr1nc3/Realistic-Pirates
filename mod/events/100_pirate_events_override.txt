@@ -414,7 +414,7 @@ ship_event = {
 				}
 				starbase = { has_starbase_size > starbase_outpost }
 			}
-			# log="take pirate starbase"
+			# log = "take pirate starbase"
 			# if = { limit = { starbase = { has_starbase_size > starbase_outpost } }
 			from = {
 				save_event_target_as = pirate_slayers
@@ -438,7 +438,7 @@ ship_event = {
 		else_if = {
 			limit = { owner = { is_pirate_country = yes } }
 			starbase = { destroy_fleet = fleet }
-			# log="destroy pirate station"
+			# log = "destroy pirate station"
 			break = yes
 		}
 		if = {
@@ -497,7 +497,7 @@ ship_event = {
 					}
 				}
 			}
-			# log="destroy pirate starbase"
+			# log = "destroy pirate starbase"
 			fleet = { every_owned_ship = { destroy_ship = this } }
 			destroy_fleet = fleet
 		}

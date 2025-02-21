@@ -2257,7 +2257,7 @@ event = {
 		}
 	}
 	immediate = {
-		log="Looking for new Marauder place."
+		log = "Looking for new Marauder place."
 		random_system = {
 			limit = {
 				is_pirate_system = yes
@@ -2604,7 +2604,7 @@ event = {
 		}
 	}
 	immediate = {
-		log="Looking for new Marauder system."
+		log = "Looking for new Marauder system."
 		random_country = {
 			limit = {
 				is_country_type = dormant_marauders

@@ -171,3 +171,10 @@
  # In 3.5 Removed Vanilla Names
  NAME_Lookouts:0 "Lookouts"
  NAME_Pirate_Hideout:0 "Pirate Hideout"
+ # Map Mod
+ hfe_map_mode_pirate:0 "Pirate Map"
+ hfe_map_mode_pirate_desc:0 "This Map shows the known actions, opinions, and targets of pirate nations. It also shows those being plundered and the highest priority targets to be plundered, as well as showing those under protection rackets."
+ hfe_map_mode_pirate_prior:0 "High Priority Target"
+ hfe_map_mode_pirate_protect:0 "Protection Racket"
+ hfe_map_mode_pirate_investment_pact:0 "Investment Pact"
+ hfe_map_mode_pirate_attack:0 "Plundering Status"
