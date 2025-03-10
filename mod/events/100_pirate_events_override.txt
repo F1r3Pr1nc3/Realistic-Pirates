@@ -204,9 +204,10 @@ country_event = {
 	}
 }
 
-## New Ships (HIDDEN)
+## New Ships (HIDDEN) on_five_year_pulse
+# Former pirate.2
 event = {
-	id = pirate.2
+	id = pirate.0
 	hide_window = yes
 	trigger = {
 		mid_game_years_passed < 20
@@ -312,8 +313,7 @@ country_event = {
 				85 = { country_event = { id = pirate.25 } } # Get Loot
 				15 = {
 					country_event = { id = pirate.26 } # Get L-Cluster Insight
-					modifier = {
-						factor = 0
+					modifier = { factor = 0
 						NAND = {
 							has_event_chain = l_cluster_chain
 							from = { is_pirate = yes }
@@ -423,8 +423,7 @@ ship_event = {
 						85 = { country_event = { id = pirate.25 } } # Get Loot
 						15 = {
 							country_event = { id = pirate.26 } # Get L-Cluster Insight
-							modifier = {
-								factor = 0
+							modifier = { factor = 0
 								OR = {
 									NOT = { has_event_chain = l_cluster_chain }
 									root.owner = { is_country_type = rebel }

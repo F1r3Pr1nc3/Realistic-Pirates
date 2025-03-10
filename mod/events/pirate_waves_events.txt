@@ -1362,7 +1362,8 @@ event = {
 				country_event = { id = pirate_waves.0 }
 			}
 		}
-		else = {
+		else_if = {
+			limit = { exists = event_target:pirate_waves_country }
 			event_target:pirate_waves_country = { make_moderately_hostile = yes }
 			if = {
 				limit = { exists = event_target:pirate_waves_2_country }
