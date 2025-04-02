@@ -197,12 +197,14 @@ country_event = {
 			## Get majority rebel species
 			every_owned_species = {
 				limit = { is_same_species = root.owner_species has_trait = trait_syncretic_proles }
-				prev = {
-					export_trigger_value_to_variable = {
-						trigger = count_owned_pop
-						variable = species_pop_count
-						parameters = {
-							limit = { is_exact_same_species = prevprev pop_has_trait = trait_syncretic_proles }
+				export_trigger_value_to_variable = {
+					trigger = count_species_pop
+					variable = species_pop_count
+					parameters = {
+						limit = {
+							is_exact_same_species = prevprev
+							pop_has_trait = trait_syncretic_proles
+							is_owned_by = root
 						}
 					}
 				}
@@ -224,10 +226,10 @@ country_event = {
 				if = {
 					limit = { NOR = { has_trait = trait_syncretic_proles is_variable_set = species_pop_count } }
 					export_trigger_value_to_variable = {
-						trigger = count_owned_pop
+						trigger = count_species_pop
 						variable = species_pop_count
 						parameters = {
-							limit = { NOT = { has_trait = trait_syncretic_proles } }
+							limit = { NOT = { has_trait = trait_syncretic_proles } is_owned_by = root }
 						}
 					}
 					if = {
@@ -881,7 +883,7 @@ country_event = {
 		else_if = {
 			limit = { num_ethics = 0 }
 			if = {
-				limit = { NOT = { exists = from } any_owned_planet = { } }
+				limit = { NOT = { exists = from } count_owned_planet = { count > 0 } }
 				if = {
 					limit = { NOT = { exists = capital_scope } }
 					ordered_owned_planet = {
@@ -1469,12 +1471,16 @@ country_event = {
 	}
 	immediate = {
 		set_timed_country_flag = { flag = cc_rebel_ethic_sorted days = 14 }
-		change_government = {
-			authority = random
-			civics = random
-			remove_invalid_civics = yes
+		# FIXME sometimes: change_government effect failed to calculate configuration
+		# Ethics result invalid: [ethic_gestalt_consciousness] cannot be added
+		if = {
+			limit = { is_gestalt = no }
+			change_government = { authority = random civics = random remove_invalid_civics = yes }
 		}
-		set_name = random
+		else = { change_government = random }
 		fire_on_action = { on_action = empire_init_create_ships }
+	}
+	after = {
+		# set_name = random # Because sometimes native didn't work?
 	}
 }

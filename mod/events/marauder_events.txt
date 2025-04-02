@@ -57,42 +57,42 @@ namespace = marauder
 ###################
 
 ### Critical (Lifespan of Khan, debug code)
-@CmtConstKhanLifespan_1a =	1		### Minimun Lifespan / day
+@CmtConstKhanLifespan_1a =	1		### Minimum Lifespan / day
 @CmtConstKhanLifespan_1b =	0.025	### Probability of Death (2%/month for 1)
-@CmtConstKhanLifespan_1c =	35		### Maximun Lifespan / day (days = 1c)
-@CmtConstKhanLifespan_1d =	5		### Maximun Lifespan / day (random = 1d)
+@CmtConstKhanLifespan_1c =	35		### Maximum Lifespan / day (days = 1c)
+@CmtConstKhanLifespan_1d =	5		### Maximum Lifespan / day (random = 1d)
 @CmtConstKhanLifespan_1e =	8		### Time-Lag of Post-Death Process (days = 1e)
 @CmtConstKhanLifespan_1f =	4		### Time-Lag of Post-Death Process (random = 1f)
 
 ### Fleeting (Lifespan of Khan)
-@CmtConstKhanLifespan_2a =	4320	### Minimun Lifespan / day
+@CmtConstKhanLifespan_2a =	4320	### Minimum Lifespan / day
 @CmtConstKhanLifespan_2b =	0.75	### Probability of Death (2%/month for 1)
-@CmtConstKhanLifespan_2c =	7200	### Maximun Lifespan / day (days = 1c)
-@CmtConstKhanLifespan_2d =	2880	### Maximun Lifespan / day (random = 1d)
+@CmtConstKhanLifespan_2c =	7200	### Maximum Lifespan / day (days = 1c)
+@CmtConstKhanLifespan_2d =	2880	### Maximum Lifespan / day (random = 1d)
 @CmtConstKhanLifespan_2e =	90		### Time-Lag of Post-Death Process (days = 1e)
 @CmtConstKhanLifespan_2f =	60		### Time-Lag of Post-Death Process (random = 1f)
 
 ### Standard (Lifespan of Khan)
-@CmtConstKhanLifespan_3a =	7200	### Minimun Lifespan / day
+@CmtConstKhanLifespan_3a =	7200	### Minimum Lifespan / day
 @CmtConstKhanLifespan_3b =	1.00	### Probability of Death (2%/month for 1)
-@CmtConstKhanLifespan_3c =	10800	### Maximun Lifespan / day (days = 1c)
-@CmtConstKhanLifespan_3d =	5000	### Maximun Lifespan / day (random = 1d)
+@CmtConstKhanLifespan_3c =	10800	### Maximum Lifespan / day (days = 1c)
+@CmtConstKhanLifespan_3d =	5000	### Maximum Lifespan / day (random = 1d)
 @CmtConstKhanLifespan_3e =	200		### Time-Lag of Post-Death Process (days = 1e)
 @CmtConstKhanLifespan_3f =	100		### Time-Lag of Post-Death Process (random = 1f)
 
 ### Enduring (Lifespan of Khan)
-@CmtConstKhanLifespan_4a =	10800	### Minimun Lifespan / day
+@CmtConstKhanLifespan_4a =	10800	### Minimum Lifespan / day
 @CmtConstKhanLifespan_4b =	3.00	### Probability of Death (2%/month for 1)
-@CmtConstKhanLifespan_4c =	16200	### Maximun Lifespan / day (days = 1c)
-@CmtConstKhanLifespan_4d =	5400	### Maximun Lifespan / day (random = 1d)
+@CmtConstKhanLifespan_4c =	16200	### Maximum Lifespan / day (days = 1c)
+@CmtConstKhanLifespan_4d =	5400	### Maximum Lifespan / day (random = 1d)
 @CmtConstKhanLifespan_4e =	270		### Time-Lag of Post-Death Process (days = 1e)
 @CmtConstKhanLifespan_4f =	180		### Time-Lag of Post-Death Process (random = 1f)
 
 ### Venerable (Lifespan of Khan)
-@CmtConstKhanLifespan_5a =	18000	### Minimun Lifespan / day
+@CmtConstKhanLifespan_5a =	18000	### Minimum Lifespan / day
 @CmtConstKhanLifespan_5b =	5.00	### Probability of Death (2%/month for 1)
-@CmtConstKhanLifespan_5c =	27000	### Maximun Lifespan / day (days = 1c)
-@CmtConstKhanLifespan_5d =	9000	### Maximun Lifespan / day (random = 1d)
+@CmtConstKhanLifespan_5c =	27000	### Maximum Lifespan / day (days = 1c)
+@CmtConstKhanLifespan_5d =	9000	### Maximum Lifespan / day (random = 1d)
 @CmtConstKhanLifespan_5e =	360		### Time-Lag of Post-Death Process (days = 1e)
 @CmtConstKhanLifespan_5f =	360		### Time-Lag of Post-Death Process (random = 1f)
 
@@ -356,7 +356,7 @@ country_event = {
 						random_system_planet = {
 							limit = { is_star = no }
 							weights = { base = 1
-								# modifier = { add = 1 is_a_planet = yes } # Possible inconsisent due other mods
+								# modifier = { add = 1 is_a_planet = yes } # Possible inconsistent due other mods
 								modifier = { add = 3 has_planet_flag = raid_source }
 								modifier = { add = 2 is_colony = yes }
 								modifier = { add = 1 is_colonizable = yes }
@@ -387,7 +387,7 @@ country_event = {
 						random_system_planet = {
 							limit = { is_star = no }
 							weights = { base = 1
-								# modifier = { add = 1 is_a_planet = yes } # Possible inconsisent due other mods
+								# modifier = { add = 1 is_a_planet = yes } # Possible inconsistent due other mods
 								modifier = { add = 3 has_planet_flag = raid_source }
 								modifier = { add = 2 is_colony = yes }
 								modifier = { add = 1 is_colonizable = yes }
@@ -417,7 +417,7 @@ country_event = {
 						random_system_planet = {
 							limit = { is_star = no }
 							weights = { base = 1
-								# modifier = { add = 1 is_a_planet = yes } # Possible inconsisent due other mods
+								# modifier = { add = 1 is_a_planet = yes } # Possible inconsistent due other mods
 								modifier = { add = 3 has_planet_flag = raid_source }
 								modifier = { add = 2 is_colony = yes }
 								modifier = { add = 1 is_colonizable = yes }
@@ -447,7 +447,7 @@ country_event = {
 						random_system_planet = {
 							limit = { is_star = no }
 							weights = { base = 1
-								# modifier = { add = 1 is_a_planet = yes } # Possible inconsisent due other mods
+								# modifier = { add = 1 is_a_planet = yes } # Possible inconsistent due other mods
 								modifier = { add = 3 has_planet_flag = raid_source }
 								modifier = { add = 2 is_colony = yes }
 								modifier = { add = 1 is_colonizable = yes }
@@ -6161,20 +6161,11 @@ country_event = {
 		years = 100
 		modifier = { factor = 0.5 mid_game_years_passed > 50 }
 		modifier = { factor = 1.5
-			count_country = {
-				limit = { is_country_type = dormant_marauders }
-				count > 1
-			}
-			count_country = {
-				limit = { is_country_type = dormant_marauders }
-				count < 3
-			}
+			count_country = { limit = { is_country_type = dormant_marauders } count > 1 }
+			count_country = { limit = { is_country_type = dormant_marauders } count < 3 }
 		}
 		modifier = { factor = 2
-			count_country = {
-				limit = { is_country_type = dormant_marauders }
-				count > 2
-			}
+			count_country = { limit = { is_country_type = dormant_marauders } count > 2 }
 		}
 	}
 	immediate = {
@@ -6309,7 +6300,7 @@ country_event = {
 			limit = { NOT = { exists = event_target:marauder_rally_point } }
 			random_planet_within_border = {
 				limit = { is_star = no }
-				weights = { base = 1 modifier = { add = 2 is_a_planet = yes } } # Possible inconsisent due other mods
+				weights = { base = 1 modifier = { add = 2 is_a_planet = yes } } # Possible inconsistent due other mods
 				save_global_event_target_as = marauder_rally_point
 				set_planet_flag = marauder_rally_point
 				# set_planet_flag = CmtFlagMarauderExpRallyPoint
@@ -6680,7 +6671,7 @@ country_event = {
 		}
 
 		## Reinforcement cycle
-		country_event = { id = marauder.520 days = 210 }
+		country_event = { id = marauder.520 days = 270 }
 		set_variable = { which = CmtVarKhanReinforcementCounter value = 10 }
 		set_country_flag = use_default_ships
 
@@ -8589,7 +8580,7 @@ country_event = {
 			}
 		}
 		else = {
-			country_event = { id = marauder.520 days = 210 }
+			country_event = { id = marauder.520 days = 270 }
 		}
 
 		if = {
@@ -8614,7 +8605,7 @@ country_event = {
 						}
 					}
 				}
-				country_event = { id = marauder.553 days = 250 } # Init base
+				country_event = { id = marauder.553 days = 270 } # Init base
 			}
 		}
 	}
@@ -9779,16 +9770,16 @@ country_event = {
 	hide_window = yes
 	trigger = {
 		has_global_flag = marauder_crisis_ongoing
+		CmtTriggerNowInKhanCrisis = yes
+		merg_is_default_empire = yes
 		NOR = {
 			has_global_flag = great_khan_dead
 			# has_global_flag = great_khan_wins
 			has_country_flag = rebelling_satrapy
 			has_been_declared_crisis = yes
 			has_country_flag = rebellion_cooldown
+			is_subject = yes
 		}
-		CmtTriggerNowInKhanCrisis = yes
-		merg_is_default_empire = yes
-		is_subject = no
 		is_ai = yes
 		check_variable = { which = "planets_lost_to_marauder" value > 2 }
 		OR = {

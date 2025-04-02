@@ -15,6 +15,7 @@
 ### Global Conditions
 
 CmtTriggerKhanAwakingMultipleCheck = {
+	optimize_memory
 	event_target:CmtGlobalVar = {
 		NOR = {
 			check_variable = { which = CmtVarKhanMultiple value = 1 }
@@ -34,8 +35,22 @@ CmtTriggerKhanAwakingMultipleCheck = {
 ### Country Conditions
 ## Scope = country
 CmtTriggerHasPotentialKhanAwaking = {
+	optimize_memory
 	OR = {
-		is_country_type = dormant_marauders
+		AND = { # CmtTriggerIsSleepingMarauder
+			is_country_type = dormant_marauders
+			OR = {
+				NOT = { has_country_flag = restored_marauders_flag }
+				# Fallback (Last Sleeping Marauder)
+				count_country = {
+					limit = {
+						is_country_type = dormant_marauders
+						NOT = { has_country_flag = restored_marauders_flag }
+					}
+					count = 0
+				}
+			}
+		}
 		AND = {
 			is_pirate_country = yes
 			has_country_flag = restored_marauders_flag
@@ -97,17 +112,10 @@ CmtTriggerHasPotentialKhanAwaking = {
 			}
 		}
 	}
-	# OR = {
-	# 	CmtTriggerIsSleepingMarauder = yes
-	# 	AND = { # Fallback
-	# 		is_country_type = dormant_marauders
-	# 		has_country_flag = restored_marauders_flag
-	# 		count_country = { limit = { CmtTriggerIsSleepingMarauder = yes } count = 0 }
-	# 	}
-	# }
 }
 
 CmtTriggerMarauderCapitalSystem = {
+	optimize_memory
 	OR = {
 		has_star_flag = marauder_capital_1
 		has_star_flag = marauder_capital_2
@@ -118,6 +126,7 @@ CmtTriggerMarauderCapitalSystem = {
 ### Mercenaries
 
 CmtTriggerHiredMarauderFleet1 = {
+	optimize_memory
 	OR = {
 		has_fleet_flag = armada_of_the_voidborn
 		has_fleet_flag = star_rider_flotilla
@@ -126,6 +135,7 @@ CmtTriggerHiredMarauderFleet1 = {
 }
 
 CmtTriggerHiredMarauderFleet2 = {
+	optimize_memory
 	OR = {
 		has_fleet_flag = dwamak_bashers
 		has_fleet_flag = unhinged_screamer_flotilla
@@ -134,6 +144,7 @@ CmtTriggerHiredMarauderFleet2 = {
 }
 
 CmtTriggerHiredMarauderFleet3 = {
+	optimize_memory
 	OR = {
 		has_fleet_flag = her_chosen_champions
 		has_fleet_flag = order_of_eternal_night
@@ -142,6 +153,7 @@ CmtTriggerHiredMarauderFleet3 = {
 }
 
 CmtTriggerCountryHiringMarauder1 = {
+	optimize_memory
 	OR = {
 		any_controlled_fleet = { CmtTriggerHiredMarauderFleet1 = yes }
 		any_owned_leader = { has_leader_flag = hired_merc_leader_1 }
@@ -149,6 +161,7 @@ CmtTriggerCountryHiringMarauder1 = {
 }
 
 CmtTriggerCountryHiringMarauder2 = {
+	optimize_memory
 	OR = {
 		any_controlled_fleet = { CmtTriggerHiredMarauderFleet2 = yes }
 		any_owned_leader = { has_leader_flag = hired_merc_leader_2 }
@@ -156,6 +169,7 @@ CmtTriggerCountryHiringMarauder2 = {
 }
 
 CmtTriggerCountryHiringMarauder3 = {
+	optimize_memory
 	OR = {
 		any_controlled_fleet = { CmtTriggerHiredMarauderFleet3 = yes }
 		any_owned_leader = { has_leader_flag = hired_merc_leader_3 }
@@ -167,11 +181,13 @@ CmtTriggerCountryHiringMarauder3 = {
 #######################
 
 CmtTriggerIsClosedLgate = {
+	optimize_memory
 	is_megastructure_type = lgate_base
 	NOT = { has_megastructure_flag = lgate_activated }
 }
 
 CmtTriggerIsOpenedLgate = {
+	optimize_memory
 	is_megastructure_type = lgate_base
 	has_megastructure_flag = lgate_activated
 }
@@ -186,6 +202,7 @@ CmtTriggerIsOpenedLgate = {
 #################
 
 CmtTriggerHasDessanuGift = {
+	optimize_memory
 	OR = {
 		has_modifier = dessanu_gift
 		has_modifier = CmtModifierDessanuGift_21
