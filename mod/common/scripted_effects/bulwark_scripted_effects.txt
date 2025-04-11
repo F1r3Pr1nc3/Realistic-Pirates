@@ -1,8 +1,7 @@
 # this = owner of fleet
 # from = fleet
 # fromfrom = planet (if any)
-bulwark_exploration_effect = {
-	# log = "triggered bulwark_exploration_effect"
+bulwark_exploration_effect = {	# log = "triggered bulwark_exploration_effect"
 	owner = { save_event_target_as = bulwark_eye_owner }
 	solar_system = {
 		random_neighbor_system = {
@@ -10,10 +9,7 @@ bulwark_exploration_effect = {
 				NOR = {
 					AND = {
 						exists = owner
-						owner = {
-							is_fallen_empire = yes
-							is_machine_empire = no
-						}
+						owner = { is_fallen_empire = yes is_machine_empire = no }
 					}
 					any_fleet_in_system = {
 						exists = owner
@@ -34,18 +30,17 @@ bulwark_exploration_effect = {
 # This = country
 # Prev = fleet
 create_dyn_bulwark_fleet = {
-	if = { limit = { NOT = { is_variable_set = pirates_f_tmp } }
+	if = {
+		limit = { NOT = { is_variable_set = pirates_f_tmp } }
 		set_variable = { which = pirates_f_tmp value = 0.5 }
 	}
-	prev = {
-		# log = "create_dyn_pirate_fleet \\[prev.pirates_f_tmp]"
+	prev = {	# log = "create_dyn_pirate_fleet \\[prev.pirates_f_tmp]"
 		[[LOWCORVETTE]
 		create_ship_design = { design = "NAME_BULWARK_LOWCORVETTE" }
 		set_variable = { which = fleet_f_tmp value = prev.pirates_f_tmp }
 		multiply_variable = { which = fleet_f_tmp value = $LOWCORVETTE$ }
-		ceiling_variable = fleet_f_tmp
-		while = {
-			count = fleet_f_tmp
+		# ceiling_variable = fleet_f_tmp
+		while = { count = fleet_f_tmp
 			create_ship = {
 				name = random
 				design = last_created_design
@@ -60,9 +55,8 @@ create_dyn_bulwark_fleet = {
 		create_ship_design = { design = "NAME_BULWARK_LOWDESTROYER" }
 		set_variable = { which = fleet_f_tmp value = prev.pirates_f_tmp }
 		multiply_variable = { which = fleet_f_tmp value = $LOWDESTROYER$ }
-		ceiling_variable = fleet_f_tmp
-		while = {
-			count = fleet_f_tmp
+		# ceiling_variable = fleet_f_tmp
+		while = { count = fleet_f_tmp
 			create_ship = {
 				name = random
 				design = last_created_design
@@ -77,9 +71,8 @@ create_dyn_bulwark_fleet = {
 		create_ship_design = { design = "NAME_BULWARK_LOWCRUISER" }
 		set_variable = { which = fleet_f_tmp value = prev.pirates_f_tmp }
 		multiply_variable = { which = fleet_f_tmp value = $LOWCRUISER$ }
-		ceiling_variable = fleet_f_tmp
-		while = {
-			count = fleet_f_tmp
+		# ceiling_variable = fleet_f_tmp
+		while = { count = fleet_f_tmp
 			create_ship = {
 				name = random
 				design = last_created_design
@@ -94,9 +87,8 @@ create_dyn_bulwark_fleet = {
 		create_ship_design = { design = "NAME_BULWARK_LOWBATTLESHIP" }
 		set_variable = { which = fleet_f_tmp value = prev.pirates_f_tmp }
 		multiply_variable = { which = fleet_f_tmp value = $LOWBATTLESHIP$ }
-		ceiling_variable = fleet_f_tmp
-		while = {
-			count = fleet_f_tmp
+		# ceiling_variable = fleet_f_tmp
+		while = { count = fleet_f_tmp
 			create_ship = {
 				name = random
 				design = last_created_design
@@ -111,9 +103,8 @@ create_dyn_bulwark_fleet = {
 		create_ship_design = { design = "NAME_BULWARK_MEDCORVETTE" }
 		set_variable = { which = fleet_f_tmp value = prev.pirates_f_tmp }
 		multiply_variable = { which = fleet_f_tmp value = $MEDCORVETTE$ }
-		ceiling_variable = fleet_f_tmp
-		while = {
-			count = fleet_f_tmp
+		# ceiling_variable = fleet_f_tmp
+		while = { count = fleet_f_tmp
 			create_ship = {
 				name = random
 				design = last_created_design
@@ -128,9 +119,8 @@ create_dyn_bulwark_fleet = {
 		create_ship_design = { design = "NAME_BULWARK_MEDDESTROYER" }
 		set_variable = { which = fleet_f_tmp value = prev.pirates_f_tmp }
 		multiply_variable = { which = fleet_f_tmp value = $MEDDESTROYER$ }
-		ceiling_variable = fleet_f_tmp
-		while = {
-			count = fleet_f_tmp
+		# ceiling_variable = fleet_f_tmp
+		while = { count = fleet_f_tmp
 			create_ship = {
 				name = random
 				design = last_created_design
@@ -145,9 +135,8 @@ create_dyn_bulwark_fleet = {
 		create_ship_design = { design = "NAME_BULWARK_MEDCRUISER" }
 		set_variable = { which = fleet_f_tmp value = prev.pirates_f_tmp }
 		multiply_variable = { which = fleet_f_tmp value = $MEDCRUISER$ }
-		ceiling_variable = fleet_f_tmp
-		while = {
-			count = fleet_f_tmp
+		# ceiling_variable = fleet_f_tmp
+		while = { count = fleet_f_tmp
 			create_ship = {
 				name = random
 				design = last_created_design
@@ -162,9 +151,8 @@ create_dyn_bulwark_fleet = {
 		create_ship_design = { design = "NAME_BULWARK_MEDBATTLESHIP" }
 		set_variable = { which = fleet_f_tmp value = prev.pirates_f_tmp }
 		multiply_variable = { which = fleet_f_tmp value = $MEDBATTLESHIP$ }
-		ceiling_variable = fleet_f_tmp
-		while = {
-			count = fleet_f_tmp
+		# ceiling_variable = fleet_f_tmp
+		while = { count = fleet_f_tmp
 			create_ship = {
 				name = random
 				design = last_created_design
@@ -179,9 +167,8 @@ create_dyn_bulwark_fleet = {
 		create_ship_design = { design = "NAME_BULWARK_HIGHCORVETTE" }
 		set_variable = { which = fleet_f_tmp value = prev.pirates_f_tmp }
 		multiply_variable = { which = fleet_f_tmp value = $HIGHCORVETTE$ }
-		ceiling_variable = fleet_f_tmp
-		while = {
-			count = fleet_f_tmp
+		# ceiling_variable = fleet_f_tmp
+		while = { count = fleet_f_tmp
 			create_ship = {
 				name = random
 				design = last_created_design
@@ -196,9 +183,8 @@ create_dyn_bulwark_fleet = {
 		create_ship_design = { design = "NAME_BULWARK_HIGHDESTROYER" }
 		set_variable = { which = fleet_f_tmp value = prev.pirates_f_tmp }
 		multiply_variable = { which = fleet_f_tmp value = $HIGHDESTROYER$ }
-		ceiling_variable = fleet_f_tmp
-		while = {
-			count = fleet_f_tmp
+		# ceiling_variable = fleet_f_tmp
+		while = { count = fleet_f_tmp
 			create_ship = {
 				name = random
 				design = last_created_design
@@ -213,9 +199,8 @@ create_dyn_bulwark_fleet = {
 		create_ship_design = { design = "NAME_BULWARK_HIGHCRUISER" }
 		set_variable = { which = fleet_f_tmp value = prev.pirates_f_tmp }
 		multiply_variable = { which = fleet_f_tmp value = $HIGHCRUISER$ }
-		ceiling_variable = fleet_f_tmp
-		while = {
-			count = fleet_f_tmp
+		# ceiling_variable = fleet_f_tmp
+		while = { count = fleet_f_tmp
 			create_ship = {
 				name = random
 				design = last_created_design
@@ -230,9 +215,8 @@ create_dyn_bulwark_fleet = {
 		create_ship_design = { design = "NAME_BULWARK_HIGHERCORVETTE" }
 		set_variable = { which = fleet_f_tmp value = prev.pirates_f_tmp }
 		multiply_variable = { which = fleet_f_tmp value = $HIGHERCORVETTE$ }
-		ceiling_variable = fleet_f_tmp
-		while = {
-			count = fleet_f_tmp
+		# ceiling_variable = fleet_f_tmp
+		while = { count = fleet_f_tmp
 			create_ship = {
 				name = random
 				design = last_created_design
@@ -247,9 +231,8 @@ create_dyn_bulwark_fleet = {
 		create_ship_design = { design = "NAME_BULWARK_HIGHERDESTROYER" }
 		set_variable = { which = fleet_f_tmp value = prev.pirates_f_tmp }
 		multiply_variable = { which = fleet_f_tmp value = $HIGHERDESTROYER$ }
-		ceiling_variable = fleet_f_tmp
-		while = {
-			count = fleet_f_tmp
+		# ceiling_variable = fleet_f_tmp
+		while = { count = fleet_f_tmp
 			create_ship = {
 				name = random
 				design = last_created_design
@@ -264,9 +247,8 @@ create_dyn_bulwark_fleet = {
 		create_ship_design = { design = "NAME_BULWARK_HIGHERCRUISER" }
 		set_variable = { which = fleet_f_tmp value = prev.pirates_f_tmp }
 		multiply_variable = { which = fleet_f_tmp value = $HIGHERCRUISER$ }
-		ceiling_variable = fleet_f_tmp
-		while = {
-			count = fleet_f_tmp
+		# ceiling_variable = fleet_f_tmp
+		while = { count = fleet_f_tmp
 			create_ship = {
 				name = random
 				design = last_created_design
@@ -281,9 +263,8 @@ create_dyn_bulwark_fleet = {
 		create_ship_design = { design = "NAME_BULWARK_HIGHERBATTLESHIP" }
 		set_variable = { which = fleet_f_tmp value = prev.pirates_f_tmp }
 		multiply_variable = { which = fleet_f_tmp value = $HIGHERBATTLESHIP$ }
-		ceiling_variable = fleet_f_tmp
-		while = {
-			count = fleet_f_tmp
+		# ceiling_variable = fleet_f_tmp
+		while = { count = fleet_f_tmp
 			create_ship = {
 				name = random
 				design = last_created_design
@@ -298,9 +279,8 @@ create_dyn_bulwark_fleet = {
 		create_ship_design = { design = "NAME_BULWARK_HIGHESTCORVETTE" }
 		set_variable = { which = fleet_f_tmp value = prev.pirates_f_tmp }
 		multiply_variable = { which = fleet_f_tmp value = $HIGHESTCORVETTE$ }
-		ceiling_variable = fleet_f_tmp
-		while = {
-			count = fleet_f_tmp
+		# ceiling_variable = fleet_f_tmp
+		while = { count = fleet_f_tmp
 			create_ship = {
 				name = random
 				design = last_created_design
@@ -315,9 +295,8 @@ create_dyn_bulwark_fleet = {
 		create_ship_design = { design = "NAME_BULWARK_HIGHESTDESTROYER" }
 		set_variable = { which = fleet_f_tmp value = prev.pirates_f_tmp }
 		multiply_variable = { which = fleet_f_tmp value = $HIGHESTDESTROYER$ }
-		ceiling_variable = fleet_f_tmp
-		while = {
-			count = fleet_f_tmp
+		# ceiling_variable = fleet_f_tmp
+		while = { count = fleet_f_tmp
 			create_ship = {
 				name = random
 				design = last_created_design
@@ -332,9 +311,8 @@ create_dyn_bulwark_fleet = {
 		create_ship_design = { design = "NAME_BULWARK_HIGHESTCRUISER" }
 		set_variable = { which = fleet_f_tmp value = prev.pirates_f_tmp }
 		multiply_variable = { which = fleet_f_tmp value = $HIGHESTCRUISER$ }
-		ceiling_variable = fleet_f_tmp
-		while = {
-			count = fleet_f_tmp
+		# ceiling_variable = fleet_f_tmp
+		while = { count = fleet_f_tmp
 			create_ship = {
 				name = random
 				design = last_created_design
@@ -349,9 +327,8 @@ create_dyn_bulwark_fleet = {
 		create_ship_design = { design = "NAME_BULWARK_HIGHESTBATTLESHIP" }
 		set_variable = { which = fleet_f_tmp value = prev.pirates_f_tmp }
 		multiply_variable = { which = fleet_f_tmp value = $HIGHESTBATTLESHIP$ }
-		ceiling_variable = fleet_f_tmp
-		while = {
-			count = fleet_f_tmp
+		# ceiling_variable = fleet_f_tmp
+		while = { count = fleet_f_tmp
 			create_ship = {
 				name = random
 				design = last_created_design

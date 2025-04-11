@@ -119,7 +119,7 @@ country_event = {
 									has_planet_flag = pirate_invasion
 									has_planet_flag = slave_revolt
 									has_planet_flag = recent_unrest_event
-									has_planet_flag = slave_stirring
+									# has_planet_flag = slave_stirring
 									has_ground_combat = yes
 									has_modifier = slave_hunger_strike
 									has_modifier = slave_riots
@@ -162,7 +162,7 @@ country_event = {
 											has_planet_flag = pirate_invasion
 											has_planet_flag = slave_revolt
 											has_planet_flag = recent_unrest_event
-											has_planet_flag = slave_stirring
+											# has_planet_flag = slave_stirring
 											has_ground_combat = yes
 											has_modifier = slave_hunger_strike
 											has_modifier = slave_riots
@@ -305,8 +305,7 @@ country_event = {
 			}
 		}
 	}
-	option = {
-		# Where could they have gone?
+	option = {	# Where could they have gone?
 		name = pirate_republic.10.option
 		hidden_effect = {
 			if = {
@@ -336,8 +335,7 @@ planet_event = {
 	# 	text = pirate_republic.11.desc # unrest.55.desc.standard
 	# }
 	desc = {
-		trigger = {
-			# owner = { is_gestalt = yes }
+		trigger = {	# owner = { is_gestalt = yes }
 			any_owned_pop = { is_sapient = yes is_gestalt = no }
 		}
 		text = pirate_republic.11.desc # unrest.55.desc.gestalt_standard
@@ -372,7 +370,7 @@ planet_event = {
 			has_planet_flag = pirate_invasion
 			has_planet_flag = slave_revolt
 			has_planet_flag = recent_unrest_event
-			has_planet_flag = slave_stirring
+			# has_planet_flag = slave_stirring
 			has_ground_combat = yes
 			has_modifier = slave_hunger_strike
 			has_modifier = slave_riots
@@ -394,7 +392,7 @@ planet_event = {
 			random_list = {
 				25 = { owner_species = { save_event_target_as = rebellion_species } }
 				75 = { modifier = { factor = 0 NOT = { exists = event_target:pirate_band } } event_target:pirate_band.owner_species = { save_event_target_as = rebellion_species } }
-		 }
+	 }
 		}
 		if = {
 			limit = { NOT = { exists = event_target:pirate_band } }
@@ -497,10 +495,14 @@ planet_event = {
 					OR = { has_trait = trait_machine_unit has_trait = trait_hive_mind }
 					is_gestalt = no
 				}
+				clear_ethos = yes
 				shift_ethic = ethic_gestalt_consciousness
 				change_government = random
 			}
-			else = { shift_ethic = ethic_fanatic_militarist }
+			else_if = {
+				limit = { is_gestalt = no }
+				shift_ethic = ethic_fanatic_militarist
+			}
 			# else = {
 			# 	root = {
 			# 		switch = { trigger = has_situation_flag
@@ -586,8 +588,7 @@ planet_event = {
 				divide_variable = { which = num_armies_var value = 2 }
 				create_fleet = {
 					name = "NAME_Pirate_Fleet"
-					effect = {
-						# Owner is set before the ships are created so that random naming works.
+					effect = {	# Owner is set before the ships are created so that random naming works.
 						set_owner = event_target:pirate_republic
 						# Create ships
 						while = { count = prev.num_armies_var # 10
@@ -743,8 +744,7 @@ planet_event = {
 	}
 	option = {
 		name = pirate_republic.11.option
-		hidden_effect = {
-			# Fallback if race condition?
+		hidden_effect = {	# Fallback if race condition?
 			if = {
 				limit = { exists = event_target:pirate_republic }
 				event_target:pirate_republic = {
@@ -812,8 +812,7 @@ planet_event = {
 							divide_variable = { which = num_armies_var value = 2 }
 							create_fleet = {
 								name = "NAME_Pirate_Fleet"
-								effect = {
-									# Owner is set before the ships are created so that random naming works.
+								effect = {	# Owner is set before the ships are created so that random naming works.
 									set_owner = event_target:pirate_republic
 									# Create ships
 									while = { count = prev.num_armies_var # 10
@@ -955,10 +954,10 @@ country_event = {
 			save_event_target_as = pirate_republic_planet
 			remove_planet_flag = pirate_invasion
 			remove_planet_flag = slave_revolt_chain_active
-			remove_planet_flag = slave_riots
-			remove_planet_flag = slave_resistance
-			remove_planet_flag = slave_stirring
 			remove_planet_flag = slave_revolt
+			# remove_planet_flag = slave_riots
+			# remove_planet_flag = slave_resistance
+			# remove_planet_flag = slave_stirring
 			kill_leader = { show_notification = no }
 		}
 		from = { save_event_target_as = pirate_republic }
@@ -971,8 +970,7 @@ country_event = {
 			add_claims = { who = root num_of_claims = 1 show_notification = no }
 		}
 		if = {
-			limit = {
-				# any_relation = {
+			limit = {	# any_relation = {
 				any_playable_country = {
 					has_communications = root
 					has_country_flag = pirate_republic
@@ -1013,8 +1011,7 @@ country_event = {
 			}
 		}
 	}
-	after = {
-		## Create start resources
+	after = {	## Create start resources
 		from = {
 			add_resource = {
 				energy = 2000
@@ -1143,9 +1140,7 @@ country_event = {
 		name = pirate_republic.13.option
 		hidden_effect = {
 			if = {
-				limit = {
-					count_subject = { limit = { has_country_flag = pirate_republic } count = 0 }
-				}
+				limit = { count_subject = { limit = { has_country_flag = pirate_republic } count = 0 } }
 				country_event = { id = pirate_republic.14 }
 			}
 		}
@@ -1218,8 +1213,7 @@ country_event = {
 		}
 		hidden_effect = {
 			event_target:old_owner = { country_event = { id = pirate_republic.169 } }
-			event_target:pirate_republic = {
-				# Full handover
+			event_target:pirate_republic = {	# Full handover
 				every_owned_fleet = {
 					set_owner = event_target:new_owner
 					# Recruit leader
@@ -1299,8 +1293,7 @@ starbase_event = {
 			}
 		}
 	}
-	immediate = {
-		# every_system_planet = {
+	immediate = {	# every_system_planet = {
 		# 	limit = {
 		# 		exists = owner
 		# 		owner = {
@@ -1332,16 +1325,14 @@ event = {
 	id = pirate_republic.99
 	hide_window = yes
 	is_triggered_only = yes
-	immediate = {
-		# Find raiding_marauder (parent)
+	immediate = {	# Find raiding_marauder (parent)
 		every_country = {
 			limit = { is_country_type = rebel has_country_flag = pirate_republic }
 			save_event_target_as = rebel_country
 			if = {
 				limit = {
 					count_owned_planet = { count = 0 }
-					count_owned_army = {
-						count = 0
+					count_owned_army = { count = 0
 						limit = {
 							is_defensive_army = no
 							exists = planet
@@ -1367,8 +1358,7 @@ event = {
 							}
 						}
 					}
-					solar_system = {
-						# log = "Fix pirate_republic at system [This.GetName]"
+					solar_system = {	# log = "Fix pirate_republic at system [This.GetName]"
 						random_system_colony = {
 							limit = {
 								is_colony = yes
@@ -1399,8 +1389,7 @@ event = {
 							set_timed_planet_flag = { flag = pirate_invasion years = 2 }
 							create_fleet = {
 								name = "NAME_Pirate_Fleet"
-								effect = {
-									# Owner is set before the ships are created so that random naming works.
+								effect = {	# Owner is set before the ships are created so that random naming works.
 									set_owner = event_target:rebel_country
 									# Create ships
 									while = { count = 10 # num_armies_var
@@ -1484,8 +1473,7 @@ event = {
 						}
 					}
 				}
-				else = {
-					# set_country_type = pirate_waves_country
+				else = {	# set_country_type = pirate_waves_country
 					set_country_flag = silence_destroy_event
 				}
 			}
@@ -1570,9 +1558,7 @@ event = {
 					}
 					fleet = {
 						set_event_locked = no
-						every_owned_ship = {
-							set_disabled = no
-						}
+						every_owned_ship = { set_disabled = no }
 						log = "Fixed starbase [Prev.solar_system.GetName]"
 					}
 				}
@@ -1581,35 +1567,23 @@ event = {
 			every_playable_country = {
 				limit = {
 					has_origin = origin_separatists
-					any_owned_species = {
-						is_same_species = prev.owner_species
-						has_trait = trait_syncretic_proles
-					}
+					any_owned_species = { is_same_species = prev.owner_species has_trait = trait_syncretic_proles }
 				}
 				every_owned_species = {
-					limit = {
-						is_same_species = prev.owner_species
-						has_trait = trait_syncretic_proles
-					}
+					limit = { is_same_species = prev.owner_species has_trait = trait_syncretic_proles }
 					prev = {
 						modify_species = {
 							species = prev
 							base = prev
 							remove_trait = trait_syncretic_proles
 							change_scoped_species = yes
-							effect = {
-								log = "Fixed syncretic owner_species from [Prev.GetName]"
-							}
+							effect = { log = "Fixed syncretic owner_species from [Prev.GetName]" }
 						}
 						if = {
 							limit = { used_naval_capacity_percent < 0.66 }
 							create_fleet_from_naval_cap = 0.2
 						}
-						add_resource = {
-							energy = 2000
-							alloys = 2000
-							minerals = 2000
-						}
+						add_resource = { energy = 2000 alloys = 2000 minerals = 2000 }
 					}
 				}
 			}

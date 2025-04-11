@@ -2325,8 +2325,9 @@ system_event = {
 				# random_moon = { not valid anymore
 				root = {
 					random_system_planet = {
-						limit = {	# uses_district_set = habitat
-							merg_is_habitat = yes
+						limit = {
+							is_planet_class = pc_habitat
+							uses_district_set = habitat
 							is_colony = no
 							is_colonizable = yes
 						}

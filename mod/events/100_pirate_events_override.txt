@@ -529,18 +529,6 @@ ship_event = {
 						modifier = { add = 1 is_asteroid = yes }
 					}
 					save_event_target_as = pirate_home
-					# create_fleet = {
-					# 	name = "NAME_Pirate_Station"
-					# 	effect = {
-					# 		set_owner = from.owner
-					# 		create_ship = {
-					# 			name = random
-					# 			design = "NAME_Pirate_Nest"
-					# 			graphical_culture = "pirate_01"
-					# 		}
-					# 		set_location = prev
-					# 	}
-					# }
 					create_pirate_base_1 = yes
 				}
 			}

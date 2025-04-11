@@ -17,25 +17,21 @@ country_event = {
 			owner_species = { save_event_target_as = bulwark_species }
 		}
 		if = {
-			limit = {
-				from = { has_country_flag = bulwark_numbers }
-			}
+			limit = { from = { has_country_flag = bulwark_numbers } }
 			random_system = {
 				limit = { has_star_flag = tob_supremacists }
 				save_event_target_as = tob_discovered_bulwark_home
 			}
-		} else_if = {
-			limit = {
-				from = { has_country_flag = bulwark_techies }
-			}
+		}
+		else_if = {
+			limit = { from = { has_country_flag = bulwark_techies } }
 			random_system = {
 				limit = { has_star_flag = tob_technologists }
 				save_event_target_as = tob_discovered_bulwark_home
 			}
-		} else_if = {
-			limit = {
-				from = { has_country_flag = bulwark_monsters }
-			}
+		}
+		else_if = {
+			limit = { from = { has_country_flag = bulwark_monsters } }
 			random_system = {
 				limit = { has_star_flag = tob_tamers }
 				save_event_target_as = tob_discovered_bulwark_home
@@ -74,10 +70,7 @@ country_event = {
 		}
 	}
 	diplomatic = yes
-	picture_event_data = {
-		portrait = from
-		room = "ethic_spaceship_room"
-	}
+	picture_event_data = { portrait = from room = "ethic_spaceship_room" }
 	is_triggered_only = yes
 	option = { name = tob_merc.2.a }
 }
@@ -108,10 +101,7 @@ country_event = {
 			from = { has_country_flag = bulwark_monsters }
 		}
 	}
-	picture_event_data = {
-		portrait = from
-		room = ethic_spaceship_room
-	}
+	picture_event_data = { portrait = from room = ethic_spaceship_room }
 	is_triggered_only = yes
 	force_open = yes
 	diplomatic = yes
@@ -213,19 +203,15 @@ country_event = {
 				}
 				from = { has_country_flag = bulwark_merc_fleet_hired }
 				if = {
-					limit = {
-						from = { has_country_flag = bulwark_numbers }
-					}
+					limit = { from = { has_country_flag = bulwark_numbers } }
 					has_global_flag = bulwark_numbers_mercs_gone
-				} else_if = {
-					limit = {
-						from = { has_country_flag = bulwark_techies }
-					}
+				}
+				else_if = {
+					limit = { from = { has_country_flag = bulwark_techies } }
 					has_global_flag = bulwark_techies_mercs_gone
-				} else_if = {
-					limit = {
-						from = { has_country_flag = bulwark_monsters }
-					}
+				}
+				else_if = {
+					limit = { from = { has_country_flag = bulwark_monsters } }
 					has_global_flag = bulwark_monsters_mercs_gone
 				}
 			}
@@ -306,10 +292,7 @@ country_event = {
 		}
 	}
 	# Terminate communications
-	option = {
-		name = "graygoo.115.d"
-		default_hide_option = yes
-	}
+	option = { name = "graygoo.115.d" default_hide_option = yes }
 }
 
 # Hire Mercenaries
@@ -336,16 +319,14 @@ country_event = {
 		}
 	}
 	diplomatic = yes
-	picture_event_data = {
-		portrait = from
-		room = "ethic_spaceship_room"
-	}
+	picture_event_data = { portrait = from room = "ethic_spaceship_room" }
 	is_triggered_only = yes
 	trigger = {}
 	immediate = {
 		set_country_flag = bulwark_diplomacy_engaged
 		from = {
-			if = { limit =  { is_hostile = root }
+			if = {
+				limit = { is_hostile = root }
 				set_faction_hostility = { target = root set_hostile = no set_neutral = yes }
 			}
 		}
@@ -368,8 +349,7 @@ country_event = {
 		set_timed_country_flag = { flag = bulwark_mercs_hired_safeguard days = 3 }
 		add_resource = { energy = -5000 }
 		custom_tooltip = bulwark_mercenaries_hire_low
-		hidden_effect = {
-			# WTF ?
+		hidden_effect = {	# WTF ?
 			# random_playable_country = {
 			# 	limit = { has_country_flag = bulwark_mercs_hired_safeguard }
 			# 	save_event_target_as = receiving_bulwark_fleet
@@ -385,21 +365,21 @@ country_event = {
 				# 			give_fleet = { controller = root days = 1800 } # set_owner = root
 				# 			fleet_event = { id = tob_merc.5 days = 1800 }
 				# 		}
-				# 	 }
+				# }
 				# 	bulwark_techies =	{
 				# 		random_owned_fleet = {
 				# 			limit = { has_fleet_flag = bulwark_techies_mercfleet }
 				# 			give_fleet = { controller = root days = 1800 } # set_owner = root
 				# 			fleet_event = { id = tob_merc.5 days = 1800 }
 				# 		}
-				# 	 }
+				# }
 				# 	bulwark_monsters =	{
 				# 		random_owned_fleet = {
 				# 			limit = { has_fleet_flag = bulwark_monsters_mercfleet }
 				# 			give_fleet = { controller = root days = 1800 } # set_owner = root
 				# 			fleet_event = { id = tob_merc.5 days = 1800 }
 				# 		}
-				# 	 }
+				# }
 				# }
 				random_owned_fleet = {
 					limit = { has_fleet_flag = bulwark_mercenary_fleet }
@@ -436,21 +416,21 @@ country_event = {
 				# 			give_fleet = { controller = root days = 3600 } # set_owner = root
 				# 			fleet_event = { id = tob_merc.5 days = 3600 }
 				# 		}
-				# 	 }
+				# }
 				# 	bulwark_techies =	{
 				# 		random_owned_fleet = {
 				# 			limit = { has_fleet_flag = bulwark_techies_mercfleet }
 				# 			give_fleet = { controller = root days = 3600 } # set_owner = root
 				# 			fleet_event = { id = tob_merc.5 days = 3600 }
 				# 		}
-				# 	 }
+				# }
 				# 	bulwark_monsters =	{
 				# 		random_owned_fleet = {
 				# 			limit = { has_fleet_flag = bulwark_monsters_mercfleet }
 				# 			give_fleet = { controller = root days = 3600 } # set_owner = root
 				# 			fleet_event = { id = tob_merc.5 days = 3600 }
 				# 		}
-				# 	 }
+				# }
 				# }
 				random_owned_fleet = {
 					limit = { has_fleet_flag = bulwark_mercenary_fleet }
@@ -487,21 +467,21 @@ country_event = {
 				# 			give_fleet = { controller = root days = 7200 } # set_owner = root
 				# 			fleet_event = { id = tob_merc.5 days = 7200 }
 				# 		}
-				# 	 }
+				# }
 				# 	bulwark_techies =	{
 				# 		random_owned_fleet = {
 				# 			limit = { has_fleet_flag = bulwark_techies_mercfleet }
 				# 			give_fleet = { controller = root days = 7200 } # set_owner = root
 				# 			fleet_event = { id = tob_merc.5 days = 7200 }
 				# 		}
-				# 	 }
+				# }
 				# 	bulwark_monsters =	{
 				# 		random_owned_fleet = {
 				# 			limit = { has_fleet_flag = bulwark_monsters_mercfleet }
 				# 			give_fleet = { controller = root days = 7200 } # set_owner = root
 				# 			fleet_event = { id = tob_merc.5 days = 7200 }
 				# 		}
-				# 	 }
+				# }
 				# }
 				random_owned_fleet = {
 					limit = { has_fleet_flag = bulwark_mercenary_fleet }
@@ -511,10 +491,7 @@ country_event = {
 			}
 		}
 	}
-	option = {
-		name = "graygoo.115.d"
-		default_hide_option = yes
-	}
+	option = { name = "graygoo.115.d" default_hide_option = yes }
 }
 
 # Mercenary Contract Ends
@@ -551,8 +528,7 @@ fleet_event = {
 			set_event_locked = yes
 		}
 	}
-	option = {
-		# Extend contract 1
+	option = {	# Extend contract 1
 		name = tob_merc.5.a
 		allow = {
 			controller = {
@@ -579,13 +555,15 @@ fleet_event = {
 				limit = { has_country_flag = bulwark_numbers }
 				change_variable = { which = bulwarkbudget value = 250 }
 			}
-		} else_if = {
+		}
+		else_if = {
 			limit = { has_fleet_flag = bulwark_techies_mercfleet }
 			random_country = {
 				limit = { has_country_flag = bulwark_techies }
 				change_variable = { which = bulwarkbudget value = 250 }
 			}
-		} else_if = {
+		}
+		else_if = {
 			limit = { has_fleet_flag = bulwark_monsters_mercfleet }
 			random_country = {
 				limit = { has_country_flag = bulwark_monsters }
@@ -602,8 +580,7 @@ fleet_event = {
 			}
 		}
 	}
-	option = {
-		# Extend contract 2
+	option = {	# Extend contract 2
 		name = tob_merc.5.b
 		allow = {
 			controller = {
@@ -630,13 +607,15 @@ fleet_event = {
 				limit = { has_country_flag = bulwark_numbers }
 				change_variable = { which = bulwarkbudget value = 500 }
 			}
-		} else_if = {
+		}
+		else_if = {
 			limit = { has_fleet_flag = bulwark_techies_mercfleet }
 			random_country = {
 				limit = { has_country_flag = bulwark_techies }
 				change_variable = { which = bulwarkbudget value = 500 }
 			}
-		} else_if = {
+		}
+		else_if = {
 			limit = { has_fleet_flag = bulwark_monsters_mercfleet }
 			random_country = {
 				limit = { has_country_flag = bulwark_monsters }
@@ -653,8 +632,7 @@ fleet_event = {
 			}
 		}
 	}
-	option = {
-		# Extend contract 3
+	option = {	# Extend contract 3
 		name = tob_merc.5.c
 		allow = {
 			controller = {
@@ -681,13 +659,15 @@ fleet_event = {
 				limit = { has_country_flag = bulwark_numbers }
 				change_variable = { which = bulwarkbudget value = 1000 }
 			}
-		} else_if = {
+		}
+		else_if = {
 			limit = { has_fleet_flag = bulwark_techies_mercfleet }
 			random_country = {
 				limit = { has_country_flag = bulwark_techies }
 				change_variable = { which = bulwarkbudget value = 1000 }
 			}
-		} else_if = {
+		}
+		else_if = {
 			limit = { has_fleet_flag = bulwark_monsters_mercfleet }
 			random_country = {
 				limit = { has_country_flag = bulwark_monsters }
@@ -704,8 +684,7 @@ fleet_event = {
 			}
 		}
 	}
-	option = {
-		# Decline
+	option = {	# Decline
 		name = tob_merc.5.d
 		ai_chance = { factor = 100 }
 		hidden_effect = {
@@ -720,57 +699,41 @@ fleet_event = {
 				set_owner = event_target:tob_supremacist_faction
 				queue_actions = {
 					find_random_system = {
-						trigger = {
-							id = "tob_merc_return.1"
-							has_star_flag = tob_supremacists
-						}
+						trigger = { id = "tob_merc_return.1" has_star_flag = tob_supremacists }
 						found_system = { move_to = this }
 					}
 					find_closest_planet = {
-						trigger = {
-							id = tob_merc_return.2
-							is_star = yes
-						}
+						trigger = { id = tob_merc_return.2 is_star = yes }
 						found_planet = { orbit_planet = this }
 					}
 				}
-			} else_if = {
+			}
+			else_if = {
 				limit = { has_fleet_flag = bulwark_techies_mercfleet }
 				event_target:tob_technologist_faction = { remove_country_flag = bulwark_merc_fleet_hired }
 				set_owner = event_target:tob_technologist_faction
 				queue_actions = {
 					find_random_system = {
-						trigger = {
-							id = "tob_merc_return.3"
-							has_star_flag = tob_technologists
-						}
+						trigger = { id = "tob_merc_return.3" has_star_flag = tob_technologists }
 						found_system = { move_to = this }
 					}
 					find_closest_planet = {
-						trigger = {
-							id = tob_merc_return.4
-							is_star = yes
-						}
+						trigger = { id = tob_merc_return.4 is_star = yes }
 						found_planet = { orbit_planet = this }
 					}
 				}
-			} else_if = {
+			}
+			else_if = {
 				limit = { has_fleet_flag = bulwark_monsters_mercfleet }
 				event_target:tob_tamer_faction = { remove_country_flag = bulwark_merc_fleet_hired }
 				set_owner = event_target:tob_tamer_faction
 				queue_actions = {
 					find_random_system = {
-						trigger = {
-							id = "tob_merc_return.5"
-							has_star_flag = tob_tamers
-						}
+						trigger = { id = "tob_merc_return.5" has_star_flag = tob_tamers }
 						found_system = { move_to = this }
 					}
 					find_closest_planet = {
-						trigger = {
-							id = tob_merc_return.6
-							is_star = yes
-						}
+						trigger = { id = tob_merc_return.6 is_star = yes }
 						found_planet = { orbit_planet = this }
 					}
 				}
@@ -785,15 +748,13 @@ country_event = {
 	title = "Fleet Options"
 	desc = tob_merc.6.desc
 	diplomatic = yes
-	picture_event_data = {
-		portrait = from
-		room = "ethic_spaceship_room"
-	}
+	picture_event_data = { portrait = from room = "ethic_spaceship_room" }
 	is_triggered_only = yes
 	immediate = {
 		set_country_flag = bulwark_diplomacy_engaged
 		from = {
-			if = { limit =  { is_hostile = root }
+			if = {
+				limit = { is_hostile = root }
 				set_faction_hostility = { target = root set_hostile = no set_neutral = yes }
 			}
 		}
@@ -805,16 +766,12 @@ country_event = {
 	option = {
 		name = tob_merc.6.a
 		trigger = {
-			NOT = {
-				from = { has_country_flag = bulwark_commissioned_fleet_recently }
-			}
+			NOT = { from = { has_country_flag = bulwark_commissioned_fleet_recently } }
 		}
 		allow = {
 			has_country_resource = { type = energy amount > 7500 }
 			hidden_trigger = {
-				NOT = {
-					from = { has_country_flag = bulwark_commissioned_fleet_recently }
-				}
+				NOT = { from = { has_country_flag = bulwark_commissioned_fleet_recently } }
 			}
 		}
 		set_timed_country_flag = { flag = bulwark_commissioned_fleet_recently_safeguard days = 3 }
@@ -826,8 +783,7 @@ country_event = {
 				save_event_target_as = receiving_bulwark_fleet_commission
 			}
 			from = {
-				random_system_within_border = {
-					# limit = { }
+				random_system_within_border = {	# limit = { }
 					if = {
 						limit = {
 							closest_system = {
@@ -844,7 +800,8 @@ country_event = {
 							limit = { has_owner = yes space_owner = { is_same_empire = event_target:receiving_bulwark_fleet_commission } }
 							save_event_target_as = bulwark_fleet_commission_goes_here
 						}
-					} else = {
+					}
+					else = {
 						event_target:receiving_bulwark_fleet_commission = {
 							random_owned_planet = {
 								limit = { is_colony = yes num_pops > 5 }
@@ -866,48 +823,59 @@ country_event = {
 					effect = {
 						set_owner = event_target:receiving_bulwark_fleet_commission
 						prev = {
-							if = { limit = { has_country_flag = bulwark_country_numbersone }
+							if = {
+								limit = { has_country_flag = bulwark_country_numbersone }
 								switch = { trigger = has_country_flag
-									bulwark_country_techone =	{ create_dyn_bulwark_fleet = { LOWCORVETTE		= 20 LOWDESTROYER		= 5 } }
-									bulwark_country_techtwo =	{ create_dyn_bulwark_fleet = { MEDCORVETTE		= 20 MEDDESTROYER		= 5 } }
-									bulwark_country_techthree =	{ create_dyn_bulwark_fleet = { HIGHCORVETTE		= 20 HIGHDESTROYER		= 5 } }
-									bulwark_country_techfour =	{ create_dyn_bulwark_fleet = { HIGHERCORVETTE	= 20 HIGHERDESTROYER	= 5 } }
-									bulwark_country_techfive =	{ create_dyn_bulwark_fleet = { HIGHESTCORVETTE	= 20 HIGHESTDESTROYER	= 5 } }
+									bulwark_country_techone =	{ create_dyn_bulwark_fleet = { LOWCORVETTE		= 12 LOWDESTROYER		= 3 } }
+									bulwark_country_techtwo =	{ create_dyn_bulwark_fleet = { MEDCORVETTE		= 12 MEDDESTROYER		= 3 } }
+									bulwark_country_techthree =	{ create_dyn_bulwark_fleet = { HIGHCORVETTE		= 12 HIGHDESTROYER		= 3 } }
+									bulwark_country_techfour =	{ create_dyn_bulwark_fleet = { HIGHERCORVETTE	= 12 HIGHERDESTROYER		= 3 } }
+									bulwark_country_techfive =	{ create_dyn_bulwark_fleet = { HIGHESTCORVETTE	= 12 HIGHESTDESTROYER	= 3 } }
 								}
-							} else_if = { limit = { has_country_flag = bulwark_country_techone }
+							}
+							else_if = {
+								limit = { has_country_flag = bulwark_country_techone }
 								switch = { trigger = has_country_flag
-									bulwark_country_numberstwo =	{ create_dyn_bulwark_fleet = { LOWCORVETTE = 40 LOWDESTROYER =	20 } }
-									bulwark_country_numbersthree =	{ create_dyn_bulwark_fleet = { LOWCORVETTE = 60 LOWDESTROYER =	35 } }
-									bulwark_country_numbersfour =	{ create_dyn_bulwark_fleet = { LOWCORVETTE = 80 LOWDESTROYER =	50 } }
-									bulwark_country_numbersfive =	{ create_dyn_bulwark_fleet = { LOWCORVETTE = 100 LOWDESTROYER =	65 } }
+									bulwark_country_numberstwo =	{ create_dyn_bulwark_fleet = { LOWCORVETTE = 24 LOWDESTROYER	= 12 } }
+									bulwark_country_numbersthree =	{ create_dyn_bulwark_fleet = { LOWCORVETTE = 36 LOWDESTROYER	= 21 } }
+									bulwark_country_numbersfour =	{ create_dyn_bulwark_fleet = { LOWCORVETTE = 48 LOWDESTROYER	= 30 } }
+									bulwark_country_numbersfive =	{ create_dyn_bulwark_fleet = { LOWCORVETTE = 60 LOWDESTROYER	= 39 } }
 								}
-							} else_if = { limit = { has_country_flag = bulwark_country_techtwo }
+							}
+							else_if = {
+								limit = { has_country_flag = bulwark_country_techtwo }
 								switch = { trigger = has_country_flag
-									bulwark_country_numberstwo =	{ create_dyn_bulwark_fleet = { MEDCORVETTE = 40 MEDDESTROYER =	20 LOWCRUISER = 10 } }
-									bulwark_country_numbersthree =	{ create_dyn_bulwark_fleet = { MEDCORVETTE = 60 MEDDESTROYER =	35 LOWCRUISER = 20 } }
-									bulwark_country_numbersfour =	{ create_dyn_bulwark_fleet = { MEDCORVETTE = 80 MEDDESTROYER =	50 LOWCRUISER = 30 } }
-									bulwark_country_numbersfive =	{ create_dyn_bulwark_fleet = { MEDCORVETTE = 100 MEDDESTROYER =	65 LOWCRUISER = 40 } }
+									bulwark_country_numberstwo =	{ create_dyn_bulwark_fleet = { MEDCORVETTE = 24 MEDDESTROYER = 12 LOWCRUISER = 6 } }
+									bulwark_country_numbersthree =	{ create_dyn_bulwark_fleet = { MEDCORVETTE = 36 MEDDESTROYER = 21 LOWCRUISER = 12 } }
+									bulwark_country_numbersfour =	{ create_dyn_bulwark_fleet = { MEDCORVETTE = 48 MEDDESTROYER = 30 LOWCRUISER = 18 } }
+									bulwark_country_numbersfive =	{ create_dyn_bulwark_fleet = { MEDCORVETTE = 60 MEDDESTROYER = 39 LOWCRUISER = 24 } }
 								}
-							} else_if = { limit = { has_country_flag = bulwark_country_techthree }
+							}
+							else_if = {
+								limit = { has_country_flag = bulwark_country_techthree }
 								switch = { trigger = has_country_flag
-									bulwark_country_numberstwo =	{ create_dyn_bulwark_fleet = { HIGHCORVETTE = 40 HIGHDESTROYER =	20 MEDCRUISER = 10 LOWBATTLESHIP = 5 } }
-									bulwark_country_numbersthree =	{ create_dyn_bulwark_fleet = { HIGHCORVETTE = 60 HIGHDESTROYER =	35 MEDCRUISER = 20 LOWBATTLESHIP = 10 } }
-									bulwark_country_numbersfour =	{ create_dyn_bulwark_fleet = { HIGHCORVETTE = 80 HIGHDESTROYER =	50 MEDCRUISER = 30 LOWBATTLESHIP = 15 } }
-									bulwark_country_numbersfive =	{ create_dyn_bulwark_fleet = { HIGHCORVETTE = 100 HIGHDESTROYER =	65 MEDCRUISER = 40 LOWBATTLESHIP = 20 } }
+									bulwark_country_numberstwo =	{ create_dyn_bulwark_fleet = { HIGHCORVETTE = 24 HIGHDESTROYER = 12 MEDCRUISER = 6 LOWBATTLESHIP = 3 } }
+									bulwark_country_numbersthree =	{ create_dyn_bulwark_fleet = { HIGHCORVETTE = 36 HIGHDESTROYER = 21 MEDCRUISER = 12 LOWBATTLESHIP = 6 } }
+									bulwark_country_numbersfour =	{ create_dyn_bulwark_fleet = { HIGHCORVETTE = 48 HIGHDESTROYER = 30 MEDCRUISER = 18 LOWBATTLESHIP = 9 } }
+									bulwark_country_numbersfive =	{ create_dyn_bulwark_fleet = { HIGHCORVETTE = 60 HIGHDESTROYER = 39 MEDCRUISER = 24 LOWBATTLESHIP = 12 } }
 								}
-							} else_if = { limit = { has_country_flag = bulwark_country_techfour }
+							}
+							else_if = {
+								limit = { has_country_flag = bulwark_country_techfour }
 								switch = { trigger = has_country_flag
-									bulwark_country_numberstwo =	{ create_dyn_bulwark_fleet = { HIGHERCORVETTE = 40 HIGHERDESTROYER =	20 HIGHCRUISER = 10 MEDBATTLESHIP = 5 } }
-									bulwark_country_numbersthree =	{ create_dyn_bulwark_fleet = { HIGHERCORVETTE = 60 HIGHERDESTROYER =	35 HIGHCRUISER = 20 MEDBATTLESHIP = 10 } }
-									bulwark_country_numbersfour =	{ create_dyn_bulwark_fleet = { HIGHERCORVETTE = 80 HIGHERDESTROYER =	50 HIGHCRUISER = 30 MEDBATTLESHIP = 15 } }
-									bulwark_country_numbersfive =	{ create_dyn_bulwark_fleet = { HIGHERCORVETTE = 100 HIGHERDESTROYER =	65 HIGHCRUISER = 40 MEDBATTLESHIP = 20 } }
+									bulwark_country_numberstwo =	{ create_dyn_bulwark_fleet = { HIGHERCORVETTE = 24 HIGHERDESTROYER = 12 HIGHCRUISER = 6 MEDBATTLESHIP = 3 } }
+									bulwark_country_numbersthree =	{ create_dyn_bulwark_fleet = { HIGHERCORVETTE = 36 HIGHERDESTROYER = 21 HIGHCRUISER = 12 MEDBATTLESHIP = 6 } }
+									bulwark_country_numbersfour =	{ create_dyn_bulwark_fleet = { HIGHERCORVETTE = 48 HIGHERDESTROYER = 30 HIGHCRUISER = 18 MEDBATTLESHIP = 9 } }
+									bulwark_country_numbersfive =	{ create_dyn_bulwark_fleet = { HIGHERCORVETTE = 60 HIGHERDESTROYER = 39 HIGHCRUISER = 24 MEDBATTLESHIP = 12 } }
 								}
-							} else_if = { limit = { has_country_flag = bulwark_country_techfive }
+							}
+							else_if = {
+								limit = { has_country_flag = bulwark_country_techfive }
 								switch = { trigger = has_country_flag
-									bulwark_country_numberstwo =	{ create_dyn_bulwark_fleet = { HIGHESTCORVETTE = 40 HIGHESTDESTROYER =	20 HIGHESTCRUISER = 10 HIGHESTBATTLESHIP = 5 } }
-									bulwark_country_numbersthree =	{ create_dyn_bulwark_fleet = { HIGHESTCORVETTE = 60 HIGHESTDESTROYER =	35 HIGHESTCRUISER = 20 HIGHESTBATTLESHIP = 10 } }
-									bulwark_country_numbersfour =	{ create_dyn_bulwark_fleet = { HIGHESTCORVETTE = 80 HIGHESTDESTROYER =	50 HIGHESTCRUISER = 30 HIGHESTBATTLESHIP = 15 } }
-									bulwark_country_numbersfive =	{ create_dyn_bulwark_fleet = { HIGHESTCORVETTE = 100 HIGHESTDESTROYER =	65 HIGHESTCRUISER = 40 HIGHESTBATTLESHIP = 20 } }
+									bulwark_country_numberstwo =	{ create_dyn_bulwark_fleet = { HIGHESTCORVETTE = 24 HIGHESTDESTROYER = 12 HIGHESTCRUISER = 6 HIGHESTBATTLESHIP = 3 } }
+									bulwark_country_numbersthree =	{ create_dyn_bulwark_fleet = { HIGHESTCORVETTE = 36 HIGHESTDESTROYER = 21 HIGHESTCRUISER = 12 HIGHESTBATTLESHIP = 6 } }
+									bulwark_country_numbersfour =	{ create_dyn_bulwark_fleet = { HIGHESTCORVETTE = 48 HIGHESTDESTROYER = 30 HIGHESTCRUISER = 18 HIGHESTBATTLESHIP = 9 } }
+									bulwark_country_numbersfive =	{ create_dyn_bulwark_fleet = { HIGHESTCORVETTE = 60 HIGHESTDESTROYER = 39 HIGHESTCRUISER = 24 HIGHESTBATTLESHIP = 12 } }
 								}
 							}
 						}
@@ -924,16 +892,12 @@ country_event = {
 	option = {
 		name = tob_merc.6.b
 		trigger = {
-			NOT = {
-				from = { has_country_flag = bulwark_commissioned_fleet_recently }
-			}
+			NOT = { from = { has_country_flag = bulwark_commissioned_fleet_recently } }
 		}
 		allow = {
 			has_country_resource = { type = energy amount > 12500 }
 			hidden_trigger = {
-				NOT = {
-					from = { has_country_flag = bulwark_commissioned_fleet_recently }
-				}
+				NOT = { from = { has_country_flag = bulwark_commissioned_fleet_recently } }
 			}
 		}
 		set_timed_country_flag = { flag = bulwark_commissioned_fleet_recently_safeguard days = 3 }
@@ -945,8 +909,7 @@ country_event = {
 				save_event_target_as = receiving_bulwark_fleet_commission
 			}
 			from = {
-				random_system_within_border = {
-					# limit = { }
+				random_system_within_border = {	# limit = { }
 					if = {
 						limit = {
 							closest_system = {
@@ -963,7 +926,8 @@ country_event = {
 							limit = { has_owner = yes space_owner = { is_same_empire = event_target:receiving_bulwark_fleet_commission } }
 							save_event_target_as = bulwark_fleet_commission_goes_here
 						}
-					} else = {
+					}
+					else = {
 						event_target:receiving_bulwark_fleet_commission = {
 							random_owned_planet = {
 								limit = { is_colony = yes num_pops > 5 }
@@ -985,48 +949,59 @@ country_event = {
 					effect = {
 						set_owner = event_target:receiving_bulwark_fleet_commission
 						prev = {
-							if = { limit = { has_country_flag = bulwark_country_numbersone }
+							if = {
+								limit = { has_country_flag = bulwark_country_numbersone }
 								switch = { trigger = has_country_flag
-									bulwark_country_techone =	{ create_dyn_bulwark_fleet = { LOWCORVETTE		= 30 LOWDESTROYER		= 15 } }
-									bulwark_country_techtwo =	{ create_dyn_bulwark_fleet = { MEDCORVETTE		= 30 MEDDESTROYER		= 15 } }
-									bulwark_country_techthree =	{ create_dyn_bulwark_fleet = { HIGHCORVETTE		= 30 HIGHDESTROYER		= 15 } }
-									bulwark_country_techfour =	{ create_dyn_bulwark_fleet = { HIGHERCORVETTE	= 30 HIGHERDESTROYER	= 15 } }
-									bulwark_country_techfive =	{ create_dyn_bulwark_fleet = { HIGHESTCORVETTE	= 30 HIGHESTDESTROYER	= 15 } }
+									bulwark_country_techone =	{ create_dyn_bulwark_fleet = { LOWCORVETTE		= 18 LOWDESTROYER		= 9 } }
+									bulwark_country_techtwo =	{ create_dyn_bulwark_fleet = { MEDCORVETTE		= 18 MEDDESTROYER		= 9 } }
+									bulwark_country_techthree =	{ create_dyn_bulwark_fleet = { HIGHCORVETTE		= 18 HIGHDESTROYER		= 9 } }
+									bulwark_country_techfour =	{ create_dyn_bulwark_fleet = { HIGHERCORVETTE	= 18 HIGHERDESTROYER	= 9 } }
+									bulwark_country_techfive =	{ create_dyn_bulwark_fleet = { HIGHESTCORVETTE	= 18 HIGHESTDESTROYER	= 9 } }
 								}
-							} else_if = { limit = { has_country_flag = bulwark_country_techone }
+							}
+							else_if = {
+								limit = { has_country_flag = bulwark_country_techone }
 								switch = { trigger = has_country_flag
-									bulwark_country_numberstwo =	{ create_dyn_bulwark_fleet = { LOWCORVETTE = 50 LOWDESTROYER	= 30 } }
-									bulwark_country_numbersthree =	{ create_dyn_bulwark_fleet = { LOWCORVETTE = 70 LOWDESTROYER	= 45 } }
-									bulwark_country_numbersfour =	{ create_dyn_bulwark_fleet = { LOWCORVETTE = 90 LOWDESTROYER	= 60 } }
-									bulwark_country_numbersfive =	{ create_dyn_bulwark_fleet = { LOWCORVETTE = 110 LOWDESTROYER	= 75 } }
+									bulwark_country_numberstwo =	{ create_dyn_bulwark_fleet = { LOWCORVETTE = 30 LOWDESTROYER	= 18 } }
+									bulwark_country_numbersthree =	{ create_dyn_bulwark_fleet = { LOWCORVETTE = 42 LOWDESTROYER	= 27 } }
+									bulwark_country_numbersfour =	{ create_dyn_bulwark_fleet = { LOWCORVETTE = 54 LOWDESTROYER	= 36 } }
+									bulwark_country_numbersfive =	{ create_dyn_bulwark_fleet = { LOWCORVETTE = 66 LOWDESTROYER	= 45 } }
 								}
-							} else_if = { limit = { has_country_flag = bulwark_country_techtwo }
+							}
+							else_if = {
+								limit = { has_country_flag = bulwark_country_techtwo }
 								switch = { trigger = has_country_flag
-									bulwark_country_numberstwo =	{ create_dyn_bulwark_fleet = { MEDCORVETTE = 50 MEDDESTROYER =	30 LOWCRUISER = 10 } }
-									bulwark_country_numbersthree =	{ create_dyn_bulwark_fleet = { MEDCORVETTE = 70 MEDDESTROYER =	45 LOWCRUISER = 20 } }
-									bulwark_country_numbersfour =	{ create_dyn_bulwark_fleet = { MEDCORVETTE = 90 MEDDESTROYER =	60 LOWCRUISER = 30 } }
-									bulwark_country_numbersfive =	{ create_dyn_bulwark_fleet = { MEDCORVETTE = 110 MEDDESTROYER =	75 LOWCRUISER = 40 } }
+									bulwark_country_numberstwo =	{ create_dyn_bulwark_fleet = { MEDCORVETTE = 30 MEDDESTROYER = 18 LOWCRUISER = 6 } }
+									bulwark_country_numbersthree =	{ create_dyn_bulwark_fleet = { MEDCORVETTE = 42 MEDDESTROYER = 27 LOWCRUISER = 12 } }
+									bulwark_country_numbersfour =	{ create_dyn_bulwark_fleet = { MEDCORVETTE = 54 MEDDESTROYER = 36 LOWCRUISER = 18 } }
+									bulwark_country_numbersfive =	{ create_dyn_bulwark_fleet = { MEDCORVETTE = 66 MEDDESTROYER = 45 LOWCRUISER = 24 } }
 								}
-							} else_if = { limit = { has_country_flag = bulwark_country_techthree }
+							}
+							else_if = {
+								limit = { has_country_flag = bulwark_country_techthree }
 								switch = { trigger = has_country_flag
-									bulwark_country_numberstwo =	{ create_dyn_bulwark_fleet = { HIGHCORVETTE = 50 HIGHDESTROYER =	30 MEDCRUISER = 10 LOWBATTLESHIP = 5 } }
-									bulwark_country_numbersthree =	{ create_dyn_bulwark_fleet = { HIGHCORVETTE = 70 HIGHDESTROYER =	45 MEDCRUISER = 20 LOWBATTLESHIP = 10 } }
-									bulwark_country_numbersfour =	{ create_dyn_bulwark_fleet = { HIGHCORVETTE = 90 HIGHDESTROYER =	60 MEDCRUISER = 30 LOWBATTLESHIP = 15 } }
-									bulwark_country_numbersfive =	{ create_dyn_bulwark_fleet = { HIGHCORVETTE = 110 HIGHDESTROYER =	75 MEDCRUISER = 40 LOWBATTLESHIP = 20 } }
+									bulwark_country_numberstwo =	{ create_dyn_bulwark_fleet = { HIGHCORVETTE = 30 HIGHDESTROYER = 18 MEDCRUISER = 6 LOWBATTLESHIP = 3 } }
+									bulwark_country_numbersthree =	{ create_dyn_bulwark_fleet = { HIGHCORVETTE = 42 HIGHDESTROYER = 27 MEDCRUISER = 12 LOWBATTLESHIP = 6 } }
+									bulwark_country_numbersfour =	{ create_dyn_bulwark_fleet = { HIGHCORVETTE = 54 HIGHDESTROYER = 36 MEDCRUISER = 18 LOWBATTLESHIP = 9 } }
+									bulwark_country_numbersfive =	{ create_dyn_bulwark_fleet = { HIGHCORVETTE = 66 HIGHDESTROYER = 45 MEDCRUISER = 24 LOWBATTLESHIP = 12 } }
 								}
-							} else_if = { limit = { has_country_flag = bulwark_country_techfour }
+							}
+							else_if = {
+								limit = { has_country_flag = bulwark_country_techfour }
 								switch = { trigger = has_country_flag
-									bulwark_country_numberstwo =	{ create_dyn_bulwark_fleet = { HIGHERCORVETTE = 50 HIGHERDESTROYER =	30 HIGHCRUISER = 10 MEDBATTLESHIP = 5 } }
-									bulwark_country_numbersthree =	{ create_dyn_bulwark_fleet = { HIGHERCORVETTE = 70 HIGHERDESTROYER =	45 HIGHCRUISER = 20 MEDBATTLESHIP = 10 } }
-									bulwark_country_numbersfour =	{ create_dyn_bulwark_fleet = { HIGHERCORVETTE = 90 HIGHERDESTROYER =	60 HIGHCRUISER = 30 MEDBATTLESHIP = 15 } }
-									bulwark_country_numbersfive =	{ create_dyn_bulwark_fleet = { HIGHERCORVETTE = 110 HIGHERDESTROYER =	75 HIGHCRUISER = 40 MEDBATTLESHIP = 20 } }
+									bulwark_country_numberstwo =	{ create_dyn_bulwark_fleet = { HIGHERCORVETTE = 30 HIGHERDESTROYER = 18 HIGHCRUISER = 6 MEDBATTLESHIP = 3 } }
+									bulwark_country_numbersthree =	{ create_dyn_bulwark_fleet = { HIGHERCORVETTE = 42 HIGHERDESTROYER = 27 HIGHCRUISER = 12 MEDBATTLESHIP = 6 } }
+									bulwark_country_numbersfour =	{ create_dyn_bulwark_fleet = { HIGHERCORVETTE = 54 HIGHERDESTROYER = 36 HIGHCRUISER = 18 MEDBATTLESHIP = 9 } }
+									bulwark_country_numbersfive =	{ create_dyn_bulwark_fleet = { HIGHERCORVETTE = 66 HIGHERDESTROYER = 45 HIGHCRUISER = 24 MEDBATTLESHIP = 12 } }
 								}
-							} else_if = { limit = { has_country_flag = bulwark_country_techfive }
+							}
+							else_if = {
+								limit = { has_country_flag = bulwark_country_techfive }
 								switch = { trigger = has_country_flag
-									bulwark_country_numberstwo =	{ create_dyn_bulwark_fleet = { HIGHESTCORVETTE = 50 HIGHESTDESTROYER =	30 HIGHESTCRUISER = 10 HIGHESTBATTLESHIP = 5 } }
-									bulwark_country_numbersthree =	{ create_dyn_bulwark_fleet = { HIGHESTCORVETTE = 70 HIGHESTDESTROYER =	45 HIGHESTCRUISER = 20 HIGHESTBATTLESHIP = 10 } }
-									bulwark_country_numbersfour =	{ create_dyn_bulwark_fleet = { HIGHESTCORVETTE = 90 HIGHESTDESTROYER =	60 HIGHESTCRUISER = 30 HIGHESTBATTLESHIP = 15 } }
-									bulwark_country_numbersfive =	{ create_dyn_bulwark_fleet = { HIGHESTCORVETTE = 110 HIGHESTDESTROYER =	75 HIGHESTCRUISER = 40 HIGHESTBATTLESHIP = 20 } }
+									bulwark_country_numberstwo =	{ create_dyn_bulwark_fleet = { HIGHESTCORVETTE = 30 HIGHESTDESTROYER = 18 HIGHESTCRUISER = 6 HIGHESTBATTLESHIP = 3 } }
+									bulwark_country_numbersthree =	{ create_dyn_bulwark_fleet = { HIGHESTCORVETTE = 42 HIGHESTDESTROYER = 27 HIGHESTCRUISER = 12 HIGHESTBATTLESHIP = 6 } }
+									bulwark_country_numbersfour =	{ create_dyn_bulwark_fleet = { HIGHESTCORVETTE = 54 HIGHESTDESTROYER = 36 HIGHESTCRUISER = 18 HIGHESTBATTLESHIP = 9 } }
+									bulwark_country_numbersfive =	{ create_dyn_bulwark_fleet = { HIGHESTCORVETTE = 66 HIGHESTDESTROYER = 45 HIGHESTCRUISER = 24 HIGHESTBATTLESHIP = 12 } }
 								}
 							}
 						}
@@ -1043,16 +1018,12 @@ country_event = {
 	option = {
 		name = tob_merc.6.c
 		trigger = {
-			NOT = {
-				from = { has_country_flag = bulwark_commissioned_fleet_recently }
-			}
+			NOT = { from = { has_country_flag = bulwark_commissioned_fleet_recently } }
 		}
 		allow = {
 			has_country_resource = { type = energy amount > 17500 }
 			hidden_trigger = {
-				NOT = {
-					from = { has_country_flag = bulwark_commissioned_fleet_recently }
-				}
+				NOT = { from = { has_country_flag = bulwark_commissioned_fleet_recently } }
 			}
 		}
 		set_timed_country_flag = { flag = bulwark_commissioned_fleet_recently_safeguard days = 3 }
@@ -1064,8 +1035,7 @@ country_event = {
 				save_event_target_as = receiving_bulwark_fleet_commission
 			}
 			from = {
-				random_system_within_border = {
-					# limit = { }
+				random_system_within_border = {	# limit = { }
 					if = {
 						limit = {
 							closest_system = {
@@ -1082,7 +1052,8 @@ country_event = {
 							limit = { has_owner = yes space_owner = { is_same_empire = event_target:receiving_bulwark_fleet_commission } }
 							save_event_target_as = bulwark_fleet_commission_goes_here
 						}
-					} else = {
+					}
+					else = {
 						event_target:receiving_bulwark_fleet_commission = {
 							random_owned_planet = {
 								limit = { is_colony = yes num_pops > 5 }
@@ -1104,48 +1075,59 @@ country_event = {
 					effect = {
 						set_owner = event_target:receiving_bulwark_fleet_commission
 						prev = {
-							if = { limit = { has_country_flag = bulwark_country_numbersone }
+							if = {
+								limit = { has_country_flag = bulwark_country_numbersone }
 								switch = { trigger = has_country_flag
-									bulwark_country_techone =	{ create_dyn_bulwark_fleet = { LOWCORVETTE		= 40 LOWDESTROYER		= 25 } }
-									bulwark_country_techtwo =	{ create_dyn_bulwark_fleet = { MEDCORVETTE		= 40 MEDDESTROYER		= 25 } }
-									bulwark_country_techthree =	{ create_dyn_bulwark_fleet = { HIGHCORVETTE		= 40 HIGHDESTROYER		= 25 } }
-									bulwark_country_techfour =	{ create_dyn_bulwark_fleet = { HIGHERCORVETTE	= 40 HIGHERDESTROYER	= 25 } }
-									bulwark_country_techfive =	{ create_dyn_bulwark_fleet = { HIGHESTCORVETTE	= 40 HIGHESTDESTROYER	= 25 } }
+									bulwark_country_techone =	{ create_dyn_bulwark_fleet = { LOWCORVETTE		= 24 LOWDESTROYER		= 15 } }
+									bulwark_country_techtwo =	{ create_dyn_bulwark_fleet = { MEDCORVETTE		= 24 MEDDESTROYER		= 15 } }
+									bulwark_country_techthree =	{ create_dyn_bulwark_fleet = { HIGHCORVETTE		= 24 HIGHDESTROYER		= 15 } }
+									bulwark_country_techfour =	{ create_dyn_bulwark_fleet = { HIGHERCORVETTE	= 24 HIGHERDESTROYER		= 15 } }
+									bulwark_country_techfive =	{ create_dyn_bulwark_fleet = { HIGHESTCORVETTE	= 24 HIGHESTDESTROYER	= 15 } }
 								}
-							} else_if = { limit = { has_country_flag = bulwark_country_techone }
+							}
+							else_if = {
+								limit = { has_country_flag = bulwark_country_techone }
 								switch = { trigger = has_country_flag
-									bulwark_country_numberstwo =	{ create_dyn_bulwark_fleet = { LOWCORVETTE = 60 LOWDESTROYER	= 40 } }
-									bulwark_country_numbersthree =	{ create_dyn_bulwark_fleet = { LOWCORVETTE = 80 LOWDESTROYER	= 55 } }
-									bulwark_country_numbersfour =	{ create_dyn_bulwark_fleet = { LOWCORVETTE = 100 LOWDESTROYER	= 70 } }
-									bulwark_country_numbersfive =	{ create_dyn_bulwark_fleet = { LOWCORVETTE = 120 LOWDESTROYER	= 85 } }
+									bulwark_country_numberstwo =	{ create_dyn_bulwark_fleet = { LOWCORVETTE = 36 LOWDESTROYER	= 24 } }
+									bulwark_country_numbersthree =	{ create_dyn_bulwark_fleet = { LOWCORVETTE = 48 LOWDESTROYER	= 33 } }
+									bulwark_country_numbersfour =	{ create_dyn_bulwark_fleet = { LOWCORVETTE = 60 LOWDESTROYER	= 42 } }
+									bulwark_country_numbersfive =	{ create_dyn_bulwark_fleet = { LOWCORVETTE = 72 LOWDESTROYER	= 51 } }
 								}
-							} else_if = { limit = { has_country_flag = bulwark_country_techtwo }
+							}
+							else_if = {
+								limit = { has_country_flag = bulwark_country_techtwo }
 								switch = { trigger = has_country_flag
-									bulwark_country_numberstwo =	{ create_dyn_bulwark_fleet = { MEDCORVETTE = 60 MEDDESTROYER =	40 LOWCRUISER = 10 } }
-									bulwark_country_numbersthree =	{ create_dyn_bulwark_fleet = { MEDCORVETTE = 80 MEDDESTROYER =	55 LOWCRUISER = 20 } }
-									bulwark_country_numbersfour =	{ create_dyn_bulwark_fleet = { MEDCORVETTE = 100 MEDDESTROYER =	70 LOWCRUISER = 30 } }
-									bulwark_country_numbersfive =	{ create_dyn_bulwark_fleet = { MEDCORVETTE = 120 MEDDESTROYER =	85 LOWCRUISER = 40 } }
+									bulwark_country_numberstwo =	{ create_dyn_bulwark_fleet = { MEDCORVETTE = 36 MEDDESTROYER = 24 LOWCRUISER = 6 } }
+									bulwark_country_numbersthree =	{ create_dyn_bulwark_fleet = { MEDCORVETTE = 48 MEDDESTROYER = 33 LOWCRUISER = 12 } }
+									bulwark_country_numbersfour =	{ create_dyn_bulwark_fleet = { MEDCORVETTE = 60 MEDDESTROYER = 42 LOWCRUISER = 18 } }
+									bulwark_country_numbersfive =	{ create_dyn_bulwark_fleet = { MEDCORVETTE = 72 MEDDESTROYER = 51 LOWCRUISER = 24 } }
 								}
-							} else_if = { limit = { has_country_flag = bulwark_country_techthree }
+							}
+							else_if = {
+								limit = { has_country_flag = bulwark_country_techthree }
 								switch = { trigger = has_country_flag
-									bulwark_country_numberstwo =	{ create_dyn_bulwark_fleet = { HIGHCORVETTE = 60 HIGHDESTROYER =	40 MEDCRUISER = 10 LOWBATTLESHIP = 5 } }
-									bulwark_country_numbersthree =	{ create_dyn_bulwark_fleet = { HIGHCORVETTE = 80 HIGHDESTROYER =	55 MEDCRUISER = 20 LOWBATTLESHIP = 10 } }
-									bulwark_country_numbersfour =	{ create_dyn_bulwark_fleet = { HIGHCORVETTE = 100 HIGHDESTROYER =	70 MEDCRUISER = 30 LOWBATTLESHIP = 15 } }
-									bulwark_country_numbersfive =	{ create_dyn_bulwark_fleet = { HIGHCORVETTE = 120 HIGHDESTROYER =	85 MEDCRUISER = 40 LOWBATTLESHIP = 20 } }
+									bulwark_country_numberstwo =	{ create_dyn_bulwark_fleet = { HIGHCORVETTE = 36 HIGHDESTROYER = 24 MEDCRUISER = 6 LOWBATTLESHIP = 3 } }
+									bulwark_country_numbersthree =	{ create_dyn_bulwark_fleet = { HIGHCORVETTE = 48 HIGHDESTROYER = 33 MEDCRUISER = 12 LOWBATTLESHIP = 6 } }
+									bulwark_country_numbersfour =	{ create_dyn_bulwark_fleet = { HIGHCORVETTE = 60 HIGHDESTROYER = 42 MEDCRUISER = 18 LOWBATTLESHIP = 9 } }
+									bulwark_country_numbersfive =	{ create_dyn_bulwark_fleet = { HIGHCORVETTE = 72 HIGHDESTROYER = 51 MEDCRUISER = 24 LOWBATTLESHIP = 12 } }
 								}
-							} else_if = { limit = { has_country_flag = bulwark_country_techfour }
+							}
+							else_if = {
+								limit = { has_country_flag = bulwark_country_techfour }
 								switch = { trigger = has_country_flag
-									bulwark_country_numberstwo =	{ create_dyn_bulwark_fleet = { HIGHERCORVETTE = 60 HIGHERDESTROYER =	40 HIGHCRUISER = 10 MEDBATTLESHIP = 5 } }
-									bulwark_country_numbersthree =	{ create_dyn_bulwark_fleet = { HIGHERCORVETTE = 80 HIGHERDESTROYER =	55 HIGHCRUISER = 20 MEDBATTLESHIP = 10 } }
-									bulwark_country_numbersfour =	{ create_dyn_bulwark_fleet = { HIGHERCORVETTE = 100 HIGHERDESTROYER =	70 HIGHCRUISER = 30 MEDBATTLESHIP = 15 } }
-									bulwark_country_numbersfive =	{ create_dyn_bulwark_fleet = { HIGHERCORVETTE = 120 HIGHERDESTROYER =	85 HIGHCRUISER = 40 MEDBATTLESHIP = 20 } }
+									bulwark_country_numberstwo =	{ create_dyn_bulwark_fleet = { HIGHERCORVETTE = 36 HIGHERDESTROYER = 24 HIGHCRUISER = 6 MEDBATTLESHIP = 3 } }
+									bulwark_country_numbersthree =	{ create_dyn_bulwark_fleet = { HIGHERCORVETTE = 48 HIGHERDESTROYER = 33 HIGHCRUISER = 12 MEDBATTLESHIP = 6 } }
+									bulwark_country_numbersfour =	{ create_dyn_bulwark_fleet = { HIGHERCORVETTE = 60 HIGHERDESTROYER = 42 HIGHCRUISER = 18 MEDBATTLESHIP = 9 } }
+									bulwark_country_numbersfive =	{ create_dyn_bulwark_fleet = { HIGHERCORVETTE = 72 HIGHERDESTROYER = 51 HIGHCRUISER = 24 MEDBATTLESHIP = 12 } }
 								}
-							} else_if = { limit = { has_country_flag = bulwark_country_techfive }
+							}
+							else_if = {
+								limit = { has_country_flag = bulwark_country_techfive }
 								switch = { trigger = has_country_flag
-									bulwark_country_numberstwo =	{ create_dyn_bulwark_fleet = { HIGHESTCORVETTE = 60 HIGHESTDESTROYER =	40 HIGHESTCRUISER = 10 HIGHESTBATTLESHIP = 5 } }
-									bulwark_country_numbersthree =	{ create_dyn_bulwark_fleet = { HIGHESTCORVETTE = 80 HIGHESTDESTROYER =	55 HIGHESTCRUISER = 20 HIGHESTBATTLESHIP = 10 } }
-									bulwark_country_numbersfour =	{ create_dyn_bulwark_fleet = { HIGHESTCORVETTE = 100 HIGHESTDESTROYER =	70 HIGHESTCRUISER = 30 HIGHESTBATTLESHIP = 15 } }
-									bulwark_country_numbersfive =	{ create_dyn_bulwark_fleet = { HIGHESTCORVETTE = 120 HIGHESTDESTROYER =	85 HIGHESTCRUISER = 40 HIGHESTBATTLESHIP = 20 } }
+									bulwark_country_numberstwo =	{ create_dyn_bulwark_fleet = { HIGHESTCORVETTE = 36 HIGHESTDESTROYER = 24 HIGHESTCRUISER = 6 HIGHESTBATTLESHIP = 3 } }
+									bulwark_country_numbersthree =	{ create_dyn_bulwark_fleet = { HIGHESTCORVETTE = 48 HIGHESTDESTROYER = 33 HIGHESTCRUISER = 12 HIGHESTBATTLESHIP = 6 } }
+									bulwark_country_numbersfour =	{ create_dyn_bulwark_fleet = { HIGHESTCORVETTE = 60 HIGHESTDESTROYER = 42 HIGHESTCRUISER = 18 HIGHESTBATTLESHIP = 9 } }
+									bulwark_country_numbersfive =	{ create_dyn_bulwark_fleet = { HIGHESTCORVETTE = 72 HIGHESTDESTROYER = 51 HIGHESTCRUISER = 24 HIGHESTBATTLESHIP = 12 } }
 								}
 							}
 						}
@@ -1158,10 +1140,7 @@ country_event = {
 			}
 		}
 	}
-	option = {
-		name = "graygoo.115.d"
-		default_hide_option = yes
-	}
+	option = { name = "graygoo.115.d" default_hide_option = yes }
 }
 
 # Hire Trainers
@@ -1187,10 +1166,7 @@ country_event = {
 		}
 	}
 	diplomatic = yes
-	picture_event_data = {
-		portrait = from
-		room = "ethic_spaceship_room"
-	}
+	picture_event_data = { portrait = from room = "ethic_spaceship_room" }
 	is_triggered_only = yes
 	immediate = { set_country_flag = bulwark_diplomacy_engaged }
 	after = {
@@ -1211,19 +1187,14 @@ country_event = {
 		add_resource = { energy = -2500 }
 		hidden_effect = {
 			if = {
-				limit = {
-					from = { has_country_flag = bulwark_numbers }
-				}
+				limit = { from = { has_country_flag = bulwark_numbers } }
 				add_modifier = { modifier = bulwark_expert_military_training years = 10 }
-			} else = {
+			}
+			else = {
 				add_modifier = { modifier = bulwark_good_military_training years = 10 }
 			}
 			every_owned_leader = {
-				limit = {
-					OR = {
-						leader_class = commander
-					}
-				}
+				limit = { OR = { leader_class = commander } }
 				add_experience = 100
 			}
 			from = {
@@ -1248,11 +1219,10 @@ country_event = {
 		add_resource = { energy = -2500 }
 		hidden_effect = {
 			if = {
-				limit = {
-					from = { has_country_flag = bulwark_techies }
-				}
+				limit = { from = { has_country_flag = bulwark_techies } }
 				add_modifier = { modifier = bulwark_expert_science_training years = 10 }
-			} else = {
+			}
+			else = {
 				add_modifier = { modifier = bulwark_good_science_training years = 10 }
 			}
 			every_owned_leader = {
@@ -1281,11 +1251,10 @@ country_event = {
 		add_resource = { energy = -2500 }
 		hidden_effect = {
 			if = {
-				limit = {
-					from = { has_country_flag = bulwark_monsters }
-				}
+				limit = { from = { has_country_flag = bulwark_monsters } }
 				add_modifier = { modifier = bulwark_expert_populace_training years = 10 }
-			} else = {
+			}
+			else = {
 				add_modifier = { modifier = bulwark_good_populace_training years = 10 }
 			}
 			every_owned_leader = {
@@ -1299,10 +1268,7 @@ country_event = {
 			country_event = { id = tob_merc.8 days = 3600 }
 		}
 	}
-	option = {
-		name = "graygoo.115.d"
-		default_hide_option = yes
-	}
+	option = { name = "graygoo.115.d" default_hide_option = yes }
 }
 
 # Trainers leave
@@ -1325,10 +1291,7 @@ country_event = {
 			has_modifier = bulwark_good_populace_training
 		}
 	}
-	option = {
-		name = "story.210.a"
-		default_hide_option = yes
-	}
+	option = { name = "story.210.a" default_hide_option = yes }
 }
 
 # Commission Stations
@@ -1338,10 +1301,7 @@ country_event = {
 	title = "Station Options"
 	desc = tob_merc.9.desc
 	diplomatic = yes
-	picture_event_data = {
-		portrait = from
-		room = "ethic_spaceship_room"
-	}
+	picture_event_data = { portrait = from room = "ethic_spaceship_room" }
 	is_triggered_only = yes
 	immediate = { set_country_flag = bulwark_diplomacy_engaged }
 	after = {
@@ -1351,16 +1311,12 @@ country_event = {
 	option = {
 		name = tob_merc.9.a
 		trigger = {
-			NOT = {
-				from = { has_country_flag = bulwark_commission_stations_root }
-			}
+			NOT = { from = { has_country_flag = bulwark_commission_stations_root } }
 		}
 		allow = {
 			has_country_resource = { type = energy amount > 1000 }
 			hidden_trigger = {
-				NOT = {
-					from = { has_country_flag = bulwark_commission_stations_root }
-				}
+				NOT = { from = { has_country_flag = bulwark_commission_stations_root } }
 			}
 		}
 		set_timed_country_flag = { flag = bulwark_commissioned_stations_recently_safeguard days = 3 }
@@ -1368,9 +1324,7 @@ country_event = {
 		add_resource = { energy = -1000 }
 		hidden_effect = {
 			if = {
-				limit = {
-					from = { has_country_flag = bulwark_country_techone }
-				}
+				limit = { from = { has_country_flag = bulwark_country_techone } }
 				from = {
 					set_timed_country_flag = { flag = bulwark_commission_stations_root years = 4 }
 					change_variable = { which = bulwarkbudget value = 50 }
@@ -1385,10 +1339,9 @@ country_event = {
 						event_target:receiving_bulwark_station_commission = {
 							check_variable = { which = bulwarkstations value > 0 }
 							any_planet_within_border = {
-								count_fleet_in_orbit = {
-										limit = { is_ship_size = marauder_station }
-										count = 0
-									}
+								count_fleet_in_orbit = { count = 0
+									limit = { is_ship_size = marauder_station }
+								}
 							}
 						}
 					}
@@ -1437,10 +1390,9 @@ country_event = {
 						}
 					}
 				}
-			} else_if = {
-				limit = {
-					from = { has_country_flag = bulwark_country_techtwo }
-				}
+			}
+			else_if = {
+				limit = { from = { has_country_flag = bulwark_country_techtwo } }
 				from = {
 					set_timed_country_flag = { flag = bulwark_commission_stations_root years = 4 }
 					change_variable = { which = bulwarkbudget value = 50 }
@@ -1455,10 +1407,9 @@ country_event = {
 						event_target:receiving_bulwark_station_commission = {
 							check_variable = { which = bulwarkstations value > 0 }
 							any_planet_within_border = {
-								count_fleet_in_orbit = {
-										limit = { is_ship_size = marauder_station }
-										count = 0
-									}
+								count_fleet_in_orbit = { count = 0
+									limit = { is_ship_size = marauder_station }
+								}
 							}
 						}
 					}
@@ -1507,10 +1458,9 @@ country_event = {
 						}
 					}
 				}
-			} else_if = {
-				limit = {
-					from = { has_country_flag = bulwark_country_techthree }
-				}
+			}
+			else_if = {
+				limit = { from = { has_country_flag = bulwark_country_techthree } }
 				from = {
 					set_timed_country_flag = { flag = bulwark_commission_stations_root years = 4 }
 					change_variable = { which = bulwarkbudget value = 50 }
@@ -1525,9 +1475,8 @@ country_event = {
 						event_target:receiving_bulwark_station_commission = {
 							check_variable = { which = bulwarkstations value > 0 }
 							any_planet_within_border = {
-								count_fleet_in_orbit = {
+								count_fleet_in_orbit = { count = 0
 										limit = { is_ship_size = marauder_station }
-										count = 0
 									}
 							}
 						}
@@ -1577,10 +1526,9 @@ country_event = {
 						}
 					}
 				}
-			} else_if = {
-				limit = {
-					from = { has_country_flag = bulwark_country_techfour }
-				}
+			}
+			else_if = {
+				limit = { from = { has_country_flag = bulwark_country_techfour } }
 				from = {
 					set_timed_country_flag = { flag = bulwark_commission_stations_root years = 4 }
 					change_variable = { which = bulwarkbudget value = 50 }
@@ -1595,10 +1543,9 @@ country_event = {
 						event_target:receiving_bulwark_station_commission = {
 							check_variable = { which = bulwarkstations value > 0 }
 							any_planet_within_border = {
-								count_fleet_in_orbit = {
-										limit = { is_ship_size = marauder_station }
-										count = 0
-									}
+								count_fleet_in_orbit = { count = 0
+									limit = { is_ship_size = marauder_station }
+								}
 							}
 						}
 					}
@@ -1647,10 +1594,9 @@ country_event = {
 						}
 					}
 				}
-			} else_if = {
-				limit = {
-					from = { has_country_flag = bulwark_country_techfive }
-				}
+			}
+			else_if = {
+				limit = { from = { has_country_flag = bulwark_country_techfive } }
 				from = {
 					set_timed_country_flag = { flag = bulwark_commission_stations_root years = 4 }
 					change_variable = { which = bulwarkbudget value = 50 }
@@ -1665,10 +1611,9 @@ country_event = {
 						event_target:receiving_bulwark_station_commission = {
 							check_variable = { which = bulwarkstations value > 0 }
 							any_planet_within_border = {
-								count_fleet_in_orbit = {
-										limit = { is_ship_size = marauder_station }
-										count = 0
-									}
+								count_fleet_in_orbit = { count = 0
+									limit = { is_ship_size = marauder_station }
+								}
 							}
 						}
 					}
@@ -1724,16 +1669,12 @@ country_event = {
 	option = {
 		name = tob_merc.9.b
 		trigger = {
-			NOT = {
-				from = { has_country_flag = bulwark_commission_stations_root }
-			}
+			NOT = { from = { has_country_flag = bulwark_commission_stations_root } }
 		}
 		allow = {
 			has_country_resource = { type = energy amount > 2000 }
 			hidden_trigger = {
-				NOT = {
-					from = { has_country_flag = bulwark_commission_stations_root }
-				}
+				NOT = { from = { has_country_flag = bulwark_commission_stations_root } }
 			}
 		}
 		set_timed_country_flag = { flag = bulwark_commissioned_stations_recently_safeguard days = 3 }
@@ -1741,9 +1682,7 @@ country_event = {
 		add_resource = { energy = -2000 }
 		hidden_effect = {
 			if = {
-				limit = {
-					from = { has_country_flag = bulwark_country_techone }
-				}
+				limit = { from = { has_country_flag = bulwark_country_techone } }
 				from = {
 					set_timed_country_flag = { flag = bulwark_commission_stations_root years = 4 }
 					change_variable = { which = bulwarkbudget value = 100 }
@@ -1758,10 +1697,9 @@ country_event = {
 						event_target:receiving_bulwark_station_commission = {
 							check_variable = { which = bulwarkstations value > 0 }
 							any_planet_within_border = {
-								count_fleet_in_orbit = {
-										limit = { is_ship_size = marauder_station }
-										count = 0
-									}
+								count_fleet_in_orbit = { count = 0
+									limit = { is_ship_size = marauder_station }
+								}
 							}
 						}
 					}
@@ -1810,10 +1748,9 @@ country_event = {
 						}
 					}
 				}
-			} else_if = {
-				limit = {
-					from = { has_country_flag = bulwark_country_techtwo }
-				}
+			}
+			else_if = {
+				limit = { from = { has_country_flag = bulwark_country_techtwo } }
 				from = {
 					set_timed_country_flag = { flag = bulwark_commission_stations_root years = 4 }
 					change_variable = { which = bulwarkbudget value = 100 }
@@ -1828,10 +1765,9 @@ country_event = {
 						event_target:receiving_bulwark_station_commission = {
 							check_variable = { which = bulwarkstations value > 0 }
 							any_planet_within_border = {
-								count_fleet_in_orbit = {
-										limit = { is_ship_size = marauder_station }
-										count = 0
-									}
+								count_fleet_in_orbit = { count = 0
+									limit = { is_ship_size = marauder_station }
+								}
 							}
 						}
 					}
@@ -1880,10 +1816,9 @@ country_event = {
 						}
 					}
 				}
-			} else_if = {
-				limit = {
-					from = { has_country_flag = bulwark_country_techthree }
-				}
+			}
+			else_if = {
+				limit = { from = { has_country_flag = bulwark_country_techthree } }
 				from = {
 					set_timed_country_flag = { flag = bulwark_commission_stations_root years = 4 }
 					change_variable = { which = bulwarkbudget value = 100 }
@@ -1898,10 +1833,9 @@ country_event = {
 						event_target:receiving_bulwark_station_commission = {
 							check_variable = { which = bulwarkstations value > 0 }
 							any_planet_within_border = {
-								count_fleet_in_orbit = {
-										limit = { is_ship_size = marauder_station }
-										count = 0
-									}
+								count_fleet_in_orbit = { count = 0
+									limit = { is_ship_size = marauder_station }
+								}
 							}
 						}
 					}
@@ -1950,10 +1884,9 @@ country_event = {
 						}
 					}
 				}
-			} else_if = {
-				limit = {
-					from = { has_country_flag = bulwark_country_techfour }
-				}
+			}
+			else_if = {
+				limit = { from = { has_country_flag = bulwark_country_techfour } }
 				from = {
 					set_timed_country_flag = { flag = bulwark_commission_stations_root years = 4 }
 					change_variable = { which = bulwarkbudget value = 100 }
@@ -1968,10 +1901,9 @@ country_event = {
 						event_target:receiving_bulwark_station_commission = {
 							check_variable = { which = bulwarkstations value > 0 }
 							any_planet_within_border = {
-								count_fleet_in_orbit = {
-										limit = { is_ship_size = marauder_station }
-										count = 0
-									}
+								count_fleet_in_orbit = { count = 0
+									limit = { is_ship_size = marauder_station }
+								}
 							}
 						}
 					}
@@ -2020,10 +1952,9 @@ country_event = {
 						}
 					}
 				}
-			} else_if = {
-				limit = {
-					from = { has_country_flag = bulwark_country_techfive }
-				}
+			}
+			else_if = {
+				limit = { from = { has_country_flag = bulwark_country_techfive } }
 				from = {
 					set_timed_country_flag = { flag = bulwark_commission_stations_root years = 4 }
 					change_variable = { which = bulwarkbudget value = 100 }
@@ -2038,10 +1969,9 @@ country_event = {
 						event_target:receiving_bulwark_station_commission = {
 							check_variable = { which = bulwarkstations value > 0 }
 							any_planet_within_border = {
-								count_fleet_in_orbit = {
-										limit = { is_ship_size = marauder_station }
-										count = 0
-									}
+								count_fleet_in_orbit = { count = 0
+									limit = { is_ship_size = marauder_station }
+								}
 							}
 						}
 					}
@@ -2097,16 +2027,12 @@ country_event = {
 	option = {
 		name = tob_merc.9.c
 		trigger = {
-			NOT = {
-				from = { has_country_flag = bulwark_commission_stations_root }
-			}
+			NOT = { from = { has_country_flag = bulwark_commission_stations_root } }
 		}
 		allow = {
 			has_country_resource = { type = energy amount > 3000 }
 			hidden_trigger = {
-				NOT = {
-					from = { has_country_flag = bulwark_commission_stations_root }
-				}
+				NOT = { from = { has_country_flag = bulwark_commission_stations_root } }
 			}
 		}
 		set_timed_country_flag = { flag = bulwark_commissioned_stations_recently_safeguard days = 3 }
@@ -2114,9 +2040,7 @@ country_event = {
 		add_resource = { energy = -3000 }
 		hidden_effect = {
 			if = {
-				limit = {
-					from = { has_country_flag = bulwark_country_techone }
-				}
+				limit = { from = { has_country_flag = bulwark_country_techone } }
 				from = {
 					set_timed_country_flag = { flag = bulwark_commission_stations_root years = 4 }
 					change_variable = { which = bulwarkbudget value = 150 }
@@ -2131,10 +2055,9 @@ country_event = {
 						event_target:receiving_bulwark_station_commission = {
 							check_variable = { which = bulwarkstations value > 0 }
 							any_planet_within_border = {
-								count_fleet_in_orbit = {
-										limit = { is_ship_size = marauder_station }
-										count = 0
-									}
+								count_fleet_in_orbit = { count = 0
+									limit = { is_ship_size = marauder_station }
+								}
 							}
 						}
 					}
@@ -2183,10 +2106,9 @@ country_event = {
 						}
 					}
 				}
-			} else_if = {
-				limit = {
-					from = { has_country_flag = bulwark_country_techtwo }
-				}
+			}
+			else_if = {
+				limit = { from = { has_country_flag = bulwark_country_techtwo } }
 				from = {
 					set_timed_country_flag = { flag = bulwark_commission_stations_root years = 4 }
 					change_variable = { which = bulwarkbudget value = 150 }
@@ -2201,10 +2123,9 @@ country_event = {
 						event_target:receiving_bulwark_station_commission = {
 							check_variable = { which = bulwarkstations value > 0 }
 							any_planet_within_border = {
-								count_fleet_in_orbit = {
-										limit = { is_ship_size = marauder_station }
-										count = 0
-									}
+								count_fleet_in_orbit = { count = 0
+									limit = { is_ship_size = marauder_station }
+								}
 							}
 						}
 					}
@@ -2253,10 +2174,9 @@ country_event = {
 						}
 					}
 				}
-			} else_if = {
-				limit = {
-					from = { has_country_flag = bulwark_country_techthree }
-				}
+			}
+			else_if = {
+				limit = { from = { has_country_flag = bulwark_country_techthree } }
 				from = {
 					set_timed_country_flag = { flag = bulwark_commission_stations_root years = 4 }
 					change_variable = { which = bulwarkbudget value = 150 }
@@ -2271,10 +2191,9 @@ country_event = {
 						event_target:receiving_bulwark_station_commission = {
 							check_variable = { which = bulwarkstations value > 0 }
 							any_planet_within_border = {
-								count_fleet_in_orbit = {
-										limit = { is_ship_size = marauder_station }
-										count = 0
-									}
+								count_fleet_in_orbit = { count = 0
+									limit = { is_ship_size = marauder_station }
+								}
 							}
 						}
 					}
@@ -2298,9 +2217,8 @@ country_event = {
 						}
 						random_system_planet = {
 							limit = {
-								count_fleet_in_orbit = {
+								count_fleet_in_orbit = { count = 0
 									limit = { is_ship_size = marauder_station }
-									count = 0
 								}
 							}
 							save_event_target_as = bulwark_station_planet_target
@@ -2323,10 +2241,9 @@ country_event = {
 						}
 					}
 				}
-			} else_if = {
-				limit = {
-					from = { has_country_flag = bulwark_country_techfour }
-				}
+			}
+			else_if = {
+				limit = { from = { has_country_flag = bulwark_country_techfour } }
 				from = {
 					set_timed_country_flag = { flag = bulwark_commission_stations_root years = 4 }
 					change_variable = { which = bulwarkbudget value = 150 }
@@ -2341,10 +2258,9 @@ country_event = {
 						event_target:receiving_bulwark_station_commission = {
 							check_variable = { which = bulwarkstations value > 0 }
 							any_planet_within_border = {
-								count_fleet_in_orbit = {
-										limit = { is_ship_size = marauder_station }
-										count = 0
-									}
+								count_fleet_in_orbit = { count = 0
+									limit = { is_ship_size = marauder_station }
+								}
 							}
 						}
 					}
@@ -2368,9 +2284,8 @@ country_event = {
 						}
 						random_system_planet = {
 							limit = {
-								count_fleet_in_orbit = {
+								count_fleet_in_orbit = { count = 0
 									limit = { is_ship_size = marauder_station }
-									count = 0
 								}
 							}
 							save_event_target_as = bulwark_station_planet_target
@@ -2393,10 +2308,9 @@ country_event = {
 						}
 					}
 				}
-			} else_if = {
-				limit = {
-					from = { has_country_flag = bulwark_country_techfive }
-				}
+			}
+			else_if = {
+				limit = { from = { has_country_flag = bulwark_country_techfive } }
 				from = {
 					set_timed_country_flag = { flag = bulwark_commission_stations_root years = 4 }
 					change_variable = { which = bulwarkbudget value = 150 }
@@ -2411,10 +2325,9 @@ country_event = {
 						event_target:receiving_bulwark_station_commission = {
 							check_variable = { which = bulwarkstations value > 0 }
 							any_planet_within_border = {
-								count_fleet_in_orbit = {
-										limit = { is_ship_size = marauder_station }
-										count = 0
-									}
+								count_fleet_in_orbit = { count = 0
+									limit = { is_ship_size = marauder_station }
+								}
 							}
 						}
 					}
@@ -2466,8 +2379,5 @@ country_event = {
 			}
 		}
 	}
-	option = {
-		name = "graygoo.115.d"
-		default_hide_option = yes
-	}
+	option = { name = "graygoo.115.d" default_hide_option = yes }
 }

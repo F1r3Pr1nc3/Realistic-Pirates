@@ -170,49 +170,50 @@ country_event = {
 			effect = {
 				set_owner = root
 				set_fleet_flag = bulwark_mercenary_fleet
+				# (DESTROYER|CRUISER|BATTLESHIP|CORVETTE)(\s+)=\s+85 -> $1$2= 51
 				prev = {
 					if = { limit = { has_country_flag = bulwark_country_numbersone }
 						switch = { trigger = has_country_flag
-							bulwark_country_techone =	{ create_dyn_bulwark_fleet = { LOWCORVETTE		= 40 LOWDESTROYER		= 25 } }
-							bulwark_country_techtwo =	{ create_dyn_bulwark_fleet = { MEDCORVETTE		= 40 MEDDESTROYER		= 25 } }
-							bulwark_country_techthree =	{ create_dyn_bulwark_fleet = { HIGHCORVETTE		= 40 HIGHDESTROYER		= 25 } }
-							bulwark_country_techfour =	{ create_dyn_bulwark_fleet = { HIGHERCORVETTE	= 40 HIGHERDESTROYER	= 25 } }
-							bulwark_country_techfive =	{ create_dyn_bulwark_fleet = { HIGHESTCORVETTE	= 40 HIGHESTDESTROYER	= 25 } }
+							bulwark_country_techone =	{ create_dyn_bulwark_fleet = { LOWCORVETTE		= 24 LOWDESTROYER		= 15 } }
+							bulwark_country_techtwo =	{ create_dyn_bulwark_fleet = { MEDCORVETTE		= 24 MEDDESTROYER		= 15 } }
+							bulwark_country_techthree =	{ create_dyn_bulwark_fleet = { HIGHCORVETTE		= 24 HIGHDESTROYER		= 15 } }
+							bulwark_country_techfour =	{ create_dyn_bulwark_fleet = { HIGHERCORVETTE	= 24 HIGHERDESTROYER		= 15 } }
+							bulwark_country_techfive =	{ create_dyn_bulwark_fleet = { HIGHESTCORVETTE	= 24 HIGHESTDESTROYER	= 15 } }
 						}
 					} else_if = { limit = { has_country_flag = bulwark_country_techone }
 						switch = { trigger = has_country_flag
-							bulwark_country_numberstwo =	{ create_dyn_bulwark_fleet = { LOWCORVETTE = 60 LOWDESTROYER	= 40 } }
-							bulwark_country_numbersthree =	{ create_dyn_bulwark_fleet = { LOWCORVETTE = 80 LOWDESTROYER	= 55 } }
-							bulwark_country_numbersfour =	{ create_dyn_bulwark_fleet = { LOWCORVETTE = 100 LOWDESTROYER	= 70 } }
-							bulwark_country_numbersfive =	{ create_dyn_bulwark_fleet = { LOWCORVETTE = 120 LOWDESTROYER	= 85 } }
+							bulwark_country_numberstwo =	{ create_dyn_bulwark_fleet = { LOWCORVETTE = 36 LOWDESTROYER	= 24 } }
+							bulwark_country_numbersthree =	{ create_dyn_bulwark_fleet = { LOWCORVETTE = 48 LOWDESTROYER	= 33 } }
+							bulwark_country_numbersfour =	{ create_dyn_bulwark_fleet = { LOWCORVETTE = 60 LOWDESTROYER	= 42 } }
+							bulwark_country_numbersfive =	{ create_dyn_bulwark_fleet = { LOWCORVETTE = 72 LOWDESTROYER	= 51 } }
 						}
 					} else_if = { limit = { has_country_flag = bulwark_country_techtwo }
 						switch = { trigger = has_country_flag
-							bulwark_country_numberstwo =	{ create_dyn_bulwark_fleet = { MEDCORVETTE = 60 MEDDESTROYER =	40 LOWCRUISER = 10 } }
-							bulwark_country_numbersthree =	{ create_dyn_bulwark_fleet = { MEDCORVETTE = 80 MEDDESTROYER =	55 LOWCRUISER = 20 } }
-							bulwark_country_numbersfour =	{ create_dyn_bulwark_fleet = { MEDCORVETTE = 100 MEDDESTROYER =	70 LOWCRUISER = 30 } }
-							bulwark_country_numbersfive =	{ create_dyn_bulwark_fleet = { MEDCORVETTE = 120 MEDDESTROYER =	85 LOWCRUISER = 40 } }
+							bulwark_country_numberstwo =	{ create_dyn_bulwark_fleet = { MEDCORVETTE = 36 MEDDESTROYER = 24 LOWCRUISER = 6 } }
+							bulwark_country_numbersthree =	{ create_dyn_bulwark_fleet = { MEDCORVETTE = 48 MEDDESTROYER = 33 LOWCRUISER = 12 } }
+							bulwark_country_numbersfour =	{ create_dyn_bulwark_fleet = { MEDCORVETTE = 60 MEDDESTROYER = 42 LOWCRUISER = 18 } }
+							bulwark_country_numbersfive =	{ create_dyn_bulwark_fleet = { MEDCORVETTE = 72 MEDDESTROYER = 51 LOWCRUISER = 24 } }
 						}
 					} else_if = { limit = { has_country_flag = bulwark_country_techthree }
 						switch = { trigger = has_country_flag
-							bulwark_country_numberstwo =	{ create_dyn_bulwark_fleet = { HIGHCORVETTE = 60 HIGHDESTROYER =	40 MEDCRUISER = 10 LOWBATTLESHIP = 5 } }
-							bulwark_country_numbersthree =	{ create_dyn_bulwark_fleet = { HIGHCORVETTE = 80 HIGHDESTROYER =	55 MEDCRUISER = 20 LOWBATTLESHIP = 10 } }
-							bulwark_country_numbersfour =	{ create_dyn_bulwark_fleet = { HIGHCORVETTE = 100 HIGHDESTROYER =	70 MEDCRUISER = 30 LOWBATTLESHIP = 15 } }
-							bulwark_country_numbersfive =	{ create_dyn_bulwark_fleet = { HIGHCORVETTE = 120 HIGHDESTROYER =	85 MEDCRUISER = 40 LOWBATTLESHIP = 20 } }
+							bulwark_country_numberstwo =	{ create_dyn_bulwark_fleet = { HIGHCORVETTE = 36 HIGHDESTROYER = 24 MEDCRUISER = 6 LOWBATTLESHIP = 3 } }
+							bulwark_country_numbersthree =	{ create_dyn_bulwark_fleet = { HIGHCORVETTE = 48 HIGHDESTROYER = 33 MEDCRUISER = 12 LOWBATTLESHIP = 6 } }
+							bulwark_country_numbersfour =	{ create_dyn_bulwark_fleet = { HIGHCORVETTE = 60 HIGHDESTROYER = 42 MEDCRUISER = 18 LOWBATTLESHIP = 9 } }
+							bulwark_country_numbersfive =	{ create_dyn_bulwark_fleet = { HIGHCORVETTE = 72 HIGHDESTROYER = 51 MEDCRUISER = 24 LOWBATTLESHIP = 12 } }
 						}
 					} else_if = { limit = { has_country_flag = bulwark_country_techfour }
 						switch = { trigger = has_country_flag
-							bulwark_country_numberstwo =	{ create_dyn_bulwark_fleet = { HIGHERCORVETTE = 60 HIGHERDESTROYER =	40 HIGHCRUISER = 10 MEDBATTLESHIP = 5 } }
-							bulwark_country_numbersthree =	{ create_dyn_bulwark_fleet = { HIGHERCORVETTE = 80 HIGHERDESTROYER =	55 HIGHCRUISER = 20 MEDBATTLESHIP = 10 } }
-							bulwark_country_numbersfour =	{ create_dyn_bulwark_fleet = { HIGHERCORVETTE = 100 HIGHERDESTROYER =	70 HIGHCRUISER = 30 MEDBATTLESHIP = 15 } }
-							bulwark_country_numbersfive =	{ create_dyn_bulwark_fleet = { HIGHERCORVETTE = 120 HIGHERDESTROYER =	85 HIGHCRUISER = 40 MEDBATTLESHIP = 20 } }
+							bulwark_country_numberstwo =	{ create_dyn_bulwark_fleet = { HIGHERCORVETTE = 36 HIGHERDESTROYER = 24 HIGHCRUISER = 6 MEDBATTLESHIP = 3 } }
+							bulwark_country_numbersthree =	{ create_dyn_bulwark_fleet = { HIGHERCORVETTE = 48 HIGHERDESTROYER = 33 HIGHCRUISER = 12 MEDBATTLESHIP = 6 } }
+							bulwark_country_numbersfour =	{ create_dyn_bulwark_fleet = { HIGHERCORVETTE = 60 HIGHERDESTROYER = 42 HIGHCRUISER = 18 MEDBATTLESHIP = 9 } }
+							bulwark_country_numbersfive =	{ create_dyn_bulwark_fleet = { HIGHERCORVETTE = 72 HIGHERDESTROYER = 51 HIGHCRUISER = 24 MEDBATTLESHIP = 12 } }
 						}
 					} else_if = { limit = { has_country_flag = bulwark_country_techfive }
 						switch = { trigger = has_country_flag
-							bulwark_country_numberstwo =	{ create_dyn_bulwark_fleet = { HIGHESTCORVETTE = 60 HIGHESTDESTROYER =	40 HIGHESTCRUISER = 10 HIGHESTBATTLESHIP = 5 } }
-							bulwark_country_numbersthree =	{ create_dyn_bulwark_fleet = { HIGHESTCORVETTE = 80 HIGHESTDESTROYER =	55 HIGHESTCRUISER = 20 HIGHESTBATTLESHIP = 10 } }
-							bulwark_country_numbersfour =	{ create_dyn_bulwark_fleet = { HIGHESTCORVETTE = 100 HIGHESTDESTROYER =	70 HIGHESTCRUISER = 30 HIGHESTBATTLESHIP = 15 } }
-							bulwark_country_numbersfive =	{ create_dyn_bulwark_fleet = { HIGHESTCORVETTE = 120 HIGHESTDESTROYER =	85 HIGHESTCRUISER = 40 HIGHESTBATTLESHIP = 20 } }
+							bulwark_country_numberstwo =	{ create_dyn_bulwark_fleet = { HIGHESTCORVETTE = 36 HIGHESTDESTROYER = 24 HIGHESTCRUISER = 6 HIGHESTBATTLESHIP = 3 } }
+							bulwark_country_numbersthree =	{ create_dyn_bulwark_fleet = { HIGHESTCORVETTE = 48 HIGHESTDESTROYER = 33 HIGHESTCRUISER = 12 HIGHESTBATTLESHIP = 6 } }
+							bulwark_country_numbersfour =	{ create_dyn_bulwark_fleet = { HIGHESTCORVETTE = 60 HIGHESTDESTROYER = 42 HIGHESTCRUISER = 18 HIGHESTBATTLESHIP = 9 } }
+							bulwark_country_numbersfive =	{ create_dyn_bulwark_fleet = { HIGHESTCORVETTE = 72 HIGHESTDESTROYER = 51 HIGHESTCRUISER = 24 HIGHESTBATTLESHIP = 12 } }
 						}
 					}
 				}
@@ -279,7 +280,7 @@ country_event = {
 			species = owner_species
 			name = random
 			skill = 1
-			event_leader = yes				# Prevents this leader from leading factions and winning elections.
+			event_leader = yes			# Prevents this leader from leading factions and winning elections.
 			immortal = yes				# can't be killed (not even in battle, unless fleet is destroyed)
 		}
 		create_fleet = {
@@ -295,46 +296,46 @@ country_event = {
 				prev = {
 					if = { limit = { has_country_flag = bulwark_country_numbersone }
 						switch = { trigger = has_country_flag
-							bulwark_country_techone =	{ create_dyn_bulwark_fleet = { LOWCORVETTE		= 40 LOWDESTROYER		= 25 } }
-							bulwark_country_techtwo =	{ create_dyn_bulwark_fleet = { MEDCORVETTE		= 40 MEDDESTROYER		= 25 } }
-							bulwark_country_techthree =	{ create_dyn_bulwark_fleet = { HIGHCORVETTE		= 40 HIGHDESTROYER		= 25 } }
-							bulwark_country_techfour =	{ create_dyn_bulwark_fleet = { HIGHERCORVETTE	= 40 HIGHERDESTROYER	= 25 } }
-							bulwark_country_techfive =	{ create_dyn_bulwark_fleet = { HIGHESTCORVETTE	= 40 HIGHESTDESTROYER	= 25 } }
+							bulwark_country_techone =	{ create_dyn_bulwark_fleet = { LOWCORVETTE		= 24 LOWDESTROYER		= 15 } }
+							bulwark_country_techtwo =	{ create_dyn_bulwark_fleet = { MEDCORVETTE		= 24 MEDDESTROYER		= 15 } }
+							bulwark_country_techthree =	{ create_dyn_bulwark_fleet = { HIGHCORVETTE		= 24 HIGHDESTROYER		= 15 } }
+							bulwark_country_techfour =	{ create_dyn_bulwark_fleet = { HIGHERCORVETTE	= 24 HIGHERDESTROYER	= 15 } }
+							bulwark_country_techfive =	{ create_dyn_bulwark_fleet = { HIGHESTCORVETTE	= 24 HIGHESTDESTROYER	= 15 } }
 						}
 					} else_if = { limit = { has_country_flag = bulwark_country_techone }
 						switch = { trigger = has_country_flag
-							bulwark_country_numberstwo =	{ create_dyn_bulwark_fleet = { LOWCORVETTE = 60 LOWDESTROYER	= 40 } }
-							bulwark_country_numbersthree =	{ create_dyn_bulwark_fleet = { LOWCORVETTE = 80 LOWDESTROYER	= 55 } }
-							bulwark_country_numbersfour =	{ create_dyn_bulwark_fleet = { LOWCORVETTE = 100 LOWDESTROYER	= 70 } }
-							bulwark_country_numbersfive =	{ create_dyn_bulwark_fleet = { LOWCORVETTE = 120 LOWDESTROYER	= 85 } }
+							bulwark_country_numberstwo =	{ create_dyn_bulwark_fleet = { LOWCORVETTE = 36 LOWDESTROYER	= 24 } }
+							bulwark_country_numbersthree =	{ create_dyn_bulwark_fleet = { LOWCORVETTE = 48 LOWDESTROYER	= 33 } }
+							bulwark_country_numbersfour =	{ create_dyn_bulwark_fleet = { LOWCORVETTE = 60 LOWDESTROYER	= 42 } }
+							bulwark_country_numbersfive =	{ create_dyn_bulwark_fleet = { LOWCORVETTE = 72 LOWDESTROYER	= 51 } }
 						}
 					} else_if = { limit = { has_country_flag = bulwark_country_techtwo }
 						switch = { trigger = has_country_flag
-							bulwark_country_numberstwo =	{ create_dyn_bulwark_fleet = { MEDCORVETTE = 60 MEDDESTROYER =	40 LOWCRUISER = 10 } }
-							bulwark_country_numbersthree =	{ create_dyn_bulwark_fleet = { MEDCORVETTE = 80 MEDDESTROYER =	55 LOWCRUISER = 20 } }
-							bulwark_country_numbersfour =	{ create_dyn_bulwark_fleet = { MEDCORVETTE = 100 MEDDESTROYER =	70 LOWCRUISER = 30 } }
-							bulwark_country_numbersfive =	{ create_dyn_bulwark_fleet = { MEDCORVETTE = 120 MEDDESTROYER =	85 LOWCRUISER = 40 } }
+							bulwark_country_numberstwo =	{ create_dyn_bulwark_fleet = { MEDCORVETTE = 36 MEDDESTROYER = 24 LOWCRUISER = 6 } }
+							bulwark_country_numbersthree =	{ create_dyn_bulwark_fleet = { MEDCORVETTE = 48 MEDDESTROYER = 33 LOWCRUISER = 12 } }
+							bulwark_country_numbersfour =	{ create_dyn_bulwark_fleet = { MEDCORVETTE = 60 MEDDESTROYER = 42 LOWCRUISER = 18 } }
+							bulwark_country_numbersfive =	{ create_dyn_bulwark_fleet = { MEDCORVETTE = 72 MEDDESTROYER = 51 LOWCRUISER = 24 } }
 						}
 					} else_if = { limit = { has_country_flag = bulwark_country_techthree }
 						switch = { trigger = has_country_flag
-							bulwark_country_numberstwo =	{ create_dyn_bulwark_fleet = { HIGHCORVETTE = 60 HIGHDESTROYER =	40 MEDCRUISER = 10 LOWBATTLESHIP = 5 } }
-							bulwark_country_numbersthree =	{ create_dyn_bulwark_fleet = { HIGHCORVETTE = 80 HIGHDESTROYER =	55 MEDCRUISER = 20 LOWBATTLESHIP = 10 } }
-							bulwark_country_numbersfour =	{ create_dyn_bulwark_fleet = { HIGHCORVETTE = 100 HIGHDESTROYER =	70 MEDCRUISER = 30 LOWBATTLESHIP = 15 } }
-							bulwark_country_numbersfive =	{ create_dyn_bulwark_fleet = { HIGHCORVETTE = 120 HIGHDESTROYER =	85 MEDCRUISER = 40 LOWBATTLESHIP = 20 } }
+							bulwark_country_numberstwo =	{ create_dyn_bulwark_fleet = { HIGHCORVETTE = 36 HIGHDESTROYER = 24 MEDCRUISER = 6  LOWBATTLESHIP = 3 } }
+							bulwark_country_numbersthree =	{ create_dyn_bulwark_fleet = { HIGHCORVETTE = 48 HIGHDESTROYER = 33 MEDCRUISER = 12 LOWBATTLESHIP = 6 } }
+							bulwark_country_numbersfour =	{ create_dyn_bulwark_fleet = { HIGHCORVETTE = 60 HIGHDESTROYER = 42 MEDCRUISER = 18 LOWBATTLESHIP = 9 } }
+							bulwark_country_numbersfive =	{ create_dyn_bulwark_fleet = { HIGHCORVETTE = 72 HIGHDESTROYER = 51 MEDCRUISER = 24 LOWBATTLESHIP = 12 } }
 						}
 					} else_if = { limit = { has_country_flag = bulwark_country_techfour }
 						switch = { trigger = has_country_flag
-							bulwark_country_numberstwo =	{ create_dyn_bulwark_fleet = { HIGHERCORVETTE = 60 HIGHERDESTROYER =	40 HIGHCRUISER = 10 MEDBATTLESHIP = 5 } }
-							bulwark_country_numbersthree =	{ create_dyn_bulwark_fleet = { HIGHERCORVETTE = 80 HIGHERDESTROYER =	55 HIGHCRUISER = 20 MEDBATTLESHIP = 10 } }
-							bulwark_country_numbersfour =	{ create_dyn_bulwark_fleet = { HIGHERCORVETTE = 100 HIGHERDESTROYER =	70 HIGHCRUISER = 30 MEDBATTLESHIP = 15 } }
-							bulwark_country_numbersfive =	{ create_dyn_bulwark_fleet = { HIGHERCORVETTE = 120 HIGHERDESTROYER =	85 HIGHCRUISER = 40 MEDBATTLESHIP = 20 } }
+							bulwark_country_numberstwo =	{ create_dyn_bulwark_fleet = { HIGHERCORVETTE = 36 HIGHERDESTROYER = 24 HIGHCRUISER = 6  MEDBATTLESHIP = 3 } }
+							bulwark_country_numbersthree =	{ create_dyn_bulwark_fleet = { HIGHERCORVETTE = 48 HIGHERDESTROYER = 33 HIGHCRUISER = 12 MEDBATTLESHIP = 6 } }
+							bulwark_country_numbersfour =	{ create_dyn_bulwark_fleet = { HIGHERCORVETTE = 60 HIGHERDESTROYER = 42 HIGHCRUISER = 18 MEDBATTLESHIP = 9 } }
+							bulwark_country_numbersfive =	{ create_dyn_bulwark_fleet = { HIGHERCORVETTE = 72 HIGHERDESTROYER = 51 HIGHCRUISER = 24 MEDBATTLESHIP = 12 } }
 						}
 					} else_if = { limit = { has_country_flag = bulwark_country_techfive }
 						switch = { trigger = has_country_flag
-							bulwark_country_numberstwo =	{ create_dyn_bulwark_fleet = { HIGHESTCORVETTE = 60 HIGHESTDESTROYER =	40 HIGHESTCRUISER = 10 HIGHESTBATTLESHIP = 5 } }
-							bulwark_country_numbersthree =	{ create_dyn_bulwark_fleet = { HIGHESTCORVETTE = 80 HIGHESTDESTROYER =	55 HIGHESTCRUISER = 20 HIGHESTBATTLESHIP = 10 } }
-							bulwark_country_numbersfour =	{ create_dyn_bulwark_fleet = { HIGHESTCORVETTE = 100 HIGHESTDESTROYER =	70 HIGHESTCRUISER = 30 HIGHESTBATTLESHIP = 15 } }
-							bulwark_country_numbersfive =	{ create_dyn_bulwark_fleet = { HIGHESTCORVETTE = 120 HIGHESTDESTROYER =	85 HIGHESTCRUISER = 40 HIGHESTBATTLESHIP = 20 } }
+							bulwark_country_numberstwo =	{ create_dyn_bulwark_fleet = { HIGHESTCORVETTE = 36 HIGHESTDESTROYER = 24 HIGHESTCRUISER = 6  HIGHESTBATTLESHIP = 3 } }
+							bulwark_country_numbersthree =	{ create_dyn_bulwark_fleet = { HIGHESTCORVETTE = 48 HIGHESTDESTROYER = 33 HIGHESTCRUISER = 12 HIGHESTBATTLESHIP = 6 } }
+							bulwark_country_numbersfour =	{ create_dyn_bulwark_fleet = { HIGHESTCORVETTE = 60 HIGHESTDESTROYER = 42 HIGHESTCRUISER = 18 HIGHESTBATTLESHIP = 9 } }
+							bulwark_country_numbersfive =	{ create_dyn_bulwark_fleet = { HIGHESTCORVETTE = 72 HIGHESTDESTROYER = 51 HIGHESTCRUISER = 24 HIGHESTBATTLESHIP = 12 } }
 						}
 					}
 				}
@@ -398,7 +399,7 @@ country_event = {
 						any_system_planet = {
 							NOR = {
 								is_star = yes
-								any_fleet_in_orbit = {  any_owned_ship = { is_ship_size = bulwark_station } }
+								any_fleet_in_orbit = { any_owned_ship = { is_ship_size = bulwark_station } }
 							}
 						}
 					}
@@ -406,7 +407,7 @@ country_event = {
 						limit = {
 							NOR = {
 								is_star = yes
-								any_fleet_in_orbit = {  any_owned_ship = { is_ship_size = bulwark_station } }
+								any_fleet_in_orbit = { any_owned_ship = { is_ship_size = bulwark_station } }
 							}
 						}
 						# save_event_target_as = bulwark_station_respawn_here
