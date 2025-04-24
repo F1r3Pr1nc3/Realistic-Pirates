@@ -42,11 +42,11 @@ event = {
 						owner = { is_primitive = no }
 					}
 					count_fleet_in_system = {
+						count = 0
 						limit = {
 							exists = owner
 							owner = { is_country_type = rebel }
 						}
-						count = 0
 					}
 				}
 			}
@@ -83,7 +83,7 @@ country_event = {
 	trigger = {
 		has_country_flag = pirate_waves_disappear
 		exists = event_target:pirate_system
-		count_situation = { limit = { is_situation_type = situation_planetary_revolt } count = 0 }
+		count_situation = { count = 0 limit = { is_situation_type = situation_planetary_revolt } }
 	}
 	immediate = {
 		random_country = {
@@ -128,11 +128,11 @@ country_event = {
 								}
 							}
 							count_fleet_in_system = {
+								count = 0
 								limit = {
 									exists = owner
 									owner = { is_country_type = rebel }
 								}
-								count = 0
 							}
 						}
 						random_system_colony = {
@@ -173,11 +173,11 @@ country_event = {
 										is_controlled_by = root
 									}
 									count_fleet_in_system = {
+										count = 0
 										limit = {
 											exists = owner
 											owner = { is_country_type = rebel }
 										}
-										count = 0
 									}
 								}
 							}
@@ -205,11 +205,11 @@ country_event = {
 									# }
 								}
 								count_fleet_in_system = {
+									count = 0
 									limit = {
 										exists = owner
 										owner = { is_country_type = rebel }
 									}
-									count = 0
 								}
 							}
 							random_system_colony = {
@@ -246,11 +246,11 @@ country_event = {
 									habitability = { who = event_target:pirate_species value > 0.6 }
 								}
 								count_fleet_in_system = {
+									count = 0
 									limit = {
 										exists = owner
 										owner = { is_country_type = rebel }
 									}
-									count = 0
 								}
 							}
 							random_system_planet = {
@@ -344,8 +344,8 @@ planet_event = {
 		trigger = {
 			owner = { is_gestalt = yes }
 			count_owned_pop = {
-				limit = { is_sapient = yes is_gestalt = no }
 				count = 0
+				limit = { is_sapient = yes is_gestalt = no }
 			}
 		}
 		text = unrest.55.desc.gestalt_breakaway_gestalt
@@ -904,12 +904,12 @@ country_event = {
 				limit = {
 					count_owned_planet = { count = 0 }
 					count_owned_army = {
+						count = 0
 						limit = {
 							is_defensive_army = no
 							exists = planet
 							planet = { has_ground_combat = yes }
 						}
-						count = 0
 					}
 				}
 				# set_country_type = pirate_waves_country
@@ -1140,7 +1140,7 @@ country_event = {
 		name = pirate_republic.13.option
 		hidden_effect = {
 			if = {
-				limit = { count_subject = { limit = { has_country_flag = pirate_republic } count = 0 } }
+				limit = { count_subject = { count = 0 limit = { has_country_flag = pirate_republic } } }
 				country_event = { id = pirate_republic.14 }
 			}
 		}
@@ -1410,7 +1410,7 @@ event = {
 							}
 							event_target:rebel_country = {
 								if = {
-									limit = { count_owned_leader = { limit = { leader_class = commander } count = 0 } }
+									limit = { count_owned_leader = { count = 0 limit = { leader_class = commander } } }
 									create_leader = {
 										class = commander
 										species = owner_species

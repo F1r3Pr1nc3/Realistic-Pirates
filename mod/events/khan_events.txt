@@ -7,10 +7,16 @@
 #########################################
 #########################################
 namespace = khan
+#
+####		SHORT DOCU		###
+#
+## khan.300 Set Mod Flag (on_game_start)
+# khan.605 Player Defeating the Khan and choosing to be Successor
 
-# Placeholder since v.3.9.1 (parser crashes if missing)
-country_event = { id = khan.296 hide_window = yes is_triggered_only = yes is_test_event = yes trigger = { always = no } immediate = { } }
-country_event = { id = khan.298 hide_window = yes is_triggered_only = yes is_test_event = yes trigger = { always = no } immediate = { } }
+# Placeholder since v3.9.1 (parser crashes if missing)
+country_event = { id = khan.218 hide_window = yes is_triggered_only = yes is_test_event = yes trigger = { always = no } }
+country_event = { id = khan.296 hide_window = yes is_triggered_only = yes is_test_event = yes trigger = { always = no } }
+country_event = { id = khan.298 hide_window = yes is_triggered_only = yes is_test_event = yes trigger = { always = no } }
 
 # (on_game_start) Gets overwritten by The Great Khan Expanded
 event = {
@@ -351,7 +357,7 @@ ship_event = {
 			solar_system = {
 				if = {
 					limit = {
-						count_system_colony = { limit = { is_owned_by = from.owner } count = 0 }
+						count_system_colony = { count = 0 limit = { is_owned_by = from.owner } }
 						any_system_planet = {
 							colonizable_planet = yes
 							OR = {
@@ -1031,7 +1037,7 @@ system_event = {
 		# }
 	}
 	immediate = {	# system_owner does not exists
-		# log = "test khan.310 [former_starbase_owner.GetName] or [Fromfrom.Owner.GetName]"
+		# log = "test khan.310 \\[former_starbase_owner.GetName] or \\[Fromfrom.Owner.GetName]"
 		if = {
 			limit = {
 				exists = starbase
@@ -1053,7 +1059,7 @@ system_event = {
 				limit = { NOT = { has_star_flag = starbase_destroyed } }
 				system_event = { id = khan.310 days = 2 scopes = { from = root fromfrom = fromfrom } }
 				set_timed_star_flag = { flag = starbase_destroyed days = 5 }
-				log = "khan.310 starbase owned by [former_starbase_owner.GetName] or [Fromfrom.Owner.GetName]"
+				log = "khan.310 starbase owned by \\[former_starbase_owner.GetName] or \\[Fromfrom.Owner.GetName]"
 			}
 			break = yes
 		}
@@ -1118,7 +1124,11 @@ country_event = {
 	id = khan.312
 	hide_window = yes
 	is_triggered_only = yes
-	trigger = { has_global_flag = marauder_crisis_ongoing exists = event_target:raider_khanate is_same_empire = event_target:raider_khanate }
+	trigger = {
+		has_global_flag = marauder_crisis_ongoing
+		exists = event_target:raider_khanate
+		is_same_empire = event_target:raider_khanate
+	}
 	immediate = {
 		if = {
 			limit = { NOT = { exists = event_target:marauders_garrison_1 } }
@@ -1503,6 +1513,38 @@ country_event = {
 	}
 }
 
+# TODO: Player could chose!? Mysteric Bug Reported: Somehow player lost systems to the new new_khanate fully unrelated??
+# Player Defeating the Khan and choosing to be Successor
+# Root = human player
+# From = raider_khanate
+country_event = {
+	id = khan.605
+	hide_window = yes
+	is_triggered_only = yes
+	trigger = {
+		is_scope_valid = yes
+		is_scope_type = country
+		is_country_type = default
+		is_ai = no
+		exists = from
+		from = {
+			is_scope_valid = yes
+			is_scope_type = country
+			is_country_type = default
+			is_ai = yes
+		}
+	}
+	immediate = {
+		from = {
+			set_player = root
+			add_resource = { energy = 10000 }
+			if = { limit = { has_global_flag = gf_great_khan_active }
+				country_event = { id = khan.218 days = 8 } # Galcom
+			}
+		}
+	}
+}
+
 # Remove old Marauder
 country_event = {
 	id = khan.606
@@ -1541,7 +1583,10 @@ country_event = {
 				country_event = { id = marauder.602 days = 1 } # New Khanate
 			}
 		}
-		else = { destroy_country = yes }
+		else_if = {
+			limit = { NOR = { is_country_type = default is_ai = yes } }
+			destroy_country = yes
+		}
 
 		if = {
 			limit = { exists = event_target:great_khan }
@@ -1554,7 +1599,10 @@ country_event = {
 			limit = { exists = event_target:raider_khanate }
 			clear_global_event_target = raider_khanate
 		}
-		else = { destroy_country = yes }
+		else_if = {
+			limit = { NOR = { is_country_type = default is_ai = yes } }
+			destroy_country = yes
+		}
 		if = {
 			limit = { exists = event_target:marauder_precursor }
 			clear_global_event_target = marauder_precursor
@@ -1591,7 +1639,7 @@ country_event = {
 			}
 			owner_species = { save_event_target_as = marauder_species }
 		}
-		log = "Handover raider_khanate [From.GetName] to Diadochi [This.GetName]."
+		log = "Handover raider_khanate \\[From.GetName] to Diadochi \\[This.GetName]."
 		if = {
 			limit = {
 				OR = {
@@ -1646,7 +1694,7 @@ country_event = {
 				}
 				position = 0
 				order_by = trigger:num_sapient_pops
-				log = "Give system [Prev.GetName] back to [This.Owner.GetName]"
+				log = "Give system \\[Prev.GetName] back to \\[This.Owner.GetName]"
 				owner = { save_event_target_as = planet_owner }
 				prev = {	# commit_system_to = { EMPIRE = prevprev.planet_owner } # The target scope is solved there (so add 1 more prev)
 					commit_system_to = { EMPIRE = event_target:planet_owner }
@@ -2326,7 +2374,7 @@ system_event = {
 				root = {
 					random_system_planet = {
 						limit = {
-							is_planet_class = pc_habitat
+							merg_is_habitat = yes
 							uses_district_set = habitat
 							is_colony = no
 							is_colonizable = yes

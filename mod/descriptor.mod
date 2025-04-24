@@ -1,7 +1,8 @@
-version="3.14.15926.10"
+version="3.14.1592653.0"
 tags={
 	"Balance"
 	"Pirates"
+	"Fixes"
 }
 name="Realistic Pirates [3.14.☠]"
 supported_version="v3.14.*"

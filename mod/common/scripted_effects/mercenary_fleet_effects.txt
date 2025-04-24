@@ -1,7 +1,7 @@
 ##########################################################################
 # Mercenary Scripted Effects for Pirate Waves: Marauders
 #
-# Modified by ScepraX
+# Modified by ScepraX & FirePrince
 ##########################################################################
 #############################
 # Marauder Mercenary Fleets #
@@ -34,7 +34,8 @@ create_armada_of_the_voidborn = {
 			}
 		}
 		create_dyn_marauder_fleet = { OUTRIDER = 16 LANCER = 8 CHAMPION = 6 }
-	} else = {
+	}
+	else = {
 		create_pirate_waves_fleet = yes
 		# create_dyn_marauder_fleet = { OUTRIDER = 8 LANCER = 4 CHAMPION = 3 }
 		create_dyn_marauder_fleet = {
@@ -55,7 +56,8 @@ create_star_rider_flotilla = {
 			}
 		}
 		create_dyn_marauder_fleet = { OUTRIDER = 12 LANCER = 6 CHAMPION = 4 }
-	} else = {
+	}
+	else = {
 		create_pirate_waves_fleet = yes
 		# create_dyn_marauder_fleet = { OUTRIDER = 6 LANCER = 3 CHAMPION = 2 }
 		prev = {
@@ -84,7 +86,8 @@ create_first_storm_wing = {
 			}
 		}
 		create_dyn_marauder_fleet = { OUTRIDER = 8 LANCER = 4 CHAMPION = 2 }
-	} else = {
+	}
+	else = {
 		create_pirate_waves_fleet = yes
 		# create_dyn_marauder_fleet = { OUTRIDER = 4 LANCER = 2 CHAMPION = 1 }
 		prev = {
@@ -113,7 +116,8 @@ create_dwamak_bashers = {
 			}
 		}
 		create_dyn_marauder_fleet = { OUTRIDER = 16 LANCER = 8 CHAMPION = 6 }
-	} else = {
+	}
+	else = {
 		create_pirate_waves_fleet = yes
 		# create_dyn_marauder_fleet = { OUTRIDER = 8 LANCER = 4 CHAMPION = 3 }
 		create_dyn_marauder_fleet = {
@@ -134,7 +138,8 @@ create_unhinged_screamer_flotilla = {
 			}
 		}
 		create_dyn_marauder_fleet = { OUTRIDER = 12 LANCER = 6 CHAMPION = 4 }
-	} else = {
+	}
+	else = {
 		create_pirate_waves_fleet = yes
 		# create_dyn_marauder_fleet = { OUTRIDER = 6 LANCER = 3 CHAMPION = 2 }
 		prev = {
@@ -163,7 +168,8 @@ create_frenzied_volunteer_squadron = {
 			}
 		}
 		create_dyn_marauder_fleet = { OUTRIDER = 8 LANCER = 4 CHAMPION = 2 }
-	} else = {
+	}
+	else = {
 		create_pirate_waves_fleet = yes
 		# create_dyn_marauder_fleet = { OUTRIDER = 4 LANCER = 2 CHAMPION = 1 }
 		prev = {
@@ -192,7 +198,8 @@ create_her_chosen_champions = {
 			}
 		}
 		create_dyn_marauder_fleet = { OUTRIDER = 16 LANCER = 8 CHAMPION = 6 }
-	} else = {
+	}
+	else = {
 		create_pirate_waves_fleet = yes
 		# create_dyn_marauder_fleet = { OUTRIDER = 8 LANCER = 4 CHAMPION = 3 }
 		create_dyn_marauder_fleet = {
@@ -213,7 +220,8 @@ create_order_of_eternal_night = {
 			}
 		}
 		create_dyn_marauder_fleet = { OUTRIDER = 12 LANCER = 6 CHAMPION = 4 }
-	} else = {
+	}
+	else = {
 		create_pirate_waves_fleet = yes
 		prev = {
 			multiply_variable = { which = marauder_shipnum_a value = 0.75 }
@@ -241,7 +249,8 @@ create_twilight_congregation = {
 			}
 		}
 		create_dyn_marauder_fleet = { OUTRIDER = 8 LANCER = 4 CHAMPION = 2 }
-	} else = {
+	}
+	else = {
 		create_pirate_waves_fleet = yes
 		# create_dyn_marauder_fleet = { OUTRIDER = 4 LANCER = 2 CHAMPION = 1 }
 		prev = {
@@ -277,20 +286,23 @@ create_marauder_raiders = {
 			limit = { years_passed > 80 }
 			set_fleet_flag = marauder_raider_fleet_4
 			create_dyn_marauder_fleet = { OUTRIDER = 24 LANCER = 14 CHAMPION = 4 }
-		} else_if = {
+		}
+		else_if = {
 			limit = { years_passed > 59 }
 			set_fleet_flag = marauder_raider_fleet_3
 			create_dyn_marauder_fleet = { OUTRIDER = 18 LANCER = 10 CHAMPION = 3 }
-		} else_if = {
+		}
+		else_if = {
 			limit = { years_passed > 39 }
 			set_fleet_flag = marauder_raider_fleet_2
 			create_dyn_marauder_fleet = { OUTRIDER = 12 LANCER = 6 CHAMPION = 2 }
-		} else = {
+		}
+		else = {
 			set_fleet_flag = marauder_raider_fleet_1
 			create_dyn_marauder_fleet = { OUTRIDER = 6 LANCER = 4 CHAMPION = 1 }
 		}
-	} else = {
-		# prev = { set_pirates_difficulty = yes } needed before
+	}
+	else = {	# prev = { set_pirates_difficulty = yes } needed before
 		create_pirate_waves_fleet = yes
 		# Half of vanilla
 		if = {
@@ -302,7 +314,8 @@ create_marauder_raiders = {
 				multiply_variable = { which = marauder_shipnum_b value = 1.4 }
 				multiply_variable = { which = marauder_shipnum_b value = 1.25 }
 			}
-		} else_if = {
+		}
+		else_if = {
 			limit = { years_passed > 62 }
 			set_fleet_flag = marauder_raider_fleet_3
 			# create_dyn_marauder_fleet = { OUTRIDER = 9 LANCER = 5 CHAMPION = 1 }
@@ -311,7 +324,8 @@ create_marauder_raiders = {
 				multiply_variable = { which = marauder_shipnum_b value = 1.25 }
 				# multiply_variable = { which = marauder_shipnum_b value = 1 }
 			}
-		} else_if = {
+		}
+		else_if = {
 			limit = { years_passed > 40 }
 			set_fleet_flag = marauder_raider_fleet_2
 			# create_dyn_marauder_fleet = { OUTRIDER = 6 LANCER = 3 CHAMPION = 1 }
@@ -320,7 +334,8 @@ create_marauder_raiders = {
 				multiply_variable = { which = marauder_shipnum_b value = 0.75 }
 				multiply_variable = { which = marauder_shipnum_b value = 0.5 }
 			}
-		} else = {
+		}
+		else = {
 			set_fleet_flag = marauder_raider_fleet_1
 			# create_dyn_marauder_fleet = { OUTRIDER = 3 LANCER = 2 }
 			prev = {
@@ -347,11 +362,10 @@ create_marauder_raiders = {
 #############################
 
 # This = country
-remove_loaning_fleet_flag = {
-	# Failsafe to catch if fleets are no longer on loan
+remove_loaning_fleet_flag = {	# Failsafe to catch if fleets are no longer on loan
 	if = {
 		limit = {
-			count_controlled_fleet = {
+			count_controlled_fleet = { count = 0
 				limit = {
 					OR = {
 						is_leased = yes
@@ -361,7 +375,6 @@ remove_loaning_fleet_flag = {
 						}
 					}
 				}
-				count = 0
 			}
 		}
 		remove_country_flag = loaning_fleet

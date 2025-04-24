@@ -57,18 +57,12 @@ country_event = {
 	trigger = {
 		NOR = {
 			any_owned_fleet = { has_fleet_flag = bulwark_mercenary_fleet }
-			AND = {
-				has_country_flag = bulwark_numbers
-				has_global_flag = bulwark_numbers_mercs_gone
-			}
+			AND = { has_country_flag = bulwark_numbers has_global_flag = bulwark_numbers_mercs_gone }
 			AND = {
 				has_country_flag = bulwark_techies
 				has_global_flag = bulwark_techies_mercs_gone
 			}
-			AND = {
-				has_country_flag = bulwark_monsters
-				has_global_flag = bulwark_monsters_mercs_gone
-			}
+			AND = { has_country_flag = bulwark_monsters has_global_flag = bulwark_monsters_mercs_gone }
 		}
 	}
 	immediate = {
@@ -78,7 +72,7 @@ country_event = {
 		}
 		if = {
 			limit = { has_country_flag = bulwark_numbers }
-			if = { limit = { count_owned_leader = { limit = { has_leader_flag = bulwark_numbers_commander } count = 0 } }
+			if = { limit = { count_owned_leader = { count = 0 limit = { has_leader_flag = bulwark_numbers_commander } } }
 				create_leader = {
 					class = commander
 					species = owner_species
@@ -86,26 +80,25 @@ country_event = {
 					skill = 1
 					event_leader = yes							# Prevents this leader from leading factions and winning elections.
 					immortal = yes							# can't be killed (not even in battle, unless fleet is destroyed)
-					traits = {
-						0 = leader_trait_bulwark_numbers
-						0 = leader_trait_bulwark_default
-					}
+					traits = { 0 = leader_trait_bulwark_numbers 0 = leader_trait_bulwark_default }
 					effect = {
 						set_leader_flag = bulwark_numbers_commander
 						# save_global_event_target_as = bulwark_supremacists_commander
 						save_event_target_as = bulwark_commander
 					}
 				}
-			} else = {
+			}
+			else = {
 				random_owned_leader = {
 					limit = { has_leader_flag = bulwark_numbers_commander }
 					save_event_target_as = bulwark_commander
 				}
 			}
 			# event_target:tob_supremacist_faction
-		} else_if = {
+		}
+		else_if = {
 			limit = { has_country_flag = bulwark_techies }
-			if = { limit = { count_owned_leader = { limit = { has_leader_flag = bulwark_techies_commander } count = 0 } }
+			if = { limit = { count_owned_leader = { count = 0 limit = { has_leader_flag = bulwark_techies_commander } } }
 				create_leader = {
 					class = commander
 					species = owner_species
@@ -113,27 +106,26 @@ country_event = {
 					skill = 1
 					event_leader = yes							# Prevents this leader from leading factions and winning elections.
 					immortal = yes							# can't be killed (not even in battle, unless fleet is destroyed)
-					traits = {
-						0 = leader_trait_bulwark_techies
-						0 = leader_trait_bulwark_default
-					}
+					traits = { 0 = leader_trait_bulwark_techies 0 = leader_trait_bulwark_default }
 					effect = {
 						set_leader_flag = bulwark_techies_commander
 						# save_global_event_target_as = bulwark_technologist_commander
 						save_event_target_as = bulwark_commander
 					}
 				}
-			} else = {
+			}
+			else = {
 				random_owned_leader = {
 					limit = { has_leader_flag = bulwark_techies_commander }
 					save_event_target_as = bulwark_commander
 				}
 			}
 			# event_target:tob_technologist_faction
-		} else_if = {
+		}
+		else_if = {
 			limit = { has_country_flag = bulwark_monsters }
 			if = {
-				limit = { count_owned_leader = { limit = { has_leader_flag = bulwark_monsters_commander } count = 0 } }
+				limit = { count_owned_leader = { count = 0 limit = { has_leader_flag = bulwark_monsters_commander } } }
 				create_leader = {
 					class = commander
 					species = owner_species
@@ -141,17 +133,15 @@ country_event = {
 					skill = 1
 					event_leader = yes							# Prevents this leader from leading factions and winning elections.
 					immortal = yes							# can't be killed (not even in battle, unless fleet is destroyed)
-					traits = {
-						0 = leader_trait_bulwark_monsters
-						0 = leader_trait_bulwark_default
-					}
+					traits = { 0 = leader_trait_bulwark_monsters 0 = leader_trait_bulwark_default }
 					effect = {
 						set_leader_flag = bulwark_monsters_commander
 						# save_global_event_target_as = bulwark_tamer_commander
 						save_event_target_as = bulwark_commander
 					}
 				}
-			} else = {
+			}
+			else = {
 				random_owned_leader = {
 					limit = { has_leader_flag = bulwark_monsters_commander }
 					save_event_target_as = bulwark_commander
@@ -172,7 +162,8 @@ country_event = {
 				set_fleet_flag = bulwark_mercenary_fleet
 				# (DESTROYER|CRUISER|BATTLESHIP|CORVETTE)(\s+)=\s+85 -> $1$2= 51
 				prev = {
-					if = { limit = { has_country_flag = bulwark_country_numbersone }
+					if = {
+						limit = { has_country_flag = bulwark_country_numbersone }
 						switch = { trigger = has_country_flag
 							bulwark_country_techone =	{ create_dyn_bulwark_fleet = { LOWCORVETTE		= 24 LOWDESTROYER		= 15 } }
 							bulwark_country_techtwo =	{ create_dyn_bulwark_fleet = { MEDCORVETTE		= 24 MEDDESTROYER		= 15 } }
@@ -180,35 +171,45 @@ country_event = {
 							bulwark_country_techfour =	{ create_dyn_bulwark_fleet = { HIGHERCORVETTE	= 24 HIGHERDESTROYER		= 15 } }
 							bulwark_country_techfive =	{ create_dyn_bulwark_fleet = { HIGHESTCORVETTE	= 24 HIGHESTDESTROYER	= 15 } }
 						}
-					} else_if = { limit = { has_country_flag = bulwark_country_techone }
+					}
+					else_if = {
+						limit = { has_country_flag = bulwark_country_techone }
 						switch = { trigger = has_country_flag
 							bulwark_country_numberstwo =	{ create_dyn_bulwark_fleet = { LOWCORVETTE = 36 LOWDESTROYER	= 24 } }
 							bulwark_country_numbersthree =	{ create_dyn_bulwark_fleet = { LOWCORVETTE = 48 LOWDESTROYER	= 33 } }
 							bulwark_country_numbersfour =	{ create_dyn_bulwark_fleet = { LOWCORVETTE = 60 LOWDESTROYER	= 42 } }
 							bulwark_country_numbersfive =	{ create_dyn_bulwark_fleet = { LOWCORVETTE = 72 LOWDESTROYER	= 51 } }
 						}
-					} else_if = { limit = { has_country_flag = bulwark_country_techtwo }
+					}
+					else_if = {
+						limit = { has_country_flag = bulwark_country_techtwo }
 						switch = { trigger = has_country_flag
 							bulwark_country_numberstwo =	{ create_dyn_bulwark_fleet = { MEDCORVETTE = 36 MEDDESTROYER = 24 LOWCRUISER = 6 } }
 							bulwark_country_numbersthree =	{ create_dyn_bulwark_fleet = { MEDCORVETTE = 48 MEDDESTROYER = 33 LOWCRUISER = 12 } }
 							bulwark_country_numbersfour =	{ create_dyn_bulwark_fleet = { MEDCORVETTE = 60 MEDDESTROYER = 42 LOWCRUISER = 18 } }
 							bulwark_country_numbersfive =	{ create_dyn_bulwark_fleet = { MEDCORVETTE = 72 MEDDESTROYER = 51 LOWCRUISER = 24 } }
 						}
-					} else_if = { limit = { has_country_flag = bulwark_country_techthree }
+					}
+					else_if = {
+						limit = { has_country_flag = bulwark_country_techthree }
 						switch = { trigger = has_country_flag
 							bulwark_country_numberstwo =	{ create_dyn_bulwark_fleet = { HIGHCORVETTE = 36 HIGHDESTROYER = 24 MEDCRUISER = 6 LOWBATTLESHIP = 3 } }
 							bulwark_country_numbersthree =	{ create_dyn_bulwark_fleet = { HIGHCORVETTE = 48 HIGHDESTROYER = 33 MEDCRUISER = 12 LOWBATTLESHIP = 6 } }
 							bulwark_country_numbersfour =	{ create_dyn_bulwark_fleet = { HIGHCORVETTE = 60 HIGHDESTROYER = 42 MEDCRUISER = 18 LOWBATTLESHIP = 9 } }
 							bulwark_country_numbersfive =	{ create_dyn_bulwark_fleet = { HIGHCORVETTE = 72 HIGHDESTROYER = 51 MEDCRUISER = 24 LOWBATTLESHIP = 12 } }
 						}
-					} else_if = { limit = { has_country_flag = bulwark_country_techfour }
+					}
+					else_if = {
+						limit = { has_country_flag = bulwark_country_techfour }
 						switch = { trigger = has_country_flag
 							bulwark_country_numberstwo =	{ create_dyn_bulwark_fleet = { HIGHERCORVETTE = 36 HIGHERDESTROYER = 24 HIGHCRUISER = 6 MEDBATTLESHIP = 3 } }
 							bulwark_country_numbersthree =	{ create_dyn_bulwark_fleet = { HIGHERCORVETTE = 48 HIGHERDESTROYER = 33 HIGHCRUISER = 12 MEDBATTLESHIP = 6 } }
 							bulwark_country_numbersfour =	{ create_dyn_bulwark_fleet = { HIGHERCORVETTE = 60 HIGHERDESTROYER = 42 HIGHCRUISER = 18 MEDBATTLESHIP = 9 } }
 							bulwark_country_numbersfive =	{ create_dyn_bulwark_fleet = { HIGHERCORVETTE = 72 HIGHERDESTROYER = 51 HIGHCRUISER = 24 MEDBATTLESHIP = 12 } }
 						}
-					} else_if = { limit = { has_country_flag = bulwark_country_techfive }
+					}
+					else_if = {
+						limit = { has_country_flag = bulwark_country_techfive }
 						switch = { trigger = has_country_flag
 							bulwark_country_numberstwo =	{ create_dyn_bulwark_fleet = { HIGHESTCORVETTE = 36 HIGHESTDESTROYER = 24 HIGHESTCRUISER = 6 HIGHESTBATTLESHIP = 3 } }
 							bulwark_country_numbersthree =	{ create_dyn_bulwark_fleet = { HIGHESTCORVETTE = 48 HIGHESTDESTROYER = 33 HIGHESTCRUISER = 12 HIGHESTBATTLESHIP = 6 } }
@@ -294,7 +295,8 @@ country_event = {
 			effect = {
 				set_owner = root
 				prev = {
-					if = { limit = { has_country_flag = bulwark_country_numbersone }
+					if = {
+						limit = { has_country_flag = bulwark_country_numbersone }
 						switch = { trigger = has_country_flag
 							bulwark_country_techone =	{ create_dyn_bulwark_fleet = { LOWCORVETTE		= 24 LOWDESTROYER		= 15 } }
 							bulwark_country_techtwo =	{ create_dyn_bulwark_fleet = { MEDCORVETTE		= 24 MEDDESTROYER		= 15 } }
@@ -302,35 +304,45 @@ country_event = {
 							bulwark_country_techfour =	{ create_dyn_bulwark_fleet = { HIGHERCORVETTE	= 24 HIGHERDESTROYER	= 15 } }
 							bulwark_country_techfive =	{ create_dyn_bulwark_fleet = { HIGHESTCORVETTE	= 24 HIGHESTDESTROYER	= 15 } }
 						}
-					} else_if = { limit = { has_country_flag = bulwark_country_techone }
+					}
+					else_if = {
+						limit = { has_country_flag = bulwark_country_techone }
 						switch = { trigger = has_country_flag
 							bulwark_country_numberstwo =	{ create_dyn_bulwark_fleet = { LOWCORVETTE = 36 LOWDESTROYER	= 24 } }
 							bulwark_country_numbersthree =	{ create_dyn_bulwark_fleet = { LOWCORVETTE = 48 LOWDESTROYER	= 33 } }
 							bulwark_country_numbersfour =	{ create_dyn_bulwark_fleet = { LOWCORVETTE = 60 LOWDESTROYER	= 42 } }
 							bulwark_country_numbersfive =	{ create_dyn_bulwark_fleet = { LOWCORVETTE = 72 LOWDESTROYER	= 51 } }
 						}
-					} else_if = { limit = { has_country_flag = bulwark_country_techtwo }
+					}
+					else_if = {
+						limit = { has_country_flag = bulwark_country_techtwo }
 						switch = { trigger = has_country_flag
 							bulwark_country_numberstwo =	{ create_dyn_bulwark_fleet = { MEDCORVETTE = 36 MEDDESTROYER = 24 LOWCRUISER = 6 } }
 							bulwark_country_numbersthree =	{ create_dyn_bulwark_fleet = { MEDCORVETTE = 48 MEDDESTROYER = 33 LOWCRUISER = 12 } }
 							bulwark_country_numbersfour =	{ create_dyn_bulwark_fleet = { MEDCORVETTE = 60 MEDDESTROYER = 42 LOWCRUISER = 18 } }
 							bulwark_country_numbersfive =	{ create_dyn_bulwark_fleet = { MEDCORVETTE = 72 MEDDESTROYER = 51 LOWCRUISER = 24 } }
 						}
-					} else_if = { limit = { has_country_flag = bulwark_country_techthree }
+					}
+					else_if = {
+						limit = { has_country_flag = bulwark_country_techthree }
 						switch = { trigger = has_country_flag
 							bulwark_country_numberstwo =	{ create_dyn_bulwark_fleet = { HIGHCORVETTE = 36 HIGHDESTROYER = 24 MEDCRUISER = 6  LOWBATTLESHIP = 3 } }
 							bulwark_country_numbersthree =	{ create_dyn_bulwark_fleet = { HIGHCORVETTE = 48 HIGHDESTROYER = 33 MEDCRUISER = 12 LOWBATTLESHIP = 6 } }
 							bulwark_country_numbersfour =	{ create_dyn_bulwark_fleet = { HIGHCORVETTE = 60 HIGHDESTROYER = 42 MEDCRUISER = 18 LOWBATTLESHIP = 9 } }
 							bulwark_country_numbersfive =	{ create_dyn_bulwark_fleet = { HIGHCORVETTE = 72 HIGHDESTROYER = 51 MEDCRUISER = 24 LOWBATTLESHIP = 12 } }
 						}
-					} else_if = { limit = { has_country_flag = bulwark_country_techfour }
+					}
+					else_if = {
+						limit = { has_country_flag = bulwark_country_techfour }
 						switch = { trigger = has_country_flag
 							bulwark_country_numberstwo =	{ create_dyn_bulwark_fleet = { HIGHERCORVETTE = 36 HIGHERDESTROYER = 24 HIGHCRUISER = 6  MEDBATTLESHIP = 3 } }
 							bulwark_country_numbersthree =	{ create_dyn_bulwark_fleet = { HIGHERCORVETTE = 48 HIGHERDESTROYER = 33 HIGHCRUISER = 12 MEDBATTLESHIP = 6 } }
 							bulwark_country_numbersfour =	{ create_dyn_bulwark_fleet = { HIGHERCORVETTE = 60 HIGHERDESTROYER = 42 HIGHCRUISER = 18 MEDBATTLESHIP = 9 } }
 							bulwark_country_numbersfive =	{ create_dyn_bulwark_fleet = { HIGHERCORVETTE = 72 HIGHERDESTROYER = 51 HIGHCRUISER = 24 MEDBATTLESHIP = 12 } }
 						}
-					} else_if = { limit = { has_country_flag = bulwark_country_techfive }
+					}
+					else_if = {
+						limit = { has_country_flag = bulwark_country_techfive }
 						switch = { trigger = has_country_flag
 							bulwark_country_numberstwo =	{ create_dyn_bulwark_fleet = { HIGHESTCORVETTE = 36 HIGHESTDESTROYER = 24 HIGHESTCRUISER = 6  HIGHESTBATTLESHIP = 3 } }
 							bulwark_country_numbersthree =	{ create_dyn_bulwark_fleet = { HIGHESTCORVETTE = 48 HIGHESTDESTROYER = 33 HIGHESTCRUISER = 12 HIGHESTBATTLESHIP = 6 } }
@@ -359,9 +371,11 @@ country_event = {
 					bulwark_country_techfour =	{ prev = { every_owned_ship = { set_ship_flag = bulwark_ship_techfour } } }
 					bulwark_country_techfive =	{ prev = { every_owned_ship = { set_ship_flag = bulwark_ship_techfive } } }
 				}
-				if = { limit = { count_owned_fleet = { limit = { has_fleet_flag = bulwark_vanguard_two } count = 0 } }
+				if = {
+					limit = { count_owned_fleet = { count = 0 limit = { has_fleet_flag = bulwark_vanguard_two } } }
 					prev = { set_fleet_flag = bulwark_vanguard_two }
-				} else = { prev = { set_fleet_flag = bulwark_vanguard_one } }
+				}
+				else = { prev = { set_fleet_flag = bulwark_vanguard_one } }
 			}
 		}
 	}
@@ -374,22 +388,18 @@ country_event = {
 	hide_window = yes
 	is_triggered_only = yes
 	trigger = {
-		count_owned_ship = {
+		count_owned_ship = { count < 7
 			limit = { is_ship_size = bulwark_station }
-			count < 7
 		}
 	}
 	immediate = {
 		if = {
-			limit = {
-				check_variable = { which = bulwarkbudget value >= 200 }
-			}
+			limit = { check_variable = { which = bulwarkbudget value >= 200 } }
 			while = {
 				limit = {
 					check_variable = { which = bulwarkbudget value >= 200 }
-					count_owned_ship = {
+					count_owned_ship = { count < 7
 						limit = { is_ship_size = bulwark_station }
-						count < 7
 					}
 				}
 				count < 7
@@ -417,8 +427,7 @@ country_event = {
 								create_ship = {
 									name = random
 									design = "NAME_BULWARK_HABITAT"
-									effect = {
-										# add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
+									effect = {	# add_modifier = { modifier = "bulwark_budget_repairs" days = 5 }
 										add_modifier = { modifier = "bulwark_core_station" }
 									}
 								}
@@ -467,8 +476,7 @@ country_event = {
 	trigger = {
 		years_passed >= 20
 		check_variable = { which = bulwarkbudget value >= 500 }
-		NOR = {
-			# has_country_flag = bulwark_cannot_quest
+		NOR = {	# has_country_flag = bulwark_cannot_quest
 			has_country_flag = bulwark_questing
 			has_country_flag = bulwark_recently_quested
 			has_country_flag = bulwark_finished_all_quests
@@ -476,16 +484,13 @@ country_event = {
 	}
 	immediate = {
 		if = {
-			limit = {
-				check_variable = { which = bulwarkbudget value >= 1000 }
-			}
+			limit = { check_variable = { which = bulwarkbudget value >= 1000 } }
 			subtract_variable = { which = bulwarkbudget value = 1000 }
 			change_variable = { which = bulwarkquestbudget value = 1000 }
 			country_event = { id = tob_quest.1 days = 2 }
-		} else_if = {
-			limit = {
-				check_variable = { which = bulwarkbudget value >= 500 }
-			}
+		}
+		else_if = {
+			limit = { check_variable = { which = bulwarkbudget value >= 500 } }
 			subtract_variable = { which = bulwarkbudget value = 500 }
 			change_variable = { which = bulwarkquestbudget value = 500 }
 			country_event = { id = tob_quest.1 days = 2 }
@@ -520,16 +525,13 @@ country_event = {
 				}
 				bulwark_fleet_needs_reinforcements = yes
 			}
-			if = { limit = { root = { has_country_flag = bulwark_country_numbersone } }
+			if = {
+				limit = { root = { has_country_flag = bulwark_country_numbersone } }
 				if = {
 					limit = {
 						root = { has_country_flag = bulwark_country_techone }
-						count_owned_ship = {
-							limit = {
-								is_ship_size = corvette
-								has_ship_flag = bulwark_ship_techone
-							}
-							count < 40
+						count_owned_ship = { count < 40
+							limit = { is_ship_size = corvette has_ship_flag = bulwark_ship_techone }
 						}
 					}
 					subtract_variable = { which = bulwarkbudget value = 5 }
@@ -539,15 +541,12 @@ country_event = {
 						graphical_culture = "pirate_01"
 						effect = { set_ship_flag = bulwark_ship_techone }
 					}
-				} else_if = {
+				}
+				else_if = {
 					limit = {
 						root = { has_country_flag = bulwark_country_techtwo }
-						count_owned_ship = {
-							limit = {
-								is_ship_size = corvette
-								has_ship_flag = bulwark_ship_techtwo
-							}
-							count < 40
+						count_owned_ship = { count < 40
+							limit = { is_ship_size = corvette has_ship_flag = bulwark_ship_techtwo }
 						}
 					}
 					subtract_variable = { which = bulwarkbudget value = 5 }
@@ -557,15 +556,12 @@ country_event = {
 						graphical_culture = "pirate_01"
 						effect = { set_ship_flag = bulwark_ship_techtwo }
 					}
-				} else_if = {
+				}
+				else_if = {
 					limit = {
 						root = { has_country_flag = bulwark_country_techthree }
-						count_owned_ship = {
-							limit = {
-								is_ship_size = corvette
-								has_ship_flag = bulwark_ship_techthree
-							}
-							count < 40
+						count_owned_ship = { count < 40
+							limit = { is_ship_size = corvette has_ship_flag = bulwark_ship_techthree }
 						}
 					}
 					subtract_variable = { which = bulwarkbudget value = 5 }
@@ -575,15 +571,12 @@ country_event = {
 						graphical_culture = "pirate_01"
 						effect = { set_ship_flag = bulwark_ship_techthree }
 					}
-				} else_if = {
+				}
+				else_if = {
 					limit = {
 						root = { has_country_flag = bulwark_country_techfour }
-						count_owned_ship = {
-							limit = {
-								is_ship_size = corvette
-								has_ship_flag = bulwark_ship_techfour
-							}
-							count < 40
+						count_owned_ship = { count < 40
+							limit = { is_ship_size = corvette has_ship_flag = bulwark_ship_techfour }
 						}
 					}
 					subtract_variable = { which = bulwarkbudget value = 5 }
@@ -593,15 +586,12 @@ country_event = {
 						graphical_culture = "pirate_01"
 						effect = { set_ship_flag = bulwark_ship_techfour }
 					}
-				} else_if = {
+				}
+				else_if = {
 					limit = {
 						root = { has_country_flag = bulwark_country_techfive }
-						count_owned_ship = {
-							limit = {
-								is_ship_size = corvette
-								has_ship_flag = bulwark_ship_techfive
-							}
-							count < 40
+						count_owned_ship = { count < 40
+							limit = { is_ship_size = corvette has_ship_flag = bulwark_ship_techfive }
 						}
 					}
 					subtract_variable = { which = bulwarkbudget value = 5 }
@@ -612,17 +602,14 @@ country_event = {
 						effect = { set_ship_flag = bulwark_ship_techfive }
 					}
 				}
-			} else_if = {
+			}
+			else_if = {
 				limit = { root = { has_country_flag = bulwark_country_numberstwo } }
 				if = {
 					limit = {
 						root = { has_country_flag = bulwark_country_techone }
-						count_owned_ship = {
-							limit = {
-								is_ship_size = corvette
-								has_ship_flag = bulwark_ship_techone
-							}
-							count < 60
+						count_owned_ship = { count < 60
+							limit = { is_ship_size = corvette has_ship_flag = bulwark_ship_techone }
 						}
 					}
 					subtract_variable = { which = bulwarkbudget value = 5 }
@@ -632,15 +619,12 @@ country_event = {
 						graphical_culture = "pirate_01"
 						effect = { set_ship_flag = bulwark_ship_techone }
 					}
-				} else_if = {
+				}
+				else_if = {
 					limit = {
 						root = { has_country_flag = bulwark_country_techtwo }
-						count_owned_ship = {
-							limit = {
-								is_ship_size = corvette
-								has_ship_flag = bulwark_ship_techtwo
-							}
-							count < 60
+						count_owned_ship = { count < 60
+							limit = { is_ship_size = corvette has_ship_flag = bulwark_ship_techtwo }
 						}
 					}
 					subtract_variable = { which = bulwarkbudget value = 5 }
@@ -650,15 +634,12 @@ country_event = {
 						graphical_culture = "pirate_01"
 						effect = { set_ship_flag = bulwark_ship_techtwo }
 					}
-				} else_if = {
+				}
+				else_if = {
 					limit = {
 						root = { has_country_flag = bulwark_country_techthree }
-						count_owned_ship = {
-							limit = {
-								is_ship_size = corvette
-								has_ship_flag = bulwark_ship_techthree
-							}
-							count < 60
+						count_owned_ship = { count < 60
+							limit = { is_ship_size = corvette has_ship_flag = bulwark_ship_techthree }
 						}
 					}
 					subtract_variable = { which = bulwarkbudget value = 5 }
@@ -668,15 +649,12 @@ country_event = {
 						graphical_culture = "pirate_01"
 						effect = { set_ship_flag = bulwark_ship_techthree }
 					}
-				} else_if = {
+				}
+				else_if = {
 					limit = {
 						root = { has_country_flag = bulwark_country_techfour }
-						count_owned_ship = {
-							limit = {
-								is_ship_size = corvette
-								has_ship_flag = bulwark_ship_techfour
-							}
-							count < 60
+						count_owned_ship = { count < 60
+							limit = { is_ship_size = corvette has_ship_flag = bulwark_ship_techfour }
 						}
 					}
 					subtract_variable = { which = bulwarkbudget value = 5 }
@@ -686,15 +664,12 @@ country_event = {
 						graphical_culture = "pirate_01"
 						effect = { set_ship_flag = bulwark_ship_techfour }
 					}
-				} else_if = {
+				}
+				else_if = {
 					limit = {
 						root = { has_country_flag = bulwark_country_techfive }
-						count_owned_ship = {
-							limit = {
-								is_ship_size = corvette
-								has_ship_flag = bulwark_ship_techfive
-							}
-							count < 60
+						count_owned_ship = { count < 60
+							limit = { is_ship_size = corvette has_ship_flag = bulwark_ship_techfive }
 						}
 					}
 					subtract_variable = { which = bulwarkbudget value = 5 }
@@ -705,17 +680,14 @@ country_event = {
 						effect = { set_ship_flag = bulwark_ship_techfive }
 					}
 				}
-			} else_if = {
+			}
+			else_if = {
 				limit = { root = { has_country_flag = bulwark_country_numbersthree } }
 				if = {
 					limit = {
 						root = { has_country_flag = bulwark_country_techone }
-						count_owned_ship = {
-							limit = {
-								is_ship_size = corvette
-								has_ship_flag = bulwark_ship_techone
-							}
-							count < 80
+						count_owned_ship = { count < 80
+							limit = { is_ship_size = corvette has_ship_flag = bulwark_ship_techone }
 						}
 					}
 					subtract_variable = { which = bulwarkbudget value = 5 }
@@ -725,15 +697,12 @@ country_event = {
 						graphical_culture = "pirate_01"
 						effect = { set_ship_flag = bulwark_ship_techone }
 					}
-				} else_if = {
+				}
+				else_if = {
 					limit = {
 						root = { has_country_flag = bulwark_country_techtwo }
-						count_owned_ship = {
-							limit = {
-								is_ship_size = corvette
-								has_ship_flag = bulwark_ship_techtwo
-							}
-							count < 80
+						count_owned_ship = { count < 80
+							limit = { is_ship_size = corvette has_ship_flag = bulwark_ship_techtwo }
 						}
 					}
 					subtract_variable = { which = bulwarkbudget value = 5 }
@@ -743,15 +712,12 @@ country_event = {
 						graphical_culture = "pirate_01"
 						effect = { set_ship_flag = bulwark_ship_techtwo }
 					}
-				} else_if = {
+				}
+				else_if = {
 					limit = {
 						root = { has_country_flag = bulwark_country_techthree }
-						count_owned_ship = {
-							limit = {
-								is_ship_size = corvette
-								has_ship_flag = bulwark_ship_techthree
-							}
-							count < 80
+						count_owned_ship = { count < 80
+							limit = { is_ship_size = corvette has_ship_flag = bulwark_ship_techthree }
 						}
 					}
 					subtract_variable = { which = bulwarkbudget value = 5 }
@@ -761,15 +727,12 @@ country_event = {
 						graphical_culture = "pirate_01"
 						effect = { set_ship_flag = bulwark_ship_techthree }
 					}
-				} else_if = {
+				}
+				else_if = {
 					limit = {
 						root = { has_country_flag = bulwark_country_techfour }
-						count_owned_ship = {
-							limit = {
-								is_ship_size = corvette
-								has_ship_flag = bulwark_ship_techfour
-							}
-							count < 80
+						count_owned_ship = { count < 80
+							limit = { is_ship_size = corvette has_ship_flag = bulwark_ship_techfour }
 						}
 					}
 					subtract_variable = { which = bulwarkbudget value = 5 }
@@ -779,15 +742,12 @@ country_event = {
 						graphical_culture = "pirate_01"
 						effect = { set_ship_flag = bulwark_ship_techfour }
 					}
-				} else_if = {
+				}
+				else_if = {
 					limit = {
 						root = { has_country_flag = bulwark_country_techfive }
-						count_owned_ship = {
-							limit = {
-								is_ship_size = corvette
-								has_ship_flag = bulwark_ship_techfive
-							}
-							count < 80
+						count_owned_ship = { count < 80
+							limit = { is_ship_size = corvette has_ship_flag = bulwark_ship_techfive }
 						}
 					}
 					subtract_variable = { which = bulwarkbudget value = 5 }
@@ -798,17 +758,14 @@ country_event = {
 						effect = { set_ship_flag = bulwark_ship_techfive }
 					}
 				}
-			} else_if = {
+			}
+			else_if = {
 				limit = { root = { has_country_flag = bulwark_country_numbersfour } }
 				if = {
 					limit = {
 						root = { has_country_flag = bulwark_country_techone }
-						count_owned_ship = {
-							limit = {
-								is_ship_size = corvette
-								has_ship_flag = bulwark_ship_techone
-							}
-							count < 100
+						count_owned_ship = { count < 100
+							limit = { is_ship_size = corvette has_ship_flag = bulwark_ship_techone }
 						}
 					}
 					subtract_variable = { which = bulwarkbudget value = 5 }
@@ -818,15 +775,12 @@ country_event = {
 						graphical_culture = "pirate_01"
 						effect = { set_ship_flag = bulwark_ship_techone }
 					}
-				} else_if = {
+				}
+				else_if = {
 					limit = {
 						root = { has_country_flag = bulwark_country_techtwo }
-						count_owned_ship = {
-							limit = {
-								is_ship_size = corvette
-								has_ship_flag = bulwark_ship_techtwo
-							}
-							count < 100
+						count_owned_ship = { count < 100
+							limit = { is_ship_size = corvette has_ship_flag = bulwark_ship_techtwo }
 						}
 					}
 					subtract_variable = { which = bulwarkbudget value = 5 }
@@ -836,15 +790,12 @@ country_event = {
 						graphical_culture = "pirate_01"
 						effect = { set_ship_flag = bulwark_ship_techtwo }
 					}
-				} else_if = {
+				}
+				else_if = {
 					limit = {
 						root = { has_country_flag = bulwark_country_techthree }
-						count_owned_ship = {
-							limit = {
-								is_ship_size = corvette
-								has_ship_flag = bulwark_ship_techthree
-							}
-							count < 100
+						count_owned_ship = { count < 100
+							limit = { is_ship_size = corvette has_ship_flag = bulwark_ship_techthree }
 						}
 					}
 					subtract_variable = { which = bulwarkbudget value = 5 }
@@ -854,15 +805,12 @@ country_event = {
 						graphical_culture = "pirate_01"
 						effect = { set_ship_flag = bulwark_ship_techthree }
 					}
-				} else_if = {
+				}
+				else_if = {
 					limit = {
 						root = { has_country_flag = bulwark_country_techfour }
-						count_owned_ship = {
-							limit = {
-								is_ship_size = corvette
-								has_ship_flag = bulwark_ship_techfour
-							}
-							count < 100
+						count_owned_ship = { count < 100
+							limit = { is_ship_size = corvette has_ship_flag = bulwark_ship_techfour }
 						}
 					}
 					subtract_variable = { which = bulwarkbudget value = 5 }
@@ -872,15 +820,12 @@ country_event = {
 						graphical_culture = "pirate_01"
 						effect = { set_ship_flag = bulwark_ship_techfour }
 					}
-				} else_if = {
+				}
+				else_if = {
 					limit = {
 						root = { has_country_flag = bulwark_country_techfive }
-						count_owned_ship = {
-							limit = {
-								is_ship_size = corvette
-								has_ship_flag = bulwark_ship_techfive
-							}
-							count < 100
+						count_owned_ship = { count < 100
+							limit = { is_ship_size = corvette has_ship_flag = bulwark_ship_techfive }
 						}
 					}
 					subtract_variable = { which = bulwarkbudget value = 5 }
@@ -891,17 +836,14 @@ country_event = {
 						effect = { set_ship_flag = bulwark_ship_techfive }
 					}
 				}
-			} else_if = {
+			}
+			else_if = {
 				limit = { root = { has_country_flag = bulwark_country_numbersfive } }
 				if = {
 					limit = {
 						root = { has_country_flag = bulwark_country_techone }
-						count_owned_ship = {
-							limit = {
-								is_ship_size = corvette
-								has_ship_flag = bulwark_ship_techone
-							}
-							count < 120
+						count_owned_ship = { count < 120
+							limit = { is_ship_size = corvette has_ship_flag = bulwark_ship_techone }
 						}
 					}
 					subtract_variable = { which = bulwarkbudget value = 5 }
@@ -911,15 +853,12 @@ country_event = {
 						graphical_culture = "pirate_01"
 						effect = { set_ship_flag = bulwark_ship_techone }
 					}
-				} else_if = {
+				}
+				else_if = {
 					limit = {
 						root = { has_country_flag = bulwark_country_techtwo }
-						count_owned_ship = {
-							limit = {
-								is_ship_size = corvette
-								has_ship_flag = bulwark_ship_techtwo
-							}
-							count < 120
+						count_owned_ship = { count < 120
+							limit = { is_ship_size = corvette has_ship_flag = bulwark_ship_techtwo }
 						}
 					}
 					subtract_variable = { which = bulwarkbudget value = 5 }
@@ -929,15 +868,12 @@ country_event = {
 						graphical_culture = "pirate_01"
 						effect = { set_ship_flag = bulwark_ship_techtwo }
 					}
-				} else_if = {
+				}
+				else_if = {
 					limit = {
 						root = { has_country_flag = bulwark_country_techthree }
-						count_owned_ship = {
-							limit = {
-								is_ship_size = corvette
-								has_ship_flag = bulwark_ship_techthree
-							}
-							count < 120
+						count_owned_ship = { count < 120
+							limit = { is_ship_size = corvette has_ship_flag = bulwark_ship_techthree }
 						}
 					}
 					subtract_variable = { which = bulwarkbudget value = 5 }
@@ -947,15 +883,12 @@ country_event = {
 						graphical_culture = "pirate_01"
 						effect = { set_ship_flag = bulwark_ship_techthree }
 					}
-				} else_if = {
+				}
+				else_if = {
 					limit = {
 						root = { has_country_flag = bulwark_country_techfour }
-						count_owned_ship = {
-							limit = {
-								is_ship_size = corvette
-								has_ship_flag = bulwark_ship_techfour
-							}
-							count < 120
+						count_owned_ship = { count < 120
+							limit = { is_ship_size = corvette has_ship_flag = bulwark_ship_techfour }
 						}
 					}
 					subtract_variable = { which = bulwarkbudget value = 5 }
@@ -965,15 +898,12 @@ country_event = {
 						graphical_culture = "pirate_01"
 						effect = { set_ship_flag = bulwark_ship_techfour }
 					}
-				} else_if = {
+				}
+				else_if = {
 					limit = {
 						root = { has_country_flag = bulwark_country_techfive }
-						count_owned_ship = {
-							limit = {
-								is_ship_size = corvette
-								has_ship_flag = bulwark_ship_techfive
-							}
-							count < 120
+						count_owned_ship = { count < 120
+							limit = { is_ship_size = corvette has_ship_flag = bulwark_ship_techfive }
 						}
 					}
 					subtract_variable = { which = bulwarkbudget value = 5 }
@@ -990,7 +920,8 @@ country_event = {
 				# }
 			}
 		}
-		if = { limit = { check_variable = { which = bulwarkbudget value > 19 } }
+		if = {
+			limit = { check_variable = { which = bulwarkbudget value > 19 } }
 			random_owned_fleet = {
 				limit = {
 					OR = {
@@ -1000,109 +931,13 @@ country_event = {
 					}
 					bulwark_fleet_needs_reinforcements = yes
 				}
-				if = { limit = { root = { has_country_flag = bulwark_country_numbersone } }
-					if = {
-						limit = {
-							root = { has_country_flag = bulwark_country_techone }
-							count_owned_ship = {
-								limit = {
-									is_ship_size = destroyer
-									has_ship_flag = bulwark_ship_techone
-								}
-								count < 25
-							}
-						}
-						subtract_variable = { which = bulwarkbudget value = 10 }
-						create_ship = {
-							name = random
-							design = "NAME_BULWARK_LOWDESTROYER"
-							graphical_culture = "pirate_01"
-							effect = { set_ship_flag = bulwark_ship_techone }
-						}
-					} else_if = {
-						limit = {
-							root = { has_country_flag = bulwark_country_techtwo }
-							count_owned_ship = {
-								limit = {
-									is_ship_size = destroyer
-									has_ship_flag = bulwark_ship_techtwo
-								}
-								count < 25
-							}
-						}
-						subtract_variable = { which = bulwarkbudget value = 10 }
-						create_ship = {
-							name = random
-							design = "NAME_BULWARK_MEDDESTROYER"
-							graphical_culture = "pirate_01"
-							effect = { set_ship_flag = bulwark_ship_techtwo }
-						}
-					} else_if = {
-						limit = {
-							root = { has_country_flag = bulwark_country_techthree }
-							count_owned_ship = {
-								limit = {
-									is_ship_size = destroyer
-									has_ship_flag = bulwark_ship_techthree
-								}
-								count < 25
-							}
-						}
-						subtract_variable = { which = bulwarkbudget value = 10 }
-						create_ship = {
-							name = random
-							design = "NAME_BULWARK_HIGHDESTROYER"
-							graphical_culture = "pirate_01"
-							effect = { set_ship_flag = bulwark_ship_techthree }
-						}
-					} else_if = {
-						limit = {
-							root = { has_country_flag = bulwark_country_techfour }
-							count_owned_ship = {
-								limit = {
-									is_ship_size = destroyer
-									has_ship_flag = bulwark_ship_techfour
-								}
-								count < 25
-							}
-						}
-						subtract_variable = { which = bulwarkbudget value = 10 }
-						create_ship = {
-							name = random
-							design = "NAME_BULWARK_HIGHERDESTROYER"
-							graphical_culture = "pirate_01"
-							effect = { set_ship_flag = bulwark_ship_techfour }
-						}
-					} else_if = {
-						limit = {
-							root = { has_country_flag = bulwark_country_techfive }
-							count_owned_ship = {
-								limit = {
-									is_ship_size = destroyer
-									has_ship_flag = bulwark_ship_techfive
-								}
-								count < 25
-							}
-						}
-						subtract_variable = { which = bulwarkbudget value = 10 }
-						create_ship = {
-							name = random
-							design = "NAME_BULWARK_HIGHESTDESTROYER"
-							graphical_culture = "pirate_01"
-							effect = { set_ship_flag = bulwark_ship_techfive }
-						}
-					}
-				} else_if = {
+				if = {
 					limit = { root = { has_country_flag = bulwark_country_numbersone } }
 					if = {
 						limit = {
 							root = { has_country_flag = bulwark_country_techone }
-							count_owned_ship = {
-								limit = {
-									is_ship_size = destroyer
-									has_ship_flag = bulwark_ship_techone
-								}
-								count < 40
+							count_owned_ship = { count < 25
+								limit = { is_ship_size = destroyer has_ship_flag = bulwark_ship_techone }
 							}
 						}
 						subtract_variable = { which = bulwarkbudget value = 10 }
@@ -1112,15 +947,12 @@ country_event = {
 							graphical_culture = "pirate_01"
 							effect = { set_ship_flag = bulwark_ship_techone }
 						}
-					} else_if = {
+					}
+					else_if = {
 						limit = {
 							root = { has_country_flag = bulwark_country_techtwo }
-							count_owned_ship = {
-								limit = {
-									is_ship_size = destroyer
-									has_ship_flag = bulwark_ship_techtwo
-								}
-								count < 40
+							count_owned_ship = { count < 25
+								limit = { is_ship_size = destroyer has_ship_flag = bulwark_ship_techtwo }
 							}
 						}
 						subtract_variable = { which = bulwarkbudget value = 10 }
@@ -1130,15 +962,12 @@ country_event = {
 							graphical_culture = "pirate_01"
 							effect = { set_ship_flag = bulwark_ship_techtwo }
 						}
-					} else_if = {
+					}
+					else_if = {
 						limit = {
 							root = { has_country_flag = bulwark_country_techthree }
-							count_owned_ship = {
-								limit = {
-									is_ship_size = destroyer
-									has_ship_flag = bulwark_ship_techthree
-								}
-								count < 40
+							count_owned_ship = { count < 25
+								limit = { is_ship_size = destroyer has_ship_flag = bulwark_ship_techthree }
 							}
 						}
 						subtract_variable = { which = bulwarkbudget value = 10 }
@@ -1148,15 +977,12 @@ country_event = {
 							graphical_culture = "pirate_01"
 							effect = { set_ship_flag = bulwark_ship_techthree }
 						}
-					} else_if = {
+					}
+					else_if = {
 						limit = {
 							root = { has_country_flag = bulwark_country_techfour }
-							count_owned_ship = {
-								limit = {
-									is_ship_size = destroyer
-									has_ship_flag = bulwark_ship_techfour
-								}
-								count < 40
+							count_owned_ship = { count < 25
+								limit = { is_ship_size = destroyer has_ship_flag = bulwark_ship_techfour }
 							}
 						}
 						subtract_variable = { which = bulwarkbudget value = 10 }
@@ -1166,15 +992,12 @@ country_event = {
 							graphical_culture = "pirate_01"
 							effect = { set_ship_flag = bulwark_ship_techfour }
 						}
-					} else_if = {
+					}
+					else_if = {
 						limit = {
 							root = { has_country_flag = bulwark_country_techfive }
-							count_owned_ship = {
-								limit = {
-									is_ship_size = destroyer
-									has_ship_flag = bulwark_ship_techfive
-								}
-								count < 40
+							count_owned_ship = { count < 25
+								limit = { is_ship_size = destroyer has_ship_flag = bulwark_ship_techfive }
 							}
 						}
 						subtract_variable = { which = bulwarkbudget value = 10 }
@@ -1185,17 +1008,92 @@ country_event = {
 							effect = { set_ship_flag = bulwark_ship_techfive }
 						}
 					}
-				} else_if = {
+				}
+				else_if = {
+					limit = { root = { has_country_flag = bulwark_country_numbersone } }
+					if = {
+						limit = {
+							root = { has_country_flag = bulwark_country_techone }
+							count_owned_ship = { count < 40
+								limit = { is_ship_size = destroyer has_ship_flag = bulwark_ship_techone }
+							}
+						}
+						subtract_variable = { which = bulwarkbudget value = 10 }
+						create_ship = {
+							name = random
+							design = "NAME_BULWARK_LOWDESTROYER"
+							graphical_culture = "pirate_01"
+							effect = { set_ship_flag = bulwark_ship_techone }
+						}
+					}
+					else_if = {
+						limit = {
+							root = { has_country_flag = bulwark_country_techtwo }
+							count_owned_ship = { count < 40
+								limit = { is_ship_size = destroyer has_ship_flag = bulwark_ship_techtwo }
+							}
+						}
+						subtract_variable = { which = bulwarkbudget value = 10 }
+						create_ship = {
+							name = random
+							design = "NAME_BULWARK_MEDDESTROYER"
+							graphical_culture = "pirate_01"
+							effect = { set_ship_flag = bulwark_ship_techtwo }
+						}
+					}
+					else_if = {
+						limit = {
+							root = { has_country_flag = bulwark_country_techthree }
+							count_owned_ship = { count < 40
+								limit = { is_ship_size = destroyer has_ship_flag = bulwark_ship_techthree }
+							}
+						}
+						subtract_variable = { which = bulwarkbudget value = 10 }
+						create_ship = {
+							name = random
+							design = "NAME_BULWARK_HIGHDESTROYER"
+							graphical_culture = "pirate_01"
+							effect = { set_ship_flag = bulwark_ship_techthree }
+						}
+					}
+					else_if = {
+						limit = {
+							root = { has_country_flag = bulwark_country_techfour }
+							count_owned_ship = { count < 40
+								limit = { is_ship_size = destroyer has_ship_flag = bulwark_ship_techfour }
+							}
+						}
+						subtract_variable = { which = bulwarkbudget value = 10 }
+						create_ship = {
+							name = random
+							design = "NAME_BULWARK_HIGHERDESTROYER"
+							graphical_culture = "pirate_01"
+							effect = { set_ship_flag = bulwark_ship_techfour }
+						}
+					}
+					else_if = {
+						limit = {
+							root = { has_country_flag = bulwark_country_techfive }
+							count_owned_ship = { count < 40
+								limit = { is_ship_size = destroyer has_ship_flag = bulwark_ship_techfive }
+							}
+						}
+						subtract_variable = { which = bulwarkbudget value = 10 }
+						create_ship = {
+							name = random
+							design = "NAME_BULWARK_HIGHESTDESTROYER"
+							graphical_culture = "pirate_01"
+							effect = { set_ship_flag = bulwark_ship_techfive }
+						}
+					}
+				}
+				else_if = {
 					limit = { root = { has_country_flag = bulwark_country_numbersthree } }
 					if = {
 						limit = {
 							root = { has_country_flag = bulwark_country_techone }
-							count_owned_ship = {
-								limit = {
-									is_ship_size = destroyer
-									has_ship_flag = bulwark_ship_techone
-								}
-								count < 55
+							count_owned_ship = { count < 55
+								limit = { is_ship_size = destroyer has_ship_flag = bulwark_ship_techone }
 							}
 						}
 						subtract_variable = { which = bulwarkbudget value = 10 }
@@ -1205,15 +1103,12 @@ country_event = {
 							graphical_culture = "pirate_01"
 							effect = { set_ship_flag = bulwark_ship_techone }
 						}
-					} else_if = {
+					}
+					else_if = {
 						limit = {
 							root = { has_country_flag = bulwark_country_techtwo }
-							count_owned_ship = {
-								limit = {
-									is_ship_size = destroyer
-									has_ship_flag = bulwark_ship_techtwo
-								}
-								count < 55
+							count_owned_ship = { count < 55
+								limit = { is_ship_size = destroyer has_ship_flag = bulwark_ship_techtwo }
 							}
 						}
 						subtract_variable = { which = bulwarkbudget value = 10 }
@@ -1223,15 +1118,12 @@ country_event = {
 							graphical_culture = "pirate_01"
 							effect = { set_ship_flag = bulwark_ship_techtwo }
 						}
-					} else_if = {
+					}
+					else_if = {
 						limit = {
 							root = { has_country_flag = bulwark_country_techthree }
-							count_owned_ship = {
-								limit = {
-									is_ship_size = destroyer
-									has_ship_flag = bulwark_ship_techthree
-								}
-								count < 55
+							count_owned_ship = { count < 55
+								limit = { is_ship_size = destroyer has_ship_flag = bulwark_ship_techthree }
 							}
 						}
 						subtract_variable = { which = bulwarkbudget value = 10 }
@@ -1241,15 +1133,12 @@ country_event = {
 							graphical_culture = "pirate_01"
 							effect = { set_ship_flag = bulwark_ship_techthree }
 						}
-					} else_if = {
+					}
+					else_if = {
 						limit = {
 							root = { has_country_flag = bulwark_country_techfour }
-							count_owned_ship = {
-								limit = {
-									is_ship_size = destroyer
-									has_ship_flag = bulwark_ship_techfour
-								}
-								count < 55
+							count_owned_ship = { count < 55
+								limit = { is_ship_size = destroyer has_ship_flag = bulwark_ship_techfour }
 							}
 						}
 						subtract_variable = { which = bulwarkbudget value = 10 }
@@ -1259,15 +1148,12 @@ country_event = {
 							graphical_culture = "pirate_01"
 							effect = { set_ship_flag = bulwark_ship_techfour }
 						}
-					} else_if = {
+					}
+					else_if = {
 						limit = {
 							root = { has_country_flag = bulwark_country_techfive }
-							count_owned_ship = {
-								limit = {
-									is_ship_size = destroyer
-									has_ship_flag = bulwark_ship_techfive
-								}
-								count < 55
+							count_owned_ship = { count < 55
+								limit = { is_ship_size = destroyer has_ship_flag = bulwark_ship_techfive }
 							}
 						}
 						subtract_variable = { which = bulwarkbudget value = 10 }
@@ -1278,17 +1164,14 @@ country_event = {
 							effect = { set_ship_flag = bulwark_ship_techfive }
 						}
 					}
-				} else_if = {
+				}
+				else_if = {
 					limit = { root = { has_country_flag = bulwark_country_numbersfour } }
 					if = {
 						limit = {
 							root = { has_country_flag = bulwark_country_techone }
-							count_owned_ship = {
-								limit = {
-									is_ship_size = destroyer
-									has_ship_flag = bulwark_ship_techone
-								}
-								count < 70
+							count_owned_ship = { count < 70
+								limit = { is_ship_size = destroyer has_ship_flag = bulwark_ship_techone }
 							}
 						}
 						subtract_variable = { which = bulwarkbudget value = 10 }
@@ -1298,15 +1181,12 @@ country_event = {
 							graphical_culture = "pirate_01"
 							effect = { set_ship_flag = bulwark_ship_techone }
 						}
-					} else_if = {
+					}
+					else_if = {
 						limit = {
 							root = { has_country_flag = bulwark_country_techtwo }
-							count_owned_ship = {
-								limit = {
-									is_ship_size = destroyer
-									has_ship_flag = bulwark_ship_techtwo
-								}
-								count < 70
+							count_owned_ship = { count < 70
+								limit = { is_ship_size = destroyer has_ship_flag = bulwark_ship_techtwo }
 							}
 						}
 						subtract_variable = { which = bulwarkbudget value = 10 }
@@ -1316,15 +1196,12 @@ country_event = {
 							graphical_culture = "pirate_01"
 							effect = { set_ship_flag = bulwark_ship_techtwo }
 						}
-					} else_if = {
+					}
+					else_if = {
 						limit = {
 							root = { has_country_flag = bulwark_country_techthree }
-							count_owned_ship = {
-								limit = {
-									is_ship_size = destroyer
-									has_ship_flag = bulwark_ship_techthree
-								}
-								count < 70
+							count_owned_ship = { count < 70
+								limit = { is_ship_size = destroyer has_ship_flag = bulwark_ship_techthree }
 							}
 						}
 						subtract_variable = { which = bulwarkbudget value = 10 }
@@ -1334,15 +1211,12 @@ country_event = {
 							graphical_culture = "pirate_01"
 							effect = { set_ship_flag = bulwark_ship_techthree }
 						}
-					} else_if = {
+					}
+					else_if = {
 						limit = {
 							root = { has_country_flag = bulwark_country_techfour }
-							count_owned_ship = {
-								limit = {
-									is_ship_size = destroyer
-									has_ship_flag = bulwark_ship_techfour
-								}
-								count < 70
+							count_owned_ship = { count < 70
+								limit = { is_ship_size = destroyer has_ship_flag = bulwark_ship_techfour }
 							}
 						}
 						subtract_variable = { which = bulwarkbudget value = 10 }
@@ -1352,15 +1226,12 @@ country_event = {
 							graphical_culture = "pirate_01"
 							effect = { set_ship_flag = bulwark_ship_techfour }
 						}
-					} else_if = {
+					}
+					else_if = {
 						limit = {
 							root = { has_country_flag = bulwark_country_techfive }
-							count_owned_ship = {
-								limit = {
-									is_ship_size = destroyer
-									has_ship_flag = bulwark_ship_techfive
-								}
-								count < 70
+							count_owned_ship = { count < 70
+								limit = { is_ship_size = destroyer has_ship_flag = bulwark_ship_techfive }
 							}
 						}
 						subtract_variable = { which = bulwarkbudget value = 10 }
@@ -1371,17 +1242,14 @@ country_event = {
 							effect = { set_ship_flag = bulwark_ship_techfive }
 						}
 					}
-				} else_if = {
+				}
+				else_if = {
 					limit = { root = { has_country_flag = bulwark_country_numbersfive } }
 					if = {
 						limit = {
 							root = { has_country_flag = bulwark_country_techone }
-							count_owned_ship = {
-								limit = {
-									is_ship_size = destroyer
-									has_ship_flag = bulwark_ship_techone
-								}
-								count < 85
+							count_owned_ship = { count < 85
+								limit = { is_ship_size = destroyer has_ship_flag = bulwark_ship_techone }
 							}
 						}
 						subtract_variable = { which = bulwarkbudget value = 10 }
@@ -1391,15 +1259,12 @@ country_event = {
 							graphical_culture = "pirate_01"
 							effect = { set_ship_flag = bulwark_ship_techone }
 						}
-					} else_if = {
+					}
+					else_if = {
 						limit = {
 							root = { has_country_flag = bulwark_country_techtwo }
-							count_owned_ship = {
-								limit = {
-									is_ship_size = destroyer
-									has_ship_flag = bulwark_ship_techtwo
-								}
-								count < 85
+							count_owned_ship = { count < 85
+								limit = { is_ship_size = destroyer has_ship_flag = bulwark_ship_techtwo }
 							}
 						}
 						subtract_variable = { which = bulwarkbudget value = 10 }
@@ -1409,15 +1274,12 @@ country_event = {
 							graphical_culture = "pirate_01"
 							effect = { set_ship_flag = bulwark_ship_techtwo }
 						}
-					} else_if = {
+					}
+					else_if = {
 						limit = {
 							root = { has_country_flag = bulwark_country_techthree }
-							count_owned_ship = {
-								limit = {
-									is_ship_size = destroyer
-									has_ship_flag = bulwark_ship_techthree
-								}
-								count < 85
+							count_owned_ship = { count < 85
+								limit = { is_ship_size = destroyer has_ship_flag = bulwark_ship_techthree }
 							}
 						}
 						subtract_variable = { which = bulwarkbudget value = 10 }
@@ -1427,15 +1289,12 @@ country_event = {
 							graphical_culture = "pirate_01"
 							effect = { set_ship_flag = bulwark_ship_techthree }
 						}
-					} else_if = {
+					}
+					else_if = {
 						limit = {
 							root = { has_country_flag = bulwark_country_techfour }
-							count_owned_ship = {
-								limit = {
-									is_ship_size = destroyer
-									has_ship_flag = bulwark_ship_techfour
-								}
-								count < 85
+							count_owned_ship = { count < 85
+								limit = { is_ship_size = destroyer has_ship_flag = bulwark_ship_techfour }
 							}
 						}
 						subtract_variable = { which = bulwarkbudget value = 10 }
@@ -1445,15 +1304,12 @@ country_event = {
 							graphical_culture = "pirate_01"
 							effect = { set_ship_flag = bulwark_ship_techfour }
 						}
-					} else_if = {
+					}
+					else_if = {
 						limit = {
 							root = { has_country_flag = bulwark_country_techfive }
-							count_owned_ship = {
-								limit = {
-									is_ship_size = destroyer
-									has_ship_flag = bulwark_ship_techfive
-								}
-								count < 85
+							count_owned_ship = { count < 85
+								limit = { is_ship_size = destroyer has_ship_flag = bulwark_ship_techfive }
 							}
 						}
 						subtract_variable = { which = bulwarkbudget value = 10 }
@@ -1471,7 +1327,8 @@ country_event = {
 				# }
 			}
 		}
-		if = { limit = { check_variable = { which = bulwarkbudget value > 19 } }
+		if = {
+			limit = { check_variable = { which = bulwarkbudget value > 19 } }
 			random_owned_fleet = {
 				limit = {
 					OR = {
@@ -1481,16 +1338,13 @@ country_event = {
 					}
 					bulwark_fleet_needs_reinforcements = yes
 				}
-				if = { limit = { root = { has_country_flag = bulwark_country_numberstwo } }
+				if = {
+					limit = { root = { has_country_flag = bulwark_country_numberstwo } }
 					if = {
 						limit = {
 							root = { has_country_flag = bulwark_country_techtwo }
-							count_owned_ship = {
-								limit = {
-									is_ship_size = cruiser
-									has_ship_flag = bulwark_ship_techtwo
-								}
-								count < 10
+							count_owned_ship = { count < 10
+								limit = { is_ship_size = cruiser has_ship_flag = bulwark_ship_techtwo }
 							}
 						}
 						subtract_variable = { which = bulwarkbudget value = 15 }
@@ -1500,15 +1354,12 @@ country_event = {
 							graphical_culture = "pirate_01"
 							effect = { set_ship_flag = bulwark_ship_techtwo }
 						}
-					} else_if = {
+					}
+					else_if = {
 						limit = {
 							root = { has_country_flag = bulwark_country_techthree }
-							count_owned_ship = {
-								limit = {
-									is_ship_size = cruiser
-									has_ship_flag = bulwark_ship_techthree
-								}
-								count < 10
+							count_owned_ship = { count < 10
+								limit = { is_ship_size = cruiser has_ship_flag = bulwark_ship_techthree }
 							}
 						}
 						subtract_variable = { which = bulwarkbudget value = 15 }
@@ -1518,15 +1369,12 @@ country_event = {
 							graphical_culture = "pirate_01"
 							effect = { set_ship_flag = bulwark_ship_techthree }
 						}
-					} else_if = {
+					}
+					else_if = {
 						limit = {
 							root = { has_country_flag = bulwark_country_techfour }
-							count_owned_ship = {
-								limit = {
-									is_ship_size = cruiser
-									has_ship_flag = bulwark_ship_techfour
-								}
-								count < 10
+							count_owned_ship = { count < 10
+								limit = { is_ship_size = cruiser has_ship_flag = bulwark_ship_techfour }
 							}
 						}
 						subtract_variable = { which = bulwarkbudget value = 15 }
@@ -1536,15 +1384,12 @@ country_event = {
 							graphical_culture = "pirate_01"
 							effect = { set_ship_flag = bulwark_ship_techfour }
 						}
-					} else_if = {
+					}
+					else_if = {
 						limit = {
 							root = { has_country_flag = bulwark_country_techfive }
-							count_owned_ship = {
-								limit = {
-									is_ship_size = cruiser
-									has_ship_flag = bulwark_ship_techfive
-								}
-								count < 10
+							count_owned_ship = { count < 10
+								limit = { is_ship_size = cruiser has_ship_flag = bulwark_ship_techfive }
 							}
 						}
 						subtract_variable = { which = bulwarkbudget value = 15 }
@@ -1555,17 +1400,14 @@ country_event = {
 							effect = { set_ship_flag = bulwark_ship_techfive }
 						}
 					}
-				} else_if = {
+				}
+				else_if = {
 					limit = { root = { has_country_flag = bulwark_country_numbersthree } }
 					if = {
 						limit = {
 							root = { has_country_flag = bulwark_country_techtwo }
-							count_owned_ship = {
-								limit = {
-									is_ship_size = cruiser
-									has_ship_flag = bulwark_ship_techtwo
-								}
-								count < 20
+							count_owned_ship = { count < 20
+								limit = { is_ship_size = cruiser has_ship_flag = bulwark_ship_techtwo }
 							}
 						}
 						subtract_variable = { which = bulwarkbudget value = 15 }
@@ -1575,15 +1417,12 @@ country_event = {
 							graphical_culture = "pirate_01"
 							effect = { set_ship_flag = bulwark_ship_techtwo }
 						}
-					} else_if = {
+					}
+					else_if = {
 						limit = {
 							root = { has_country_flag = bulwark_country_techthree }
-							count_owned_ship = {
-								limit = {
-									is_ship_size = cruiser
-									has_ship_flag = bulwark_ship_techthree
-								}
-								count < 20
+							count_owned_ship = { count < 20
+								limit = { is_ship_size = cruiser has_ship_flag = bulwark_ship_techthree }
 							}
 						}
 						subtract_variable = { which = bulwarkbudget value = 15 }
@@ -1593,15 +1432,12 @@ country_event = {
 							graphical_culture = "pirate_01"
 							effect = { set_ship_flag = bulwark_ship_techthree }
 						}
-					} else_if = {
+					}
+					else_if = {
 						limit = {
 							root = { has_country_flag = bulwark_country_techfour }
-							count_owned_ship = {
-								limit = {
-									is_ship_size = cruiser
-									has_ship_flag = bulwark_ship_techfour
-								}
-								count < 20
+							count_owned_ship = { count < 20
+								limit = { is_ship_size = cruiser has_ship_flag = bulwark_ship_techfour }
 							}
 						}
 						subtract_variable = { which = bulwarkbudget value = 15 }
@@ -1611,15 +1447,12 @@ country_event = {
 							graphical_culture = "pirate_01"
 							effect = { set_ship_flag = bulwark_ship_techfour }
 						}
-					} else_if = {
+					}
+					else_if = {
 						limit = {
 							root = { has_country_flag = bulwark_country_techfive }
-							count_owned_ship = {
-								limit = {
-									is_ship_size = cruiser
-									has_ship_flag = bulwark_ship_techfive
-								}
-								count < 20
+							count_owned_ship = { count < 20
+								limit = { is_ship_size = cruiser has_ship_flag = bulwark_ship_techfive }
 							}
 						}
 						subtract_variable = { which = bulwarkbudget value = 15 }
@@ -1630,17 +1463,14 @@ country_event = {
 							effect = { set_ship_flag = bulwark_ship_techfive }
 						}
 					}
-				} else_if = {
+				}
+				else_if = {
 					limit = { root = { has_country_flag = bulwark_country_numbersfour } }
 					if = {
 						limit = {
 							root = { has_country_flag = bulwark_country_techtwo }
-							count_owned_ship = {
-								limit = {
-									is_ship_size = cruiser
-									has_ship_flag = bulwark_ship_techtwo
-								}
-								count < 30
+							count_owned_ship = { count < 30
+								limit = { is_ship_size = cruiser has_ship_flag = bulwark_ship_techtwo }
 							}
 						}
 						subtract_variable = { which = bulwarkbudget value = 15 }
@@ -1650,15 +1480,12 @@ country_event = {
 							graphical_culture = "pirate_01"
 							effect = { set_ship_flag = bulwark_ship_techtwo }
 						}
-					} else_if = {
+					}
+					else_if = {
 						limit = {
 							root = { has_country_flag = bulwark_country_techthree }
-							count_owned_ship = {
-								limit = {
-									is_ship_size = cruiser
-									has_ship_flag = bulwark_ship_techthree
-								}
-								count < 30
+							count_owned_ship = { count < 30
+								limit = { is_ship_size = cruiser has_ship_flag = bulwark_ship_techthree }
 							}
 						}
 						subtract_variable = { which = bulwarkbudget value = 15 }
@@ -1668,15 +1495,12 @@ country_event = {
 							graphical_culture = "pirate_01"
 							effect = { set_ship_flag = bulwark_ship_techthree }
 						}
-					} else_if = {
+					}
+					else_if = {
 						limit = {
 							root = { has_country_flag = bulwark_country_techfour }
-							count_owned_ship = {
-								limit = {
-									is_ship_size = cruiser
-									has_ship_flag = bulwark_ship_techfour
-								}
-								count < 30
+							count_owned_ship = { count < 30
+								limit = { is_ship_size = cruiser has_ship_flag = bulwark_ship_techfour }
 							}
 						}
 						subtract_variable = { which = bulwarkbudget value = 15 }
@@ -1686,15 +1510,12 @@ country_event = {
 							graphical_culture = "pirate_01"
 							effect = { set_ship_flag = bulwark_ship_techfour }
 						}
-					} else_if = {
+					}
+					else_if = {
 						limit = {
 							root = { has_country_flag = bulwark_country_techfive }
-							count_owned_ship = {
-								limit = {
-									is_ship_size = cruiser
-									has_ship_flag = bulwark_ship_techfive
-								}
-								count < 30
+							count_owned_ship = { count < 30
+								limit = { is_ship_size = cruiser has_ship_flag = bulwark_ship_techfive }
 							}
 						}
 						subtract_variable = { which = bulwarkbudget value = 15 }
@@ -1705,17 +1526,14 @@ country_event = {
 							effect = { set_ship_flag = bulwark_ship_techfive }
 						}
 					}
-				} else_if = {
+				}
+				else_if = {
 					limit = { root = { has_country_flag = bulwark_country_numbersfive } }
 					if = {
 						limit = {
 							root = { has_country_flag = bulwark_country_techtwo }
-							count_owned_ship = {
-								limit = {
-									is_ship_size = cruiser
-									has_ship_flag = bulwark_ship_techtwo
-								}
-								count < 40
+							count_owned_ship = { count < 40
+								limit = { is_ship_size = cruiser has_ship_flag = bulwark_ship_techtwo }
 							}
 						}
 						subtract_variable = { which = bulwarkbudget value = 15 }
@@ -1725,15 +1543,12 @@ country_event = {
 							graphical_culture = "pirate_01"
 							effect = { set_ship_flag = bulwark_ship_techtwo }
 						}
-					} else_if = {
+					}
+					else_if = {
 						limit = {
 							root = { has_country_flag = bulwark_country_techthree }
-							count_owned_ship = {
-								limit = {
-									is_ship_size = cruiser
-									has_ship_flag = bulwark_ship_techthree
-								}
-								count < 40
+							count_owned_ship = { count < 40
+								limit = { is_ship_size = cruiser has_ship_flag = bulwark_ship_techthree }
 							}
 						}
 						subtract_variable = { which = bulwarkbudget value = 15 }
@@ -1743,15 +1558,12 @@ country_event = {
 							graphical_culture = "pirate_01"
 							effect = { set_ship_flag = bulwark_ship_techthree }
 						}
-					} else_if = {
+					}
+					else_if = {
 						limit = {
 							root = { has_country_flag = bulwark_country_techfour }
-							count_owned_ship = {
-								limit = {
-									is_ship_size = cruiser
-									has_ship_flag = bulwark_ship_techfour
-								}
-								count < 40
+							count_owned_ship = { count < 40
+								limit = { is_ship_size = cruiser has_ship_flag = bulwark_ship_techfour }
 							}
 						}
 						subtract_variable = { which = bulwarkbudget value = 15 }
@@ -1761,15 +1573,12 @@ country_event = {
 							graphical_culture = "pirate_01"
 							effect = { set_ship_flag = bulwark_ship_techfour }
 						}
-					} else_if = {
+					}
+					else_if = {
 						limit = {
 							root = { has_country_flag = bulwark_country_techfive }
-							count_owned_ship = {
-								limit = {
-									is_ship_size = cruiser
-									has_ship_flag = bulwark_ship_techfive
-								}
-								count < 40
+							count_owned_ship = { count < 40
+								limit = { is_ship_size = cruiser has_ship_flag = bulwark_ship_techfive }
 							}
 						}
 						subtract_variable = { which = bulwarkbudget value = 15 }
@@ -1787,7 +1596,8 @@ country_event = {
 				# }
 			}
 		}
-		if = { limit = { check_variable = { which = bulwarkbudget value > 19 } }
+		if = {
+			limit = { check_variable = { which = bulwarkbudget value > 19 } }
 			random_owned_fleet = {
 				limit = {
 					OR = {
@@ -1802,12 +1612,8 @@ country_event = {
 					if = {
 						limit = {
 							root = { has_country_flag = bulwark_country_techthree }
-							count_owned_ship = {
-								limit = {
-									is_ship_size = battleship
-									has_ship_flag = bulwark_ship_techthree
-								}
-								count < 5
+							count_owned_ship = { count < 5
+								limit = { is_ship_size = battleship has_ship_flag = bulwark_ship_techthree }
 							}
 						}
 						subtract_variable = { which = bulwarkbudget value = 20 }
@@ -1817,15 +1623,12 @@ country_event = {
 							graphical_culture = "pirate_01"
 							effect = { set_ship_flag = bulwark_ship_techthree }
 						}
-					} else_if = {
+					}
+					else_if = {
 						limit = {
 							root = { has_country_flag = bulwark_country_techfour }
-							count_owned_ship = {
-								limit = {
-									is_ship_size = battleship
-									has_ship_flag = bulwark_ship_techfour
-								}
-								count < 5
+							count_owned_ship = { count < 5
+								limit = { is_ship_size = battleship has_ship_flag = bulwark_ship_techfour }
 							}
 						}
 						subtract_variable = { which = bulwarkbudget value = 20 }
@@ -1835,15 +1638,12 @@ country_event = {
 							graphical_culture = "pirate_01"
 							effect = { set_ship_flag = bulwark_ship_techfour }
 						}
-					} else_if = {
+					}
+					else_if = {
 						limit = {
 							root = { has_country_flag = bulwark_country_techfive }
-							count_owned_ship = {
-								limit = {
-									is_ship_size = battleship
-									has_ship_flag = bulwark_ship_techfive
-								}
-								count < 5
+							count_owned_ship = { count < 5
+								limit = { is_ship_size = battleship has_ship_flag = bulwark_ship_techfive }
 							}
 						}
 						subtract_variable = { which = bulwarkbudget value = 20 }
@@ -1854,17 +1654,14 @@ country_event = {
 							effect = { set_ship_flag = bulwark_ship_techfive }
 						}
 					}
-				} else_if = {
+				}
+				else_if = {
 					limit = { root = { has_country_flag = bulwark_country_numbersthree } }
 					if = {
 						limit = {
 							root = { has_country_flag = bulwark_country_techthree }
-							count_owned_ship = {
-								limit = {
-									is_ship_size = battleship
-									has_ship_flag = bulwark_ship_techthree
-								}
-								count < 10
+							count_owned_ship = { count < 10
+								limit = { is_ship_size = battleship has_ship_flag = bulwark_ship_techthree }
 							}
 						}
 						subtract_variable = { which = bulwarkbudget value = 20 }
@@ -1874,15 +1671,12 @@ country_event = {
 							graphical_culture = "pirate_01"
 							effect = { set_ship_flag = bulwark_ship_techthree }
 						}
-					} else_if = {
+					}
+					else_if = {
 						limit = {
 							root = { has_country_flag = bulwark_country_techfour }
-							count_owned_ship = {
-								limit = {
-									is_ship_size = battleship
-									has_ship_flag = bulwark_ship_techfour
-								}
-								count < 10
+							count_owned_ship = { count < 10
+								limit = { is_ship_size = battleship has_ship_flag = bulwark_ship_techfour }
 							}
 						}
 						subtract_variable = { which = bulwarkbudget value = 20 }
@@ -1892,15 +1686,12 @@ country_event = {
 							graphical_culture = "pirate_01"
 							effect = { set_ship_flag = bulwark_ship_techfour }
 						}
-					} else_if = {
+					}
+					else_if = {
 						limit = {
 							root = { has_country_flag = bulwark_country_techfive }
-							count_owned_ship = {
-								limit = {
-									is_ship_size = battleship
-									has_ship_flag = bulwark_ship_techfive
-								}
-								count < 10
+							count_owned_ship = { count < 10
+								limit = { is_ship_size = battleship has_ship_flag = bulwark_ship_techfive }
 							}
 						}
 						subtract_variable = { which = bulwarkbudget value = 20 }
@@ -1911,17 +1702,14 @@ country_event = {
 							effect = { set_ship_flag = bulwark_ship_techfive }
 						}
 					}
-				} else_if = {
+				}
+				else_if = {
 					limit = { root = { has_country_flag = bulwark_country_numbersfour } }
 					if = {
 							limit = {
 							root = { has_country_flag = bulwark_country_techthree }
-							count_owned_ship = {
-								limit = {
-									is_ship_size = battleship
-									has_ship_flag = bulwark_ship_techthree
-								}
-								count < 15
+							count_owned_ship = { count < 15
+								limit = { is_ship_size = battleship has_ship_flag = bulwark_ship_techthree }
 							}
 						}
 						subtract_variable = { which = bulwarkbudget value = 20 }
@@ -1931,15 +1719,12 @@ country_event = {
 							graphical_culture = "pirate_01"
 							effect = { set_ship_flag = bulwark_ship_techthree }
 						}
-					} else_if = {
+					}
+					else_if = {
 						limit = {
 							root = { has_country_flag = bulwark_country_techfour }
-							count_owned_ship = {
-								limit = {
-									is_ship_size = battleship
-									has_ship_flag = bulwark_ship_techfour
-								}
-								count < 15
+							count_owned_ship = { count < 15
+								limit = { is_ship_size = battleship has_ship_flag = bulwark_ship_techfour }
 							}
 						}
 						subtract_variable = { which = bulwarkbudget value = 20 }
@@ -1949,15 +1734,12 @@ country_event = {
 							graphical_culture = "pirate_01"
 							effect = { set_ship_flag = bulwark_ship_techfour }
 						}
-					} else_if = {
+					}
+					else_if = {
 						limit = {
 							root = { has_country_flag = bulwark_country_techfive }
-							count_owned_ship = {
-								limit = {
-									is_ship_size = battleship
-									has_ship_flag = bulwark_ship_techfive
-								}
-								count < 15
+							count_owned_ship = { count < 15
+								limit = { is_ship_size = battleship has_ship_flag = bulwark_ship_techfive }
 							}
 						}
 						subtract_variable = { which = bulwarkbudget value = 20 }
@@ -1968,17 +1750,14 @@ country_event = {
 							effect = { set_ship_flag = bulwark_ship_techfive }
 						}
 					}
-				} else_if = {
+				}
+				else_if = {
 					limit = { root = { has_country_flag = bulwark_country_numbersfive } }
 					if = {
 						limit = {
 							root = { has_country_flag = bulwark_country_techthree }
-							count_owned_ship = {
-								limit = {
-									is_ship_size = battleship
-									has_ship_flag = bulwark_ship_techthree
-								}
-								count < 20
+							count_owned_ship = { count < 20
+								limit = { is_ship_size = battleship has_ship_flag = bulwark_ship_techthree }
 							}
 						}
 						subtract_variable = { which = bulwarkbudget value = 20 }
@@ -1988,15 +1767,12 @@ country_event = {
 							graphical_culture = "pirate_01"
 							effect = { set_ship_flag = bulwark_ship_techthree }
 						}
-					} else_if = {
+					}
+					else_if = {
 						limit = {
 							root = { has_country_flag = bulwark_country_techfour }
-							count_owned_ship = {
-								limit = {
-									is_ship_size = battleship
-									has_ship_flag = bulwark_ship_techfour
-								}
-								count < 20
+							count_owned_ship = { count < 20
+								limit = { is_ship_size = battleship has_ship_flag = bulwark_ship_techfour }
 							}
 						}
 						subtract_variable = { which = bulwarkbudget value = 20 }
@@ -2006,15 +1782,12 @@ country_event = {
 							graphical_culture = "pirate_01"
 							effect = { set_ship_flag = bulwark_ship_techfour }
 						}
-					} else_if = {
+					}
+					else_if = {
 						limit = {
 							root = { has_country_flag = bulwark_country_techfive }
-							count_owned_ship = {
-								limit = {
-									is_ship_size = battleship
-									has_ship_flag = bulwark_ship_techfive
-								}
-								count < 20
+							count_owned_ship = { count < 20
+								limit = { is_ship_size = battleship has_ship_flag = bulwark_ship_techfive }
 							}
 						}
 						subtract_variable = { which = bulwarkbudget value = 20 }

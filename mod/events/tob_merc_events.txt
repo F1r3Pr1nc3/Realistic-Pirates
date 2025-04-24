@@ -1365,9 +1365,8 @@ country_event = {
 						}
 						random_system_planet = {
 							limit = {
-								count_fleet_in_orbit = {
+								count_fleet_in_orbit = { count = 0
 									limit = { is_ship_size = marauder_station }
-									count = 0
 								}
 							}
 							save_event_target_as = bulwark_station_planet_target
@@ -1433,9 +1432,8 @@ country_event = {
 						}
 						random_system_planet = {
 							limit = {
-								count_fleet_in_orbit = {
+								count_fleet_in_orbit = { count = 0
 									limit = { is_ship_size = marauder_station }
-									count = 0
 								}
 							}
 							save_event_target_as = bulwark_station_planet_target
@@ -1501,9 +1499,8 @@ country_event = {
 						}
 						random_system_planet = {
 							limit = {
-								count_fleet_in_orbit = {
+								count_fleet_in_orbit = { count = 0
 									limit = { is_ship_size = marauder_station }
-									count = 0
 								}
 							}
 							save_event_target_as = bulwark_station_planet_target
@@ -1569,9 +1566,8 @@ country_event = {
 						}
 						random_system_planet = {
 							limit = {
-								count_fleet_in_orbit = {
+								count_fleet_in_orbit = { count = 0
 									limit = { is_ship_size = marauder_station }
-									count = 0
 								}
 							}
 							save_event_target_as = bulwark_station_planet_target
@@ -1637,9 +1633,8 @@ country_event = {
 						}
 						random_system_planet = {
 							limit = {
-								count_fleet_in_orbit = {
+								count_fleet_in_orbit = { count = 0
 									limit = { is_ship_size = marauder_station }
-									count = 0
 								}
 							}
 							save_event_target_as = bulwark_station_planet_target
@@ -1723,9 +1718,8 @@ country_event = {
 						}
 						random_system_planet = {
 							limit = {
-								count_fleet_in_orbit = {
+								count_fleet_in_orbit = { count = 0
 									limit = { is_ship_size = marauder_station }
-									count = 0
 								}
 							}
 							save_event_target_as = bulwark_station_planet_target
@@ -1791,9 +1785,8 @@ country_event = {
 						}
 						random_system_planet = {
 							limit = {
-								count_fleet_in_orbit = {
+								count_fleet_in_orbit = { count = 0
 									limit = { is_ship_size = marauder_station }
-									count = 0
 								}
 							}
 							save_event_target_as = bulwark_station_planet_target
@@ -1859,9 +1852,8 @@ country_event = {
 						}
 						random_system_planet = {
 							limit = {
-								count_fleet_in_orbit = {
+								count_fleet_in_orbit = { count = 0
 									limit = { is_ship_size = marauder_station }
-									count = 0
 								}
 							}
 							save_event_target_as = bulwark_station_planet_target
@@ -1927,9 +1919,8 @@ country_event = {
 						}
 						random_system_planet = {
 							limit = {
-								count_fleet_in_orbit = {
+								count_fleet_in_orbit = { count = 0
 									limit = { is_ship_size = marauder_station }
-									count = 0
 								}
 							}
 							save_event_target_as = bulwark_station_planet_target
@@ -1995,9 +1986,8 @@ country_event = {
 						}
 						random_system_planet = {
 							limit = {
-								count_fleet_in_orbit = {
+								count_fleet_in_orbit = { count = 0
 									limit = { is_ship_size = marauder_station }
-									count = 0
 								}
 							}
 							save_event_target_as = bulwark_station_planet_target
@@ -2081,9 +2071,8 @@ country_event = {
 						}
 						random_system_planet = {
 							limit = {
-								count_fleet_in_orbit = {
+								count_fleet_in_orbit = { count = 0
 									limit = { is_ship_size = marauder_station }
-									count = 0
 								}
 							}
 							save_event_target_as = bulwark_station_planet_target
@@ -2149,9 +2138,8 @@ country_event = {
 						}
 						random_system_planet = {
 							limit = {
-								count_fleet_in_orbit = {
+								count_fleet_in_orbit = { count = 0
 									limit = { is_ship_size = marauder_station }
-									count = 0
 								}
 							}
 							save_event_target_as = bulwark_station_planet_target
@@ -2351,9 +2339,8 @@ country_event = {
 						}
 						random_system_planet = {
 							limit = {
-								count_fleet_in_orbit = {
+								count_fleet_in_orbit = { count = 0
 									limit = { is_ship_size = marauder_station }
-									count = 0
 								}
 							}
 							save_event_target_as = bulwark_station_planet_target
